@@ -7,13 +7,14 @@ namespace novazero
 {
 	namespace graphics
 	{
+		using namespace maths;
+
 		class Window
 		{
 
 		private:
 
 			SDL_Window* m_Window;
-			Renderer* m_Renderer;
 			
 			int m_Width;
 			int m_Height;
@@ -22,10 +23,12 @@ namespace novazero
 
 		public:
 
-			Window(const maths::vec2 screenSize, const char* title);
+			Window(const Vec2 screenSize, const char* title);
 			~Window();
 
 			void Init();
+
+			SDL_Window* GetWindow() const;
 
 		};
 	}

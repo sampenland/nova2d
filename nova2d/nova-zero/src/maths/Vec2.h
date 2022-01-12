@@ -5,32 +5,32 @@ namespace novazero
 {
 	namespace maths
 	{
-		struct vec2
+		struct Vec2
 		{
 			float x, y;
 
-			vec2();
-			vec2(const float& x, const float& y);
+			Vec2();
+			Vec2(const float& x, const float& y);
 
-			vec2& add(const vec2& other);
-			vec2& subtract(const vec2& other);
-			vec2& multiply(const vec2& other);
-			vec2& divide(const vec2& other);
+			Vec2& add(const Vec2& other);
+			Vec2& subtract(const Vec2& other);
+			Vec2& multiply(const Vec2& other);
+			Vec2& divide(const Vec2& other);
 
-			friend vec2 operator+(vec2 left, vec2& right);
-			friend vec2 operator-(vec2 left, vec2& right);
-			friend vec2 operator*(vec2 left, vec2& right);
-			friend vec2 operator/(vec2 left, vec2& right);
+			friend Vec2 operator+(Vec2 left, Vec2& right);
+			friend Vec2 operator-(Vec2 left, Vec2& right);
+			friend Vec2 operator*(Vec2 left, Vec2& right);
+			friend Vec2 operator/(Vec2 left, Vec2& right);
 
-			vec2& operator+=(const vec2& other);
-			vec2& operator-=(const vec2& other);
-			vec2& operator*=(const vec2& other);
-			vec2& operator/=(const vec2& other);
+			Vec2& operator+=(const Vec2& other);
+			Vec2& operator-=(const Vec2& other);
+			Vec2& operator*=(const Vec2& other);
+			Vec2& operator/=(const Vec2& other);
 
-			bool operator==(const vec2& other);
-			bool operator!=(const vec2& other);
+			bool operator==(const Vec2& other);
+			bool operator!=(const Vec2& other);
 
-			friend std::ostream& operator<<(std::ostream& stream, const vec2& vector);
+			friend std::ostream& operator<<(std::ostream& stream, const Vec2& vector);
 
 		};
 	}

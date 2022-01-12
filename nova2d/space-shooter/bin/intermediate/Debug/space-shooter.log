@@ -1,3 +1,0 @@
-﻿  main.cpp
-LINK : warning LNK4044: unrecognized option '/lSDL2_image'; ignored
-LINK : fatal error LNK1104: cannot open file 'C:\spinlandGames\Projects\nova2d\nova2d\Debug\nova-zero.lib'

@@ -7,7 +7,9 @@ namespace novazero
 	{
 		using namespace maths;
 
-		Game::Game(const maths::vec2 screenSize, const char* title)
+		Renderer* Game::s_Renderer;
+
+		Game::Game(const Vec2 screenSize, const char* title)
 			: m_Width((int)floor(screenSize.x)), m_Height((int)floor(screenSize.y)), 
 			m_Title(title)
 		{
@@ -20,10 +22,15 @@ namespace novazero
 			else
 				return;
 
+			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), Vec4(50, 50, 255, 255));
+
 		}
 
 		void Game::Update()
 		{
+
+			s_Renderer->Update();
+
 			SDL_Event event;
 			SDL_PollEvent(&event);
 
@@ -41,8 +48,13 @@ namespace novazero
 			if (m_SceneManager) 
 				delete m_SceneManager;
 
-			if (m_MainWindow)
+			if (m_MainWindow) 
 				delete m_MainWindow;
+
+			if (s_Renderer)
+				delete s_Renderer;
+
+			SDL_Quit();
 
 		}
 	}

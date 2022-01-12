@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "../maths/Vec2.h"
 #include "../logging/Logging.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -8,7 +9,7 @@ namespace novazero
 	{
 		using namespace maths;
 
-		Window::Window(const vec2 screenSize, const char* title)
+		Window::Window(const Vec2 screenSize, const char* title)
 			: m_Title(title)
 		{
 			m_Width = (int)floor(screenSize.x);
@@ -20,7 +21,6 @@ namespace novazero
 		Window::~Window()
 		{
 			SDL_DestroyWindow(m_Window);
-			SDL_Quit();
 		}
 
 		void Window::Init()
@@ -43,7 +43,7 @@ namespace novazero
 
 			if (m_Window)
 			{
-				m_Renderer = new Renderer(*m_Window);
+				
 			}
 			else
 			{
@@ -52,6 +52,11 @@ namespace novazero
 				return;
 			}
 
+		}
+
+		SDL_Window* Window::GetWindow() const
+		{
+			return m_Window;
 		}
 	}
 }

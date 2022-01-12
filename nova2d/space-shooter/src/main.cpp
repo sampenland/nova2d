@@ -3,8 +3,6 @@
 #include "core/Game.h"
 #include "maths/Vec2.h"
 
-#include <iostream>
-
 int main(int argc, char* argv[])
 {
 	using namespace novazero;
@@ -13,11 +11,11 @@ int main(int argc, char* argv[])
 	using namespace core;
 	using namespace maths;
 
-	LOG("Starting...");
+	LOG("Nova Boot v.0.1 : Game Engine started.");
 
-	Game game(vec2(800, 640), "Space Shooter");
+	Game game(Vec2(800, 640), "Space Shooter");
 
-	while (true)
+	while (game.IsRunning())
 	{
 		game.Update();
 	}
