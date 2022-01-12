@@ -1,5 +1,7 @@
 #include "logging/logging.h"
 #include "graphics/window.h"
+#include "core/Game.h"
+#include "maths/Vec2.h"
 
 #include <iostream>
 
@@ -8,31 +10,16 @@ int main(int argc, char* argv[])
 	using namespace novazero;
 	using namespace graphics;
 	using namespace logging;
+	using namespace core;
+	using namespace maths;
 
 	LOG("Starting...");
 
-	Window win("Game Window");
+	Game game(vec2(800, 640), "Space Shooter");
 
-	bool running = true;
-	while (running) {
-
-		// Handle Events
-		SDL_Event event;
-		SDL_PollEvent(&event);
-		
-		switch (event.type)
-		{
-		case SDL_QUIT:
-			running = false;
-			break;
-		}
-		
-		// Update
-
-		// Render
-
-		// Clean up
-
+	while (true)
+	{
+		game.Update();
 	}
 
 	return 0;

@@ -1,13 +1,19 @@
-#include "window.h"
-#include "../logging/logging.h"
+#include "Window.h"
+#include "../maths/Vec2.h"
+#include "../logging/Logging.h"
 
 namespace novazero
 {
 	namespace graphics
 	{
-		Window::Window(const char* title)
+		using namespace maths;
+
+		Window::Window(const vec2 screenSize, const char* title)
 			: m_Title(title)
 		{
+			m_Width = (int)floor(screenSize.x);
+			m_Height = (int)floor(screenSize.y);
+
 			Init();
 		}
 
@@ -30,14 +36,14 @@ namespace novazero
 				m_Title,
 				SDL_WINDOWPOS_CENTERED,
 				SDL_WINDOWPOS_CENTERED,
-				640,
-				480,
+				m_Width,
+				m_Height,
 				SDL_WINDOW_OPENGL
 			);
 
 			if (m_Window)
 			{
-
+				m_Renderer = new Renderer(*m_Window);
 			}
 			else
 			{
