@@ -26,11 +26,8 @@ namespace novazero
 
 		}
 
-		void Game::Update()
+		void Game::PollEvents()
 		{
-
-			s_Renderer->Update();
-
 			SDL_Event event;
 			SDL_PollEvent(&event);
 
@@ -40,6 +37,14 @@ namespace novazero
 				m_Running = false;
 				break;
 			}
+		}
+
+		void Game::Update()
+		{
+
+			s_Renderer->Update();
+			PollEvents();
+			s_Renderer->Draw();
 		}
 
 		Game::~Game()

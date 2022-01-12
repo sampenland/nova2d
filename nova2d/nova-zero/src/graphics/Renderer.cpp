@@ -25,5 +25,10 @@ namespace novazero
 
 			SDL_RenderClear(m_Renderer);
 		}
+
+		void Renderer::Draw() const
+		{
+			SDL_RenderPresent(m_Renderer);
+		}
 	}
 }

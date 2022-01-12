@@ -24,6 +24,7 @@ namespace novazero
 			inline SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 			
 			void Update();
+			void Draw() const;
 
 		public:
 
