@@ -13,14 +13,17 @@ namespace novazero
 
 		Sprite::Sprite(float x, float y, const char* spriteSheet)
 		{
-			if (false)//game renderer
+			if (!Game::s_Renderer->GetSDLRenderer())
 			{
 				LOG(spriteSheet);
 				LOG("No game initialized before creation of Sprite");
+				return;
 			}
 
-			this->SetX(x);
-			this->SetY(y);
+			m_X = x;
+			m_Y = y;
+			m_Angle = 0;
+
 			m_SpriteSheet = TextureLoader::Load(spriteSheet);
 
 			if (!m_SpriteSheet)
@@ -36,9 +39,16 @@ namespace novazero
 
 		}
 
-		void Sprite::Draw() const
+		void Sprite::Update()
 		{
 
+		}
+
+		void Sprite::Draw() const
+		{
+			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, NULL, NULL);
+			//SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, 
+			//	NULL, NULL, m_Angle, NULL, SDL_FLIP_NONE);
 		}
 	}
 }

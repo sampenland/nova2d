@@ -7,9 +7,10 @@ namespace novazero
 		class Positional
 		{
 
-		private:
+		protected:
 			float m_X = 0;
 			float m_Y = 0;
+			float m_Angle = 0;
 
 		public:
 
@@ -17,6 +18,7 @@ namespace novazero
 
 			float GetX() const { return m_X; }
 			float GetY() const { return m_Y; }
+			float GetAngle() const { return m_Angle; }
 
 			void SetX(float x)
 			{
@@ -26,6 +28,11 @@ namespace novazero
 			void SetY(float y)
 			{
 				m_Y = y;
+			}
+
+			void SetAngle(float a)
+			{
+				m_Angle = a;
 			}
 
 		};

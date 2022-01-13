@@ -8,8 +8,11 @@ namespace novazero
 		using namespace maths;
 
 		Renderer* Game::s_Renderer;
+		ColorManager* Game::s_ColorManager;
 
-		Game::Game(const Vec2 screenSize, const char* title)
+		// --------------------------------
+
+		Game::Game(const Vec2 screenSize, const char* title, const Vec4 backgroundColor)
 			: m_Width((int)floor(screenSize.x)), m_Height((int)floor(screenSize.y)), 
 			m_Title(title)
 		{
@@ -22,7 +25,8 @@ namespace novazero
 			else
 				return;
 
-			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), Vec4(50, 50, 255, 255));
+			s_ColorManager = new ColorManager();
+			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
 
 		}
 
@@ -41,10 +45,26 @@ namespace novazero
 
 		void Game::Update()
 		{
+			// FPS handling
+			frameStart = SDL_GetTicks();
+			// ----------------
 
+			// Game Engine
 			s_Renderer->Update();
+
 			PollEvents();
+
 			s_Renderer->Draw();
+
+			// -------------------
+
+			// FPS handling
+			frameTime = SDL_GetTicks() - frameStart;
+			if (FRAME_DELAY > frameTime)
+			{
+				SDL_Delay(FRAME_DELAY - frameTime);
+			}
+			// -----------------
 		}
 
 		Game::~Game()
@@ -58,6 +78,9 @@ namespace novazero
 
 			if (s_Renderer)
 				delete s_Renderer;
+
+			if (s_ColorManager)
+				delete s_ColorManager;
 
 			SDL_Quit();
 

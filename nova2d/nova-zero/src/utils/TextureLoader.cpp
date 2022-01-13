@@ -20,7 +20,9 @@ namespace novazero
             if (loadedSurface == NULL)
             {
                 LOG(path);
-                LOG("SDL Image Load error.");
+                LOG("SDL Image Load error:");
+                LOG(SDL_GetError());
+                return nullptr;
             }
             else
             {
@@ -38,6 +40,7 @@ namespace novazero
                 {
                     LOG(path);
                     LOG("SDL Texture create error.");
+                    return nullptr;
                 }
 
                 //Get rid of old loaded surface
