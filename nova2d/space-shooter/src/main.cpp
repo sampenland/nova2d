@@ -15,9 +15,16 @@ int main(int argc, char* argv[])
 	LOG("Nova Boot v.0.1 : Game Engine started.");
 
 	Game game(Vec2(800, 640), "Space Shooter");
-	Sprite player(0, 0, "res/ship_01.png");
+	game.s_ColorManager->AddColor("background", "201533", 1);
+	game.s_ColorManager->AddColor("purple", "252446", 1);
+	game.s_ColorManager->AddColor("dark-blue", "203562", 1);
+	game.s_ColorManager->AddColor("blue", "1e579c", 1);
+	game.s_ColorManager->AddColor("light-blue", "0098db", 1);
+	game.s_ColorManager->AddColor("bright-blue", "0ce6f2", 1);
+	game.s_ColorManager->AddColor("white", "ffffff", 1);
+	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
-	Color blue = game.s_ColorManager->GetColor("blue");
+	Sprite player(0, 0, "res/ship_01.png");
 
 	while (game.IsRunning())
 	{

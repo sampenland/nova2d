@@ -16,9 +16,24 @@ namespace novazero
 
 		}
 
-		void ColorManager::AddColor(const std::string name, Color c)
+		Color ColorManager::AddColor(const std::string name, Color c)
 		{
 			m_ColorMap.insert(std::pair<std::string, Color>(name, c));
+			return GetColor(name);
+		}
+
+		Color ColorManager::AddColor(const std::string name, std::string hexCode, float alpha)
+		{
+			std::regex pattern("([0-9a-fA-F]{6})");
+			std::smatch match;
+			if (std::regex_match(hexCode, match, pattern))
+			{
+				int r, g, b;
+				int s = sscanf(match.str(1).c_str(), "%2x%2x%2x", &r, &g, &b);
+
+				Color c(r, g, b, alpha);
+				return AddColor(name, c);
+			}
 		}
 
 		void ColorManager::RemoveColor(const std::string name)

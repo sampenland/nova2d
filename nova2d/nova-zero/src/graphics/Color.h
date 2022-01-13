@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "../maths/Vec4.h"
 #include <SDL_stdinc.h>

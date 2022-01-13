@@ -3,6 +3,7 @@
 #include "../logging/logging.h"
 #include <string>
 #include <map>
+#include <regex>
 
 namespace novazero
 {
@@ -22,7 +23,8 @@ namespace novazero
 			ColorManager();
 			~ColorManager();
 
-			void AddColor(const std::string name, Color color);
+			Color AddColor(const std::string name, Color color);
+			Color AddColor(const std::string name, std::string hexCode, float alpha);
 			void RemoveColor(const std::string name);
 
 			Color GetColor(const std::string name) const;

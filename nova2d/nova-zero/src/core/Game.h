@@ -4,6 +4,7 @@
 #include "SceneManager.h"
 #include "../graphics/Renderer.h"
 #include "../utils/ColorManager.h"
+#include "../graphics/Color.h"
 
 namespace novazero
 {
@@ -33,7 +34,7 @@ namespace novazero
 
 		public:
 
-			Game(const Vec2 screenSize, const char* title, const Vec4 backgroundColor = Vec4(0, 0, 0, 255));
+			Game(const Vec2 screenSize, const char* title, const Color backgroundColor = Color(0, 0, 0, 255));
 			~Game();
 
 			inline bool IsRunning() const { return m_Running; }

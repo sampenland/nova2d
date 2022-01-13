@@ -1,18 +1,18 @@
 #include "Game.h"
-#include "../maths/Vec2.h"
 
 namespace novazero
 {
 	namespace core
 	{
 		using namespace maths;
+		using namespace graphics;
 
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
 
 		// --------------------------------
 
-		Game::Game(const Vec2 screenSize, const char* title, const Vec4 backgroundColor)
+		Game::Game(const Vec2 screenSize, const char* title, const Color backgroundColor)
 			: m_Width((int)floor(screenSize.x)), m_Height((int)floor(screenSize.y)), 
 			m_Title(title)
 		{
