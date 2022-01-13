@@ -105,18 +105,23 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\controllers\SimpleKeyboardController.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\core\SceneManager.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
+    <ClCompile Include="src\input\InputHandler.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\maths\Vec4.cpp" />
     <ClCompile Include="src\utils\ColorManager.cpp" />
     <ClCompile Include="src\utils\TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\controllers\SimpleKeyboardController.h" />
+    <ClInclude Include="src\core\ActionHandler.h" />
     <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\input\InputHandler.h" />
     <ClInclude Include="src\core\Positional.h" />
     <ClInclude Include="src\core\Scene.h" />
     <ClInclude Include="src\core\SceneManager.h" />

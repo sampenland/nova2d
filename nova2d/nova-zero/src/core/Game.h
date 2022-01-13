@@ -5,6 +5,7 @@
 #include "../graphics/Renderer.h"
 #include "../utils/ColorManager.h"
 #include "../graphics/Color.h"
+#include "../input/InputHandler.h"
 
 namespace novazero
 {
@@ -13,6 +14,7 @@ namespace novazero
 		using namespace graphics;
 		using namespace maths;
 		using namespace utils;
+		using namespace input;
 
 		class Game
 		{
@@ -31,6 +33,7 @@ namespace novazero
 			
 			Window* m_MainWindow = nullptr;
 			SceneManager* m_SceneManager = nullptr;
+			InputHandler* m_InputHandler = nullptr;
 
 		public:
 

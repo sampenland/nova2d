@@ -4,9 +4,6 @@ namespace novazero
 {
 	namespace core
 	{
-		using namespace maths;
-		using namespace graphics;
-
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
 
@@ -27,6 +24,7 @@ namespace novazero
 
 			s_ColorManager = new ColorManager();
 			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
+			m_InputHandler = new InputHandler();			
 
 		}
 
@@ -37,6 +35,13 @@ namespace novazero
 
 			switch (event.type)
 			{
+			case SDL_KEYDOWN:
+				m_InputHandler->KeyDown(&event);
+				break;
+
+			case SDL_KEYUP:
+				m_InputHandler->KeyUp(&event);
+				break;
 			case SDL_QUIT:
 				m_Running = false;
 				break;
@@ -91,6 +96,9 @@ namespace novazero
 
 			if (s_ColorManager)
 				delete s_ColorManager;
+
+			if (m_InputHandler)
+				delete m_InputHandler;
 
 			SDL_Quit();
 
