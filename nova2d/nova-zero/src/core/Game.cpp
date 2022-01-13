@@ -43,20 +43,15 @@ namespace novazero
 			}
 		}
 
-		void Game::Update()
+		void Game::Tick()
 		{
 			// FPS handling
 			frameStart = SDL_GetTicks();
 			// ----------------
 
-			// Game Engine
-			s_Renderer->Update();
-
-			PollEvents();
-
-			s_Renderer->Draw();
-
-			// -------------------
+			Update();
+			Render();
+			Clean();
 
 			// FPS handling
 			frameTime = SDL_GetTicks() - frameStart;
@@ -65,6 +60,21 @@ namespace novazero
 				SDL_Delay(FRAME_DELAY - frameTime);
 			}
 			// -----------------
+		}
+
+		void Game::Render()
+		{
+			s_Renderer->PreDraw();
+		}
+
+		void Game::Clean()
+		{
+
+		}
+
+		void Game::Update()
+		{
+			PollEvents();
 		}
 
 		Game::~Game()

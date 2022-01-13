@@ -47,6 +47,7 @@ namespace novazero
 		void Sprite::Draw() const
 		{
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, NULL, NULL);
+			
 			//SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, 
 			//	NULL, NULL, m_Angle, NULL, SDL_FLIP_NONE);
 		}

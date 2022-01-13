@@ -28,8 +28,8 @@ namespace novazero
 				m_BackgroundColor = c;
 			}
 
-			void Update();
-			void Draw() const;
+			void PreDraw() const;
+			void PostDraw() const;
 
 		public:
 

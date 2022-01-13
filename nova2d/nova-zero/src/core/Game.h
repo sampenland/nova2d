@@ -39,8 +39,12 @@ namespace novazero
 
 			inline bool IsRunning() const { return m_Running; }
 
+			void Tick();
+
 			void Update();
 			void PollEvents();
+			void Render();
+			void Clean();
 
 		public:
 			static Renderer* s_Renderer;

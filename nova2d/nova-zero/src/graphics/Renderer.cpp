@@ -18,15 +18,14 @@ namespace novazero
 				SDL_DestroyRenderer(m_Renderer);
 		}
 
-		void Renderer::Update()
+		void Renderer::PreDraw() const
 		{
-			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor.r, (Uint8)m_BackgroundColor.g, 
+			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor.r, (Uint8)m_BackgroundColor.g,
 				(Uint8)m_BackgroundColor.b, (Uint8)m_BackgroundColor.a);
-
 			SDL_RenderClear(m_Renderer);
 		}
 
-		void Renderer::Draw() const
+		void Renderer::PostDraw() const
 		{
 			SDL_RenderPresent(m_Renderer);
 		}

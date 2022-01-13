@@ -29,8 +29,9 @@ int main(int argc, char* argv[])
 	while (game.IsRunning())
 	{
 		game.Update();
-		player.Update();
+		game.s_Renderer->PreDraw();
 		player.Draw();
+		game.s_Renderer->PostDraw();
 	}
 
 	return 0;
