@@ -45,13 +45,16 @@
     <ClCompile Include="src\input\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\controllers\SimpleUDLRController.cpp">
+    <ClCompile Include="src\controllers\SimpleController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\EventListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\DrawLayers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\controllers\UDRLController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,13 +104,16 @@
     <ClInclude Include="src\core\ActionHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\controllers\SimpleUDLRController.h">
+    <ClInclude Include="src\controllers\SimpleController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\EventListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\DrawLayers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\controllers\UDRLController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

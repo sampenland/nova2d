@@ -6,6 +6,8 @@
 #include "../utils/ColorManager.h"
 #include "../graphics/Color.h"
 #include "../input/InputHandler.h"
+#include "EventListener.h"
+#include <vector>
 
 namespace novazero
 {
@@ -27,13 +29,12 @@ namespace novazero
 			int frameTime = 0;
 
 			bool m_Running = false;
-			int m_Width = 0;
-			int m_Height = 0;
 			const char* m_Title = {};
 			
 			Window* m_MainWindow = nullptr;
 			SceneManager* m_SceneManager = nullptr;
-			InputHandler* m_InputHandler = nullptr;
+
+			std::vector<EventListener> m_EventListeners;
 
 		public:
 
@@ -44,15 +45,23 @@ namespace novazero
 
 			void Tick();
 
+			void Process();
 			void Update();
 			void PollEvents();
 			void Render();
 			void Clean();
 
+			void AddEventListerInstance(EventListener listener);
+			void RemoveEventListenerInstance(EventListener listener);
+
 		public:
+
 			static Renderer* s_Renderer;
 			static ColorManager* s_ColorManager;
+			static InputHandler* s_InputHandler;
 			static unsigned int s_IDCount;
+			static int s_Width;
+			static int s_Height;
 		};
 	}
 }

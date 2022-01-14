@@ -9,29 +9,29 @@ namespace novazero
 		{
 
 		protected:
-			float m_X = 0;
-			float m_Y = 0;
-			float m_Angle = 0;
+			int m_X = 0;
+			int m_Y = 0;
+			int m_Angle = 0;
 
 		public:
 
 			Positional() {};
 
-			float GetX() const { return m_X; }
-			float GetY() const { return m_Y; }
-			float GetAngle() const { return m_Angle; }
+			int GetX() const { return m_X; }
+			int GetY() const { return m_Y; }
+			int GetAngle() const { return m_Angle; }
 
-			void SetX(float x)
+			void SetX(int x)
 			{
 				m_X = x;
 			}
 			
-			void SetY(float y)
+			void SetY(int y)
 			{
 				m_Y = y;
 			}
 
-			void SetAngle(float a)
+			void SetAngle(int a)
 			{
 				m_Angle = a;
 			}

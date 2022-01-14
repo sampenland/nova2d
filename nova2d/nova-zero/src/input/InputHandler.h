@@ -14,7 +14,6 @@ namespace novazero
 
 		private:
 
-			bool m_KeyIsPressed[MAX_KEYS];
 
 		public:
 
@@ -24,9 +23,13 @@ namespace novazero
 			void KeyDown(SDL_Event* event);
 			void KeyUp(SDL_Event* event);
 
-			bool IsKeyDown(SDL_Scancode key);
 			
 			void MouseClick(SDL_Event* event);
+
+		public:
+
+			static bool s_KeyIsPressed[MAX_KEYS];
+			static bool IsKeyDown(SDL_Keycode key);
 
 		};
 	}

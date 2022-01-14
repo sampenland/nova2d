@@ -1,5 +1,10 @@
 #pragma once
 #include <vector>
+#include "SDL.h"
+#include <functional>
+
+typedef std::function<bool(SDL_Keycode)> f_KeyConditionalFunction;
+typedef std::function<void()> f_EventPtrFunction;
 
 namespace novazero
 {
@@ -8,23 +13,25 @@ namespace novazero
 		class EventListener
 		{
 
-		protected:
-
-			EventListener() {};
-
 		private:
+			
+			std::vector<f_KeyConditionalFunction> m_KeysConditions;
+			std::vector<f_EventPtrFunction> m_KeysEvents;
+			std::vector<SDL_Keycode> m_KeysNames;
 
-			std::vector<bool (*)()> m_Conditions;
-			std::vector<void (*)()> m_Events;
-			std::vector<const char*> m_Names;
+			unsigned int m_ID = 0;
 
 		public:
 			
-			void EventStep();			
-			void AddEventListener(const char* name, bool (*conditionalFuction)(), void (*executeFunction)());
-			void RemoveEventListener(const char* name);
+			EventListener();
+			~EventListener();
 
-			virtual void Update() = 0;
+			void EventStep();
+
+			void AddKeysEventListener(SDL_KeyCode key, f_KeyConditionalFunction conditionalFunction, f_EventPtrFunction executeFunction);
+			void RemoveEventListener(SDL_KeyCode key);
+
+			bool operator==(const EventListener& other);
 
 		};
 	}

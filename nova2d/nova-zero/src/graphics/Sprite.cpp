@@ -21,8 +21,8 @@ namespace novazero
 				return;
 			}
 
-			m_X = position.x;
-			m_Y = position.y;
+			m_X = (int)position.x;
+			m_Y = (int)position.y;
 			m_Angle = 0;
 
 			m_SpriteSheet = TextureLoader::Load(spriteSheet);
@@ -37,10 +37,10 @@ namespace novazero
 			// Draw setup
 			m_SrcRect.x = 0;
 			m_SrcRect.y = 0;
-			m_SrcRect.w = size.x;
-			m_SrcRect.h = size.y;
-			m_DestRect.w = size.x;
-			m_DestRect.h = size.y;
+			m_SrcRect.w = (int)size.x;
+			m_SrcRect.h = (int)size.y;
+			m_DestRect.w = (int)size.x;
+			m_DestRect.h = (int)size.y;
 
 			// Final
 			m_ID = Game::s_IDCount;

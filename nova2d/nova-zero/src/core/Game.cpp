@@ -6,13 +6,15 @@ namespace novazero
 	{
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
+		InputHandler* Game::s_InputHandler;
 		unsigned int Game::s_IDCount;
+		int Game::s_Width;
+		int Game::s_Height;
 
 		// --------------------------------
 
 		Game::Game(const Vec2 screenSize, const char* title, const Color backgroundColor)
-			: m_Width((int)floor(screenSize.x)), m_Height((int)floor(screenSize.y)), 
-			m_Title(title)
+			: m_Title(title), m_EventListeners(1)
 		{
 
 			m_SceneManager = new SceneManager();
@@ -25,7 +27,10 @@ namespace novazero
 
 			s_ColorManager = new ColorManager();
 			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
-			m_InputHandler = new InputHandler();			
+			s_InputHandler = new InputHandler();
+
+			s_Width = (int)floor(screenSize.x);
+			s_Height = (int)floor(screenSize.y);
 
 		}
 
@@ -37,11 +42,11 @@ namespace novazero
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:
-				m_InputHandler->KeyDown(&event);
+				s_InputHandler->KeyDown(&event);
 				break;
 
 			case SDL_KEYUP:
-				m_InputHandler->KeyUp(&event);
+				s_InputHandler->KeyUp(&event);
 				break;
 			case SDL_QUIT:
 				m_Running = false;
@@ -78,8 +83,17 @@ namespace novazero
 
 		}
 
+		void Game::Process()
+		{
+			for (size_t i = 0; i < m_EventListeners.size(); i++) 
+			{
+				m_EventListeners[i].EventStep();
+			}
+		}
+
 		void Game::Update()
 		{
+			Process();
 			PollEvents();
 		}
 
@@ -98,10 +112,33 @@ namespace novazero
 			if (s_ColorManager)
 				delete s_ColorManager;
 
-			if (m_InputHandler)
-				delete m_InputHandler;
+			if (s_InputHandler)
+				delete s_InputHandler;
 
 			SDL_Quit();
+
+		}
+
+		void Game::AddEventListerInstance(EventListener listener)
+		{
+			m_EventListeners.push_back(listener);
+		}
+
+		void Game::RemoveEventListenerInstance(EventListener listener)
+		{
+			int idx = -1;
+			for (size_t i = 0; i < m_EventListeners.size(); i++)
+			{
+				if (m_EventListeners[i] == listener)
+				{
+					idx = i;
+					break;
+				}
+			}
+
+			if (idx == -1)return;
+
+			m_EventListeners.erase(m_EventListeners.begin() + idx);
 
 		}
 	}

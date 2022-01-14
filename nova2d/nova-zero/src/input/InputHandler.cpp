@@ -5,9 +5,11 @@ namespace novazero
 {
 	namespace input
 	{
+		bool InputHandler::s_KeyIsPressed[];
+
 		InputHandler::InputHandler()
 		{
-			memset(m_KeyIsPressed, false, MAX_KEYS);
+			memset(s_KeyIsPressed, false, MAX_KEYS);
 		}
 
 		InputHandler::~InputHandler()
@@ -15,19 +17,19 @@ namespace novazero
 
 		}
 
-		bool InputHandler::IsKeyDown(SDL_Scancode key)
+		bool InputHandler::IsKeyDown(SDL_Keycode key)
 		{
-			return m_KeyIsPressed[key];
+			return s_KeyIsPressed[key];
 		}
 
 		void InputHandler::KeyDown(SDL_Event* e)
 		{
-			m_KeyIsPressed[e->key.keysym.scancode] = true;
+			s_KeyIsPressed[e->key.keysym.scancode] = true;
 		}
 
 		void InputHandler::KeyUp(SDL_Event* e)
 		{
-			m_KeyIsPressed[e->key.keysym.scancode] = false;
+			s_KeyIsPressed[e->key.keysym.scancode] = false;
 		}
 
 		void InputHandler::MouseClick(SDL_Event* e)
