@@ -2,7 +2,7 @@
 #include "graphics/window.h"
 #include "core/Game.h"
 #include "maths/Vec2.h"
-#include "graphics/Sprite.h"
+#include "controllers/SimpleKeyboardController.h"
 
 int main(int argc, char* argv[])
 {
@@ -11,6 +11,7 @@ int main(int argc, char* argv[])
 	using namespace logging;
 	using namespace core;
 	using namespace maths;
+	using namespace controllers;
 
 	LOG("Nova Boot v.0.1 : Game Engine started.");
 
@@ -24,13 +25,16 @@ int main(int argc, char* argv[])
 	game.s_ColorManager->AddColor("white", "ffffff", 1);
 	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
-	Sprite player(0, 0, "res/ship_01.png");
+	SimpleKeyboardController player("res/ship_01.png", Vec2(0, 0));
 
 	while (game.IsRunning())
 	{
 		game.Update();
+		
 		game.s_Renderer->PreDraw();
-		player.Draw();
+		
+
+
 		game.s_Renderer->PostDraw();
 	}
 

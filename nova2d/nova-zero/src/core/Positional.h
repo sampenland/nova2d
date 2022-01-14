@@ -1,4 +1,5 @@
 #pragma once
+#include "../maths/Vec2.h"
 
 namespace novazero
 {

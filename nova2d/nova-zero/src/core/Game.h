@@ -22,7 +22,7 @@ namespace novazero
 		private:
 
 			const char FPS = 60;
-			const float FRAME_DELAY = 1000 / FPS;
+			const float FRAME_DELAY = 1000.0f / FPS;
 			Uint32 frameStart = 0;
 			int frameTime = 0;
 
@@ -52,6 +52,7 @@ namespace novazero
 		public:
 			static Renderer* s_Renderer;
 			static ColorManager* s_ColorManager;
+			static unsigned int s_IDCount;
 		};
 	}
 }

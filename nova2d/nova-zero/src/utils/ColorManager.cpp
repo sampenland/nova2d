@@ -22,7 +22,7 @@ namespace novazero
 			return GetColor(name);
 		}
 
-		Color ColorManager::AddColor(const std::string name, std::string hexCode, float alpha)
+		Color ColorManager::AddColor(const std::string name, std::string hexCode, const Uint8 alpha)
 		{
 			std::regex pattern("([0-9a-fA-F]{6})");
 			std::smatch match;
@@ -34,6 +34,8 @@ namespace novazero
 				Color c(r, g, b, alpha);
 				return AddColor(name, c);
 			}
+
+			return Color(0, 0, 0, 255);
 		}
 
 		void ColorManager::RemoveColor(const std::string name)
@@ -49,6 +51,8 @@ namespace novazero
 			catch (const std::out_of_range& oor) {
 				LOG(name);
 				LOG("Couldn't find color.");
+				const char* ex = oor.what();
+				LOG(ex);
 				return Color(0, 0, 0, 1);
 			}
 			

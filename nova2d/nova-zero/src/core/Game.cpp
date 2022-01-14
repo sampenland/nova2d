@@ -6,6 +6,7 @@ namespace novazero
 	{
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
+		unsigned int Game::s_IDCount;
 
 		// --------------------------------
 
@@ -62,7 +63,7 @@ namespace novazero
 			frameTime = SDL_GetTicks() - frameStart;
 			if (FRAME_DELAY > frameTime)
 			{
-				SDL_Delay(FRAME_DELAY - frameTime);
+				SDL_Delay((Uint32)(FRAME_DELAY - frameTime));
 			}
 			// -----------------
 		}

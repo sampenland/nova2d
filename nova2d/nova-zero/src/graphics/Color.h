@@ -15,10 +15,10 @@ namespace novazero
 
 			Color()
 			{
-				r = 0.f;
-				g = 0.f;
-				b = 0.f;
-				a = 0.f;
+				r = 255;
+				g = 255;
+				b = 255;
+				a = 255;
 			}
 
 			Color(const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a)

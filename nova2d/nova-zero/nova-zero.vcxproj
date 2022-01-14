@@ -47,13 +47,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediate\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)bin\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
     <LibraryPath>$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediate\$(Configuration)\</IntDir>
+    <IntDir>$(SolutionDir)bin\intermediate\$(ProjectName)\$(Configuration)\</IntDir>
     <LibraryPath>$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -106,8 +106,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\controllers\SimpleKeyboardController.cpp" />
+    <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\core\SceneManager.cpp" />
+    <ClCompile Include="src\graphics\DrawLayers.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
@@ -120,7 +122,9 @@
   <ItemGroup>
     <ClInclude Include="src\controllers\SimpleKeyboardController.h" />
     <ClInclude Include="src\core\ActionHandler.h" />
+    <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\graphics\DrawLayers.h" />
     <ClInclude Include="src\input\InputHandler.h" />
     <ClInclude Include="src\core\Positional.h" />
     <ClInclude Include="src\core\Scene.h" />

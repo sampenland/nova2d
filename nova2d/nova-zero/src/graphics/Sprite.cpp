@@ -11,7 +11,7 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(float x, float y, const char* spriteSheet)
+		Sprite::Sprite(Vec2 position, const char* spriteSheet)
 		{
 			if (!Game::s_Renderer->GetSDLRenderer())
 			{
@@ -20,8 +20,8 @@ namespace novazero
 				return;
 			}
 
-			m_X = x;
-			m_Y = y;
+			m_X = position.x;
+			m_Y = position.y;
 			m_Angle = 0;
 
 			m_SpriteSheet = TextureLoader::Load(spriteSheet);
@@ -32,6 +32,11 @@ namespace novazero
 				LOG("Failed to create sprite");
 				return;
 			}
+
+
+
+			m_ID = Game::s_IDCount;
+			Game::s_IDCount++;
 		}
 
 		Sprite::~Sprite()
@@ -50,6 +55,11 @@ namespace novazero
 			
 			//SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, 
 			//	NULL, NULL, m_Angle, NULL, SDL_FLIP_NONE);
+		}
+
+		bool Sprite::operator==(const Sprite& other)
+		{
+			return m_ID == other.m_ID;
 		}
 	}
 }
