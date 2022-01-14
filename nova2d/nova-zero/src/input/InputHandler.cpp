@@ -24,12 +24,12 @@ namespace novazero
 
 		void InputHandler::KeyDown(SDL_Event* e)
 		{
-			s_KeyIsPressed[e->key.keysym.scancode] = true;
+			s_KeyIsPressed[e->key.keysym.sym] = true;
 		}
 
 		void InputHandler::KeyUp(SDL_Event* e)
 		{
-			s_KeyIsPressed[e->key.keysym.scancode] = false;
+			s_KeyIsPressed[e->key.keysym.sym] = false;
 		}
 
 		void InputHandler::MouseClick(SDL_Event* e)

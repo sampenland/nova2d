@@ -22,7 +22,7 @@ namespace novazero
 		{
 			for (size_t i = 0; i < m_KeysConditions.size(); i++)
 			{
-				if (m_KeysConditions[i](m_KeysNames[i]) == true)
+				if (m_KeysConditions[i](m_KeyCodes[i]) == true)
 				{
 					m_KeysEvents[i]();
 				}
@@ -31,7 +31,7 @@ namespace novazero
 
 		void EventListener::AddKeysEventListener(SDL_KeyCode key, f_KeyConditionalFunction conditionalFunction, f_EventPtrFunction executeFunction)
 		{
-			m_KeysNames.push_back(key);
+			m_KeyCodes.push_back(key);
 			m_KeysConditions.push_back(conditionalFunction);
 			m_KeysEvents.push_back(executeFunction);
 		}
@@ -39,9 +39,9 @@ namespace novazero
 		void EventListener::RemoveEventListener(SDL_KeyCode key)
 		{
 			int idx = -1;
-			for (size_t i = 0; i < m_KeysNames.size(); i++)
+			for (size_t i = 0; i < m_KeyCodes.size(); i++)
 			{
-				if (m_KeysNames[i] == key)
+				if (m_KeyCodes[i] == key)
 				{
 					idx = i;
 					break;
@@ -50,7 +50,7 @@ namespace novazero
 
 			if (idx == -1) return;
 
-			m_KeysNames.erase(m_KeysNames.begin() + idx);
+			m_KeyCodes.erase(m_KeyCodes.begin() + idx);
 			m_KeysConditions.erase(m_KeysConditions.begin() + idx);
 			m_KeysEvents.erase(m_KeysEvents.begin() + idx);
 

@@ -8,7 +8,9 @@ namespace novazero
 			: SimpleController(spriteSheet, position, size, layer)
 		{
 			AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));			
-			
+			AddKeysEventListener(SDLK_s, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));			
+			AddKeysEventListener(SDLK_d, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));			
+			AddKeysEventListener(SDLK_a, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));	
 			
 			
 			Game::AddEventStepper(std::bind(&UDRLController::EventStep, this));

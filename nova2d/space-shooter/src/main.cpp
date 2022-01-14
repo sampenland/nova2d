@@ -26,6 +26,7 @@ int main(int argc, char* argv[])
 	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
 	UDRLController player("res/ship_01.png", Vec2(0, 0), Vec2(16, 16), 0);
+	player.Configure(10);
 
 	while (game.IsRunning())
 	{

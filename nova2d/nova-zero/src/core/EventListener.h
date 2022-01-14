@@ -17,7 +17,7 @@ namespace novazero
 			
 			std::vector<f_KeyConditionalFunction> m_KeysConditions;
 			std::vector<f_EventPtrFunction> m_KeysEvents;
-			std::vector<SDL_Keycode> m_KeysNames;
+			std::vector<SDL_Keycode> m_KeyCodes;
 
 			unsigned int m_ID = 0;
 
