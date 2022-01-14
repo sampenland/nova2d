@@ -3,6 +3,7 @@
 #include "../core/EventListener.h"
 #include "../maths/Vec2.h"
 #include "../utils/TextureLoader.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -12,7 +13,7 @@ namespace novazero
 		using namespace graphics;
 		using namespace maths;
 
-		class SimpleKeyboardController :
+		class SimpleUDLRController :
 			public EventListener
 		{
 
@@ -22,8 +23,8 @@ namespace novazero
 
 		public:
 
-			SimpleKeyboardController(const char* spriteSheet, Vec2 position);
-			~SimpleKeyboardController();
+			SimpleUDLRController(const char* spriteSheet, Vec2 position, Vec2 size, char layer);
+			~SimpleUDLRController();
 
 			void Update() override;
 

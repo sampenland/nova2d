@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "../graphics/Color.h"
+#include "../graphics/DrawLayers.h"
 
 namespace novazero
 {
@@ -30,9 +31,11 @@ namespace novazero
 
 			void PreDraw() const;
 			void PostDraw() const;
+			void Draw() const;
 
 		public:
 
+			static DrawLayers* s_DrawLayers;
 
 		};
 	}

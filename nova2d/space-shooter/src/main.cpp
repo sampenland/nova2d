@@ -2,7 +2,7 @@
 #include "graphics/window.h"
 #include "core/Game.h"
 #include "maths/Vec2.h"
-#include "controllers/SimpleKeyboardController.h"
+#include "controllers/SimpleUDLRController.h"
 
 int main(int argc, char* argv[])
 {
@@ -25,17 +25,13 @@ int main(int argc, char* argv[])
 	game.s_ColorManager->AddColor("white", "ffffff", 1);
 	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
-	SimpleKeyboardController player("res/ship_01.png", Vec2(0, 0));
+	SimpleUDLRController player("res/ship_01.png", Vec2(0, 0), Vec2(16, 16), 0);
 
 	while (game.IsRunning())
 	{
 		game.Update();
-		
-		game.s_Renderer->PreDraw();
-		
-
-
-		game.s_Renderer->PostDraw();
+		game.s_Renderer->Draw();
+		game.Clean();
 	}
 
 	return 0;

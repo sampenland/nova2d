@@ -16,24 +16,25 @@ namespace novazero
 
 			SDL_Texture* m_SpriteSheet = nullptr;
 
-			SDL_Rect* m_SrcRect = nullptr;
-			SDL_Rect* m_DestRect = nullptr;
+			SDL_Rect m_SrcRect;
+			SDL_Rect m_DestRect;
 
 			Vec2 m_Position;
 
 		public:
 
-			Sprite(Vec2 position, const char* spriteSheet);
+			Sprite(Vec2 position, const char* spriteSheet, Vec2 size);
 			~Sprite();
 
 			void Update();
-			void Draw() const;
+			void Draw();
 
 			bool operator==(const Sprite& other);
 
 		public:
 
 			unsigned int m_ID;
+			char m_Layer;
 
 		};
 	}

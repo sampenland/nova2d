@@ -2,6 +2,7 @@
 #include <vector>
 #include "../graphics/Sprite.h"
 #include <cstring>
+#include "../logging/logging.h"
 
 #define MAX_LAYERS 20
 
@@ -22,6 +23,7 @@ namespace novazero
 			~DrawLayers();
 
 			void AddSprite(Sprite* sprite, const char layer);
+			void RemoveSprite(unsigned int id, char layer);
 
 			void DrawLayer(const char layer) const;
 			void DrawAllLayers() const;

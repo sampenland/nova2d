@@ -105,7 +105,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\controllers\SimpleKeyboardController.cpp" />
+    <ClCompile Include="src\controllers\SimpleUDLRController.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\core\SceneManager.cpp" />
@@ -120,7 +120,7 @@
     <ClCompile Include="src\utils\TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\controllers\SimpleKeyboardController.h" />
+    <ClInclude Include="src\controllers\SimpleUDLRController.h" />
     <ClInclude Include="src\core\ActionHandler.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />

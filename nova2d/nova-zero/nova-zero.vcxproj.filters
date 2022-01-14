@@ -45,7 +45,7 @@
     <ClCompile Include="src\input\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\controllers\SimpleKeyboardController.cpp">
+    <ClCompile Include="src\controllers\SimpleUDLRController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\EventListener.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="src\core\ActionHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\controllers\SimpleKeyboardController.h">
+    <ClInclude Include="src\controllers\SimpleUDLRController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\EventListener.h">

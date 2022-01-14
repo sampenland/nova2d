@@ -11,7 +11,8 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(Vec2 position, const char* spriteSheet)
+		Sprite::Sprite(Vec2 position, const char* spriteSheet, Vec2 size)
+			: m_ID(0), m_Layer(0)
 		{
 			if (!Game::s_Renderer->GetSDLRenderer())
 			{
@@ -33,8 +34,15 @@ namespace novazero
 				return;
 			}
 
+			// Draw setup
+			m_SrcRect.x = 0;
+			m_SrcRect.y = 0;
+			m_SrcRect.w = size.x;
+			m_SrcRect.h = size.y;
+			m_DestRect.w = size.x;
+			m_DestRect.h = size.y;
 
-
+			// Final
 			m_ID = Game::s_IDCount;
 			Game::s_IDCount++;
 		}
@@ -49,12 +57,12 @@ namespace novazero
 
 		}
 
-		void Sprite::Draw() const
+		void Sprite::Draw()
 		{
-			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, NULL, NULL);
-			
-			//SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, 
-			//	NULL, NULL, m_Angle, NULL, SDL_FLIP_NONE);
+			m_DestRect.x = m_X;
+			m_DestRect.y = m_Y;
+
+			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, SDL_FLIP_NONE);
 		}
 
 		bool Sprite::operator==(const Sprite& other)
