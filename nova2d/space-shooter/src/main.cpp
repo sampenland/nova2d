@@ -29,9 +29,7 @@ int main(int argc, char* argv[])
 
 	while (game.IsRunning())
 	{
-		game.Update();
-		game.s_Renderer->Draw();
-		game.Clean();
+		game.Tick();
 	}
 
 	return 0;

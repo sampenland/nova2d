@@ -9,6 +9,8 @@
 #include "EventListener.h"
 #include <vector>
 
+typedef std::function<void()> f_VoidFunction;
+
 namespace novazero
 {
 	namespace core
@@ -34,7 +36,6 @@ namespace novazero
 			Window* m_MainWindow = nullptr;
 			SceneManager* m_SceneManager = nullptr;
 
-			std::vector<EventListener> m_EventListeners;
 
 		public:
 
@@ -51,8 +52,6 @@ namespace novazero
 			void Render();
 			void Clean();
 
-			void AddEventListerInstance(EventListener listener);
-			void RemoveEventListenerInstance(EventListener listener);
 
 		public:
 
@@ -62,6 +61,10 @@ namespace novazero
 			static unsigned int s_IDCount;
 			static int s_Width;
 			static int s_Height;
+
+			static std::vector<f_VoidFunction> s_EventSteppers;
+			static void AddEventStepper(f_VoidFunction eventStep);
+			static void RemoveEventStepper(f_VoidFunction eventStep);
 		};
 	}
 }

@@ -4,6 +4,8 @@ namespace novazero
 {
 	namespace core
 	{
+		std::vector<f_VoidFunction> Game::s_EventSteppers;
+
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
@@ -14,7 +16,7 @@ namespace novazero
 		// --------------------------------
 
 		Game::Game(const Vec2 screenSize, const char* title, const Color backgroundColor)
-			: m_Title(title), m_EventListeners(1)
+			: m_Title(title)
 		{
 
 			m_SceneManager = new SceneManager();
@@ -60,6 +62,7 @@ namespace novazero
 			frameStart = SDL_GetTicks();
 			// ----------------
 
+			Process();
 			Update();
 			Render();
 			Clean();
@@ -76,6 +79,8 @@ namespace novazero
 		void Game::Render()
 		{
 			s_Renderer->PreDraw();
+			s_Renderer->Draw();
+			s_Renderer->PostDraw();
 		}
 
 		void Game::Clean()
@@ -85,9 +90,9 @@ namespace novazero
 
 		void Game::Process()
 		{
-			for (size_t i = 0; i < m_EventListeners.size(); i++) 
+			for (size_t i = 0; i < s_EventSteppers.size(); i++) 
 			{
-				m_EventListeners[i].EventStep();
+				s_EventSteppers[i]();
 			}
 		}
 
@@ -119,17 +124,13 @@ namespace novazero
 
 		}
 
-		void Game::AddEventListerInstance(EventListener listener)
-		{
-			m_EventListeners.push_back(listener);
-		}
 
-		void Game::RemoveEventListenerInstance(EventListener listener)
+		void Game::RemoveEventStepper(f_VoidFunction eventStep)
 		{
 			int idx = -1;
-			for (size_t i = 0; i < m_EventListeners.size(); i++)
+			for (size_t i = 0; i < s_EventSteppers.size(); i++)
 			{
-				if (m_EventListeners[i] == listener)
+				if (&s_EventSteppers[i] == &eventStep)
 				{
 					idx = i;
 					break;
@@ -138,8 +139,13 @@ namespace novazero
 
 			if (idx == -1)return;
 
-			m_EventListeners.erase(m_EventListeners.begin() + idx);
+			s_EventSteppers.erase(s_EventSteppers.begin() + idx);
 
+		}
+		
+		void Game::AddEventStepper(f_VoidFunction eventStep)
+		{
+			s_EventSteppers.push_back(eventStep);
 		}
 	}
 }

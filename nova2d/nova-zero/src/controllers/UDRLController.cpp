@@ -8,12 +8,16 @@ namespace novazero
 			: SimpleController(spriteSheet, position, size, layer)
 		{
 			AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));			
+			
+			
+			
+			Game::AddEventStepper(std::bind(&UDRLController::EventStep, this));
 		}
 
 		UDRLController::~UDRLController()
 		{
 
-		}	
+		}
 
 		void UDRLController::MoveUp()
 		{

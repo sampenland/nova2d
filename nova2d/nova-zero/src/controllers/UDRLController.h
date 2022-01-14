@@ -2,6 +2,8 @@
 #include "SimpleController.h"
 #include <functional>
 
+typedef std::function<void()> f_VoidFunction;
+
 namespace novazero
 {
 	namespace controllers
