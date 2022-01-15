@@ -27,6 +27,8 @@ namespace novazero
 			~Sprite();
 
 			void Update();
+			int GetWidth() const { return m_DestRect.w; }
+			int GetHeight() const { return m_DestRect.h; }
 			void Draw();
 
 			bool operator==(const Sprite& other);

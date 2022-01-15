@@ -31,6 +31,12 @@ namespace novazero
 				m_Y = y;
 			}
 
+			void SetPosition(int x, int y)
+			{
+				m_X = x;
+				m_Y = y;
+			}
+
 			void SetAngle(int a)
 			{
 				m_Angle = a;

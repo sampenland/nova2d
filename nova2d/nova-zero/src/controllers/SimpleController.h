@@ -27,9 +27,13 @@ namespace novazero
 			~SimpleController();
 
 			void SetMoveSpeed(int mSpeed);
+			
 			void SetPosition(int x, int y);
 			void SetX(int y);
 			void SetY(int y);
+
+			int GetWidth() const { return m_Sprite->GetWidth(); }
+			int GetHeight() const { return m_Sprite->GetHeight(); }
 			
 			inline int GetMoveSpeed() const { return m_MoveSpeed; }
 			inline Vec2 GetPosition() const { return Vec2((float)m_Sprite->GetX(), (float)m_Sprite->GetY()); }

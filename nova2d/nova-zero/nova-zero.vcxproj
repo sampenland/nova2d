@@ -105,6 +105,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
     <ClCompile Include="src\controllers\SimpleController.cpp" />
     <ClCompile Include="src\controllers\UDRLController.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
@@ -121,6 +122,7 @@
     <ClCompile Include="src\utils\TextureLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\controllers\SimpleBulletController.h" />
     <ClInclude Include="src\controllers\SimpleController.h" />
     <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\ActionHandler.h" />

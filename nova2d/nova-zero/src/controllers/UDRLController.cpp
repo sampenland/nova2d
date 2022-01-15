@@ -27,7 +27,7 @@ namespace novazero
 
 		UDRLController::~UDRLController()
 		{
-
+			Game::RemoveEventStepper(std::bind(&UDRLController::EventStep, this));
 		}
 
 		void UDRLController::ConfigureMove(int moveSpeed, Rect moveBounds)
@@ -42,7 +42,7 @@ namespace novazero
 
 			if (m_UsingBounds)
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.y, m_BoundsRect.y + m_BoundsRect.h);
+				delta = SDL_clamp(delta, m_BoundsRect.y + GetHeight(), m_BoundsRect.y + m_BoundsRect.h - GetHeight() * 2);
 			}
 
 			SetY(delta);
@@ -55,7 +55,7 @@ namespace novazero
 
 			if (m_UsingBounds)
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.y, m_BoundsRect.y + m_BoundsRect.h);
+				delta = SDL_clamp(delta, m_BoundsRect.y + GetHeight(), m_BoundsRect.y + m_BoundsRect.h - GetHeight() * 2);
 			}
 
 			SetY(delta);
@@ -67,7 +67,7 @@ namespace novazero
 
 			if (m_UsingBounds)
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.x, m_BoundsRect.x + m_BoundsRect.w);
+				delta = SDL_clamp(delta, m_BoundsRect.x + GetWidth(), m_BoundsRect.x + m_BoundsRect.w - GetWidth() * 2);
 			}
 
 			SetX(delta);
@@ -79,7 +79,7 @@ namespace novazero
 
 			if (m_UsingBounds)
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.x, m_BoundsRect.x + m_BoundsRect.w);
+				delta = SDL_clamp(delta, m_BoundsRect.x + GetWidth(), m_BoundsRect.x + m_BoundsRect.w - GetWidth() * 2);
 			}
 
 			SetX(delta);

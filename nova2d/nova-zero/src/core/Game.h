@@ -59,12 +59,17 @@ namespace novazero
 			static ColorManager* s_ColorManager;
 			static InputHandler* s_InputHandler;
 			static unsigned int s_IDCount;
+			static double s_DeltaTime;
 			static int s_Width;
 			static int s_Height;
 
 			static std::vector<f_VoidFunction> s_EventSteppers;
 			static void AddEventStepper(f_VoidFunction eventStep);
 			static void RemoveEventStepper(f_VoidFunction eventStep);
+
+			static std::vector<f_VoidFunction> s_Updaters;
+			static void AddUpdater(f_VoidFunction updater);
+			static void RemoveUpdater(f_VoidFunction updater);
 		};
 	}
 }

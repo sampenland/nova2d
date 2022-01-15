@@ -24,10 +24,7 @@ namespace novazero
 			~UDRLController();
 
 			void ConfigureMove(int moveSpeed, maths::Rect moveBounds);
-			void EnableBounds(bool val)
-			{
-				m_UsingBounds = val;
-			}
+			inline void EnableBounds(bool enableBounds) { m_UsingBounds = enableBounds; }
 
 			void MoveUp();
 			void MoveDown();

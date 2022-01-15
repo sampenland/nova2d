@@ -5,6 +5,7 @@ namespace novazero
 	namespace core
 	{
 		std::vector<f_VoidFunction> Game::s_EventSteppers;
+		std::vector<f_VoidFunction> Game::s_Updaters;
 
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
@@ -12,6 +13,7 @@ namespace novazero
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
 		int Game::s_Height;
+		double Game::s_DeltaTime;
 
 		// --------------------------------
 
@@ -69,6 +71,7 @@ namespace novazero
 
 			// FPS handling
 			frameTime = SDL_GetTicks() - frameStart;
+			Game::s_DeltaTime = frameTime / 1000.00;
 			if (FRAME_DELAY > frameTime)
 			{
 				SDL_Delay((Uint32)(FRAME_DELAY - frameTime));
@@ -93,6 +96,11 @@ namespace novazero
 			for (size_t i = 0; i < s_EventSteppers.size(); i++) 
 			{
 				s_EventSteppers[i]();
+			}
+			
+			for (size_t i = 0; i < s_Updaters.size(); i++) 
+			{
+				s_Updaters[i]();
 			}
 		}
 
@@ -124,7 +132,6 @@ namespace novazero
 
 		}
 
-
 		void Game::RemoveEventStepper(f_VoidFunction eventStep)
 		{
 			int idx = -1;
@@ -146,6 +153,29 @@ namespace novazero
 		void Game::AddEventStepper(f_VoidFunction eventStep)
 		{
 			s_EventSteppers.push_back(eventStep);
+		}
+
+		void Game::RemoveUpdater(f_VoidFunction updater)
+		{
+			int idx = -1;
+			for (size_t i = 0; i < s_Updaters.size(); i++)
+			{
+				if (&s_EventSteppers[i] == &updater)
+				{
+					idx = i;
+					break;
+				}
+			}
+
+			if (idx == -1)return;
+
+			s_Updaters.erase(s_Updaters.begin() + idx);
+
+		}
+
+		void Game::AddUpdater(f_VoidFunction updater)
+		{
+			s_EventSteppers.push_back(updater);
 		}
 	}
 }
