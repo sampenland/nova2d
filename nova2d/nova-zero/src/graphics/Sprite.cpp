@@ -53,6 +53,8 @@ namespace novazero
 
 		void Sprite::Draw()
 		{
+			if (!m_Visible) return;
+
 			m_DestRect.x = m_X;
 			m_DestRect.y = m_Y;
 

@@ -39,7 +39,7 @@ namespace spaceshooter
 		m_ShootDelay = m_ShootDelayReset;
 
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight()), 4);
-		bullet->Configure(10, Rect(0, 0, Game::s_Width, Game::s_Height));
+		bullet->Configure(20, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 	}
 }

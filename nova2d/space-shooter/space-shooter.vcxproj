@@ -89,7 +89,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Leader.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Pawn.cpp" />
     <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +104,8 @@
     <Image Include="res\ship_01.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Leader.h" />
+    <ClInclude Include="src\Pawn.h" />
     <ClInclude Include="src\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

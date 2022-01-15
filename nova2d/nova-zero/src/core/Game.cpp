@@ -4,6 +4,9 @@ namespace novazero
 {
 	namespace core
 	{
+		using namespace maths;
+
+		// --------
 		std::vector<f_VoidFunction> Game::s_EventSteppers;
 		std::vector<f_VoidFunction> Game::s_Updaters;
 
@@ -15,6 +18,7 @@ namespace novazero
 		int Game::s_Width;
 		int Game::s_Height;
 		double Game::s_DeltaTime;
+		int Game::s_Padding;
 
 		// --------------------------------
 
@@ -73,7 +77,7 @@ namespace novazero
 
 			// FPS handling
 			frameTime = SDL_GetTicks() - frameStart;
-			Game::s_DeltaTime = frameTime / 1000.00;
+			Game::s_DeltaTime = frameTime;
 			if (FRAME_DELAY > frameTime)
 			{
 				SDL_Delay((Uint32)(FRAME_DELAY - frameTime));
@@ -182,5 +186,13 @@ namespace novazero
 		{
 			s_EventSteppers.push_back(updater);
 		}
+
+		Rect Game::GetGameBounds()
+		{
+			return Rect(0 + s_Padding, 0 + s_Padding,
+				s_Width - s_Padding, s_Height - s_Padding);
+		}
+
+		void Game::SetGamePadding(int padding) { s_Padding = padding; }
 	}
 }

@@ -39,6 +39,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
+				LOG(name);
+				LOG("Cannot find texture");
 				return nullptr;
 			}
 		}

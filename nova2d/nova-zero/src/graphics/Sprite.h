@@ -33,6 +33,9 @@ namespace novazero
 			int GetHeight() const { return m_DestRect.h; }
 			void Draw();
 
+			bool m_Visible = true;
+			void ChangeLayer(char layer) { m_Layer = layer; }
+
 			bool operator==(const Sprite& other);
 
 		public:

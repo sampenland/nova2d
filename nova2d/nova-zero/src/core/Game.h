@@ -9,6 +9,7 @@
 #include "EventListener.h"
 #include <vector>
 #include "../utils/AssetManager.h"
+#include "../maths/Rect.h"
 
 typedef std::function<void()> f_VoidFunction;
 
@@ -64,6 +65,7 @@ namespace novazero
 			static double s_DeltaTime;
 			static int s_Width;
 			static int s_Height;
+			static int s_Padding;
 
 			static std::vector<f_VoidFunction> s_EventSteppers;
 			static void AddEventStepper(f_VoidFunction eventStep);
@@ -72,6 +74,9 @@ namespace novazero
 			static std::vector<f_VoidFunction> s_Updaters;
 			static void AddUpdater(f_VoidFunction updater);
 			static void RemoveUpdater(f_VoidFunction updater);
+
+			static Rect GetGameBounds();
+			static void SetGamePadding(int padding);
 		};
 	}
 }
