@@ -116,5 +116,8 @@
     <ClInclude Include="src\controllers\UDRLController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\maths\Rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

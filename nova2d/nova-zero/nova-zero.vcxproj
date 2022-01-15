@@ -133,6 +133,7 @@
     <ClInclude Include="src\core\SceneManager.h" />
     <ClInclude Include="src\graphics\Color.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
+    <ClInclude Include="src\maths\Rect.h" />
     <ClInclude Include="src\maths\Vec4.h" />
     <ClInclude Include="src\utils\ColorManager.h" />
     <ClInclude Include="src\utils\TextureLoader.h" />

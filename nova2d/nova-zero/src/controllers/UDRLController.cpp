@@ -4,15 +4,24 @@ namespace novazero
 {
 	namespace controllers
 	{
+
 		UDRLController::UDRLController(const char* spriteSheet, Vec2 position, Vec2 size, char layer)
-			: SimpleController(spriteSheet, position, size, layer)
+			: SimpleController(spriteSheet, position, size, layer), m_BoundsRect(Rect(0,0,0,0)),
+			m_UsingBounds(false)
 		{
+			// WSAD
 			AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));			
 			AddKeysEventListener(SDLK_s, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));			
 			AddKeysEventListener(SDLK_d, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));			
 			AddKeysEventListener(SDLK_a, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));	
 			
-			
+			// Arrow Keys
+			AddKeysEventListener(SDLK_UP, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
+			AddKeysEventListener(SDLK_DOWN, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
+			AddKeysEventListener(SDLK_RIGHT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
+			AddKeysEventListener(SDLK_LEFT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
+
+			// Link so events get triggered
 			Game::AddEventStepper(std::bind(&UDRLController::EventStep, this));
 		}
 
@@ -21,24 +30,59 @@ namespace novazero
 
 		}
 
+		void UDRLController::ConfigureMove(int moveSpeed, Rect moveBounds)
+		{
+			m_MoveSpeed = moveSpeed;
+			m_BoundsRect = moveBounds;
+		}
+
 		void UDRLController::MoveUp()
 		{
-			SetY((int)GetPosition().y - m_MoveSpeed);
+			int delta = (int)GetPosition().y - m_MoveSpeed;
+
+			if (m_UsingBounds)
+			{
+				delta = SDL_clamp(delta, m_BoundsRect.y, m_BoundsRect.y + m_BoundsRect.h);
+			}
+
+			SetY(delta);
+
 		}
 
 		void UDRLController::MoveDown()
 		{
-			SetY((int)GetPosition().y + m_MoveSpeed);
+			int delta = (int)GetPosition().y + m_MoveSpeed;
+
+			if (m_UsingBounds)
+			{
+				delta = SDL_clamp(delta, m_BoundsRect.y, m_BoundsRect.y + m_BoundsRect.h);
+			}
+
+			SetY(delta);
 		}
 
 		void UDRLController::MoveRight()
 		{
-			SetX((int)GetPosition().x + m_MoveSpeed);
+			int delta = (int)GetPosition().x + m_MoveSpeed;
+
+			if (m_UsingBounds)
+			{
+				delta = SDL_clamp(delta, m_BoundsRect.x, m_BoundsRect.x + m_BoundsRect.w);
+			}
+
+			SetX(delta);
 		}
 
 		void UDRLController::MoveLeft()
 		{
-			SetX((int)GetPosition().x - m_MoveSpeed);
+			int delta = (int)GetPosition().x - m_MoveSpeed;
+
+			if (m_UsingBounds)
+			{
+				delta = SDL_clamp(delta, m_BoundsRect.x, m_BoundsRect.x + m_BoundsRect.w);
+			}
+
+			SetX(delta);
 		}
 	}
 }

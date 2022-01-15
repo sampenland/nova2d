@@ -1,6 +1,7 @@
 #pragma once
 #include "SimpleController.h"
 #include <functional>
+#include "../maths/Rect.h"
 
 typedef std::function<void()> f_VoidFunction;
 
@@ -14,14 +15,18 @@ namespace novazero
 
 		private:
 
+			Rect m_BoundsRect;
+			bool m_UsingBounds = false;
+
 		public:
 
 			UDRLController(const char* spriteSheet, Vec2 position, Vec2 size, char layer);
 			~UDRLController();
 
-			void Configure(int moveSpeed)
+			void ConfigureMove(int moveSpeed, maths::Rect moveBounds);
+			void EnableBounds(bool val)
 			{
-				m_MoveSpeed = moveSpeed;
+				m_UsingBounds = val;
 			}
 
 			void MoveUp();

@@ -1,7 +1,7 @@
 #include "logging/logging.h"
 #include "graphics/window.h"
-#include "core/Game.h"
 #include "maths/Vec2.h"
+#include "core/Game.h"
 #include "controllers/UDRLController.h"
 
 int main(int argc, char* argv[])
@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
 	UDRLController player("res/ship_01.png", Vec2(0, 0), Vec2(16, 16), 0);
-	player.Configure(10);
+	player.ConfigureMove(2, Rect(16, Game::s_Height - 64, Game::s_Width - 32, 64));
 
 	while (game.IsRunning())
 	{
