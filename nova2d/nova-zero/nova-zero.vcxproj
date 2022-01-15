@@ -116,8 +116,10 @@
     <ClCompile Include="src\graphics\Sprite.cpp" />
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\input\InputHandler.cpp" />
+    <ClCompile Include="src\maths\Vec2Int.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\maths\Vec4.cpp" />
+    <ClCompile Include="src\utils\AssetManager.cpp" />
     <ClCompile Include="src\utils\ColorManager.cpp" />
     <ClCompile Include="src\utils\TextureLoader.cpp" />
   </ItemGroup>
@@ -125,9 +127,9 @@
     <ClInclude Include="src\controllers\SimpleBulletController.h" />
     <ClInclude Include="src\controllers\SimpleController.h" />
     <ClInclude Include="src\controllers\UDRLController.h" />
-    <ClInclude Include="src\core\ActionHandler.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\Removeable.h" />
     <ClInclude Include="src\graphics\DrawLayers.h" />
     <ClInclude Include="src\input\InputHandler.h" />
     <ClInclude Include="src\core\Positional.h" />
@@ -135,8 +137,10 @@
     <ClInclude Include="src\core\SceneManager.h" />
     <ClInclude Include="src\graphics\Color.h" />
     <ClInclude Include="src\graphics\Renderer.h" />
+    <ClInclude Include="src\maths\Vec2Int.h" />
     <ClInclude Include="src\maths\Rect.h" />
     <ClInclude Include="src\maths\Vec4.h" />
+    <ClInclude Include="src\utils\AssetManager.h" />
     <ClInclude Include="src\utils\ColorManager.h" />
     <ClInclude Include="src\utils\TextureLoader.h" />
     <ClInclude Include="src\graphics\Sprite.h" />

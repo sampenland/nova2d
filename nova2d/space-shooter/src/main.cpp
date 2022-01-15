@@ -2,8 +2,7 @@
 #include "graphics/window.h"
 #include "maths/Vec2.h"
 #include "core/Game.h"
-#include "controllers/UDRLController.h"
-#include "controllers/SimpleBulletController.h"
+#include "Player.h"
 
 int main(int argc, char* argv[])
 {
@@ -13,6 +12,7 @@ int main(int argc, char* argv[])
 	using namespace core;
 	using namespace maths;
 	using namespace controllers;
+	using namespace spaceshooter;
 
 	LOG("Nova Boot v.0.1 : Game Engine started.");
 
@@ -26,13 +26,13 @@ int main(int argc, char* argv[])
 	game.s_ColorManager->AddColor("white", "ffffff", 1);
 	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
-	UDRLController player("res/ship_01.png", Vec2(Game::s_Width/2, Game::s_Height - 48), Vec2(16, 16), 0);
-	player.ConfigureMove(2, Rect(16, Game::s_Height - 80, Game::s_Width - 16, 80));
-	player.EnableBounds(true);
+	game.s_AssetManager->LoadAndAddTexture("player", "res/ship_01.png");
+	game.s_AssetManager->LoadAndAddTexture("player-bullet", "res/bullet_01.png");
 
-	SimpleBulletController b(Vec2(400, 600), Vec2(400, 0), 4);
-	b.Configure(10, Rect(0, 0, Game::s_Width, Game::s_Height));
-	b.AddSprite(Vec2(400, 300), "res/bullet_01.png", Vec2(16, 16), 1);
+	Player player("player", Vec2Int((int)Game::s_Width / 2, (int)Game::s_Height - 48), Vec2Int(16, 16), 0);
+	player.Configure(1);
+	player.ConfigureMove(3, Rect(16, 16, Game::s_Width - 16, Game::s_Height - 32));
+	player.EnableBounds(true);
 
 	while (game.IsRunning())
 	{

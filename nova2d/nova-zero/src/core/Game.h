@@ -8,6 +8,7 @@
 #include "../input/InputHandler.h"
 #include "EventListener.h"
 #include <vector>
+#include "../utils/AssetManager.h"
 
 typedef std::function<void()> f_VoidFunction;
 
@@ -58,6 +59,7 @@ namespace novazero
 			static Renderer* s_Renderer;
 			static ColorManager* s_ColorManager;
 			static InputHandler* s_InputHandler;
+			static AssetManager* s_AssetManager;
 			static unsigned int s_IDCount;
 			static double s_DeltaTime;
 			static int s_Width;

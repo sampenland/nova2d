@@ -34,6 +34,8 @@ namespace novazero
 
 		void DrawLayers::RemoveSprite(unsigned int id, char layer)
 		{
+			if (layer < 0 || layer > MAX_LAYERS) return;
+
 			int idx = -1;
 			for (int i = 0; i < m_Layers[layer].size(); i++)
 			{
@@ -47,11 +49,6 @@ namespace novazero
 			if (idx == -1)
 				return;
 
-			if (m_Layers[layer].size() >= idx)
-			{
-				LOG(id);
-				LOG("Failed to remove Sprite");
-			}
 			m_Layers[layer].erase(m_Layers[layer].begin() + idx);
 		}
 

@@ -8,8 +8,8 @@ namespace novazero
 		using namespace maths;
 		using namespace graphics;
 
-		SimpleBulletController::SimpleBulletController(Vec2 start, Vec2 end, const float moveUpdateDelay)
-			: m_AliveBounds(Rect(0,0,0,0))
+		SimpleBulletController::SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay)
+			: m_AliveBounds(Rect(0,0,0,0)), m_MoveSpeed(2)
 		{
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
 			m_Start = start;
@@ -23,16 +23,12 @@ namespace novazero
 
 		SimpleBulletController::~SimpleBulletController()
 		{
-			if (m_Sprite)
-				delete m_Sprite;
-
-			Game::RemoveUpdater(std::bind(&SimpleBulletController::Update, this));
+			DestroySelf();
 		}
 
-		void SimpleBulletController::AddSprite(Vec2 position, const char* spriteSheet, Vec2 size, char layer)
+		void SimpleBulletController::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		{
-			m_Sprite = new Sprite(position, spriteSheet, size);
-			Game::s_Renderer->s_DrawLayers->AddSprite(m_Sprite, layer);
+			m_Sprite = new Sprite(assetName, position, size, layer);
 		}
 
 		void SimpleBulletController::Configure(int moveSpeed, Rect aliveBounds)
@@ -43,9 +39,11 @@ namespace novazero
 
 		void SimpleBulletController::Update()
 		{
+			if (!CheckAlive()) return;
+
 			if (OutOfBounds())
 			{
-				LOG("Out of bounds: bullet");
+				m_Alive = false;
 				return;
 			}
 
@@ -60,13 +58,13 @@ namespace novazero
 			int x = m_Sprite->GetX();
 			int y = m_Sprite->GetY();
 
-			int dx = x < m_End.x ? x + m_MoveSpeed : x - m_MoveSpeed;
-			int dy = y < m_End.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+			int newX = x < m_End.x ? x + m_MoveSpeed : x - m_MoveSpeed;
+			int newY = y < m_End.y ? y + m_MoveSpeed : y - m_MoveSpeed;
 
-			if (x = m_End.x) dx = x;
-			if (y = m_End.y) dy = y;
+			if (x == m_End.x) newX = x;
+			if (y == m_End.y) newY = y;
 
-			m_Sprite->SetPosition(dx, dy);
+			m_Sprite->SetPosition(newX, newY);
 
 		}
 
@@ -88,6 +86,32 @@ namespace novazero
 			}
 
 			return true;
+		}
+
+		bool SimpleBulletController::CheckAlive()
+		{
+			if (!m_Alive)
+			{
+				if (!m_Destroyed) 
+				{
+					DestroySelf();
+				}
+				return false;
+			}
+
+			return m_Alive;
+		}
+
+		void SimpleBulletController::DestroySelf()
+		{
+			if (m_Destroyed) return;
+
+			m_Destroyed = true;
+
+			Game::RemoveUpdater(std::bind(&SimpleBulletController::Update, this));
+			
+			if (m_Sprite)
+				delete m_Sprite;
 		}
 	}
 }

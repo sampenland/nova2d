@@ -1,6 +1,7 @@
 #pragma once
 #include "../core/Positional.h"
 #include "SDL_image.h"
+#include "../maths/Vec2Int.h"
 
 namespace novazero
 {
@@ -14,7 +15,8 @@ namespace novazero
 			
 		private:
 
-			SDL_Texture* m_SpriteSheet = nullptr;
+			SDL_Texture* m_SpriteSheet;
+			std::string m_AssetName;
 
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
@@ -23,7 +25,7 @@ namespace novazero
 
 		public:
 
-			Sprite(Vec2 position, const char* spriteSheet, Vec2 size);
+			Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			~Sprite();
 
 			void Update();

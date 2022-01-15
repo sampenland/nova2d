@@ -6,16 +6,13 @@ namespace novazero
 	{
 		using namespace utils;
 
-		SimpleController::SimpleController(const char* spriteSheet, Vec2 position, Vec2 size, char layer)
+		SimpleController::SimpleController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		{
-			m_Sprite = new Sprite(position, spriteSheet, size);
-			Game::s_Renderer->s_DrawLayers->AddSprite(m_Sprite, layer);
+			m_Sprite = new Sprite(assetName, position, size, layer);
 		}
 
 		SimpleController::~SimpleController()
 		{
-			Game::s_Renderer->s_DrawLayers->RemoveSprite(m_Sprite->m_ID, m_Sprite->m_Layer);
-
 			if (m_Sprite)
 				delete m_Sprite;
 		}

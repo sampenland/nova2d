@@ -10,6 +10,7 @@ namespace novazero
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
+		AssetManager* Game::s_AssetManager;
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
 		int Game::s_Height;
@@ -32,6 +33,7 @@ namespace novazero
 			s_ColorManager = new ColorManager();
 			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
 			s_InputHandler = new InputHandler();
+			s_AssetManager = new AssetManager();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -127,6 +129,9 @@ namespace novazero
 
 			if (s_InputHandler)
 				delete s_InputHandler;
+
+			if (s_AssetManager)
+				delete s_AssetManager;
 
 			SDL_Quit();
 

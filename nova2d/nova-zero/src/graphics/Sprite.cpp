@@ -11,28 +11,16 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(Vec2 position, const char* spriteSheet, Vec2 size)
-			: m_ID(0), m_Layer(0)
+		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+			: m_ID(0), m_Layer(0), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
-			if (!Game::s_Renderer->GetSDLRenderer())
-			{
-				LOG(spriteSheet);
-				LOG("No game initialized before creation of Sprite");
-				return;
-			}
-
 			m_X = (int)position.x;
 			m_Y = (int)position.y;
 			m_Angle = 0;
-
-			m_SpriteSheet = TextureLoader::Load(spriteSheet);
-
-			if (!m_SpriteSheet)
-			{
-				LOG(spriteSheet);
-				LOG("Failed to create sprite");
-				return;
-			}
+			m_Layer = layer;
+			
+			m_AssetName = assetName;
+			m_SpriteSheet = Game::s_AssetManager->GetTexture(assetName);
 
 			// Draw setup
 			m_SrcRect.x = 0;
@@ -45,11 +33,17 @@ namespace novazero
 			// Final
 			m_ID = Game::s_IDCount;
 			Game::s_IDCount++;
+			Game::s_Renderer->s_DrawLayers->AddSprite(this, m_Layer);
 		}
 
 		Sprite::~Sprite()
 		{
-
+			if (m_SpriteSheet)
+			{
+				m_SpriteSheet = NULL;
+			}
+			
+			Game::s_Renderer->s_DrawLayers->RemoveSprite(m_ID, m_Layer);
 		}
 
 		void Sprite::Update()

@@ -5,8 +5,8 @@ namespace novazero
 	namespace controllers
 	{
 
-		UDRLController::UDRLController(const char* spriteSheet, Vec2 position, Vec2 size, char layer)
-			: SimpleController(spriteSheet, position, size, layer), m_BoundsRect(Rect(0,0,0,0)),
+		UDRLController::UDRLController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+			: SimpleController(assetName, position, size, layer), m_BoundsRect(Rect(0,0,0,0)),
 			m_UsingBounds(false)
 		{
 			// WSAD

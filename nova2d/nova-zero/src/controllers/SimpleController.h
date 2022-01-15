@@ -1,7 +1,7 @@
 #pragma once
 #include "../graphics/Sprite.h"
 #include "../core/EventListener.h"
-#include "../maths/Vec2.h"
+#include "../maths/Vec2Int.h"
 #include "../utils/TextureLoader.h"
 #include "../core/Game.h"
 
@@ -23,7 +23,7 @@ namespace novazero
 
 		public:
 
-			SimpleController(const char* spriteSheet, Vec2 position, Vec2 size, char layer);
+			SimpleController(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			~SimpleController();
 
 			void SetMoveSpeed(int mSpeed);
@@ -31,6 +31,8 @@ namespace novazero
 			void SetPosition(int x, int y);
 			void SetX(int y);
 			void SetY(int y);
+			int GetX() const { return m_Sprite->GetX(); }
+			int GetY() const { return m_Sprite->GetY(); }
 
 			int GetWidth() const { return m_Sprite->GetWidth(); }
 			int GetHeight() const { return m_Sprite->GetHeight(); }
