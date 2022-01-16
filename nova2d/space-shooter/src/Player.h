@@ -20,7 +20,7 @@ namespace spaceshooter
 
 		bool m_CanShoot = true;
 		float m_ShootDelayReset = 0.0f;
-		float m_ShootDelay = 0.0f;
+		double m_ShootDelay = 0.00;
 
 	public:
 

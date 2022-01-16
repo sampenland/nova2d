@@ -4,34 +4,95 @@ namespace novazero
 {
 	namespace controllers
 	{
-
 		UDRLController::UDRLController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 			: SimpleController(assetName, position, size, layer)
 		{
-			// WSAD
-			AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));			
-			AddKeysEventListener(SDLK_s, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));			
-			AddKeysEventListener(SDLK_d, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));			
-			AddKeysEventListener(SDLK_a, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));	
 			
-			// Arrow Keys
-			AddKeysEventListener(SDLK_UP, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
-			AddKeysEventListener(SDLK_DOWN, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
-			AddKeysEventListener(SDLK_RIGHT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
-			AddKeysEventListener(SDLK_LEFT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
-
+			EnableWASD(true);
+			EnableArrowKeys(true);
+			EnableXbox360(true);
+			
 			// Link so events get triggered
 			Game::AddEventStepper(std::bind(&UDRLController::EventStep, this));
+			
 		}
 
 		UDRLController::~UDRLController()
 		{
+			EnableWASD(false);
+			EnableArrowKeys(false);
+			EnableXbox360(false);
+			
 			Game::RemoveEventStepper(std::bind(&UDRLController::EventStep, this));
 		}
 
 		void UDRLController::ConfigureMove(int moveSpeed)
 		{
 			m_MoveSpeed = moveSpeed;
+		}
+
+		void UDRLController::EnableWASD(bool isEnabled)
+		{
+			if (isEnabled)
+			{
+				// WSAD
+				AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
+				AddKeysEventListener(SDLK_s, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
+				AddKeysEventListener(SDLK_d, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
+				AddKeysEventListener(SDLK_a, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
+			}
+			else
+			{
+				// WSAD
+				RemoveEventListener(SDLK_w);
+				RemoveEventListener(SDLK_s);
+				RemoveEventListener(SDLK_d);
+				RemoveEventListener(SDLK_a);
+			}
+		}
+
+		void UDRLController::EnableArrowKeys(bool isEnabled)
+		{
+			if (isEnabled)
+			{
+				// Arrow Keys
+				AddKeysEventListener(SDLK_UP, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
+				AddKeysEventListener(SDLK_DOWN, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
+				AddKeysEventListener(SDLK_RIGHT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
+				AddKeysEventListener(SDLK_LEFT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
+			}
+			else
+			{
+				// Arrow Keys
+				RemoveEventListener(SDLK_UP);
+				RemoveEventListener(SDLK_DOWN);
+				RemoveEventListener(SDLK_RIGHT);
+				RemoveEventListener(SDLK_LEFT);
+			}
+		}
+
+		void UDRLController::EnableXbox360(bool isEnabled)
+		{
+			if (isEnabled)
+			{
+				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_X,
+					&InputHandler::GetJoystickAxis,
+					std::bind(&UDRLController::LJoyX, this, std::placeholders::_1));
+			}
+			else
+			{
+				RemoveJoyAxisEventListener(m_JoyStickNumber);
+			}
+		}
+
+		void UDRLController::LJoyX(float delta)
+		{
+			LOG(delta);
+		}
+
+		void UDRLController::LJoyY(float delta)
+		{
+
 		}
 
 		void UDRLController::MoveUp()

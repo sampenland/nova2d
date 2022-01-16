@@ -14,6 +14,7 @@ namespace novazero
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
 		AssetManager* Game::s_AssetManager;
+
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
 		int Game::s_Height;
@@ -58,6 +59,7 @@ namespace novazero
 			case SDL_KEYUP:
 				s_InputHandler->KeyUp(&event);
 				break;
+
 			case SDL_QUIT:
 				m_Running = false;
 				break;
@@ -118,7 +120,6 @@ namespace novazero
 
 		Game::~Game()
 		{
-			
 			if (m_SceneManager) 
 				delete m_SceneManager;
 

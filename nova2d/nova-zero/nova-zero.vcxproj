@@ -132,6 +132,7 @@
     <ClInclude Include="src\controllers\SimpleController.h" />
     <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\BoundUser.h" />
+    <ClInclude Include="src\core\Common.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
     <ClInclude Include="src\graphics\DrawLayers.h" />

@@ -1,17 +1,16 @@
 #pragma once
+#include "../input/InputHandler.h"
 #include "../maths/Vec2.h"
 #include "../graphics/Window.h"
 #include "SceneManager.h"
 #include "../graphics/Renderer.h"
 #include "../utils/ColorManager.h"
 #include "../graphics/Color.h"
-#include "../input/InputHandler.h"
 #include "EventListener.h"
 #include <vector>
 #include "../utils/AssetManager.h"
 #include "../maths/Rect.h"
-
-typedef std::function<void()> f_VoidFunction;
+#include "../core/Common.h"
 
 namespace novazero
 {
@@ -66,7 +65,7 @@ namespace novazero
 			static int s_Width;
 			static int s_Height;
 			static int s_Padding;
-
+			
 			static std::vector<f_VoidFunction> s_EventSteppers;
 			static void AddEventStepper(f_VoidFunction eventStep);
 			static void RemoveEventStepper(f_VoidFunction eventStep);

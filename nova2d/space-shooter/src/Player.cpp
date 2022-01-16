@@ -6,6 +6,13 @@ namespace spaceshooter
 		: UDRLController(assetName, position, size, layer)
 	{
 		AddKeysEventListener(SDLK_SPACE, &InputHandler::IsKeyDown, std::bind(&Player::Shoot, this));
+		
+		if (SDL_NumJoysticks() > 0)
+		{
+			AddJoyEventListener(0, SDL_CONTROLLER_BUTTON_B, &InputHandler::IsJoystickButtonDown,
+				std::bind(&Player::Shoot, this));
+		}
+
 		Game::AddUpdater(std::bind(&Player::Update, this));
 	}
 
