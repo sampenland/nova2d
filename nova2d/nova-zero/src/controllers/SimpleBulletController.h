@@ -3,7 +3,7 @@
 #include "../maths/Vec2.h"
 #include "../maths/Rect.h"
 #include "../core/Game.h"
-#include "../core/Removeable.h"
+#include "../core/BoundUser.h"
 
 namespace novazero
 {
@@ -14,8 +14,8 @@ namespace novazero
 		using namespace core;
 
 		class SimpleBulletController
-			: public core::EventListener,
-			public core::Removeable
+			: public EventListener, 
+			public BoundUser
 		{
 
 		private:
@@ -42,8 +42,7 @@ namespace novazero
 			void Update();
 			bool OutOfBounds();
 
-			bool CheckAlive() override;
-			void DestroySelf() override;
+			void DestroySelf() override;				
 
 		};
 	}

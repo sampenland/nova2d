@@ -6,8 +6,7 @@ namespace novazero
 	{
 
 		UDRLController::UDRLController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
-			: SimpleController(assetName, position, size, layer), m_BoundsRect(Rect(0,0,0,0)),
-			m_UsingBounds(false)
+			: SimpleController(assetName, position, size, layer)
 		{
 			// WSAD
 			AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));			
@@ -30,59 +29,66 @@ namespace novazero
 			Game::RemoveEventStepper(std::bind(&UDRLController::EventStep, this));
 		}
 
-		void UDRLController::ConfigureMove(int moveSpeed, Rect moveBounds)
+		void UDRLController::ConfigureMove(int moveSpeed)
 		{
 			m_MoveSpeed = moveSpeed;
-			m_BoundsRect = moveBounds;
 		}
 
 		void UDRLController::MoveUp()
 		{
-			int delta = (int)GetPosition().y - m_MoveSpeed;
+			Vec2Int pos = GetPosition();
+			int newY = pos.y - m_MoveSpeed;
 
-			if (m_UsingBounds)
+			if (IsWithinMoveBounds(pos.x, newY))
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.y + GetHeight(), m_BoundsRect.y + m_BoundsRect.h - GetHeight() * 2);
+				SetY(newY);
 			}
-
-			SetY(delta);
-
 		}
 
 		void UDRLController::MoveDown()
 		{
-			int delta = (int)GetPosition().y + m_MoveSpeed;
+			Vec2Int pos = GetPosition();
+			int newY = pos.y + m_MoveSpeed;
 
-			if (m_UsingBounds)
+			if (IsWithinMoveBounds(pos.x, newY))
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.y + GetHeight(), m_BoundsRect.y + m_BoundsRect.h - GetHeight() * 2);
+				SetY(newY);
 			}
-
-			SetY(delta);
 		}
 
 		void UDRLController::MoveRight()
 		{
-			int delta = (int)GetPosition().x + m_MoveSpeed;
+			Vec2Int pos = GetPosition();
+			int newX = pos.x + m_MoveSpeed;
 
-			if (m_UsingBounds)
+			if (IsWithinMoveBounds(newX, pos.y))
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.x + GetWidth(), m_BoundsRect.x + m_BoundsRect.w - GetWidth() * 2);
+				SetX(newX);
 			}
-
-			SetX(delta);
 		}
 
 		void UDRLController::MoveLeft()
 		{
-			int delta = (int)GetPosition().x - m_MoveSpeed;
+			Vec2Int pos = GetPosition();
+			int newX = pos.x - m_MoveSpeed;
 
-			if (m_UsingBounds)
+			if (IsWithinMoveBounds(newX, pos.y))
 			{
-				delta = SDL_clamp(delta, m_BoundsRect.x + GetWidth(), m_BoundsRect.x + m_BoundsRect.w - GetWidth() * 2);
+				SetX(newX);
 			}
+		}
 
-			SetX(delta);
+		void UDRLController::DestroySelf()
+		{
+
+			if (m_Destroyed) return;
+
+			m_Destroyed = true;
+
+			Game::RemoveEventStepper(std::bind(&UDRLController::EventStep, this));
+
+			if (m_Sprite)
+				delete m_Sprite;
 		}
 	}
 }

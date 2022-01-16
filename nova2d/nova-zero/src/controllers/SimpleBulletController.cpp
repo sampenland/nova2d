@@ -88,20 +88,6 @@ namespace novazero
 			return true;
 		}
 
-		bool SimpleBulletController::CheckAlive()
-		{
-			if (!m_Alive)
-			{
-				if (!m_Destroyed) 
-				{
-					DestroySelf();
-				}
-				return false;
-			}
-
-			return m_Alive;
-		}
-
 		void SimpleBulletController::DestroySelf()
 		{
 			if (m_Destroyed) return;
@@ -109,7 +95,7 @@ namespace novazero
 			m_Destroyed = true;
 
 			Game::RemoveUpdater(std::bind(&SimpleBulletController::Update, this));
-			
+
 			if (m_Sprite)
 				delete m_Sprite;
 		}

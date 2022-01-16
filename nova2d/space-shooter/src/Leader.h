@@ -21,5 +21,7 @@ namespace spaceshooter
 		Leader(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 		~Leader();
 
+		void DestroySelf() override;
+
 	};
 }

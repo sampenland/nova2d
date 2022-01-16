@@ -134,7 +134,6 @@
     <ClInclude Include="src\core\BoundUser.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
-    <ClInclude Include="src\core\Removeable.h" />
     <ClInclude Include="src\graphics\DrawLayers.h" />
     <ClInclude Include="src\input\InputHandler.h" />
     <ClInclude Include="src\core\Positional.h" />

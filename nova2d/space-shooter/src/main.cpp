@@ -34,10 +34,10 @@ int main(int argc, char* argv[])
 	game.s_AssetManager->LoadAndAddTexture("pawn", "res/ship_03.png");
 	game.s_AssetManager->LoadAndAddTexture("player-bullet", "res/bullet_01.png");
 
-	Player player("player", Vec2Int((int)Game::s_Width / 2 - 8, (int)Game::s_Height - 48), Vec2Int(16, 16), 0);
+	Player player("player", Vec2Int((int)Game::s_Width / 2 - 8, (int)Game::s_Height - 64), Vec2Int(16, 16), 0);
 	player.Configure(1);
-	player.ConfigureMove(3, Game::GetGameBounds());
-	player.EnableBounds(true);
+	player.ConfigureMove(3);
+	player.SetMoveBounds(Game::GetGameBounds());
 
 	Leader enemy("leader", Vec2Int((int)Game::s_Width / 2 - 8, 48), Vec2Int(16, 16), 0);
 	enemy.SetAliveBounds(Game::GetGameBounds());

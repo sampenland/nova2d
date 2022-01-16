@@ -80,7 +80,7 @@ namespace novazero
 
 		void SimpleWeakAI::Update()
 		{
-			OutOfBounds(m_Sprite, m_AliveBounds);
+			OutOfBounds(m_Sprite);
 
 			if (m_LoopMoving && m_PatrolIndex == -1)
 			{

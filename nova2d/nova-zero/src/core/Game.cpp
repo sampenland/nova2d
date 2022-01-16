@@ -190,7 +190,7 @@ namespace novazero
 		Rect Game::GetGameBounds()
 		{
 			return Rect(0 + s_Padding, 0 + s_Padding,
-				s_Width - s_Padding, s_Height - s_Padding);
+				s_Width - ((int)s_Padding * 2.5), s_Height - ((int)s_Padding * 2.5));
 		}
 
 		void Game::SetGamePadding(int padding) { s_Padding = padding; }

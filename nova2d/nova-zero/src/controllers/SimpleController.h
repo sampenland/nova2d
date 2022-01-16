@@ -19,6 +19,7 @@ namespace novazero
 
 		private:
 
+		protected:
 			Sprite* m_Sprite = nullptr;
 
 		public:
@@ -38,7 +39,7 @@ namespace novazero
 			int GetHeight() const { return m_Sprite->GetHeight(); }
 			
 			inline int GetMoveSpeed() const { return m_MoveSpeed; }
-			inline Vec2 GetPosition() const { return Vec2((float)m_Sprite->GetX(), (float)m_Sprite->GetY()); }
+			inline Vec2Int GetPosition() const { return Vec2Int(m_Sprite->GetX(), m_Sprite->GetY()); }
 
 		public:
 

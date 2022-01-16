@@ -2,6 +2,7 @@
 #include "SimpleController.h"
 #include <functional>
 #include "../maths/Rect.h"
+#include "../core/BoundUser.h"
 
 typedef std::function<void()> f_VoidFunction;
 
@@ -9,27 +10,28 @@ namespace novazero
 {
 	namespace controllers
 	{
-		class UDRLController
-			: public SimpleController
+		using namespace core;
+
+		class UDRLController : 
+			public SimpleController, 
+			public BoundUser
 		{
 
 		private:
-
-			Rect m_BoundsRect;
-			bool m_UsingBounds = false;
 
 		public:
 
 			UDRLController(std::string spriteSheet, Vec2Int position, Vec2Int size, char layer);
 			~UDRLController();
 
-			void ConfigureMove(int moveSpeed, maths::Rect moveBounds);
-			inline void EnableBounds(bool enableBounds) { m_UsingBounds = enableBounds; }
+			void ConfigureMove(int moveSpeed);
 
 			void MoveUp();
 			void MoveDown();
 			void MoveRight();
 			void MoveLeft();
+
+			void DestroySelf() override;
 
 		};
 	}
