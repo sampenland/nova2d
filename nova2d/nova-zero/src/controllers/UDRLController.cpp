@@ -78,6 +78,10 @@ namespace novazero
 				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_X,
 					&InputHandler::GetJoystickAxis,
 					std::bind(&UDRLController::LJoyX, this, std::placeholders::_1));
+				
+				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_Y,
+					&InputHandler::GetJoystickAxis,
+					std::bind(&UDRLController::LJoyY, this, std::placeholders::_1));
 			}
 			else
 			{
@@ -87,12 +91,26 @@ namespace novazero
 
 		void UDRLController::LJoyX(float delta)
 		{
-			LOG(delta);
+			if (delta == 32767)
+			{
+				MoveRight();
+			}
+			else if (delta == -32768)
+			{
+				MoveLeft();
+			}
 		}
 
 		void UDRLController::LJoyY(float delta)
 		{
-
+			if (delta == 32767)
+			{
+				MoveDown();
+			}
+			else if (delta == -32768)
+			{
+				MoveUp();
+			}
 		}
 
 		void UDRLController::MoveUp()
