@@ -6,10 +6,10 @@ namespace novazero
 {
 	namespace core
 	{
-		class TimerWater 
+		class TimerWatcher 
 		{
 		protected:
-			TimerWater() {};
+			TimerWatcher() {};
 
 		private:
 

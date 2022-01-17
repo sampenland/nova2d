@@ -35,6 +35,21 @@
     <Image Include="res\bullet_01.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bullet_02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ship_03.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ship_02.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\ship_01_anim.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bullet_03.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Player.h">
