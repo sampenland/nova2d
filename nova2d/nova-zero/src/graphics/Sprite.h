@@ -1,8 +1,7 @@
 #pragma once
 #include "../core/Positional.h"
 #include "SDL_image.h"
-#include "../core/Game.h"
-#include "../core/Timer.h"
+#include "../maths/Vec2Int.h"
 
 namespace novazero
 {
@@ -21,25 +20,13 @@ namespace novazero
 
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
-			
-			Timer* m_NextFrameTimer = nullptr;
-
-			bool m_AnimationRunning = false;
-			int m_FrameWidth = 0;
-			int m_FrameHeight = 0;
-			int m_Frames = 1;
-			int m_CurrentFrame = 0;
 
 		public:
 
-			Sprite(std::string assetName, Vec2Int position, Vec2Int frameSize, char layer);
+			Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			~Sprite();
 
-			void ConfigureAnimating(bool isRunning) { m_AnimationRunning = isRunning; }
-			void ConfigureAnimation(int frames, float delayBetweenFrames, bool looping);
-			void NextFrame();
-			void SetFrame(int frame);
-
+			void Update();
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
 			void Draw();

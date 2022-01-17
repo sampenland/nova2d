@@ -1,4 +1,7 @@
 #include "Sprite.h"
+#include "../utils/TextureLoader.h"
+#include "../logging/Logging.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -8,18 +11,13 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int frameSize, char layer)
+		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 			: m_ID(0), m_Layer(0), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
 			m_Position = position;
 
 			m_Angle = 0;
 			m_Layer = layer;
-
-			m_FrameWidth = frameSize.x;
-			m_FrameHeight = frameSize.y;
-
-			m_Frames = 1;
 			
 			m_AssetName = assetName;
 			m_SpriteSheet = Game::s_AssetManager->GetTexture(assetName);
@@ -27,10 +25,10 @@ namespace novazero
 			// Draw setup
 			m_SrcRect.x = 0;
 			m_SrcRect.y = 0;
-			m_SrcRect.w = (int)frameSize.x;
-			m_SrcRect.h = (int)frameSize.y;
-			m_DestRect.w = (int)frameSize.x;
-			m_DestRect.h = (int)frameSize.y;
+			m_SrcRect.w = (int)size.x;
+			m_SrcRect.h = (int)size.y;
+			m_DestRect.w = (int)size.x;
+			m_DestRect.h = (int)size.y;
 
 			// Final
 			m_ID = Game::s_IDCount;
@@ -45,53 +43,18 @@ namespace novazero
 				m_SpriteSheet = NULL;
 			}
 			
-			if (m_NextFrameTimer)
-			{
-				delete m_NextFrameTimer;
-				m_NextFrameTimer = NULL;
-			}
-
 			Game::s_Renderer->s_DrawLayers->RemoveSprite(m_ID, m_Layer);
 		}
 
-		void Sprite::ConfigureAnimation(int frames, float delayBetweenFrames, bool looping) 
+		void Sprite::Update()
 		{
-			m_Frames = frames;
 
-			m_AnimationRunning = true;
-			
-			if (m_NextFrameTimer)
-			{
-				delete m_NextFrameTimer;
-				m_NextFrameTimer = NULL;
-			}
-
-			m_NextFrameTimer = new Timer(delayBetweenFrames, looping, std::bind(&Sprite::NextFrame, this));
-		}
-
-		void Sprite::NextFrame()
-		{
-			if (m_AnimationRunning)
-			{
-				m_CurrentFrame++;
-				if (m_CurrentFrame >= m_Frames - 1)
-				{
-					m_CurrentFrame = 0;
-				}
-			}
-		}
-
-		void Sprite::SetFrame(int frame)
-		{
-			if (frame < m_Frames && frame >= 0)
-				m_Frames = frame;
 		}
 
 		void Sprite::Draw()
 		{
 			if (!m_Visible) return;
 
-			m_SrcRect.x = m_CurrentFrame * m_FrameWidth;
 			m_DestRect.x = m_Position.x;
 			m_DestRect.y = m_Position.y;
 

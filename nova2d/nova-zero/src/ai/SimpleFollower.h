@@ -16,7 +16,7 @@ namespace novazero
 		class SimpleFollower
 			: public EventListener,
 			public BoundUser,
-			public TimerWatcher
+			public TimerWater
 		{
 
 		private:

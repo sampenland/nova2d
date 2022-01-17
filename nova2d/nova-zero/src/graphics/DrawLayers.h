@@ -3,7 +3,8 @@
 #include "../graphics/Sprite.h"
 #include <cstring>
 #include "../logging/logging.h"
-#include "../core/Common.h"
+
+#define MAX_LAYERS 20
 
 namespace novazero
 {
