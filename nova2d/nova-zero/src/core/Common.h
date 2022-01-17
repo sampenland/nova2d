@@ -2,9 +2,16 @@
 #include <functional>
 #include "SDL.h"
 
+// Max gamepads
 #define MAX_JOYSTICKS 8
 
+// Max draw layers
+#define MAX_LAYERS 20
+
+// Random int between min-max
 #define randomi(min, max) (int)(rand() % min + max)
+
+// Random float between min-max
 #define randomf(LO, HI) LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)))
 
 enum JoystickAxis

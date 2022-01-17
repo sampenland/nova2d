@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 	game.s_ColorManager->AddColor("white", "ffffff", 1);
 	game.s_Renderer->SetBackgroundColor(game.s_ColorManager->GetColor("background"));
 
-	game.s_AssetManager->LoadAndAddTexture("player", "res/ship_01.png");
+	game.s_AssetManager->LoadAndAddTexture("player", "res/ship_01_anim.png");
 	game.s_AssetManager->LoadAndAddTexture("leader", "res/ship_02.png");
 	game.s_AssetManager->LoadAndAddTexture("pawn", "res/ship_03.png");
 	game.s_AssetManager->LoadAndAddTexture("player-bullet", "res/bullet_01.png");

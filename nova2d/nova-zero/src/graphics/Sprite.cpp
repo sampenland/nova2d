@@ -21,6 +21,7 @@ namespace novazero
 			
 			m_AssetName = assetName;
 			m_SpriteSheet = Game::s_AssetManager->GetTexture(assetName);
+			m_FrameSize = size;
 
 			// Draw setup
 			m_SrcRect.x = 0;
@@ -46,6 +47,45 @@ namespace novazero
 			Game::s_Renderer->s_DrawLayers->RemoveSprite(m_ID, m_Layer);
 		}
 
+		void Sprite::ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop)
+		{
+			m_Frames = totalFrames;
+			m_CurrentFrame = startFrame;
+			if (m_CurrentFrame >= m_Frames) m_CurrentFrame = 0;
+
+			if (m_AnimationTimer)
+			{
+				delete m_AnimationTimer;
+			}
+
+			m_AnimationLooping = loop;
+			m_AnimationTimer = new Timer(animationSpeed, loop, std::bind(&Sprite::NextFrame, this));
+
+		}
+
+		void Sprite::JumpToFrame(int frame)
+		{
+			if (frame < m_Frames)
+				m_CurrentFrame = frame;
+		}
+
+		void Sprite::NextFrame()
+		{
+			m_CurrentFrame++;
+
+			if (m_CurrentFrame >= m_Frames)
+			{
+				if (m_AnimationLooping)
+				{
+					m_CurrentFrame = 0;
+				}
+				else
+				{
+					m_CurrentFrame = m_Frames - 1;
+				}
+			}
+		}
+
 		void Sprite::Update()
 		{
 
@@ -54,6 +94,9 @@ namespace novazero
 		void Sprite::Draw()
 		{
 			if (!m_Visible) return;
+
+			m_SrcRect.x = m_CurrentFrame * m_FrameSize.x;
+			m_SrcRect.w = m_FrameSize.x;
 
 			m_DestRect.x = m_Position.x;
 			m_DestRect.y = m_Position.y;

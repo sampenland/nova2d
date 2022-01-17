@@ -1,6 +1,5 @@
 #pragma once
 #include "ai/SimpleWeakAI.h"
-#include "ai/SimpleFollower.h"
 #include "Pawn.h"
 #include "core/Common.h"
 #include <vector>

@@ -101,7 +101,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bullet_01.png" />
+    <Image Include="res\bullet_02.png" />
+    <Image Include="res\bullet_03.png" />
     <Image Include="res\ship_01.png" />
+    <Image Include="res\ship_02.png" />
+    <Image Include="res\ship_03.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Leader.h" />

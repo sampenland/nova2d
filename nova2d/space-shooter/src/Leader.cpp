@@ -1,4 +1,5 @@
 #include "Leader.h"
+#include "ai/SimpleFollower.h"
 
 namespace spaceshooter
 {
