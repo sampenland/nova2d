@@ -45,6 +45,9 @@ namespace novazero
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
 
+			NOW = SDL_GetPerformanceCounter();
+			LAST = 0;
+
 		}
 
 		void Game::PollEvents()
@@ -72,6 +75,10 @@ namespace novazero
 		{
 			// FPS handling
 			frameStart = SDL_GetTicks();
+			// ----------------------
+			LAST = NOW;
+			NOW = SDL_GetPerformanceCounter();
+			Game::s_DeltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
 			// ----------------
 
 			Process();
@@ -81,7 +88,6 @@ namespace novazero
 
 			// FPS handling
 			frameTime = SDL_GetTicks() - frameStart;
-			Game::s_DeltaTime = frameTime / 1000.00;
 			if (FRAME_DELAY > frameTime)
 			{
 				SDL_Delay((Uint32)(FRAME_DELAY - frameTime));

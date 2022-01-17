@@ -27,7 +27,7 @@ namespace spaceshooter
 		Leader(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 		~Leader();
 
-		void ConfigureShoot(float minShootDelay, float maxShootDelay) { m_DelayShootMin = minShootDelay * 2; m_DelayShootMax = maxShootDelay * 2; }
+		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
 
 		void ShootUpdate();
 		void Shoot();

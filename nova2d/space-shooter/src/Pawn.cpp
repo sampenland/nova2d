@@ -9,7 +9,6 @@ namespace spaceshooter
 		: SimpleFollower(target, moveUpdateDelay)
 	{
 		AddSprite(assetName, position, size, layer);
-		ConfigureShoot(0.5f);
 
 		Game::AddUpdater(std::bind(&Pawn::Update, this));
 	}
@@ -33,11 +32,11 @@ namespace spaceshooter
 
 	void Pawn::Shoot()
 	{
-		m_DelayShoot = randomf(1, m_DelayShootReset);
+		m_DelayShoot = randomf(m_DelayShootMin, m_DelayShootMax);
 
 		SimpleBulletController* bullet = new 
 			SimpleBulletController(
-				Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 32), 
+				Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8), 
 				Vec2Int(m_Sprite->GetX(), Game::s_Height + 32), 
 				2.0f);
 

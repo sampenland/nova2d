@@ -18,7 +18,7 @@ namespace spaceshooter
 		EnableAI(true);
 		Configure(1, true);
 		ConfigureLoopIndex(1);
-		ConfigureShoot(2, 3);
+		ConfigureShoot(2000, 5000);
 
 		for (int row = 0; row <= 2; row++)
 		{
@@ -30,7 +30,7 @@ namespace spaceshooter
 				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16),
 					0, m_Sprite, 0.0f);
 				pawn->Configure(m_MoveSpeed + 2);
-				pawn->ConfigureShoot(10);
+				pawn->ConfigureShoot(5000, 10000);
 				pawn->Offset(Vec2Int(offsetX, offsetY));
 
 				m_Pawns.push_back(pawn);
@@ -72,7 +72,7 @@ namespace spaceshooter
 		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 0);
 		bullet->ConfigureRotation(true, -90);
 
-		Timer* bulletDestruct = new Timer(3000, false, std::bind(&SimpleFollower::DestroySelf, bullet));
+		Timer* bulletDestruct = new Timer(randomf(6500, 12000), false, std::bind(&SimpleFollower::DestroySelf, bullet));
 		bullet->AddTimer(bulletDestruct);
 
 	}

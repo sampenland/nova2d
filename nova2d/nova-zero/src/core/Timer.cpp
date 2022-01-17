@@ -7,7 +7,7 @@ namespace novazero
 	{
 		Timer::Timer(const float delayMS, const bool loop, f_VoidFunction endDelayFunc)
 		{
-			m_DelayMax = delayMS / 1000;
+			m_DelayMax = delayMS;
 			m_Delay = m_DelayMax;
 			m_Loop = loop;
 

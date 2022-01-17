@@ -12,7 +12,7 @@
 #define randomi(min, max) (int)(rand() % min + max)
 
 // Random float between min-max
-#define randomf(LO, HI) LO + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(HI-LO)))
+#define randomf(min, max) min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max - min)))
 
 enum JoystickAxis
 {

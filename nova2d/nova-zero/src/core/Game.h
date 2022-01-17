@@ -30,6 +30,8 @@ namespace novazero
 			const float FRAME_DELAY = 1000.0f / FPS;
 			Uint32 frameStart = 0;
 			int frameTime = 0;
+			Uint64 NOW;
+			Uint64 LAST;
 
 			bool m_Running = false;
 			const char* m_Title = {};
