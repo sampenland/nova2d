@@ -32,6 +32,12 @@ namespace novazero
 
 			friend std::ostream& operator<<(std::ostream& stream, const Vec2Int& vector);
 
+			static int LookAtAngle(Vec2Int a, Vec2Int b, int degExtraRotate)
+			{
+				double angle = atan2(b.y - a.y, b.x - a.x);
+				return (int)floor((angle * (180.0 / 3.141592653589793238463))) + degExtraRotate;
+			}
+
 		};
 	}
 }

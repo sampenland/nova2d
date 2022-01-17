@@ -14,6 +14,7 @@ namespace novazero
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
 		AssetManager* Game::s_AssetManager;
+		ReferenceManager* Game::s_ReferenceManager;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -23,7 +24,7 @@ namespace novazero
 
 		// --------------------------------
 
-		Game::Game(const Vec2 screenSize, const char* title, const Color backgroundColor)
+		Game::Game(const Vec2Int screenSize, const char* title, const Color backgroundColor)
 			: m_Title(title)
 		{
 
@@ -39,6 +40,7 @@ namespace novazero
 			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
+			s_ReferenceManager = new ReferenceManager();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -79,7 +81,7 @@ namespace novazero
 
 			// FPS handling
 			frameTime = SDL_GetTicks() - frameStart;
-			Game::s_DeltaTime = frameTime;
+			Game::s_DeltaTime = frameTime / 1000.00;
 			if (FRAME_DELAY > frameTime)
 			{
 				SDL_Delay((Uint32)(FRAME_DELAY - frameTime));
@@ -137,6 +139,9 @@ namespace novazero
 
 			if (s_AssetManager)
 				delete s_AssetManager;
+
+			if (s_ReferenceManager)
+				delete s_ReferenceManager;
 
 			SDL_Quit();
 

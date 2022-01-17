@@ -1,40 +1,42 @@
 #pragma once
-#include "../maths/Vec2.h"
+#include "../maths/Vec2Int.h"
 
 namespace novazero
 {
 	namespace core
 	{
+		using namespace maths;
+
 		class Positional
 		{
 
 		protected:
-			int m_X = 0;
-			int m_Y = 0;
+			
+			Vec2Int m_Position;
 			int m_Angle = 0;
 
 		public:
 
 			Positional() {};
 
-			int GetX() const { return m_X; }
-			int GetY() const { return m_Y; }
+			int GetX() const { return m_Position.x; }
+			int GetY() const { return m_Position.y; }
+			Vec2Int GetPosition() const { return m_Position; }
 			int GetAngle() const { return m_Angle; }
 
 			void SetX(int x)
 			{
-				m_X = x;
+				m_Position.x = x;
 			}
 			
 			void SetY(int y)
 			{
-				m_Y = y;
+				m_Position.y = y;
 			}
 
-			void SetPosition(int x, int y)
+			void SetPosition(Vec2Int position)
 			{
-				m_X = x;
-				m_Y = y;
+				m_Position = position;
 			}
 
 			void SetAngle(int a)

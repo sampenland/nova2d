@@ -14,8 +14,8 @@ namespace novazero
 		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 			: m_ID(0), m_Layer(0), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
-			m_X = (int)position.x;
-			m_Y = (int)position.y;
+			m_Position = position;
+
 			m_Angle = 0;
 			m_Layer = layer;
 			
@@ -55,8 +55,8 @@ namespace novazero
 		{
 			if (!m_Visible) return;
 
-			m_DestRect.x = m_X;
-			m_DestRect.y = m_Y;
+			m_DestRect.x = m_Position.x;
+			m_DestRect.y = m_Position.y;
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, SDL_FLIP_NONE);
 		}

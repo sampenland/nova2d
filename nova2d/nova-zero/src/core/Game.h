@@ -1,6 +1,5 @@
 #pragma once
 #include "../input/InputHandler.h"
-#include "../maths/Vec2.h"
 #include "../graphics/Window.h"
 #include "SceneManager.h"
 #include "../graphics/Renderer.h"
@@ -11,6 +10,7 @@
 #include "../utils/AssetManager.h"
 #include "../maths/Rect.h"
 #include "../core/Common.h"
+#include "../utils/ReferenceManager.h"
 
 namespace novazero
 {
@@ -40,7 +40,7 @@ namespace novazero
 
 		public:
 
-			Game(const Vec2 screenSize, const char* title, const Color backgroundColor = Color(0, 0, 0, 255));
+			Game(const Vec2Int screenSize, const char* title, const Color backgroundColor = Color(0, 0, 0, 255));
 			~Game();
 
 			inline bool IsRunning() const { return m_Running; }
@@ -53,6 +53,7 @@ namespace novazero
 			void Render();
 			void Clean();
 
+			void ConfigureIcon(const char* iconPath) { m_MainWindow->ConfigureIcon(iconPath); }
 
 		public:
 
@@ -60,6 +61,8 @@ namespace novazero
 			static ColorManager* s_ColorManager;
 			static InputHandler* s_InputHandler;
 			static AssetManager* s_AssetManager;
+			static ReferenceManager* s_ReferenceManager;
+
 			static unsigned int s_IDCount;
 			static double s_DeltaTime;
 			static int s_Width;

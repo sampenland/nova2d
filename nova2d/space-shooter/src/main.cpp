@@ -1,6 +1,5 @@
 #include "logging/logging.h"
 #include "graphics/window.h"
-#include "maths/Vec2.h"
 #include "core/Game.h"
 #include "Player.h"
 #include "Leader.h"
@@ -17,7 +16,8 @@ int main(int argc, char* argv[])
 
 	LOG("Nova Boot v.0.1 : Game Engine started.");
 
-	Game game(Vec2(800, 640), "Space Shooter");
+	Game game(Vec2Int(800, 640), "Space Shooter");
+	game.ConfigureIcon("res/ship_01.png");
 	Game::SetGamePadding(32);
 
 	game.s_ColorManager->AddColor("background", "201533", 1);
@@ -33,14 +33,18 @@ int main(int argc, char* argv[])
 	game.s_AssetManager->LoadAndAddTexture("leader", "res/ship_02.png");
 	game.s_AssetManager->LoadAndAddTexture("pawn", "res/ship_03.png");
 	game.s_AssetManager->LoadAndAddTexture("player-bullet", "res/bullet_01.png");
+	game.s_AssetManager->LoadAndAddTexture("pawn-bullet", "res/bullet_02.png");
+	game.s_AssetManager->LoadAndAddTexture("leader-bullet", "res/bullet_03.png");
 
 	Player player("player", Vec2Int((int)Game::s_Width / 2 - 8, (int)Game::s_Height - 64), Vec2Int(16, 16), 0);
 	player.Configure(1);
 	player.ConfigureMove(3);
 	player.SetMoveBounds(Game::GetGameBounds());
 
-	Leader enemy("leader", Vec2Int((int)Game::s_Width / 2 - 8, 48), Vec2Int(16, 16), 0);
-	enemy.SetAliveBounds(Game::GetGameBounds());
+	game.s_ReferenceManager->AddReference("player", &player);
+
+	Leader enemy("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 0);
+	enemy.ConfigureAliveBounds(Game::GetGameBounds());
 
 	while (game.IsRunning())
 	{

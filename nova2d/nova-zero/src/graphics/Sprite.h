@@ -21,8 +21,6 @@ namespace novazero
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 
-			Vec2 m_Position;
-
 		public:
 
 			Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);

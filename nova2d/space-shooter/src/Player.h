@@ -13,7 +13,7 @@ namespace spaceshooter
 	using namespace controllers;
 
 	class Player 
-		: public UDRLController
+		: public UDRLController, public Referenceable
 	{
 
 	private:
@@ -26,6 +26,8 @@ namespace spaceshooter
 
 		Player(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 		~Player();
+
+		Sprite* GetSprite() const { return m_Sprite; }
 
 		void Configure(float shootDelayReset) { m_ShootDelayReset = shootDelayReset / 10; }
 

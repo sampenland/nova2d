@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "Renderer.h"
-#include "../maths/Vec2.h"
+#include "../maths/Vec2Int.h"
 
 namespace novazero
 {
@@ -15,6 +15,7 @@ namespace novazero
 		private:
 
 			SDL_Window* m_Window;
+			SDL_Surface* m_Icon;
 			
 			int m_Width;
 			int m_Height;
@@ -23,10 +24,19 @@ namespace novazero
 
 		public:
 
-			Window(const Vec2 screenSize, const char* title);
+			Window(const Vec2Int screenSize, const char* title);
 			~Window();
 
 			void Init();
+			void ConfigureIcon(const char* path)
+			{
+				if (m_Window)
+				{
+					m_Icon = IMG_Load(path);
+					SDL_SetWindowIcon(m_Window, m_Icon);
+				}
+				
+			}
 
 			SDL_Window* GetWindow() const;
 

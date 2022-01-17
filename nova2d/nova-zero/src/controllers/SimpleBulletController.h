@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../maths/Vec2.h"
 #include "../maths/Rect.h"
 #include "../core/Game.h"
 #include "../core/BoundUser.h"

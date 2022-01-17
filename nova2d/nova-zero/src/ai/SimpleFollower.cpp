@@ -35,8 +35,15 @@ namespace novazero
 			m_MoveSpeed = moveSpeed;
 		}
 
+		void SimpleFollower::ConfigureTarget(Positional* target)
+		{
+			m_Target = target;
+		}
+
 		void SimpleFollower::Update()
 		{
+			if (m_Target == nullptr) return;
+
 			OutOfBounds(m_Sprite);
 
 			if (!CheckAlive()) return;
@@ -58,7 +65,13 @@ namespace novazero
 			if (x == m_Target->GetX() + m_TargetOffset.x) newX = x;
 			if (y == m_Target->GetY() + m_TargetOffset.y) newY = y;
 
-			m_Sprite->SetPosition(newX, newY);
+			if (m_LookAtTarget)
+			{
+				int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int(newX, newY), m_Target->GetPosition(), m_LookAtDegAdd);
+				m_Sprite->SetAngle(lookAtAngle);
+			}
+
+			m_Sprite->SetPosition(Vec2Int(newX, newY));
 
 		}
 
@@ -67,6 +80,7 @@ namespace novazero
 			if (m_Destroyed) return;
 
 			m_Destroyed = true;
+			m_Alive = false;
 
 			Game::RemoveUpdater(std::bind(&SimpleFollower::Update, this));
 			

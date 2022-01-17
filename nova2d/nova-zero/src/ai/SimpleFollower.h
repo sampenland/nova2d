@@ -1,9 +1,9 @@
 #pragma once
 
-#include "../maths/Vec2.h"
 #include "../maths/Rect.h"
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
+#include "../core/TimerWatcher.h"
 
 namespace novazero
 {
@@ -15,7 +15,8 @@ namespace novazero
 
 		class SimpleFollower
 			: public EventListener,
-			public BoundUser
+			public BoundUser,
+			public TimerWater
 		{
 
 		private:
@@ -25,6 +26,9 @@ namespace novazero
 
 			float m_UpdateDirectionDelay = 0;
 			float m_DelayTime = 0;
+			int m_LookAtDegAdd = 0;
+
+			bool m_LookAtTarget = false;
 			
 		protected:
 			Sprite* m_Sprite = nullptr;
@@ -37,6 +41,8 @@ namespace novazero
 
 			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			void Configure(int moveSpeed);
+			void ConfigureTarget(Positional* target);
+			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
 			void Offset(Vec2Int offset) { m_TargetOffset = offset; }
 			
 			void Update();

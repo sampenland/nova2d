@@ -33,7 +33,7 @@ namespace novazero
 
 		void SimpleWeakAI::ResetAI()
 		{
-			m_PatrolIndex = 0;
+			m_PatrolIndex = m_LoopStartIndex;
 		}
 
 		void SimpleWeakAI::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
@@ -84,12 +84,14 @@ namespace novazero
 
 			if (m_LoopMoving && m_PatrolIndex == -1)
 			{
-				m_PatrolIndex = 0;
+				m_PatrolIndex = m_LoopStartIndex;
 				return;
 			}
 
 			if (m_PatrolIndex == -1) 
 				return;
+
+			if (m_PatrolIndex >= m_MoveFunctions.size()) return;
 
 			m_MoveFunctions[m_PatrolIndex]();
 		}

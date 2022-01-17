@@ -35,6 +35,8 @@ namespace novazero
 			bool m_LoopMoving = true;
 			int m_PatrolIndex = -1;
 
+			int m_LoopStartIndex = 0;
+
 		protected:
 			
 			Sprite* m_Sprite = nullptr;
@@ -46,6 +48,7 @@ namespace novazero
 			~SimpleWeakAI();
 
 			void Configure(float moveSpeed, bool loop);
+			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }
 			void EnableAI(bool isEnabled);
 			void ResetAI();
 

@@ -34,7 +34,7 @@ namespace novazero
 				m_UsingAliveBounds = usesAliveBounds;
 			}
 
-			void SetAliveBounds(Rect bounds) { m_AliveBounds = bounds; m_UsingAliveBounds = true; }
+			void ConfigureAliveBounds(Rect bounds) { m_AliveBounds = bounds; m_UsingAliveBounds = true; }
 			void SetMoveBounds(Rect bounds) { m_MoveBounds = bounds; m_UsingMoveBounds = true; }
 
 			bool IsWithinMoveBounds(int x, int y)

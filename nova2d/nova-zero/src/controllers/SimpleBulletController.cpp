@@ -64,7 +64,7 @@ namespace novazero
 			if (x == m_End.x) newX = x;
 			if (y == m_End.y) newY = y;
 
-			m_Sprite->SetPosition(newX, newY);
+			m_Sprite->SetPosition(Vec2Int(newX, newY));
 
 		}
 

@@ -112,6 +112,7 @@
     <ClCompile Include="src\controllers\UDRLController.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\utils\ReferenceManager.cpp" />
     <ClCompile Include="src\core\SceneManager.cpp" />
     <ClCompile Include="src\graphics\DrawLayers.cpp" />
     <ClCompile Include="src\graphics\Renderer.cpp" />
@@ -119,7 +120,6 @@
     <ClCompile Include="src\graphics\Window.cpp" />
     <ClCompile Include="src\input\InputHandler.cpp" />
     <ClCompile Include="src\maths\Vec2Int.cpp" />
-    <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\maths\Vec4.cpp" />
     <ClCompile Include="src\utils\AssetManager.cpp" />
     <ClCompile Include="src\utils\ColorManager.cpp" />
@@ -135,6 +135,10 @@
     <ClInclude Include="src\core\Common.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\Referenceable.h" />
+    <ClInclude Include="src\core\Timer.h" />
+    <ClInclude Include="src\core\TimerWatcher.h" />
+    <ClInclude Include="src\utils\ReferenceManager.h" />
     <ClInclude Include="src\graphics\DrawLayers.h" />
     <ClInclude Include="src\input\InputHandler.h" />
     <ClInclude Include="src\core\Positional.h" />
@@ -151,7 +155,6 @@
     <ClInclude Include="src\graphics\Sprite.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\logging\Logging.h" />
-    <ClInclude Include="src\maths\Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
