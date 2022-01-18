@@ -4,6 +4,7 @@
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
 #include "../core/TimerWatcher.h"
+#include "../physics/Collider.h"
 
 namespace novazero
 {
@@ -12,11 +13,13 @@ namespace novazero
 		using namespace graphics;
 		using namespace maths;
 		using namespace core;
+		using namespace physics;
 
 		class SimpleFollower
 			: public EventListener,
 			public BoundUser,
-			public TimerWatcher
+			public TimerWatcher,
+			public Collider
 		{
 
 		private:
@@ -40,6 +43,8 @@ namespace novazero
 			~SimpleFollower();
 
 			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
+			Sprite* GetSprite() { return m_Sprite; }
+
 			void Configure(int moveSpeed);
 			void ConfigureTarget(Positional* target);
 			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
@@ -48,6 +53,7 @@ namespace novazero
 			void Update();
 
 			void DestroySelf() override;
+			void OnCollision(const Collision* collision) override;
 
 		};
 	}

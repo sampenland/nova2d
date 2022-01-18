@@ -3,7 +3,7 @@
 namespace spaceshooter
 {
 	Player::Player(std::string assetName, Vec2Int position, Vec2Int size, char layer)
-		: UDRLController(assetName, position, size, layer)
+		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
 		AddKeysEventListener(SDLK_SPACE, &InputHandler::IsKeyDown, std::bind(&Player::Shoot, this));
 		
@@ -14,6 +14,7 @@ namespace spaceshooter
 		}
 
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
+		ConfigureCollider(m_Sprite, 0);
 
 		Game::AddUpdater(std::bind(&Player::Update, this));
 	}
@@ -21,6 +22,11 @@ namespace spaceshooter
 	Player::~Player()
 	{
 		Game::RemoveUpdater(std::bind(&Player::Update, this));
+	}
+
+	void Player::OnCollision(const Collision* collision)
+	{
+		LOG("Collision");
 	}
 
 	void Player::Update()

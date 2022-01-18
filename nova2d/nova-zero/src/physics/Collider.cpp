@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.h"
 #include "../core/Game.h"
+#include "Collision.h"
 
 namespace novazero
 {
@@ -11,14 +12,22 @@ namespace novazero
 
 		Collider::Collider(int collisionLayer)
 		{
+			m_ColliderSprite = nullptr;
 			m_CollisionLayer = collisionLayer;
 			m_ID = Game::GetNextID();
 		}
-			
-		void Collider::Configure(Sprite* sprite, f_CollisionPassFunction onCollision)
+
+		Collider::~Collider()
 		{
-			m_Sprite = sprite;
-			f_OnCollision = onCollision;
+			Game::s_CollisionManager->RemoveCollider(this);
+		}
+			
+		void Collider::ConfigureCollider(Sprite* sprite, int collisionLayer)
+		{
+			m_CollisionLayer = collisionLayer;
+			m_ColliderSprite = sprite;
+
+			Game::s_CollisionManager->AddCollider(this);
 		}
 	}
 }

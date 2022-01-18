@@ -23,11 +23,7 @@ namespace novazero
 
 			~Collision()
 			{
-				if (m_ColliderA)
-					delete m_ColliderA;
-
-				if (m_ColliderB)
-					delete m_ColliderB;;
+				
 			}
 
 		};

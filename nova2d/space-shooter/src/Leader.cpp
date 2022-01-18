@@ -53,7 +53,7 @@ namespace spaceshooter
 	{
 		if (m_DelayShoot < 0)
 		{
-			m_DelayShoot = randomf(1, m_DelayShootMax);
+			m_DelayShoot = 10000000;//randomf(1, m_DelayShootMax);
 			Shoot();
 			return;
 		}
@@ -66,10 +66,11 @@ namespace spaceshooter
 		
 		Player* player = (Player*)Game::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
+		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 0);
+		bullet->ConfigureCollider(bullet->GetSprite(), 0);
 		// Todo: fix this
 		//bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 		bullet->Configure(1);
-		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 0);
 		bullet->ConfigureRotation(true, -90);
 
 		Timer* bulletDestruct = new Timer(randomf(6500, 12000), false, std::bind(&SimpleFollower::DestroySelf, bullet));

@@ -9,7 +9,7 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleFollower::SimpleFollower(Positional* target, const float moveUpdateDelay)
-			:  m_MoveSpeed(2)
+			:  Collider(0), m_MoveSpeed(2)
 		{
 			m_Target = target;
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
@@ -86,6 +86,11 @@ namespace novazero
 			
 			if (m_Sprite)
 				delete m_Sprite;
+		}
+
+		void SimpleFollower::OnCollision(const Collision* collision)
+		{
+
 		}
 	}
 }

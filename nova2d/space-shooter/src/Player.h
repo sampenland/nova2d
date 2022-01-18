@@ -3,6 +3,7 @@
 #include "controllers/UDRLController.h"
 #include "maths/Vec2Int.h"
 #include "controllers/SimpleBulletController.h"
+#include "physics/Collider.h"
 
 #include "SDL.h"
 
@@ -13,7 +14,8 @@ namespace spaceshooter
 	using namespace controllers;
 
 	class Player 
-		: public UDRLController, public Referenceable
+		: public UDRLController, public Referenceable, 
+		public Collider
 	{
 
 	private:
@@ -30,6 +32,8 @@ namespace spaceshooter
 		Sprite* GetSprite() const { return m_Sprite; }
 
 		void Configure(float shootDelayReset) { m_ShootDelayReset = shootDelayReset / 10; }
+
+		void OnCollision(const Collision* collision) override;
 
 		void Update();
 		void Shoot();
