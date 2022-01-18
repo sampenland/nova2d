@@ -24,6 +24,8 @@ namespace spaceshooter
 		float m_ShootDelayReset = 0.0f;
 		double m_ShootDelay = 0.00;
 
+		int m_Lives = 3;
+
 	public:
 
 		Player(std::string assetName, Vec2Int position, Vec2Int size, char layer);

@@ -1,7 +1,7 @@
 #pragma once
 #include "../graphics/Sprite.h"
 #include "../core/TypeDefs.h"
-
+#include <string>
 
 namespace novazero
 {
@@ -29,8 +29,9 @@ namespace novazero
 
 			int m_CollisionLayer = 0;
 			unsigned int m_ID;
+			std::string m_ColliderName = "";
 
-			void ConfigureCollider(Sprite* sprite, int collisionLayer);
+			void ConfigureCollider(Sprite* sprite, int collisionLayer, std::string colliderName);
 			virtual void OnCollision(const Collision* collision) = 0;
 
 		};

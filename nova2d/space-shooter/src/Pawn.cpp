@@ -41,6 +41,7 @@ namespace spaceshooter
 				2.0f);
 
 		bullet->AddSprite("pawn-bullet", Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
+		bullet->ConfigureCollider(bullet->GetSprite(), 0, "pawn-bullet");
 		bullet->Configure(3, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 
 	}

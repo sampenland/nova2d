@@ -1,7 +1,11 @@
 #include "Player.h"
+#include "physics/Collision.h"
+#include "ai/SimpleFollower.h"
 
 namespace spaceshooter
 {
+	using namespace novazero::ai;
+
 	Player::Player(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
@@ -14,7 +18,7 @@ namespace spaceshooter
 		}
 
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
-		ConfigureCollider(m_Sprite, 0);
+		ConfigureCollider(m_Sprite, 0, "player");
 
 		Game::AddUpdater(std::bind(&Player::Update, this));
 	}
@@ -26,7 +30,21 @@ namespace spaceshooter
 
 	void Player::OnCollision(const Collision* collision)
 	{
-		LOG("Collision");
+		if (collision->m_ColliderA->m_ColliderName == "leader-bullet" ||
+			collision->m_ColliderA->m_ColliderName == "pawn-bullet")
+		{
+			((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
+			m_Lives--;
+		}
+		else if (collision->m_ColliderB->m_ColliderName == "leader-bullet" ||
+			collision->m_ColliderB->m_ColliderName == "pawn-bullet")
+		{
+			((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
+			m_Lives--;
+		}
+
+		LOG("Lives: ");
+		LOG(m_Lives);
 	}
 
 	void Player::Update()

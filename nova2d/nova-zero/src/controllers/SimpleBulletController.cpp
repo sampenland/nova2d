@@ -9,7 +9,7 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleBulletController::SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay)
-			: m_AliveBounds(Rect(0,0,0,0)), m_MoveSpeed(2)
+			: Collider(0), m_AliveBounds(Rect(0,0,0,0)), m_MoveSpeed(2)
 		{
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
 			m_Start = start;
@@ -86,6 +86,11 @@ namespace novazero
 			}
 
 			return true;
+		}
+
+		void SimpleBulletController::OnCollision(const Collision* collision)
+		{
+
 		}
 
 		void SimpleBulletController::DestroySelf()
