@@ -1,3 +1,4 @@
+/*
 #pragma once
 #include "Collider.h"
 #include "../core/Game.h"
@@ -15,10 +16,13 @@ namespace novazero
 			m_ID = Game::GetNextID();
 		}
 
-		void Collider::Configure(Sprite* sprite, common::f_CollisionPassFunction onCollision)
+		/*
+		
+		void Collider::Configure(Sprite* sprite, f_CollisionPassFunction onCollision)
 		{
 			m_Sprite = sprite;
 			f_OnCollision = onCollision;
 		}
 	}
 }
+*/

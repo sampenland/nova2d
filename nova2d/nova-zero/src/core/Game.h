@@ -9,9 +9,8 @@
 #include <vector>
 #include "../utils/AssetManager.h"
 #include "../maths/Rect.h"
-#include "../core/Common.h"
 #include "../utils/ReferenceManager.h"
-#include "../physics/CollisionManager.h"
+//#include "../physics/CollisionManager.h"
 
 namespace novazero
 {
@@ -21,7 +20,6 @@ namespace novazero
 		using namespace maths;
 		using namespace utils;
 		using namespace input;
-		using namespace physics;
 
 		class Game
 		{
@@ -65,7 +63,7 @@ namespace novazero
 			static InputHandler* s_InputHandler;
 			static AssetManager* s_AssetManager;
 			static ReferenceManager* s_ReferenceManager;
-			static CollisionManager* s_CollisionManager;
+			//static CollisionManager* s_CollisionManager;
 
 			static double s_DeltaTime;
 			static int s_Width;

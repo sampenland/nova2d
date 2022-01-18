@@ -1,5 +1,4 @@
-#pragma once
-#include "Collision.h"
+/*#pragma once
 #include "Collider.h"
 
 namespace novazero
@@ -14,7 +13,7 @@ namespace novazero
 			Collider* m_ColliderA;
 			Collider* m_ColliderB;
 
-			Collision() {};
+			Collision() :m_ColliderA(nullptr), m_ColliderB(nullptr) { };
 
 			Collision(Collider* a, Collider* b)
 			{
@@ -34,3 +33,4 @@ namespace novazero
 		};
 	}
 }
+*/

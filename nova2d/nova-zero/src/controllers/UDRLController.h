@@ -3,7 +3,7 @@
 #include <functional>
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"
-#include "../core/Common.h"
+#include "../core/TypeDefs.h"
 
 typedef std::function<void()> f_VoidFunction;
 

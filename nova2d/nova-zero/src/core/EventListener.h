@@ -2,7 +2,8 @@
 #include <vector>
 #include "SDL.h"
 #include <functional>
-#include "Common.h"
+#include "TypeDefs.h"
+#include "Defines.h"
 
 namespace novazero
 {

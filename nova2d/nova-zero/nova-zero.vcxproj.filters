@@ -155,7 +155,7 @@
     <ClInclude Include="src\core\BoundUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Common.h">
+    <ClInclude Include="src\core\Defines.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\ReferenceManager.h">
@@ -177,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\physics\Collision.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\TypeDefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

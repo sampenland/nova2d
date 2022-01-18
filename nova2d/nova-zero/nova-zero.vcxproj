@@ -135,12 +135,13 @@
     <ClInclude Include="src\controllers\SimpleController.h" />
     <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\BoundUser.h" />
-    <ClInclude Include="src\core\Common.h" />
+    <ClInclude Include="src\core\Defines.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
     <ClInclude Include="src\core\Referenceable.h" />
     <ClInclude Include="src\core\Timer.h" />
     <ClInclude Include="src\core\TimerWatcher.h" />
+    <ClInclude Include="src\core\TypeDefs.h" />
     <ClInclude Include="src\physics\Collider.h" />
     <ClInclude Include="src\physics\Collision.h" />
     <ClInclude Include="src\physics\CollisionManager.h" />

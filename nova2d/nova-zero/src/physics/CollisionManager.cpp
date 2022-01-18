@@ -1,3 +1,4 @@
+/*
 #include "CollisionManager.h"
 #include "Collision.h"
 
@@ -82,3 +83,4 @@ namespace novazero
 		}
 	}
 }
+*/

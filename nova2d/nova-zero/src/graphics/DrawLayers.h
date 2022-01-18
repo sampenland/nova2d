@@ -3,7 +3,7 @@
 #include "../graphics/Sprite.h"
 #include <cstring>
 #include "../logging/logging.h"
-#include "../core/Common.h"
+#include "../core/Defines.h"
 
 namespace novazero
 {

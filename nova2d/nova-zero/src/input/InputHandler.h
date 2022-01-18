@@ -1,8 +1,9 @@
 #pragma once
-#include "../core/Common.h"
 #include "../logging/logging.h"
 #include "SDL.h"
 #include <vector>
+#include "../core/Defines.h"
+#include "../core/TypeDefs.h"
 
 namespace novazero
 {
