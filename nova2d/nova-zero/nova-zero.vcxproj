@@ -113,6 +113,8 @@
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
+    <ClCompile Include="src\physics\Collider.cpp" />
+    <ClCompile Include="src\physics\CollisionManager.cpp" />
     <ClCompile Include="src\utils\ReferenceManager.cpp" />
     <ClCompile Include="src\core\SceneManager.cpp" />
     <ClCompile Include="src\graphics\DrawLayers.cpp" />
@@ -139,6 +141,9 @@
     <ClInclude Include="src\core\Referenceable.h" />
     <ClInclude Include="src\core\Timer.h" />
     <ClInclude Include="src\core\TimerWatcher.h" />
+    <ClInclude Include="src\physics\Collider.h" />
+    <ClInclude Include="src\physics\Collision.h" />
+    <ClInclude Include="src\physics\CollisionManager.h" />
     <ClInclude Include="src\utils\ReferenceManager.h" />
     <ClInclude Include="src\graphics\DrawLayers.h" />
     <ClInclude Include="src\input\InputHandler.h" />

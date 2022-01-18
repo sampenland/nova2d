@@ -13,7 +13,7 @@ namespace spaceshooter
 				std::bind(&Player::Shoot, this));
 		}
 
-		m_Sprite->ConfigureAnimation(0, 2, 10, true);
+		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 
 		Game::AddUpdater(std::bind(&Player::Update, this));
 	}

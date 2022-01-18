@@ -32,8 +32,7 @@ namespace novazero
 			m_DestRect.h = (int)size.y;
 
 			// Final
-			m_ID = Game::s_IDCount;
-			Game::s_IDCount++;
+			m_ID = Game::GetNextID();
 			Game::s_Renderer->s_DrawLayers->AddSprite(this, m_Layer);
 		}
 

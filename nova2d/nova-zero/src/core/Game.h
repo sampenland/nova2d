@@ -11,6 +11,7 @@
 #include "../maths/Rect.h"
 #include "../core/Common.h"
 #include "../utils/ReferenceManager.h"
+#include "../physics/CollisionManager.h"
 
 namespace novazero
 {
@@ -20,6 +21,7 @@ namespace novazero
 		using namespace maths;
 		using namespace utils;
 		using namespace input;
+		using namespace physics;
 
 		class Game
 		{
@@ -38,7 +40,6 @@ namespace novazero
 			
 			Window* m_MainWindow = nullptr;
 			SceneManager* m_SceneManager = nullptr;
-
 
 		public:
 
@@ -64,8 +65,8 @@ namespace novazero
 			static InputHandler* s_InputHandler;
 			static AssetManager* s_AssetManager;
 			static ReferenceManager* s_ReferenceManager;
+			static CollisionManager* s_CollisionManager;
 
-			static unsigned int s_IDCount;
 			static double s_DeltaTime;
 			static int s_Width;
 			static int s_Height;
@@ -74,13 +75,16 @@ namespace novazero
 			static std::vector<f_VoidFunction> s_EventSteppers;
 			static void AddEventStepper(f_VoidFunction eventStep);
 			static void RemoveEventStepper(f_VoidFunction eventStep);
-
+			
 			static std::vector<f_VoidFunction> s_Updaters;
 			static void AddUpdater(f_VoidFunction updater);
 			static void RemoveUpdater(f_VoidFunction updater);
 
 			static Rect GetGameBounds();
 			static void SetGamePadding(int padding);
+			
+			static unsigned int s_IDCount;
+			static unsigned int GetNextID() { s_IDCount++; return s_IDCount; }
 		};
 	}
 }

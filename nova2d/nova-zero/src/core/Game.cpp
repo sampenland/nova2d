@@ -15,6 +15,7 @@ namespace novazero
 		InputHandler* Game::s_InputHandler;
 		AssetManager* Game::s_AssetManager;
 		ReferenceManager* Game::s_ReferenceManager;
+		CollisionManager* Game::s_CollisionManager;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -41,6 +42,7 @@ namespace novazero
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
 			s_ReferenceManager = new ReferenceManager();
+			s_CollisionManager = new CollisionManager();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -118,6 +120,8 @@ namespace novazero
 			{
 				s_Updaters[i]();
 			}
+
+			s_CollisionManager->Update();
 		}
 
 		void Game::Update()
