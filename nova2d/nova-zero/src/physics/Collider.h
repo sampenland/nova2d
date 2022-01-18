@@ -1,5 +1,6 @@
-/*#pragma once
+#pragma once
 #include "../graphics/Sprite.h"
+#include "../core/TypeDefs.h"
 
 namespace novazero
 {
@@ -21,11 +22,10 @@ namespace novazero
 			int m_CollisionLayer = 0;
 			unsigned int m_ID;
 			Sprite* m_Sprite;
-			//f_CollisionPassFunction f_OnCollision;
+			f_CollisionPassFunction f_OnCollision;
 
-			//void Configure(Sprite* sprite, f_CollisionPassFunction onCollision);
+			void Configure(Sprite* sprite, f_CollisionPassFunction onCollision);
 
 		};
 	}
 }
-*/

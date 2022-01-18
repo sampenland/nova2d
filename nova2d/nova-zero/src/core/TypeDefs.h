@@ -1,7 +1,8 @@
 #pragma once
 #include <functional>
-#include "../physics/Collision.h"
 #include "SDL.h"
+
+class Collision;
 
 enum JoystickAxis
 {
@@ -11,7 +12,7 @@ enum JoystickAxis
 
 typedef std::function<void()> f_VoidFunction;
 typedef std::function<void(float)> f_FloatPassFunction;
-//typedef std::function<void(Collision)> f_CollisionPassFunction;
+typedef std::function<void(Collision)> f_CollisionPassFunction;
 
 typedef std::function<bool(SDL_Keycode)> f_ConditionalFunction;
 typedef std::function<bool(int, int)> f_JoyStickConditionalFunction;

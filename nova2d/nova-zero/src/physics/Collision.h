@@ -1,4 +1,4 @@
-/*#pragma once
+#pragma once
 #include "Collider.h"
 
 namespace novazero
@@ -33,4 +33,3 @@ namespace novazero
 		};
 	}
 }
-*/

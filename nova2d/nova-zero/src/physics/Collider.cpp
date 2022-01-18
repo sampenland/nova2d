@@ -1,4 +1,3 @@
-/*
 #pragma once
 #include "Collider.h"
 #include "../core/Game.h"
@@ -15,9 +14,7 @@ namespace novazero
 			m_CollisionLayer = collisionLayer;
 			m_ID = Game::GetNextID();
 		}
-
-		/*
-		
+			
 		void Collider::Configure(Sprite* sprite, f_CollisionPassFunction onCollision)
 		{
 			m_Sprite = sprite;
@@ -25,4 +22,3 @@ namespace novazero
 		}
 	}
 }
-*/

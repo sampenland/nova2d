@@ -1,7 +1,6 @@
-/*
 #pragma once
 #include <vector>
-#include "../physics/Collider.h"
+#include "Collider.h"
 
 namespace novazero
 {
@@ -26,4 +25,3 @@ namespace novazero
 		};
 	}
 }
-*/
