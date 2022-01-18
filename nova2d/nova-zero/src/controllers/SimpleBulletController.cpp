@@ -88,7 +88,7 @@ namespace novazero
 			return true;
 		}
 
-		void SimpleBulletController::OnCollision(const Collision* collision)
+		void SimpleBulletController::OnCollision(Collision* collision)
 		{
 
 		}

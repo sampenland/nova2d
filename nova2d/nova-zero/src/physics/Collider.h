@@ -31,8 +31,11 @@ namespace novazero
 			unsigned int m_ID;
 			std::string m_ColliderName = "";
 
+			void(*f_OnCollision)(Collision* collision) = nullptr;
+
 			void ConfigureCollider(Sprite* sprite, int collisionLayer, std::string colliderName);
-			virtual void OnCollision(const Collision* collision) = 0;
+			void ConfigureOnCollision(void(*onCollision)(Collision* collision)) { f_OnCollision = onCollision; }
+			virtual void OnCollision(Collision* collision) = 0;
 
 		};
 	}

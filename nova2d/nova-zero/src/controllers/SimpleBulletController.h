@@ -47,7 +47,7 @@ namespace novazero
 			bool OutOfBounds();
 
 			void DestroySelf() override;
-			void OnCollision(const Collision* collision) override;
+			void OnCollision(Collision* collision) override;
 
 		};
 	}

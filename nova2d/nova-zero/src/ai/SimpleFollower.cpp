@@ -88,7 +88,7 @@ namespace novazero
 				delete m_Sprite;
 		}
 
-		void SimpleFollower::OnCollision(const Collision* collision)
+		void SimpleFollower::OnCollision(Collision* collision)
 		{
 
 		}

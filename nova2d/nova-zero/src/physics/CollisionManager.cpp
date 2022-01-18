@@ -57,8 +57,23 @@ namespace novazero
 
 			for (int i = 0; i < totalCollisions; i++)
 			{
-				collisions[i].m_ColliderA->OnCollision(&collisions[i]);
-				collisions[i].m_ColliderB->OnCollision(&collisions[i]);
+				if (collisions[i].m_ColliderA->f_OnCollision != nullptr)
+				{
+					collisions[i].m_ColliderA->f_OnCollision(&collisions[i]);
+				}
+				else
+				{
+					collisions[i].m_ColliderA->OnCollision(&collisions[i]);
+				}
+
+				if (collisions[i].m_ColliderB->f_OnCollision != nullptr)
+				{
+					collisions[i].m_ColliderB->f_OnCollision(&collisions[i]);
+				}
+				else
+				{
+					collisions[i].m_ColliderB->OnCollision(&collisions[i]);
+				}
 			}
 
 			delete[] collisions;

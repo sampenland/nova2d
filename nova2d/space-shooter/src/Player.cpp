@@ -28,19 +28,31 @@ namespace spaceshooter
 		Game::RemoveUpdater(std::bind(&Player::Update, this));
 	}
 
-	void Player::OnCollision(const Collision* collision)
+	void Player::OnCollision(Collision* collision)
 	{
-		if (collision->m_ColliderA->m_ColliderName == "leader-bullet" ||
-			collision->m_ColliderA->m_ColliderName == "pawn-bullet")
+		if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" && collision->m_ColliderB->m_ColliderName == "player") ||
+			(collision->m_ColliderA->m_ColliderName == "pawn-bullet" && collision->m_ColliderB->m_ColliderName == "player"))
 		{
+			// Bullets with player
 			((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 			m_Lives--;
 		}
-		else if (collision->m_ColliderB->m_ColliderName == "leader-bullet" ||
-			collision->m_ColliderB->m_ColliderName == "pawn-bullet")
+		else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" && collision->m_ColliderA->m_ColliderName == "player") ||
+			(collision->m_ColliderB->m_ColliderName == "pawn-bullet" && collision->m_ColliderA->m_ColliderName == "player"))
 		{
+			// Bullets with player
 			((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 			m_Lives--;
+		}
+
+		// Bullet with bullet
+		if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
+			collision->m_ColliderB->m_ColliderName == "pawn-bullet") ||
+			(collision->m_ColliderB->m_ColliderName == "player-bullet" &&
+			collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
+		{
+			((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+			((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 		}
 
 		LOG("Lives: ");
@@ -74,5 +86,8 @@ namespace spaceshooter
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight()), 4);
 		bullet->Configure(20, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
+		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
+
+		bullet->ConfigureOnCollision(std::bind(&Player::OnCollision, this, std::placeholders::_1));
 	}
 }
