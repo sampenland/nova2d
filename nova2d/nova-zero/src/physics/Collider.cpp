@@ -25,6 +25,8 @@ namespace novazero
 			
 		void Collider::ConfigureCollider(Sprite* sprite, int collisionLayer, std::string colliderName)
 		{
+			m_UsingCollider = true;
+
 			m_CollisionLayer = collisionLayer;
 			m_ColliderSprite = sprite;
 			m_ColliderName = colliderName;

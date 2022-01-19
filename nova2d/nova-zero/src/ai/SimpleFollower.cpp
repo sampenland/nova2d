@@ -83,6 +83,11 @@ namespace novazero
 			m_Alive = false;
 
 			Game::RemoveUpdater(std::bind(&SimpleFollower::Update, this));
+
+			if (m_UsingCollider)
+			{
+				Game::s_CollisionManager->RemoveCollider(this);
+			}
 			
 			if (m_Sprite)
 				delete m_Sprite;

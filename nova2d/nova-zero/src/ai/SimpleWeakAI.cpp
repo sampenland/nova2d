@@ -15,6 +15,7 @@ namespace novazero
 
 			if (m_Sprite)
 				delete m_Sprite;
+
 		}
 
 		void SimpleWeakAI::Configure(float moveSpeed, bool loop)

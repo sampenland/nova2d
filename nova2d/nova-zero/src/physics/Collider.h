@@ -30,6 +30,7 @@ namespace novazero
 			int m_CollisionLayer = 0;
 			unsigned int m_ID;
 			std::string m_ColliderName = "";
+			bool m_UsingCollider = false;
 
 			std::function<void(Collision* c)> f_OnCollision = nullptr;
 

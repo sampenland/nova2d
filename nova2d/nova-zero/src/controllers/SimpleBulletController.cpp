@@ -101,6 +101,11 @@ namespace novazero
 
 			Game::RemoveUpdater(std::bind(&SimpleBulletController::Update, this));
 
+			if (m_UsingCollider)
+			{
+				Game::s_CollisionManager->RemoveCollider(this);
+			}
+
 			if (m_Sprite)
 				delete m_Sprite;
 		}
