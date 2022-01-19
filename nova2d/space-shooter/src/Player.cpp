@@ -45,16 +45,6 @@ namespace spaceshooter
 			m_Lives--;
 		}
 
-		// Bullet with bullet
-		if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
-			collision->m_ColliderB->m_ColliderName == "pawn-bullet") ||
-			(collision->m_ColliderB->m_ColliderName == "player-bullet" &&
-			collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
-		{
-			((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-			((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-		}
-
 		LOG("Lives: ");
 		LOG(m_Lives);
 	}
@@ -88,6 +78,19 @@ namespace spaceshooter
 		bullet->AddSprite("player-bullet", Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
 
-		bullet->ConfigureOnCollision(std::bind(&Player::OnCollision, this, std::placeholders::_1));
+		auto collisionFunction = [](Collision* collision) 
+		{ 
+			// Bullet with bullet
+			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
+				collision->m_ColliderB->m_ColliderName == "pawn-bullet") ||
+				(collision->m_ColliderB->m_ColliderName == "player-bullet" &&
+					collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
+			{
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+			}		
+		};
+		// Todo: Fix above, as func on stack and clears out of scope - crash
+		bullet->ConfigureOnCollision(collisionFunction);
 	}
 }
