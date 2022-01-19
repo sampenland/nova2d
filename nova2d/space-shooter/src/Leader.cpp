@@ -27,8 +27,7 @@ namespace spaceshooter
 				int	offsetX = col * 96;
 				int offsetY = -64 - (row * 32);
 
-				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16),
-					0, m_Sprite, 0.0f);
+				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16), 1, m_Sprite, 0.0f);
 				pawn->Configure(m_MoveSpeed + 2);
 				pawn->ConfigureShoot(5000, 10000);
 				pawn->Offset(Vec2Int(offsetX, offsetY));
@@ -66,7 +65,7 @@ namespace spaceshooter
 		
 		Player* player = (Player*)Game::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
-		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 0);
+		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");
 		// Todo: fix this
 		//bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));

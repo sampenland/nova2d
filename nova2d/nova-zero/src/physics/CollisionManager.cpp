@@ -1,5 +1,6 @@
 #include "CollisionManager.h"
 #include "Collision.h"
+#include "../logging/logging.h"
 
 namespace novazero
 {
@@ -16,22 +17,21 @@ namespace novazero
 		}
 
 		void CollisionManager::Update()
-		{
-			int maxPossibleCollisions = m_Colliders.size();
-			
-			if (maxPossibleCollisions < 2) return;
+		{			
+			return; // Todo: clean up on m_Colliders, not happening when they go off screen
+			int colliders = m_Colliders.size();
+			if (colliders < 2) return;
+			LOG(colliders);
 
-			Collision* collisions = new Collision[maxPossibleCollisions];
-			memset(collisions, 0, maxPossibleCollisions);
+			std::vector<Collision> collisions;
 
 			bool checking = true;
 
-			int totalCollisions = 0;
 			int left = 0;
 			int right = 1;
-			while (right < maxPossibleCollisions)
+			while (right < colliders)
 			{
-				for (int i = right; i < maxPossibleCollisions; i++)
+				for (int i = right; i < colliders; i++)
 				{
 					Collider* a = m_Colliders.at(left);
 					Collider* b = m_Colliders.at(i);
@@ -45,8 +45,7 @@ namespace novazero
 						a->m_ColliderSprite->GetY() + a->m_ColliderSprite->GetHeight() > b->m_ColliderSprite->GetY())
 					{
 						Collision colli(a, b);
-						collisions[totalCollisions] = colli;
-						totalCollisions++;
+						collisions.push_back(colli);
 					}
 
 				}
@@ -55,7 +54,7 @@ namespace novazero
 				right = left + 1;
 			}
 
-			for (int i = 0; i < totalCollisions; i++)
+			for (size_t i = 0; i < collisions.size(); i++)
 			{
 				if (collisions[i].m_ColliderA->f_OnCollision != nullptr)
 				{
@@ -75,8 +74,6 @@ namespace novazero
 					collisions[i].m_ColliderB->OnCollision(&collisions[i]);
 				}
 			}
-
-			delete[] collisions;
 		}
 
 		void CollisionManager::AddCollider(Collider* collider)

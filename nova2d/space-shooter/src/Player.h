@@ -25,6 +25,7 @@ namespace spaceshooter
 		double m_ShootDelay = 0.00;
 
 		int m_Lives = 3;
+		std::vector<Sprite*> m_LifeSprites;
 
 	public:
 

@@ -106,7 +106,7 @@ namespace novazero
 
 		void Game::Clean()
 		{
-
+			
 		}
 
 		void Game::Process()
