@@ -1,6 +1,7 @@
 #pragma once
 #include "../core/Positional.h"
 #include "../core/Timer.h"
+#include "Drawable.h"
 
 namespace novazero
 {
@@ -9,7 +10,7 @@ namespace novazero
 		using namespace core;
 		using namespace maths;
 		
-		class Sprite : public Positional
+		class Sprite : public Positional, public Drawable
 		{
 			
 		private:
@@ -41,7 +42,7 @@ namespace novazero
 			void Update();
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
-			void Draw();
+			void Draw() override;
 
 			bool m_Visible = true;
 			void ChangeLayer(char layer) { m_Layer = layer; }

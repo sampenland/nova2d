@@ -12,7 +12,7 @@ namespace novazero
 		{
 			for (int i = 0; i < MAX_LAYERS; i++)
 			{
-				std::vector<Sprite*> layer;
+				std::vector<Drawable*> layer;
 				m_Layers[i] = layer;
 			}
 		}
@@ -22,7 +22,7 @@ namespace novazero
 
 		}
 
-		void DrawLayers::AddSprite(Sprite* sprite, const char layer)
+		void DrawLayers::AddSprite(Drawable* sprite, const char layer)
 		{
 			if (sprite)
 			{

@@ -107,6 +107,7 @@
   <ItemGroup>
     <ClCompile Include="src\ai\SimpleFollower.cpp" />
     <ClCompile Include="src\ai\SimpleWeakAI.cpp" />
+    <ClCompile Include="src\components\SimpleStatBar.cpp" />
     <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
     <ClCompile Include="src\controllers\SimpleController.cpp" />
     <ClCompile Include="src\controllers\UDRLController.cpp" />
@@ -131,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
+    <ClInclude Include="src\components\SimpleStatBar.h" />
     <ClInclude Include="src\controllers\SimpleBulletController.h" />
     <ClInclude Include="src\controllers\SimpleController.h" />
     <ClInclude Include="src\controllers\UDRLController.h" />
@@ -142,6 +144,7 @@
     <ClInclude Include="src\core\Timer.h" />
     <ClInclude Include="src\core\TimerWatcher.h" />
     <ClInclude Include="src\core\TypeDefs.h" />
+    <ClInclude Include="src\graphics\Drawable.h" />
     <ClInclude Include="src\physics\Collider.h" />
     <ClInclude Include="src\physics\Collision.h" />
     <ClInclude Include="src\physics\CollisionManager.h" />

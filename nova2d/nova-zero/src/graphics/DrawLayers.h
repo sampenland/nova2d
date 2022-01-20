@@ -1,9 +1,10 @@
 #pragma once
 #include "../core/Defines.h"
 #include <vector>
-#include "../graphics/Sprite.h"
+#include "Sprite.h"
 #include <cstring>
 #include "../logging/logging.h"
+#include "Drawable.h"
 
 namespace novazero
 {
@@ -14,14 +15,14 @@ namespace novazero
 
 		private:
 
-			std::vector<Sprite*> m_Layers[MAX_LAYERS];
+			std::vector<Drawable*> m_Layers[MAX_LAYERS];
 
 		public:
 
 			DrawLayers();
 			~DrawLayers();
 
-			void AddSprite(Sprite* sprite, const char layer);
+			void AddSprite(Drawable* sprite, const char layer);
 			void RemoveSprite(unsigned int id, char layer);
 
 			void ClearSprites();
