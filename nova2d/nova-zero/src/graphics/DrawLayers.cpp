@@ -28,10 +28,26 @@ namespace novazero
 			{
 				if (layer < MAX_LAYERS)
 				{
-					sprite->m_Layer = layer;
-					m_Layers[layer].push_back(sprite);
+					if (!HasSpriteOnLayer(sprite, layer)) 
+					{
+						sprite->m_Layer = layer;
+						m_Layers[layer].push_back(sprite);
+					}
 				}
 			}
+		}
+
+		bool DrawLayers::HasSpriteOnLayer(Drawable* sprite, const char layer)
+		{
+			if (sprite)
+			{
+				if (layer < MAX_LAYERS)
+				{
+					return m_Layers[layer].end() != std::find(m_Layers[layer].begin(), m_Layers[layer].end(), sprite);
+				}
+			}
+
+			return false;
 		}
 
 		void DrawLayers::RemoveSprite(unsigned int id, char layer)

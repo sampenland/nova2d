@@ -14,7 +14,7 @@ namespace novazero
 		using namespace logging;
 
 		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
-			: m_ID(0), m_Layer(0), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
+			: m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
 			m_Position = position;
 

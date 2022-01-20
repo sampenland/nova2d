@@ -24,6 +24,7 @@ namespace novazero
 
 			void AddSprite(Drawable* sprite, const char layer);
 			void RemoveSprite(unsigned int id, char layer);
+			bool HasSpriteOnLayer(Drawable* sprite, const char layer);
 
 			void ClearSprites();
 

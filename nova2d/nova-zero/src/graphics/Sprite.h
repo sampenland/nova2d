@@ -49,11 +49,6 @@ namespace novazero
 
 			bool operator==(const Sprite& other);
 
-		public:
-
-			unsigned int m_ID;
-			char m_Layer;
-
 		};
 	}
 }
