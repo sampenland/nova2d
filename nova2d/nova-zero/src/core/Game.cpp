@@ -14,7 +14,6 @@ namespace novazero
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
 		AssetManager* Game::s_AssetManager;
-		ReferenceManager* Game::s_ReferenceManager;
 		CollisionManager* Game::s_CollisionManager;
 		SceneManager* Game::s_SceneManager;
 
@@ -27,7 +26,7 @@ namespace novazero
 		// --------------------------------
 
 		Game::Game(const Vec2Int screenSize, const char* title, const Color backgroundColor)
-			: m_Title(title)
+			: m_Title(title), NOW(0), LAST(0)
 		{
 
 			m_SceneManager = new SceneManager();
@@ -42,7 +41,6 @@ namespace novazero
 			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
-			s_ReferenceManager = new ReferenceManager();
 			s_CollisionManager = new CollisionManager();
 			s_SceneManager = new SceneManager();
 
@@ -156,9 +154,6 @@ namespace novazero
 
 			if (s_AssetManager)
 				delete s_AssetManager;
-
-			if (s_ReferenceManager)
-				delete s_ReferenceManager;
 
 			if (s_CollisionManager)
 				delete s_CollisionManager;

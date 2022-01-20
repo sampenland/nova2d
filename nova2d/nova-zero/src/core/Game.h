@@ -64,7 +64,6 @@ namespace novazero
 			static ColorManager* s_ColorManager;
 			static InputHandler* s_InputHandler;
 			static AssetManager* s_AssetManager;
-			static ReferenceManager* s_ReferenceManager;
 			static CollisionManager* s_CollisionManager;
 			static SceneManager* s_SceneManager;
 

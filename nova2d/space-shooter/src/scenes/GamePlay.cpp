@@ -22,7 +22,7 @@ namespace spaceshooter
 		player->ConfigureMove(3);
 		player->SetMoveBounds(Game::GetGameBounds());
 
-		Game::s_ReferenceManager->AddReference("player", player);
+		SceneManager::s_ReferenceManager->AddReference("player", player);
 
 		Leader enemy("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
 		enemy.ConfigureAliveBounds(Game::GetGameBounds());
