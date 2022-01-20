@@ -68,10 +68,6 @@ namespace novazero
 			static int s_Width;
 			static int s_Height;
 			static int s_Padding;
-			
-			static std::vector<f_VoidFunction> s_Updaters;
-			static void AddUpdater(f_VoidFunction updater);
-			static void RemoveUpdater(f_VoidFunction updater);
 
 			static Rect GetGameBounds();
 			static void SetGamePadding(int padding);

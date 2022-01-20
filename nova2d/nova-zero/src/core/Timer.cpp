@@ -13,12 +13,12 @@ namespace novazero
 
 			m_OnFinish = endDelayFunc;
 
-			Game::AddUpdater(std::bind(&Timer::Update, this));
+			SceneManager::AddUpdater(std::bind(&Timer::Update, this));
 		}
 
 		Timer::~Timer()
 		{
-			Game::RemoveUpdater(std::bind(&Timer::Update, this));
+			SceneManager::RemoveUpdater(std::bind(&Timer::Update, this));
 		}
 
 		void Timer::Update()

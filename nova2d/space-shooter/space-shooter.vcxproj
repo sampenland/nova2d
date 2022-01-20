@@ -89,9 +89,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Leader.cpp" />
+    <ClCompile Include="src\enemies\Leader.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Pawn.cpp" />
+    <ClCompile Include="src\enemies\Pawn.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\scenes\GamePlay.cpp" />
   </ItemGroup>
@@ -111,8 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\GamePlay.h" />
-    <ClInclude Include="src\Leader.h" />
-    <ClInclude Include="src\Pawn.h" />
+    <ClInclude Include="src\enemies\Leader.h" />
+    <ClInclude Include="src\enemies\Pawn.h" />
     <ClInclude Include="src\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -26,7 +26,21 @@ namespace novazero
 		
 		void SceneManager::Update()
 		{
+			for (size_t i = 0; i < s_Updaters.size(); i++)
+			{
+				s_Updaters[i]();
+			}
 
+			s_CollisionManager->Update();
+		}
+
+		void SceneManager::ChangeScene(Scene* scene)
+		{
+			s_Updaters.clear();
+			s_CollisionManager->ClearColliders();
+
+			m_CurrentScene = scene;
+			
 		}
 
 		void SceneManager::RemoveUpdater(f_VoidFunction updater)

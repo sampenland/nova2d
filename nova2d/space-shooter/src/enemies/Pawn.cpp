@@ -10,7 +10,7 @@ namespace spaceshooter
 	{
 		AddSprite(assetName, position, size, layer);
 
-		Game::AddUpdater(std::bind(&Pawn::Update, this));
+		SceneManager::AddUpdater(std::bind(&Pawn::Update, this));
 	}
 
 	Pawn::~Pawn()

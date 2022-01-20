@@ -18,6 +18,8 @@ namespace novazero
 			CollisionManager();
 			~CollisionManager();
 
+			void ClearColliders();
+
 			void AddCollider(Collider* object);
 			void RemoveCollider(Collider* collider);
 

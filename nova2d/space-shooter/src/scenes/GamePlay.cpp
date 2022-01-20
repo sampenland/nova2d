@@ -1,6 +1,6 @@
 #include "GamePlay.h"
 #include "../Player.h"
-#include "../Leader.h"
+#include "../enemies/Leader.h"
 #include "maths/Vec2Int.h"
 
 namespace spaceshooter

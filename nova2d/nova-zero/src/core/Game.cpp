@@ -6,9 +6,6 @@ namespace novazero
 	{
 		using namespace maths;
 
-		// --------
-		std::vector<f_VoidFunction> Game::s_Updaters;
-
 		Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
@@ -113,12 +110,7 @@ namespace novazero
 
 		void Game::Process()
 		{			
-			for (size_t i = 0; i < s_Updaters.size(); i++) 
-			{
-				s_Updaters[i]();
-			}
-
-			SceneManager::s_CollisionManager->Update();
+			s_SceneManager->Update();
 		}
 
 		void Game::Update()
@@ -149,29 +141,6 @@ namespace novazero
 
 			SDL_Quit();
 
-		}
-
-		void Game::RemoveUpdater(f_VoidFunction updater)
-		{
-			int idx = -1;
-			for (size_t i = 0; i < s_Updaters.size(); i++)
-			{
-				if (&s_Updaters[i] == &updater)
-				{
-					idx = i;
-					break;
-				}
-			}
-
-			if (idx == -1)return;
-
-			s_Updaters.erase(s_Updaters.begin() + idx);
-
-		}
-
-		void Game::AddUpdater(f_VoidFunction updater)
-		{
-			s_Updaters.push_back(updater);
 		}
 
 		Rect Game::GetGameBounds()

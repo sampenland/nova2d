@@ -39,14 +39,14 @@ namespace spaceshooter
 			
 		}
 
-		Game::AddUpdater(std::bind(&Leader::Update, this));
-		Game::AddUpdater(std::bind(&Leader::ShootUpdate, this));
+		SceneManager::AddUpdater(std::bind(&Leader::Update, this));
+		SceneManager::AddUpdater(std::bind(&Leader::ShootUpdate, this));
 	}
 
 	Leader::~Leader()
 	{
-		Game::RemoveUpdater(std::bind(&Leader::Update, this));
-		Game::RemoveUpdater(std::bind(&Leader::ShootUpdate, this));
+		SceneManager::RemoveUpdater(std::bind(&Leader::Update, this));
+		SceneManager::RemoveUpdater(std::bind(&Leader::ShootUpdate, this));
 	}
 
 	void Leader::ShootUpdate()
@@ -102,7 +102,7 @@ namespace spaceshooter
 
 		m_Destroyed = true;
 
-		Game::RemoveUpdater(std::bind(&Leader::Update, this));
+		SceneManager::RemoveUpdater(std::bind(&Leader::Update, this));
 
 		if (m_Sprite)
 			delete m_Sprite;

@@ -6,12 +6,12 @@ namespace novazero
 	{
 		SimpleWeakAI::SimpleWeakAI()
 		{
-			Game::AddUpdater(std::bind(&SimpleWeakAI::Update, this));
+			SceneManager::AddUpdater(std::bind(&SimpleWeakAI::Update, this));
 		}
 
 		SimpleWeakAI::~SimpleWeakAI()
 		{
-			Game::RemoveUpdater(std::bind(&SimpleWeakAI::Update, this));
+			SceneManager::RemoveUpdater(std::bind(&SimpleWeakAI::Update, this));
 
 			if (m_Sprite)
 				delete m_Sprite;

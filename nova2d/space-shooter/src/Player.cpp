@@ -28,12 +28,12 @@ namespace spaceshooter
 			m_LifeSprites.push_back(life);
 		}
 
-		Game::AddUpdater(std::bind(&Player::Update, this));
+		SceneManager::AddUpdater(std::bind(&Player::Update, this));
 	}
 
 	Player::~Player()
 	{
-		Game::RemoveUpdater(std::bind(&Player::Update, this));
+		SceneManager::RemoveUpdater(std::bind(&Player::Update, this));
 	}
 
 	void Player::OnCollision(Collision* collision)

@@ -2,7 +2,7 @@
 #include "ai/SimpleWeakAI.h"
 #include "Pawn.h"
 #include <vector>
-#include "Player.h"
+#include "../Player.h"
 
 namespace spaceshooter
 {

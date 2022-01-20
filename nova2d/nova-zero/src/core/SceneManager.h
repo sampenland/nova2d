@@ -16,13 +16,16 @@ namespace novazero
 		private:
 		
 			Scene* m_FirstScene = nullptr;
+			Scene* m_CurrentScene = nullptr;
 
 		public:
 		
 			SceneManager();
 			~SceneManager();
 
-			void ConfigureFirstScene(Scene* firstScene) { m_FirstScene = firstScene; }
+			void ConfigureFirstScene(Scene* firstScene) { m_FirstScene = firstScene; m_CurrentScene = firstScene; }
+
+			void ChangeScene(Scene* toScene);
 
 			void Update();
 

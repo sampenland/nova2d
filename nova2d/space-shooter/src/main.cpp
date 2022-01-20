@@ -2,7 +2,7 @@
 #include "graphics/window.h"
 #include "core/Game.h"
 #include "Player.h"
-#include "Leader.h"
+#include "enemies/Leader.h"
 
 #include "scenes/GamePlay.h"
 

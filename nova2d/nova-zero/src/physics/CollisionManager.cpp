@@ -16,6 +16,11 @@ namespace novazero
 
 		}
 
+		void CollisionManager::ClearColliders()
+		{
+			m_Colliders.clear();
+		}
+
 		void CollisionManager::Update()
 		{			
 			// Todo: clean up on m_Colliders, not happening when they go off screen
