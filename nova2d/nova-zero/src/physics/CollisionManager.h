@@ -1,11 +1,12 @@
 #pragma once
 #include <vector>
-#include "Collider.h"
 
 namespace novazero
 {
 	namespace physics
 	{
+		class Collider;
+
 		class CollisionManager
 		{
 

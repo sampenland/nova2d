@@ -40,14 +40,14 @@ namespace novazero
 		protected:
 			
 			Sprite* m_Sprite = nullptr;
-			float m_MoveSpeed = 1.0f;
+			int m_MoveSpeed = 1;
 
 		public:
 
 			SimpleWeakAI();
 			~SimpleWeakAI();
 
-			void Configure(float moveSpeed, bool loop);
+			void Configure(int moveSpeed, bool loop);
 			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }
 			void EnableAI(bool isEnabled);
 			void ResetAI();

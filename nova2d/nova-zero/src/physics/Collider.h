@@ -1,6 +1,5 @@
 #pragma once
 #include "../graphics/Sprite.h"
-#include "../core/TypeDefs.h"
 #include <string>
 
 namespace novazero

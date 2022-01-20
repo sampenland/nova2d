@@ -18,7 +18,7 @@ namespace novazero
 			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			SceneManager::AddUpdater(std::bind(&SimpleBulletController::Update, this));
+			n2dAddUpdater(SimpleBulletController::Update, this);
 		}
 
 		SimpleBulletController::~SimpleBulletController()
@@ -49,7 +49,7 @@ namespace novazero
 
 			if (m_DelayTime > 0)
 			{
-				m_DelayTime -= Game::s_DeltaTime;
+				m_DelayTime = (float)(m_DelayTime - Game::s_DeltaTime);
 				return;
 			}
 
@@ -99,7 +99,7 @@ namespace novazero
 
 			m_Destroyed = true;
 
-			SceneManager::RemoveUpdater(std::bind(&SimpleBulletController::Update, this));
+			n2dRemoveUpdater(SimpleBulletController::Update, this);
 
 			if (m_UsingCollider)
 			{

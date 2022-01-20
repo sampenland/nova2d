@@ -1,3 +1,5 @@
+#include "../core/Game.h"
+
 #include "DrawLayers.h"
 
 namespace novazero
@@ -37,7 +39,7 @@ namespace novazero
 			if (layer < 0 || layer > MAX_LAYERS) return;
 
 			int idx = -1;
-			for (int i = 0; i < m_Layers[layer].size(); i++)
+			for (int i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
 				if (m_Layers[layer][i]->m_ID == id)
 				{
@@ -62,7 +64,7 @@ namespace novazero
 
 		void DrawLayers::DrawLayer(const char layer) const
 		{
-			for (int i = 0; i < m_Layers[layer].size(); i++)
+			for (int i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
 				m_Layers[layer][i]->Draw();
 			}

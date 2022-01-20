@@ -1,7 +1,8 @@
 #include "TextureLoader.h"
+#include "../core/Game.h"
+
 #include "SDL_image.h"
 #include "../logging/Logging.h"
-#include "../core/Game.h"
 
 namespace novazero
 {

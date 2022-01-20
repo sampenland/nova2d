@@ -1,9 +1,5 @@
 #pragma once
-#include <vector>
-#include "SDL.h"
-#include <functional>
-#include "TypeDefs.h"
-#include "Defines.h"
+#include "../core/Game.h"
 
 namespace novazero
 {

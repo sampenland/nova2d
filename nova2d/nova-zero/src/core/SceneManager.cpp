@@ -1,5 +1,4 @@
 #include "SceneManager.h"
-#include "TypeDefs.h"
 #include "../graphics/Renderer.h"
 
 namespace novazero

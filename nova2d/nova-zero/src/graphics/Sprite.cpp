@@ -1,6 +1,8 @@
 #include "Sprite.h"
+
 #include "../utils/TextureLoader.h"
 #include "../logging/Logging.h"
+#include "SDL_image.h"
 #include "../core/Game.h"
 
 namespace novazero

@@ -1,25 +1,32 @@
 #pragma once
+#include "../core/Defines.h"
+#include "../core/TypeDefs.h"
+#include "SDL.h"
+//#include <vector>
+//#include <functional>
+
 #include "../input/InputHandler.h"
 #include "../graphics/Window.h"
+
 #include "SceneManager.h"
-#include "../graphics/Renderer.h"
 #include "../utils/ColorManager.h"
-#include "../graphics/Color.h"
-#include "EventListener.h"
-#include <vector>
 #include "../utils/AssetManager.h"
+#include "../physics/CollisionManager.h"
+
+#include "../graphics/Color.h"
+#include <vector>
 #include "../maths/Rect.h"
 
 namespace novazero
 {
+
+	namespace graphics
+	{
+		class Renderer;
+	}
+
 	namespace core
 	{
-		using namespace graphics;
-		using namespace maths;
-		using namespace utils;
-		using namespace input;
-		using namespace physics;
-
 		class Game
 		{
 
@@ -35,12 +42,12 @@ namespace novazero
 			bool m_Running = false;
 			const char* m_Title = {};
 			
-			Window* m_MainWindow = nullptr;
-			SceneManager* m_SceneManager = nullptr;
+			novazero::graphics::Window* m_MainWindow = nullptr;
+			novazero::core::SceneManager* m_SceneManager = nullptr;
 
 		public:
 
-			Game(const Vec2Int screenSize, const char* title, const Color backgroundColor = Color(0, 0, 0, 255));
+			Game(const novazero::maths::Vec2Int screenSize, const char* title);
 			~Game();
 
 			inline bool IsRunning() const { return m_Running; }
@@ -58,10 +65,10 @@ namespace novazero
 
 		public:
 
-			static Renderer* s_Renderer;
-			static ColorManager* s_ColorManager;
-			static InputHandler* s_InputHandler;
-			static AssetManager* s_AssetManager;
+			static novazero::graphics::Renderer* s_Renderer;
+			static novazero::utils::ColorManager* s_ColorManager;
+			static novazero::input::InputHandler* s_InputHandler;
+			static novazero::utils::AssetManager* s_AssetManager;
 			static SceneManager* s_SceneManager;
 
 			static double s_DeltaTime;
@@ -69,7 +76,7 @@ namespace novazero
 			static int s_Height;
 			static int s_Padding;
 
-			static Rect GetGameBounds();
+			static novazero::maths::Rect GetGameBounds();
 			static void SetGamePadding(int padding);
 			
 			static unsigned int s_IDCount;

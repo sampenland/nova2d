@@ -1,5 +1,8 @@
 #include "ColorManager.h"
 
+#include "../logging/logging.h"
+#include <regex>
+
 namespace novazero
 {
 	namespace utils

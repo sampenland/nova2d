@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -8,10 +9,10 @@ namespace novazero
 
 		DrawLayers* Renderer::s_DrawLayers;
 
-		Renderer::Renderer(SDL_Window& window, const Color bkgColor)
+		Renderer::Renderer(SDL_Window& window, Color backgroundColor)
 		{
 			m_Renderer = SDL_CreateRenderer(&window, -1, 0);
-			m_BackgroundColor = bkgColor;
+			m_BackgroundColor = backgroundColor;
 			s_DrawLayers = new DrawLayers();
 		}
 
@@ -29,6 +30,11 @@ namespace novazero
 			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor.r, (Uint8)m_BackgroundColor.g,
 				(Uint8)m_BackgroundColor.b, (Uint8)m_BackgroundColor.a);
 			SDL_RenderClear(m_Renderer);
+		}
+
+		void Renderer::SetBackgroundColor(std::string colorName)
+		{
+			m_BackgroundColor = n2dGetColor(colorName);
 		}
 
 		void Renderer::PostDraw() const

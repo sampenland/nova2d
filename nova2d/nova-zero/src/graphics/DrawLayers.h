@@ -1,9 +1,9 @@
 #pragma once
+#include "../core/Defines.h"
 #include <vector>
 #include "../graphics/Sprite.h"
 #include <cstring>
 #include "../logging/logging.h"
-#include "../core/Defines.h"
 
 namespace novazero
 {

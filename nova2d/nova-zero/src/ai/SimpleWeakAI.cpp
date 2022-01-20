@@ -6,19 +6,19 @@ namespace novazero
 	{
 		SimpleWeakAI::SimpleWeakAI()
 		{
-			SceneManager::AddUpdater(std::bind(&SimpleWeakAI::Update, this));
+			n2dAddUpdater(SimpleWeakAI::Update, this);
 		}
 
 		SimpleWeakAI::~SimpleWeakAI()
 		{
-			SceneManager::RemoveUpdater(std::bind(&SimpleWeakAI::Update, this));
+			n2dRemoveUpdater(SimpleWeakAI::Update, this);
 
 			if (m_Sprite)
 				delete m_Sprite;
 
 		}
 
-		void SimpleWeakAI::Configure(float moveSpeed, bool loop)
+		void SimpleWeakAI::Configure(int moveSpeed, bool loop)
 		{
 			m_MoveSpeed = moveSpeed;
 			m_LoopMoving = loop;
@@ -92,7 +92,7 @@ namespace novazero
 			if (m_PatrolIndex == -1) 
 				return;
 
-			if (m_PatrolIndex >= m_MoveFunctions.size()) return;
+			if (m_PatrolIndex >= (int)m_MoveFunctions.size()) return;
 
 			m_MoveFunctions[m_PatrolIndex]();
 		}
@@ -107,7 +107,7 @@ namespace novazero
 				}
 			}
 
-			if (m_PatrolIndex < m_PatrolPoints.size())
+			if (m_PatrolIndex < (int)m_PatrolPoints.size())
 			{
 				int currentX = GetX();
 				int currentY = GetY();
@@ -121,7 +121,7 @@ namespace novazero
 				if (newX == endVector.x && newY == endVector.y)
 				{
 					m_PatrolIndex++;
-					if (m_PatrolIndex >= m_PatrolPoints.size())
+					if (m_PatrolIndex >= (int)m_PatrolPoints.size())
 					{
 						m_PatrolIndex = -1;
 						return;

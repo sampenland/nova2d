@@ -39,14 +39,14 @@ namespace spaceshooter
 			
 		}
 
-		SceneManager::AddUpdater(std::bind(&Leader::Update, this));
-		SceneManager::AddUpdater(std::bind(&Leader::ShootUpdate, this));
+		n2dAddUpdater(Leader::Update, this);
+		n2dAddUpdater(Leader::ShootUpdate, this);
 	}
 
 	Leader::~Leader()
 	{
-		SceneManager::RemoveUpdater(std::bind(&Leader::Update, this));
-		SceneManager::RemoveUpdater(std::bind(&Leader::ShootUpdate, this));
+		n2dRemoveUpdater(Leader::Update, this);
+		n2dRemoveUpdater(Leader::ShootUpdate, this);
 	}
 
 	void Leader::ShootUpdate()
@@ -58,7 +58,7 @@ namespace spaceshooter
 			return;
 		}
 
-		m_DelayShoot -= Game::s_DeltaTime;
+		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
 	}
 
 	void Leader::Shoot()
@@ -102,7 +102,7 @@ namespace spaceshooter
 
 		m_Destroyed = true;
 
-		SceneManager::RemoveUpdater(std::bind(&Leader::Update, this));
+		n2dRemoveUpdater(Leader::Update, this);
 
 		if (m_Sprite)
 			delete m_Sprite;

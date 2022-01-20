@@ -1,7 +1,7 @@
 #pragma once
 #include "../logging/logging.h"
-#include "SDL.h"
 #include <vector>
+#include "SDL.h"
 #include "../core/Defines.h"
 #include "../core/TypeDefs.h"
 

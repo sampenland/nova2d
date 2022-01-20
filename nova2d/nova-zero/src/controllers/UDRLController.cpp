@@ -4,17 +4,15 @@ namespace novazero
 {
 	namespace controllers
 	{
+		using namespace input;
+
 		UDRLController::UDRLController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 			: SimpleController(assetName, position, size, layer)
 		{
 			
 			EnableWASD(true);
 			EnableArrowKeys(true);
-			EnableXbox360(true);
-			
-			// Link so events get triggered
-			SceneManager::AddUpdater(std::bind(&UDRLController::EventStep, this));
-			
+			EnableXbox360(true);			
 		}
 
 		UDRLController::~UDRLController()
@@ -22,8 +20,6 @@ namespace novazero
 			EnableWASD(false);
 			EnableArrowKeys(false);
 			EnableXbox360(false);
-			
-			SceneManager::RemoveUpdater(std::bind(&UDRLController::EventStep, this));
 		}
 
 		void UDRLController::ConfigureMove(int moveSpeed)
@@ -163,8 +159,6 @@ namespace novazero
 			if (m_Destroyed) return;
 
 			m_Destroyed = true;
-
-			SceneManager::RemoveUpdater(std::bind(&UDRLController::EventStep, this));
 
 			if (m_Sprite)
 				delete m_Sprite;

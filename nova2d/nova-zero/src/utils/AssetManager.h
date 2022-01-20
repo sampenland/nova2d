@@ -2,8 +2,6 @@
 #include "SDL.h"
 #include <map>
 #include <string>
-#include "../logging/logging.h"
-#include "../utils/TextureLoader.h"
 
 namespace novazero
 {

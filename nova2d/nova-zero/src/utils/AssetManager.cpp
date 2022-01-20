@@ -1,4 +1,6 @@
 #include "AssetManager.h"
+#include "../logging/logging.h"
+#include "../utils/TextureLoader.h"
 
 namespace novazero
 {
@@ -39,6 +41,7 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
+				LOG(oor.what());
 				LOG(name);
 				LOG("Cannot find texture");
 				return nullptr;

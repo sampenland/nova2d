@@ -1,12 +1,18 @@
 #pragma once
 #include "Scene.h"
-#include "../utils/ReferenceManager.h"
+#include "TypeDefs.h"
 #include "../physics/CollisionManager.h"
+#include "../utils/ReferenceManager.h"
 #include <map>
 #include <string>
 
 namespace novazero
 {
+	namespace physics
+	{
+		class CollisionManager;
+	}
+
 	namespace core
 	{
 		using namespace utils;

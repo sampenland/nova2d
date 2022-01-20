@@ -13,12 +13,12 @@ namespace novazero
 
 			m_OnFinish = endDelayFunc;
 
-			SceneManager::AddUpdater(std::bind(&Timer::Update, this));
+			n2dAddUpdater(Timer::Update, this);
 		}
 
 		Timer::~Timer()
 		{
-			SceneManager::RemoveUpdater(std::bind(&Timer::Update, this));
+			n2dRemoveUpdater(Timer::Update, this);
 		}
 
 		void Timer::Update()
@@ -42,7 +42,7 @@ namespace novazero
 			}
 			else
 			{
-				m_Delay -= Game::s_DeltaTime;
+				m_Delay = (float)(m_Delay - Game::s_DeltaTime);
 			}
 		}
 	}

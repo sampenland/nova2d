@@ -11,8 +11,6 @@ namespace novazero
 {
 	namespace controllers
 	{
-		using namespace core;
-
 		class UDRLController : 
 			public SimpleController, 
 			public BoundUser

@@ -17,7 +17,7 @@ namespace novazero
 			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			SceneManager::AddUpdater(std::bind(&SimpleFollower::Update, this));
+			n2dAddUpdater(SimpleFollower::Update, this);
 		}
 
 		SimpleFollower::~SimpleFollower()
@@ -50,7 +50,7 @@ namespace novazero
 
 			if (m_DelayTime > 0)
 			{
-				m_DelayTime -= Game::s_DeltaTime;
+				m_DelayTime = (float)(m_DelayTime - Game::s_DeltaTime);
 				return;
 			}
 
@@ -82,7 +82,7 @@ namespace novazero
 			m_Destroyed = true;
 			m_Alive = false;
 
-			SceneManager::RemoveUpdater(std::bind(&SimpleFollower::Update, this));
+			n2dRemoveUpdater(SimpleFollower::Update, this);
 
 			if (m_UsingCollider)
 			{

@@ -1,13 +1,18 @@
 #pragma once
-#include "SDL.h"
-#include "../graphics/Color.h"
+#include "Color.h"
 #include "../graphics/DrawLayers.h"
+#include "../utils/ColorManager.h"
 
 namespace novazero
 {
+	namespace core
+	{
+		class Game;
+	}
+
 	namespace graphics
 	{
-		using namespace graphics;
+		using namespace utils;
 
 		class Renderer
 		{
@@ -19,15 +24,12 @@ namespace novazero
 
 		public:
 
-			Renderer(SDL_Window& window, const Color bkgColor);
+			Renderer(SDL_Window& window, Color backgroundColor);
 			~Renderer();
 
 			inline SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 			
-			void SetBackgroundColor(Color c)
-			{
-				m_BackgroundColor = c;
-			}
+			void SetBackgroundColor(std::string colorName);
 
 			void PreDraw() const;
 			void PostDraw() const;

@@ -5,6 +5,7 @@
 namespace spaceshooter
 {
 	using namespace novazero::ai;
+	using namespace novazero::input;
 
 	Player::Player(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
@@ -28,12 +29,12 @@ namespace spaceshooter
 			m_LifeSprites.push_back(life);
 		}
 
-		SceneManager::AddUpdater(std::bind(&Player::Update, this));
+		n2dAddUpdater(Player::Update, this);
 	}
 
 	Player::~Player()
 	{
-		SceneManager::RemoveUpdater(std::bind(&Player::Update, this));
+		n2dRemoveUpdater(Player::Update, this);
 	}
 
 	void Player::OnCollision(Collision* collision)

@@ -1,7 +1,7 @@
 #pragma once
 #include "Collider.h"
+
 #include "../core/Game.h"
-#include "Collision.h"
 
 namespace novazero
 {

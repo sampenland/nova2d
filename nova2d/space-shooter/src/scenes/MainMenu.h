@@ -1,9 +1,11 @@
 #include "core/Scene.h"
 #include "maths/Vec2Int.h"
+#include "core/EventListener.h"
 
 namespace spaceshooter
 {
 	using namespace novazero::core;
+	using namespace novazero::input;
 
 	class MainMenu :
 		public Scene, public EventListener
@@ -30,9 +32,8 @@ namespace spaceshooter
 
 			title->SetPosition(Vec2Int(title->GetX() - title->GetWidth() / 2, title->GetY() - title->GetHeight() / 2));
 		
-			// Link so events get triggered
-			SceneManager::AddUpdater(std::bind(&MainMenu::EventStep, this));
 			AddKeysEventListener(SDLK_SPACE, &InputHandler::IsKeyDown, std::bind(&MainMenu::OnSpace, this));
+
 		}
 
 		void OnSpace()

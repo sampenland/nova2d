@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include "SDL_image.h"
 #include "Renderer.h"
 #include "../maths/Vec2Int.h"
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "../core/Positional.h"
-#include "SDL_image.h"
 #include "../core/Timer.h"
 
 namespace novazero

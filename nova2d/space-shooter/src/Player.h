@@ -5,13 +5,10 @@
 #include "controllers/SimpleBulletController.h"
 #include "physics/Collider.h"
 
-#include "SDL.h"
-
 namespace spaceshooter
 {
-	using namespace novazero;
-	using namespace maths;
-	using namespace controllers;
+	using namespace novazero::graphics;
+	using namespace novazero::controllers;
 
 	class Player 
 		: public UDRLController, public Referenceable, 

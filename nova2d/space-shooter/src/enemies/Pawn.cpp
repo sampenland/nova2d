@@ -10,7 +10,7 @@ namespace spaceshooter
 	{
 		AddSprite(assetName, position, size, layer);
 
-		SceneManager::AddUpdater(std::bind(&Pawn::Update, this));
+		n2dAddUpdater(Pawn::Update, this);
 	}
 
 	Pawn::~Pawn()
@@ -27,7 +27,7 @@ namespace spaceshooter
 			return;
 		}
 
-		m_DelayShoot -= Game::s_DeltaTime;
+		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
 	}
 
 	void Pawn::Shoot()

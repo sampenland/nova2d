@@ -1,9 +1,7 @@
 #pragma once
 #include "../graphics/Color.h"
-#include "../logging/logging.h"
 #include <string>
 #include <map>
-#include <regex>
 
 namespace novazero
 {

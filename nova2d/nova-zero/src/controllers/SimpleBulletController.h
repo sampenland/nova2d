@@ -1,7 +1,8 @@
 #pragma once
-
-#include "../maths/Rect.h"
 #include "../core/Game.h"
+
+#include "../core/EventListener.h"
+#include "../maths/Rect.h"
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
 
