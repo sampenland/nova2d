@@ -5,7 +5,6 @@ namespace novazero
 {
 	namespace core
 	{
-		std::vector<f_VoidFunction> SceneManager::s_EventSteppers;
 		std::vector<f_VoidFunction> SceneManager::s_Updaters;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
@@ -30,35 +29,12 @@ namespace novazero
 
 		}
 
-		void SceneManager::RemoveEventStepper(f_VoidFunction eventStep)
-		{
-			int idx = -1;
-			for (size_t i = 0; i < s_EventSteppers.size(); i++)
-			{
-				if (&s_EventSteppers[i] == &eventStep)
-				{
-					idx = i;
-					break;
-				}
-			}
-
-			if (idx == -1)return;
-
-			s_EventSteppers.erase(s_EventSteppers.begin() + idx);
-
-		}
-
-		void SceneManager::AddEventStepper(f_VoidFunction eventStep)
-		{
-			s_EventSteppers.push_back(eventStep);
-		}
-
 		void SceneManager::RemoveUpdater(f_VoidFunction updater)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < s_Updaters.size(); i++)
 			{
-				if (&s_EventSteppers[i] == &updater)
+				if (&s_Updaters[i] == &updater)
 				{
 					idx = i;
 					break;
@@ -73,7 +49,7 @@ namespace novazero
 
 		void SceneManager::AddUpdater(f_VoidFunction updater)
 		{
-			s_EventSteppers.push_back(updater);
+			s_Updaters.push_back(updater);
 		}
 	}
 }

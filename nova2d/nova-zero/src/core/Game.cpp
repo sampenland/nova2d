@@ -7,7 +7,6 @@ namespace novazero
 		using namespace maths;
 
 		// --------
-		std::vector<f_VoidFunction> Game::s_EventSteppers;
 		std::vector<f_VoidFunction> Game::s_Updaters;
 
 		Renderer* Game::s_Renderer;
@@ -113,12 +112,7 @@ namespace novazero
 		}
 
 		void Game::Process()
-		{
-			for (size_t i = 0; i < s_EventSteppers.size(); i++) 
-			{
-				s_EventSteppers[i]();
-			}
-			
+		{			
 			for (size_t i = 0; i < s_Updaters.size(); i++) 
 			{
 				s_Updaters[i]();
@@ -157,35 +151,12 @@ namespace novazero
 
 		}
 
-		void Game::RemoveEventStepper(f_VoidFunction eventStep)
-		{
-			int idx = -1;
-			for (size_t i = 0; i < s_EventSteppers.size(); i++)
-			{
-				if (&s_EventSteppers[i] == &eventStep)
-				{
-					idx = i;
-					break;
-				}
-			}
-
-			if (idx == -1)return;
-
-			s_EventSteppers.erase(s_EventSteppers.begin() + idx);
-
-		}
-		
-		void Game::AddEventStepper(f_VoidFunction eventStep)
-		{
-			s_EventSteppers.push_back(eventStep);
-		}
-
 		void Game::RemoveUpdater(f_VoidFunction updater)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < s_Updaters.size(); i++)
 			{
-				if (&s_EventSteppers[i] == &updater)
+				if (&s_Updaters[i] == &updater)
 				{
 					idx = i;
 					break;
@@ -200,7 +171,7 @@ namespace novazero
 
 		void Game::AddUpdater(f_VoidFunction updater)
 		{
-			s_EventSteppers.push_back(updater);
+			s_Updaters.push_back(updater);
 		}
 
 		Rect Game::GetGameBounds()

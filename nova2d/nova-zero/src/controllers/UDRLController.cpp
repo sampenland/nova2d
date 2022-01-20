@@ -13,7 +13,7 @@ namespace novazero
 			EnableXbox360(true);
 			
 			// Link so events get triggered
-			Game::AddEventStepper(std::bind(&UDRLController::EventStep, this));
+			SceneManager::AddUpdater(std::bind(&UDRLController::EventStep, this));
 			
 		}
 
@@ -23,7 +23,7 @@ namespace novazero
 			EnableArrowKeys(false);
 			EnableXbox360(false);
 			
-			Game::RemoveEventStepper(std::bind(&UDRLController::EventStep, this));
+			SceneManager::RemoveUpdater(std::bind(&UDRLController::EventStep, this));
 		}
 
 		void UDRLController::ConfigureMove(int moveSpeed)
@@ -164,7 +164,7 @@ namespace novazero
 
 			m_Destroyed = true;
 
-			Game::RemoveEventStepper(std::bind(&UDRLController::EventStep, this));
+			SceneManager::RemoveUpdater(std::bind(&UDRLController::EventStep, this));
 
 			if (m_Sprite)
 				delete m_Sprite;

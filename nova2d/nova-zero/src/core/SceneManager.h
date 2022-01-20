@@ -29,10 +29,6 @@ namespace novazero
 			static ReferenceManager* s_ReferenceManager;
 			static CollisionManager* s_CollisionManager;
 
-			static std::vector<f_VoidFunction> s_EventSteppers;
-			static void AddEventStepper(f_VoidFunction eventStep);
-			static void RemoveEventStepper(f_VoidFunction eventStep);
-
 			static std::vector<f_VoidFunction> s_Updaters;
 			static void AddUpdater(f_VoidFunction updater);
 			static void RemoveUpdater(f_VoidFunction updater);
