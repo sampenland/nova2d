@@ -14,7 +14,6 @@ namespace novazero
 		ColorManager* Game::s_ColorManager;
 		InputHandler* Game::s_InputHandler;
 		AssetManager* Game::s_AssetManager;
-		CollisionManager* Game::s_CollisionManager;
 		SceneManager* Game::s_SceneManager;
 
 		unsigned int Game::s_IDCount;
@@ -41,7 +40,6 @@ namespace novazero
 			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), backgroundColor);
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
-			s_CollisionManager = new CollisionManager();
 			s_SceneManager = new SceneManager();
 
 			s_Width = (int)floor(screenSize.x);
@@ -126,7 +124,7 @@ namespace novazero
 				s_Updaters[i]();
 			}
 
-			s_CollisionManager->Update();
+			SceneManager::s_CollisionManager->Update();
 		}
 
 		void Game::Update()
@@ -154,9 +152,6 @@ namespace novazero
 
 			if (s_AssetManager)
 				delete s_AssetManager;
-
-			if (s_CollisionManager)
-				delete s_CollisionManager;
 
 			SDL_Quit();
 

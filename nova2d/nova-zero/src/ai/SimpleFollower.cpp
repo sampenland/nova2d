@@ -86,7 +86,7 @@ namespace novazero
 
 			if (m_UsingCollider)
 			{
-				Game::s_CollisionManager->RemoveCollider(this);
+				SceneManager::s_CollisionManager->RemoveCollider(this);
 			}
 			
 			if (m_Sprite)

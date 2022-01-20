@@ -20,7 +20,7 @@ namespace novazero
 
 		Collider::~Collider()
 		{
-			Game::s_CollisionManager->RemoveCollider(this);
+			SceneManager::s_CollisionManager->RemoveCollider(this);
 		}
 			
 		void Collider::ConfigureCollider(Sprite* sprite, int collisionLayer, std::string colliderName)
@@ -31,7 +31,7 @@ namespace novazero
 			m_ColliderSprite = sprite;
 			m_ColliderName = colliderName;
 
-			Game::s_CollisionManager->AddCollider(this);
+			SceneManager::s_CollisionManager->AddCollider(this);
 		}
 	}
 }

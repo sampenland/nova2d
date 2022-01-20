@@ -9,8 +9,6 @@
 #include <vector>
 #include "../utils/AssetManager.h"
 #include "../maths/Rect.h"
-#include "../utils/ReferenceManager.h"
-#include "../physics/CollisionManager.h"
 
 namespace novazero
 {
@@ -64,7 +62,6 @@ namespace novazero
 			static ColorManager* s_ColorManager;
 			static InputHandler* s_InputHandler;
 			static AssetManager* s_AssetManager;
-			static CollisionManager* s_CollisionManager;
 			static SceneManager* s_SceneManager;
 
 			static double s_DeltaTime;
