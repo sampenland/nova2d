@@ -55,6 +55,7 @@ namespace novazero
 			void Render();
 			void Clean();
 
+			void Configure(Scene* firstScene);
 			void ConfigureIcon(const char* iconPath) { m_MainWindow->ConfigureIcon(iconPath); }
 
 		public:
@@ -65,6 +66,7 @@ namespace novazero
 			static AssetManager* s_AssetManager;
 			static ReferenceManager* s_ReferenceManager;
 			static CollisionManager* s_CollisionManager;
+			static SceneManager* s_SceneManager;
 
 			static double s_DeltaTime;
 			static int s_Width;

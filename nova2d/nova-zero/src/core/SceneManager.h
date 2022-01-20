@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Scene.h"
 
 namespace novazero
 {
@@ -10,11 +10,16 @@ namespace novazero
 		
 		private:
 		
+			Scene* m_FirstScene = nullptr;
 
 		public:
 		
 			SceneManager();
 			~SceneManager();
+
+			void ConfigureFirstScene(Scene* firstScene) { m_FirstScene = firstScene; }
+
+			void Update();
 
 		};
 	}

@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Leader.h"
 
+#include "scenes/GamePlay.h"
+
 int main(int argc, char* argv[])
 {
 	using namespace novazero;
@@ -36,15 +38,8 @@ int main(int argc, char* argv[])
 	game.s_AssetManager->LoadAndAddTexture("pawn-bullet", "res/bullet_02.png");
 	game.s_AssetManager->LoadAndAddTexture("leader-bullet", "res/bullet_03.png");
 
-	Player player("player", Vec2Int((int)Game::s_Width / 2 - 8, (int)Game::s_Height - 64), Vec2Int(16, 16), 1);
-	player.Configure(1);
-	player.ConfigureMove(3);
-	player.SetMoveBounds(Game::GetGameBounds());
-
-	game.s_ReferenceManager->AddReference("player", &player);
-
-	Leader enemy("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
-	enemy.ConfigureAliveBounds(Game::GetGameBounds());
+	GamePlay* gamePlayScene = new GamePlay();
+	game.Configure(gamePlayScene);
 
 	while (game.IsRunning())
 	{

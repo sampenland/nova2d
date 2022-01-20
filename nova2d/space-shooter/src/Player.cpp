@@ -38,23 +38,35 @@ namespace spaceshooter
 
 	void Player::OnCollision(Collision* collision)
 	{
+		bool hit = false;
 		if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" && collision->m_ColliderB->m_ColliderName == "player") ||
 			(collision->m_ColliderA->m_ColliderName == "pawn-bullet" && collision->m_ColliderB->m_ColliderName == "player"))
 		{
 			// Bullets with player
 			((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
-			m_Lives--;
+			hit = true;
 		}
 		else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" && collision->m_ColliderA->m_ColliderName == "player") ||
 			(collision->m_ColliderB->m_ColliderName == "pawn-bullet" && collision->m_ColliderA->m_ColliderName == "player"))
 		{
 			// Bullets with player
 			((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
-			m_Lives--;
+			hit = true;
 		}
 
-		LOG("Lives: ");
-		LOG(m_Lives);
+		if (hit && m_Lives > 1)
+		{
+			Sprite* s = m_LifeSprites.at(m_Lives - 1);
+			delete s;
+			m_LifeSprites.pop_back();
+			m_Lives--;
+		}
+		else if (hit)
+		{
+			// Game over
+			LOG("Game Over");
+		}
+
 	}
 
 	void Player::Update()

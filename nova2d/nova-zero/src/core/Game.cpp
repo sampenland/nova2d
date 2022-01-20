@@ -16,6 +16,7 @@ namespace novazero
 		AssetManager* Game::s_AssetManager;
 		ReferenceManager* Game::s_ReferenceManager;
 		CollisionManager* Game::s_CollisionManager;
+		SceneManager* Game::s_SceneManager;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -43,6 +44,7 @@ namespace novazero
 			s_AssetManager = new AssetManager();
 			s_ReferenceManager = new ReferenceManager();
 			s_CollisionManager = new CollisionManager();
+			s_SceneManager = new SceneManager();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -50,6 +52,11 @@ namespace novazero
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
 
+		}
+
+		void Game::Configure(Scene* firstScene)
+		{
+			s_SceneManager->ConfigureFirstScene(firstScene);
 		}
 
 		void Game::PollEvents()

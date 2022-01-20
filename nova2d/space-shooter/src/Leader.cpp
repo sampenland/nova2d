@@ -1,5 +1,6 @@
 #include "Leader.h"
 #include "ai/SimpleFollower.h"
+#include "physics/Collision.h"
 
 namespace spaceshooter
 {
@@ -71,6 +72,24 @@ namespace spaceshooter
 		//bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 		bullet->Configure(1);
 		bullet->ConfigureRotation(true, -90);
+		
+		auto onCollision = new auto ([](Collision* collision)
+		{
+			if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" &&
+				collision->m_ColliderB->m_ColliderName == "player-bullet"))
+			{
+				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+			}
+			else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" &&
+				collision->m_ColliderA->m_ColliderName == "player-bullet"))
+			{
+				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+			}
+		});
+
+		bullet->ConfigureOnCollision(*onCollision);
 
 		Timer* bulletDestruct = new Timer(randomf(6500, 12000), false, std::bind(&SimpleFollower::DestroySelf, bullet));
 		bullet->AddTimer(bulletDestruct);
