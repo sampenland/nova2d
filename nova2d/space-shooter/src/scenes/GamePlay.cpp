@@ -7,7 +7,7 @@ namespace spaceshooter
 {
 	GamePlay::GamePlay()
 	{
-		Start();
+		
 	}
 
 	GamePlay::~GamePlay()

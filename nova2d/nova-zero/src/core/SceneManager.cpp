@@ -28,7 +28,16 @@ namespace novazero
 
 		void SceneManager::ConfigureFirstScene(std::string sceneName)
 		{
+			Scene* loadScene = GetScene(sceneName);
+			if (loadScene == nullptr)
+			{
+				LOG(sceneName);
+				LOG("Could not start. No first scene.");
+				return;
+			}
 
+			m_CurrentScene = loadScene;
+			m_CurrentScene->Start();
 		}
 
 		void SceneManager::AddScene(std::string sceneName, Scene* scene)
@@ -49,21 +58,29 @@ namespace novazero
 
 		void SceneManager::ChangeScene(std::string sceneName)
 		{
-			if (GetScene(sceneName) == nullptr)
+			Scene* loadScene = GetScene(sceneName);
+			if (loadScene == nullptr)
 			{
 				LOG(sceneName);
 				LOG("Cannot find scene");
 				return;
 			}
 
+			m_CurrentScene->End();
+
 			s_Updaters.clear();
 			s_CollisionManager->ClearColliders();
 			Renderer::s_DrawLayers->ClearSprites();
+
+			m_CurrentScene = loadScene;
+			m_CurrentScene->Start();
 
 		}
 		
 		void SceneManager::Update()
 		{
+			m_CurrentScene->Update();
+
 			for (size_t i = 0; i < s_Updaters.size(); i++)
 			{
 				s_Updaters[i]();
