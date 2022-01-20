@@ -93,7 +93,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\enemies\Pawn.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\scenes\GamePlay.cpp" />
+    <ClCompile Include="src\scenes\Lvl1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nova-zero\nova-zero.vcxproj">
@@ -110,7 +110,7 @@
     <Image Include="res\ship_03.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\scenes\GamePlay.h" />
+    <ClInclude Include="src\scenes\Lvl1.h" />
     <ClInclude Include="src\enemies\Leader.h" />
     <ClInclude Include="src\enemies\Pawn.h" />
     <ClInclude Include="src\Player.h" />

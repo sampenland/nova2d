@@ -27,7 +27,7 @@
     <ClCompile Include="src\enemies\Pawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scenes\GamePlay.cpp">
+    <ClCompile Include="src\scenes\Lvl1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,7 +64,7 @@
     <ClInclude Include="src\enemies\Pawn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes\GamePlay.h">
+    <ClInclude Include="src\scenes\Lvl1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\MainMenu.h">

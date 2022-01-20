@@ -1,7 +1,7 @@
 #include "core/Game.h"
 
 #include "scenes/MainMenu.h"
-#include "scenes/GamePlay.h"
+#include "scenes/Lvl1.h"
 
 #include "Player.h"
 #include "enemies/Leader.h"
@@ -41,10 +41,10 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("title", "res/title.png");
 
 	MainMenu* mainMenuScene = new MainMenu();
-	GamePlay* gamePlayScene = new GamePlay();
+	Lvl1* level1 = new Lvl1();
 
 	n2dGameAddScene("mainMenu", mainMenuScene);
-	n2dGameAddScene("game", gamePlayScene);
+	n2dGameAddScene("level1", level1);
 	
 	n2dGameConfigFirstScene("mainMenu");
 

@@ -1,21 +1,21 @@
-#include "GamePlay.h"
+#include "Lvl1.h"
 #include "../Player.h"
 #include "../enemies/Leader.h"
 #include "maths/Vec2Int.h"
 
 namespace spaceshooter
 {
-	GamePlay::GamePlay()
+	Lvl1::Lvl1()
 	{
 		
 	}
 
-	GamePlay::~GamePlay()
+	Lvl1::~Lvl1()
 	{
 
 	}
 
-	void GamePlay::Start()
+	void Lvl1::Start()
 	{
 		Player* player = new Player("player", Vec2Int((int)Game::s_Width / 2 - 8, (int)Game::s_Height - 64), Vec2Int(16, 16), 1);
 		player->Configure(3000);
@@ -32,12 +32,12 @@ namespace spaceshooter
 
 	}
 
-	void GamePlay::Update()
+	void Lvl1::Update()
 	{
 
 	}
 
-	void GamePlay::End()
+	void Lvl1::End()
 	{
 		CleanUp();
 	}

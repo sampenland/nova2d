@@ -5,14 +5,14 @@ namespace spaceshooter
 {
 	using namespace novazero::core;
 
-	class GamePlay :
+	class Lvl1 :
 		public Scene
 	{
 
 	public:
 
-		GamePlay();
-		~GamePlay();
+		Lvl1();
+		~Lvl1();
 
 		void Start() override;
 		void End() override;
