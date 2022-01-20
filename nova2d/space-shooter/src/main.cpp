@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "enemies/Leader.h"
 
+#include "scenes/MainMenu.h"
 #include "scenes/GamePlay.h"
 
 int main(int argc, char* argv[])
@@ -37,9 +38,15 @@ int main(int argc, char* argv[])
 	game.s_AssetManager->LoadAndAddTexture("player-bullet", "res/bullet_01.png");
 	game.s_AssetManager->LoadAndAddTexture("pawn-bullet", "res/bullet_02.png");
 	game.s_AssetManager->LoadAndAddTexture("leader-bullet", "res/bullet_03.png");
+	game.s_AssetManager->LoadAndAddTexture("title", "res/title.png");
 
+	MainMenu* mainMenuScene = new MainMenu();
 	GamePlay* gamePlayScene = new GamePlay();
-	game.Configure(gamePlayScene);
+
+	game.s_SceneManager->AddScene("mainMenu", mainMenuScene);
+	game.s_SceneManager->AddScene("game", gamePlayScene);
+	
+	game.ConfigureFirstScene("mainMenu");
 
 	while (game.IsRunning())
 	{

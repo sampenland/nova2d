@@ -24,6 +24,8 @@ namespace novazero
 			void AddSprite(Sprite* sprite, const char layer);
 			void RemoveSprite(unsigned int id, char layer);
 
+			void ClearSprites();
+
 			void DrawLayer(const char layer) const;
 			void DrawAllLayers() const;
 

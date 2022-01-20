@@ -52,6 +52,14 @@ namespace novazero
 			m_Layers[layer].erase(m_Layers[layer].begin() + idx);
 		}
 
+		void DrawLayers::ClearSprites()
+		{
+			for (int layer = 0; layer < MAX_LAYERS; layer++)
+			{
+				m_Layers[layer].clear();
+			}
+		}
+
 		void DrawLayers::DrawLayer(const char layer) const
 		{
 			for (int i = 0; i < m_Layers[layer].size(); i++)

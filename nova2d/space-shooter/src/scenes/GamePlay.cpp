@@ -7,7 +7,7 @@ namespace spaceshooter
 {
 	GamePlay::GamePlay()
 	{
-		
+		Start();
 	}
 
 	GamePlay::~GamePlay()
@@ -24,12 +24,11 @@ namespace spaceshooter
 
 		SceneManager::s_ReferenceManager->AddReference("player", player);
 
-		Leader enemy("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
-		enemy.ConfigureAliveBounds(Game::GetGameBounds());
-	}
+		Leader* leader = new Leader("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
+		leader->ConfigureAliveBounds(Game::GetGameBounds());
 
-	void GamePlay::End()
-	{
+		AddObjectToCleanUp(player);
+		AddObjectToCleanUp(leader);
 
 	}
 
@@ -37,4 +36,10 @@ namespace spaceshooter
 	{
 
 	}
+
+	void GamePlay::End()
+	{
+		CleanUp();
+	}
+
 }

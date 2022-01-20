@@ -53,7 +53,7 @@ namespace novazero
 			void Render();
 			void Clean();
 
-			void Configure(Scene* firstScene);
+			void ConfigureFirstScene(std::string sceneName);
 			void ConfigureIcon(const char* iconPath) { m_MainWindow->ConfigureIcon(iconPath); }
 
 		public:

@@ -8,7 +8,7 @@ namespace novazero
 	{
 		CollisionManager::CollisionManager()
 		{
-
+			
 		}
 
 		CollisionManager::~CollisionManager()

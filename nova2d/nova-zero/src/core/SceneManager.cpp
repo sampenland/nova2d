@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "TypeDefs.h"
+#include "../graphics/Renderer.h"
 
 namespace novazero
 {
@@ -12,6 +13,7 @@ namespace novazero
 
 		SceneManager::SceneManager()
 		{
+			s_CollisionManager = new CollisionManager();
 			s_ReferenceManager = new ReferenceManager();
 		}
 
@@ -23,6 +25,42 @@ namespace novazero
 			if (s_CollisionManager)
 				delete s_CollisionManager;
 		}
+
+		void SceneManager::ConfigureFirstScene(std::string sceneName)
+		{
+
+		}
+
+		void SceneManager::AddScene(std::string sceneName, Scene* scene)
+		{
+			m_Scenes[sceneName] = scene;
+		}
+
+		void SceneManager::RemoveScene(std::string sceneName)
+		{
+			m_Scenes.erase(sceneName);
+		}
+
+		Scene* SceneManager::GetScene(std::string sceneName)
+		{
+			if (m_Scenes.find(sceneName) == m_Scenes.end()) return nullptr;
+			return m_Scenes[sceneName];
+		}
+
+		void SceneManager::ChangeScene(std::string sceneName)
+		{
+			if (GetScene(sceneName) == nullptr)
+			{
+				LOG(sceneName);
+				LOG("Cannot find scene");
+				return;
+			}
+
+			s_Updaters.clear();
+			s_CollisionManager->ClearColliders();
+			Renderer::s_DrawLayers->ClearSprites();
+
+		}
 		
 		void SceneManager::Update()
 		{
@@ -32,15 +70,6 @@ namespace novazero
 			}
 
 			s_CollisionManager->Update();
-		}
-
-		void SceneManager::ChangeScene(Scene* scene)
-		{
-			s_Updaters.clear();
-			s_CollisionManager->ClearColliders();
-
-			m_CurrentScene = scene;
-			
 		}
 
 		void SceneManager::RemoveUpdater(f_VoidFunction updater)

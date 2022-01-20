@@ -46,9 +46,9 @@ namespace novazero
 
 		}
 
-		void Game::Configure(Scene* firstScene)
+		void Game::ConfigureFirstScene(std::string sceneName)
 		{
-			s_SceneManager->ConfigureFirstScene(firstScene);
+			s_SceneManager->ConfigureFirstScene(sceneName);
 		}
 
 		void Game::PollEvents()

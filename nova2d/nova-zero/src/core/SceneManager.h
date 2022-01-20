@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include "../utils/ReferenceManager.h"
 #include "../physics/CollisionManager.h"
+#include <map>
+#include <string>
 
 namespace novazero
 {
@@ -15,7 +17,7 @@ namespace novazero
 		
 		private:
 		
-			Scene* m_FirstScene = nullptr;
+			std::map<std::string, Scene*> m_Scenes;
 			Scene* m_CurrentScene = nullptr;
 
 		public:
@@ -23,9 +25,12 @@ namespace novazero
 			SceneManager();
 			~SceneManager();
 
-			void ConfigureFirstScene(Scene* firstScene) { m_FirstScene = firstScene; m_CurrentScene = firstScene; }
-
-			void ChangeScene(Scene* toScene);
+			void ConfigureFirstScene(std::string sceneName);
+			
+			void AddScene(std::string sceneName, Scene* scene);
+			void RemoveScene(std::string sceneName);
+			Scene* GetScene(std::string sceneName);
+			void ChangeScene(std::string sceneName);
 
 			void Update();
 

@@ -21,6 +21,11 @@ namespace novazero
 			virtual void End() = 0;
 			virtual void Update() = 0;
 
+			void AddObjectToCleanUp(void* obj)
+			{
+				m_CleanUpObjects.push_back(obj);
+			}
+
 			void CleanUp()
 			{
 				m_CleanUpObjects.clear();
