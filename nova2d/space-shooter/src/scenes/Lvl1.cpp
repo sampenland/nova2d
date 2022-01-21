@@ -2,6 +2,7 @@
 #include "../Player.h"
 #include "../enemies/Leader.h"
 #include "maths/Vec2Int.h"
+#include "graphics/Text.h"
 
 namespace spaceshooter
 {
@@ -27,8 +28,12 @@ namespace spaceshooter
 		Leader* leader = new Leader("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
 		leader->ConfigureAliveBounds(Game::GetGameBounds());
 
+		Text* score = new Text("font1", "Score: ", "white", Rect(Game::s_Width - 48, 8, 48, 16), 0);
+		n2dAddDrawable(score, 0);
+
 		AddObjectToCleanUp(player);
 		AddObjectToCleanUp(leader);
+		AddObjectToCleanUp(score);
 
 	}
 
