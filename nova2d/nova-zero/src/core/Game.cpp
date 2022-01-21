@@ -22,6 +22,8 @@ namespace novazero
 		int Game::s_Height;
 		double Game::s_DeltaTime;
 		int Game::s_Padding;
+		int Game::s_ExitCode = 0;
+		bool Game::s_Running = 0;
 
 		// --------------------------------
 		Game::Game(const Vec2Int screenSize, const char* title)
@@ -32,7 +34,7 @@ namespace novazero
 			m_MainWindow = new Window(screenSize, title);
 
 			if (m_MainWindow)
-				m_Running = true;
+				s_Running = true;
 			else
 				return;
 
@@ -71,7 +73,7 @@ namespace novazero
 				break;
 
 			case SDL_QUIT:
-				m_Running = false;
+				s_Running = false;
 				break;
 			}
 		}

@@ -1,5 +1,6 @@
 #pragma once
-#include "../core/Game.h"
+#include "../core/TypeDefs.h"
+#include <vector>
 
 namespace novazero
 {
@@ -30,6 +31,8 @@ namespace novazero
 			
 			EventListener();
 			~EventListener();
+			void StartEventListener();
+			void EndEventListener();
 
 			void EventStep();
 

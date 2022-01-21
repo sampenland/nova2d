@@ -2,6 +2,7 @@
 
 #include "scenes/MainMenu.h"
 #include "scenes/Lvl1.h"
+#include "scenes/GameOver.h"
 
 #include "Player.h"
 #include "enemies/Leader.h"
@@ -42,19 +43,22 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("leader-bullet", "res/bullet_03.png");
 	n2dAssetsLoadAndAddTexture("title", "res/title.png");
 	n2dAssetsLoadAndAddTexture("explode", "res/explode_anim.png");
+	n2dAssetsLoadAndAddTexture("gameOverTitle", "res/gameOverTitle.png");
 
-	MainMenu* mainMenuScene = new MainMenu();
-	Lvl1* level1 = new Lvl1();
+	MainMenu* mainMenuScene = new MainMenu("mainMenu");
+	Lvl1* level1 = new Lvl1("level1");
+	GameOver* gameOver = new GameOver("gameOver");
 
-	n2dGameAddScene("mainMenu", mainMenuScene);
-	n2dGameAddScene("level1", level1);
+	n2dGameAddScene(mainMenuScene);
+	n2dGameAddScene(level1);
+	n2dGameAddScene(gameOver);
 	
-	n2dGameConfigFirstScene("mainMenu");
+	n2dGameConfigFirstScene(mainMenuScene);
 
-	while (game.IsRunning())
+	while (Game::IsRunning())
 	{
 		game.Tick();
 	}
 
-	return 0;
+	return Game::s_ExitCode;
 }

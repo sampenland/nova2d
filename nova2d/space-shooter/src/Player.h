@@ -39,6 +39,7 @@ namespace spaceshooter
 		void Shoot();
 
 		void SmallExplosion();
+		void Quit();
 
 	};
 }

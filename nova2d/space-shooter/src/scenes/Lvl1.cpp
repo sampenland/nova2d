@@ -5,7 +5,7 @@
 
 namespace spaceshooter
 {
-	Lvl1::Lvl1()
+	Lvl1::Lvl1(std::string sceneName) : Scene(sceneName)
 	{
 		
 	}
@@ -22,7 +22,7 @@ namespace spaceshooter
 		player->ConfigureMove(3);
 		player->SetMoveBounds(Game::GetGameBounds());
 
-		SceneManager::s_ReferenceManager->AddReference("player", player);
+		n2dReferenceAdd("player", player);
 
 		Leader* leader = new Leader("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
 		leader->ConfigureAliveBounds(Game::GetGameBounds());

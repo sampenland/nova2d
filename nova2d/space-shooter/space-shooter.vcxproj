@@ -110,6 +110,7 @@
     <Image Include="res\ship_03.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scenes\GameOver.h" />
     <ClInclude Include="src\scenes\Lvl1.h" />
     <ClInclude Include="src\enemies\Leader.h" />
     <ClInclude Include="src\enemies\Pawn.h" />

@@ -12,8 +12,9 @@ namespace spaceshooter
 	Player::Player(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
-		AddKeysEventListener(SDLK_SPACE, &InputHandler::IsKeyDown, std::bind(&Player::Shoot, this));
-		
+		n2dAddKeyDownListener(SDLK_SPACE, Player::Shoot, this);
+		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
+
 		if (SDL_NumJoysticks() > 0)
 		{
 			AddJoyEventListener(0, SDL_CONTROLLER_BUTTON_B, &InputHandler::IsJoystickButtonDown,
@@ -37,6 +38,11 @@ namespace spaceshooter
 	Player::~Player()
 	{
 		n2dRemoveUpdater(Player::Update, this);
+	}
+
+	void Player::Quit()
+	{
+		n2dSceneChange("mainMenu");
 	}
 
 	void Player::OnCollision(Collision* collision)
@@ -72,7 +78,13 @@ namespace spaceshooter
 		else if (hit)
 		{
 			// Game over
-			LOG("Game Over");
+			auto endGame = new auto ([]() {
+
+				n2dSceneChange("gameOver");
+
+			});
+
+			Timer* t = new Timer(1000, false, *endGame);
 		}
 
 	}

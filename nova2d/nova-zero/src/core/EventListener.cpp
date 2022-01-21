@@ -1,4 +1,5 @@
 #include "EventListener.h"
+#include "Game.h"
 
 namespace novazero
 {
@@ -10,11 +11,21 @@ namespace novazero
 			m_ID = Game::s_IDCount;
 			Game::s_IDCount++;
 
-			n2dAddUpdater(EventListener::EventStep, this);
+			StartEventListener();
 
 		}
 
 		EventListener::~EventListener()
+		{
+			n2dRemoveUpdater(EventListener::EventStep, this);
+		}
+
+		void EventListener::StartEventListener()
+		{
+ 			n2dAddUpdater(EventListener::EventStep, this);
+		}
+
+		void EventListener::EndEventListener()
 		{
 			n2dRemoveUpdater(EventListener::EventStep, this);
 		}

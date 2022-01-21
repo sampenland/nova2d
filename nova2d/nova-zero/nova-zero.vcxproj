@@ -113,6 +113,7 @@
     <ClCompile Include="src\controllers\UDRLController.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
     <ClCompile Include="src\physics\Collider.cpp" />
     <ClCompile Include="src\physics\CollisionManager.cpp" />

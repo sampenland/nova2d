@@ -19,6 +19,20 @@ namespace novazero
 }
 
 /*
+nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
+Calls function on SDL_KeyCode key down
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddKeyDownListener(key, func, context) AddKeysEventListener(key, &InputHandler::IsKeyDown, std::bind(&func, context));
+
+/*
+nova2d Remove Key Down Listener (SDL_KeyCode key)
+Removes previously added key down listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveKeyDownListener(key) RemoveEventListener(key);
+
+/*
 nova2d Add Updater(void(*f) funcToCall, context)
 Updaters are called each frame; this adds a new funcToCall as an Updater
 */
@@ -34,13 +48,13 @@ Updaters are called each frame; this removes a current updater function from upd
 nova2d Add Scene (std::string sceneName, Scene* scene)
 Scenes are levels, menus, etc; this adds a scene to Game's Scene Manager
 */
-#define n2dGameAddScene(sceneName, scene) novazero::core::Game::s_SceneManager->AddScene(sceneName, scene);
+#define n2dGameAddScene(scene) novazero::core::Game::s_SceneManager->AddScene(scene->m_SceneName, scene);
 
 /*
 nova2d Configure first game scene to start with (std::string sceneName)
 Scenes are levels, menus, etc; this adds a scene to Game's Scene Manager
 */
-#define n2dGameConfigFirstScene(sceneName) novazero::core::Game::s_SceneManager->ConfigureFirstScene(sceneName);
+#define n2dGameConfigFirstScene(scene) novazero::core::Game::s_SceneManager->ConfigureFirstScene(scene->m_SceneName);
 
 /*
 nova2d Load and Add Texture (std::string assetName, std::string resourcePath)
@@ -89,3 +103,15 @@ nova2d Remove Drawable (Drawable* drawable, char layer)
 Removes a graphic/drawable from Game's Draw Layers
 */
 #define n2dRemoveDrawable(drawableID, layer) novazero::core::Game::s_Renderer->s_DrawLayers->RemoveSprite(drawableID, layer)
+
+/*
+nova2d Add Reference (std::string referenceName, Referenceable* reference)
+Adds a reference to Referenceable object into Game's Reference Manager
+*/
+#define n2dReferenceAdd(referenceName, reference) novazero::core::SceneManager::s_ReferenceManager->AddReference(referenceName, reference);
+
+/*
+nova2d Get Reference (std::string referenceName)
+Gets a reference to Referenceable object from Game's Reference Manager
+*/
+#define n2dReferenceGet(referenceName) novazero::core::SceneManager::s_ReferenceManager->GetReferenced(referenceName);

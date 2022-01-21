@@ -36,6 +36,7 @@ namespace novazero
 			}
 
 			m_CurrentScene = loadScene;
+			m_CurrentScene->m_Started = true;
 			m_CurrentScene->Start();
 		}
 
@@ -65,6 +66,8 @@ namespace novazero
 				return;
 			}
 
+			m_CurrentScene->Clean();
+			m_CurrentScene->CleanUp();
 			m_CurrentScene->End();
 
 			s_Updaters.clear();
@@ -72,6 +75,13 @@ namespace novazero
 			Renderer::s_DrawLayers->ClearSprites();
 
 			m_CurrentScene = loadScene;
+			
+			if(!m_CurrentScene->m_Started) m_CurrentScene->Restart();
+			m_CurrentScene->m_Started = true;
+
+			LOG("Starting scene:");
+			LOG(m_CurrentScene->m_SceneName);
+
 			m_CurrentScene->Start();
 
 		}

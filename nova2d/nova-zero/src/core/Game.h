@@ -39,7 +39,6 @@ namespace novazero
 			Uint64 NOW;
 			Uint64 LAST;
 
-			bool m_Running = false;
 			const char* m_Title = {};
 			
 			novazero::graphics::Window* m_MainWindow = nullptr;
@@ -49,8 +48,6 @@ namespace novazero
 
 			Game(const novazero::maths::Vec2Int screenSize, const char* title);
 			~Game();
-
-			inline bool IsRunning() const { return m_Running; }
 
 			void Tick();
 
@@ -81,6 +78,15 @@ namespace novazero
 			
 			static unsigned int s_IDCount;
 			static unsigned int GetNextID() { s_IDCount++; return s_IDCount; }
+
+			static bool s_Running;
+			static bool IsRunning() { return s_Running; }
+			static int s_ExitCode;
+			static void EndGame(int exitCode)
+			{
+				s_ExitCode = exitCode;
+				s_Running = false;
+			}
 		};
 	}
 }

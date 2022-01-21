@@ -1,12 +1,14 @@
 #pragma once
+#include "EventListener.h"
 #include <functional>
 #include <vector>
+#include <string>
 
 namespace novazero
 {
 	namespace core
 	{
-		class Scene
+		class Scene : public EventListener
 		{
 		
 		private:
@@ -15,22 +17,21 @@ namespace novazero
 
 		public:
 
-			Scene() { };
+			Scene(std::string sceneName);
+			~Scene();
+
+			bool m_Started = false;
+			std::string m_SceneName = "";
 
 			virtual void Start() = 0;
+			void Restart();
+			void Clean();
+
 			virtual void End() = 0;
 			virtual void Update() = 0;
 
-			void AddObjectToCleanUp(void* obj)
-			{
-				m_CleanUpObjects.push_back(obj);
-			}
-
-			void CleanUp()
-			{
-				m_CleanUpObjects.clear();
-			}
-
+			void AddObjectToCleanUp(void* obj);
+			void CleanUp();
 		};
 	}
 }
