@@ -3,10 +3,12 @@
 #include "ai/SimpleFollower.h"
 #include "controllers/SimpleBulletController.h"
 #include <string>
+#include "components/SimpleStatBar.h"
 
 namespace spaceshooter
 {
 	using namespace novazero::ai;
+	using namespace novazero::components;
 
 	class Pawn
 		: public SimpleFollower
@@ -17,6 +19,9 @@ namespace spaceshooter
 		float m_DelayShoot = 0.0f;
 		float m_DelayShootMin = 1000.0f;
 		float m_DelayShootMax = 2000.0f;
+
+		SimpleStatBar* m_HealthBar = nullptr;
+		int m_Health = 32;
 
 	public:
 
@@ -31,6 +36,8 @@ namespace spaceshooter
 
 		void Update();
 		void Shoot();
+
+		void Hurt(int damage);
 
 	};
 }

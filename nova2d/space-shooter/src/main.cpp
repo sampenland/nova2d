@@ -23,6 +23,8 @@ int main(int argc, char* argv[])
 	Game::SetGamePadding(32);
 
 	n2dAddColor("background", "201533", 1);
+	n2dAddColor("red", "f02b2b", 1);
+	n2dAddColor("yellow", "f0cc2b", 1);
 	n2dAddColor("purple", "252446", 1);
 	n2dAddColor("dark-blue", "203562", 1);
 	n2dAddColor("blue", "1e579c", 1);

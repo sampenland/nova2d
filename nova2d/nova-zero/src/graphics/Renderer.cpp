@@ -9,7 +9,7 @@ namespace novazero
 
 		DrawLayers* Renderer::s_DrawLayers;
 
-		Renderer::Renderer(SDL_Window& window, Color backgroundColor)
+		Renderer::Renderer(SDL_Window& window, Color* backgroundColor)
 		{
 			m_Renderer = SDL_CreateRenderer(&window, -1, 0);
 			m_BackgroundColor = backgroundColor;
@@ -27,14 +27,24 @@ namespace novazero
 
 		void Renderer::PreDraw() const
 		{
-			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor.r, (Uint8)m_BackgroundColor.g,
-				(Uint8)m_BackgroundColor.b, (Uint8)m_BackgroundColor.a);
+			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor->r, (Uint8)m_BackgroundColor->g,
+				(Uint8)m_BackgroundColor->b, (Uint8)m_BackgroundColor->a);
+
 			SDL_RenderClear(m_Renderer);
 		}
 
 		void Renderer::SetBackgroundColor(std::string colorName)
 		{
 			m_BackgroundColor = n2dGetColor(colorName);
+		}
+
+		void Renderer::SetDrawColor(std::string colorName)
+		{
+			Color* c = n2dGetColor(colorName);
+			if (c)
+			{
+				SDL_SetRenderDrawColor(GetSDLRenderer(), c->r, c->g, c->b, c->a);
+			}
 		}
 
 		void Renderer::PostDraw() const

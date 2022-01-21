@@ -5,6 +5,7 @@ namespace novazero
 	namespace ai
 	{
 		SimpleWeakAI::SimpleWeakAI()
+			: Collider(0)
 		{
 			n2dAddUpdater(SimpleWeakAI::Update, this);
 		}

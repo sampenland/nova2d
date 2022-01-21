@@ -39,14 +39,37 @@ namespace spaceshooter
 			
 		}
 
+		ConfigureCollider(m_Sprite, 0, "leader");
+
+		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
+			32, 4, "light-blue", "bright-blue", "white", layer);
+		m_HealthBar->ConfigureThickness(1);
+		m_HealthBar->ConfigureForeground("white", "yellow", "red");
+
 		n2dAddUpdater(Leader::Update, this);
 		n2dAddUpdater(Leader::ShootUpdate, this);
+		n2dAddUpdater(Leader::HealthUpdate, this);
+	}
+
+	void Leader::HealthUpdate()
+	{
+		m_HealthBar->Update(m_Health, m_Sprite->GetX() - 8, m_Sprite->GetY() - 8);
+	}
+
+	void Leader::Hurt(int damage)
+	{
+		m_Health -= damage;
+		if (m_Health < 1)
+		{
+			DestroySelf();
+		}
 	}
 
 	Leader::~Leader()
 	{
 		n2dRemoveUpdater(Leader::Update, this);
 		n2dRemoveUpdater(Leader::ShootUpdate, this);
+		n2dRemoveUpdater(Leader::HealthUpdate, this);
 	}
 
 	void Leader::ShootUpdate()

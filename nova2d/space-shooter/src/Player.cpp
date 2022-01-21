@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "physics/Collision.h"
 #include "ai/SimpleFollower.h"
+#include "enemies/Pawn.h"
+#include "enemies/Leader.h"
 
 namespace spaceshooter
 {
@@ -110,6 +112,34 @@ namespace spaceshooter
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+			}
+
+			// Bullet with pawn
+			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
+				collision->m_ColliderB->m_ColliderName == "pawn"))
+			{
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				((Pawn*)collision->m_ColliderB)->Hurt(4);
+			}
+			else if ((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
+				collision->m_ColliderA->m_ColliderName == "pawn"))
+			{
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				((Pawn*)collision->m_ColliderA)->Hurt(4);
+			}
+
+			// Bullet with leader
+			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
+				collision->m_ColliderB->m_ColliderName == "leader"))
+			{
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				((Leader*)collision->m_ColliderB)->Hurt(4);
+			}
+			else if ((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
+				collision->m_ColliderA->m_ColliderName == "leader"))
+			{
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				((Leader*)collision->m_ColliderA)->Hurt(4);
 			}
 
 		});

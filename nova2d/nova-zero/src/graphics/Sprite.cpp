@@ -45,7 +45,7 @@ namespace novazero
 				m_SpriteSheet = NULL;
 			}
 			
-			Game::s_Renderer->s_DrawLayers->RemoveSprite(m_ID, m_Layer);
+			n2dRemoveDrawable(m_ID, m_Layer);
 		}
 
 		void Sprite::ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop)

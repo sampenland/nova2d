@@ -65,3 +65,27 @@ nova2d SetBackgroundColor(std::string colorName)
 Sets default background to a color already loaded in Game's Color Manager
 */
 #define n2dSetBackgroundColor(colorName) novazero::core::Game::s_Renderer->SetBackgroundColor(colorName);
+
+/*
+nova2d Change Scene(std::string sceneName)
+Changes to Game's Scene Manager preloaded scene
+*/
+#define n2dSceneChange(sceneName) novazero::core::Game::s_SceneManager->ChangeScene(sceneName);
+
+/*
+nova2d Set draw color (std::string colorName)
+Updates SDL renderer's draw color from preloaded Game's Color Manager's color
+*/
+#define n2dRenderDrawColor(colorName) novazero::core::Game::s_Renderer->SetDrawColor(colorName);
+
+/*
+nova2d Add Drawable (Drawable* drawable, char layer)
+Adds a graphic/drawable to Game's Draw Layers
+*/
+#define n2dAddDrawable(drawable, layer) novazero::core::Game::s_Renderer->s_DrawLayers->AddSprite(drawable, layer);
+
+/*
+nova2d Remove Drawable (Drawable* drawable, char layer)
+Removes a graphic/drawable from Game's Draw Layers
+*/
+#define n2dRemoveDrawable(drawableID, layer) novazero::core::Game::s_Renderer->s_DrawLayers->RemoveSprite(drawableID, layer)

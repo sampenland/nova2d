@@ -19,13 +19,13 @@ namespace novazero
 
 		}
 
-		Color ColorManager::AddColor(const std::string name, Color c)
+		Color* ColorManager::AddColor(const std::string name, Color* c)
 		{
-			m_ColorMap.insert(std::pair<std::string, Color>(name, c));
+			m_ColorMap.insert(std::pair<std::string, Color*>(name, c));
 			return GetColor(name);
 		}
 
-		Color ColorManager::AddColor(const std::string name, std::string hexCode, const Uint8 alpha)
+		Color* ColorManager::AddColor(const std::string name, std::string hexCode, const Uint8 alpha)
 		{
 			std::regex pattern("([0-9a-fA-F]{6})");
 			std::smatch match;
@@ -34,11 +34,11 @@ namespace novazero
 				int r, g, b;
 				int s = sscanf(match.str(1).c_str(), "%2x%2x%2x", &r, &g, &b);
 
-				Color c(r, g, b, alpha);
+				Color* c = new Color(r, g, b, alpha);
 				return AddColor(name, c);
 			}
 
-			return Color(0, 0, 0, 255);
+			return new Color(0, 0, 0, 255);
 		}
 
 		void ColorManager::RemoveColor(const std::string name)
@@ -46,7 +46,7 @@ namespace novazero
 			m_ColorMap.erase(name);
 		}
 
-		Color ColorManager::GetColor(const std::string name) const
+		Color* ColorManager::GetColor(const std::string name) const
 		{
 			try {
 				return m_ColorMap.at(name);
@@ -56,7 +56,7 @@ namespace novazero
 				LOG("Couldn't find color.");
 				const char* ex = oor.what();
 				LOG(ex);
-				return Color(0, 0, 0, 1);
+				return new Color(0, 0, 0, 1);
 			}
 			
 		}

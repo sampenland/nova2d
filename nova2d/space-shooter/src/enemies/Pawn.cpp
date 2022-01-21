@@ -9,6 +9,12 @@ namespace spaceshooter
 		: SimpleFollower(target, moveUpdateDelay)
 	{
 		AddSprite(assetName, position, size, layer);
+		ConfigureCollider(m_Sprite, 0, "pawn");
+
+		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
+			32, 4, "light-blue", "bright-blue", "white", layer);
+		m_HealthBar->ConfigureThickness(1);
+		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
 		n2dAddUpdater(Pawn::Update, this);
 	}
@@ -17,10 +23,15 @@ namespace spaceshooter
 	{
 		if (m_Sprite)
 			delete m_Sprite;
+
+		if (m_HealthBar)
+			delete m_HealthBar;
 	}
 
 	void Pawn::Update()
 	{
+		m_HealthBar->Update(m_Health, m_Sprite->GetX() - 8, m_Sprite->GetY() - 8);
+
 		if (m_DelayShoot < 0)
 		{
 			Shoot();
@@ -28,6 +39,15 @@ namespace spaceshooter
 		}
 
 		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
+	}
+
+	void Pawn::Hurt(int damage)
+	{
+		m_Health -= damage;
+		if (m_Health < 1)
+		{
+			DestroySelf();
+		}
 	}
 
 	void Pawn::Shoot()

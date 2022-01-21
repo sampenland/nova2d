@@ -6,6 +6,7 @@
 #include "../graphics/Sprite.h"
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
+#include "../physics/Collider.h"
 
 typedef std::function<void()> f_MovePtrFunction;
 
@@ -16,6 +17,7 @@ namespace novazero
 		using namespace maths;
 		using namespace graphics;
 		using namespace core;
+		using namespace physics;
 
 		struct PatrolVec2IntWithMoveFunction
 		{
@@ -24,7 +26,7 @@ namespace novazero
 		};
 
 		class SimpleWeakAI
-			: public BoundUser
+			: public BoundUser, public Collider
 		{
 
 		private:
@@ -68,6 +70,7 @@ namespace novazero
 			void LinearPatrolMove();
 			
 			void Update();
+			void OnCollision(Collision* collision) override { };
 
 		};
 	}

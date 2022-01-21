@@ -37,7 +37,7 @@ namespace novazero
 				return;
 
 			s_ColorManager = new ColorManager();
-			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), Color(100,100,100,1));
+			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
 			s_SceneManager = new SceneManager();

@@ -18,7 +18,7 @@ namespace spaceshooter
 	void Lvl1::Start()
 	{
 		Player* player = new Player("player", Vec2Int((int)Game::s_Width / 2 - 8, (int)Game::s_Height - 64), Vec2Int(16, 16), 1);
-		player->Configure(3000);
+		player->Configure(1500);
 		player->ConfigureMove(3);
 		player->SetMoveBounds(Game::GetGameBounds());
 

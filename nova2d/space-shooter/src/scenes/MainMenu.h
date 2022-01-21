@@ -38,7 +38,7 @@ namespace spaceshooter
 
 		void OnSpace()
 		{
-			Game::s_SceneManager->ChangeScene("level1");
+			n2dSceneChange("level1");
 		}
 
 		void End() override
