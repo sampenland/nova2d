@@ -12,7 +12,7 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "pawn");
 
 		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
-			32, 4, "light-blue", "bright-blue", "white", layer);
+			16, 4, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
@@ -30,7 +30,9 @@ namespace spaceshooter
 
 	void Pawn::Update()
 	{
-		m_HealthBar->Update(m_Health, m_Sprite->GetX() - 8, m_Sprite->GetY() - 8);
+		if (!m_Alive) return;
+
+		m_HealthBar->Update(m_Health, m_Sprite->GetX(), m_Sprite->GetY() - 8);
 
 		if (m_DelayShoot < 0)
 		{
@@ -43,11 +45,26 @@ namespace spaceshooter
 
 	void Pawn::Hurt(int damage)
 	{
+		SmallExplosion();
+
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
+			if (m_HealthBar)
+				delete m_HealthBar;
+
 			DestroySelf();
 		}
+	}
+
+	void Pawn::SmallExplosion()
+	{
+		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
+		explosion->ConfigureAnimation(0, 5, 100, true);
+		auto animEnd = new auto ([](Sprite* sprite) {
+			sprite->DestroySelf();
+			});
+		explosion->ConfigureAnimationEnd(*animEnd);
 	}
 
 	void Pawn::Shoot()

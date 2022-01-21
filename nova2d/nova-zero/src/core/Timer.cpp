@@ -21,12 +21,21 @@ namespace novazero
 			n2dRemoveUpdater(Timer::Update, this);
 		}
 
+		void Timer::DestroySelf()
+		{
+			m_Alive = false;
+
+			n2dRemoveUpdater(Timer::Update, this);
+		}
+
 		void Timer::Update()
 		{
 			if (!m_Alive) return;
 
 			if (m_Delay < 0)
 			{
+				m_OnFinish();
+
 				if (m_Loop)
 				{
 					m_Alive = true;
@@ -34,11 +43,8 @@ namespace novazero
 				}
 				else
 				{
-					m_Alive = false;
+					DestroySelf();
 				}
-
-				m_OnFinish();
-
 			}
 			else
 			{

@@ -21,7 +21,7 @@ namespace spaceshooter
 		float m_DelayShootMax = 2000.0f;
 
 		SimpleStatBar* m_HealthBar = nullptr;
-		int m_Health = 32;
+		int m_Health = 16;
 
 	public:
 
@@ -38,6 +38,7 @@ namespace spaceshooter
 		void Shoot();
 
 		void Hurt(int damage);
+		void SmallExplosion();
 
 	};
 }

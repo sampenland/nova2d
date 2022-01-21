@@ -20,7 +20,7 @@ namespace spaceshooter
 				std::bind(&Player::Shoot, this));
 		}
 
-		m_Sprite->ConfigureAnimation(0, 2, 100, true);
+		//m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, "player");
 
 		int startX = 8;
@@ -57,6 +57,11 @@ namespace spaceshooter
 			hit = true;
 		}
 
+		if (hit)
+		{
+			SmallExplosion();
+		}
+
 		if (hit && m_Lives > 1)
 		{
 			Sprite* s = m_LifeSprites.at(m_Lives - 1);
@@ -70,6 +75,16 @@ namespace spaceshooter
 			LOG("Game Over");
 		}
 
+	}
+
+	void Player::SmallExplosion()
+	{
+		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
+		explosion->ConfigureAnimation(0, 5, 100, true);
+		auto animEnd = new auto ([](Sprite* sprite) {
+			sprite->DestroySelf();
+			});
+		explosion->ConfigureAnimationEnd(*animEnd);
 	}
 
 	void Player::Update()
@@ -133,13 +148,13 @@ namespace spaceshooter
 				collision->m_ColliderB->m_ColliderName == "leader"))
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				((Leader*)collision->m_ColliderB)->Hurt(4);
+				((Leader*)collision->m_ColliderB)->Hurt(2);
 			}
 			else if ((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
 				collision->m_ColliderA->m_ColliderName == "leader"))
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				((Leader*)collision->m_ColliderA)->Hurt(4);
+				((Leader*)collision->m_ColliderA)->Hurt(2);
 			}
 
 		});

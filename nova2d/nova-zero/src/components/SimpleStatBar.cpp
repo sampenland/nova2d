@@ -73,7 +73,7 @@ namespace novazero
 
 		void SimpleStatBar::ConfigureForeground(std::string colorForeground, std::string colorForeground2, std::string colorForeground4)
 		{
-			m_ForegroundColor = colorForeground;
+			m_ForegroundColorAll = colorForeground;
 			m_ForegroundColorHalf = colorForeground2;
 			m_ForegroundColorFourth = colorForeground4;
 		}
@@ -134,11 +134,11 @@ namespace novazero
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);
 			
 			n2dRenderDrawColor(m_OutlineColor);
-			SDL_RenderDrawRect(Game::s_Renderer->GetSDLRenderer(), m_Outline);
+			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Outline);
 			n2dRenderDrawColor(m_BackgroundColor);
-			SDL_RenderDrawRect(Game::s_Renderer->GetSDLRenderer(), m_Background);
+			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Background);
 			n2dRenderDrawColor(m_ForegroundColor);
-			SDL_RenderDrawRect(Game::s_Renderer->GetSDLRenderer(), m_Foreground);
+			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Foreground);
 
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);
 		}

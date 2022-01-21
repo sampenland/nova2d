@@ -41,6 +41,7 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("pawn-bullet", "res/bullet_02.png");
 	n2dAssetsLoadAndAddTexture("leader-bullet", "res/bullet_03.png");
 	n2dAssetsLoadAndAddTexture("title", "res/title.png");
+	n2dAssetsLoadAndAddTexture("explode", "res/explode_anim.png");
 
 	MainMenu* mainMenuScene = new MainMenu();
 	Lvl1* level1 = new Lvl1();

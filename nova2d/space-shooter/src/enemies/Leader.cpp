@@ -8,7 +8,7 @@ namespace spaceshooter
 	{
 		AddSprite(assetName, position, size, layer);
 		
-		int forwardMove = 256;
+		int forwardMove = 96;
 		AddPatrolPointWithFunction(Vec2Int(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 
 		AddPatrolPointWithFunction(Vec2Int(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
@@ -26,7 +26,7 @@ namespace spaceshooter
 			for (int col = -3; col <= 3; col++)
 			{
 				int	offsetX = col * 96;
-				int offsetY = -64 - (row * 32);
+				int offsetY = 64 + (row * 32);
 
 				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16), 1, m_Sprite, 0.0f);
 				pawn->Configure(m_MoveSpeed + 2);
@@ -42,7 +42,7 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "leader");
 
 		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
-			32, 4, "light-blue", "bright-blue", "white", layer);
+			32 * 2, 12, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
@@ -53,16 +53,28 @@ namespace spaceshooter
 
 	void Leader::HealthUpdate()
 	{
-		m_HealthBar->Update(m_Health, m_Sprite->GetX() - 8, m_Sprite->GetY() - 8);
+		m_HealthBar->Update(m_Health * 2, m_Sprite->GetX() - 24, m_Sprite->GetY() - 16);
 	}
 
 	void Leader::Hurt(int damage)
 	{
+		SmallExplosion();
+
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
 			DestroySelf();
 		}
+	}
+
+	void Leader::SmallExplosion()
+	{
+		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
+		explosion->ConfigureAnimation(0, 5, 100, true);
+		auto animEnd = new auto ([](Sprite* sprite) {
+			sprite->DestroySelf();
+			});
+		explosion->ConfigureAnimationEnd(*animEnd);
 	}
 
 	Leader::~Leader()
@@ -129,5 +141,8 @@ namespace spaceshooter
 
 		if (m_Sprite)
 			delete m_Sprite;
+
+		if (m_HealthBar)
+			delete m_HealthBar;
 	}
 }

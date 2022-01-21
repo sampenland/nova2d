@@ -35,7 +35,7 @@ namespace novazero
 
 			// Final
 			m_ID = Game::GetNextID();
-			Game::s_Renderer->s_DrawLayers->AddSprite(this, m_Layer);
+			n2dAddDrawable(this, m_Layer);
 		}
 
 		Sprite::~Sprite()
@@ -44,6 +44,9 @@ namespace novazero
 			{
 				m_SpriteSheet = NULL;
 			}
+
+			if (m_AnimationTimer)
+				delete m_AnimationTimer;
 			
 			n2dRemoveDrawable(m_ID, m_Layer);
 		}
@@ -72,6 +75,8 @@ namespace novazero
 
 		void Sprite::NextFrame()
 		{
+			if (!m_Visible || !m_Alive) return;
+
 			m_CurrentFrame++;
 
 			if (m_CurrentFrame >= m_Frames)
@@ -84,6 +89,9 @@ namespace novazero
 				{
 					m_CurrentFrame = m_Frames - 1;
 				}
+
+				if (f_OnAnimationEnd)
+					f_OnAnimationEnd(this);
 			}
 		}
 
@@ -94,7 +102,7 @@ namespace novazero
 
 		void Sprite::Draw()
 		{
-			if (!m_Visible) return;
+			if (!m_Visible || !m_Alive) return;
 
 			m_SrcRect.x = m_CurrentFrame * m_FrameSize.x;
 			m_SrcRect.w = m_FrameSize.x;
@@ -108,6 +116,14 @@ namespace novazero
 		bool Sprite::operator==(const Sprite& other)
 		{
 			return m_ID == other.m_ID;
+		}
+
+		void Sprite::DestroySelf()
+		{
+			m_Alive = false;
+
+			if (m_AnimationTimer)
+				m_AnimationTimer->DestroySelf();
 		}
 	}
 }

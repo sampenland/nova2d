@@ -2,6 +2,7 @@
 #include "../core/Positional.h"
 #include "../core/Timer.h"
 #include "Drawable.h"
+#include <functional>
 
 namespace novazero
 {
@@ -21,6 +22,8 @@ namespace novazero
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 
+			bool m_Alive = true;
+
 			bool m_AnimationRunning = false;
 			bool m_AnimationLooping = false;
 			int m_Frames = 1;
@@ -29,6 +32,8 @@ namespace novazero
 
 			Timer* m_AnimationTimer = nullptr;
 
+			std::function<void(Sprite* sprite)> f_OnAnimationEnd;
+
 		public:
 
 			Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
@@ -36,6 +41,7 @@ namespace novazero
 
 			void ConfigureAnimating(bool isRunning) { m_AnimationRunning = true; }
 			void ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop);
+			void ConfigureAnimationEnd(std::function<void(Sprite* sprite)> f) { f_OnAnimationEnd = f; }
 			void NextFrame();
 			void JumpToFrame(int frame);
 
@@ -43,6 +49,8 @@ namespace novazero
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
 			void Draw() override;
+
+			void DestroySelf();
 
 			bool m_Visible = true;
 			void ChangeLayer(char layer) { m_Layer = layer; }

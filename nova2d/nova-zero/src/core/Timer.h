@@ -21,6 +21,8 @@ namespace novazero
 
 			Timer(const float delayMS, const bool loop, f_VoidFunction endDelayFunc);
 			~Timer();
+
+			void DestroySelf();
 			
 			void Update();
 		};

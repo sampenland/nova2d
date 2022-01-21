@@ -38,6 +38,7 @@ namespace spaceshooter
 
 		void HealthUpdate();
 		void Hurt(int damage);
+		void SmallExplosion();
 
 		void DestroySelf() override;
 
