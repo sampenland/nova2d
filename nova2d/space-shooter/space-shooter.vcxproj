@@ -59,12 +59,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>nova-zero.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -76,14 +76,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;C:\spinland_games\cpp\nova2d\nova2d\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;C:\spinland_games\cpp\nova2d\nova2d\bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>nova-zero.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>-lSDL2_image %(AdditionalOptions)</AdditionalOptions>
     </Link>

@@ -9,10 +9,8 @@ namespace novazero
 
 		protected:
 			
-			Drawable() 
-				: m_ID(0), m_Layer(0)
-			{ 
-			};
+			Drawable();
+			~Drawable();
 
 		public:
 

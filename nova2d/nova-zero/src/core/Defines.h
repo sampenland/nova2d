@@ -19,6 +19,12 @@ namespace novazero
 }
 
 /*
+nova2d Get Unique Game ID
+Returns a unique unsigned int ID value
+*/
+#define n2dGameGetID() novazero::core::Game::GetNextID();
+
+/*
 nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
 Calls function on SDL_KeyCode key down
 Must be called on in a class that inherits from EventListener
@@ -115,3 +121,15 @@ nova2d Get Reference (std::string referenceName)
 Gets a reference to Referenceable object from Game's Reference Manager
 */
 #define n2dReferenceGet(referenceName) novazero::core::SceneManager::s_ReferenceManager->GetReferenced(referenceName);
+
+/*
+nova2d Add Font (std::string fontName, std::string fontPath, int fontSize)
+Adds font to Game's Font Manager
+*/
+#define n2dFontAdd(fontName, fontPath, fontSize) novazero::core::Game::s_FontManager->AddFont(fontName, fontPath, fontSize);
+
+/*
+nova2d Get Font (std::string fontName)
+Adds font to Game's Font Manager
+*/
+#define n2dFontGet(fontName) novazero::core::Game::s_FontManager->GetFont(fontName);

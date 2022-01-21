@@ -12,6 +12,7 @@
 #include "../utils/ColorManager.h"
 #include "../utils/AssetManager.h"
 #include "../physics/CollisionManager.h"
+#include "../utils/FontManager.h"
 
 #include "../graphics/Color.h"
 #include <vector>
@@ -67,6 +68,7 @@ namespace novazero
 			static novazero::input::InputHandler* s_InputHandler;
 			static novazero::utils::AssetManager* s_AssetManager;
 			static SceneManager* s_SceneManager;
+			static novazero::utils::FontManager* s_FontManager;
 
 			static double s_DeltaTime;
 			static int s_Width;
