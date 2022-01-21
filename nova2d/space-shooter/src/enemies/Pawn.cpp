@@ -1,4 +1,5 @@
 #include "Pawn.h"
+#include "graphics/Text.h"
 
 namespace spaceshooter
 {
@@ -53,6 +54,9 @@ namespace spaceshooter
 			if (m_HealthBar)
 				delete m_HealthBar;
 
+			Text* t = (Text*)n2dReferenceGet("score");
+			auto score = n2dScoreAdd(10);
+			t->UpdateText("Score: " + std::to_string(score));
 			DestroySelf();
 		}
 	}

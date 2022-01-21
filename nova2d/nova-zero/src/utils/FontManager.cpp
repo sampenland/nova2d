@@ -7,6 +7,12 @@ namespace novazero
 	{
 		FontManager::FontManager()
 		{
+			if (TTF_Init() != 0) 
+			{
+				LOG("Could not start TTF library.");
+				return;
+			}
+
 			AddFont("font1", "res/fonts/pixel1.ttf", 20);
 			AddFont("font2", "res/fonts/pixel2.ttf", 20);
 			AddFont("font3", "res/fonts/pixel3.ttf", 20);
@@ -25,6 +31,7 @@ namespace novazero
 			if (!font)
 			{
 				LOG("Failed to load font.");
+				LOG(TTF_GetError());
 				LOG(fontName);
 				return;
 			}

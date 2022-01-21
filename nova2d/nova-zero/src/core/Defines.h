@@ -123,6 +123,12 @@ Gets a reference to Referenceable object from Game's Reference Manager
 #define n2dReferenceGet(referenceName) novazero::core::SceneManager::s_ReferenceManager->GetReferenced(referenceName);
 
 /*
+nova2d Remove Reference (std::string referenceName)
+Removes a reference from Game's Reference Manager
+*/
+#define n2dReferenceRemove(referenceName) novazero::core::SceneManager::s_ReferenceManager->RemoveReference(referenceName);
+
+/*
 nova2d Add Font (std::string fontName, std::string fontPath, int fontSize)
 Adds font to Game's Font Manager
 */
@@ -133,3 +139,21 @@ nova2d Get Font (std::string fontName)
 Adds font to Game's Font Manager
 */
 #define n2dFontGet(fontName) novazero::core::Game::s_FontManager->GetFont(fontName);
+
+/*
+nova2d Global Game Score ()
+Easy access globally to game score
+*/
+#define n2dScoreSet(score) novazero::core::Game::SetScore(score);
+
+/*
+nova2d Global Game Score ()
+Easy access globally to game score
+*/
+#define n2dScoreGet() novazero::core::Game::GetScore();
+
+/*
+nova2d Global Game Score ()
+Easy access globally to game score
+*/
+#define n2dScoreAdd(add) novazero::core::Game::AddScore(add);

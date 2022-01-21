@@ -22,7 +22,7 @@ namespace novazero
 			m_DrawRect.w = drawRect.w;
 			m_DrawRect.h = drawRect.h;				
 			
-			Construct();
+			Construct(m_DisplayText, Vec2Int(drawRect.x, drawRect.y));
 
 		}
 
@@ -32,12 +32,22 @@ namespace novazero
 				SDL_DestroyTexture(m_Texture);
 		}
 
-		void Text::Construct()
+		void Text::UpdateText(std::string newText)
+		{
+			Construct(newText, Vec2Int(m_DrawRect.x, m_DrawRect.y));
+		}
+
+		void Text::Construct(std::string newText, Vec2Int newPos)
 		{
 			TTF_Font* font = n2dFontGet(m_FontName);
 			Color* novaColor = n2dGetColor(m_TextColor);
 			SDL_Color sdlColor = { novaColor->r, novaColor->g, novaColor->b };
+			
+			m_DisplayText = newText;
 			SDL_Surface* surface = TTF_RenderText_Solid(font, m_DisplayText.c_str(), sdlColor);
+
+			m_DrawRect.x = newPos.x;
+			m_DrawRect.y = newPos.y;
 
 			if (!surface)
 			{

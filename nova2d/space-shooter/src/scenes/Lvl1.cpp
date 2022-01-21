@@ -28,8 +28,10 @@ namespace spaceshooter
 		Leader* leader = new Leader("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
 		leader->ConfigureAliveBounds(Game::GetGameBounds());
 
-		Text* score = new Text("font1", "Score: ", "white", Rect(Game::s_Width - 48, 8, 48, 16), 0);
+		const int scoreSize = 128;
+		Text* score = new Text("font1", "Score: 0000000000", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
 		n2dAddDrawable(score, 0);
+		n2dReferenceAdd("score", score);
 
 		AddObjectToCleanUp(player);
 		AddObjectToCleanUp(leader);
@@ -44,6 +46,7 @@ namespace spaceshooter
 
 	void Lvl1::End()
 	{
+		n2dReferenceRemove("score");
 		CleanUp();
 	}
 

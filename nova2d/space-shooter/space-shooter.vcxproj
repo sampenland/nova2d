@@ -104,10 +104,13 @@
     <Image Include="res\bullet_01.png" />
     <Image Include="res\bullet_02.png" />
     <Image Include="res\bullet_03.png" />
+    <Image Include="res\explode_anim.png" />
+    <Image Include="res\gameOverTitle.png" />
     <Image Include="res\ship_01.png" />
     <Image Include="res\ship_01_anim.png" />
     <Image Include="res\ship_02.png" />
     <Image Include="res\ship_03.png" />
+    <Image Include="res\title.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\GameOver.h" />
@@ -116,6 +119,12 @@
     <ClInclude Include="src\enemies\Pawn.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\pixel1.ttf" />
+    <Font Include="res\fonts\pixel2.ttf" />
+    <Font Include="res\fonts\pixel3.ttf" />
+    <Font Include="res\fonts\pixel4.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

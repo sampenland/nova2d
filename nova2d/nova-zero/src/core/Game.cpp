@@ -25,6 +25,7 @@ namespace novazero
 		int Game::s_Padding;
 		int Game::s_ExitCode = 0;
 		bool Game::s_Running = 0;
+		unsigned int Game::s_Score = 0;
 
 		// --------------------------------
 		Game::Game(const Vec2Int screenSize, const char* title)

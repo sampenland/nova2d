@@ -81,6 +81,11 @@ namespace novazero
 			static unsigned int s_IDCount;
 			static unsigned int GetNextID() { s_IDCount++; return s_IDCount; }
 
+			static unsigned int s_Score;
+			static unsigned int AddScore(unsigned int add) { s_Score += add; return s_Score; }
+			static unsigned int GetScore() { return s_Score; }
+			static void SetScore(unsigned int score) { s_Score = score; }
+
 			static bool s_Running;
 			static bool IsRunning() { return s_Running; }
 			static int s_ExitCode;

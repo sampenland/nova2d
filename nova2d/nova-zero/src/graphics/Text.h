@@ -5,6 +5,7 @@
 #include "../core/Positional.h"
 #include "../graphics/Drawable.h"
 #include "SDL.h"
+#include "../core/Referenceable.h"
 
 namespace novazero
 {
@@ -13,7 +14,7 @@ namespace novazero
 
 	namespace graphics
 	{
-		class Text : public Positional, public Drawable
+		class Text : public Positional, public Drawable, public Referenceable
 		{
 
 		private:
@@ -30,7 +31,8 @@ namespace novazero
 			Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer);
 			~Text();
 
-			void Construct();
+			void Construct(std::string newText, Vec2Int newPos);
+			void UpdateText(std::string newText);
 
 			void Draw() override;
 
