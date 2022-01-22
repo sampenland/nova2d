@@ -24,6 +24,8 @@ namespace spaceshooter
 		int m_Lives = 3;
 		std::vector<Sprite*> m_LifeSprites;
 
+		unsigned int m_CleanID = 0;
+
 	public:
 
 		Player(std::string assetName, Vec2Int position, Vec2Int size, char layer);

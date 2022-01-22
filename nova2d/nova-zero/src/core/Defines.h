@@ -60,7 +60,7 @@ Updaters are called each frame; this adds a new funcToCall as an Updater
 nova2d Remove Updater(void(*f) funcToRemove)
 Updaters are called each frame; this removes a current updater function from updaters vector<void()>
 */
-#define n2dRemoveUpdater(updaterToRemove, context) novazero::core::SceneManager::RemoveUpdater(std::bind(&updaterToRemove, context));
+#define n2dRemoveUpdater(id) novazero::core::SceneManager::RemoveUpdater(id);
 
 /*
 nova2d Add Scene (std::string sceneName, Scene* scene)

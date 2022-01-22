@@ -46,9 +46,9 @@ namespace novazero
 			static ReferenceManager* s_ReferenceManager;
 			static CollisionManager* s_CollisionManager;
 
-			static std::vector<f_VoidFunction> s_Updaters;
-			static void AddUpdater(f_VoidFunction updater);
-			static void RemoveUpdater(f_VoidFunction updater);
+			static std::map<unsigned int, f_VoidFunction> s_Updaters;
+			static unsigned int AddUpdater(f_VoidFunction updater);
+			static void RemoveUpdater(unsigned int id);
 
 			static std::vector<Deleteable*> s_Deleteables;
 			static void AddDeleteable(Deleteable* o);

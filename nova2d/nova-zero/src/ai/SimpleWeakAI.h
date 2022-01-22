@@ -7,6 +7,7 @@
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
+#include "../core/Deleteable.h"
 
 typedef std::function<void()> f_MovePtrFunction;
 
@@ -26,7 +27,7 @@ namespace novazero
 		};
 
 		class SimpleWeakAI
-			: public BoundUser, public Collider
+			: public BoundUser, public Collider, public Deleteable
 		{
 
 		private:

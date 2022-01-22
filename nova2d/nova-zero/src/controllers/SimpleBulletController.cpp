@@ -9,7 +9,7 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleBulletController::SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay)
-			: Collider(0), m_AliveBounds(Rect(0,0,0,0)), m_MoveSpeed(2)
+			: Collider(0), m_AliveBounds(Rect(0,0,0,0)), Deleteable("simpleBulletCtrl"), m_MoveSpeed(2)
 		{
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
 			m_Start = start;
@@ -18,7 +18,8 @@ namespace novazero
 			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			n2dAddUpdater(SimpleBulletController::Update, this);
+			auto cleanID = n2dAddUpdater(SimpleBulletController::Update, this);
+			m_CleanUpdaters.push_back(cleanID);
 		}
 
 		SimpleBulletController::~SimpleBulletController()
@@ -28,6 +29,7 @@ namespace novazero
 
 		void SimpleBulletController::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		{
+			m_DeleteName = assetName;
 			m_Sprite = new Sprite(assetName, position, size, layer);
 		}
 
@@ -102,7 +104,7 @@ namespace novazero
 
 			m_Destroyed = true;
 
-			n2dRemoveUpdater(SimpleBulletController::Update, this);
+			CleanUpdaters();
 
 			if (m_UsingCollider)
 			{

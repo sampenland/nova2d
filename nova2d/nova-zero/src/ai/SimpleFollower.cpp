@@ -9,7 +9,7 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleFollower::SimpleFollower(Positional* target, const float moveUpdateDelay)
-			:  Collider(0), m_MoveSpeed(2)
+			:  Collider(0), Deleteable("simpleFollower"), m_MoveSpeed(2)
 		{
 			m_Target = target;
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
@@ -17,7 +17,8 @@ namespace novazero
 			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			n2dAddUpdater(SimpleFollower::Update, this);
+			auto id = n2dAddUpdater(SimpleFollower::Update, this);
+			m_CleanUpdaters.push_back(id);
 		}
 
 		SimpleFollower::~SimpleFollower()
@@ -82,7 +83,7 @@ namespace novazero
 			m_Destroyed = true;
 			m_Alive = false;
 
-			n2dRemoveUpdater(SimpleFollower::Update, this);
+			CleanUpdaters();
 
 			if (m_UsingCollider)
 			{

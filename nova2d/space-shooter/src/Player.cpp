@@ -32,12 +32,12 @@ namespace spaceshooter
 			m_LifeSprites.push_back(life);
 		}
 
-		n2dAddUpdater(Player::Update, this);
+		m_CleanID = n2dAddUpdater(Player::Update, this);
 	}
 
 	Player::~Player()
 	{
-		n2dRemoveUpdater(Player::Update, this);
+		n2dRemoveUpdater(m_CleanID);
 	}
 
 	void Player::Quit()
@@ -140,6 +140,7 @@ namespace spaceshooter
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 			}
+			/*
 
 			// Bullet with pawn
 			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
@@ -167,7 +168,7 @@ namespace spaceshooter
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((Leader*)collision->m_ColliderA)->Hurt(2);
-			}
+			}*/
 
 		});
 

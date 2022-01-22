@@ -26,6 +26,7 @@ namespace novazero
 			std::vector<f_FloatPassFunction> m_JoystickAxisEvents;
 
 			unsigned int m_ID = 0;
+			unsigned int m_CleanID = 0;
 
 		public:
 			

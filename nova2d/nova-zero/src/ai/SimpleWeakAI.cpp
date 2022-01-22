@@ -5,14 +5,15 @@ namespace novazero
 	namespace ai
 	{
 		SimpleWeakAI::SimpleWeakAI()
-			: Collider(0)
+			: Collider(0), Deleteable("simpleWeakAI")
 		{
-			n2dAddUpdater(SimpleWeakAI::Update, this);
+			unsigned int clean_id = n2dAddUpdater(SimpleWeakAI::Update, this);
+			m_CleanUpdaters.push_back(clean_id);
 		}
 
 		SimpleWeakAI::~SimpleWeakAI()
 		{
-			n2dRemoveUpdater(SimpleWeakAI::Update, this);
+			CleanUpdaters();
 
 			if (m_Sprite)
 				delete m_Sprite;
@@ -35,6 +36,7 @@ namespace novazero
 		void SimpleWeakAI::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
+			m_DeleteName = assetName;
 		}
 
 		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2Int point, f_MovePtrFunction func)
@@ -76,7 +78,6 @@ namespace novazero
 
 		void SimpleWeakAI::Update()
 		{
-
 			if (m_Delay > 0)
 			{
 				auto d = n2dDeltaTime();

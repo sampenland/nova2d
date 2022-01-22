@@ -17,17 +17,17 @@ namespace novazero
 
 		EventListener::~EventListener()
 		{
-			n2dRemoveUpdater(EventListener::EventStep, this);
+			n2dRemoveUpdater(m_CleanID);
 		}
 
 		void EventListener::StartEventListener()
 		{
- 			n2dAddUpdater(EventListener::EventStep, this);
+ 			m_CleanID = n2dAddUpdater(EventListener::EventStep, this);
 		}
 
 		void EventListener::EndEventListener()
 		{
-			n2dRemoveUpdater(EventListener::EventStep, this);
+			n2dRemoveUpdater(m_CleanID);
 		}
 
 		void EventListener::EventStep()

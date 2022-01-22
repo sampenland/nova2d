@@ -46,9 +46,12 @@ namespace spaceshooter
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
-		n2dAddUpdater(Leader::Update, this);
-		n2dAddUpdater(Leader::ShootUpdate, this);
-		n2dAddUpdater(Leader::HealthUpdate, this);
+		auto id = n2dAddUpdater(Leader::Update, this);
+		m_CleanUpdaters.push_back(id);
+		id = n2dAddUpdater(Leader::ShootUpdate, this);
+		m_CleanUpdaters.push_back(id);
+		id = n2dAddUpdater(Leader::HealthUpdate, this);
+		m_CleanUpdaters.push_back(id);
 
 		m_MoveTimer = new Timer(randomf(10000, 20000), false, std::bind(&Leader::MoveForwardThenBack, this));
 		m_BombTimer = new Timer(randomf(10000, 20000), false, std::bind(&Leader::DeployBomb, this));
@@ -124,9 +127,7 @@ namespace spaceshooter
 
 	Leader::~Leader()
 	{
-		n2dRemoveUpdater(Leader::Update, this);
-		n2dRemoveUpdater(Leader::ShootUpdate, this);
-		n2dRemoveUpdater(Leader::HealthUpdate, this);
+		CleanUpdaters();
 	}
 
 	void Leader::ShootUpdate()
@@ -185,7 +186,7 @@ namespace spaceshooter
 		m_Destroyed = true;
 		m_Alive = false;
 
-		n2dRemoveUpdater(Leader::Update, this);
+		CleanUpdaters();
 
 		if (m_Sprite)
 			delete m_Sprite;

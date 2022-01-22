@@ -6,6 +6,7 @@
 #include "../core/BoundUser.h"
 #include "../core/TimerWatcher.h"
 #include "../physics/Collider.h"
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
@@ -20,7 +21,8 @@ namespace novazero
 			: public EventListener,
 			public BoundUser,
 			public TimerWatcher,
-			public Collider
+			public Collider,
+			public Deleteable
 		{
 
 		private:

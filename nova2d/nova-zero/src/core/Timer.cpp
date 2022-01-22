@@ -13,7 +13,7 @@ namespace novazero
 
 			f_OnFinish = endDelayFunc;
 
-			n2dAddUpdater(Timer::Update, this);
+			m_CleanID = n2dAddUpdater(Timer::Update, this);
 		}
 
 		void Timer::Reset(const float delayMS, bool loop)
@@ -23,19 +23,19 @@ namespace novazero
 			m_Loop = loop;
 			m_Alive = true;
 
-			n2dAddUpdater(Timer::Update, this);
+			m_CleanID = n2dAddUpdater(Timer::Update, this);
 		}
 
 		Timer::~Timer()
 		{
-			n2dRemoveUpdater(Timer::Update, this);
+			n2dRemoveUpdater(m_CleanID);
 		}
 
 		void Timer::DestroySelf()
 		{
 			m_Alive = false;
 
-			n2dRemoveUpdater(Timer::Update, this);
+			n2dRemoveUpdater(m_CleanID);
 		}
 
 		void Timer::Update()

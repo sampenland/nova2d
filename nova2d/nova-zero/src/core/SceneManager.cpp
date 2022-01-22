@@ -1,11 +1,13 @@
 #include "SceneManager.h"
 #include "../graphics/Renderer.h"
+#include <algorithm>
+#include "Game.h"
 
 namespace novazero
 {
 	namespace core
 	{
-		std::vector<f_VoidFunction> SceneManager::s_Updaters;
+		std::map<unsigned int, f_VoidFunction> SceneManager::s_Updaters;
 		std::vector<Deleteable*> SceneManager::s_Deleteables;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
@@ -89,7 +91,6 @@ namespace novazero
 
 		void SceneManager::Clean()
 		{
-			std::vector<void*> r;
 			for (size_t i = 0; i < s_Deleteables.size(); i++)
 			{
 				if (s_Deleteables[i]->m_DeleteNow)
@@ -103,35 +104,28 @@ namespace novazero
 		{
 			m_CurrentScene->Update();
 
-			for (size_t i = 0; i < s_Updaters.size(); i++)
+			std::map<unsigned int, f_VoidFunction>::iterator it = s_Updaters.begin();
+			while (it != s_Updaters.end())
 			{
-				s_Updaters[i]();
+				if(it->second)
+					it->second();
+
+				it++;
 			}
 
 			s_CollisionManager->Update();
 		}
 
-		void SceneManager::RemoveUpdater(f_VoidFunction updater)
+		void SceneManager::RemoveUpdater(unsigned int id)
 		{
-			int idx = -1;
-			for (size_t i = 0; i < s_Updaters.size(); i++)
-			{
-				if (&s_Updaters[i] == &updater)
-				{
-					idx = i;
-					break;
-				}
-			}
-
-			if (idx == -1)return;
-
-			s_Updaters.erase(s_Updaters.begin() + idx);
-
+			s_Updaters.erase(id);
 		}
 
-		void SceneManager::AddUpdater(f_VoidFunction updater)
+		unsigned int SceneManager::AddUpdater(f_VoidFunction updater)
 		{
-			s_Updaters.push_back(updater);
+			unsigned int id = n2dGameGetID();
+			s_Updaters[id] = updater;
+			return id;
 		}
 
 		void SceneManager::RemoveDeleteable(Deleteable* object)

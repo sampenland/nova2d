@@ -14,6 +14,8 @@ namespace novazero
 			float m_Delay = 0.0f;
 			bool m_Loop = false;
 			bool m_Alive = true;
+			unsigned int m_ID = 0;
+			unsigned int m_CleanID = 0;
 
 			f_VoidFunction f_OnFinish;
 
