@@ -41,18 +41,22 @@ namespace novazero
 			void ChangeScene(std::string sceneName);
 
 			void Update();
+			void ProcessUpdaters();
+			void CleanUpdaters();
 			void Clean();
 
 			static ReferenceManager* s_ReferenceManager;
 			static CollisionManager* s_CollisionManager;
 
 			static std::map<unsigned int, f_VoidFunction> s_Updaters;
+			static std::map<unsigned int, bool> s_UpdaterErasers;
+			static std::map<unsigned int, f_VoidFunction> s_UpdatersToAdd;
 			static unsigned int AddUpdater(f_VoidFunction updater);
 			static void RemoveUpdater(unsigned int id);
 
-			static std::vector<Deleteable*> s_Deleteables;
-			static void AddDeleteable(Deleteable* o);
-			static void RemoveDeleteable(Deleteable* o);
+			static std::map<unsigned int, Deleteable*> s_Deleteables;
+			static unsigned int AddDeleteable(Deleteable* o);
+			static void RemoveDeleteable(unsigned int id);
 
 		};
 	}

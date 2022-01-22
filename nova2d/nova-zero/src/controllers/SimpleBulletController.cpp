@@ -45,7 +45,7 @@ namespace novazero
 
 			if (OutOfBounds())
 			{
-				m_Alive = false;
+				DestroySelf();
 				return;
 			}
 

@@ -34,7 +34,6 @@ namespace novazero
 		void Timer::DestroySelf()
 		{
 			m_Alive = false;
-
 			n2dRemoveUpdater(m_CleanID);
 		}
 

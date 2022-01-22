@@ -124,6 +124,8 @@ namespace novazero
 
 			if (m_AnimationTimer)
 				m_AnimationTimer->DestroySelf();
+
+			n2dRemoveDrawable(m_ID, m_Layer);
 		}
 	}
 }

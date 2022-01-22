@@ -8,7 +8,9 @@ namespace novazero
 	namespace core
 	{
 		std::map<unsigned int, f_VoidFunction> SceneManager::s_Updaters;
-		std::vector<Deleteable*> SceneManager::s_Deleteables;
+		std::map<unsigned int, bool> SceneManager::s_UpdaterErasers;
+		std::map<unsigned int, f_VoidFunction> SceneManager::s_UpdatersToAdd;
+		std::map<unsigned int, Deleteable*> SceneManager::s_Deleteables;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
 		CollisionManager* SceneManager::s_CollisionManager;
@@ -73,7 +75,7 @@ namespace novazero
 			m_CurrentScene->CleanUp();
 			m_CurrentScene->End();
 
-			s_Updaters.clear();
+			CleanUpdaters();
 			s_CollisionManager->ClearColliders();
 			Renderer::s_DrawLayers->ClearSprites();
 
@@ -89,14 +91,33 @@ namespace novazero
 
 		}
 
+		void SceneManager::CleanUpdaters()
+		{
+			// mark all updaters to be removed
+			std::map<unsigned int, bool>::iterator it = s_UpdaterErasers.begin();
+			while (it != s_UpdaterErasers.end())
+			{
+				s_UpdaterErasers[it->first] = true;
+				it++;
+			}
+		}
+
 		void SceneManager::Clean()
 		{
-			for (size_t i = 0; i < s_Deleteables.size(); i++)
+			std::map<unsigned int, Deleteable*>::iterator it = s_Deleteables.begin();
+			std::vector<unsigned int> removeIDs;
+			for (it; it != s_Deleteables.end(); it++)
 			{
-				if (s_Deleteables[i]->m_DeleteNow)
+				if (it->second->m_DeleteNow)
 				{
-					delete s_Deleteables[i];
+					removeIDs.push_back(it->first);
+					delete it->second;
 				}
+			}
+
+			for (size_t i = 0; i < removeIDs.size(); i++)
+			{
+				s_Deleteables.erase(removeIDs[i]);
 			}
 		}
 		
@@ -104,51 +125,70 @@ namespace novazero
 		{
 			m_CurrentScene->Update();
 
-			std::map<unsigned int, f_VoidFunction>::iterator it = s_Updaters.begin();
-			while (it != s_Updaters.end())
-			{
-				if(it->second)
-					it->second();
-
-				it++;
-			}
+			ProcessUpdaters();
 
 			s_CollisionManager->Update();
 		}
 
+		void SceneManager::ProcessUpdaters()
+		{
+			// Add new updaters
+			std::map<unsigned int, f_VoidFunction>::iterator itA = s_UpdatersToAdd.begin();
+			while (itA != s_UpdatersToAdd.end())
+			{
+				s_Updaters[itA->first] = itA->second;
+				s_UpdaterErasers[itA->first] = false;
+				itA++;
+			}
+
+			s_UpdatersToAdd.clear();
+
+			// Remove any removed updaters
+			std::map<unsigned int, bool>::iterator it = s_UpdaterErasers.begin();
+			while (it != s_UpdaterErasers.end())
+			{
+				if (it->second)
+				{
+					s_Updaters.erase(it->first);
+					it->second = false;
+				}
+
+				it++;
+			}
+
+			// Update
+			std::map<unsigned int, f_VoidFunction>::iterator it2 = s_Updaters.begin();
+			while (it2 != s_Updaters.end())
+			{
+				if (it2->second)
+					it2->second();
+
+				it2++;
+			}
+		}
+
 		void SceneManager::RemoveUpdater(unsigned int id)
 		{
-			s_Updaters.erase(id);
+			s_UpdaterErasers[id] = true;
 		}
 
 		unsigned int SceneManager::AddUpdater(f_VoidFunction updater)
 		{
 			unsigned int id = n2dGameGetID();
-			s_Updaters[id] = updater;
+			s_UpdatersToAdd[id] = updater;
 			return id;
 		}
 
-		void SceneManager::RemoveDeleteable(Deleteable* object)
+		void SceneManager::RemoveDeleteable(unsigned int id)
 		{
-			int idx = -1;
-			for (size_t i = 0; i < s_Deleteables.size(); i++)
-			{
-				if (&s_Deleteables[i] == &object)
-				{
-					idx = i;
-					break;
-				}
-			}
-
-			if (idx == -1)return;
-
-			s_Deleteables.erase(s_Deleteables.begin() + idx);
-
+			s_Deleteables.erase(id);
 		}
 
-		void SceneManager::AddDeleteable(Deleteable* object)
+		unsigned int SceneManager::AddDeleteable(Deleteable* object)
 		{
-			s_Deleteables.push_back(object);
+			unsigned int id = n2dGameGetID();
+			s_Deleteables[id] = object;
+			return id;
 		}
 	}
 }

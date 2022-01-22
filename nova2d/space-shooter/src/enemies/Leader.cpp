@@ -21,9 +21,11 @@ namespace spaceshooter
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
-		for (int row = 0; row <= 2; row++)
+		char rows = 1;
+		char cols = 1;
+		for (int row = 0; row <= rows; row++)
 		{
-			for (int col = -3; col <= 3; col++)
+			for (int col = -3; col <= cols; col++)
 			{
 				int	offsetX = col * 96;
 				int offsetY = 64 + (row * 32);
