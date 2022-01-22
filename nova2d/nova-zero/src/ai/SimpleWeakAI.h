@@ -7,6 +7,7 @@
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
+#include "../core/Destructor.h"
 
 typedef std::function<void()> f_MovePtrFunction;
 
@@ -26,31 +27,35 @@ namespace novazero
 		};
 
 		class SimpleWeakAI
-			: public BoundUser, public Collider
+			: public BoundUser, public Collider, public Destructor
 		{
 
 		private:
 
-			std::vector<Vec2Int> m_PatrolPoints;
 			std::vector<f_MovePtrFunction> m_MoveFunctions;
 
 			bool m_LoopMoving = true;
 			int m_PatrolIndex = -1;
 
 			int m_LoopStartIndex = 0;
+			std::function<void()> f_OnPatrolComplete = nullptr;
+			float m_Delay = 1000.f;
+			float m_DelayMax = 1000.f;
 
 		protected:
 			
+			std::vector<Vec2Int> m_PatrolPoints;
 			Sprite* m_Sprite = nullptr;
-			int m_MoveSpeed = 1;
 
 		public:
 
 			SimpleWeakAI();
 			~SimpleWeakAI();
 
-			void Configure(int moveSpeed, bool loop);
+			void Configure(float patrolDelay, bool loop) { m_DelayMax = patrolDelay; m_LoopMoving = true; }
+			void ConfigureOnPatrolComplete(std::function<void()> f) { f_OnPatrolComplete = f; }
 			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }
+			void RestartPatrol() { m_PatrolIndex = 0; }
 			void EnableAI(bool isEnabled);
 			void ResetAI();
 

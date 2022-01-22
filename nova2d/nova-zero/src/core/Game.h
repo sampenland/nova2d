@@ -2,8 +2,6 @@
 #include "../core/Defines.h"
 #include "../core/TypeDefs.h"
 #include "SDL.h"
-//#include <vector>
-//#include <functional>
 
 #include "../input/InputHandler.h"
 #include "../graphics/Window.h"
@@ -71,6 +69,8 @@ namespace novazero
 			static novazero::utils::FontManager* s_FontManager;
 
 			static double s_DeltaTime;
+			static double GetDeltaTime() { return s_DeltaTime; }
+
 			static int s_Width;
 			static int s_Height;
 			static int s_Padding;

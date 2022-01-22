@@ -114,7 +114,7 @@ namespace novazero
 
 		void Game::Clean()
 		{
-			
+			s_SceneManager->Clean();
 		}
 
 		void Game::Process()

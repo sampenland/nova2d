@@ -24,7 +24,12 @@ namespace spaceshooter
 		float m_DelayShootMax = 5.0f;
 
 		SimpleStatBar* m_HealthBar = nullptr;
-		int m_Health = 32;
+		int m_Health = 64;
+
+		std::vector<Vec2Int> m_PatrolMemory;
+
+		Timer* m_BombTimer = nullptr;
+		Timer* m_MoveTimer = nullptr;
 
 	public:
 
@@ -35,6 +40,11 @@ namespace spaceshooter
 
 		void ShootUpdate();
 		void Shoot();
+
+		void MoveForwardThenBack();
+		void RememberOldMoving();
+
+		void DeployBomb();
 
 		void HealthUpdate();
 		void Hurt(int damage);

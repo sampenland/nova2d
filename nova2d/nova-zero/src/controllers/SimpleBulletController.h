@@ -5,6 +5,7 @@
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
+#include "../core/Destructor.h"
 
 namespace novazero
 {
@@ -35,6 +36,8 @@ namespace novazero
 
 			int m_MoveSpeed = 0;
 
+			std::function<void()> f_OnDestroy = nullptr;
+
 		public:
 
 			SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay);
@@ -44,6 +47,7 @@ namespace novazero
 			Sprite* GetSprite() const { return m_Sprite; }
 
 			void Configure(int moveSpeed, Rect aliveBounds);
+			void ConfigureDestroy(std::function<void()> f) { f_OnDestroy = f; }
 			void Update();
 			bool OutOfBounds();
 

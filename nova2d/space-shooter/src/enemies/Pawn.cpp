@@ -33,7 +33,7 @@ namespace spaceshooter
 	{
 		if (!m_Alive) return;
 
-		m_HealthBar->Update(m_Health, m_Sprite->GetX(), m_Sprite->GetY() - 8);
+		m_HealthBar->Update(m_Health/2, m_Sprite->GetX(), m_Sprite->GetY() - 8);
 
 		if (m_DelayShoot < 0)
 		{

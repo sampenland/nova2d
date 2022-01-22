@@ -25,6 +25,18 @@ Returns a unique unsigned int ID value
 #define n2dGameGetID() novazero::core::Game::GetNextID();
 
 /*
+nova2d Get Delta Time
+Returns time between frames
+*/
+#define n2dDeltaTime() novazero::core::Game::GetDeltaTime();
+
+/*
+nova2d Get total instances
+Returns total drawables on screen
+*/
+#define n2dDebugDrawableCount() novazero::core::Game::s_Renderer->s_DrawLayers->GetInstanceCount();
+
+/*
 nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
 Calls function on SDL_KeyCode key down
 Must be called on in a class that inherits from EventListener
@@ -42,13 +54,13 @@ Must be called on in a class that inherits from EventListener
 nova2d Add Updater(void(*f) funcToCall, context)
 Updaters are called each frame; this adds a new funcToCall as an Updater
 */
-#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context));
+#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context), context);
 
 /*
 nova2d Remove Updater(void(*f) funcToRemove)
 Updaters are called each frame; this removes a current updater function from updaters vector<void()>
 */
-#define n2dRemoveUpdater(updaterToRemove, context) novazero::core::SceneManager::RemoveUpdater(std::bind(&updaterToRemove, context));
+#define n2dRemoveUpdater(updaterToRemove, context) novazero::core::SceneManager::RemoveUpdater(std::bind(&updaterToRemove, context), context);
 
 /*
 nova2d Add Scene (std::string sceneName, Scene* scene)

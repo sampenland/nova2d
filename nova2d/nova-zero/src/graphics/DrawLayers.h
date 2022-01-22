@@ -31,6 +31,9 @@ namespace novazero
 			void DrawLayer(const char layer) const;
 			void DrawAllLayers() const;
 
+			static unsigned int s_TotalInstances;
+			static unsigned int GetInstanceCount() { return s_TotalInstances; }
+
 		};
 	}
 }

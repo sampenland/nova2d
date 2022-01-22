@@ -8,6 +8,8 @@ namespace novazero
 	{
 		using namespace logging;
 
+		unsigned int DrawLayers::s_TotalInstances = 0;
+
 		DrawLayers::DrawLayers()
 		{
 			for (int i = 0; i < MAX_LAYERS; i++)
@@ -32,6 +34,7 @@ namespace novazero
 					{
 						sprite->m_Layer = layer;
 						m_Layers[layer].push_back(sprite);
+						s_TotalInstances++;
 					}
 				}
 			}
@@ -68,6 +71,7 @@ namespace novazero
 				return;
 
 			m_Layers[layer].erase(m_Layers[layer].begin() + idx);
+			s_TotalInstances--;
 		}
 
 		void DrawLayers::ClearSprites()
@@ -76,6 +80,7 @@ namespace novazero
 			{
 				m_Layers[layer].clear();
 			}
+			s_TotalInstances = 0;
 		}
 
 		void DrawLayers::DrawLayer(const char layer) const

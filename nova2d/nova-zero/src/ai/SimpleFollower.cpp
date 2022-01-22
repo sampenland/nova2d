@@ -81,6 +81,7 @@ namespace novazero
 
 			m_Destroyed = true;
 			m_Alive = false;
+			m_Dead = true;
 
 			n2dRemoveUpdater(SimpleFollower::Update, this);
 

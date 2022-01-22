@@ -97,7 +97,11 @@ namespace novazero
 		{
 			if (m_Destroyed) return;
 
+			if (f_OnDestroy)
+				f_OnDestroy();
+
 			m_Destroyed = true;
+			m_Dead = true;
 
 			n2dRemoveUpdater(SimpleBulletController::Update, this);
 
@@ -107,7 +111,7 @@ namespace novazero
 			}
 
 			if (m_Sprite)
-				delete m_Sprite;
+				m_Sprite->DestroySelf();
 		}
 	}
 }

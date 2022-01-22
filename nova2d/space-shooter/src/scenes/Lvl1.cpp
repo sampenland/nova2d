@@ -29,7 +29,7 @@ namespace spaceshooter
 		leader->ConfigureAliveBounds(Game::GetGameBounds());
 
 		const int scoreSize = 128;
-		Text* score = new Text("font1", "Score: 0000000000", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
+		Text* score = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
 		n2dAddDrawable(score, 0);
 		n2dReferenceAdd("score", score);
 

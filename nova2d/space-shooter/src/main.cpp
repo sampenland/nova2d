@@ -44,6 +44,7 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("title", "res/title.png");
 	n2dAssetsLoadAndAddTexture("explode", "res/explode_anim.png");
 	n2dAssetsLoadAndAddTexture("gameOverTitle", "res/gameOverTitle.png");
+	n2dAssetsLoadAndAddTexture("bomb", "res/bomb_anim.png");
 
 	MainMenu* mainMenuScene = new MainMenu("mainMenu");
 	Lvl1* level1 = new Lvl1("level1");
@@ -58,6 +59,8 @@ int main(int argc, char* argv[])
 	while (Game::IsRunning())
 	{
 		game.Tick();
+		auto i = n2dDebugDrawableCount();
+		LOG(i);
 	}
 
 	return Game::s_ExitCode;

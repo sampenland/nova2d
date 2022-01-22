@@ -11,7 +11,17 @@ namespace novazero
 			m_Delay = m_DelayMax;
 			m_Loop = loop;
 
-			m_OnFinish = endDelayFunc;
+			f_OnFinish = endDelayFunc;
+
+			n2dAddUpdater(Timer::Update, this);
+		}
+
+		void Timer::Reset(const float delayMS, bool loop)
+		{
+			m_DelayMax = delayMS;
+			m_Delay = delayMS;
+			m_Loop = loop;
+			m_Alive = true;
 
 			n2dAddUpdater(Timer::Update, this);
 		}
@@ -34,7 +44,8 @@ namespace novazero
 
 			if (m_Delay < 0)
 			{
-				m_OnFinish();
+				if(f_OnFinish)
+					f_OnFinish();
 
 				if (m_Loop)
 				{

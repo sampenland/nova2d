@@ -32,6 +32,8 @@ namespace spaceshooter
 
 		void Start() override
 		{
+			n2dScoreSet(0);
+
 			title = new Sprite("title", Vec2Int(Game::s_Width / 2, Game::s_Height / 2),
 				Vec2Int(256, 128), 0);
 

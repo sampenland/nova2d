@@ -17,7 +17,7 @@ namespace spaceshooter
 		AddPatrolPointWithFunction(Vec2Int(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 		
 		EnableAI(true);
-		Configure(1, true);
+		Configure(30, true);
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
@@ -29,7 +29,7 @@ namespace spaceshooter
 				int offsetY = 64 + (row * 32);
 
 				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16), 1, m_Sprite, 0.0f);
-				pawn->Configure(m_MoveSpeed + 2);
+				pawn->Configure(1);
 				pawn->ConfigureShoot(5000, 10000);
 				pawn->Offset(Vec2Int(offsetX, offsetY));
 
@@ -42,18 +42,38 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "leader");
 
 		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
-			32 * 2, 12, "light-blue", "bright-blue", "white", layer);
+			64, 12, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
 		n2dAddUpdater(Leader::Update, this);
 		n2dAddUpdater(Leader::ShootUpdate, this);
 		n2dAddUpdater(Leader::HealthUpdate, this);
+
+		m_MoveTimer = new Timer(randomf(10000, 20000), false, std::bind(&Leader::MoveForwardThenBack, this));
+		m_BombTimer = new Timer(randomf(10000, 20000), false, std::bind(&Leader::DeployBomb, this));
 	}
 
 	void Leader::HealthUpdate()
 	{
-		m_HealthBar->Update(m_Health * 2, m_Sprite->GetX() - 24, m_Sprite->GetY() - 16);
+		m_HealthBar->Update(m_Health, m_Sprite->GetX() - 24, m_Sprite->GetY() - 16);
+	}
+
+	void Leader::DeployBomb()
+	{
+		m_BombTimer->Reset(randomf(10000, 20000), false);
+
+		SimpleBulletController* bomb = new
+			SimpleBulletController(
+				Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8),
+				Vec2Int(m_Sprite->GetX(), Game::s_Height + 32),
+				2.0f);
+
+		bomb->AddSprite("bomb", Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
+		bomb->GetSprite()->ConfigureAnimation(0, 4, 1000, true);
+		bomb->ConfigureCollider(bomb->GetSprite(), 0, "bomb");
+		bomb->Configure(2, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
+		
 	}
 
 	void Leader::Hurt(int damage)
@@ -65,6 +85,31 @@ namespace spaceshooter
 		{
 			DestroySelf();
 		}
+	}
+
+	void Leader::MoveForwardThenBack()
+	{
+		m_PatrolMemory = m_PatrolPoints;
+		m_PatrolPoints.clear();
+
+		AddPatrolPointWithFunction(Vec2Int(GetX(), GetY() + 128),
+			std::bind(&SimpleWeakAI::LinearPatrolMove, this));
+		
+		AddPatrolPointWithFunction(Vec2Int(GetX(), GetY()), 
+			std::bind(&SimpleWeakAI::LinearPatrolMove, this));
+		
+		ConfigureOnPatrolComplete(std::bind(&Leader::RememberOldMoving, this));
+		RestartPatrol();
+		Configure(10, true);
+
+	}
+
+	void Leader::RememberOldMoving()
+	{
+		m_PatrolPoints = m_PatrolMemory;
+		ConfigureOnPatrolComplete(([]() {}));
+		Configure(30, true);
+		m_MoveTimer->Reset(randomf(10000, 20000), false);
 	}
 
 	void Leader::SmallExplosion()
@@ -86,6 +131,8 @@ namespace spaceshooter
 
 	void Leader::ShootUpdate()
 	{
+		if (!m_Alive) return;
+
 		if (m_DelayShoot < 0)
 		{
 			m_DelayShoot = randomf(1, m_DelayShootMax);
@@ -136,6 +183,7 @@ namespace spaceshooter
 		if (m_Destroyed) return;
 
 		m_Destroyed = true;
+		m_Alive = false;
 
 		n2dRemoveUpdater(Leader::Update, this);
 

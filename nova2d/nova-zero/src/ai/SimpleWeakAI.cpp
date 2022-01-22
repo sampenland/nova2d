@@ -19,12 +19,6 @@ namespace novazero
 
 		}
 
-		void SimpleWeakAI::Configure(int moveSpeed, bool loop)
-		{
-			m_MoveSpeed = moveSpeed;
-			m_LoopMoving = loop;
-		}
-
 		void SimpleWeakAI::EnableAI(bool isEnabled)
 		{
 			if (isEnabled)
@@ -82,6 +76,22 @@ namespace novazero
 
 		void SimpleWeakAI::Update()
 		{
+
+			if (m_Delay > 0)
+			{
+				auto d = n2dDeltaTime();
+				m_Delay = (float)(m_Delay - d);
+				return;
+			}
+
+			m_Delay = m_DelayMax;
+
+			if (m_PatrolIndex == -1 && (int)m_PatrolPoints.size() > 0)
+			{
+				if(f_OnPatrolComplete)
+					f_OnPatrolComplete();
+			}
+
 			OutOfBounds(m_Sprite);
 
 			if (m_LoopMoving && m_PatrolIndex == -1)
@@ -114,8 +124,8 @@ namespace novazero
 				int currentY = GetY();
 				Vec2Int endVector = m_PatrolPoints.at(m_PatrolIndex);
 
-				int newX = currentX > endVector.x ? currentX - m_MoveSpeed : currentX + m_MoveSpeed;
-				int newY = currentY > endVector.y ? currentY - m_MoveSpeed : currentY + m_MoveSpeed;
+				int newX = currentX > endVector.x ? currentX - 1 : currentX + 1;
+				int newY = currentY > endVector.y ? currentY - 1 : currentY + 1;
 
 				SetPosition(newX, newY);
 
