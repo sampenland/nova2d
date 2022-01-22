@@ -94,8 +94,8 @@ namespace novazero
 		void SceneManager::CleanUpdaters()
 		{
 			// mark all updaters to be removed
-			std::map<unsigned int, bool>::iterator it = s_UpdaterErasers.begin();
-			while (it != s_UpdaterErasers.end())
+			std::map<unsigned int, f_VoidFunction>::iterator it = s_Updaters.begin();
+			while (it != s_Updaters.end())
 			{
 				s_UpdaterErasers[it->first] = true;
 				it++;
@@ -150,20 +150,21 @@ namespace novazero
 				if (it->second)
 				{
 					s_Updaters.erase(it->first);
-					it->second = false;
 				}
 
 				it++;
 			}
 
+			s_UpdaterErasers.clear();
+
 			// Update
 			std::map<unsigned int, f_VoidFunction>::iterator it2 = s_Updaters.begin();
-			while (it2 != s_Updaters.end())
+			for (; it2 != s_Updaters.end(); ++it2)
 			{
 				if (it2->second)
+				{
 					it2->second();
-
-				it2++;
+				}
 			}
 		}
 

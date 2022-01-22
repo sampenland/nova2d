@@ -30,8 +30,6 @@ namespace novazero
 			Vec2Int m_Start;
 			Vec2Int m_End;
 
-			Rect m_AliveBounds;
-
 			float m_UpdateDirectionDelay = 0;
 			float m_DelayTime = 0;
 
@@ -50,7 +48,6 @@ namespace novazero
 			void Configure(int moveSpeed, Rect aliveBounds);
 			void ConfigureDestroy(std::function<void()> f) { f_OnDestroy = f; }
 			void Update();
-			bool OutOfBounds();
 
 			void DestroySelf() override;
 			void OnCollision(Collision* collision) override;

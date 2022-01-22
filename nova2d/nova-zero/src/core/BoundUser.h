@@ -14,8 +14,6 @@ namespace novazero
 
 		private:
 
-			bool m_UsingMoveBounds = false;
-			bool m_UsingAliveBounds = false;
 		
 		protected:
 		
@@ -25,6 +23,9 @@ namespace novazero
 
 			Rect m_AliveBounds;
 			Rect m_MoveBounds;
+
+			bool m_UsingMoveBounds = false;
+			bool m_UsingAliveBounds = false;
 
 			bool m_Alive = true;
 
@@ -45,12 +46,11 @@ namespace novazero
 					y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
 			}
 
-			void OutOfBounds(Sprite* sprite)
+			bool OutOfBounds(Sprite* sprite)
 			{
-				if (!m_UsingAliveBounds) return;
+				if (!m_UsingAliveBounds) return true;
 
-				if (!m_Alive) return;
-
+				bool outOfBounds = false;
 				if (sprite)
 				{
 					int x = sprite->GetX();
@@ -63,11 +63,10 @@ namespace novazero
 					int bw = m_AliveBounds.w;
 					int bh = m_AliveBounds.h;
 
-					m_Alive = !(x > bx && x < bx + bw - w && y > by && y < by + bh - h);
-					return;
+					return !(x > bx && x < bx + bw - w && y > by && y < by + bh - h);
 				}
 
-				m_Alive = true;
+				return true;
 			}
 
 			bool m_Destroyed = false;
