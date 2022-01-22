@@ -1,12 +1,11 @@
 #pragma once
 #include "TypeDefs.h"
-#include "../core/Destructor.h"
 
 namespace novazero
 {
 	namespace core
 	{
-		class Timer : public Destructor
+		class Timer
 		{
 
 		private:

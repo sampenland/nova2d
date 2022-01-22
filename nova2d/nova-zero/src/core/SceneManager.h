@@ -3,9 +3,10 @@
 #include "TypeDefs.h"
 #include "../physics/CollisionManager.h"
 #include "../utils/ReferenceManager.h"
-#include "Destructor.h"
 #include <map>
 #include <string>
+#include <vector>
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
@@ -46,9 +47,12 @@ namespace novazero
 			static CollisionManager* s_CollisionManager;
 
 			static std::vector<f_VoidFunction> s_Updaters;
-			static std::vector<Destructor*> s_Destructors;
-			static void AddUpdater(f_VoidFunction updater, Destructor* updaterSelf);
-			static void RemoveUpdater(f_VoidFunction updater, Destructor* updaterSelf);
+			static void AddUpdater(f_VoidFunction updater);
+			static void RemoveUpdater(f_VoidFunction updater);
+
+			static std::vector<Deleteable*> s_Deleteables;
+			static void AddDeleteable(Deleteable* o);
+			static void RemoveDeleteable(Deleteable* o);
 
 		};
 	}

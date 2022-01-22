@@ -6,7 +6,7 @@ namespace novazero
 	namespace core
 	{
 		std::vector<f_VoidFunction> SceneManager::s_Updaters;
-		std::vector<Destructor*> SceneManager::s_Destructors;
+		std::vector<Deleteable*> SceneManager::s_Deleteables;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
 		CollisionManager* SceneManager::s_CollisionManager;
@@ -89,13 +89,12 @@ namespace novazero
 
 		void SceneManager::Clean()
 		{
-			for (size_t i = 0; i < s_Destructors.size(); i++)
+			std::vector<void*> r;
+			for (size_t i = 0; i < s_Deleteables.size(); i++)
 			{
-				if (!(s_Destructors[i])) continue;
-
-				if ((Destructor*)s_Destructors[i]->m_Dead)
+				if (s_Deleteables[i]->m_DeleteNow)
 				{
-					delete s_Destructors[i];
+					delete s_Deleteables[i];
 				}
 			}
 		}
@@ -112,7 +111,7 @@ namespace novazero
 			s_CollisionManager->Update();
 		}
 
-		void SceneManager::RemoveUpdater(f_VoidFunction updater, Destructor* updaterSelf)
+		void SceneManager::RemoveUpdater(f_VoidFunction updater)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < s_Updaters.size(); i++)
@@ -127,14 +126,35 @@ namespace novazero
 			if (idx == -1)return;
 
 			s_Updaters.erase(s_Updaters.begin() + idx);
-			s_Destructors.erase(s_Destructors.begin() + idx);
 
 		}
 
-		void SceneManager::AddUpdater(f_VoidFunction updater, Destructor* updaterSelf)
+		void SceneManager::AddUpdater(f_VoidFunction updater)
 		{
 			s_Updaters.push_back(updater);
-			s_Destructors.push_back(updaterSelf);
+		}
+
+		void SceneManager::RemoveDeleteable(Deleteable* object)
+		{
+			int idx = -1;
+			for (size_t i = 0; i < s_Deleteables.size(); i++)
+			{
+				if (&s_Deleteables[i] == &object)
+				{
+					idx = i;
+					break;
+				}
+			}
+
+			if (idx == -1)return;
+
+			s_Deleteables.erase(s_Deleteables.begin() + idx);
+
+		}
+
+		void SceneManager::AddDeleteable(Deleteable* object)
+		{
+			s_Deleteables.push_back(object);
 		}
 	}
 }

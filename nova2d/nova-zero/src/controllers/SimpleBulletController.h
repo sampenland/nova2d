@@ -5,7 +5,7 @@
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
-#include "../core/Destructor.h"
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
@@ -19,7 +19,8 @@ namespace novazero
 		class SimpleBulletController
 			: public EventListener, 
 			public BoundUser,
-			public Collider
+			public Collider,
+			public Deleteable
 		{
 
 		private:

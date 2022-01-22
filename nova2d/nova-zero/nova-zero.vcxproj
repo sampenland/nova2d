@@ -111,6 +111,7 @@
     <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
     <ClCompile Include="src\controllers\SimpleController.cpp" />
     <ClCompile Include="src\controllers\UDRLController.cpp" />
+    <ClCompile Include="src\core\Deleteable.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
@@ -142,7 +143,7 @@
     <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\BoundUser.h" />
     <ClInclude Include="src\core\Defines.h" />
-    <ClInclude Include="src\core\Destructor.h" />
+    <ClInclude Include="src\core\Deleteable.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
     <ClInclude Include="src\core\Referenceable.h" />

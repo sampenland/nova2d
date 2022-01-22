@@ -1,13 +1,12 @@
 #pragma once
 #include "../core/TypeDefs.h"
 #include <vector>
-#include "../core/Destructor.h"
 
 namespace novazero
 {
 	namespace core
 	{
-		class EventListener : public Destructor
+		class EventListener
 		{
 
 		private:
