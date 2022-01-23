@@ -174,8 +174,8 @@ namespace spaceshooter
 
 		auto bulletDestroy = new auto ([=] {
 			
-			if(bullet->m_DeleteNow == 0)
-				bullet->DestroySelf();
+			//if(bullet->m_DeleteNow == 0)
+				//bullet->DestroySelf();
 		
 		});
 

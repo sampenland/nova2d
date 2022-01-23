@@ -112,7 +112,7 @@ namespace novazero
 
 		void Sprite::DestroySelf()
 		{
-			m_Alive = false;
+			m_Alive = 0;
 
 			if (m_AnimationTimer)
 				m_AnimationTimer->DestroySelf();

@@ -71,7 +71,7 @@ namespace spaceshooter
 		if (hit && m_Lives > 1)
 		{
 			Sprite* s = m_LifeSprites.at(m_Lives - 1);
-			delete s;
+			s->DestroySelf();
 			m_LifeSprites.pop_back();
 			m_Lives--;
 		}
