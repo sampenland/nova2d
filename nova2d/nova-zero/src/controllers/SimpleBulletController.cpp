@@ -40,9 +40,7 @@ namespace novazero
 		}
 
 		void SimpleBulletController::Update()
-		{
-			if (!CheckAlive()) return;
-			
+		{			
 			if (OutOfBounds(m_Sprite))
 			{
 				DestroySelf();

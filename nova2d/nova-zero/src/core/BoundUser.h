@@ -29,7 +29,7 @@ namespace novazero
 
 			bool m_Alive = true;
 
-			void SetUsingBounds(bool usesMoveBounds, bool usesAliveBounds) 
+			void ConfigureUsingBounds(bool usesMoveBounds, bool usesAliveBounds) 
 			{	
 				m_UsingMoveBounds = usesMoveBounds;
 				m_UsingAliveBounds = usesAliveBounds;
@@ -48,7 +48,7 @@ namespace novazero
 
 			bool OutOfBounds(Sprite* sprite)
 			{
-				if (!m_UsingAliveBounds) return true;
+				if (!m_UsingAliveBounds) return false;
 
 				bool outOfBounds = false;
 				if (sprite && sprite->m_DeleteNow != 1)
@@ -70,20 +70,6 @@ namespace novazero
 			}
 
 			bool m_Destroyed = false;
-
-			bool CheckAlive()
-			{
-				if (!m_Alive)
-				{
-					if (!m_Destroyed)
-					{
-						DestroySelf();
-					}
-					return false;
-				}
-
-				return m_Alive;
-			}
 
 			virtual void DestroySelf() = 0;
 

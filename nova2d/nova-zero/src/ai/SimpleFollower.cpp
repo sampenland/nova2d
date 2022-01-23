@@ -45,9 +45,11 @@ namespace novazero
 		{
 			if (m_Target == nullptr) return;
 
-			OutOfBounds(m_Sprite);
-
-			if (!CheckAlive()) return;
+			if (OutOfBounds(m_Sprite))
+			{
+				DestroySelf();
+				return;
+			}
 
 			if (m_DelayTime > 0)
 			{

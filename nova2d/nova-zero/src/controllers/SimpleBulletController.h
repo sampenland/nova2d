@@ -30,7 +30,7 @@ namespace novazero
 			Vec2Int m_Start;
 			Vec2Int m_End;
 
-			float m_UpdateDirectionDelay = 0;
+			float m_UpdateDirectionDelay = 0.0f;
 			float m_DelayTime = 0;
 
 			int m_MoveSpeed = 0;

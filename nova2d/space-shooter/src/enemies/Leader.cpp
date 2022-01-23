@@ -145,6 +145,8 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
+		return;
+
 		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
@@ -174,8 +176,8 @@ namespace spaceshooter
 
 		auto bulletDestroy = new auto ([=] {
 			
-			//if(bullet->m_DeleteNow == 0)
-				//bullet->DestroySelf();
+			if(bullet->m_DeleteNow == 0)
+				bullet->DestroySelf();
 		
 		});
 
@@ -194,9 +196,9 @@ namespace spaceshooter
 		CleanUpdaters();
 
 		if (m_Sprite)
-			delete m_Sprite;
+			m_Sprite->DestroySelf();
 
 		if (m_HealthBar)
-			delete m_HealthBar;
+			m_HealthBar->DestroySelf();
 	}
 }

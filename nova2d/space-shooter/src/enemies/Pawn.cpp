@@ -11,6 +11,7 @@ namespace spaceshooter
 	{
 		AddSprite(assetName, position, size, layer);
 		ConfigureCollider(m_Sprite, 0, "pawn");
+		ConfigureUsingBounds(false, false);
 
 		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
 			16, 4, "light-blue", "bright-blue", "white", layer);
