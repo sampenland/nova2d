@@ -51,7 +51,7 @@ namespace novazero
 				if (!m_UsingAliveBounds) return true;
 
 				bool outOfBounds = false;
-				if (sprite)
+				if (sprite && sprite->m_DeleteNow != 1)
 				{
 					int x = sprite->GetX();
 					int y = sprite->GetY();

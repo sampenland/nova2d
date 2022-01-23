@@ -30,6 +30,10 @@ namespace novazero
 		{
  			CleanUpdaters();
 			m_Alive = false;
+
+			if (f_OnFinish)
+				f_OnFinish = NULL;
+
 			m_DeleteNow = 1;
 		}
 

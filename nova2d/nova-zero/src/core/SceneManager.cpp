@@ -165,7 +165,7 @@ namespace novazero
 				{
 					it2->second();
 				}
-			}
+ 			}
 		}
 
 		void SceneManager::RemoveUpdater(unsigned int id)

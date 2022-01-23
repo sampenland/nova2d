@@ -39,7 +39,11 @@ namespace spaceshooter
 
 			title->SetPosition(Vec2Int(title->GetX() - title->GetWidth() / 2, title->GetY() - title->GetHeight() / 2));
 		
-			Timer* t = new Timer(1000, false, std::bind(&MainMenu::StartListening, this));
+			auto startListening = new auto([=] {
+				StartListening();
+			});
+
+			Timer* t = new Timer(1000, false, *startListening);
 		}
 
 		void StartListening()

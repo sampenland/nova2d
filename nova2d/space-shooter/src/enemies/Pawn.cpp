@@ -72,7 +72,6 @@ namespace spaceshooter
 
 	void Pawn::Shoot()
 	{
-		return;
 		m_DelayShoot = randomf(m_DelayShootMin, m_DelayShootMax);
 
 		SimpleBulletController* bullet = new 
