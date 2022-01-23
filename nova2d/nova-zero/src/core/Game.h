@@ -11,6 +11,7 @@
 #include "../utils/AssetManager.h"
 #include "../physics/CollisionManager.h"
 #include "../utils/FontManager.h"
+#include "../utils/SQLManager.h"
 
 #include "../graphics/Color.h"
 #include <vector>
@@ -67,6 +68,7 @@ namespace novazero
 			static novazero::utils::AssetManager* s_AssetManager;
 			static SceneManager* s_SceneManager;
 			static novazero::utils::FontManager* s_FontManager;
+			static novazero::utils::SQLManager* s_SQLManager;
 
 			static double s_DeltaTime;
 			static double GetDeltaTime() { return s_DeltaTime; }

@@ -215,6 +215,9 @@
     <ClInclude Include="src\core\Deleteable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\SQLManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

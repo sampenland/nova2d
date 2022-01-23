@@ -27,10 +27,10 @@ namespace spaceshooter
 
 		void Start() override
 		{
-			title = new Sprite("gameOverTitle", Vec2Int(Game::s_Width / 2, Game::s_Height / 2),
+			title = new Sprite("gameOverTitle", Vec2Int(Game::s_Width / 2, Game::s_Height / 8),
 				Vec2Int(256, 128), 0);
 
-			title->SetPosition(Vec2Int(title->GetX() - title->GetWidth() / 2, title->GetY() - title->GetHeight() / 2));
+			title->SetPosition(Vec2Int(title->GetX() - title->GetWidth() / 2, title->GetY()));
 
 			n2dAddKeyDownListener(SDLK_SPACE, GameOver::OnSpace, this);
 

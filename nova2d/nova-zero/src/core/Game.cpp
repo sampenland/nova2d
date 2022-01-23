@@ -17,6 +17,7 @@ namespace novazero
 		AssetManager* Game::s_AssetManager;
 		SceneManager* Game::s_SceneManager;
 		FontManager* Game::s_FontManager;
+		SQLManager* Game::s_SQLManager;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -46,6 +47,7 @@ namespace novazero
 			s_AssetManager = new AssetManager();
 			s_SceneManager = new SceneManager();
 			s_FontManager = new FontManager();
+			s_SQLManager = new SQLManager();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);

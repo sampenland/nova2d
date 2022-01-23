@@ -37,6 +37,30 @@ Returns total drawables on screen
 #define n2dDebugDrawableCount() novazero::core::Game::s_Renderer->s_DrawLayers->GetInstanceCount();
 
 /*
+nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
+Enables SQL use
+*/
+#define n2dSQLConfigure(connectionString, table, user, pass) novazero::core::Game::s_SQLManager->Configure(connectionString, table, user, pass);
+
+/*
+nova2d SQL Scores Create Table (int, int)
+Creates simple nova2d highscores table
+*/
+#define n2dSQLScoreTableCreation(nameCharCount, scoreDigitCount) novazero::core::Game::s_SQLManager->CreateScoreTable(nameCharCount, scoreDigitCount);
+
+/*
+nova2d SQL Scores Add (string int)
+Inserts new score into nova2d's simple highscore table
+*/
+#define n2dSQLScoreAdd(playerName, score) novazero::core::Game::s_SQLManager->AddScore(playerName, score);
+
+/*
+nova2d SQL Scores Remove (string, int)
+Removes score from nova2d's simple highscore table
+*/
+#define n2dSQLScoreRemove(playerName, score) novazero::core::Game::s_SQLManager->RemoveScore(playerName, score);
+
+/*
 nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
 Calls function on SDL_KeyCode key down
 Must be called on in a class that inherits from EventListener

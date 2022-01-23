@@ -62,7 +62,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\sdl2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\include;$(SolutionDir)Dependencies\sdl2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -71,8 +71,8 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\sdl2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\mysql\lib;$(SolutionDir)Dependencies\sdl2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -169,6 +169,7 @@
     <ClInclude Include="src\maths\Vec4.h" />
     <ClInclude Include="src\utils\AssetManager.h" />
     <ClInclude Include="src\utils\ColorManager.h" />
+    <ClInclude Include="src\utils\SQLManager.h" />
     <ClInclude Include="src\utils\TextureLoader.h" />
     <ClInclude Include="src\graphics\Sprite.h" />
     <ClInclude Include="src\graphics\Window.h" />
