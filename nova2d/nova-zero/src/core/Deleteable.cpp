@@ -8,7 +8,7 @@ namespace novazero
 		Deleteable::Deleteable(std::string name)
 			: m_DeleteName(name)
 		{
-			//Game::s_SceneManager->AddDeleteable(this);
+			 
 		}
 
 		void Deleteable::CleanUpdaters()

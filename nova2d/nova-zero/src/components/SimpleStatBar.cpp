@@ -153,7 +153,7 @@ namespace novazero
 
 			n2dRemoveDrawable(m_ID, m_Layer);
 
-			m_DeleteNow = true;
+			m_DeleteNow = 1;
 		}
 	}
 }

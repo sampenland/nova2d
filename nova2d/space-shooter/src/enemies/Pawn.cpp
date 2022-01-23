@@ -57,6 +57,7 @@ namespace spaceshooter
 			auto score = n2dScoreAdd(10);
 			t->UpdateText("Score: " + std::to_string(score));
 
+			m_HealthBar->DestroySelf();
 			DestroySelf();
 		}
 	}

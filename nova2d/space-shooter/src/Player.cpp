@@ -140,8 +140,7 @@ namespace spaceshooter
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 			}
-			/*
-
+			
 			// Bullet with pawn
 			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
 				collision->m_ColliderB->m_ColliderName == "pawn"))
@@ -168,7 +167,7 @@ namespace spaceshooter
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((Leader*)collision->m_ColliderA)->Hurt(2);
-			}*/
+			}
 
 		});
 
