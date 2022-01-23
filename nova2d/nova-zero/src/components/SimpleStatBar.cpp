@@ -10,9 +10,11 @@ namespace novazero
 	{
 		SimpleStatBar::SimpleStatBar(bool vertical, int x, int y, int w, int h, std::string colorOutline,
 			std::string colorBackground, std::string colorForeground, char layer)
+			: Deleteable("statbar_")
 		{
 
 			m_ID = Game::GetNextID();
+			m_DeleteName = "statbar_" + std::to_string(m_ID);
 			m_Layer = layer;
 
 			m_Outline = new SDL_Rect();
@@ -35,21 +37,14 @@ namespace novazero
 			m_Value = vertical ? h : w;
 
 			n2dAddDrawable(this, layer);
+			auto cleanID = n2dAddDeleteable(this);
+			m_CleanUpdaters.push_back(cleanID);
 
 		}
 
 		SimpleStatBar::~SimpleStatBar()
 		{
-			if (m_Foreground)
-				delete m_Foreground;
 			
-			if (m_Outline)
-				delete m_Outline;
-			
-			if (m_Background)
-				delete m_Background;
-
-			n2dRemoveDrawable(m_ID, m_Layer);
 		}
 
 		void SimpleStatBar::Update(int v, int x, int y)
@@ -141,6 +136,24 @@ namespace novazero
 			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Foreground);
 
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);
+		}
+
+		void SimpleStatBar::DestroySelf()
+		{
+			if (m_Foreground)
+				delete m_Foreground;
+
+			if (m_Outline)
+				delete m_Outline;
+
+			if (m_Background)
+				delete m_Background;
+
+			CleanUpdaters();
+
+			n2dRemoveDrawable(m_ID, m_Layer);
+
+			m_DeleteNow = true;
 		}
 	}
 }

@@ -4,6 +4,7 @@
 #include "../graphics/Drawable.h"
 #include "../graphics/Color.h"
 #include "SDL.h"
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
@@ -14,7 +15,7 @@ namespace novazero
 	namespace components
 	{
 		class SimpleStatBar
-			: public Positional, public Drawable
+			: public Positional, public Drawable, public Deleteable
 		{
 
 		private:
@@ -53,6 +54,8 @@ namespace novazero
 
 			void Update(int v, int x, int y);
 			void Draw() override;
+
+			void DestroySelf();
 
 		};
 	}

@@ -111,6 +111,18 @@ Updates SDL renderer's draw color from preloaded Game's Color Manager's color
 #define n2dRenderDrawColor(colorName) novazero::core::Game::s_Renderer->SetDrawColor(colorName);
 
 /*
+nova2d Add deleteable
+Adds a Deleteable* to Game's Scene Manager's deleteable tracker
+*/
+#define n2dAddDeleteable(deleteable) novazero::core::Game::s_SceneManager->AddDeleteable(deleteable);
+
+/*
+nova2d Remove deleteable
+Removes a Deleteable* to Game's Scene Manager's deleteable tracker
+*/
+#define n2dRemoveDeleteable(id) novazero::core::Game::s_SceneManager->RemoveDeleteable(id);
+
+/*
 nova2d Add Drawable (Drawable* drawable, char layer)
 Adds a graphic/drawable to Game's Draw Layers
 */

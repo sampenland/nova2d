@@ -14,7 +14,7 @@ namespace novazero
 		using namespace logging;
 
 		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
-			: m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
+			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
 			m_Position = position;
 
@@ -40,15 +40,7 @@ namespace novazero
 
 		Sprite::~Sprite()
 		{
-			if (m_SpriteSheet)
-			{
-				m_SpriteSheet = NULL;
-			}
-
-			if (m_AnimationTimer)
-				delete m_AnimationTimer;
 			
-			n2dRemoveDrawable(m_ID, m_Layer);
 		}
 
 		void Sprite::ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop)
@@ -126,6 +118,8 @@ namespace novazero
 				m_AnimationTimer->DestroySelf();
 
 			n2dRemoveDrawable(m_ID, m_Layer);
+
+			m_DeleteNow = 1;
 		}
 	}
 }

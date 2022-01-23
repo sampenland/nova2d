@@ -5,7 +5,8 @@ namespace novazero
 {
 	namespace core
 	{
-		Timer::Timer(const float delayMS, const bool loop, f_VoidFunction endDelayFunc)
+		Timer::Timer(const float delayMS, const bool loop, std::function<void()> endDelayFunc)
+			: Deleteable("timer")
 		{
 			m_DelayMax = delayMS;
 			m_Delay = m_DelayMax;
@@ -13,31 +14,26 @@ namespace novazero
 
 			f_OnFinish = endDelayFunc;
 
-			m_CleanID = n2dAddUpdater(Timer::Update, this);
-		}
+			auto cleanID = n2dAddUpdater(Timer::Tick, this);
+			m_DeleteName = "timer_" + std::to_string(cleanID);
 
-		void Timer::Reset(const float delayMS, bool loop)
-		{
-			m_DelayMax = delayMS;
-			m_Delay = delayMS;
-			m_Loop = loop;
-			m_Alive = true;
+			m_CleanUpdaters.push_back(cleanID);
 
-			m_CleanID = n2dAddUpdater(Timer::Update, this);
 		}
 
 		Timer::~Timer()
 		{
-			n2dRemoveUpdater(m_CleanID);
+			
 		}
 
 		void Timer::DestroySelf()
 		{
+ 			CleanUpdaters();
 			m_Alive = false;
-			n2dRemoveUpdater(m_CleanID);
+			m_DeleteNow = 1;
 		}
 
-		void Timer::Update()
+		void Timer::Tick()
 		{
 			if (!m_Alive) return;
 

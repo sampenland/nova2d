@@ -1,11 +1,12 @@
 #pragma once
 #include "TypeDefs.h"
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
 	namespace core
 	{
-		class Timer
+		class Timer : public Deleteable
 		{
 
 		private:
@@ -15,7 +16,6 @@ namespace novazero
 			bool m_Loop = false;
 			bool m_Alive = true;
 			unsigned int m_ID = 0;
-			unsigned int m_CleanID = 0;
 
 			f_VoidFunction f_OnFinish;
 
@@ -24,10 +24,9 @@ namespace novazero
 			Timer(const float delayMS, const bool loop, f_VoidFunction endDelayFunc);
 			~Timer();
 
-			void Reset(const float delayMS, bool loop);
 			void DestroySelf();
 			
-			void Update();
+			void Tick();
 		};
 	}
 }

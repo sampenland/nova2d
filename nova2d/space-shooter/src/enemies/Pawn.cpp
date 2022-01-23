@@ -17,16 +17,17 @@ namespace spaceshooter
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
-		n2dAddUpdater(Pawn::Update, this);
+		auto cleanID = n2dAddUpdater(Pawn::Update, this);
+		m_CleanUpdaters.push_back(cleanID);
 	}
 
 	Pawn::~Pawn()
 	{
 		if (m_Sprite)
-			delete m_Sprite;
+			m_Sprite->DestroySelf();
 
 		if (m_HealthBar)
-			delete m_HealthBar;
+			m_HealthBar->DestroySelf();
 	}
 
 	void Pawn::Update()
@@ -51,12 +52,10 @@ namespace spaceshooter
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
-			if (m_HealthBar)
-				delete m_HealthBar;
-
 			Text* t = (Text*)n2dReferenceGet("score");
 			auto score = n2dScoreAdd(10);
 			t->UpdateText("Score: " + std::to_string(score));
+
 			DestroySelf();
 		}
 	}
@@ -73,6 +72,7 @@ namespace spaceshooter
 
 	void Pawn::Shoot()
 	{
+		return;
 		m_DelayShoot = randomf(m_DelayShootMin, m_DelayShootMax);
 
 		SimpleBulletController* bullet = new 

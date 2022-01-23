@@ -17,13 +17,13 @@ namespace novazero
 			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			auto id = n2dAddUpdater(SimpleFollower::Update, this);
+			auto id = n2dAddUpdater(SimpleFollower::UpdateFollower, this);
 			m_CleanUpdaters.push_back(id);
 		}
 
 		SimpleFollower::~SimpleFollower()
 		{
-			DestroySelf();
+			
 		}
 
 		void SimpleFollower::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
@@ -41,7 +41,7 @@ namespace novazero
 			m_Target = target;
 		}
 
-		void SimpleFollower::Update()
+		void SimpleFollower::UpdateFollower()
 		{
 			if (m_Target == nullptr) return;
 
@@ -91,7 +91,9 @@ namespace novazero
 			}
 			
 			if (m_Sprite)
-				delete m_Sprite;
+				m_Sprite->DestroySelf();
+
+			m_DeleteNow = 1;
 		}
 
 		void SimpleFollower::OnCollision(Collision* collision)

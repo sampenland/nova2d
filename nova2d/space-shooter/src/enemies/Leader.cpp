@@ -17,12 +17,12 @@ namespace spaceshooter
 		AddPatrolPointWithFunction(Vec2Int(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 		
 		EnableAI(true);
-		Configure(30, true);
+		Configure(10, true);
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
-		char rows = 1;
-		char cols = 1;
+		char rows = 2;
+		char cols = 2;
 		for (int row = 0; row <= rows; row++)
 		{
 			for (int col = -3; col <= cols; col++)
@@ -66,8 +66,6 @@ namespace spaceshooter
 
 	void Leader::DeployBomb()
 	{
-		m_BombTimer->Reset(randomf(10000, 20000), false);
-
 		SimpleBulletController* bomb = new
 			SimpleBulletController(
 				Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8),
@@ -114,7 +112,6 @@ namespace spaceshooter
 		m_PatrolPoints = m_PatrolMemory;
 		ConfigureOnPatrolComplete(([]() {}));
 		Configure(30, true);
-		m_MoveTimer->Reset(randomf(10000, 20000), false);
 	}
 
 	void Leader::SmallExplosion()
@@ -148,7 +145,6 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
-		
 		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
@@ -176,7 +172,14 @@ namespace spaceshooter
 
 		bullet->ConfigureOnCollision(*onCollision);
 
-		Timer* bulletDestruct = new Timer(randomf(6500, 12000), false, std::bind(&SimpleFollower::DestroySelf, bullet));
+		auto bulletDestroy = new auto ([=] {
+			
+			if(bullet->m_DeleteNow == 0)
+				bullet->DestroySelf();
+		
+		});
+
+		Timer* bulletDestruct = new Timer(randomf(6500, 12000), false, *bulletDestroy);
 		bullet->AddTimer(bulletDestruct);
 
 	}

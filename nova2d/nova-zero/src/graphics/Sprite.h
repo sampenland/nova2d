@@ -1,5 +1,6 @@
 #pragma once
 #include "../core/Positional.h"
+#include "../core/Deleteable.h"
 #include "../core/Timer.h"
 #include "Drawable.h"
 #include <functional>
@@ -11,7 +12,7 @@ namespace novazero
 		using namespace core;
 		using namespace maths;
 		
-		class Sprite : public Positional, public Drawable
+		class Sprite : public Positional, public Drawable, public Deleteable
 		{
 			
 		private:

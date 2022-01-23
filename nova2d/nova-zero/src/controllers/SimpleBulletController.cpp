@@ -70,26 +70,6 @@ namespace novazero
 
 		}
 
-		/*bool SimpleBulletController::OutOfBounds()
-		{
-			if (m_Sprite)
-			{
-				int x = m_Sprite->GetX();
-				int y = m_Sprite->GetY();
-				int w = m_Sprite->GetWidth();
-				int h = m_Sprite->GetHeight();
-
-				int bx = m_AliveBounds.x;
-				int by = m_AliveBounds.y;
-				int bw = m_AliveBounds.w;
-				int bh = m_AliveBounds.h;
-
-				return !(x > bx && x < bx + bw - w && y > by && y < by + bh - h);
-			}
-
-			return true;
-		}*/
-
 		void SimpleBulletController::OnCollision(Collision* collision)
 		{
 
@@ -97,7 +77,7 @@ namespace novazero
 
 		void SimpleBulletController::DestroySelf()
 		{
-			if (m_Destroyed) return;
+  			if (m_Destroyed) return;
 
 			if (f_OnDestroy)
 				f_OnDestroy();
@@ -115,7 +95,7 @@ namespace novazero
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 			
-			m_DeleteNow = true;
+			m_DeleteNow = 1;
 		}
 	}
 }

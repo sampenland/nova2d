@@ -108,7 +108,7 @@ namespace novazero
 			std::vector<unsigned int> removeIDs;
 			for (it; it != s_Deleteables.end(); it++)
 			{
-				if (it->second->m_DeleteNow)
+				if (it->second->m_DeleteNow == 1)
 				{
 					removeIDs.push_back(it->first);
 					delete it->second;

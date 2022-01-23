@@ -53,7 +53,7 @@ namespace novazero
 			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
 			void Offset(Vec2Int offset) { m_TargetOffset = offset; }
 			
-			void Update();
+			void UpdateFollower();
 
 			void DestroySelf() override;
 			void OnCollision(Collision* collision) override;
