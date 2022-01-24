@@ -41,6 +41,8 @@ namespace novazero
 			else
 				return;
 
+			SDL_StartTextInput();
+
 			s_ColorManager = new ColorManager();
 			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
 			s_InputHandler = new InputHandler();
@@ -85,6 +87,10 @@ namespace novazero
 
 			case SDL_KEYUP:
 				s_InputHandler->KeyUp(&event);
+				break;
+
+			case SDL_TEXTINPUT:
+				s_InputHandler->OnTextChange(&event);
 				break;
 
 			case SDL_QUIT:

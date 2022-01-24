@@ -118,6 +118,7 @@
     <ClCompile Include="src\core\Timer.cpp" />
     <ClCompile Include="src\graphics\Drawable.cpp" />
     <ClCompile Include="src\graphics\Text.cpp" />
+    <ClCompile Include="src\input\TextInput.cpp" />
     <ClCompile Include="src\physics\Collider.cpp" />
     <ClCompile Include="src\physics\CollisionManager.cpp" />
     <ClCompile Include="src\utils\FontManager.cpp" />
@@ -152,6 +153,8 @@
     <ClInclude Include="src\core\TypeDefs.h" />
     <ClInclude Include="src\graphics\Drawable.h" />
     <ClInclude Include="src\graphics\Text.h" />
+    <ClInclude Include="src\input\Inputable.h" />
+    <ClInclude Include="src\input\TextInput.h" />
     <ClInclude Include="src\physics\Collider.h" />
     <ClInclude Include="src\physics\Collision.h" />
     <ClInclude Include="src\physics\CollisionManager.h" />

@@ -2,6 +2,7 @@
 #include "maths/Vec2Int.h"
 #include "core/EventListener.h"
 #include "graphics/Text.h"
+#include "input/TextInput.h"
 
 namespace spaceshooter
 {
@@ -17,6 +18,7 @@ namespace spaceshooter
 		Text* title = nullptr;
 		Text* playerScore = nullptr;
 		Text* spaceToContinue = nullptr;
+		TextInput* playerNameInput = nullptr;
 
 
 	public:
@@ -37,16 +39,21 @@ namespace spaceshooter
 				Rect(Game::s_Width / 2 - 200, Game::s_Height / 4, 400, 40), 0);
 
 			playerScore = new Text("font1", "Your Score: " + std::to_string(score), "white",
+				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 - 50, 200, 20), 0);
+
+			playerNameInput = new TextInput("font1", "player1", "white", "dark-blue", 
 				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2, 200, 20), 0);
+			playerNameInput->Configure(true, 8);
 
 			spaceToContinue = new Text("font1", "press space to continue", "yellow",
 				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 + 50, 200, 20), 0);
 
-			n2dAddKeyDownListener(SDLK_SPACE, GameOver::OnSpace, this);
+
+			n2dAddKeyDownListener(SDLK_KP_ENTER, GameOver::OnEnter, this);
 
 		}
 
-		void OnSpace()
+		void OnEnter()
 		{
 			n2dSceneChange("mainMenu");
 		}

@@ -28,11 +28,13 @@ namespace novazero
 
 		public:
 
-			Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer);
+			Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer, bool autoAddDrawable = true);
 			~Text();
 
 			void Construct(std::string newText, Vec2Int newPos);
 			void UpdateText(std::string newText);
+			void ManualAddDrawable(char layer);
+			std::string GetText() { return m_DisplayText; }
 
 			void Draw() override;
 

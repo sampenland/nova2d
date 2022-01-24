@@ -7,7 +7,8 @@ namespace novazero
 
 	namespace graphics
 	{
-		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer)
+		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer,
+			bool autoAddDrawable)
 		{
 			m_Position.x = drawRect.x;
 			m_Position.y = drawRect.y;
@@ -24,6 +25,14 @@ namespace novazero
 			
 			Construct(m_DisplayText, Vec2Int(drawRect.x, drawRect.y));
 
+			if(autoAddDrawable) n2dAddDrawable(this, m_Layer);
+
+		}
+
+		void Text::ManualAddDrawable(char layer)
+		{
+			m_Layer = layer;
+			n2dAddDrawable(this, m_Layer);
 		}
 
 		Text::~Text()
@@ -71,7 +80,6 @@ namespace novazero
 
 			SDL_FreeSurface(surface);
 
-			n2dAddDrawable(this, m_Layer);
 		}
 
 		void Text::Draw()

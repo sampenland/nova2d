@@ -61,6 +61,18 @@ Removes score from nova2d's simple highscore table
 #define n2dSQLScoreRemove(playerName, score) novazero::core::Game::s_SQLManager->RemoveScore(playerName, score);
 
 /*
+nova2d Clear Text edit buffer (limitSizeOfBuffer)
+Clears textbox input buffer
+*/
+#define n2dTextInputClearBuffer(newBufferMax) novazero::core::Game::s_InputHandler->CleanTextBuffer(newBufferMax);
+
+/*
+nova2d Set Text edit buffer (limitSizeOfBuffer)
+Sets text in input buffer
+*/
+#define n2dTextInputSetBuffer(fillText, maxChars) novazero::core::Game::s_InputHandler->SetTextBuffer(fillText, maxChars);
+
+/*
 nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
 Calls function on SDL_KeyCode key down
 Must be called on in a class that inherits from EventListener

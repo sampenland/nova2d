@@ -18,6 +18,8 @@ namespace novazero
 				s_JoySticks[i] = SDL_JoystickOpen(i);
 			}
 
+			CleanTextBuffer();
+
 		}
 
 		InputHandler::~InputHandler() 
@@ -26,6 +28,66 @@ namespace novazero
 			{
 				SDL_JoystickClose(s_JoySticks[i]);
 				s_JoySticks[i] = NULL;
+			}
+		}
+
+		void InputHandler::SelectInputTarget(Inputable* inputTarget)
+		{
+			m_SelectedInput = inputTarget;
+		}
+
+		void InputHandler::OnTextChange(SDL_Event* e)
+		{
+			if (!m_SelectedInput) return;
+
+			if (m_CharBufferIndex >= m_CharBufferMax) return;
+
+			for (char i = 0; i < 32; i++)
+			{
+				if (e->text.text[i] != '\0')
+				{
+					m_CharBuffer[m_CharBufferIndex] = e->text.text[i];
+					m_CharBufferIndex++;
+					if (m_CharBufferIndex >= m_CharBufferMax) break;
+				}
+			}
+		}
+
+		void InputHandler::SetTextBufferIndex(int idx)
+		{
+			if (idx < m_CharBufferMax)
+			{
+				m_CharBufferIndex = idx;
+			}
+		}
+
+		void InputHandler::CleanTextBuffer(int newCharBufferMax)
+		{
+			// Clear 100 BYTES of char buffer (all BYTES)
+			memset(m_CharBuffer, 0, 100);
+			m_CharBufferMax = newCharBufferMax;
+			m_CharBufferIndex = 0;
+		}
+
+		void InputHandler::SetTextBuffer(std::string fillText, int maxChars)
+		{
+			m_CharBufferIndex = (int)fillText.length();
+			if (m_CharBufferIndex >= maxChars)
+			{
+				SetTextBuffer("text", 12);
+				return;
+			}
+
+			memset(m_CharBuffer, 0, 1024);
+			m_CharBufferMax = maxChars;
+			if ((int)fillText.length() < maxChars)
+			{
+				strcat(m_CharBuffer, fillText.c_str());
+			}
+			else
+			{
+				memset(m_CharBuffer, 0, 100);
+				m_CharBufferIndex = 0;
 			}
 		}
 

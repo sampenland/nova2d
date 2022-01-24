@@ -4,6 +4,7 @@
 #include "SDL.h"
 #include "../core/Defines.h"
 #include "../core/TypeDefs.h"
+#include "Inputable.h"
 
 namespace novazero
 {
@@ -15,6 +16,11 @@ namespace novazero
 		private:
 
 			int m_JoyStickDeadzone = 8000;
+			char m_CharBuffer[1024] = {};
+			int m_CharBufferMax = 1024;
+			int m_CharBufferIndex = 0;
+
+			Inputable* m_SelectedInput = nullptr;
 
 		public:
 
@@ -25,6 +31,25 @@ namespace novazero
 
 			void KeyDown(SDL_Event* event);
 			void KeyUp(SDL_Event* event);
+
+			void SelectInputTarget(Inputable* inputTarget);
+			void ClearInputTarget() { m_SelectedInput = nullptr; m_CharBufferIndex = 0; };
+
+			void OnTextChange(SDL_Event* e);
+			void CleanTextBuffer(int newCharBufferMax = 1024);
+			void SetTextBufferIndex(int idx);
+			void SetTextBuffer(std::string fillText, int maxChars);
+
+			void GetCharBufferAsString(std::string& bufferOUT) 
+			{ 
+				std::string r = "";
+				for (int i = 0; i < m_CharBufferIndex; i++)
+				{
+					r += m_CharBuffer[i];
+				}
+			
+				bufferOUT = r;
+			}
 			
 			void MouseClick(SDL_Event* event);
 
