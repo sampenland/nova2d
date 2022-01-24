@@ -30,6 +30,8 @@ namespace novazero
 		{
 			if(m_Texture)
 				SDL_DestroyTexture(m_Texture);
+
+			n2dRemoveDrawable(m_ID, m_Layer);
 		}
 
 		void Text::UpdateText(std::string newText)
@@ -68,6 +70,8 @@ namespace novazero
 			m_Constructed = true;
 
 			SDL_FreeSurface(surface);
+
+			n2dAddDrawable(this, m_Layer);
 		}
 
 		void Text::Draw()

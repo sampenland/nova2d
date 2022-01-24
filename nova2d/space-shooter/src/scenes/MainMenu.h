@@ -1,11 +1,13 @@
 #include "core/Scene.h"
 #include "maths/Vec2Int.h"
 #include "core/EventListener.h"
+#include "graphics/Text.h"
 
 namespace spaceshooter
 {
 	using namespace novazero::core;
 	using namespace novazero::input;
+	using namespace novazero::graphics;
 
 	class MainMenu :
 		public Scene
@@ -13,7 +15,8 @@ namespace spaceshooter
 
 	private:
 
-		Sprite* title = nullptr;
+		Text* title = nullptr;
+		Text* spaceToContinue = nullptr;
 
 	public:
 
@@ -34,10 +37,11 @@ namespace spaceshooter
 		{
 			n2dScoreSet(0);
 
-			title = new Sprite("title", Vec2Int(Game::s_Width / 2, Game::s_Height / 2),
-				Vec2Int(256, 128), 0);
+			title = new Text("font1", "SPACE SHOOTER", "white",
+				Rect(Game::s_Width / 2 - 200, Game::s_Height / 4, 400, 40), 0);
 
-			title->SetPosition(Vec2Int(title->GetX() - title->GetWidth() / 2, title->GetY() - title->GetHeight() / 2));
+			spaceToContinue = new Text("font1", "press space to continue", "yellow",
+				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 + 50, 200, 20), 0);
 		
 			auto startListening = new auto([=] {
 				StartListening();
@@ -67,6 +71,7 @@ namespace spaceshooter
 		void End() override
 		{
 			delete title;
+			delete spaceToContinue;
 		}
 
 	};

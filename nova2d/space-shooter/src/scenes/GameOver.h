@@ -1,6 +1,7 @@
 #include "core/Scene.h"
 #include "maths/Vec2Int.h"
 #include "core/EventListener.h"
+#include "graphics/Text.h"
 
 namespace spaceshooter
 {
@@ -13,7 +14,10 @@ namespace spaceshooter
 
 	private:
 
-		Sprite* title = nullptr;
+		Text* title = nullptr;
+		Text* playerScore = nullptr;
+		Text* spaceToContinue = nullptr;
+
 
 	public:
 
@@ -27,10 +31,16 @@ namespace spaceshooter
 
 		void Start() override
 		{
-			title = new Sprite("gameOverTitle", Vec2Int(Game::s_Width / 2, Game::s_Height / 8),
-				Vec2Int(256, 128), 0);
+			auto score = n2dScoreGet();
 
-			title->SetPosition(Vec2Int(title->GetX() - title->GetWidth() / 2, title->GetY()));
+			title = new Text("font1", "Game Over", "red",
+				Rect(Game::s_Width / 2 - 200, Game::s_Height / 4, 400, 40), 0);
+
+			playerScore = new Text("font1", "Your Score: " + std::to_string(score), "white",
+				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2, 200, 20), 0);
+
+			spaceToContinue = new Text("font1", "press space to continue", "yellow",
+				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 + 50, 200, 20), 0);
 
 			n2dAddKeyDownListener(SDLK_SPACE, GameOver::OnSpace, this);
 
@@ -44,6 +54,8 @@ namespace spaceshooter
 		void End() override
 		{
 			delete title;
+			delete playerScore;
+			delete spaceToContinue;
 		}
 
 	};

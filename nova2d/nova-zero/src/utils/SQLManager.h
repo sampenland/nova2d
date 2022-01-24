@@ -10,6 +10,13 @@ namespace novazero
 
 	namespace utils
 	{
+		struct HighScore
+		{
+			int ID;
+			std::string PlayerName;
+			int PlayerScore;
+		};
+
 		class SQLManager
 		{
 			
@@ -94,6 +101,58 @@ namespace novazero
 			void AddScore(std::string playerName, int score)
 			{
 				ExecuteNonResult("INSERT INTO scores(name, score) VALUES ('" + playerName + "', '" + std::to_string(score) + "');");
+			}
+
+			/*
+			Gets an array of high scores. Returns up to count results.
+			MAKE SURE TO pass in a reference to a HighScore vector (&resultsOUT)
+			*/
+			void GetScores(int count, std::vector<HighScore>& resultsOUT)
+			{
+				CheckIfUsingSQL();
+
+				try
+				{
+					sql::mysql::MySQL_Driver* driver;
+					sql::Connection* conn;
+					sql::ResultSet* resultSet;
+
+					driver = sql::mysql::get_mysql_driver_instance();
+					conn = driver->connect(m_CurrentConnectionString, m_User, m_Password);
+					if (conn && conn->isValid())
+					{
+						sql::Statement* command = conn->createStatement();
+						command->execute("USE " + m_CurrentDatabase);
+						resultSet = command->executeQuery("SELECT id, name, score FROM scores ORDER BY score DESC LIMIT " + 
+							std::to_string(count) + ";");
+
+						std::vector<HighScore> results;
+
+						while (resultSet->next())
+						{
+							HighScore h;
+							h.ID = resultSet->getInt(1);
+							h.PlayerName = resultSet->getString(2);
+							h.PlayerScore = resultSet->getInt(3);
+
+							results.push_back(h);
+						}
+
+						resultsOUT = results;
+
+						if (command)
+							delete command;
+
+						if (conn)
+							delete conn;
+					}
+				}
+				catch (const sql::SQLException& e)
+				{
+					LOG(e.what());
+					LOG("SQL error : could not get high scores");
+					return;
+				}
 			}
 
 			void RemoveScore(std::string playerName, int score)
