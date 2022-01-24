@@ -105,7 +105,7 @@ namespace novazero
 				Executes a query which does not return a result set (or is thrown away if returned)
 			*/
 			void ExecuteNonResult(std::string query, std::string connectionString = "-1",
-				std::string table = "-1", std::string user = "-1", std::string pass = "-1", bool silentError = false)
+				std::string table = "-1", std::string user = "-1", std::string pass = "-1", bool creatingDatabase = false)
 			{
 
 				CheckIfUsingSQL();
@@ -125,7 +125,7 @@ namespace novazero
 					if (conn && conn->isValid())
 					{
 						sql::Statement* command = conn->createStatement();
-						command->execute("USE " + m_CurrentDatabase);
+						if(!creatingDatabase) command->execute("USE " + m_CurrentDatabase);
 						command->execute(query);
 
 						if (command)
@@ -137,7 +137,7 @@ namespace novazero
 				}
 				catch (const sql::SQLException& e)
 				{
-					if (!silentError)
+					if (!creatingDatabase)
 					{
 						LOG(e.what());
 						LOG("SQL error :" + query);
