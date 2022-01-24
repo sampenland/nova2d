@@ -18,31 +18,14 @@ namespace novazero
 			bool m_UsingSQL = false;
 
 			std::string m_CurrentConnectionString = "";
+			std::string m_CurrentDatabase = "";
 			std::string m_CurrentTable = "";
 			std::string m_User = "";
 			std::string m_Password = "";
 
-			sql::Driver* m_Driver = nullptr;
-			sql::Connection* m_Connection = nullptr;
-
 		public:
 
-			SQLManager()
-			{
-				try
-				{
-					m_Driver = get_driver_instance();
-				}
-				catch (const sql::SQLException& e)
-				{
-					m_Driver = nullptr;
-
-					LOG(e.what());
-					LOG("SQL error getting driver");
-					return;
-				}
-
-			};
+			SQLManager() { };
 
 			/* 
 				Creates a table with columns(automatically adds auto increment primary key : id)
@@ -51,7 +34,7 @@ namespace novazero
 			*/
 			void CreateTableIfNotExist(std::string tableName, std::map<std::string, std::string> &columns)
 			{
-				std::string createQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " ( id int NOT NULL AUTO_INCREMENT, ";
+				std::string createQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " ( id int NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
 
 				std::map<std::string, std::string>::iterator it = columns.begin();
 				for (; it != columns.end(); it++)
@@ -71,14 +54,18 @@ namespace novazero
 				ExecuteNonResult(createQuery);
 			}
 
-			void Configure(std::string connectionString, std::string table, std::string user, std::string pass)
+			void Configure(std::string databaseName, std::string connectionString, std::string user, std::string pass)
 			{
 				m_UsingSQL = true;
 
 				m_CurrentConnectionString = connectionString;
-				m_CurrentTable = table;
 				m_User = user;
 				m_Password = pass;
+
+				std::string query = "CREATE DATABASE " + databaseName + ";";
+				ExecuteNonResult(query,"-1","-1","-1","-1", true);
+				m_CurrentDatabase = databaseName;
+
 			}
 
 			bool CheckIfUsingSQL()
@@ -118,7 +105,7 @@ namespace novazero
 				Executes a query which does not return a result set (or is thrown away if returned)
 			*/
 			void ExecuteNonResult(std::string query, std::string connectionString = "-1",
-				std::string table = "-1", std::string user = "-1", std::string pass = "-1")
+				std::string table = "-1", std::string user = "-1", std::string pass = "-1", bool silentError = false)
 			{
 
 				CheckIfUsingSQL();
@@ -128,23 +115,34 @@ namespace novazero
 				m_User = table == "-1" ? m_User : user;
 				m_Password = table == "-1" ? m_Password : pass;
 
-				m_Connection = m_Driver->connect(m_CurrentConnectionString, m_User, m_Password);
-
-				if (m_Connection && m_Connection->isValid())
+				try
 				{
-					sql::Statement* command = m_Connection->createStatement();
-					command->execute(query);
+					sql::mysql::MySQL_Driver* driver;
+					sql::Connection* conn;
 
-					if (command)
-						delete command;
+					driver = sql::mysql::get_mysql_driver_instance();
+					conn = driver->connect(m_CurrentConnectionString, m_User, m_Password);
+					if (conn && conn->isValid())
+					{
+						sql::Statement* command = conn->createStatement();
+						command->execute("USE " + m_CurrentDatabase);
+						command->execute(query);
+
+						if (command)
+							delete command;
+						
+						if (conn)
+							delete conn;
+					}
 				}
-
-				if (m_Connection)
-					delete m_Connection;
-
-
-				m_Connection = nullptr;
-
+				catch (const sql::SQLException& e)
+				{
+					if (!silentError)
+					{
+						LOG(e.what());
+						LOG("SQL error :" + query);
+					}
+				}
 			};
 
 			~SQLManager()

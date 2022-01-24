@@ -21,6 +21,7 @@ int main(int argc, char* argv[])
 
 	Game game(Vec2Int(800, 640), "Space Shooter");
 	game.ConfigureIcon("res/ship_01.png");
+	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32);
 
 	n2dAddColor("background", "201533", 1);
@@ -59,8 +60,6 @@ int main(int argc, char* argv[])
 	while (Game::IsRunning())
 	{
 		game.Tick();
-		auto i = n2dDebugDrawableCount();
-		LOG(i);
 	}
 
 	return Game::s_ExitCode;

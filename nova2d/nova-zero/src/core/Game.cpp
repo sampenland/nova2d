@@ -62,6 +62,16 @@ namespace novazero
 			s_SceneManager->ConfigureFirstScene(sceneName);
 		}
 
+		void Game::ConfigureSQL(std::string databaseName, std::string connectionString, std::string user, std::string pass, bool useNovaSQLScoring)
+		{
+			s_SQLManager->Configure(databaseName, connectionString, user, pass);
+
+			if (useNovaSQLScoring)
+			{
+				n2dSQLScoreTableCreation(12, 10);
+			}
+		}
+
 		void Game::PollEvents()
 		{
 			SDL_Event event;
