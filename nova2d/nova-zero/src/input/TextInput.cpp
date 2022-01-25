@@ -39,6 +39,7 @@ namespace novazero
 		void TextInput::Configure(bool startSelected, int maxChars)
 		{
 			m_MaxChars = maxChars;
+			m_DisplayText->SetDynamicWithCharMax(maxChars);
 
 			if (startSelected)
 			{

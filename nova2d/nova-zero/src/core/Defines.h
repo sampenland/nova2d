@@ -61,6 +61,12 @@ Removes score from nova2d's simple highscore table
 #define n2dSQLScoreRemove(playerName, score) novazero::core::Game::s_SQLManager->RemoveScore(playerName, score);
 
 /*
+nova2d SQL Get Scores (count, &results, &lowestScore)
+Grabs top N amount of scores
+*/
+#define n2dSQLScoreTopN(count, results, lowest) novazero::core::Game::s_SQLManager->GetScores(count, results, lowest);
+
+/*
 nova2d Clear Text edit buffer (limitSizeOfBuffer)
 Clears textbox input buffer
 */

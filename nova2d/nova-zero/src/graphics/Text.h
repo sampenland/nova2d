@@ -25,6 +25,9 @@ namespace novazero
 			SDL_Rect m_DrawRect;
 			std::string m_FontName;
 			bool m_Constructed = false;
+			bool m_Visible = true;
+			int m_CharMax = 0;
+			bool m_Dynamic = false;
 
 		public:
 
@@ -35,6 +38,7 @@ namespace novazero
 			void UpdateText(std::string newText);
 			void ManualAddDrawable(char layer);
 			std::string GetText() { return m_DisplayText; }
+			void SetDynamicWithCharMax(int max) { m_CharMax = max; m_Dynamic = true; }
 
 			void Draw() override;
 

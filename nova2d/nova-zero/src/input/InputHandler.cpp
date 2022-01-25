@@ -40,16 +40,10 @@ namespace novazero
 		{
 			if (!m_SelectedInput) return;
 
-			if (m_CharBufferIndex >= m_CharBufferMax) return;
-
-			for (char i = 0; i < 32; i++)
+			if (m_CharBufferIndex < m_CharBufferMax)
 			{
-				if (e->text.text[i] != '\0')
-				{
-					m_CharBuffer[m_CharBufferIndex] = e->text.text[i];
-					m_CharBufferIndex++;
-					if (m_CharBufferIndex >= m_CharBufferMax) break;
-				}
+				m_CharBuffer[m_CharBufferIndex] = e->text.text[0];
+				m_CharBufferIndex++;
 			}
 		}
 
@@ -106,6 +100,11 @@ namespace novazero
 
 		void InputHandler::KeyDown(SDL_Event* e)
 		{
+			if (e->key.keysym.sym == SDLK_BACKSPACE)
+			{
+				if (m_CharBufferIndex > 0) m_CharBufferIndex--;
+			}
+
 			if (std::end(s_KeyIsPressed) == std::find(s_KeyIsPressed.begin(), s_KeyIsPressed.end(), e->key.keysym.sym))
 			{
 				s_KeyIsPressed.push_back(e->key.keysym.sym);

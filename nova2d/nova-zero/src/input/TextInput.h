@@ -32,6 +32,7 @@ namespace novazero
 			~TextInput();
 
 			void Configure(bool startSelected, int maxChars);
+			std::string GetText() { return m_DisplayText->GetText(); }
 
 			void Update();
 			void Select(bool isSelected, bool reset);

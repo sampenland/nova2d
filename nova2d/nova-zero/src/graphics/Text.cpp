@@ -17,11 +17,14 @@ namespace novazero
 			m_TextColor = colorName;
 			m_FontName = fontName;
 			m_DisplayText = text;
+			m_CharMax = text.length();
 
 			m_DrawRect.x = drawRect.x;
 			m_DrawRect.y = drawRect.y;
 			m_DrawRect.w = drawRect.w;
-			m_DrawRect.h = drawRect.h;				
+			m_DrawRect.h = drawRect.h;	
+
+			m_Dynamic = false;
 			
 			Construct(m_DisplayText, Vec2Int(drawRect.x, drawRect.y));
 
@@ -37,9 +40,6 @@ namespace novazero
 
 		Text::~Text()
 		{
-			if(m_Texture)
-				SDL_DestroyTexture(m_Texture);
-
 			n2dRemoveDrawable(m_ID, m_Layer);
 		}
 
@@ -54,7 +54,11 @@ namespace novazero
 			Color* novaColor = n2dGetColor(m_TextColor);
 			SDL_Color sdlColor = { novaColor->r, novaColor->g, novaColor->b };
 			
-			m_DisplayText = newText;
+			if (m_Dynamic)
+				m_DisplayText = newText.append(m_CharMax - newText.length(), ' ');
+			else
+				m_DisplayText = newText;
+
 			SDL_Surface* surface = TTF_RenderText_Solid(font, m_DisplayText.c_str(), sdlColor);
 
 			m_DrawRect.x = newPos.x;
@@ -62,10 +66,11 @@ namespace novazero
 
 			if (!surface)
 			{
-				LOG(m_DisplayText);
-				LOG("Failed to construct Text");
+				m_Visible = false;
 				return;
 			}
+
+			m_Visible = true;
 
 			m_Texture = SDL_CreateTextureFromSurface(Game::s_Renderer->GetSDLRenderer(), surface);
 
@@ -84,6 +89,7 @@ namespace novazero
 
 		void Text::Draw()
 		{
+			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);

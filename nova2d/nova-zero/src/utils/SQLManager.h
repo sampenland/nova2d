@@ -100,14 +100,75 @@ namespace novazero
 
 			void AddScore(std::string playerName, int score)
 			{
-				ExecuteNonResult("INSERT INTO scores(name, score) VALUES ('" + playerName + "', '" + std::to_string(score) + "');");
+				int sqlScore = GetPlayerScore(playerName);
+				if (sqlScore == -1)
+				{
+					// Not found; insert
+					ExecuteNonResult("INSERT INTO scores(name, score) VALUES ('" + 
+						playerName + "', '" + std::to_string(score) + "') ON DUPLICATE KEY " +
+						"UPDATE name = '" + playerName + "', score = '" + std::to_string(score) + "'; ");
+				}
+				else
+				{
+					if (score > sqlScore)
+					{
+						ExecuteNonResult("UPDATE scores SET score = '" + std::to_string(score) +
+							"' WHERE name = '" + playerName + "';");
+					}
+				}
+			}
+
+			// Returns -1 for no SQL entry found
+			// Returns int of player's score if playername found
+			int GetPlayerScore(std::string playerName)
+			{
+				CheckIfUsingSQL();
+
+				try
+				{
+					sql::mysql::MySQL_Driver* driver;
+					sql::Connection* conn;
+					sql::ResultSet* resultSet;
+
+					driver = sql::mysql::get_mysql_driver_instance();
+					conn = driver->connect(m_CurrentConnectionString, m_User, m_Password);
+					if (conn && conn->isValid())
+					{
+						sql::Statement* command = conn->createStatement();
+						command->execute("USE " + m_CurrentDatabase);
+						resultSet = command->executeQuery("SELECT score FROM scores WHERE name = '" + playerName + "';");
+
+						int score = -1;
+						while (resultSet->next())
+						{
+							score = resultSet->getInt(1);
+						}
+
+						if (command)
+							delete command;
+
+						if (conn)
+							delete conn;
+
+						return score;
+					}
+
+					return -1;
+				}
+				catch (const sql::SQLException& e)
+				{
+					LOG(e.what());
+					LOG("SQL error : problem searching for player's score");
+					return -1;
+				}
 			}
 
 			/*
 			Gets an array of high scores. Returns up to count results.
 			MAKE SURE TO pass in a reference to a HighScore vector (&resultsOUT)
+			Use Lowest Highscore reference to pass back and check if player got a new highscore
 			*/
-			void GetScores(int count, std::vector<HighScore>& resultsOUT)
+			void GetScores(int count, std::vector<HighScore>& resultsOUT, unsigned long& lowestHighscoreOUT)
 			{
 				CheckIfUsingSQL();
 
@@ -127,7 +188,7 @@ namespace novazero
 							std::to_string(count) + ";");
 
 						std::vector<HighScore> results;
-
+						unsigned long lowestScore = 4294967295;
 						while (resultSet->next())
 						{
 							HighScore h;
@@ -135,9 +196,15 @@ namespace novazero
 							h.PlayerName = resultSet->getString(2);
 							h.PlayerScore = resultSet->getInt(3);
 
+							if (h.PlayerScore < (int)lowestScore)
+							{
+								lowestScore = h.PlayerScore;
+							}
+
 							results.push_back(h);
 						}
 
+						lowestHighscoreOUT = lowestScore;
 						resultsOUT = results;
 
 						if (command)
