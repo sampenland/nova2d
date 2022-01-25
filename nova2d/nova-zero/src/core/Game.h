@@ -97,6 +97,16 @@ namespace novazero
 				s_ExitCode = exitCode;
 				s_Running = false;
 			}
+
+			static float RandomFloat(float min, float max)
+			{
+				return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
+			}
+			static int RandomInt(int min, int max)
+			{
+				// Random int between min-max
+				return (int)(rand() % min + max);
+			}
 		};
 	}
 }

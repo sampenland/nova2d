@@ -48,10 +48,7 @@ namespace novazero
 
 		void Positional::SetPositionCenter()
 		{
-			int x = (int)(Game::s_Width / 2) - (int)(GetWidth() / 2);
-			int y = (int)(Game::s_Height / 2) - (int)(GetHeight() / 2);
-
-			SetPosition(Vec2Int(x, y));
+			SetPositionPercents(50, 50);
 		}
 
 		void Positional::SetPositionPercents(char xPercent, char yPercent)
@@ -59,8 +56,8 @@ namespace novazero
 			float xR = (float)xPercent / 100.0f;
 			float yR = (float)yPercent / 100.0f;
 
-			int x = (int)(xR * Game::s_Width);
-			int y = (int)(yR * Game::s_Height);
+			int x = (int)(xR * Game::s_Width) - (int)(GetWidth() / 2);
+			int y = (int)(yR * Game::s_Height) - (int)(GetHeight() / 2);
 
 			SetPosition(Vec2Int(x, y));
 		}

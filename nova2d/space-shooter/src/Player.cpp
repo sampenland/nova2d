@@ -139,6 +139,7 @@ namespace spaceshooter
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				n2dScoreAdd(2);
 			}
 			
 			// Bullet with pawn

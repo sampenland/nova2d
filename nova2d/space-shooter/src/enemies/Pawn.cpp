@@ -53,12 +53,13 @@ namespace spaceshooter
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
-			Text* t = (Text*)n2dReferenceGet("score");
-			auto score = n2dScoreAdd(10);
-			t->UpdateText("Score: " + std::to_string(score));
-
+			n2dScoreAdd(14);
 			m_HealthBar->DestroySelf();
 			DestroySelf();
+		}
+		else
+		{
+			n2dScoreAdd(4);
 		}
 	}
 
@@ -74,7 +75,8 @@ namespace spaceshooter
 
 	void Pawn::Shoot()
 	{
-		m_DelayShoot = randomf(m_DelayShootMin, m_DelayShootMax);
+		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
+		m_DelayShoot = r;
 
 		SimpleBulletController* bullet = new 
 			SimpleBulletController(

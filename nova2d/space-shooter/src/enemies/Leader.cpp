@@ -32,7 +32,9 @@ namespace spaceshooter
 
 				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16), 1, m_Sprite, 0.0f);
 				pawn->Configure(1);
-				pawn->ConfigureShoot(5000, 10000);
+				float rMin = n2dRandomFloat(3000, 5000);
+				float rMax = n2dRandomFloat(7000, 11000);
+				pawn->ConfigureShoot(rMin, rMax);
 				pawn->Offset(Vec2Int(offsetX, offsetY));
 
 				m_Pawns.push_back(pawn);
@@ -55,8 +57,10 @@ namespace spaceshooter
 		id = n2dAddUpdater(Leader::HealthUpdate, this);
 		m_CleanUpdaters.push_back(id);
 
-		m_MoveTimer = new Timer(randomf(10000, 20000), false, std::bind(&Leader::MoveForwardThenBack, this));
-		m_BombTimer = new Timer(randomf(10000, 20000), false, std::bind(&Leader::DeployBomb, this));
+		auto moveR = n2dRandomFloat(10000, 20000);
+		auto bombR = n2dRandomFloat(10000, 20000);
+		m_MoveTimer = new Timer(moveR, false, std::bind(&Leader::MoveForwardThenBack, this));
+		m_BombTimer = new Timer(bombR, false, std::bind(&Leader::DeployBomb, this));
 	}
 
 	void Leader::HealthUpdate()
@@ -86,7 +90,12 @@ namespace spaceshooter
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
+			n2dScoreAdd(80);
 			DestroySelf();
+		}
+		else
+		{
+			n2dScoreAdd(6);
 		}
 	}
 
@@ -135,7 +144,8 @@ namespace spaceshooter
 
 		if (m_DelayShoot < 0)
 		{
-			m_DelayShoot = randomf(1, m_DelayShootMax);
+			auto r = n2dRandomFloat(1.0f, m_DelayShootMax);
+			m_DelayShoot = r;
 			Shoot();
 			return;
 		}
@@ -179,7 +189,8 @@ namespace spaceshooter
 		
 		});
 
-		Timer* bulletDestruct = new Timer(randomf(6500, 12000), false, *bulletDestroy);
+		auto destructR = n2dRandomFloat(6500, 12000);
+		Timer* bulletDestruct = new Timer(destructR, false, *bulletDestroy);
 		bullet->AddTimer(bulletDestruct);
 
 	}

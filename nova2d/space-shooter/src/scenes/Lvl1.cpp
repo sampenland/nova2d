@@ -6,6 +6,8 @@
 
 namespace spaceshooter
 {
+	char Lvl1::s_Players = 1;
+
 	Lvl1::Lvl1(std::string sceneName) : Scene(sceneName)
 	{
 		
@@ -29,24 +31,24 @@ namespace spaceshooter
 		leader->ConfigureAliveBounds(Game::GetGameBounds());
 
 		const int scoreSize = 128;
-		Text* score = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
-		n2dAddDrawable(score, 0);
-		n2dReferenceAdd("score", score);
-
+		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
+		n2dAddDrawable(m_ScoreText, 0);
+		
 		AddObjectToCleanUp(player);
 		AddObjectToCleanUp(leader);
-		AddObjectToCleanUp(score);
+		AddObjectToCleanUp(m_ScoreText);
 
 	}
 
 	void Lvl1::Update()
 	{
-
+		auto score = n2dScoreGet();
+		m_ScoreText->UpdateText("Score: " + std::to_string(score));
 	}
 
 	void Lvl1::End()
 	{
-		n2dReferenceRemove("score");
+		n2dRemoveDrawable(m_ScoreText->m_ID, 0);
 		CleanUp();
 	}
 

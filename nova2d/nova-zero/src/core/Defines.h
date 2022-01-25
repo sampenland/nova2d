@@ -10,11 +10,6 @@ namespace novazero
 		// Max draw layers
 		#define MAX_LAYERS 20
 
-		// Random int between min-max
-		#define randomi(min, max) (int)(rand() % min + max)
-
-		// Random float between min-max
-		#define randomf(min, max) min + static_cast <float> (rand()) /( static_cast <float> (RAND_MAX/(max - min)))
 	}
 }
 
@@ -29,6 +24,18 @@ nova2d Get Delta Time
 Returns time between frames
 */
 #define n2dDeltaTime() novazero::core::Game::GetDeltaTime();
+
+/*
+nova2d Random Float (float min, float max)
+Returns a random float in range
+*/
+#define n2dRandomFloat(min, max) novazero::core::Game::RandomFloat(min, max);
+
+/*
+nova2d Random Int (int min, int max)
+Returns a random integer in range
+*/
+#define n2dRandomInt(min, max) novazero::core::Game::RandomInt(min, max);
 
 /*
 nova2d Get total instances

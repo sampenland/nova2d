@@ -57,6 +57,8 @@ namespace novazero
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
 
+			srand(time(NULL));
+
 		}
 
 		void Game::ConfigureFirstScene(std::string sceneName)

@@ -22,6 +22,8 @@ namespace novazero
 			m_DisplayText = text;
 			m_CharMax = text.length();
 
+			SetSize(Vec2Int(drawRect.w, drawRect.h));
+
 			m_DrawRect.x = drawRect.x;
 			m_DrawRect.y = drawRect.y;
 			m_DrawRect.w = drawRect.w;
@@ -94,6 +96,9 @@ namespace novazero
 		{
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
+
+			m_DrawRect.x = GetX();
+			m_DrawRect.y = GetY();
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
 		}
