@@ -3,9 +3,15 @@
 
 namespace novazero
 {
+	namespace graphics
+	{
+		class Drawable;
+	}
+
 	namespace core
 	{
 		using namespace maths;
+		using namespace graphics;
 
 		class Positional
 		{
@@ -14,35 +20,38 @@ namespace novazero
 			
 			Vec2Int m_Position;
 			int m_Angle = 0;
+			Vec2Int m_Size;
 
 		public:
 
-			Positional() {};
+			Positional();
+			~Positional();
 
-			int GetX() const { return m_Position.x; }
-			int GetY() const { return m_Position.y; }
-			Vec2Int GetPosition() const { return m_Position; }
-			int GetAngle() const { return m_Angle; }
+			int GetX() const;
+			int GetY() const;
+			Vec2Int GetPosition() const;
 
-			void SetX(int x)
-			{
-				m_Position.x = x;
-			}
+			int GetWidth() const;
+			int GetHeight() const;
+			Vec2Int GetSize() const;
+
+			int GetAngle() const;
+
+			void SetX(int x);
 			
-			void SetY(int y)
-			{
-				m_Position.y = y;
-			}
+			void SetY(int y);
 
-			void SetPosition(Vec2Int position)
-			{
-				m_Position = position;
-			}
+			void SetPosition(Vec2Int position);
 
-			void SetAngle(int a)
-			{
-				m_Angle = a;
-			}
+			void SetSize(Vec2Int size);
+
+			void SetAngle(int a);
+
+			// Place in center screen
+			void SetPositionCenter();
+
+			// Enter values (1-100, 1-100, sprite)
+			void SetPositionPercents(char xPercent, char yPercent);
 
 		};
 	}

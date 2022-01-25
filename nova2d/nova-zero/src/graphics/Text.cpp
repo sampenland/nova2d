@@ -8,8 +8,11 @@ namespace novazero
 	namespace graphics
 	{
 		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer,
-			bool autoAddDrawable)
+			bool autoAddDrawable) : Deleteable("text_")
 		{
+			m_ID = n2dGameGetID();
+			m_DeleteName = "text_" + std::to_string(m_ID);
+
 			m_Position.x = drawRect.x;
 			m_Position.y = drawRect.y;
 			m_Layer = layer;
@@ -40,7 +43,7 @@ namespace novazero
 
 		Text::~Text()
 		{
-			n2dRemoveDrawable(m_ID, m_Layer);
+			
 		}
 
 		void Text::UpdateText(std::string newText)
@@ -93,6 +96,13 @@ namespace novazero
 			if (!m_Constructed) return;
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
+		}
+
+		void Text::DestroySelf()
+		{
+			n2dRemoveDrawable(m_ID, m_Layer);
+			CleanUpdaters();
+			m_DeleteNow = 1;
 		}
 
 	}

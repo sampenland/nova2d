@@ -53,23 +53,29 @@ namespace spaceshooter
 			n2dSQLScoreTopN(6, highscores, lowestScore);
 
 			int c = 0;
-			for (size_t i = 0; i < 3; i++)
-			{
-				for (int j = -1; j < 2; j+=2)
-				{
-					HighScore h = highscores[c];
-					
-					int x = j * padding * 4;
-					Text* t = new Text("font1", h.PlayerName + "    " + std::to_string(h.PlayerScore), "white",
-						Rect(Game::s_Width / 2 - 100 + x, startY + i * padding, 200, 30), 0);
-					
-					highscoresLabels.push_back(t);
-					
-					c++;
-				}
-				
-			}
+			int cMax = (int)highscores.size();
 
+			if (cMax > 0)
+			{
+				for (size_t i = 0; i < 3; i++)
+				{
+					for (int j = -1; j < 2; j+=2)
+					{
+						if (c >= cMax) break;
+
+						HighScore h = highscores[c];
+					
+						int x = j * padding * 4;
+						Text* t = new Text("font1", h.PlayerName + "    " + std::to_string(h.PlayerScore), "white",
+							Rect(Game::s_Width / 2 - 100 + x, startY + i * padding, 200, 30), 0);
+					
+						highscoresLabels.push_back(t);
+					
+						c++;
+					}
+				
+				}
+			}
 
 			playerScore = new Text("font1", "Your Score: " + std::to_string(score), "white",
 				Rect(Game::s_Width / 2 - 150, 148, 300, 45), 0);
@@ -94,6 +100,7 @@ namespace spaceshooter
 
 		void OnEnter()
 		{
+			n2dRemoveKeyDownListener(SDLK_RETURN);
 			auto score = n2dScoreGet();
 			
 			if (score > 0)
@@ -110,24 +117,24 @@ namespace spaceshooter
 		void End() override
 		{
 			if(title)
-				delete title;
+				title->DestroySelf();
 			
 			if(playerScore)
-				delete playerScore;
+				playerScore->DestroySelf();
 			
 			if(spaceToContinue)
-				delete spaceToContinue;
+				spaceToContinue->DestroySelf();
 			
 			if(playerNameInput)
-				delete playerNameInput;
+				playerNameInput->DestroySelf();
 			
-			if(playerNameLabel)
-				delete playerNameLabel;
+			if (playerNameLabel)
+				playerNameLabel->DestroySelf();
 
 			for (size_t i = 0; i < highscoresLabels.size(); i++)
 			{
-				if(highscoresLabels[i])
-					delete highscoresLabels[i];
+				if (highscoresLabels[i])
+					highscoresLabels[i]->DestroySelf();
 			}
 		}
 

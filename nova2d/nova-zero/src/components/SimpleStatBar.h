@@ -15,7 +15,7 @@ namespace novazero
 	namespace components
 	{
 		class SimpleStatBar
-			: public Positional, public Drawable, public Deleteable
+			: public Drawable, public Deleteable
 		{
 
 		private:

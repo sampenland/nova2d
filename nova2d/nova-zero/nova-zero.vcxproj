@@ -114,6 +114,7 @@
     <ClCompile Include="src\core\Deleteable.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
+    <ClCompile Include="src\core\Positional.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
     <ClCompile Include="src\graphics\Drawable.cpp" />

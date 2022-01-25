@@ -37,6 +37,7 @@ namespace novazero
 			void Update();
 			void Select(bool isSelected, bool reset);
 			void Draw() override;
+			void DestroySelf();
 
 		};
 	}

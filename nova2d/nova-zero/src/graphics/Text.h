@@ -6,6 +6,7 @@
 #include "../graphics/Drawable.h"
 #include "SDL.h"
 #include "../core/Referenceable.h"
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
@@ -14,7 +15,7 @@ namespace novazero
 
 	namespace graphics
 	{
-		class Text : public Positional, public Drawable, public Referenceable
+		class Text : public Drawable, public Referenceable, public Deleteable
 		{
 
 		private:
@@ -41,6 +42,7 @@ namespace novazero
 			void SetDynamicWithCharMax(int max) { m_CharMax = max; m_Dynamic = true; }
 
 			void Draw() override;
+			void DestroySelf();
 
 		};
 	}

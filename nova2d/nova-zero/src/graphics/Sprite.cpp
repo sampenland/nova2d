@@ -16,7 +16,8 @@ namespace novazero
 		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
-			m_Position = position;
+			SetPosition(position);
+			SetSize(size);
 
 			m_Angle = 0;
 			m_Layer = layer;

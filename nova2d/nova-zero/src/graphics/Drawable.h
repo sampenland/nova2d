@@ -1,10 +1,13 @@
 #pragma once
+#include "../core/Positional.h"
 
 namespace novazero
 {
 	namespace graphics
 	{
-		class Drawable
+		using namespace core;
+
+		class Drawable : public Positional
 		{
 
 		protected:
@@ -18,7 +21,6 @@ namespace novazero
 			unsigned int m_ID = 0;
 
 			virtual void Draw() = 0;
-
 		};
 	}
 }

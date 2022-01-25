@@ -39,9 +39,11 @@ namespace spaceshooter
 
 			title = new Text("font1", "SPACE SHOOTER", "white",
 				Rect(Game::s_Width / 2 - 200, Game::s_Height / 4, 400, 40), 0);
+			title->SetPositionPercents(50, 25);
 
 			spaceToContinue = new Text("font1", "press space to continue", "yellow",
 				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 + 50, 200, 20), 0);
+			spaceToContinue->SetPositionPercents(50, 75);
 		
 			auto startListening = new auto([=] {
 				StartListening();
@@ -70,8 +72,8 @@ namespace spaceshooter
 
 		void End() override
 		{
-			delete title;
-			delete spaceToContinue;
+			title->DestroySelf();
+			spaceToContinue->DestroySelf();
 		}
 
 	};

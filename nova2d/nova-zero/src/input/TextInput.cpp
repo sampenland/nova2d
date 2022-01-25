@@ -25,15 +25,13 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 
 			auto cleanID = n2dAddUpdater(TextInput::Update, this);
-			m_CleanUpdaters.push_back(cleanID);
-			
+			m_CleanUpdaters.push_back(cleanID);			
 
 		};
 
 		TextInput::~TextInput()
 		{
-			CleanUpdaters();
-			n2dRemoveDrawable(m_ID, m_Layer);
+			
 		}
 
 		void TextInput::Configure(bool startSelected, int maxChars)
@@ -100,6 +98,17 @@ namespace novazero
 			{
 				m_DisplayText->Draw();
 			}
+		}
+
+		void TextInput::DestroySelf()
+		{
+			CleanUpdaters();
+			n2dRemoveDrawable(m_ID, m_Layer);
+
+			if (m_DisplayText)
+				m_DisplayText->DestroySelf();
+
+			m_DeleteNow = 1;
 		}
 	}
 }
