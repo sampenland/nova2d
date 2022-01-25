@@ -36,7 +36,8 @@ namespace spaceshooter
 
 		void Start() override
 		{
-			
+			highscoresLabels.clear();
+
 			title = new Text("font1", "Game Over", "red",
 				Rect(Game::s_Width / 2 - 250, 32, 500, 60), 0);
 			
