@@ -7,17 +7,13 @@ namespace novazero
 		SimpleWeakAI::SimpleWeakAI()
 			: Collider(0), Deleteable("simpleWeakAI")
 		{
-			unsigned int clean_id = n2dAddUpdater(SimpleWeakAI::Update, this);
-			m_CleanUpdaters.push_back(clean_id);
+			auto cleanID = n2dAddUpdater(SimpleWeakAI::Update, this);
+			m_CleanUpdaters.push_back(cleanID);
 		}
 
 		SimpleWeakAI::~SimpleWeakAI()
 		{
-			CleanUpdaters();
-
-			if (m_Sprite)
-				delete m_Sprite;
-
+			
 		}
 
 		void SimpleWeakAI::EnableAI(bool isEnabled)
@@ -45,6 +41,12 @@ namespace novazero
 			m_MoveFunctions.push_back(func);
 		}
 
+		void SimpleWeakAI::ClearPatrol()
+		{
+			m_PatrolPoints.clear();
+			m_MoveFunctions.clear();
+		}
+
 		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2Int point)
 		{
 			int idx = -1;
@@ -65,19 +67,29 @@ namespace novazero
 
 		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2Int> points, std::vector<f_MovePtrFunction> funcs)
 		{
+			LOG("Function Set All Patrol not implemented.");
+			return;
+
 			if (points.size() != funcs.size())
 			{
 				LOG("Weak AI cannot set patrol points.");
 				return;
 			}
 
+			m_PatrolPoints.clear();
+			m_MoveFunctions.clear();
+
 			m_PatrolPoints = points;
 			m_MoveFunctions = funcs;
+
+			EnableAI(true);
 
 		}
 
 		void SimpleWeakAI::Update()
 		{
+			if (!m_Alive) return;
+
 			if (m_Delay > 0)
 			{
 				auto d = n2dDeltaTime();
@@ -93,7 +105,11 @@ namespace novazero
 					f_OnPatrolComplete();
 			}
 
-			OutOfBounds(m_Sprite);
+			if (OutOfBounds(m_Sprite))
+			{
+				DestroySelf();
+				return;
+			}
 
 			if (m_LoopMoving && m_PatrolIndex == -1)
 			{
@@ -125,8 +141,11 @@ namespace novazero
 				int currentY = GetY();
 				Vec2Int endVector = m_PatrolPoints.at(m_PatrolIndex);
 
-				int newX = currentX > endVector.x ? currentX - 1 : currentX + 1;
-				int newY = currentY > endVector.y ? currentY - 1 : currentY + 1;
+				int newX = currentX > endVector.x ? currentX - 5 : currentX + 5;
+				int newY = currentY > endVector.y ? currentY - 5 : currentY + 5;
+
+				if (currentX == endVector.x) newX = endVector.x;
+				if (currentY == endVector.y) newY = endVector.y;
 
 				SetPosition(newX, newY);
 
@@ -141,6 +160,16 @@ namespace novazero
 				}
 
 			}
+		}
+
+		void SimpleWeakAI::DestroySelf()
+		{
+			CleanUpdaters();
+
+			if (m_Sprite)
+				m_Sprite->DestroySelf();
+
+			m_DeleteNow = 1;
 		}
 	}
 }

@@ -71,11 +71,15 @@ namespace novazero
 			void RemovePatrolPointWithFunction(Vec2Int point);
 
 			void SetAllPatrol(std::vector<Vec2Int> points, std::vector<f_MovePtrFunction> funcs);
+			void ClearPatrol();
 
 			void LinearPatrolMove();
+			std::function<void()> GetLinearPatrolMove() { return std::bind(&SimpleWeakAI::LinearPatrolMove, this); }
 			
 			void Update();
 			void OnCollision(Collision* collision) override { };
+
+			void DestroySelf();
 
 		};
 	}

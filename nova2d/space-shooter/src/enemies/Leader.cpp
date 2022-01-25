@@ -21,28 +21,9 @@ namespace spaceshooter
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
-		char rows = 2;
-		char cols = 2;
-		for (int row = 0; row <= rows; row++)
-		{
-			for (int col = -3; col <= cols; col++)
-			{
-				int	offsetX = col * 96;
-				int offsetY = 64 + (row * 32);
+		GeneratePawnWave(1, 2);
 
-				Pawn* pawn = new Pawn("pawn", Vec2Int(position.x + offsetX, offsetY), Vec2Int(16, 16), 1, m_Sprite, 0.0f);
-				pawn->Configure(1);
-				float rMin = n2dRandomFloat(3000, 5000);
-				float rMax = n2dRandomFloat(7000, 11000);
-				pawn->ConfigureShoot(rMin, rMax);
-				pawn->Offset(Vec2Int(offsetX, offsetY));
-
-				m_Pawns.push_back(pawn);
-
-			}
-			
-		}
-
+		ConfigureUsingBounds(false, false);
 		ConfigureCollider(m_Sprite, 0, "leader");
 
 		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
@@ -61,6 +42,57 @@ namespace spaceshooter
 		auto bombR = n2dRandomFloat(10000, 20000);
 		m_MoveTimer = new Timer(moveR, false, std::bind(&Leader::MoveForwardThenBack, this));
 		m_BombTimer = new Timer(bombR, false, std::bind(&Leader::DeployBomb, this));
+
+		n2dAddDeleteable(this);
+		n2dReferenceAdd("leader", this);
+	}
+
+	void Leader::GeneratePawnWave(char rows, char cols)
+	{
+		for (int row = 0; row < rows; row++)
+		{
+			for (int col = -cols; col <= cols; col++)
+			{
+				int	offsetX = col * 96;
+				int offsetY = 96 + (row * 32);
+
+				Pawn* pawn = new Pawn("pawn", Vec2Int(GetX() + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
+
+				float rMin = n2dRandomFloat(3000, 5000);
+				float rMax = n2dRandomFloat(7000, 11000);
+				pawn->ConfigureShoot(rMin, rMax);
+
+				m_Pawns.push_back(pawn);
+
+			}
+
+		}
+	}
+
+	void Leader::RemovePawn(unsigned int pawnID)
+	{
+		for (size_t i = 0; i < m_Pawns.size(); i++)
+		{
+			if (m_Pawns[i]->m_ID == pawnID) m_Pawns[i]->DestroySelf();
+		}
+	}
+
+	void Leader::PawnAttack()
+	{
+		for (size_t i = 0; i < m_Pawns.size(); i++)
+		{
+			if (!m_Pawns[i]->m_DeleteNow == 0) continue;
+
+			Pawn& p = *m_Pawns[i];
+
+			p.ClearPatrol();
+
+			int x = p.GetX();
+			p.AddPatrolPointWithFunction(Vec2Int(x, Game::s_Height + 48), std::bind(p.GetLinearPatrolMove()));
+			p.Configure(0.25f, false);
+			p.EnableAI(true);
+		}
+		
 	}
 
 	void Leader::HealthUpdate()
@@ -135,7 +167,7 @@ namespace spaceshooter
 
 	Leader::~Leader()
 	{
-		CleanUpdaters();
+		
 	}
 
 	void Leader::ShootUpdate()
@@ -199,15 +231,29 @@ namespace spaceshooter
 	{
 		if (m_Destroyed) return;
 
+		n2dReferenceRemove("leader");
+
+		if ((int)m_Pawns.size() > 0)
+		{
+			PawnAttack();
+		}
+
 		m_Destroyed = true;
 		m_Alive = false;
 
+		m_DeleteNow = 1;
+
 		CleanUpdaters();
 
-		if (m_Sprite)
-			m_Sprite->DestroySelf();
+		if(m_MoveTimer)
+			m_MoveTimer->DestroySelf();
+		
+		if (m_BombTimer)
+			m_BombTimer->DestroySelf();
 
 		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
+
+		SimpleWeakAI::DestroySelf();
 	}
 }

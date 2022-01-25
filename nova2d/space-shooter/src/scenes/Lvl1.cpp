@@ -28,7 +28,7 @@ namespace spaceshooter
 		n2dReferenceAdd("player", player);
 
 		Leader* leader = new Leader("leader", Vec2Int((int)Game::s_Width / 2 - 8, -48), Vec2Int(16, 16), 1);
-		leader->ConfigureAliveBounds(Game::GetGameBounds());
+		leader->Configure(10, true);
 
 		const int scoreSize = 128;
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);

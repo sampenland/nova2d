@@ -1,14 +1,18 @@
 #include "Pawn.h"
 #include "graphics/Text.h"
+#include "Leader.h"
 
 namespace spaceshooter
 {
 	using namespace novazero::graphics;
 	using namespace novazero::controllers;
 
-	Pawn::Pawn(std::string assetName, Vec2Int position, Vec2Int size, char layer, Positional* target, const float moveUpdateDelay)
-		: SimpleFollower(target, moveUpdateDelay)
+	Pawn::Pawn(std::string assetName, Vec2Int position, Vec2Int size, char layer, const float moveUpdateDelay)
+		: SimpleWeakAI()
 	{
+
+		m_DeleteName = assetName + std::to_string(m_ID);
+		
 		AddSprite(assetName, position, size, layer);
 		ConfigureCollider(m_Sprite, 0, "pawn");
 		ConfigureUsingBounds(false, false);
@@ -18,20 +22,18 @@ namespace spaceshooter
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 
-		auto cleanID = n2dAddUpdater(Pawn::Update, this);
+		auto cleanID = n2dAddUpdater(Pawn::PawnUpdate, this);
 		m_CleanUpdaters.push_back(cleanID);
+
+		n2dAddDeleteable(this);
 	}
 
 	Pawn::~Pawn()
 	{
-		if (m_Sprite)
-			m_Sprite->DestroySelf();
-
-		if (m_HealthBar)
-			m_HealthBar->DestroySelf();
+		
 	}
 
-	void Pawn::Update()
+	void Pawn::PawnUpdate()
 	{
 		if (!m_Alive) return;
 
@@ -53,9 +55,11 @@ namespace spaceshooter
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
-			n2dScoreAdd(14);
-			m_HealthBar->DestroySelf();
-			DestroySelf();
+			if (m_Alive)
+			{
+				n2dScoreAdd(14);
+				DestroySelf();
+			}
 		}
 		else
 		{
@@ -88,5 +92,25 @@ namespace spaceshooter
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "pawn-bullet");
 		bullet->Configure(3, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 
+	}
+
+	void Pawn::DestroySelf()
+	{
+		if (m_Destroyed) return;
+
+		m_Alive = false;
+		m_Destroyed = true;
+
+		Leader* leader = (Leader*)n2dReferenceGet("leader");
+		if (leader)
+		{
+			leader->RemovePawn(m_ID);
+		}
+
+  		if (m_HealthBar)
+			m_HealthBar->DestroySelf();
+
+		m_DeleteNow = 1;
+		SimpleWeakAI::DestroySelf();
 	}
 }

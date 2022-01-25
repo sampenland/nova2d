@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ai/SimpleFollower.h"
+#include "ai/SimpleWeakAI.h"
 #include "controllers/SimpleBulletController.h"
 #include <string>
 #include "components/SimpleStatBar.h"
@@ -11,7 +11,7 @@ namespace spaceshooter
 	using namespace novazero::components;
 
 	class Pawn
-		: public SimpleFollower
+		: public SimpleWeakAI
 	{
 
 	private:
@@ -26,7 +26,7 @@ namespace spaceshooter
 	public:
 
 		Pawn(std::string assetName, Vec2Int position, Vec2Int size, 
-			char layer, Positional* target, const float moveUpdateDelay);
+			char layer, const float moveUpdateDelay);
 		
 		~Pawn();
 		
@@ -34,11 +34,13 @@ namespace spaceshooter
 
 		Rect GetAliveBounds() const { return m_AliveBounds; }
 
-		void Update();
+		void PawnUpdate();
 		void Shoot();
 
 		void Hurt(int damage);
 		void SmallExplosion();
+
+		void DestroySelf() override;
 
 	};
 }
