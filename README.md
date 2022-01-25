@@ -5,7 +5,7 @@ Simple experimental 2d SDL2 based game engine
 **Feature Set**
  
  Graphics
- - Simple 2D sprites
+ - Simple 2D sprites with Animations, if desired
  - Simple TextInput and Text Displays
  - 4 built in fonts: "font1", "font2", "font3", "font4"
  
