@@ -24,6 +24,9 @@ namespace novazero
 			m_Instances = new Text("font3", "I: 0", "white", Rect(m_Position.x, m_Position.y + 22,
 				100, 20), 0);
 
+			m_Updaters = new Text("font3", "U: 0", "white", Rect(m_Position.x, m_Position.y + 44,
+				100, 20), 0);
+
 			n2dAddDrawable(this, 0);
 
 			auto cleanID = n2dAddUpdater(DebugOverlay::Update, this);
@@ -57,6 +60,9 @@ namespace novazero
 
 			auto objs = n2dDebugDrawableCount();
 			m_Instances->UpdateText("Objs: " + std::to_string(objs));
+
+			auto ups = n2dDebugUpdaterCount();
+			m_Updaters->UpdateText("Objs: " + std::to_string(ups));
 		}
 		
 		void DebugOverlay::Draw()

@@ -44,6 +44,12 @@ Returns total drawables on screen
 #define n2dDebugDrawableCount() novazero::core::Game::s_Renderer->s_DrawLayers->GetInstanceCount();
 
 /*
+nova2d Get total updaters
+Returns total drawables on screen
+*/
+#define n2dDebugUpdaterCount() novazero::core::SceneManager::GetUpdaterCount();
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */

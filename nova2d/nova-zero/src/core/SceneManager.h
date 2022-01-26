@@ -53,6 +53,10 @@ namespace novazero
 			static std::map<unsigned int, f_VoidFunction> s_UpdatersToAdd;
 			static unsigned int AddUpdater(f_VoidFunction updater);
 			static void RemoveUpdater(unsigned int id);
+			static unsigned int GetUpdaterCount() 
+			{ 
+				return (unsigned int)s_Updaters.size(); 
+			};
 
 			static std::map<unsigned int, Deleteable*> s_Deleteables;
 			static unsigned int AddDeleteable(Deleteable* o);
