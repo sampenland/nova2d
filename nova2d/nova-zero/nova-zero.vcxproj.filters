@@ -108,6 +108,9 @@
     <ClCompile Include="src\debug\DebugOverlay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\AnsiColor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Window.h">
@@ -234,6 +237,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\debug\DebugOverlay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\AnsiColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "../graphics/AnsiColor.h"
 
 namespace novazero
 {
@@ -44,8 +45,10 @@ namespace novazero
 				}
 
 				out += level + ": " + text + "\n";
+
+				setupConsole();
 				printf(out.c_str());
-				printf("\u001b[0m");
+				restoreConsole();
 			}
 		};
 

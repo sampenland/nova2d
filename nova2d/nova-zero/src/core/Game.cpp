@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "../graphics/Renderer.h"
+#include "../graphics/AnsiColor.h"
 
 namespace novazero
 {
@@ -35,7 +36,6 @@ namespace novazero
 		Game::Game(const Vec2Int screenSize, const char* title)
 			: m_Title(title), NOW(0), LAST(0)
 		{
-
 			m_SceneManager = new SceneManager();
 			m_MainWindow = new Window(screenSize, title);
 

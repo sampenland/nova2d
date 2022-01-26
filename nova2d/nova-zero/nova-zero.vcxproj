@@ -118,6 +118,7 @@
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
     <ClCompile Include="src\debug\DebugOverlay.cpp" />
+    <ClCompile Include="src\graphics\AnsiColor.cpp" />
     <ClCompile Include="src\graphics\Drawable.cpp" />
     <ClCompile Include="src\graphics\Text.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="src\core\TimerWatcher.h" />
     <ClInclude Include="src\core\TypeDefs.h" />
     <ClInclude Include="src\debug\DebugOverlay.h" />
+    <ClInclude Include="src\graphics\AnsiColor.h" />
     <ClInclude Include="src\graphics\Drawable.h" />
     <ClInclude Include="src\graphics\Text.h" />
     <ClInclude Include="src\input\Inputable.h" />
