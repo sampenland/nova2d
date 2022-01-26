@@ -9,7 +9,7 @@ namespace novazero
 		{
 			if (TTF_Init() != 0) 
 			{
-				LOG("Could not start TTF library.");
+				LOG(LVL_NON_FATAL_ERROR, "Could not start TTF library.");
 				return;
 			}
 
@@ -30,9 +30,8 @@ namespace novazero
 
 			if (!font)
 			{
-				LOG("Failed to load font.");
-				LOG(TTF_GetError());
-				LOG(fontName);
+				LOG(LVL_NON_FATAL_ERROR, "Failed to load font: " + fontName);
+				LOG(LVL_NON_FATAL_ERROR, TTF_GetError());
 				return;
 			}
 
@@ -46,8 +45,7 @@ namespace novazero
 				return m_Fonts[fontName];
 			}
 
-			LOG(fontName);
-			LOG("Could not find font in manager.");
+			LOG(LVL_WARNING, "Could not find font in manager: " + fontName);
 			
 			return nullptr;
 		}

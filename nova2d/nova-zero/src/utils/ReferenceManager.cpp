@@ -36,9 +36,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
-				LOG(oor.what());
-				LOG(name);
-				LOG("Cannot find game reference");
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find game reference: " + name);
+				LOG(LVL_NON_FATAL_ERROR, oor.what());
 				return nullptr;
 			}
 		}

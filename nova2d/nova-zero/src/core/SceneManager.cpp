@@ -35,8 +35,7 @@ namespace novazero
 			Scene* loadScene = GetScene(sceneName);
 			if (loadScene == nullptr)
 			{
-				LOG(sceneName);
-				LOG("Could not start. No first scene.");
+				LOG(LVL_FATAL_ERROR, "Could not start. No first scene: " + sceneName);
 				return;
 			}
 
@@ -66,8 +65,7 @@ namespace novazero
 			Scene* loadScene = GetScene(sceneName);
 			if (loadScene == nullptr)
 			{
-				LOG(sceneName);
-				LOG("Cannot find scene");
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find scene: " + sceneName);
 				return;
 			}
 
@@ -84,8 +82,7 @@ namespace novazero
 			if(!m_CurrentScene->m_Started) m_CurrentScene->Restart();
 			m_CurrentScene->m_Started = true;
 
-			LOG("Starting scene:");
-			LOG(m_CurrentScene->m_SceneName);
+			LOG(LVL_INFO, "Starting scene: " + m_CurrentScene->m_SceneName);
 
 			m_CurrentScene->Start();
 

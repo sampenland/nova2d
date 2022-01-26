@@ -79,8 +79,8 @@ namespace novazero
 			{
 				if (!m_UsingSQL)
 				{
-					LOG("Cannot perform SQL query.");
-					LOG("You must first enable SQL using n2dSQLConfigure();");
+					LOG(LVL_NON_FATAL_ERROR, "Cannot perform SQL query.");
+					LOG(LVL_NON_FATAL_ERROR, "You must first enable SQL using n2dSQLConfigure();");
 					return false;
 				}
 
@@ -157,8 +157,8 @@ namespace novazero
 				}
 				catch (const sql::SQLException& e)
 				{
-					LOG(e.what());
-					LOG("SQL error : problem searching for player's score");
+					LOG(LVL_NON_FATAL_ERROR, "SQL error : problem searching for player's score");
+					LOG(LVL_NON_FATAL_ERROR, e.what());
 					return -1;
 				}
 			}
@@ -216,8 +216,8 @@ namespace novazero
 				}
 				catch (const sql::SQLException& e)
 				{
-					LOG(e.what());
-					LOG("SQL error : could not get high scores");
+					LOG(LVL_NON_FATAL_ERROR, "SQL error : could not get high scores");
+					LOG(LVL_NON_FATAL_ERROR, e.what());
 					return;
 				}
 			}
@@ -265,8 +265,8 @@ namespace novazero
 				{
 					if (!creatingDatabase)
 					{
-						LOG(e.what());
-						LOG("SQL error :" + query);
+						LOG(LVL_NON_FATAL_ERROR, "SQL error :" + query);
+						LOG(LVL_NON_FATAL_ERROR, e.what());
 					}
 				}
 			};

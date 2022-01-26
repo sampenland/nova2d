@@ -48,7 +48,7 @@ namespace novazero
 			bool waiting = false;
 			if (m_WaitDelay > 0)
 			{
-				m_WaitDelay -= Game::s_DeltaTime;
+				m_WaitDelay = (float)(m_WaitDelay - Game::s_DeltaTime);
 				waiting = true;
 			}
 

@@ -81,8 +81,7 @@ namespace novazero
 
 			if (!m_Texture)
 			{
-				LOG(m_DisplayText);
-				LOG("Failed to construct Text");
+				LOG(LVL_WARNING, "Failed to construct Text" + m_DisplayText);
 				return;
 			}
 

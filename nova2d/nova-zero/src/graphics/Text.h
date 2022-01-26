@@ -37,6 +37,7 @@ namespace novazero
 
 			void Construct(std::string newText, Vec2Int newPos);
 			void UpdateText(std::string newText);
+			void UpdateTextColor(std::string colorName) { m_TextColor = colorName; }
 			void ManualAddDrawable(char layer);
 			std::string GetText() { return m_DisplayText; }
 			void SetDynamicWithCharMax(int max) { m_CharMax = max; m_Dynamic = true; }

@@ -72,12 +72,12 @@ namespace novazero
 
 		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2Int> points, std::vector<f_MovePtrFunction> funcs)
 		{
-			LOG("Function Set All Patrol not implemented.");
+			LOG(LVL_WARNING, "Function Set All Patrol not implemented.");
 			return;
 
 			if (points.size() != funcs.size())
 			{
-				LOG("Weak AI cannot set patrol points.");
+				LOG(LVL_WARNING, "Weak AI cannot set patrol points.");
 				return;
 			}
 

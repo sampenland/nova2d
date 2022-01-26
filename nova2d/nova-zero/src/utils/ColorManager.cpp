@@ -51,11 +51,10 @@ namespace novazero
 			try {
 				return m_ColorMap.at(name);
 			}
-			catch (const std::out_of_range& oor) {
-				LOG(name);
-				LOG("Couldn't find color.");
-				const char* ex = oor.what();
-				LOG(ex);
+			catch (const std::out_of_range& oor) 
+			{
+				LOG(LVL_NON_FATAL_ERROR, "Couldn't find color: " + name + ". Returned BLACK color.");
+				LOG(LVL_NON_FATAL_ERROR, oor.what());
 				return new Color(0, 0, 0, 1);
 			}
 			

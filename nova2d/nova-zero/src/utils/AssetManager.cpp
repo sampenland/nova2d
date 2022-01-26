@@ -41,9 +41,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
-				LOG(oor.what());
-				LOG(name);
-				LOG("Cannot find texture");
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find texture: " + name);
+				LOG(LVL_NON_FATAL_ERROR, oor.what());
 				return nullptr;
 			}
 		}

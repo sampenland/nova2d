@@ -17,8 +17,6 @@ int main(int argc, char* argv[])
 	using namespace controllers;
 	using namespace spaceshooter;
 
-	LOG("Nova Boot v.0.1 : Game Engine started.");
-
 	Game game(Vec2Int(800, 640), "Space Shooter");
 	game.ConfigureIcon("res/ship_01.png");
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
@@ -27,8 +25,6 @@ int main(int argc, char* argv[])
 	game.ConfigureDebugPosition(Vec2Int(32, 100));
 
 	n2dAddColor("background", "201533", 1);
-	n2dAddColor("red", "f02b2b", 1);
-	n2dAddColor("yellow", "f0cc2b", 1);
 	n2dAddColor("purple", "252446", 1);
 	n2dAddColor("dark-blue", "203562", 1);
 	n2dAddColor("blue", "1e579c", 1);

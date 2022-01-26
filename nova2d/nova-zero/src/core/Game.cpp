@@ -50,6 +50,9 @@ namespace novazero
 
 			n2dAddColor("white", "ffffff", 1);
 			n2dAddColor("black", "000000", 1);
+			n2dAddColor("red", "f02b2b", 1);
+			n2dAddColor("green", "2bf038", 1);
+			n2dAddColor("yellow", "d8d831", 1);
 
 			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
 			s_InputHandler = new InputHandler();
@@ -65,6 +68,8 @@ namespace novazero
 			LAST = 0;
 
 			srand((unsigned int)time(NULL));
+
+			LOG(LVL_CONFIRMATION, "Nova Boot : Game Engine started.");
 
 		}
 

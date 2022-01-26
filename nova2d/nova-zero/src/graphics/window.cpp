@@ -50,8 +50,8 @@ namespace novazero
 			}
 			else
 			{
-				LOG("Could not create winodw:");
-				LOG(SDL_GetError());
+				std::string err = SDL_GetError();
+				LOG(LVL_FATAL_ERROR, "Could not create window: " + err);
 				return;
 			}
 

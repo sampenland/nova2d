@@ -42,6 +42,17 @@ namespace novazero
 			ss << std::fixed << std::setprecision(2) << Game::s_FPS;
 			std::string fps = ss.str();
 
+			std::string color = "red";
+			if (Game::s_FPS > 60)
+			{
+				color = "green";
+			}
+			else if (Game::s_FPS > 30)
+			{
+				color = "yellow";
+			}
+
+			m_FPS->UpdateTextColor(color);
 			m_FPS->UpdateText("FPS: " + fps);
 
 			auto objs = n2dDebugDrawableCount();
