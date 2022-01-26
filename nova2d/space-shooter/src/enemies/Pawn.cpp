@@ -11,8 +11,6 @@ namespace spaceshooter
 	Pawn::Pawn(std::string assetName, Vec2Int position, Vec2Int size, char layer, const float moveUpdateDelay)
 		: SimpleWeakAI()
 	{
-
-
 		m_DeleteName = assetName + std::to_string(m_ID);
 		
 		AddSprite(assetName, position, size, layer);

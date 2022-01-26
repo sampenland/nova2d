@@ -1,10 +1,13 @@
 #include "Deleteable.h"
 #include "Game.h"
+#include "../logging/logging.h"
 
 namespace novazero
 {
 	namespace core
 	{
+		using namespace logging;
+
 		Deleteable::Deleteable(std::string name)
 			: m_DeleteName(name)
 		{

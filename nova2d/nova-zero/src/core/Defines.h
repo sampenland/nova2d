@@ -45,9 +45,15 @@ Returns total drawables on screen
 
 /*
 nova2d Get total updaters
-Returns total drawables on screen
+Returns total updaters in Game processor
 */
 #define n2dDebugUpdaterCount() novazero::core::SceneManager::GetUpdaterCount();
+
+/*
+nova2d Get total deleteables
+Returns total deleteables (similar to drawables)
+*/
+#define n2dDebugDeleteableCount() novazero::core::SceneManager::GetDeleteableCount();
 
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)

@@ -204,8 +204,7 @@ namespace spaceshooter
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");
-		// Todo: fix this
-		//bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
+		bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 		auto delayStart = n2dRandomFloat(0, 4000);
 		bullet->Configure(1, delayStart, Vec2Int(GetX(), Game::s_Height + 32));
 		bullet->ConfigureRotation(true, -90);

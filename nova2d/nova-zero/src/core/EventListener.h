@@ -1,12 +1,13 @@
 #pragma once
 #include "../core/TypeDefs.h"
 #include <vector>
+#include "../core/Deleteable.h"
 
 namespace novazero
 {
 	namespace core
 	{
-		class EventListener
+		class EventListener : public Deleteable
 		{
 
 		private:
@@ -26,12 +27,12 @@ namespace novazero
 			std::vector<f_FloatPassFunction> m_JoystickAxisEvents;
 
 			unsigned int m_ID = 0;
-			unsigned int m_CleanID = 0;
 
 		public:
 			
 			EventListener();
 			~EventListener();
+
 			void StartEventListener();
 			void EndEventListener();
 
@@ -47,6 +48,8 @@ namespace novazero
 			void RemoveJoyAxisEventListener(int joystickID);
 
 			bool operator==(const EventListener& other);
+
+			void DestroySelf();
 
 		};
 	}

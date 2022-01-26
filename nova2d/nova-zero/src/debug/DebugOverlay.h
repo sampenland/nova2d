@@ -18,8 +18,9 @@ namespace novazero
 
 			bool m_Visible = false;
 			Text* m_FPS = nullptr;
-			Text* m_Instances = nullptr;
+			Text* m_Drawables = nullptr;
 			Text* m_Updaters = nullptr;
+			Text* m_Deletables = nullptr;
 
 		public:
 

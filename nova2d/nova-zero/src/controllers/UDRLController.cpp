@@ -155,13 +155,14 @@ namespace novazero
 
 		void UDRLController::DestroySelf()
 		{
-
 			if (m_Destroyed) return;
 
 			m_Destroyed = true;
 
 			if (m_Sprite)
-				delete m_Sprite;
+				m_Sprite->DestroySelf();
+
+			m_DeleteNow = 1;
 		}
 	}
 }

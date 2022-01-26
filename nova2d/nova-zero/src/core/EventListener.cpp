@@ -6,10 +6,11 @@ namespace novazero
 	namespace core
 	{
 		EventListener::EventListener()
-			: m_ID(0)
+			: Deleteable("eventListener"), m_ID(0)
 		{
-			m_ID = Game::s_IDCount;
-			Game::s_IDCount++;
+			m_ID = n2dGameGetID();
+
+			m_DeleteName = "eventListener_" + std::to_string(m_ID);
 
 			StartEventListener();
 
@@ -17,17 +18,24 @@ namespace novazero
 
 		EventListener::~EventListener()
 		{
-			n2dRemoveUpdater(m_CleanID);
+			
+		}
+
+		void EventListener::DestroySelf()
+		{
+			EndEventListener();
+			m_DeleteNow = 1;
 		}
 
 		void EventListener::StartEventListener()
 		{
- 			m_CleanID = n2dAddUpdater(EventListener::EventStep, this);
+ 			auto cleanID = n2dAddUpdater(EventListener::EventStep, this);
+			m_CleanUpdaters.push_back(cleanID);
 		}
 
 		void EventListener::EndEventListener()
 		{
-			n2dRemoveUpdater(m_CleanID);
+			CleanUpdaters();
 		}
 
 		void EventListener::EventStep()

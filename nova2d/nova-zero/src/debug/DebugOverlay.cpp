@@ -21,10 +21,13 @@ namespace novazero
 			m_FPS = new Text("font3", "FPS: 60", "white", Rect(m_Position.x, m_Position.y,
 				100, 20), 0);
 
-			m_Instances = new Text("font3", "I: 0", "white", Rect(m_Position.x, m_Position.y + 22,
+			m_Drawables = new Text("font3", "Dra: 0", "white", Rect(m_Position.x, m_Position.y + 22,
 				100, 20), 0);
 
-			m_Updaters = new Text("font3", "U: 0", "white", Rect(m_Position.x, m_Position.y + 44,
+			m_Updaters = new Text("font3", "Ups: 0", "white", Rect(m_Position.x, m_Position.y + 44,
+				100, 20), 0);
+			
+			m_Deletables = new Text("font3", "Del: 0", "white", Rect(m_Position.x, m_Position.y + 66,
 				100, 20), 0);
 
 			n2dAddDrawable(this, 0);
@@ -59,10 +62,14 @@ namespace novazero
 			m_FPS->UpdateText("FPS: " + fps);
 
 			auto objs = n2dDebugDrawableCount();
-			m_Instances->UpdateText("Objs: " + std::to_string(objs));
+			m_Drawables->UpdateText("Dra: " + std::to_string(objs));
 
 			auto ups = n2dDebugUpdaterCount();
-			m_Updaters->UpdateText("Objs: " + std::to_string(ups));
+			m_Updaters->UpdateText("Ups: " + std::to_string(ups));
+
+			auto dels = n2dDebugDeleteableCount();
+			m_Deletables->UpdateText("Del: " + std::to_string(dels));
+
 		}
 		
 		void DebugOverlay::Draw()

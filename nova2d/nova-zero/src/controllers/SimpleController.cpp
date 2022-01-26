@@ -7,6 +7,7 @@ namespace novazero
 		using namespace utils;
 
 		SimpleController::SimpleController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+			: EventListener()
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 		}

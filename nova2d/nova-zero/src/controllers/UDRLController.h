@@ -41,7 +41,7 @@ namespace novazero
 			void MoveRight();
 			void MoveLeft();
 
-			void DestroySelf() override;
+			void DestroySelf();
 
 		};
 	}

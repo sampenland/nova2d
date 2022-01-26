@@ -1,4 +1,5 @@
 #include "SimpleBulletController.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -9,7 +10,7 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleBulletController::SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay)
-			: Collider(0), Deleteable("simpleBulletCtrl"), m_MoveSpeed(2)
+			: Collider(0), m_MoveSpeed(2)
 		{
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
 			m_Start = start;

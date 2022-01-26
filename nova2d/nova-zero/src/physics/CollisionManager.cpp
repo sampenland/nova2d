@@ -23,7 +23,6 @@ namespace novazero
 
 		void CollisionManager::Update()
 		{			
-			// Todo: clean up on m_Colliders, not happening when they go off screen
 			int colliders = m_Colliders.size();
 			if (colliders < 2) return;
 

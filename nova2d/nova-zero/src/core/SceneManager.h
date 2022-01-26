@@ -61,6 +61,10 @@ namespace novazero
 			static std::map<unsigned int, Deleteable*> s_Deleteables;
 			static unsigned int AddDeleteable(Deleteable* o);
 			static void RemoveDeleteable(unsigned int id);
+			static unsigned int GetDeleteableCount()
+			{
+				return (unsigned int)s_Deleteables.size();
+			};
 
 		};
 	}

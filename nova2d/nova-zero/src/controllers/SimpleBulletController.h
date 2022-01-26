@@ -1,6 +1,4 @@
 #pragma once
-#include "../core/Game.h"
-
 #include "../core/EventListener.h"
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"
@@ -19,8 +17,7 @@ namespace novazero
 		class SimpleBulletController
 			: public EventListener, 
 			public BoundUser,
-			public Collider,
-			public Deleteable
+			public Collider
 		{
 
 		private:
