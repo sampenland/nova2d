@@ -20,7 +20,7 @@ Simple Win32 experimental 2d SDL2 based game engine.
  - Simple Follower holder for target seeking behavior
  
  Debugging
- - Simple DebugOverlay which displays FPS, instance count and Updaters count (Enabled with one line of code).
+ - Simple DebugOverlay which displays FPS and Drawables, Updaters and Deleteables counts (Enabled with one line of code).
  
  Misc
  - Automatic MACROs for simple score keeping
