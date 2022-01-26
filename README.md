@@ -1,6 +1,6 @@
 # nova2d
 
-Simple experimental 2d SDL2 based game engine
+Simple Win32, experimental 2d SDL2 based game engine.
 
 **Feature Set**
  
