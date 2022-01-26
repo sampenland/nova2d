@@ -19,6 +19,9 @@ Simple experimental 2d SDL2 based game engine
  - Simple Bullet holder for shooting from point A to point B
  - Simple Follower holder for target seeking behavior
  
+ Debugging
+ - Simple DebugOverlay which displays FPS, instance count and Updaters count (Enabled with one line of code).
+ 
  Misc
  - Automatic MACROs for simple score keeping
  - SQL Integration
