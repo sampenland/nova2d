@@ -24,25 +24,30 @@ namespace spaceshooter
 		float m_DelayShootMax = 5.0f;
 
 		SimpleStatBar* m_HealthBar = nullptr;
-		int m_Health = 8;
+		int m_Health = 64;
 
 		std::vector<Vec2Int> m_PatrolMemory;
 
 		Timer* m_BombTimer = nullptr;
 		Timer* m_MoveTimer = nullptr;
 
+		std::vector<Pawn*> m_Pawns;
+
+	public:
+	
+		int m_PawnCount = 0;
+	
 	public:
 
 		Leader(std::string assetName, Vec2Int position, Vec2Int size, char layer);
-		~Leader();
-		
-		std::vector<Pawn*> m_Pawns;
+		~Leader();		
 
 		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
 
 		void ShootUpdate();
 		void Shoot();
 
+		void WatchPawns();
 		void GeneratePawnWave(char rows, char cols);
 
 		void MoveForwardThenBack();

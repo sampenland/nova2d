@@ -12,6 +12,7 @@
 #include "../physics/CollisionManager.h"
 #include "../utils/FontManager.h"
 #include "../utils/SQLManager.h"
+#include "../debug/DebugOverlay.h"
 
 #include "../graphics/Color.h"
 #include <vector>
@@ -70,9 +71,16 @@ namespace novazero
 			static SceneManager* s_SceneManager;
 			static novazero::utils::FontManager* s_FontManager;
 			static novazero::utils::SQLManager* s_SQLManager;
+			static novazero::debug::DebugOverlay* s_DebugOverlay;
+
+			static void ConfigureDebug(bool isVisible);
+			// Must call ConfigureDebug(true) before this works
+			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPosition(pos); } }
+
 
 			static double s_DeltaTime;
 			static double GetDeltaTime() { return s_DeltaTime; }
+			static double s_FPS;
 
 			static int s_Width;
 			static int s_Height;

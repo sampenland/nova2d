@@ -23,6 +23,8 @@ int main(int argc, char* argv[])
 	game.ConfigureIcon("res/ship_01.png");
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32);
+	game.ConfigureDebug(true);
+	game.ConfigureDebugPosition(Vec2Int(32, 100));
 
 	n2dAddColor("background", "201533", 1);
 	n2dAddColor("red", "f02b2b", 1);
@@ -32,7 +34,6 @@ int main(int argc, char* argv[])
 	n2dAddColor("blue", "1e579c", 1);
 	n2dAddColor("light-blue", "0098db", 1);
 	n2dAddColor("bright-blue", "0ce6f2", 1);
-	n2dAddColor("white", "ffffff", 1);
 	
 	n2dSetBackgroundColor("background");
 	

@@ -31,9 +31,11 @@ namespace novazero
 			m_Sprite = new Sprite(assetName, position, size, layer);
 		}
 
-		void SimpleFollower::Configure(int moveSpeed)
+		void SimpleFollower::Configure(int moveSpeed, float delayStart, Vec2Int waitTargetPos)
 		{
 			m_MoveSpeed = moveSpeed;
+			m_WaitDelay = delayStart;
+			m_WaitTarget = waitTargetPos;
 		}
 
 		void SimpleFollower::ConfigureTarget(Positional* target)
@@ -43,6 +45,13 @@ namespace novazero
 
 		void SimpleFollower::UpdateFollower()
 		{
+			bool waiting = false;
+			if (m_WaitDelay > 0)
+			{
+				m_WaitDelay -= Game::s_DeltaTime;
+				waiting = true;
+			}
+
 			if (m_Target == nullptr) return;
 
 			if (OutOfBounds(m_Sprite))
@@ -62,16 +71,30 @@ namespace novazero
 			int x = m_Sprite->GetX();
 			int y = m_Sprite->GetY();
 
-			int newX = x < m_Target->GetX() + m_TargetOffset.x ? x + m_MoveSpeed : x - m_MoveSpeed;
-			int newY = y < m_Target->GetY() + m_TargetOffset.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+			int newX;
+			int newY;
 
-			if (x == m_Target->GetX() + m_TargetOffset.x) newX = x;
-			if (y == m_Target->GetY() + m_TargetOffset.y) newY = y;
-
-			if (m_LookAtTarget)
+			if (!waiting)
 			{
-				int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int(newX, newY), m_Target->GetPosition(), m_LookAtDegAdd);
-				m_Sprite->SetAngle(lookAtAngle);
+				newX = x < m_Target->GetX() + m_TargetOffset.x ? x + m_MoveSpeed : x - m_MoveSpeed;
+				newY = y < m_Target->GetY() + m_TargetOffset.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+
+				if (x == m_Target->GetX() + m_TargetOffset.x) newX = x;
+				if (y == m_Target->GetY() + m_TargetOffset.y) newY = y;
+
+				if (m_LookAtTarget)
+				{
+					int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int(newX, newY), m_Target->GetPosition(), m_LookAtDegAdd);
+					m_Sprite->SetAngle(lookAtAngle);
+				}
+			}
+			else
+			{
+				if (!(m_WaitTarget.x == 0 && m_WaitTarget.y == 0))
+				{
+					newX = x < m_WaitTarget.x ? x + m_MoveSpeed : x - m_MoveSpeed;
+					newY = y < m_WaitTarget.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+				}
 			}
 
 			m_Sprite->SetPosition(Vec2Int(newX, newY));

@@ -21,7 +21,7 @@ namespace spaceshooter
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
-		GeneratePawnWave(1, 2);
+		GeneratePawnWave(2, 3);
 
 		ConfigureUsingBounds(false, false);
 		ConfigureCollider(m_Sprite, 0, "leader");
@@ -37,6 +37,8 @@ namespace spaceshooter
 		m_CleanUpdaters.push_back(id);
 		id = n2dAddUpdater(Leader::HealthUpdate, this);
 		m_CleanUpdaters.push_back(id);
+		id = n2dAddUpdater(Leader::WatchPawns, this);
+		m_CleanUpdaters.push_back(id);
 
 		auto moveR = n2dRandomFloat(10000, 20000);
 		auto bombR = n2dRandomFloat(10000, 20000);
@@ -47,33 +49,44 @@ namespace spaceshooter
 		n2dReferenceAdd("leader", this);
 	}
 
-	void Leader::GeneratePawnWave(char rows, char cols)
+	void Leader::WatchPawns()
 	{
-		for (int row = 0; row < rows; row++)
+		if (m_PawnCount < 1)
 		{
-			for (int col = -cols; col <= cols; col++)
-			{
-				int	offsetX = col * 96;
-				int offsetY = 96 + (row * 32);
-
-				Pawn* pawn = new Pawn("pawn", Vec2Int(GetX() + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
-
-				float rMin = n2dRandomFloat(3000, 5000);
-				float rMax = n2dRandomFloat(7000, 11000);
-				pawn->ConfigureShoot(rMin, rMax);
-
-				m_Pawns.push_back(pawn);
-
-			}
-
+			int rows = n2dRandomInt(2, 5);
+			int cols = 3;
+			GeneratePawnWave(rows, cols);
 		}
 	}
 
-	void Leader::RemovePawn(unsigned int pawnID)
+	void Leader::GeneratePawnWave(char rows, char cols)
 	{
-		for (size_t i = 0; i < m_Pawns.size(); i++)
+		const int moveForward = 132 + (rows * 32);
+		for (int row = 0; row < rows; row++)
 		{
-			if (m_Pawns[i]->m_ID == pawnID) m_Pawns[i]->DestroySelf();
+			for (int col = -cols+1; col < cols; col++)
+			{
+				int	offsetX = col * 96;
+				int offsetY = -row * 32;
+
+				Pawn* pawn = new Pawn("pawn", Vec2Int(GetX() + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
+				offsetY += moveForward;
+				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX() - 200, offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX() + 200, offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
+				pawn->EnableAI(true);
+				pawn->Configure(20, true);
+				float rMin = n2dRandomFloat(1000, 3000);
+				float rMax = n2dRandomFloat(5000, 8000);
+				pawn->ConfigureShoot(rMin, rMax);
+
+				m_Pawns.push_back(pawn);
+				m_PawnCount++;
+
+			}
+
 		}
 	}
 
@@ -193,7 +206,8 @@ namespace spaceshooter
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");
 		// Todo: fix this
 		//bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
-		bullet->Configure(1);
+		auto delayStart = n2dRandomFloat(0, 4000);
+		bullet->Configure(1, delayStart, Vec2Int(GetX(), Game::s_Height + 32));
 		bullet->ConfigureRotation(true, -90);
 		
 		auto onCollision = new auto ([](Collision* collision)

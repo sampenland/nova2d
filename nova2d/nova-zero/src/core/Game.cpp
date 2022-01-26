@@ -10,6 +10,7 @@ namespace novazero
 		using namespace utils;
 		using namespace physics;
 		using namespace input;
+		using namespace debug;
 
 		novazero::graphics::Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
@@ -18,11 +19,13 @@ namespace novazero
 		SceneManager* Game::s_SceneManager;
 		FontManager* Game::s_FontManager;
 		SQLManager* Game::s_SQLManager;
+		DebugOverlay* Game::s_DebugOverlay;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
 		int Game::s_Height;
 		double Game::s_DeltaTime;
+		double Game::s_FPS;
 		int Game::s_Padding;
 		int Game::s_ExitCode = 0;
 		bool Game::s_Running = 0;
@@ -44,6 +47,10 @@ namespace novazero
 			SDL_StartTextInput();
 
 			s_ColorManager = new ColorManager();
+
+			n2dAddColor("white", "ffffff", 1);
+			n2dAddColor("black", "000000", 1);
+
 			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
@@ -57,7 +64,7 @@ namespace novazero
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
 
-			srand(time(NULL));
+			srand((unsigned int)time(NULL));
 
 		}
 
@@ -73,6 +80,23 @@ namespace novazero
 			if (useNovaSQLScoring)
 			{
 				n2dSQLScoreTableCreation(12, 10);
+			}
+		}
+
+		// Must be called before debug position setting
+		void Game::ConfigureDebug(bool isVisible)
+		{
+			if (s_DebugOverlay) s_DebugOverlay->DestroySelf();
+
+			s_DebugOverlay = new DebugOverlay(Vec2Int(32, 32));
+			
+			if (isVisible)
+			{
+				s_DebugOverlay->Show();
+			}
+			else
+			{
+				s_DebugOverlay->Hide();
 			}
 		}
 
@@ -118,6 +142,10 @@ namespace novazero
 
 			// FPS handling
 			frameTime = SDL_GetTicks() - frameStart;
+			
+			if (frameTime > 0)
+				Game::s_FPS = 1000.0 / (double)frameTime;
+
 			if (FRAME_DELAY > frameTime)
 			{
 				SDL_Delay((Uint32)(FRAME_DELAY - frameTime));

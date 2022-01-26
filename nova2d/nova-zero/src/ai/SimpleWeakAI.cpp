@@ -7,6 +7,8 @@ namespace novazero
 		SimpleWeakAI::SimpleWeakAI()
 			: Collider(0), Deleteable("simpleWeakAI")
 		{
+			m_ID = n2dGameGetID();
+
 			auto cleanID = n2dAddUpdater(SimpleWeakAI::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 		}
@@ -43,8 +45,11 @@ namespace novazero
 
 		void SimpleWeakAI::ClearPatrol()
 		{
-			m_PatrolPoints.clear();
-			m_MoveFunctions.clear();
+			if((int)m_PatrolPoints.size() > 0)
+				m_PatrolPoints.clear();
+			
+			if((int)m_MoveFunctions.size() > 0)
+				m_MoveFunctions.clear();
 		}
 
 		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2Int point)
@@ -125,6 +130,8 @@ namespace novazero
 			m_MoveFunctions[m_PatrolIndex]();
 		}
 
+		// Using Linear moving presumes your patrol points distances
+		// are divisble by 2
 		void SimpleWeakAI::LinearPatrolMove()
 		{
 			if (m_PatrolIndex == -1)
@@ -141,8 +148,8 @@ namespace novazero
 				int currentY = GetY();
 				Vec2Int endVector = m_PatrolPoints.at(m_PatrolIndex);
 
-				int newX = currentX > endVector.x ? currentX - 5 : currentX + 5;
-				int newY = currentY > endVector.y ? currentY - 5 : currentY + 5;
+				int newX = currentX > endVector.x ? currentX - 2 : currentX + 2;
+				int newY = currentY > endVector.y ? currentY - 2 : currentY + 2;
 
 				if (currentX == endVector.x) newX = endVector.x;
 				if (currentY == endVector.y) newY = endVector.y;

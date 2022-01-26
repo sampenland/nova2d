@@ -6,10 +6,12 @@ namespace spaceshooter
 {
 	using namespace novazero::graphics;
 	using namespace novazero::controllers;
+	using namespace novazero::core;
 
 	Pawn::Pawn(std::string assetName, Vec2Int position, Vec2Int size, char layer, const float moveUpdateDelay)
 		: SimpleWeakAI()
 	{
+
 
 		m_DeleteName = assetName + std::to_string(m_ID);
 		
@@ -37,7 +39,7 @@ namespace spaceshooter
 	{
 		if (!m_Alive) return;
 
-		m_HealthBar->Update(m_Health/2, m_Sprite->GetX(), m_Sprite->GetY() - 8);
+		m_HealthBar->Update(m_Health*2, m_Sprite->GetX(), m_Sprite->GetY() - 8);
 
 		if (m_DelayShoot < 0)
 		{
@@ -104,7 +106,7 @@ namespace spaceshooter
 		Leader* leader = (Leader*)n2dReferenceGet("leader");
 		if (leader)
 		{
-			leader->RemovePawn(m_ID);
+			leader->m_PawnCount--;
 		}
 
   		if (m_HealthBar)

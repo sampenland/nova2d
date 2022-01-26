@@ -89,6 +89,12 @@ namespace novazero
 
 			m_CurrentScene->Start();
 
+			if (Game::s_DebugOverlay)
+			{
+				Game::ConfigureDebug(true);
+				Game::ConfigureDebugPosition(Vec2Int(32, 32));
+			}
+
 		}
 
 		void SceneManager::CleanUpdaters()

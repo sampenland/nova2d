@@ -57,23 +57,22 @@ namespace spaceshooter
 
 			if (cMax > 0)
 			{
-				for (size_t i = 0; i < 3; i++)
+				for (int j = -1; j < 2; j += 2)
 				{
-					for (int j = -1; j < 2; j+=2)
+					for (size_t i = 0; i < 3; i++)
 					{
 						if (c >= cMax) break;
 
 						HighScore h = highscores[c];
-					
+
 						int x = j * padding * 4;
 						Text* t = new Text("font1", h.PlayerName + "    " + std::to_string(h.PlayerScore), "white",
 							Rect(Game::s_Width / 2 - 100 + x, startY + i * padding, 200, 30), 0);
-					
+
 						highscoresLabels.push_back(t);
-					
+
 						c++;
 					}
-				
 				}
 			}
 
