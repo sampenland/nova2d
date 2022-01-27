@@ -189,6 +189,7 @@ Updates SDL renderer's draw color from preloaded Game's Color Manager's color
 /*
 nova2d Add deleteable
 Adds a Deleteable* to Game's Scene Manager's deleteable tracker
+RETURNS an unsigned int ID of deleteable for cleanup
 */
 #define n2dAddDeleteable(deleteable) novazero::core::Game::s_SceneManager->AddDeleteable(deleteable);
 

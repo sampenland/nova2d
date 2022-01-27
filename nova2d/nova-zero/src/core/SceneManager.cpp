@@ -19,6 +19,7 @@ namespace novazero
 		{
 			s_CollisionManager = new CollisionManager();
 			s_ReferenceManager = new ReferenceManager();
+			s_GraverManager = new GraverManager();
 		}
 
 		SceneManager::~SceneManager()
@@ -28,6 +29,9 @@ namespace novazero
 
 			if (s_CollisionManager)
 				delete s_CollisionManager;
+
+			if (s_GraverManager)
+				delete s_GraverManager;
 		}
 
 		void SceneManager::ConfigureFirstScene(std::string sceneName)
