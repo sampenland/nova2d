@@ -21,6 +21,7 @@ namespace novazero
 			Text* m_Drawables = nullptr;
 			Text* m_Updaters = nullptr;
 			Text* m_Deletables = nullptr;
+			Text* m_References = nullptr;
 
 		public:
 

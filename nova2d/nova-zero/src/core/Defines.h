@@ -10,6 +10,9 @@ namespace novazero
 		// Max draw layers
 		#define MAX_LAYERS 20
 
+		// Max graver groups
+		#define MAX_GRAVER_GROUPS 255
+
 	}
 }
 
@@ -59,6 +62,12 @@ nova2d Get total deleteables
 Returns total deleteables (similar to drawables)
 */
 #define n2dDebugDeleteableCount() novazero::core::SceneManager::GetDeleteableCount();
+
+/*
+nova2d Get total referenced
+Returns total referenced objs (similar to deletables)
+*/
+#define n2dDebugReferencedCount() novazero::core::Game::s_SceneManager->s_ReferenceManager->GetReferenceCount();
 
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)

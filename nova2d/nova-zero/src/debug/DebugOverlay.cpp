@@ -30,6 +30,9 @@ namespace novazero
 			m_Deletables = new Text("font3", "Del: 0", "white", Rect(m_Position.x, m_Position.y + 66,
 				100, 20), 0);
 
+			m_References = new Text("font3", "Ref: 0", "white", Rect(m_Position.x, m_Position.y + 88,
+				100, 20), 0);
+
 			n2dAddDrawable(this, 0);
 
 			auto cleanID = n2dAddUpdater(DebugOverlay::Update, this);
@@ -70,6 +73,9 @@ namespace novazero
 			auto dels = n2dDebugDeleteableCount();
 			m_Deletables->UpdateText("Del: " + std::to_string(dels));
 
+			auto refs = n2dDebugReferencedCount();
+			m_References->UpdateText("Refs: " + std::to_string(refs));
+
 		}
 		
 		void DebugOverlay::Draw()
@@ -79,6 +85,12 @@ namespace novazero
 
 		void DebugOverlay::DestroySelf()
 		{
+			m_FPS->DestroySelf();
+			m_Drawables->DestroySelf();
+			m_Updaters->DestroySelf();
+			m_Deletables->DestroySelf();
+			m_References->DestroySelf();
+
 			CleanUpdaters();
 
 			n2dRemoveDrawable(m_ID, m_Layer);

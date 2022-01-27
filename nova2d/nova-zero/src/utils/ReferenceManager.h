@@ -26,6 +26,7 @@ namespace novazero
 			void RemoveReference(std::string name);
 
 			Referenceable* GetReferenced(std::string name);
+			unsigned int GetReferenceCount() { return (unsigned int)m_References.size(); }
 
 		};
 	}
