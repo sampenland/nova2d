@@ -86,7 +86,7 @@ namespace novazero
 			static int s_Height;
 			static int s_Padding;
 
-			static novazero::maths::Rect GetGameBounds();
+			static novazero::maths::Rect GetGameBounds(int paddingOverride = 0);
 			static void SetGamePadding(int padding);
 			
 			static unsigned int s_IDCount;

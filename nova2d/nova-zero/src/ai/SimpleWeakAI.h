@@ -2,7 +2,6 @@
 #include <functional>
 #include <vector>
 #include "../maths/Vec2Int.h"
-#include "../logging/logging.h"
 #include "../graphics/Sprite.h"
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
@@ -39,8 +38,8 @@ namespace novazero
 
 			int m_LoopStartIndex = 0;
 			std::function<void()> f_OnPatrolComplete = nullptr;
-			float m_Delay = 1000.f;
-			float m_DelayMax = 1000.f;
+			int m_DelayMS = 1000;
+			int m_DelayMaxMS = 1000;
 
 		protected:
 			
@@ -52,7 +51,12 @@ namespace novazero
 			SimpleWeakAI();
 			~SimpleWeakAI();
 
-			void Configure(float patrolDelay, bool loop) { m_DelayMax = patrolDelay; m_LoopMoving = true; }
+			void Configure(int patrolDelayMS, bool loop) 
+			{ 
+				m_DelayMaxMS = patrolDelayMS;
+				m_LoopMoving = true;
+			}
+
 			void ConfigureOnPatrolComplete(std::function<void()> f) { f_OnPatrolComplete = f; }
 			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }
 			void RestartPatrol() { m_PatrolIndex = 0; }

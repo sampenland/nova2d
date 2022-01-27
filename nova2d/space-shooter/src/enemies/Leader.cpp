@@ -17,7 +17,7 @@ namespace spaceshooter
 		AddPatrolPointWithFunction(Vec2Int(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 		
 		EnableAI(true);
-		Configure(10, true);
+		Configure(5, true);
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
@@ -69,7 +69,7 @@ namespace spaceshooter
 				int	offsetX = col * 96;
 				int offsetY = -row * 32;
 
-				Pawn* pawn = new Pawn("pawn", Vec2Int(GetX() + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
+				Pawn* pawn = new Pawn("pawn", Vec2Int(((int)Game::s_Width / 2) + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
 				offsetY += moveForward;
 				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
 				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX() - 200, offsetY), pawn->GetLinearPatrolMove());
@@ -102,7 +102,7 @@ namespace spaceshooter
 
 			int x = p.GetX();
 			p.AddPatrolPointWithFunction(Vec2Int(x, Game::s_Height + 48), std::bind(p.GetLinearPatrolMove()));
-			p.Configure(0.25f, false);
+			p.Configure(250, false);
 			p.EnableAI(true);
 		}
 		

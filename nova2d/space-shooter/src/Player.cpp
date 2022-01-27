@@ -12,7 +12,7 @@ namespace spaceshooter
 	Player::Player(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
-		n2dAddKeyDownListener(SDLK_SPACE, Player::Shoot, this);
+		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
 		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
 
 		if (SDL_NumJoysticks() > 0)
@@ -31,6 +31,8 @@ namespace spaceshooter
 			Sprite* life = new Sprite("player", Vec2Int(startX + (i * 16), startY), Vec2Int(16, 16), 0);
 			m_LifeSprites.push_back(life);
 		}
+
+		m_ShootTimer = new Timer(125, true, std::bind(&Player::Shoot, this));
 
 		m_CleanID = n2dAddUpdater(Player::Update, this);
 	}
@@ -77,6 +79,8 @@ namespace spaceshooter
 		}
 		else if (hit)
 		{
+			m_ShootTimer->DestroySelf();
+
 			// Game over
 			auto endGame = new auto ([]() {
 
@@ -86,7 +90,6 @@ namespace spaceshooter
 
 			Timer* t = new Timer(1000, false, *endGame);
 		}
-
 	}
 
 	void Player::SmallExplosion()
@@ -101,33 +104,39 @@ namespace spaceshooter
 
 	void Player::Update()
 	{
-		if (!m_CanShoot)
+		if (!m_CanSpace)
 		{
-			if (m_ShootDelay > 0)
+			if (m_SpaceDelay > 0)
 			{
-				m_ShootDelay -= Game::s_DeltaTime;
+				m_SpaceDelay -= Game::s_DeltaTime;
 				return;
 			}
 			else
 			{
-				m_CanShoot = true;
-				m_ShootDelay = m_ShootDelayReset;
+				m_CanSpace = true;
+				m_SpaceDelay = m_SpaceDelayReset;
 			}
 		}
 	}
 
+	void Player::OnSpace()
+	{
+		if (!m_CanSpace) return;
+
+		m_CanSpace = false;
+		m_CanSpace = m_SpaceDelayReset;
+
+		// shield / or something on space key
+	}
+
 	void Player::Shoot()
 	{
-		if (!m_CanShoot) return;
-
-		m_CanShoot = false;
-		m_ShootDelay = m_ShootDelayReset;
-
-		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight()), 4);
+		// create and shoot bullet
+		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight() - 64), 4);
 		bullet->Configure(20, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
-		bullet->ConfigureAliveBounds(Game::GetGameBounds());
+		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 
 		auto collisionFunction = new auto ([](Collision* collision) {
 

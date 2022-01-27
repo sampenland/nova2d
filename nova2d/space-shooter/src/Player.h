@@ -17,9 +17,11 @@ namespace spaceshooter
 
 	private:
 
-		bool m_CanShoot = true;
-		float m_ShootDelayReset = 0.0f;
-		double m_ShootDelay = 0.00;
+		bool m_CanSpace = true;
+		float m_SpaceDelayReset = 0.0f;
+		double m_SpaceDelay = 0.00;
+
+		Timer* m_ShootTimer = nullptr;
 
 		int m_Lives = 3;
 		std::vector<Sprite*> m_LifeSprites;
@@ -33,11 +35,12 @@ namespace spaceshooter
 
 		Sprite* GetSprite() const { return m_Sprite; }
 
-		void Configure(float shootDelayReset) { m_ShootDelayReset = shootDelayReset / 10; }
+		void Configure(float spaceDelayReset) { m_SpaceDelayReset = spaceDelayReset / 10; }
 
 		void OnCollision(Collision* collision) override;
 
 		void Update();
+		void OnSpace();
 		void Shoot();
 
 		void SmallExplosion();

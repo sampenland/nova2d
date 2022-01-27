@@ -76,6 +76,7 @@ namespace novazero
 			CleanUpdaters();
 			s_CollisionManager->ClearColliders();
 			Renderer::s_DrawLayers->ClearSprites();
+			s_Deleteables.clear();
 
 			m_CurrentScene = loadScene;
 			

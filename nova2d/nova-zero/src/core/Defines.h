@@ -38,6 +38,11 @@ Returns a random integer in range
 #define n2dRandomInt(min, max) novazero::core::Game::RandomInt(min, max);
 
 /*
+nova2d Round To Even (number)
+*/
+#define n2dRoundEven(num) (num % 2 == 0) ? num : (num + 1);
+
+/*
 nova2d Get total instances
 Returns total drawables on screen
 */

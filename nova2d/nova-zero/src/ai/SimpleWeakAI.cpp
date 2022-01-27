@@ -1,4 +1,5 @@
 #include "SimpleWeakAI.h"
+#include "../logging/logging.h"
 
 namespace novazero
 {
@@ -39,7 +40,11 @@ namespace novazero
 
 		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2Int point, f_MovePtrFunction func)
 		{
-			m_PatrolPoints.push_back(point);
+			// round point to even as move steps are 2 pixels at a time
+			auto x = n2dRoundEven(point.x);
+			auto y = n2dRoundEven(point.y);
+			Vec2Int p = Vec2Int(x, y);
+			m_PatrolPoints.push_back(p);
 			m_MoveFunctions.push_back(func);
 		}
 
@@ -84,6 +89,13 @@ namespace novazero
 			m_PatrolPoints.clear();
 			m_MoveFunctions.clear();
 
+			for (size_t i = 0; i < points.size(); i++)
+			{
+				// round to even patrol points as patrolling steps by 2
+				points[i].x = n2dRoundEven(points[i].x);
+				points[i].y = n2dRoundEven(points[i].y);
+			}
+
 			m_PatrolPoints = points;
 			m_MoveFunctions = funcs;
 
@@ -95,14 +107,14 @@ namespace novazero
 		{
 			if (!m_Alive) return;
 
-			if (m_Delay > 0)
+			if (m_DelayMS > 0)
 			{
 				auto d = n2dDeltaTime();
-				m_Delay = (float)(m_Delay - d);
+				m_DelayMS = (int)(m_DelayMS - d);
 				return;
 			}
 
-			m_Delay = m_DelayMax;
+			m_DelayMS = m_DelayMaxMS;
 
 			if (m_PatrolIndex == -1 && (int)m_PatrolPoints.size() > 0)
 			{
