@@ -119,6 +119,7 @@
     <ClInclude Include="src\enemies\Pawn.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
+    <ClInclude Include="src\specials\PawnBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

@@ -70,6 +70,12 @@ Returns total referenced objs (similar to deletables)
 #define n2dDebugReferencedCount() novazero::core::Game::s_SceneManager->s_ReferenceManager->GetReferenceCount();
 
 /*
+nova2d Get total gravers
+Returns total graver objs (similar to colliders)
+*/
+#define n2dDebugGraverCount() novazero::core::Game::s_SceneManager->s_GraverManager->GetGraverCount();
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */

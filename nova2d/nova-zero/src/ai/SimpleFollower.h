@@ -16,8 +16,8 @@ namespace novazero
 		using namespace core;
 		using namespace physics;
 
-		class SimpleFollower
-			: public EventListener,
+		class SimpleFollower : 
+			public EventListener,
 			public BoundUser,
 			public TimerWatcher,
 			public Collider

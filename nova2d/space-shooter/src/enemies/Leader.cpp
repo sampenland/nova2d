@@ -85,8 +85,9 @@ namespace spaceshooter
 				m_Pawns.push_back(pawn);
 				m_PawnCount++;
 
+				break;
 			}
-
+			break;
 		}
 	}
 
@@ -94,7 +95,7 @@ namespace spaceshooter
 	{
 		for (size_t i = 0; i < m_Pawns.size(); i++)
 		{
-			if (!m_Pawns[i]->m_DeleteNow == 0) continue;
+			if (!m_Pawns[i]->IsDeleted() == 0) continue;
 
 			Pawn& p = *m_Pawns[i];
 
@@ -200,6 +201,7 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
+		return;
 		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
@@ -229,7 +231,7 @@ namespace spaceshooter
 
 		auto bulletDestroy = new auto ([=] {
 			
-			if(bullet->m_DeleteNow == 0)
+			if(bullet->IsDeleted() == 0)
 				bullet->DestroySelf();
 		
 		});

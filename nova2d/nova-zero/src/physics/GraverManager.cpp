@@ -22,22 +22,36 @@ namespace novazero
 			}
 		}
 
-		void GraverManager::RemoveGraver(unsigned int id)
+		void GraverManager::RemoveGraver(Graver* graver)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < m_AllGravers.size(); i++)
 			{
-				if (m_AllGravers[i]->m_ID == id)
+				if (m_AllGravers[i]->m_ID == graver->m_ID)
 				{
-					m_AllGravers[i]->DestroySelf();
-					return;
+					idx = i;
+					break;
 				}
+			}
+
+			if (idx != -1)
+			{
+				m_AllGravers.erase(m_AllGravers.begin() + idx);
 			}
 		}
 
 		void GraverManager::Update()
 		{
 			SumGroups();
+			UpdateGravers();
+		}
+
+		void GraverManager::UpdateGravers()
+		{
+			for (size_t i = 0; i < m_AllGravers.size(); i++)
+			{
+				m_AllGravers[i]->GraverUpdate();
+			}
 		}
 
 		void GraverManager::SumGroups()

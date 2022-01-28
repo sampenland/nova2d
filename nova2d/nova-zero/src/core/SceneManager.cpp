@@ -14,6 +14,7 @@ namespace novazero
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
 		CollisionManager* SceneManager::s_CollisionManager;
+		GraverManager* SceneManager::s_GraverManager;
 
 		SceneManager::SceneManager()
 		{
@@ -116,7 +117,7 @@ namespace novazero
 			std::vector<unsigned int> removeIDs;
 			for (it; it != s_Deleteables.end(); it++)
 			{
-				if (it->second->m_DeleteNow == 1)
+				if (it->second->IsDeleted() == 1)
 				{
 					removeIDs.push_back(it->first);
 					delete it->second;
@@ -136,6 +137,7 @@ namespace novazero
 			ProcessUpdaters();
 
 			s_CollisionManager->Update();
+			s_GraverManager->Update();
 		}
 
 		void SceneManager::ProcessUpdaters()

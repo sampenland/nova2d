@@ -1,6 +1,7 @@
 #include "Pawn.h"
 #include "graphics/Text.h"
 #include "Leader.h"
+#include "../specials/PawnBullet.h"
 
 namespace spaceshooter
 {
@@ -82,16 +83,9 @@ namespace spaceshooter
 		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
 		m_DelayShoot = r;
 
-		SimpleBulletController* bullet = new 
-			SimpleBulletController(
-				Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8), 
-				Vec2Int(m_Sprite->GetX(), Game::s_Height + 32), 
-				2.0f);
-
-		bullet->AddSprite("pawn-bullet", Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
-		bullet->ConfigureCollider(bullet->GetSprite(), 0, "pawn-bullet");
-		bullet->Configure(3, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
-
+		PawnBullet* bullet = new PawnBullet(Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8),
+			Vec2Int(m_Sprite->GetX(), Game::s_Height + 32),
+			2.0f, m_Sprite);
 	}
 
 	void Pawn::DestroySelf()

@@ -82,6 +82,9 @@
     <ClInclude Include="src\scenes\GameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\specials\PawnBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

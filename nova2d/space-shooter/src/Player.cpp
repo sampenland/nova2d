@@ -3,6 +3,7 @@
 #include "ai/SimpleFollower.h"
 #include "enemies/Pawn.h"
 #include "enemies/Leader.h"
+#include "specials/PawnBullet.h"
 
 namespace spaceshooter
 {
@@ -21,8 +22,10 @@ namespace spaceshooter
 				std::bind(&Player::Shoot, this));
 		}
 
-		//m_Sprite->ConfigureAnimation(0, 2, 100, true);
+		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, "player");
+
+		ConfigureGraver(GraverType::Vec2Force, 0, 20, Vec2Int(10, 0));
 
 		int startX = 8;
 		int startY = 8;
@@ -142,12 +145,17 @@ namespace spaceshooter
 
 			// Bullet with bullet
 			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderB->m_ColliderName == "pawn-bullet") ||
-				(collision->m_ColliderB->m_ColliderName == "player-bullet" &&
-					collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
+				collision->m_ColliderB->m_ColliderName == "pawn-bullet"))
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				((PawnBullet*)collision->m_ColliderB)->DestroySelf();
+				n2dScoreAdd(2);
+			}
+			else if((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
+				collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
+			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
 				n2dScoreAdd(2);
 			}
 			

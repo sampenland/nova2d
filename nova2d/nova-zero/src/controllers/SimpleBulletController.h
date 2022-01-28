@@ -4,6 +4,7 @@
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
 #include "../core/Deleteable.h"
+#include "../physics/Graver.h"
 
 namespace novazero
 {

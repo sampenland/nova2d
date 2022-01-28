@@ -9,16 +9,21 @@ namespace novazero
 		class Deleteable
 		{
 
-		public:
+		protected:
 
 			Deleteable(std::string name);
-			virtual ~Deleteable() {};
 
 			bool m_DeleteNow = 0;
 			std::string m_DeleteName = "";
 
 			std::vector<unsigned int> m_CleanUpdaters;
 			void CleanUpdaters();
+
+		public:
+
+			virtual ~Deleteable() {};
+			bool IsDeleted() { return m_DeleteNow; }
+			void SetDeleted(bool v) { m_DeleteNow = v ? 1 : 0; }
 		};
 	}
 }
