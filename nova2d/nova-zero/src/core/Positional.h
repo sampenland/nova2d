@@ -34,6 +34,7 @@ namespace novazero
 			int GetWidth() const;
 			int GetHeight() const;
 			Vec2Int GetSize() const;
+			Vec2Int GetCenter() const;
 
 			int GetAngle() const;
 

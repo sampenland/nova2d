@@ -60,7 +60,45 @@ namespace novazero
 
 			for (size_t i = 0; i < m_AllGravers.size(); i++)
 			{
-				m_GraverMags[m_AllGravers[i]->m_GraverGroupKeyID] += m_AllGravers[i]->m_GraverEffectMagnitude;
+				Graver& graver = *m_AllGravers[i];
+
+				// Clear all effected graver mags so that they can be reset
+				for (size_t effGravIdx = 0; effGravIdx < graver.m_EffectedGravers.size(); effGravIdx++)
+				{
+					Graver& effGraver = *graver.m_EffectedGravers[effGravIdx];
+					effGraver.m_GraverInfluencedMag = Vec2Int(0, 0);
+				}
+
+				// Sum mag
+				for (size_t effGravIdx = 0; effGravIdx < graver.m_EffectedGravers.size(); effGravIdx++)
+				{
+					Graver& effGraver = *graver.m_EffectedGravers[effGravIdx];
+					
+					if (!graver.GraverWithinEffect(effGraver))continue; // skip if out of range
+
+					switch (graver.m_GraverType)
+					{
+					case GraverType::Explosion:
+						break;
+
+					case GraverType::Implosion:
+						break;
+
+					case GraverType::XPushY:
+						break;
+
+					case GraverType::YPushX:
+						break;
+
+					case GraverType::Vec2Force:
+					default:
+						effGraver.m_GraverInfluencedMag += graver.m_GraverEffectMagnitude;
+						break;
+					}
+					
+					effGraver.m_GraverEffectMagnitude += Vec2Int(0, 0);
+				}
+
 			}
 
 		}

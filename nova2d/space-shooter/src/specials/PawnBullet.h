@@ -25,7 +25,7 @@ namespace spaceshooter
 			AddSprite("pawn-bullet", Vec2Int(sprite->GetX(), sprite->GetY() + 32), Vec2Int(16, 16), 0);
 			ConfigureCollider(GetSprite(), 0, "pawn-bullet");
 			Configure(3, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
-			ConfigureGraver(GraverType::Vec2Force, 0, 0, Vec2Int(0, 0));
+			ConfigureGraver(GraverType::Vec2Force, 0, Vec2Int(0, 0), GetSprite());
 
 		}
 

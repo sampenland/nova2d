@@ -9,10 +9,9 @@ namespace novazero
 		UDRLController::UDRLController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 			: SimpleController(assetName, position, size, layer)
 		{
-			
 			EnableWASD(true);
 			EnableArrowKeys(true);
-			EnableXbox360(true);			
+			EnableXbox360(true);
 		}
 
 		UDRLController::~UDRLController()
@@ -158,6 +157,8 @@ namespace novazero
 			if (m_Destroyed) return;
 
 			m_Destroyed = true;
+
+			SimpleController::CleanUpdaters();
 
 			if (m_Sprite)
 				m_Sprite->DestroySelf();

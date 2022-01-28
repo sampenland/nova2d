@@ -30,6 +30,7 @@ namespace novazero
 			void SetMoveSpeed(int mSpeed);
 			
 			void SetPosition(int x, int y);
+			void Update();
 			void SetX(int y);
 			void SetY(int y);
 			int GetX() const { return m_Sprite->GetX(); }

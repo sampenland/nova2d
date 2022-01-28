@@ -18,6 +18,11 @@ namespace novazero
 		int Positional::GetWidth() const { return m_Size.x; }
 		int Positional::GetHeight() const { return m_Size.y; }
 		Vec2Int Positional::GetSize() const { return Vec2Int(m_Size.x, m_Size.y); }
+		
+		Vec2Int Positional::GetCenter() const 
+		{ 
+			return Vec2Int((int)m_Size.x / 2 + m_Position.x, (int)m_Size.y / 2 + m_Position.y);
+		}
 
 		int Positional::GetAngle() const { return m_Angle; }
 

@@ -25,7 +25,7 @@ namespace spaceshooter
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, "player");
 
-		ConfigureGraver(GraverType::Vec2Force, 0, 20, Vec2Int(10, 0));
+		ConfigureGraver(GraverType::Vec2Force, 20, Vec2Int(10, 0), GetSprite());
 
 		int startX = 8;
 		int startY = 8;
