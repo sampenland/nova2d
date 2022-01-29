@@ -36,6 +36,9 @@ namespace novazero
 			m_Gravers = new Text("font3", "Gra: 0", "white", Rect(m_Position.x, m_Position.y + 110,
 				100, 20), 0);
 
+			m_Tweens = new Text("font3", "Twa: 0", "white", Rect(m_Position.x, m_Position.y + 132,
+				100, 20), 0);
+
 			n2dAddDrawable(this, 0);
 
 			auto cleanID = n2dAddUpdater(DebugOverlay::Update, this);
@@ -81,6 +84,9 @@ namespace novazero
 
 			auto gravs = n2dDebugGraverCount();
 			m_Gravers->UpdateText("Gra: " + std::to_string(gravs));
+
+			auto tweens = n2dDebugTweenCount();
+			m_Tweens->UpdateText("Twa: " + std::to_string(tweens));
 		}
 		
 		void DebugOverlay::Draw()
@@ -96,6 +102,7 @@ namespace novazero
 			m_Deletables->DestroySelf();
 			m_References->DestroySelf();
 			m_Gravers->DestroySelf();
+			m_Tweens->DestroySelf();
 
 			CleanUpdaters();
 

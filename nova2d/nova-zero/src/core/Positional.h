@@ -32,9 +32,9 @@ namespace novazero
 			Sprite* GetLinkedSprite() { return m_Sprite; }
 
 			int GetX() const;
-			void* GetXRef() { return &m_Position.x; }
+			int* GetXRef() { return &m_Position.x; }
 			int GetY() const;
-			void* GetYRef() { return &m_Position.y; }
+			int* GetYRef() { return &m_Position.y; }
 			Vec2Int GetPosition() const;
 
 			int GetWidth() const;

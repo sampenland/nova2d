@@ -38,7 +38,7 @@ namespace novazero
 
 			if (s_TweenManager)
 			{
-				s_TweenManager->DestroySelf();
+				s_TweenManager->ClearTweens();
 				delete s_TweenManager;
 			}
 		}
@@ -91,6 +91,7 @@ namespace novazero
 			Renderer::s_DrawLayers->ClearSprites();
 			s_Deleteables.clear();
 			s_GraverManager->ClearGravers();
+			s_TweenManager->ClearTweens();
 
 			m_CurrentScene = loadScene;
 			
@@ -147,6 +148,7 @@ namespace novazero
 
 			s_CollisionManager->Update();
 			s_GraverManager->Update();
+			s_TweenManager->Update();
 		}
 
 		void SceneManager::ProcessUpdaters()

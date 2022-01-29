@@ -12,7 +12,9 @@ namespace novazero
 			float end;
 			float step;
 			float durationLeft;
-			void* propertyEffected;
+			int* intPropertyEffected;
+			float* floatPropertyEffected;
+			bool isFloat;
 		};
 
 		class TweenManager
@@ -27,10 +29,13 @@ namespace novazero
 
 			TweenManager();
 
-			void AddTween(void* propertyEffected, float start, float end, float durationMS);
+			void AddTweenInt(int* propertyEffected, float start, float end, float durationMS);
+			void AddTweenFloat(float* propertyEffected, float start, float end, float durationMS);
 			void Update();
 
-			void DestroySelf();
+			void ClearTweens();
+
+			int GetTweenCount() const { return (int)m_Timers.size(); }
 
 		};
 	}

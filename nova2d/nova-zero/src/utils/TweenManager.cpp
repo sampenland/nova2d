@@ -10,18 +10,37 @@ namespace novazero
 
 		TweenManager::TweenManager()
 		{
-			m_CleanID = n2dAddUpdater(TweenManager::Update, this);
+			
 		}
 
-		void TweenManager::AddTween(void* propertyEffected, float start, float end, float durationMS)
+		void TweenManager::AddTweenInt(int* propertyEffected, float start, float end, float durationMS)
 		{
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
 
-			t->propertyEffected = propertyEffected;
-			t->step = (end - start) / durationMS;
-			t->durationLeft = durationMS;
+			t->isFloat = false;
+			t->intPropertyEffected = propertyEffected;
+			t->step = (end - start) / (durationMS + 1000);
+			t->durationLeft = (durationMS + 1000);
+			t->start = start;
+			t->end = end;
+
+			m_Timers[id] = t;
+		}
+
+		void TweenManager::AddTweenFloat(float* propertyEffected, float start, float end, float durationMS)
+		{
+			unsigned int id = n2dGameGetID();
+
+			Tween* t = new Tween();
+
+			t->isFloat = true;
+			t->floatPropertyEffected = propertyEffected;
+			t->step = (end - start) / (durationMS + 1000);
+			t->durationLeft = (durationMS + 1000);
+			t->start = start;
+			t->end = end;
 
 			m_Timers[id] = t;
 		}
@@ -32,14 +51,18 @@ namespace novazero
 			std::map<unsigned int, Tween*>::iterator it;
 			for (it = m_Timers.begin(); it != m_Timers.end(); it++)
 			{
-				it->second->durationLeft = (float)it->second->durationLeft - it->second->step;
+				it->second->durationLeft = (float)it->second->durationLeft - n2dDeltaTime();
 				
-				if (it->second->start + it->second->start < it->second->end)
+				if (it->second->isFloat)
 				{
-					*(it->second->propertyEffected) += 1;
+					*it->second->floatPropertyEffected += it->second->step;
+				}
+				else
+				{
+					*it->second->intPropertyEffected += it->second->step;
 				}
 
-				if (it->second->durationLeft < 0)
+				if (*it->second->intPropertyEffected < it->second->end)
 				{
 					removeIDs.push_back(it->first);
 				}
@@ -51,7 +74,7 @@ namespace novazero
 			}
 		};
 
-		void TweenManager::DestroySelf()
+		void TweenManager::ClearTweens()
 		{
 			std::vector<unsigned int> removeIDs;
 			std::map<unsigned int, Tween*>::iterator it;
@@ -65,8 +88,6 @@ namespace novazero
 			{
 				m_Timers.erase(removeIDs[i]);
 			}
-
-			n2dRemoveUpdater(m_CleanID);
 		}
 	}
 }

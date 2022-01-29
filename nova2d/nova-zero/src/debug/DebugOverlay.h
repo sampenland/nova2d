@@ -23,6 +23,7 @@ namespace novazero
 			Text* m_Deletables = nullptr;
 			Text* m_References = nullptr;
 			Text* m_Gravers = nullptr;
+			Text* m_Tweens = nullptr;
 
 		public:
 

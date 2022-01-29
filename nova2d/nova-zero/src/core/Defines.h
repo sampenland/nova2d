@@ -26,7 +26,7 @@ Returns a unique unsigned int ID value
 nova2d Get Delta Time
 Returns time between frames
 */
-#define n2dDeltaTime() novazero::core::Game::GetDeltaTime();
+#define n2dDeltaTime() novazero::core::Game::GetDeltaTime()
 
 /*
 nova2d Random Float (float min, float max)
@@ -74,6 +74,25 @@ nova2d Get total gravers
 Returns total graver objs (similar to colliders)
 */
 #define n2dDebugGraverCount() novazero::core::Game::s_SceneManager->s_GraverManager->GetGraverCount();
+
+/*
+nova2d Get total tweens
+Returns total tweens (usually attached to positionals)
+*/
+#define n2dDebugTweenCount() novazero::core::Game::s_SceneManager->s_TweenManager->GetTweenCount();
+
+/*
+nova2d Add Tween Int
+Tweens *refInt (referenced int) from start to end in duration milliseconds
+*/
+#define n2dTweenAddInt(refInt, start, end, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenInt(refInt, start, end, durationMS);
+
+/*
+nova2d Add Tween Float
+Tweens *refFloat (referenced float) from start to end in duration milliseconds
+*/
+#define n2dTweenAddFloat(refFloat, start, end, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS);
+
 
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
