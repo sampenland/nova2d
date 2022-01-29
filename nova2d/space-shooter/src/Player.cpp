@@ -45,6 +45,7 @@ namespace spaceshooter
 	Player::~Player()
 	{
 		n2dRemoveUpdater(m_CleanID);
+		UDRLController::DestroySelf();
 	}
 
 	void Player::Quit()

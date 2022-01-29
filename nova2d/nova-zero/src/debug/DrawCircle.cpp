@@ -17,6 +17,7 @@ namespace novazero
 
 			m_FillColor = fillColor;
 			m_OutlineColor = outlineColor;
+			m_Filled = filled;
 
 			SetPosition(Vec2Int(x, y));
 			m_Radius = radius;

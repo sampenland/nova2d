@@ -1,5 +1,6 @@
 #include "Graver.h"
 #include "../core/Game.h"
+#include <cmath>
 
 namespace novazero
 {
@@ -116,7 +117,8 @@ namespace novazero
 			Vec2Int otherCenter = hook.GetCenter();
 			Vec2Int selfCenter = m_Physical->GetCenter();
 
-			return ((otherCenter.x - selfCenter.x) ^ 2 + (otherCenter.y - selfCenter.y) ^ 2) < (m_GraverEffectRadius ^ 2);
+			return std::pow(otherCenter.x - selfCenter.x, 2) +
+				std::pow(otherCenter.y - selfCenter.y, 2) < std::pow(m_GraverEffectRadius, 2);
 		}
 
 		Graver::~Graver()

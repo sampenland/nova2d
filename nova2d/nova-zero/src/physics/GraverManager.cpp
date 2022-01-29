@@ -46,6 +46,14 @@ namespace novazero
 			UpdateGravers();
 		}
 
+		void GraverManager::ClearGravers()
+		{
+			for (size_t i = 0; i < m_AllGravers.size(); i++)
+			{
+				m_AllGravers[i]->DestroySelf();
+			}
+		}
+
 		void GraverManager::UpdateGravers()
 		{
 			for (size_t i = 0; i < m_AllGravers.size(); i++)
@@ -74,7 +82,7 @@ namespace novazero
 				{
 					Graver& effGraver = *graver.m_EffectedGravers[effGravIdx];
 					
-					if (!graver.GraverWithinEffect(effGraver))continue; // skip if out of range
+					if (!graver.GraverWithinEffect(effGraver)) continue; // skip if out of range
 
 					switch (graver.m_GraverType)
 					{

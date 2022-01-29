@@ -25,6 +25,7 @@ namespace novazero
 
 			void AddGraver(Graver* graver);
 			void RemoveGraver(Graver* graver);
+			void ClearGravers();
 
 			int GetGraverCount() { return (int)m_AllGravers.size(); }
 
