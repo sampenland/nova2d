@@ -21,6 +21,11 @@ namespace novazero
 				a = 255;
 			}
 
+			int* GetRRef() { return (int*)&r; }
+			int* GetGef() { return (int*)&g; }
+			int* GetBRef() { return (int*)&b; }
+			int* GetARef() { return (int*)&a; }
+
 			Color(const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a)
 			{
 				this->r = r;

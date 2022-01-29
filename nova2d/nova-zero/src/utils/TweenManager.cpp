@@ -21,8 +21,8 @@ namespace novazero
 
 			t->isFloat = false;
 			t->intPropertyEffected = propertyEffected;
-			t->step = (end - start) / (durationMS + 1000);
-			t->durationLeft = (durationMS + 1000);
+			t->step = (end - start) / (durationMS / 10);
+			t->durationLeft = durationMS;
 			t->start = start;
 			t->end = end;
 
@@ -37,8 +37,8 @@ namespace novazero
 
 			t->isFloat = true;
 			t->floatPropertyEffected = propertyEffected;
-			t->step = (end - start) / (durationMS + 1000);
-			t->durationLeft = (durationMS + 1000);
+			t->step = (end - start) / (durationMS / 10);
+			t->durationLeft = durationMS;
 			t->start = start;
 			t->end = end;
 
@@ -51,15 +51,15 @@ namespace novazero
 			std::map<unsigned int, Tween*>::iterator it;
 			for (it = m_Timers.begin(); it != m_Timers.end(); it++)
 			{
-				it->second->durationLeft = (float)it->second->durationLeft - n2dDeltaTime();
-				
 				if (it->second->isFloat)
 				{
-					*it->second->floatPropertyEffected += it->second->step;
+					it->second->start += it->second->step;
+					*it->second->floatPropertyEffected = it->second->start;
 				}
 				else
 				{
-					*it->second->intPropertyEffected += it->second->step;
+					it->second->start += it->second->step;
+					*it->second->intPropertyEffected = it->second->start;
 				}
 
 				if (*it->second->intPropertyEffected < it->second->end)

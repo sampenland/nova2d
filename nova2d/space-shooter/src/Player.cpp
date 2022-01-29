@@ -48,7 +48,7 @@ namespace spaceshooter
 		n2dTweenAddInt(spr->GetYRef(), GetY() - 32, GetY() - 256, 1000);
 
 		Sprite* sprss = new Sprite("player", Vec2Int(GetX() + 32, GetY() - 32), Vec2Int(16, 16), 0);
-		n2dTweenAddInt(sprss->GetYRef(), GetY() - 32, GetY() - 256, 2000);
+		n2dTweenAddInt(sprss->GetYRef(), GetY() - 32, GetY() - 256, 10000);
 
 	}
 
