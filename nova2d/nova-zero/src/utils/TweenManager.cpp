@@ -59,7 +59,7 @@ namespace novazero
 				else
 				{
 					it->second->start += it->second->step;
-					*it->second->intPropertyEffected = it->second->start;
+					*it->second->intPropertyEffected = (int)it->second->start;
 				}
 
 				if (*it->second->intPropertyEffected < it->second->end)

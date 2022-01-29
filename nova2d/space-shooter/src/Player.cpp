@@ -41,15 +41,6 @@ namespace spaceshooter
 
 		m_CleanID = n2dAddUpdater(Player::Update, this);
 
-		Sprite* sprs = new Sprite("player", Vec2Int(GetX() - 32, GetY() - 256), Vec2Int(16, 16), 0);
-		Sprite* sprsss = new Sprite("player", Vec2Int(GetX() + 32, GetY() - 256), Vec2Int(16, 16), 0);
-
-		Sprite* spr = new Sprite("player", Vec2Int(GetX() - 32, GetY() - 32), Vec2Int(16, 16), 0);
-		n2dTweenAddInt(spr->GetYRef(), GetY() - 32, GetY() - 256, 1000);
-
-		Sprite* sprss = new Sprite("player", Vec2Int(GetX() + 32, GetY() - 32), Vec2Int(16, 16), 0);
-		n2dTweenAddInt(sprss->GetYRef(), GetY() - 32, GetY() - 256, 10000);
-
 	}
 
 	Player::~Player()
