@@ -1199,7 +1199,6 @@ int arcColor(SDL_Renderer* renderer, Sint16 x, Sint16 y, Sint16 rad, Sint16 star
 
 \returns Returns 0 on success, -1 on failure.
 */
-/* TODO: rewrite algorithm; arc endpoints are not always drawn */
 int arcRGBA(SDL_Renderer* renderer, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
 	int result;
@@ -2213,7 +2212,6 @@ Note: Determines vertex array and uses polygon or filledPolygon drawing routines
 
 \returns Returns 0 on success, -1 on failure.
 */
-/* TODO: rewrite algorithm; pie is not always accurate */
 int _pieRGBA(SDL_Renderer* renderer, Sint16 x, Sint16 y, Sint16 rad, Sint16 start, Sint16 end, Uint8 r, Uint8 g, Uint8 b, Uint8 a, Uint8 filled)
 {
 	int result;
