@@ -1,6 +1,7 @@
 #include "CollisionManager.h"
 #include "Collision.h"
 #include "../logging/logging.h"
+#include "../graphics/Sprite.h"
 
 namespace novazero
 {

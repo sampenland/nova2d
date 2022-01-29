@@ -21,6 +21,9 @@ namespace novazero
 			Game::s_SceneManager->s_GraverManager->AddGraver(this);
 		};
 
+		// Graver Types:
+		// implosion and explosion will use the vec2int.x value for strength
+		// others use vec2int
 		Graver::Graver(GraverType type, int effectRadius, 
 			Vec2Int defaultGraverEffectMag, Positional* physicalHook) : Deleteable("graver")
 		{
@@ -40,6 +43,9 @@ namespace novazero
 
 		}
 
+		// Graver Types:
+		// implosion and explosion will use the vec2int.x value for strength
+		// others use vec2int
 		void Graver::ConfigureGraver(GraverType type, int effectRadius, 
 			Vec2Int defaultGraverEffectMag, Positional* physicalHook)
 		{
@@ -61,10 +67,10 @@ namespace novazero
 
 			Vec2Int currentPos = m_Physical->GetPosition();
 
-			if (m_LookAtTarget)
+			if (m_LookAtTarget && (m_GraverInfluencedMag.x > 0 || m_GraverInfluencedMag.y > 0))
 			{
 				int lookAtAngle = Vec2Int::LookAtAngle(currentPos, 
-					m_Physical->GetPosition() + m_GraverInfluencedMag, 0);
+					m_Physical->GetPosition() + m_GraverInfluencedMag, -90);
 
 				m_Physical->GetLinkedSprite()->SetAngle(lookAtAngle);
 			}
@@ -131,6 +137,10 @@ namespace novazero
 			n2dRemoveDeleteable(m_CleanID);
 			Game::s_SceneManager->s_GraverManager->RemoveGraver(this);
 			CleanUpdaters();
+			
+			if (m_EffectCircle)
+				m_EffectCircle->DestroySelf();
+
 			m_DeleteNow = 1;
 		}
 	}

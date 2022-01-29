@@ -19,8 +19,6 @@ namespace novazero
 		{
 			Implosion,
 			Explosion,
-			YPushX,
-			XPushY,
 			Vec2Force
 		};
 

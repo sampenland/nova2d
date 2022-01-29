@@ -84,25 +84,64 @@ namespace novazero
 					
 					if (!graver.GraverWithinEffect(effGraver)) continue; // skip if out of range
 
+					Vec2Int moveBy(0, 0);
 					switch (graver.m_GraverType)
 					{
 					case GraverType::Explosion:
+						
+						moveBy = Vec2Int(0, 0);
+
+						if (graver.m_Physical->GetX() < effGraver.m_Physical->GetX())
+						{
+							moveBy.x = graver.m_GraverEffectMagnitude.x;
+						}
+						else
+						{
+							moveBy.x = -graver.m_GraverEffectMagnitude.x;
+						}
+
+						if (graver.m_Physical->GetY() < effGraver.m_Physical->GetY())
+						{
+							moveBy.y = graver.m_GraverEffectMagnitude.x;
+						}
+						else
+						{
+							moveBy.y = -graver.m_GraverEffectMagnitude.x;
+						}
+
 						break;
 
 					case GraverType::Implosion:
-						break;
+						
+						moveBy = Vec2Int(0, 0);
 
-					case GraverType::XPushY:
-						break;
+						if (graver.m_Physical->GetX() < effGraver.m_Physical->GetX())
+						{
+							moveBy.x = -graver.m_GraverEffectMagnitude.x;
+						}
+						else
+						{
+							moveBy.x = graver.m_GraverEffectMagnitude.x;
+						}
 
-					case GraverType::YPushX:
+						if (graver.m_Physical->GetY() < effGraver.m_Physical->GetY())
+						{
+							moveBy.y = -graver.m_GraverEffectMagnitude.x;
+						}
+						else
+						{
+							moveBy.y = graver.m_GraverEffectMagnitude.x;
+						}
+
 						break;
 
 					case GraverType::Vec2Force:
 					default:
-						effGraver.m_GraverInfluencedMag += graver.m_GraverEffectMagnitude;
+						moveBy = graver.m_GraverEffectMagnitude;
 						break;
 					}
+
+					effGraver.m_GraverInfluencedMag += moveBy;
 					
 				}
 

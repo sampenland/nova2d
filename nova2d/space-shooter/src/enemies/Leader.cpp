@@ -85,9 +85,7 @@ namespace spaceshooter
 				m_Pawns.push_back(pawn);
 				m_PawnCount++;
 
-				break;
 			}
-			break;
 		}
 	}
 
@@ -201,7 +199,6 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
-		return;
 		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);

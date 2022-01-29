@@ -21,6 +21,8 @@ namespace novazero
 
 			auto cleanID = n2dAddUpdater(SimpleBulletController::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
+
+			SetEnabled(true);
 		}
 
 		SimpleBulletController::~SimpleBulletController()
@@ -42,6 +44,8 @@ namespace novazero
 
 		void SimpleBulletController::Update()
 		{			
+			if (!IsEnabled()) return;
+
 			if (OutOfBounds(m_Sprite))
 			{
 				DestroySelf();
