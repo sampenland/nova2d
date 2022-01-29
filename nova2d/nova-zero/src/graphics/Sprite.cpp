@@ -41,11 +41,6 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		Sprite::~Sprite()
-		{
-			
-		}
-
 		void Sprite::ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop)
 		{
 			m_Frames = totalFrames;

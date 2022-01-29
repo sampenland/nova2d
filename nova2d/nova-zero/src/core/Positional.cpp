@@ -9,7 +9,6 @@ namespace novazero
 		using namespace graphics;
 
 		Positional::Positional() {};
-		Positional::~Positional() {};
 
 		void Positional::LinkPositionalSprite(Sprite* sprite)
 		{

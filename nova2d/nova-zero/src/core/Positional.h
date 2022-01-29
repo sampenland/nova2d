@@ -27,13 +27,14 @@ namespace novazero
 		public:
 
 			Positional();
-			~Positional();
 
 			void LinkPositionalSprite(Sprite* sprite);
 			Sprite* GetLinkedSprite() { return m_Sprite; }
 
 			int GetX() const;
+			void* GetXRef() { return &m_Position.x; }
 			int GetY() const;
+			void* GetYRef() { return &m_Position.y; }
 			Vec2Int GetPosition() const;
 
 			int GetWidth() const;

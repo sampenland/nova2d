@@ -40,6 +40,9 @@ namespace spaceshooter
 		m_ShootTimer = new Timer(125, true, std::bind(&Player::Shoot, this));
 
 		m_CleanID = n2dAddUpdater(Player::Update, this);
+
+		Sprite* spr = new Sprite("player", Vec2Int(GetX(), GetY() - 32), Vec2Int(16, 16), 0);
+		Game::s_SceneManager->s_TweenManager->AddTween(spr->GetYRef(), GetY() - 32, GetY() - 256, 1000);
 	}
 
 	Player::~Player()
