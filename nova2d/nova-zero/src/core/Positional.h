@@ -6,6 +6,7 @@ namespace novazero
 	namespace graphics
 	{
 		class Drawable;
+		class Sprite;
 	}
 
 	namespace core
@@ -21,11 +22,15 @@ namespace novazero
 			Vec2Int m_Position;
 			int m_Angle = 0;
 			Vec2Int m_Size;
+			Sprite* m_Sprite = nullptr;
 
 		public:
 
 			Positional();
 			~Positional();
+
+			void LinkPositionalSprite(Sprite* sprite);
+			Sprite* GetLinkedSprite() { return m_Sprite; }
 
 			int GetX() const;
 			int GetY() const;

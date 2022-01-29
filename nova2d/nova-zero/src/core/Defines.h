@@ -208,6 +208,7 @@ Removes a Deleteable* to Game's Scene Manager's deleteable tracker
 /*
 nova2d Add Drawable (Drawable* drawable, char layer)
 Adds a graphic/drawable to Game's Draw Layers
+RETURNS: void
 */
 #define n2dAddDrawable(drawable, layer) novazero::core::Game::s_Renderer->s_DrawLayers->AddSprite(drawable, layer);
 

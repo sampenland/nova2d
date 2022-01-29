@@ -77,6 +77,9 @@ namespace novazero
 
 			m_Visible = true;
 
+			if(m_Texture)
+				SDL_DestroyTexture(m_Texture);
+			
 			m_Texture = SDL_CreateTextureFromSurface(Game::s_Renderer->GetSDLRenderer(), surface);
 
 			if (!m_Texture)

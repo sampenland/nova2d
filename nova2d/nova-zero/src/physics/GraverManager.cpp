@@ -96,7 +96,6 @@ namespace novazero
 						break;
 					}
 					
-					effGraver.m_GraverEffectMagnitude += Vec2Int(0, 0);
 				}
 
 			}

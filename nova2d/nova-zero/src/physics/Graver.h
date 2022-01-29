@@ -4,6 +4,7 @@
 #include "../core/BoundUser.h"
 #include "../graphics/Sprite.h"
 #include "../core/Positional.h"
+#include "../debug/DrawCircle.h"
 
 namespace novazero
 {
@@ -12,6 +13,7 @@ namespace novazero
 		using namespace core;
 		using namespace maths;
 		using namespace graphics;
+		using namespace debug;
 
 		enum GraverType
 		{
@@ -35,12 +37,14 @@ namespace novazero
 
 			unsigned int m_ID = 0;
 			int m_GraverEffectRadius = 2;
+			bool m_LookAtTarget = true;
 		
 			Vec2Int m_GraverEffectMagnitude;
 			Vec2Int m_GraverInfluencedMag;
 			GraverType m_GraverType = GraverType::Vec2Force;
 			Positional* m_Physical = nullptr;
 			std::vector<Graver*> m_EffectedGravers;
+			DrawCircle* m_EffectCircle = nullptr;
 
 		protected:
 			Graver();
@@ -52,6 +56,11 @@ namespace novazero
 
 			void ConfigureGraver(GraverType type, int effectRadius, 
 				Vec2Int defaultGraverEffectMag, Positional* physicalHook);
+
+			void GonfigureLookAt(bool lookAt) { m_LookAtTarget = lookAt; }
+
+			void ConfigureGraverVisible(bool filled, std::string fillColor, std::string outlineColor,
+				int radius, char layer);
 
 			void AddEffectedGraver(Graver* graver);
 			void RemoveEffectedGraver(Graver* graver);

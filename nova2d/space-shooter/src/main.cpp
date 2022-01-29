@@ -24,12 +24,12 @@ int main(int argc, char* argv[])
 	game.ConfigureDebug(true);
 	game.ConfigureDebugPosition(Vec2Int(32, 100));
 
-	n2dAddColor("background", "201533", 1);
-	n2dAddColor("purple", "252446", 1);
-	n2dAddColor("dark-blue", "203562", 1);
-	n2dAddColor("blue", "1e579c", 1);
-	n2dAddColor("light-blue", "0098db", 1);
-	n2dAddColor("bright-blue", "0ce6f2", 1);
+	n2dAddColor("background", "201533", 255);
+	n2dAddColor("purple", "252446", 255);
+	n2dAddColor("dark-blue", "203562", 255);
+	n2dAddColor("blue", "1e579c", 255);
+	n2dAddColor("light-blue", "0098db", 255);
+	n2dAddColor("bright-blue", "0ce6f2", 255);
 	
 	n2dSetBackgroundColor("background");
 	

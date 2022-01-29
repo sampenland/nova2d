@@ -59,7 +59,31 @@ namespace novazero
 			}
 
 			Vec2Int currentPos = m_Physical->GetPosition();
+
+			if (m_LookAtTarget)
+			{
+				int lookAtAngle = Vec2Int::LookAtAngle(currentPos, 
+					m_Physical->GetPosition() + m_GraverInfluencedMag, 0);
+
+				m_Physical->GetLinkedSprite()->SetAngle(lookAtAngle);
+			}
+
 			m_Physical->SetPosition(currentPos + m_GraverInfluencedMag);
+			
+			if (m_EffectCircle)
+				m_EffectCircle->SetPosition(m_Physical->GetCenter());
+
+		}
+
+		void Graver::ConfigureGraverVisible(bool filled, std::string fillColor, std::string outlineColor,
+			int radius, char layer)
+		{
+			if (m_EffectCircle)
+				m_EffectCircle->DestroySelf();
+
+			m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Physical->GetX(), 
+				m_Physical->GetY(), radius, layer);
+
 		}
 
 		void Graver::AddEffectedGraver(Graver* graver)

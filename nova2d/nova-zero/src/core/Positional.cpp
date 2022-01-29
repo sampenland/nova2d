@@ -11,6 +11,11 @@ namespace novazero
 		Positional::Positional() {};
 		Positional::~Positional() {};
 
+		void Positional::LinkPositionalSprite(Sprite* sprite)
+		{
+			m_Sprite = sprite;
+		}
+
 		int Positional::GetX() const { return m_Position.x; }
 		int Positional::GetY() const { return m_Position.y; }
 		Vec2Int Positional::GetPosition() const { return m_Position; }

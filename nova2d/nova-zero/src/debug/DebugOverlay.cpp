@@ -66,7 +66,7 @@ namespace novazero
 
 			m_FPS->UpdateTextColor(color);
 			m_FPS->UpdateText("FPS: " + fps);
-
+			
 			auto objs = n2dDebugDrawableCount();
 			m_Drawables->UpdateText("Dra: " + std::to_string(objs));
 

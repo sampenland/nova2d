@@ -34,6 +34,8 @@ namespace novazero
 			m_DestRect.w = (int)size.x;
 			m_DestRect.h = (int)size.y;
 
+			LinkPositionalSprite(this);
+
 			// Final
 			m_ID = Game::GetNextID();
 			n2dAddDrawable(this, m_Layer);
