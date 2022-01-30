@@ -22,17 +22,16 @@ namespace novazero
 			auto cleanID = n2dAddUpdater(SimpleBulletController::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 
-			SetEnabled(true);
-		}
+			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
 
-		SimpleBulletController::~SimpleBulletController()
-		{
+			SetEnabled(true);
 		}
 
 		void SimpleBulletController::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
 		{
 			m_DeleteName = assetName;
 			m_Sprite = new Sprite(assetName, position, size, layer);
+			ConfigureTimeEffected(m_Sprite);
 		}
 
 		void SimpleBulletController::Configure(float moveSpeed, Rect aliveBounds)
@@ -62,13 +61,16 @@ namespace novazero
 
 			float x = (float)m_Sprite->GetX();
 			float y = (float)m_Sprite->GetY();
-			float speed = m_MoveSpeed * n2dTimeScale;
+			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
 
 			float newX = x < m_End.x ? x + speed : x - speed;
 			float newY = y < m_End.y ? y + speed : y - speed;
 
 			if (x == m_End.x) newX = x;
 			if (y == m_End.y) newY = y;
+
+			if (newX - (int)newX > 0) newX = ceil(newX);
+			if (newY - (int)newY > 0) newY = ceil(newY);
 
 			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
 
@@ -90,6 +92,8 @@ namespace novazero
 			m_Alive = false;
 
 			CleanUpdaters();
+
+			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffected(this);
 
 			if (m_UsingCollider)
 			{

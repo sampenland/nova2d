@@ -13,6 +13,22 @@ namespace novazero
 			m_ID = n2dGameGetID();
 			m_Physical = new Positional();
 			m_Physical->SetPosition(Game::GetCenterScreen());
+			SetTimeEffectEnabled(false);
 		};
+
+		TimeEffected::~TimeEffected()
+		{
+			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffected(this);
+		}
+
+		void TimeEffected::ConfigureTimeEffected(Positional* positional)
+		{
+			if (m_Physical)
+				delete m_Physical;
+			m_Physical = positional;
+
+			SetTimeEffectEnabled(true);
+			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
+		}
 	}
 }

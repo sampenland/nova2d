@@ -25,9 +25,9 @@ namespace novazero
 			~Collider();
 
 			Sprite* m_ColliderSprite;
+			unsigned int m_ID;
 
 			int m_CollisionLayer = 0;
-			unsigned int m_ID;
 			std::string m_ColliderName = "";
 			bool m_UsingCollider = false;
 

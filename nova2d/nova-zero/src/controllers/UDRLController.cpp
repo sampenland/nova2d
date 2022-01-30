@@ -111,7 +111,7 @@ namespace novazero
 		void UDRLController::MoveUp()
 		{
 			Vec2Int pos = GetPosition();
-			float newY = pos.y - (m_MoveSpeed * n2dTimeScale);
+			float newY = pos.y - (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (IsWithinMoveBounds(pos.x, (int)newY))
 			{
@@ -122,7 +122,9 @@ namespace novazero
 		void UDRLController::MoveDown()
 		{
 			Vec2Int pos = GetPosition();
-			float newY = pos.y + (m_MoveSpeed * n2dTimeScale);
+			float newY = pos.y + (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
+
+			if (newY - (int)newY > 0) newY = ceil(newY);
 
 			if (IsWithinMoveBounds(pos.x, (int)newY))
 			{
@@ -133,7 +135,9 @@ namespace novazero
 		void UDRLController::MoveRight()
 		{
 			Vec2Int pos = GetPosition();
-			float newX = pos.x + (m_MoveSpeed * n2dTimeScale);
+			float newX = pos.x + (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
+
+			if (newX - (int)newX > 0) newX = ceil(newX);
 
 			if (IsWithinMoveBounds((int)newX, pos.y))
 			{
@@ -144,7 +148,7 @@ namespace novazero
 		void UDRLController::MoveLeft()
 		{
 			Vec2Int pos = GetPosition();
-			float newX = pos.x - (m_MoveSpeed * n2dTimeScale);
+			float newX = pos.x - (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (IsWithinMoveBounds((int)newX, pos.y))
 			{
@@ -159,6 +163,7 @@ namespace novazero
 			m_Destroyed = true;
 
 			SimpleController::CleanUpdaters();
+			SimpleController::DestroySelf();
 
 			if (m_Sprite)
 				m_Sprite->DestroySelf();

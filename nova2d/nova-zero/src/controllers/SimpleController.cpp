@@ -12,6 +12,8 @@ namespace novazero
 			: EventListener()
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
+			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
+			ConfigureTimeEffected(m_Sprite);
 		}
 
 		SimpleController::~SimpleController()
@@ -39,6 +41,11 @@ namespace novazero
 		void SimpleController::SetY(int y)
 		{
 			m_Sprite->SetY(y);
+		}
+
+		void SimpleController::DestroySelf()
+		{
+			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffected(this);
 		}
 	}
 }

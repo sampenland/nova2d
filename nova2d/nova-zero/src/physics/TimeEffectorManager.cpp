@@ -95,9 +95,14 @@ namespace novazero
 
 					if (!effected.IsTimeEffectEnabled()) continue;
 
-					if(effector.TimeEffectedWithinEffect(effected))
-					effected.SetTimeInfluence(effector.m_TimeEffect);
-
+					if (effector.TimeEffectedWithinEffect(effected))
+					{
+						effected.SetTimeInfluence(effector.m_TimeEffect);
+					}
+					else
+					{
+						effected.SetTimeInfluence(1.0f);
+					}
 				}
 
 			}

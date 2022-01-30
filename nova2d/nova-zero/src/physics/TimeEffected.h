@@ -18,25 +18,15 @@ namespace novazero
 
 		protected:
 
-			TimeEffected(Positional* physical)
-			{
-				m_Physical = physical;
-			}
 			TimeEffected();
 
 		public:
 
-			unsigned int m_ID = 0;
+			~TimeEffected();
+			unsigned int m_ID;
 			Positional* m_Physical = nullptr;
 
-			void ConfigureTimeEffected(Positional* positional)
-			{
-				if (m_Physical)
-					delete m_Physical;
-				m_Physical = positional;
-
-				SetTimeEffectEnabled(true);
-			}
+			void ConfigureTimeEffected(Positional* positional);
 
 			void SetTimeInfluence(float effect) { m_TimeInfluencedEffect = effect; }
 			float GetTimeInfluence() { return m_TimeInfluencedEffect; }

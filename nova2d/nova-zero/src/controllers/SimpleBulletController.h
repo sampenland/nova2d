@@ -5,6 +5,7 @@
 #include "../physics/Collider.h"
 #include "../core/Deleteable.h"
 #include "../physics/Graver.h"
+#include "../physics/TimeEffected.h"
 
 namespace novazero
 {
@@ -18,7 +19,8 @@ namespace novazero
 		class SimpleBulletController
 			: public EventListener, 
 			public BoundUser,
-			public Collider
+			public Collider,
+			public TimeEffected
 		{
 
 		private:
@@ -38,7 +40,6 @@ namespace novazero
 		public:
 
 			SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay);
-			~SimpleBulletController();
 
 			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			Sprite* GetSprite() const { return m_Sprite; }

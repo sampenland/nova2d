@@ -6,9 +6,10 @@ namespace novazero
 	namespace ai
 	{
 		SimpleWeakAI::SimpleWeakAI()
-			: Collider(0), Deleteable("simpleWeakAI")
+			: Collider(0), Deleteable("simpleWeakAI"), TimeEffected()
 		{
-			m_ID = n2dGameGetID();
+			Collider::m_ID = n2dGameGetID();
+			TimeEffected::m_ID = n2dGameGetID();
 
 			auto cleanID = n2dAddUpdater(SimpleWeakAI::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
@@ -114,7 +115,7 @@ namespace novazero
 				return;
 			}
 
-			m_DelayMS = (float)m_DelayMaxMS * (float)(1 / n2dTimeScale);
+			m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
 
 			if (m_PatrolIndex == -1 && (int)m_PatrolPoints.size() > 0)
 			{

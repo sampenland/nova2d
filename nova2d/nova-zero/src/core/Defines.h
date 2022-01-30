@@ -117,7 +117,6 @@ Tweens *refFloat (referenced float) from start to end in duration milliseconds
 */
 #define n2dTweenAddFloat(refFloat, start, end, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS);
 
-
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use

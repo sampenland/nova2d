@@ -68,7 +68,16 @@ namespace novazero
 
 			float x = (float)m_Sprite->GetX();
 			float y = (float)m_Sprite->GetY();
-			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
+			float speed = m_MoveSpeed;
+
+			if (n2dTimeScale * GetTimeInfluence() > 1)
+			{
+				speed = speed * n2dTimeScale* GetTimeInfluence();
+			}
+			else
+			{
+				speed = speed * n2dTimeScale * GetTimeInfluence(); // TODO: fix time bubble for follower
+			}
 
 			float newX = x;
 			float newY = y;
@@ -96,7 +105,7 @@ namespace novazero
 				}
 			}
 
-			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
+			m_Sprite->SetPosition(Vec2Int(newX, newY));
 
 		}
 

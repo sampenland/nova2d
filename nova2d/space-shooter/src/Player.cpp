@@ -134,9 +134,10 @@ namespace spaceshooter
 
 	void Player::Shoot()
 	{
+		return;
 		// create and shoot bullet
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight() - 64), 4);
-		bullet->Configure(20, Rect(0, 0, Game::s_Width, Game::s_Height));
+		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));

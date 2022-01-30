@@ -18,6 +18,8 @@ namespace novazero
 
 			m_CleanID = n2dAddDeleteable(this);
 			SetEnabled(true);
+
+			Game::s_SceneManager->s_TimeEffectorManager->AddEffector(this);
 		}
 
 		void TimeEffector::ConfigureTimeEffector(float timeEffect)
@@ -58,7 +60,7 @@ namespace novazero
 				m_EffectCircle->DestroySelf();
 
 			CleanUpdaters();
-
+			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffector(this);
 			n2dRemoveDeleteable(m_CleanID);
 
 			m_DeleteNow = 1;

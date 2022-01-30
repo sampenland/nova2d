@@ -7,6 +7,7 @@
 #include "../core/BoundUser.h"
 #include "../physics/Collider.h"
 #include "../core/Deleteable.h"
+#include "../physics/TimeEffected.h"
 
 typedef std::function<void()> f_MovePtrFunction;
 
@@ -25,8 +26,11 @@ namespace novazero
 			f_MovePtrFunction moveFunction;
 		};
 
-		class SimpleWeakAI
-			: public BoundUser, public Collider, public Deleteable
+		class SimpleWeakAI : 
+			public BoundUser, 
+			public Collider, 
+			public Deleteable,
+			public TimeEffected
 		{
 
 		private:

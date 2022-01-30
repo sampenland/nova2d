@@ -4,6 +4,7 @@
 #include "../maths/Vec2Int.h"
 #include "../utils/TextureLoader.h"
 #include "../core/Game.h"
+#include "../physics/TimeEffected.h"
 
 namespace novazero
 {
@@ -14,7 +15,8 @@ namespace novazero
 		using namespace maths;
 
 		class SimpleController :
-			public EventListener
+			public EventListener,
+			public TimeEffected
 		{
 
 		private:
@@ -40,6 +42,8 @@ namespace novazero
 			
 			inline float GetMoveSpeed() const { return m_MoveSpeed; }
 			inline Vec2Int GetPosition() const { return Vec2Int(m_Sprite->GetX(), m_Sprite->GetY()); }
+
+			void DestroySelf();
 
 		public:
 
