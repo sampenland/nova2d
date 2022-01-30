@@ -30,6 +30,7 @@ namespace novazero
 		private:
 
 			unsigned int m_CleanID = 0;
+			bool m_Enabled = false;
 
 		public:
 

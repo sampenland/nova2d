@@ -84,13 +84,9 @@ namespace spaceshooter
 		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
 		m_DelayShoot = r;
 
-		Player* player = (Player*)n2dReferenceGet("player");
-
 		PawnBullet* bullet = new PawnBullet(Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8),
 			Vec2Int(m_Sprite->GetX(), Game::s_Height + 32),
 			2.0f, m_Sprite);
-
-		player->AddEffectedGraver(bullet);
 	}
 
 	void Pawn::DestroySelf()

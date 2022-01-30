@@ -25,10 +25,6 @@ namespace spaceshooter
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, "player");
 
-		const char effectSize = 96;
-		ConfigureGraver(GraverType::Explosion, effectSize, Vec2Int(2, 0), GetSprite());
-		ConfigureGraverVisible(false, "white", "white", effectSize, 0);
-
 		int startX = 8;
 		int startY = 8;
 		for (int i = 0; i < m_Lives; i++)

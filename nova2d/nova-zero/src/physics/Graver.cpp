@@ -37,6 +37,11 @@ namespace novazero
 			m_GraverInfluencedMag = Vec2Int(0, 0);
 			m_Physical = physicalHook;
 
+			if (m_Physical)
+				m_Enabled = true;
+			else
+				LOG(LVL_WARNING, "Graver hook is null, leaving disabled.");
+
 			m_CleanID = n2dAddDeleteable(this);
 
 			Game::s_SceneManager->s_GraverManager->AddGraver(this);
@@ -55,10 +60,18 @@ namespace novazero
 			m_GraverEffectMagnitude = defaultGraverEffectMag;
 			m_GraverInfluencedMag = Vec2Int(0, 0);
 			m_Physical = physicalHook;
+
+			if (m_Physical)
+				m_Enabled = true;
+			else
+				LOG(LVL_WARNING, "Graver hook is null, leaving disabled.");
+
 		}
 
 		void Graver::GraverUpdate()
 		{
+			if (!m_Enabled) return;
+
 			if (m_Physical == nullptr)
 			{
 				LOG(LVL_NON_FATAL_ERROR, "Graver has no Positional Hook: " + m_DeleteName);
