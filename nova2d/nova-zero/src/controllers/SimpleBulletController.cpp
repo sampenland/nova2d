@@ -35,7 +35,7 @@ namespace novazero
 			m_Sprite = new Sprite(assetName, position, size, layer);
 		}
 
-		void SimpleBulletController::Configure(int moveSpeed, Rect aliveBounds)
+		void SimpleBulletController::Configure(float moveSpeed, Rect aliveBounds)
 		{
 			m_MoveSpeed = moveSpeed;
 			m_AliveBounds = aliveBounds;
@@ -60,16 +60,17 @@ namespace novazero
 
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			int x = m_Sprite->GetX();
-			int y = m_Sprite->GetY();
+			float x = (float)m_Sprite->GetX();
+			float y = (float)m_Sprite->GetY();
+			float speed = m_MoveSpeed * n2dTimeScale;
 
-			int newX = x < m_End.x ? x + m_MoveSpeed : x - m_MoveSpeed;
-			int newY = y < m_End.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+			float newX = x < m_End.x ? x + speed : x - speed;
+			float newY = y < m_End.y ? y + speed : y - speed;
 
 			if (x == m_End.x) newX = x;
 			if (y == m_End.y) newY = y;
 
-			m_Sprite->SetPosition(Vec2Int(newX, newY));
+			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
 
 		}
 

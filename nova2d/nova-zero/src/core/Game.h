@@ -97,6 +97,8 @@ namespace novazero
 			static unsigned int GetScore() { return s_Score; }
 			static void SetScore(unsigned int score) { s_Score = score; }
 
+			static float s_TimeScale;
+
 			static bool s_Running;
 			static bool IsRunning() { return s_Running; }
 			static int s_ExitCode;

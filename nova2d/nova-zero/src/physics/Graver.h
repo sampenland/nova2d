@@ -15,7 +15,7 @@ namespace novazero
 		using namespace graphics;
 		using namespace debug;
 
-		enum GraverType
+		enum class GraverType
 		{
 			Implosion,
 			Explosion,
@@ -30,7 +30,6 @@ namespace novazero
 		private:
 
 			unsigned int m_CleanID = 0;
-			bool m_Enabled = false;
 
 		public:
 

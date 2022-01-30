@@ -20,7 +20,7 @@ namespace novazero
 				m_Sprite->DestroySelf();
 		}
 
-		void SimpleController::SetMoveSpeed(int mSpeed)
+		void SimpleController::SetMoveSpeed(float mSpeed)
 		{
 			m_MoveSpeed = mSpeed;
 		}

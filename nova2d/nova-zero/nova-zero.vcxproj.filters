@@ -138,6 +138,9 @@
     <ClCompile Include="src\utils\TweenManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics\TimeEffector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Window.h">
@@ -294,6 +297,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\TweenManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics\TimeEffector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

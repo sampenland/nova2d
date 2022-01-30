@@ -31,7 +31,7 @@ namespace novazero
 			m_Sprite = new Sprite(assetName, position, size, layer);
 		}
 
-		void SimpleFollower::Configure(int moveSpeed, float delayStart, Vec2Int waitTargetPos)
+		void SimpleFollower::Configure(float moveSpeed, float delayStart, Vec2Int waitTargetPos)
 		{
 			m_MoveSpeed = moveSpeed;
 			m_WaitDelay = delayStart;
@@ -68,23 +68,24 @@ namespace novazero
 
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			int x = m_Sprite->GetX();
-			int y = m_Sprite->GetY();
+			float x = (float)m_Sprite->GetX();
+			float y = (float)m_Sprite->GetY();
+			float speed = m_MoveSpeed * n2dTimeScale;
 
-			int newX;
-			int newY;
+			float newX = x;
+			float newY = y;
 
 			if (!waiting)
 			{
-				newX = x < m_Target->GetX() + m_TargetOffset.x ? x + m_MoveSpeed : x - m_MoveSpeed;
-				newY = y < m_Target->GetY() + m_TargetOffset.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+				newX = x < m_Target->GetX() + m_TargetOffset.x ? x + speed : x - speed;
+				newY = y < m_Target->GetY() + m_TargetOffset.y ? y + speed : y - speed;
 
 				if (x == m_Target->GetX() + m_TargetOffset.x) newX = x;
 				if (y == m_Target->GetY() + m_TargetOffset.y) newY = y;
 
 				if (m_LookAtTarget)
 				{
-					int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int(newX, newY), m_Target->GetPosition(), m_LookAtDegAdd);
+					int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPosition(), m_LookAtDegAdd);
 					m_Sprite->SetAngle(lookAtAngle);
 				}
 			}
@@ -92,12 +93,12 @@ namespace novazero
 			{
 				if (!(m_WaitTarget.x == 0 && m_WaitTarget.y == 0))
 				{
-					newX = x < m_WaitTarget.x ? x + m_MoveSpeed : x - m_MoveSpeed;
-					newY = y < m_WaitTarget.y ? y + m_MoveSpeed : y - m_MoveSpeed;
+					newX = x < m_WaitTarget.x ? x + speed : x - speed;
+					newY = y < m_WaitTarget.y ? y + speed : y - speed;
 				}
 			}
 
-			m_Sprite->SetPosition(Vec2Int(newX, newY));
+			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
 
 		}
 

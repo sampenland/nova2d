@@ -29,6 +29,18 @@ Returns time between frames
 #define n2dDeltaTime() novazero::core::Game::GetDeltaTime()
 
 /*
+nova2d Get Time Scale
+Returns a float value which directly effects all moving objects
+*/
+#define n2dTimeScale novazero::core::Game::s_TimeScale
+
+/*
+nova2d Set Time Scale (float value)
+Sets a float value which directly effects all moving objects
+*/
+#define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
+
+/*
 nova2d Random Float (float min, float max)
 Returns a random float in range
 */

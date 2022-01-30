@@ -15,6 +15,7 @@ namespace novazero
 			m_GraverEffectRadius = 1;
 			m_GraverEffectMagnitude = Vec2Int(0, 0);
 			m_GraverInfluencedMag = Vec2Int(0, 0);
+			SetEnabled(false);
 
 			m_CleanID = n2dAddDeleteable(this);
 
@@ -38,7 +39,7 @@ namespace novazero
 			m_Physical = physicalHook;
 
 			if (m_Physical)
-				m_Enabled = true;
+				SetEnabled(true);
 			else
 				LOG(LVL_WARNING, "Graver hook is null, leaving disabled.");
 
@@ -62,7 +63,7 @@ namespace novazero
 			m_Physical = physicalHook;
 
 			if (m_Physical)
-				m_Enabled = true;
+				SetEnabled(true);
 			else
 				LOG(LVL_WARNING, "Graver hook is null, leaving disabled.");
 
@@ -70,7 +71,7 @@ namespace novazero
 
 		void Graver::GraverUpdate()
 		{
-			if (!m_Enabled) return;
+			if (!IsEnabled()) return;
 
 			if (m_Physical == nullptr)
 			{
@@ -88,6 +89,9 @@ namespace novazero
 				m_Physical->GetLinkedSprite()->SetAngle(lookAtAngle);
 			}
 
+			float ix = (float)m_GraverInfluencedMag.x * n2dTimeScale;
+			float iy = (float)m_GraverInfluencedMag.y * n2dTimeScale;
+			m_GraverInfluencedMag = Vec2Int((int)ix, (int)iy);
 			m_Physical->SetPosition(currentPos + m_GraverInfluencedMag);
 			
 			if (m_EffectCircle)

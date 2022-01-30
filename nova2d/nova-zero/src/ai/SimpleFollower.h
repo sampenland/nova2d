@@ -37,7 +37,7 @@ namespace novazero
 			
 		protected:
 			Sprite* m_Sprite = nullptr;
-			int m_MoveSpeed = 0;
+			float m_MoveSpeed = 0;
 
 		public:
 
@@ -47,7 +47,7 @@ namespace novazero
 			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			Sprite* GetSprite() { return m_Sprite; }
 
-			void Configure(int moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
+			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
 			void ConfigureTarget(Positional* target);
 			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
 			void Offset(Vec2Int offset) { m_TargetOffset = offset; }

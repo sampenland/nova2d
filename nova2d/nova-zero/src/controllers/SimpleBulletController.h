@@ -31,7 +31,7 @@ namespace novazero
 			float m_UpdateDirectionDelay = 0.0f;
 			float m_DelayTime = 0;
 
-			int m_MoveSpeed = 0;
+			float m_MoveSpeed = 0;
 
 			std::function<void()> f_OnDestroy = nullptr;
 
@@ -43,7 +43,7 @@ namespace novazero
 			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			Sprite* GetSprite() const { return m_Sprite; }
 
-			void Configure(int moveSpeed, Rect aliveBounds);
+			void Configure(float moveSpeed, Rect aliveBounds);
 			void ConfigureDestroy(std::function<void()> f) { f_OnDestroy = f; }
 			void Update();
 

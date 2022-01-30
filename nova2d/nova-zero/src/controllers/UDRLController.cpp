@@ -111,44 +111,44 @@ namespace novazero
 		void UDRLController::MoveUp()
 		{
 			Vec2Int pos = GetPosition();
-			int newY = pos.y - m_MoveSpeed;
+			float newY = pos.y - (m_MoveSpeed * n2dTimeScale);
 
-			if (IsWithinMoveBounds(pos.x, newY))
+			if (IsWithinMoveBounds(pos.x, (int)newY))
 			{
-				SetY(newY);
+				SetY((int)newY);
 			}
 		}
 
 		void UDRLController::MoveDown()
 		{
 			Vec2Int pos = GetPosition();
-			int newY = pos.y + m_MoveSpeed;
+			float newY = pos.y + (m_MoveSpeed * n2dTimeScale);
 
-			if (IsWithinMoveBounds(pos.x, newY))
+			if (IsWithinMoveBounds(pos.x, (int)newY))
 			{
-				SetY(newY);
+				SetY((int)newY);
 			}
 		}
 
 		void UDRLController::MoveRight()
 		{
 			Vec2Int pos = GetPosition();
-			int newX = pos.x + m_MoveSpeed;
+			float newX = pos.x + (m_MoveSpeed * n2dTimeScale);
 
-			if (IsWithinMoveBounds(newX, pos.y))
+			if (IsWithinMoveBounds((int)newX, pos.y))
 			{
-				SetX(newX);
+				SetX((int)newX);
 			}
 		}
 
 		void UDRLController::MoveLeft()
 		{
 			Vec2Int pos = GetPosition();
-			int newX = pos.x - m_MoveSpeed;
+			float newX = pos.x - (m_MoveSpeed * n2dTimeScale);
 
-			if (IsWithinMoveBounds(newX, pos.y))
+			if (IsWithinMoveBounds((int)newX, pos.y))
 			{
-				SetX(newX);
+				SetX((int)newX);
 			}
 		}
 

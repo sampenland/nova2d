@@ -114,7 +114,7 @@ namespace novazero
 				return;
 			}
 
-			m_DelayMS = m_DelayMaxMS;
+			m_DelayMS = m_DelayMaxMS * (1 / n2dTimeScale);
 
 			if (m_PatrolIndex == -1 && (int)m_PatrolPoints.size() > 0)
 			{
