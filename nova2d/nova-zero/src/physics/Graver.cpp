@@ -151,6 +151,9 @@ namespace novazero
 
 		void Graver::DestroySelf()
 		{
+			if (m_Destroyed) return;
+			m_Destroyed = true;
+
 			n2dRemoveDeleteable(m_CleanID);
 			Game::s_SceneManager->s_GraverManager->RemoveGraver(this);
 			CleanUpdaters();

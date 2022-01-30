@@ -9,6 +9,7 @@
 #include "../core/Deleteable.h"
 #include "../physics/GraverManager.h"
 #include "../utils/TweenManager.h"
+#include "../physics/TimeEffectorManager.h"
 
 namespace novazero
 {
@@ -51,6 +52,7 @@ namespace novazero
 			static CollisionManager* s_CollisionManager;
 			static GraverManager* s_GraverManager;
 			static TweenManager* s_TweenManager;
+			static TimeEffectorManager* s_TimeEffectorManager;
 
 			static std::map<unsigned int, f_VoidFunction> s_Updaters;
 			static std::map<unsigned int, bool> s_UpdaterErasers;

@@ -3,6 +3,7 @@
 #include "../enemies/Leader.h"
 #include "maths/Vec2Int.h"
 #include "graphics/Text.h"
+#include "physics/TimeEffector.h"
 
 namespace spaceshooter
 {
@@ -32,6 +33,9 @@ namespace spaceshooter
 		const int scoreSize = 128;
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
 		n2dAddDrawable(m_ScoreText, 0);
+
+		TimeEffector* te = new TimeEffector(Vec2Int(Game::s_Width / 2, Game::s_Height - 256), 20.0f, 80);
+		te->ConfigureTimeEffectorVisible(false, "white", "white", 0);
 		
 		AddObjectToCleanUp(player);
 		AddObjectToCleanUp(leader);

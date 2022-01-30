@@ -16,6 +16,7 @@ namespace novazero
 		CollisionManager* SceneManager::s_CollisionManager;
 		GraverManager* SceneManager::s_GraverManager;
 		TweenManager* SceneManager::s_TweenManager;
+		TimeEffectorManager* SceneManager::s_TimeEffectorManager;
 
 		SceneManager::SceneManager()
 		{
@@ -23,6 +24,7 @@ namespace novazero
 			s_ReferenceManager = new ReferenceManager();
 			s_GraverManager = new GraverManager();
 			s_TweenManager = new TweenManager();
+			s_TimeEffectorManager = new TimeEffectorManager();
 		}
 
 		SceneManager::~SceneManager()
@@ -34,12 +36,22 @@ namespace novazero
 				delete s_CollisionManager;
 
 			if (s_GraverManager)
+			{
+				s_GraverManager->ClearGravers();
 				delete s_GraverManager;
+			}
 
 			if (s_TweenManager)
 			{
 				s_TweenManager->ClearTweens();
 				delete s_TweenManager;
+			}
+
+			if (s_TimeEffectorManager)
+			{
+				s_TimeEffectorManager->ClearEffectors();
+				s_TimeEffectorManager->ClearEffected();
+				delete s_TimeEffectorManager;
 			}
 		}
 
@@ -92,6 +104,8 @@ namespace novazero
 			s_Deleteables.clear();
 			s_GraverManager->ClearGravers();
 			s_TweenManager->ClearTweens();
+			s_TimeEffectorManager->ClearEffectors();
+			s_TimeEffectorManager->ClearEffected();
 
 			m_CurrentScene = loadScene;
 			
@@ -149,6 +163,7 @@ namespace novazero
 			s_CollisionManager->Update();
 			s_GraverManager->Update();
 			s_TweenManager->Update();
+			s_TimeEffectorManager->Update();
 		}
 
 		void SceneManager::ProcessUpdaters()

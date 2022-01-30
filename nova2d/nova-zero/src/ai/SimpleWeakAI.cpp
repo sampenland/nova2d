@@ -110,11 +110,11 @@ namespace novazero
 			if (m_DelayMS > 0)
 			{
 				auto d = n2dDeltaTime();
-				m_DelayMS = (int)(m_DelayMS - d);
+				m_DelayMS = (float)(m_DelayMS - d);
 				return;
 			}
 
-			m_DelayMS = m_DelayMaxMS * (1 / n2dTimeScale);
+			m_DelayMS = (float)m_DelayMaxMS * (float)(1 / n2dTimeScale);
 
 			if (m_PatrolIndex == -1 && (int)m_PatrolPoints.size() > 0)
 			{

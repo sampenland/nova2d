@@ -21,7 +21,7 @@ namespace novazero
 			EnableXbox360(false);
 		}
 
-		void UDRLController::ConfigureMove(int moveSpeed)
+		void UDRLController::ConfigureMove(float moveSpeed)
 		{
 			m_MoveSpeed = moveSpeed;
 		}

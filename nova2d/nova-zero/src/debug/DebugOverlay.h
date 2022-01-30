@@ -24,6 +24,8 @@ namespace novazero
 			Text* m_References = nullptr;
 			Text* m_Gravers = nullptr;
 			Text* m_Tweens = nullptr;
+			Text* m_TimeEffects = nullptr;
+			Text* m_TimeEffecteds = nullptr;
 
 		public:
 

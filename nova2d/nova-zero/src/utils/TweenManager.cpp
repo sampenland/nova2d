@@ -88,6 +88,8 @@ namespace novazero
 			{
 				m_Timers.erase(removeIDs[i]);
 			}
+
+			m_Timers.clear();
 		}
 	}
 }

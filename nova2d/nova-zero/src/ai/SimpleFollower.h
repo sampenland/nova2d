@@ -6,6 +6,7 @@
 #include "../core/BoundUser.h"
 #include "../core/TimerWatcher.h"
 #include "../physics/Collider.h"
+#include "../physics/TimeEffected.h"
 
 namespace novazero
 {
@@ -20,7 +21,8 @@ namespace novazero
 			public EventListener,
 			public BoundUser,
 			public TimerWatcher,
-			public Collider
+			public Collider,
+			public TimeEffected
 		{
 
 		private:
@@ -42,7 +44,6 @@ namespace novazero
 		public:
 
 			SimpleFollower(Positional* target, const float moveUpdateDelay);
-			~SimpleFollower();
 
 			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
 			Sprite* GetSprite() { return m_Sprite; }

@@ -38,7 +38,7 @@ namespace novazero
 
 			int m_LoopStartIndex = 0;
 			std::function<void()> f_OnPatrolComplete = nullptr;
-			int m_DelayMS = 1000;
+			float m_DelayMS = 1000;
 			int m_DelayMaxMS = 1000;
 
 		protected:

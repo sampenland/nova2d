@@ -76,6 +76,18 @@ Returns total deleteables (similar to drawables)
 #define n2dDebugDeleteableCount() novazero::core::SceneManager::GetDeleteableCount();
 
 /*
+nova2d Get total time effectors
+Returns total time effectors (similar to gravers)
+*/
+#define n2dDebugTimeEffectorsCount() novazero::core::Game::s_SceneManager->s_TimeEffectorManager->GetEffectorCount();
+
+/*
+nova2d Get total time effecteds
+Returns total time effected objects (similar to effectors)
+*/
+#define n2dDebugTimeEffectedCount() novazero::core::Game::s_SceneManager->s_TimeEffectorManager->GetEffectedCount();
+
+/*
 nova2d Get total referenced
 Returns total referenced objs (similar to deletables)
 */

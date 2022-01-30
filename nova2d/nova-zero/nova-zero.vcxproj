@@ -128,7 +128,9 @@
     <ClCompile Include="src\graphics\gfx\SDL2_rotozoom.c" />
     <ClCompile Include="src\graphics\Text.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
+    <ClCompile Include="src\physics\TimeEffected.cpp" />
     <ClCompile Include="src\physics\TimeEffector.cpp" />
+    <ClCompile Include="src\physics\TimeEffectorManager.cpp" />
     <ClCompile Include="src\utils\TweenManager.cpp" />
     <ClCompile Include="src\physics\Collider.cpp" />
     <ClCompile Include="src\physics\CollisionManager.cpp" />
@@ -176,7 +178,9 @@
     <ClInclude Include="src\graphics\Text.h" />
     <ClInclude Include="src\input\Inputable.h" />
     <ClInclude Include="src\input\TextInput.h" />
+    <ClInclude Include="src\physics\TimeEffected.h" />
     <ClInclude Include="src\physics\TimeEffector.h" />
+    <ClInclude Include="src\physics\TimeEffectorManager.h" />
     <ClInclude Include="src\utils\TweenManager.h" />
     <ClInclude Include="src\physics\Collider.h" />
     <ClInclude Include="src\physics\Collision.h" />

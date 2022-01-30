@@ -38,6 +38,12 @@ namespace novazero
 
 			m_Tweens = new Text("font3", "Twa: 0", "white", Rect(m_Position.x, m_Position.y + 132,
 				100, 20), 0);
+			
+			m_TimeEffects = new Text("font3", "TimE: 0", "white", Rect(m_Position.x, m_Position.y + 154,
+				100, 20), 0);
+
+			m_TimeEffecteds = new Text("font3", "TiEmd: 0", "white", Rect(m_Position.x, m_Position.y + 176,
+				100, 20), 0);
 
 			n2dAddDrawable(this, 0);
 
@@ -87,6 +93,13 @@ namespace novazero
 
 			auto tweens = n2dDebugTweenCount();
 			m_Tweens->UpdateText("Twa: " + std::to_string(tweens));
+
+			auto timeEffectors = n2dDebugTimeEffectorsCount();
+			m_TimeEffects->UpdateText("TimE: " + std::to_string(timeEffectors));
+
+			auto timeEffecteds = n2dDebugTimeEffectedCount();
+			m_TimeEffecteds->UpdateText("TimD: " + std::to_string(timeEffecteds));
+
 		}
 		
 		void DebugOverlay::Draw()

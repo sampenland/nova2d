@@ -15,9 +15,6 @@ namespace novazero
 
 			std::vector<Graver*> m_AllGravers;
 
-			// int key = graver id and float value = force magnitude
-			std::map<unsigned int, Vec2Int> m_GraverMags;
-
 		public:
 
 			GraverManager();

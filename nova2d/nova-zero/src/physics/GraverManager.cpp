@@ -52,6 +52,7 @@ namespace novazero
 			{
 				m_AllGravers[i]->DestroySelf();
 			}
+			m_AllGravers.clear();
 		}
 
 		void GraverManager::UpdateGravers()
@@ -64,8 +65,6 @@ namespace novazero
 
 		void GraverManager::SumGroups()
 		{
-			m_GraverMags.clear();
-
 			for (size_t i = 0; i < m_AllGravers.size(); i++)
 			{
 				Graver& graver = *m_AllGravers[i];
