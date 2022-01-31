@@ -13,8 +13,8 @@ namespace novazero
 			m_ID = n2dGameGetID();
 			m_DeleteName = "text_" + std::to_string(m_ID);
 
-			m_Position.x = drawRect.x;
-			m_Position.y = drawRect.y;
+			m_Position.x = (float)drawRect.x;
+			m_Position.y = (float)drawRect.y;
 			m_Layer = layer;
 
 			m_TextColor = colorName;
@@ -41,11 +41,6 @@ namespace novazero
 		{
 			m_Layer = layer;
 			n2dAddDrawable(this, m_Layer);
-		}
-
-		Text::~Text()
-		{
-			
 		}
 
 		void Text::UpdateText(std::string newText)
@@ -99,8 +94,8 @@ namespace novazero
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
-			m_DrawRect.x = GetX();
-			m_DrawRect.y = GetY();
+			m_DrawRect.x = (int)GetX();
+			m_DrawRect.y = (int)GetY();
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
 		}

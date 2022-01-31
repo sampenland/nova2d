@@ -19,7 +19,7 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "pawn");
 		ConfigureUsingBounds(false, false);
 
-		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
+		m_HealthBar = new SimpleStatBar(false, (int)m_Sprite->GetX(), (int)m_Sprite->GetY() - 2,
 			16, 4, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
@@ -34,7 +34,7 @@ namespace spaceshooter
 	{
 		if (!m_Alive) return;
 
-		m_HealthBar->Update(m_Health*2, m_Sprite->GetX(), m_Sprite->GetY() - 8);
+		m_HealthBar->Update(m_Health*2, (int)m_Sprite->GetX(), (int)m_Sprite->GetY() - 8);
 
 		if (m_DelayShoot < 0)
 		{
@@ -79,8 +79,8 @@ namespace spaceshooter
 		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
 		m_DelayShoot = r;
 
-		PawnBullet* bullet = new PawnBullet(Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8),
-			Vec2Int(m_Sprite->GetX(), Game::s_Height + 32),
+		PawnBullet* bullet = new PawnBullet(Vec2Int((int)m_Sprite->GetX(), (int)m_Sprite->GetY() + 8),
+			Vec2Int((int)m_Sprite->GetX(), (int)Game::s_Height + 32),
 			2.0f, m_Sprite);
 	}
 

@@ -29,7 +29,7 @@ namespace spaceshooter
 		int startY = 8;
 		for (int i = 0; i < m_Lives; i++)
 		{
-			Sprite* life = new Sprite("player", Vec2(startX + (i * 16), startY), Vec2Int(16, 16), 0);
+			Sprite* life = new Sprite("player", Vec2((float)startX + (i * 16), (float)startY), Vec2Int(16, 16), 0);
 			m_LifeSprites.push_back(life);
 		}
 
@@ -136,7 +136,7 @@ namespace spaceshooter
 	{
 		return;
 		// create and shoot bullet
-		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight() - 64), 4);
+		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetHeight()), Vec2Int((int)GetX(), (int)-GetHeight() - 64), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
