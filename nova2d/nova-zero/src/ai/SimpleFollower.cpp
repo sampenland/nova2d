@@ -105,7 +105,7 @@ namespace novazero
 				}
 			}
 
-			m_Sprite->SetPosition(Vec2Int(newX, newY));
+			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
 
 		}
 

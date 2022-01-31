@@ -1,7 +1,9 @@
 #pragma once
 #include "../graphics/Drawable.h"
 #include "../core/Deleteable.h"
-#include "../graphics/gfx/SDL2_gfxPrimitives.h"
+#include "../maths/Rect.h"
+
+#include "SDL.h"
 
 namespace novazero
 {
@@ -9,15 +11,18 @@ namespace novazero
 	{
 		using namespace graphics;
 		using namespace core;
+		using namespace maths;
 
-		class DrawCircle :
+		class DrawRect :
 			public Drawable,
 			public Deleteable
 		{
 
 		private:
 
-			int m_Radius = 1;
+			SDL_Rect* m_Fill;
+			SDL_Rect* m_Outline;
+
 			int m_CleanID = 0;
 			bool m_Filled = false;
 			std::string m_OutlineColor = "";
@@ -25,7 +30,8 @@ namespace novazero
 
 		public:
 
-			DrawCircle(std::string filleColor, std::string outlineColor, bool filled, int x, int y, int radius, char layer);
+			DrawRect(std::string fillColor, std::string outlineColor,
+				bool filled, Rect rect, int outlineThickness, char layer);
 
 			void Draw() override;
 			void DestroySelf();

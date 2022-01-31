@@ -34,7 +34,7 @@ namespace spaceshooter
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
 		n2dAddDrawable(m_ScoreText, 0);
 
-		TimeEffector* te = new TimeEffector(Vec2Int(Game::s_Width / 2, Game::s_Height - 256), 0.25f, 80);
+		TimeEffector* te = new TimeEffector(Vec2Int(Game::s_Width / 2, Game::s_Height - 256), 0.25f, 0, Rect(0, 0, 256, 128), TimeEffectorType::Rect);
 		te->ConfigureTimeEffectorVisible(false, "white", "white", 0);
 		
 		AddObjectToCleanUp(player);

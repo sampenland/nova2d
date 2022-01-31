@@ -94,7 +94,7 @@ namespace novazero
 		void DrawLayers::DrawAllLayers() const
 		{
 			// Reverse draw
-			for (int i = MAX_LAYERS - 1; i >= 0; i--)
+			for (int i = 0; i < MAX_LAYERS; i++)
 			{
 				DrawLayer(i);
 			}

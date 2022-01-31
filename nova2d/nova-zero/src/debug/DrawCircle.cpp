@@ -55,7 +55,5 @@ namespace novazero
 				LOG(LVL_WARNING, "Unable to draw circle.");
 			}
 		}
-
-		DrawCircle::~DrawCircle() {};
 	}
 }
