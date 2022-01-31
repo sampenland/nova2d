@@ -54,8 +54,8 @@ namespace novazero
 				bool outOfBounds = false;
 				if (sprite)
 				{
-					int x = sprite->GetX();
-					int y = sprite->GetY();
+					float x = sprite->GetX();
+					float y = sprite->GetY();
 					int w = sprite->GetWidth();
 					int h = sprite->GetHeight();
 

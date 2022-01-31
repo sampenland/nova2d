@@ -27,7 +27,7 @@ namespace novazero
 			SetEnabled(true);
 		}
 
-		void SimpleBulletController::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+		void SimpleBulletController::AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			m_DeleteName = assetName;
 			m_Sprite = new Sprite(assetName, position, size, layer);
@@ -72,7 +72,7 @@ namespace novazero
 			if (newX - (int)newX > 0) newX = ceil(newX);
 			if (newY - (int)newY > 0) newY = ceil(newY);
 
-			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
+			m_Sprite->SetPosition(Vec2(newX, newY));
 
 		}
 

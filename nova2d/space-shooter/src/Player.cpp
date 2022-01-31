@@ -10,7 +10,7 @@ namespace spaceshooter
 	using namespace novazero::ai;
 	using namespace novazero::input;
 
-	Player::Player(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+	Player::Player(std::string assetName, Vec2 position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
@@ -29,7 +29,7 @@ namespace spaceshooter
 		int startY = 8;
 		for (int i = 0; i < m_Lives; i++)
 		{
-			Sprite* life = new Sprite("player", Vec2Int(startX + (i * 16), startY), Vec2Int(16, 16), 0);
+			Sprite* life = new Sprite("player", Vec2(startX + (i * 16), startY), Vec2Int(16, 16), 0);
 			m_LifeSprites.push_back(life);
 		}
 
@@ -138,7 +138,7 @@ namespace spaceshooter
 		// create and shoot bullet
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(GetX(), -GetHeight() - 64), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
-		bullet->AddSprite("player-bullet", Vec2Int(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
+		bullet->AddSprite("player-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 

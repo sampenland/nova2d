@@ -13,7 +13,7 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+		Sprite::Sprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect())
 		{
 			SetPosition(position);
@@ -97,8 +97,8 @@ namespace novazero
 			m_SrcRect.x = m_CurrentFrame * m_FrameSize.x;
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = m_Position.x;
-			m_DestRect.y = m_Position.y;
+			m_DestRect.x = (int)m_Position.x;
+			m_DestRect.y = (int)m_Position.y;
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, SDL_FLIP_NONE);
 		}

@@ -7,7 +7,7 @@ namespace novazero
 	{
 		using namespace core;
 
-		TimeEffector::TimeEffector(Vec2Int position, float timeEffect, int effectRadius, 
+		TimeEffector::TimeEffector(Vec2 position, float timeEffect, int effectRadius, 
 			Rect effectRect, TimeEffectorType type) : Deleteable("timeEffector_")
 		{
 			m_ID = n2dGameGetID();
@@ -40,15 +40,14 @@ namespace novazero
 				if (m_EffectCircle)
 					m_EffectCircle->DestroySelf();
 
-				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled,
-					m_Position.x, m_Position.y, m_EffectRadius, layer);
+				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, m_EffectRadius, layer);
 			}
 			else
 			{
 				if (m_EffectRect)
 					m_EffectRect->DestroySelf();
 
-				m_EffectRect = new DrawRect(fillColor, outlineColor, filled, Rect(m_Position.x, m_Position.y, m_EffectRectHolder->w, m_EffectRectHolder->h), 2, layer);
+				m_EffectRect = new DrawRect(fillColor, outlineColor, filled, Rect((int)m_Position.x, (int)m_Position.y, m_EffectRectHolder->w, m_EffectRectHolder->h), 2, layer);
 				m_EffectRect->SetSize(Vec2Int(m_EffectRectHolder->w, m_EffectRectHolder->h));
 			}			
 		}
@@ -64,8 +63,8 @@ namespace novazero
 
 		bool TimeEffector::TimeEffectedWithinEffect(const TimeEffected& effected)
 		{
-			Vec2Int otherCenter = effected.m_Physical->GetCenter();
-			Vec2Int selfCenter = GetCenter();
+			Vec2 otherCenter = effected.m_Physical->GetCenter();
+			Vec2 selfCenter = GetCenter();
 
 			if (m_IsCircleEffect)
 			{

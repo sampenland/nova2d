@@ -43,9 +43,9 @@ namespace novazero
 
 		public:
 
-			SimpleFollower(Positional* target, const float moveUpdateDelay);
+			SimpleFollower(Positional* target, const float moveUpdateDelayMS);
 
-			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
+			void AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
 			Sprite* GetSprite() { return m_Sprite; }
 
 			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));

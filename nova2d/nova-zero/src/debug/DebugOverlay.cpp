@@ -16,44 +16,42 @@ namespace novazero
 		{
 			m_ID = n2dGameGetID();
 
-			m_Position = position;
+			int x = (int)m_Position.x;
+			int y = (int)m_Position.y;
 
-			m_FPS = new Text("font3", "FPS: 60", "white", Rect(m_Position.x, m_Position.y,
+			m_Position = Vec2((float)x, (float)y);
+
+			m_FPS = new Text("font3", "FPS: 60", "white", Rect(x, y,
 				100, 20), 0);
 
-			m_Drawables = new Text("font3", "Dra: 0", "white", Rect(m_Position.x, m_Position.y + 22,
+			m_Drawables = new Text("font3", "Dra: 0", "white", Rect(x, y + 22,
 				100, 20), 0);
 
-			m_Updaters = new Text("font3", "Ups: 0", "white", Rect(m_Position.x, m_Position.y + 44,
+			m_Updaters = new Text("font3", "Ups: 0", "white", Rect(x, y + 44,
 				100, 20), 0);
 			
-			m_Deletables = new Text("font3", "Del: 0", "white", Rect(m_Position.x, m_Position.y + 66,
+			m_Deletables = new Text("font3", "Del: 0", "white", Rect(x, y + 66,
 				100, 20), 0);
 
-			m_References = new Text("font3", "Ref: 0", "white", Rect(m_Position.x, m_Position.y + 88,
+			m_References = new Text("font3", "Ref: 0", "white", Rect(x, y + 88,
 				100, 20), 0);
 
-			m_Gravers = new Text("font3", "Gra: 0", "white", Rect(m_Position.x, m_Position.y + 110,
+			m_Gravers = new Text("font3", "Gra: 0", "white", Rect(x, y + 110,
 				100, 20), 0);
 
-			m_Tweens = new Text("font3", "Twa: 0", "white", Rect(m_Position.x, m_Position.y + 132,
+			m_Tweens = new Text("font3", "Twa: 0", "white", Rect(x, y + 132,
 				100, 20), 0);
 			
-			m_TimeEffects = new Text("font3", "TimE: 0", "white", Rect(m_Position.x, m_Position.y + 154,
+			m_TimeEffects = new Text("font3", "TimE: 0", "white", Rect(x, y + 154,
 				100, 20), 0);
 
-			m_TimeEffecteds = new Text("font3", "TiEmd: 0", "white", Rect(m_Position.x, m_Position.y + 176,
+			m_TimeEffecteds = new Text("font3", "TiEmd: 0", "white", Rect(x, y + 176,
 				100, 20), 0);
 
 			n2dAddDrawable(this, 0);
 
 			auto cleanID = n2dAddUpdater(DebugOverlay::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
-
-		}
-
-		DebugOverlay::~DebugOverlay()
-		{
 
 		}
 

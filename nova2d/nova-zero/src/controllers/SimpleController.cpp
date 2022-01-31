@@ -8,7 +8,7 @@ namespace novazero
 		using namespace utils;
 		using namespace core;
 
-		SimpleController::SimpleController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+		SimpleController::SimpleController(std::string assetName, Vec2 position, Vec2Int size, char layer)
 			: EventListener()
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
@@ -27,18 +27,24 @@ namespace novazero
 			m_MoveSpeed = mSpeed;
 		}
 
-		void SimpleController::SetPosition(int x, int y)
+		void SimpleController::SetPositionInt(int x, int y)
+		{
+			m_Sprite->SetX((float)x);
+			m_Sprite->SetY((float)y);
+		}
+
+		void SimpleController::SetPosition(float x, float y)
 		{
 			m_Sprite->SetX(x);
 			m_Sprite->SetY(y);
 		}
 
-		void SimpleController::SetX(int x)
+		void SimpleController::SetX(float x)
 		{
 			m_Sprite->SetX(x);
 		}
 
-		void SimpleController::SetY(int y)
+		void SimpleController::SetY(float y)
 		{
 			m_Sprite->SetY(y);
 		}

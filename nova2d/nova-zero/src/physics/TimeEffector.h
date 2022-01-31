@@ -43,7 +43,7 @@ namespace novazero
 		protected:
 		public:
 
-			TimeEffector(Vec2Int position, float timeEffect, int effectRadius, Rect effectRect, TimeEffectorType type);
+			TimeEffector(Vec2 position, float timeEffect, int effectRadius, Rect effectRect, TimeEffectorType type);
 			
 			void ConfigureTimeEffector(float timeEffect);
 

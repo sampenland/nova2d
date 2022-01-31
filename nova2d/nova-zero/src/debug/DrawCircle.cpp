@@ -10,7 +10,7 @@ namespace novazero
 		using namespace graphics;
 
 		DrawCircle::DrawCircle(std::string fillColor, std::string outlineColor, 
-			bool filled, int x, int y, int radius, char layer)
+			bool filled, Vec2 position, int radius, char layer)
 			: Drawable(), Deleteable("circle_")
 		{
 			m_DeleteName = "circle_" + std::to_string(m_ID);
@@ -19,7 +19,7 @@ namespace novazero
 			m_OutlineColor = outlineColor;
 			m_Filled = filled;
 
-			SetPosition(Vec2Int(x, y));
+			SetPosition(position);
 			m_Radius = radius;
 
 			n2dAddDrawable(this, layer);
@@ -36,17 +36,20 @@ namespace novazero
 
 		void DrawCircle::Draw()
 		{
+			int x = (int)GetX();
+			int y = (int)GetY();
+
 			int r = 1;
 			if (m_Filled)
 			{
 				Color* fc = n2dGetColor(m_FillColor);
-				r = filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(), GetX(), GetY(), 
+				r = filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(), x, y, 
 					m_Radius, fc->r, fc->g, fc->b, fc->a);
 			}
 			else
 			{
 				Color* oc = n2dGetColor(m_OutlineColor);
-				r = circleRGBA(Game::s_Renderer->GetSDLRenderer(), GetX(), GetY(),
+				r = circleRGBA(Game::s_Renderer->GetSDLRenderer(), x, y,
 					m_Radius, oc->r, oc->g, oc->b, oc->a);
 			}
 

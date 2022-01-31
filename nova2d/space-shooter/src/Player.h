@@ -30,7 +30,7 @@ namespace spaceshooter
 
 	public:
 
-		Player(std::string assetName, Vec2Int position, Vec2Int size, char layer);
+		Player(std::string assetName, Vec2 position, Vec2Int size, char layer);
 		~Player();
 
 		Sprite* GetSprite() const { return m_Sprite; }

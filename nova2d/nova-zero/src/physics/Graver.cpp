@@ -13,8 +13,8 @@ namespace novazero
 			m_ID = n2dGameGetID();
 
 			m_GraverEffectRadius = 1;
-			m_GraverEffectMagnitude = Vec2Int(0, 0);
-			m_GraverInfluencedMag = Vec2Int(0, 0);
+			m_GraverEffectMagnitude = Vec2(0, 0);
+			m_GraverInfluencedMag = Vec2(0, 0);
 			SetEnabled(false);
 
 			m_CleanID = n2dAddDeleteable(this);
@@ -26,7 +26,7 @@ namespace novazero
 		// implosion and explosion will use the vec2int.x value for strength
 		// others use vec2int
 		Graver::Graver(GraverType type, int effectRadius, 
-			Vec2Int defaultGraverEffectMag, Positional* physicalHook) : Deleteable("graver")
+			Vec2 defaultGraverEffectMag, Positional* physicalHook) : Deleteable("graver")
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "graver_" + std::to_string(m_ID);
@@ -35,7 +35,7 @@ namespace novazero
 
 			m_GraverEffectRadius = effectRadius;
 			m_GraverEffectMagnitude = defaultGraverEffectMag;
-			m_GraverInfluencedMag = Vec2Int(0, 0);
+			m_GraverInfluencedMag = Vec2(0, 0);
 			m_Physical = physicalHook;
 
 			if (m_Physical)
@@ -53,13 +53,13 @@ namespace novazero
 		// implosion and explosion will use the vec2int.x value for strength
 		// others use vec2int
 		void Graver::ConfigureGraver(GraverType type, int effectRadius, 
-			Vec2Int defaultGraverEffectMag, Positional* physicalHook)
+			Vec2 defaultGraverEffectMag, Positional* physicalHook)
 		{
 			m_GraverType = type;
 
 			m_GraverEffectRadius = effectRadius;
 			m_GraverEffectMagnitude = defaultGraverEffectMag;
-			m_GraverInfluencedMag = Vec2Int(0, 0);
+			m_GraverInfluencedMag = Vec2(0, 0);
 			m_Physical = physicalHook;
 
 			if (m_Physical)
@@ -79,19 +79,21 @@ namespace novazero
 				return;
 			}
 
-			Vec2Int currentPos = m_Physical->GetPosition();
+			Vec2 currentPos = m_Physical->GetPosition();
 
 			if (m_LookAtTarget && (m_GraverInfluencedMag.x > 0 || m_GraverInfluencedMag.y > 0))
 			{
-				int lookAtAngle = Vec2Int::LookAtAngle(currentPos, 
-					m_Physical->GetPosition() + m_GraverInfluencedMag, -90);
+				Vec2Int currentPosInt = m_Physical->GetPositionInt();
+				Vec2Int m_GraverInfluencedMagInt = Vec2Int((int)m_GraverInfluencedMag.x, (int)m_GraverInfluencedMag.y);
+				int lookAtAngle = Vec2Int::LookAtAngle(currentPosInt,
+					m_Physical->GetPositionInt() + m_GraverInfluencedMagInt, -90);
 
 				m_Physical->GetLinkedSprite()->SetAngle(lookAtAngle);
 			}
 
 			float ix = (float)m_GraverInfluencedMag.x * n2dTimeScale;
 			float iy = (float)m_GraverInfluencedMag.y * n2dTimeScale;
-			m_GraverInfluencedMag = Vec2Int((int)ix, (int)iy);
+			m_GraverInfluencedMag = Vec2(ix, iy);
 			m_Physical->SetPosition(currentPos + m_GraverInfluencedMag);
 			
 			if (m_EffectCircle)
@@ -105,8 +107,7 @@ namespace novazero
 			if (m_EffectCircle)
 				m_EffectCircle->DestroySelf();
 
-			m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Physical->GetX(), 
-				m_Physical->GetY(), radius, layer);
+			m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Physical->GetPosition(), radius, layer);
 
 		}
 
@@ -137,8 +138,8 @@ namespace novazero
 		{
 			Positional& hook = *graver.m_Physical;
 
-			Vec2Int otherCenter = hook.GetCenter();
-			Vec2Int selfCenter = m_Physical->GetCenter();
+			Vec2 otherCenter = hook.GetCenter();
+			Vec2 selfCenter = m_Physical->GetCenter();
 
 			return std::pow(otherCenter.x - selfCenter.x, 2) +
 				std::pow(otherCenter.y - selfCenter.y, 2) < std::pow(m_GraverEffectRadius, 2);

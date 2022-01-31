@@ -23,7 +23,7 @@ namespace novazero
 
 		public:
 
-			UDRLController(std::string spriteSheet, Vec2Int position, Vec2Int size, char layer);
+			UDRLController(std::string spriteSheet, Vec2 position, Vec2Int size, char layer);
 			~UDRLController();
 
 			void ConfigureMove(float moveSpeed);

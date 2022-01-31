@@ -6,7 +6,7 @@ namespace novazero
 	{
 		using namespace input;
 
-		UDRLController::UDRLController(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+		UDRLController::UDRLController(std::string assetName, Vec2 position, Vec2Int size, char layer)
 			: SimpleController(assetName, position, size, layer)
 		{
 			EnableWASD(true);
@@ -110,49 +110,49 @@ namespace novazero
 
 		void UDRLController::MoveUp()
 		{
-			Vec2Int pos = GetPosition();
+			Vec2 pos = GetPosition();
 			float newY = pos.y - (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
 
-			if (IsWithinMoveBounds(pos.x, (int)newY))
+			if (IsWithinMoveBounds((int)pos.x, (int)newY))
 			{
-				SetY((int)newY);
+				SetY(newY);
 			}
 		}
 
 		void UDRLController::MoveDown()
 		{
-			Vec2Int pos = GetPosition();
+			Vec2 pos = GetPosition();
 			float newY = pos.y + (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (newY - (int)newY > 0) newY = ceil(newY);
 
-			if (IsWithinMoveBounds(pos.x, (int)newY))
+			if (IsWithinMoveBounds((int)pos.x, (int)newY))
 			{
-				SetY((int)newY);
+				SetY(newY);
 			}
 		}
 
 		void UDRLController::MoveRight()
 		{
-			Vec2Int pos = GetPosition();
+			Vec2 pos = GetPosition();
 			float newX = pos.x + (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (newX - (int)newX > 0) newX = ceil(newX);
 
-			if (IsWithinMoveBounds((int)newX, pos.y))
+			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
-				SetX((int)newX);
+				SetX(newX);
 			}
 		}
 
 		void UDRLController::MoveLeft()
 		{
-			Vec2Int pos = GetPosition();
+			Vec2 pos = GetPosition();
 			float newX = pos.x - (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
 
-			if (IsWithinMoveBounds((int)newX, pos.y))
+			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
-				SetX((int)newX);
+				SetX(newX);
 			}
 		}
 

@@ -4,17 +4,17 @@
 
 namespace spaceshooter
 {
-	Leader::Leader(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+	Leader::Leader(std::string assetName, Vec2 position, Vec2Int size, char layer)
 	{
 		AddSprite(assetName, position, size, layer);
 		
 		int forwardMove = 96;
-		AddPatrolPointWithFunction(Vec2Int(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
+		AddPatrolPointWithFunction(Vec2(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 
-		AddPatrolPointWithFunction(Vec2Int(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
-		AddPatrolPointWithFunction(Vec2Int(position.x - 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
-		AddPatrolPointWithFunction(Vec2Int(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
-		AddPatrolPointWithFunction(Vec2Int(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
+		AddPatrolPointWithFunction(Vec2(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
+		AddPatrolPointWithFunction(Vec2(position.x - 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
+		AddPatrolPointWithFunction(Vec2(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
+		AddPatrolPointWithFunction(Vec2(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 		
 		EnableAI(true);
 		Configure(5, true);
@@ -26,7 +26,7 @@ namespace spaceshooter
 		ConfigureUsingBounds(false, false);
 		ConfigureCollider(m_Sprite, 0, "leader");
 
-		m_HealthBar = new SimpleStatBar(false, m_Sprite->GetX(), m_Sprite->GetY() - 2,
+		m_HealthBar = new SimpleStatBar(false, (int)m_Sprite->GetX(), (int)m_Sprite->GetY() - 2,
 			64, 12, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
@@ -66,16 +66,16 @@ namespace spaceshooter
 		{
 			for (int col = -cols+1; col < cols; col++)
 			{
-				int	offsetX = col * 96;
-				int offsetY = -row * 32;
+				float offsetX = (float)col * 96;
+				float offsetY = (float)-row * 32;
 
-				Pawn* pawn = new Pawn("pawn", Vec2Int(((int)Game::s_Width / 2) + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
+				Pawn* pawn = new Pawn("pawn", Vec2((Game::s_Width / 2) + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
 				offsetY += moveForward;
-				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
-				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX() - 200, offsetY), pawn->GetLinearPatrolMove());
-				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
-				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX() + 200, offsetY), pawn->GetLinearPatrolMove());
-				pawn->AddPatrolPointWithFunction(Vec2Int(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX() - 200, offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX() + 200, offsetY), pawn->GetLinearPatrolMove());
+				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
 				pawn->EnableAI(true);
 				pawn->Configure(20, true);
 				float rMin = n2dRandomFloat(1000, 3000);
@@ -99,8 +99,8 @@ namespace spaceshooter
 
 			p.ClearPatrol();
 
-			int x = p.GetX();
-			p.AddPatrolPointWithFunction(Vec2Int(x, Game::s_Height + 48), std::bind(p.GetLinearPatrolMove()));
+			float x = p.GetX();
+			p.AddPatrolPointWithFunction(Vec2(x, (float)Game::s_Height + 48), std::bind(p.GetLinearPatrolMove()));
 			p.Configure(250, false);
 			p.EnableAI(true);
 		}
@@ -109,18 +109,18 @@ namespace spaceshooter
 
 	void Leader::HealthUpdate()
 	{
-		m_HealthBar->Update(m_Health, m_Sprite->GetX() - 24, m_Sprite->GetY() - 16);
+		m_HealthBar->Update(m_Health, (int)m_Sprite->GetX() - 24, (int)m_Sprite->GetY() - 16);
 	}
 
 	void Leader::DeployBomb()
 	{
 		SimpleBulletController* bomb = new
 			SimpleBulletController(
-				Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 8),
-				Vec2Int(m_Sprite->GetX(), Game::s_Height + 32),
+				Vec2Int((int)m_Sprite->GetX(), (int)m_Sprite->GetY() + 8),
+				Vec2Int((int)m_Sprite->GetX(), (int)Game::s_Height + 32),
 				2.0f);
 
-		bomb->AddSprite("bomb", Vec2Int(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
+		bomb->AddSprite("bomb", Vec2(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
 		bomb->GetSprite()->ConfigureAnimation(0, 4, 1000, true);
 		bomb->ConfigureCollider(bomb->GetSprite(), 0, "bomb");
 		bomb->Configure(2, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
@@ -148,10 +148,10 @@ namespace spaceshooter
 		m_PatrolMemory = m_PatrolPoints;
 		m_PatrolPoints.clear();
 
-		AddPatrolPointWithFunction(Vec2Int(GetX(), GetY() + 128),
+		AddPatrolPointWithFunction(Vec2(GetX(), GetY() + 128),
 			std::bind(&SimpleWeakAI::LinearPatrolMove, this));
 		
-		AddPatrolPointWithFunction(Vec2Int(GetX(), GetY()), 
+		AddPatrolPointWithFunction(Vec2(GetX(), GetY()), 
 			std::bind(&SimpleWeakAI::LinearPatrolMove, this));
 		
 		ConfigureOnPatrolComplete(std::bind(&Leader::RememberOldMoving, this));
@@ -177,11 +177,6 @@ namespace spaceshooter
 		explosion->ConfigureAnimationEnd(*animEnd);
 	}
 
-	Leader::~Leader()
-	{
-		
-	}
-
 	void Leader::ShootUpdate()
 	{
 		if (!m_Alive) return;
@@ -201,11 +196,11 @@ namespace spaceshooter
 	{
 		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
-		bullet->AddSprite("leader-bullet", Vec2Int(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
+		bullet->AddSprite("leader-bullet", Vec2(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");
 		bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 		auto delayStart = n2dRandomFloat(0, 4000);
-		bullet->Configure(1, delayStart, Vec2Int(GetX(), Game::s_Height + 32));
+		bullet->Configure(1, delayStart, Vec2Int((int)GetX(), (int)Game::s_Height + 32));
 		bullet->ConfigureRotation(true, -90);
 		
 		auto onCollision = new auto ([](Collision* collision)

@@ -73,7 +73,7 @@ namespace novazero
 				for (size_t effGravIdx = 0; effGravIdx < graver.m_EffectedGravers.size(); effGravIdx++)
 				{
 					Graver& effGraver = *graver.m_EffectedGravers[effGravIdx];
-					effGraver.m_GraverInfluencedMag = Vec2Int(0, 0);
+					effGraver.m_GraverInfluencedMag = Vec2(0, 0);
 				}
 
 				// Sum mag
@@ -83,12 +83,12 @@ namespace novazero
 					
 					if (!graver.GraverWithinEffect(effGraver)) continue; // skip if out of range
 
-					Vec2Int moveBy(0, 0);
+					Vec2 moveBy(0, 0);
 					switch (graver.m_GraverType)
 					{
 					case GraverType::Explosion:
 						
-						moveBy = Vec2Int(0, 0);
+						moveBy = Vec2(0, 0);
 
 						if (graver.m_Physical->GetX() < effGraver.m_Physical->GetX())
 						{
@@ -112,7 +112,7 @@ namespace novazero
 
 					case GraverType::Implosion:
 						
-						moveBy = Vec2Int(0, 0);
+						moveBy = Vec2(0, 0);
 
 						if (graver.m_Physical->GetX() < effGraver.m_Physical->GetX())
 						{

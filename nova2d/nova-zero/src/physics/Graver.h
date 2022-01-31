@@ -37,8 +37,8 @@ namespace novazero
 			int m_GraverEffectRadius = 2;
 			bool m_LookAtTarget = true;
 		
-			Vec2Int m_GraverEffectMagnitude;
-			Vec2Int m_GraverInfluencedMag;
+			Vec2 m_GraverEffectMagnitude;
+			Vec2 m_GraverInfluencedMag;
 			GraverType m_GraverType = GraverType::Vec2Force;
 			Positional* m_Physical = nullptr;
 			std::vector<Graver*> m_EffectedGravers;
@@ -49,11 +49,11 @@ namespace novazero
 		public:
 
 			Graver(GraverType type, int effectRadius, 
-				Vec2Int defaultGraverEffectMag, Positional* physicalHook);
+				Vec2 defaultGraverEffectMag, Positional* physicalHook);
 			~Graver();
 
 			void ConfigureGraver(GraverType type, int effectRadius, 
-				Vec2Int defaultGraverEffectMag, Positional* physicalHook);
+				Vec2 defaultGraverEffectMag, Positional* physicalHook);
 
 			void GonfigureLookAt(bool lookAt) { m_LookAtTarget = lookAt; }
 

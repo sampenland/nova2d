@@ -25,7 +25,7 @@ namespace novazero
 
 		public:
 
-			DrawCircle(std::string filleColor, std::string outlineColor, bool filled, int x, int y, int radius, char layer);
+			DrawCircle(std::string filleColor, std::string outlineColor, bool filled, Vec2 position, int radius, char layer);
 
 			void Draw() override;
 			void DestroySelf();

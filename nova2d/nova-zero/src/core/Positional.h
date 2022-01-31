@@ -1,5 +1,6 @@
 #pragma once
 #include "../maths/Vec2Int.h"
+#include "../maths/Vec2.h"
 
 namespace novazero
 {
@@ -19,7 +20,7 @@ namespace novazero
 
 		protected:
 			
-			Vec2Int m_Position;
+			Vec2 m_Position;
 			int m_Angle = 0;
 			Vec2Int m_Size;
 			Sprite* m_Sprite = nullptr;
@@ -31,24 +32,26 @@ namespace novazero
 			void LinkPositionalSprite(Sprite* sprite);
 			Sprite* GetLinkedSprite() { return m_Sprite; }
 
-			int GetX() const;
-			int* GetXRef() { return &m_Position.x; }
-			int GetY() const;
-			int* GetYRef() { return &m_Position.y; }
-			Vec2Int GetPosition() const;
+			float GetX() const;
+			float* GetXRef() { return &m_Position.x; }
+			float GetY() const;
+			float* GetYRef() { return &m_Position.y; }
+			Vec2 GetPosition() const;
+			Vec2Int GetPositionInt() const;
 
 			int GetWidth() const;
 			int GetHeight() const;
 			Vec2Int GetSize() const;
-			Vec2Int GetCenter() const;
+			Vec2 GetCenter() const;
 
 			int GetAngle() const;
 
-			void SetX(int x);
+			void SetX(float x);
 			
-			void SetY(int y);
+			void SetY(float y);
 
-			void SetPosition(Vec2Int position);
+			void SetPosition(Vec2 position);
+			void SetPositionInt(Vec2Int position);
 
 			void SetSize(Vec2Int size);
 

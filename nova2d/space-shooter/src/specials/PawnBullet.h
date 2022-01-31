@@ -22,7 +22,7 @@ namespace spaceshooter
 		PawnBullet(Vec2Int start, Vec2Int end, float moveUpdateDelay, Sprite* sprite) : 
 			SimpleBulletController(start, end, moveUpdateDelay)
 		{
-			AddSprite("pawn-bullet", Vec2Int(sprite->GetX(), sprite->GetY() + 32), Vec2Int(16, 16), 0);
+			AddSprite("pawn-bullet", Vec2(sprite->GetX(), sprite->GetY() + 32), Vec2Int(16, 16), 0);
 			ConfigureCollider(GetSprite(), 0, "pawn-bullet");
 			Configure(3, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 

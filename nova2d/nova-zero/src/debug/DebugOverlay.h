@@ -30,7 +30,6 @@ namespace novazero
 		public:
 
 			DebugOverlay(Vec2Int position);
-			~DebugOverlay();
 
 			void Update();
 			void Draw() override;

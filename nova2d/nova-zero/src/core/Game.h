@@ -75,7 +75,7 @@ namespace novazero
 
 			static void ConfigureDebug(bool isVisible);
 			// Must call ConfigureDebug(true) before this works
-			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPosition(pos); } }
+			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
 
 
 			static double s_DeltaTime;
@@ -86,9 +86,9 @@ namespace novazero
 			static int s_Height;
 			static int s_Padding;
 
-			static Vec2Int GetCenterScreen(int xCorrection = 0, int yCorrection = 0) 
+			static Vec2 GetCenterScreen(int xCorrection = 0, int yCorrection = 0) 
 			{
-				return Vec2Int(s_Width / 2 - xCorrection, s_Height / 2 - yCorrection);
+				return Vec2((float)s_Width / 2 - xCorrection, (float)s_Height / 2 - yCorrection);
 			}
 			static novazero::maths::Rect GetGameBounds(int paddingOverride = 0);
 			static void SetGamePadding(int padding);

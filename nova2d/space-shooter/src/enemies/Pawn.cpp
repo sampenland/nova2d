@@ -10,7 +10,7 @@ namespace spaceshooter
 	using namespace novazero::controllers;
 	using namespace novazero::core;
 
-	Pawn::Pawn(std::string assetName, Vec2Int position, Vec2Int size, char layer, const float moveUpdateDelay)
+	Pawn::Pawn(std::string assetName, Vec2 position, Vec2Int size, char layer, const float moveUpdateDelay)
 		: SimpleWeakAI()
 	{
 		m_DeleteName = assetName + std::to_string(SimpleWeakAI::Collider::m_ID);
@@ -28,11 +28,6 @@ namespace spaceshooter
 		m_CleanUpdaters.push_back(cleanID);
 
 		n2dAddDeleteable(this);
-	}
-
-	Pawn::~Pawn()
-	{
-		
 	}
 
 	void Pawn::PawnUpdate()

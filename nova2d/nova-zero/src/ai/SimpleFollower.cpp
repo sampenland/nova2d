@@ -8,11 +8,11 @@ namespace novazero
 		using namespace maths;
 		using namespace graphics;
 
-		SimpleFollower::SimpleFollower(Positional* target, const float moveUpdateDelay)
+		SimpleFollower::SimpleFollower(Positional* target, const float moveUpdateDelayMS)
 			:  Collider(0), m_MoveSpeed(2), TimeEffected()
 		{
 			m_Target = target;
-			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
+			m_UpdateDirectionDelay = moveUpdateDelayMS;
 
 			SetTimeEffectEnabled(false);
 
@@ -23,7 +23,7 @@ namespace novazero
 			Deleteable::m_CleanUpdaters.push_back(id);
 		}
 
-		void SimpleFollower::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+		void SimpleFollower::AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			ConfigureTimeEffected(m_Sprite);
@@ -68,16 +68,7 @@ namespace novazero
 
 			float x = (float)m_Sprite->GetX();
 			float y = (float)m_Sprite->GetY();
-			float speed = m_MoveSpeed;
-
-			if (n2dTimeScale * GetTimeInfluence() > 1)
-			{
-				speed = speed * n2dTimeScale* GetTimeInfluence();
-			}
-			else
-			{
-				speed = speed * n2dTimeScale * GetTimeInfluence(); // TODO: fix time bubble for follower
-			}
+			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
 
 			float newX = x;
 			float newY = y;
@@ -92,7 +83,7 @@ namespace novazero
 
 				if (m_LookAtTarget)
 				{
-					int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPosition(), m_LookAtDegAdd);
+					int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), m_LookAtDegAdd);
 					m_Sprite->SetAngle(lookAtAngle);
 				}
 			}
@@ -105,7 +96,7 @@ namespace novazero
 				}
 			}
 
-			m_Sprite->SetPosition(Vec2Int((int)newX, (int)newY));
+			m_Sprite->SetPosition(Vec2(newX, newY));
 
 		}
 

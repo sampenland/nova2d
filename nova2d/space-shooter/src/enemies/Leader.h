@@ -26,7 +26,7 @@ namespace spaceshooter
 		SimpleStatBar* m_HealthBar = nullptr;
 		int m_Health = 64;
 
-		std::vector<Vec2Int> m_PatrolMemory;
+		std::vector<Vec2> m_PatrolMemory;
 
 		Timer* m_BombTimer = nullptr;
 		Timer* m_MoveTimer = nullptr;
@@ -39,8 +39,7 @@ namespace spaceshooter
 	
 	public:
 
-		Leader(std::string assetName, Vec2Int position, Vec2Int size, char layer);
-		~Leader();		
+		Leader(std::string assetName, Vec2 position, Vec2Int size, char layer);	
 
 		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
 

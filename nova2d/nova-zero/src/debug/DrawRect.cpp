@@ -19,7 +19,7 @@ namespace novazero
 			m_OutlineColor = outlineColor;
 			m_Filled = filled;
 
-			SetPosition(Vec2Int(rect.x, rect.y));
+			SetPositionInt(Vec2Int(rect.x, rect.y));
 
 			m_Outline = new SDL_Rect();
 			m_Fill = new SDL_Rect();
@@ -62,7 +62,7 @@ namespace novazero
 				n2dRenderDrawColor(m_FillColor);
 				SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Fill);
 				n2dRenderDrawColor(m_OutlineColor);
-				SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Outline);
+				SDL_RenderDrawRect(Game::s_Renderer->GetSDLRenderer(), m_Outline);
 			}
 			else
 			{
@@ -73,7 +73,7 @@ namespace novazero
 				}
 
 				n2dRenderDrawColor(m_OutlineColor);
-				SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Outline);
+				SDL_RenderDrawRect(Game::s_Renderer->GetSDLRenderer(), m_Outline);
 			}
 
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);

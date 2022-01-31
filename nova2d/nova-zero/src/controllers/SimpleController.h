@@ -26,22 +26,24 @@ namespace novazero
 
 		public:
 
-			SimpleController(std::string assetName, Vec2Int position, Vec2Int size, char layer);
+			SimpleController(std::string assetName, Vec2 position, Vec2Int size, char layer);
 			~SimpleController();
 
 			void SetMoveSpeed(float mSpeed);
 			
-			void SetPosition(int x, int y);
-			void SetX(int y);
-			void SetY(int y);
-			int GetX() const { return m_Sprite->GetX(); }
-			int GetY() const { return m_Sprite->GetY(); }
+			void SetPositionInt(int x, int y);
+			void SetPosition(float x, float y);
+			void SetX(float y);
+			void SetY(float y);
+			float GetX() const { return m_Sprite->GetX(); }
+			float GetY() const { return m_Sprite->GetY(); }
 
 			int GetWidth() const { return m_Sprite->GetWidth(); }
 			int GetHeight() const { return m_Sprite->GetHeight(); }
 			
 			inline float GetMoveSpeed() const { return m_MoveSpeed; }
-			inline Vec2Int GetPosition() const { return Vec2Int(m_Sprite->GetX(), m_Sprite->GetY()); }
+			inline Vec2Int GetPositionInt() const { return Vec2Int((int)m_Sprite->GetX(), (int)m_Sprite->GetY()); }
+			inline Vec2 GetPosition() const { return Vec2(m_Sprite->GetX(), m_Sprite->GetY()); }
 
 			void DestroySelf();
 

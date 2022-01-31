@@ -15,11 +15,6 @@ namespace novazero
 			m_CleanUpdaters.push_back(cleanID);
 		}
 
-		SimpleWeakAI::~SimpleWeakAI()
-		{
-			
-		}
-
 		void SimpleWeakAI::EnableAI(bool isEnabled)
 		{
 			if (isEnabled)
@@ -33,19 +28,15 @@ namespace novazero
 			m_PatrolIndex = m_LoopStartIndex;
 		}
 
-		void SimpleWeakAI::AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer)
+		void SimpleWeakAI::AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			m_DeleteName = assetName;
 		}
 
-		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2Int point, f_MovePtrFunction func)
+		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func)
 		{
-			// round point to even as move steps are 2 pixels at a time
-			auto x = n2dRoundEven(point.x);
-			auto y = n2dRoundEven(point.y);
-			Vec2Int p = Vec2Int(x, y);
-			m_PatrolPoints.push_back(p);
+			m_PatrolPoints.push_back(point);
 			m_MoveFunctions.push_back(func);
 		}
 
@@ -58,7 +49,7 @@ namespace novazero
 				m_MoveFunctions.clear(); // TODO: crashes here sometimes
 		}
 
-		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2Int point)
+		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2 point)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < m_PatrolPoints.size(); i++)
@@ -76,7 +67,7 @@ namespace novazero
 			m_MoveFunctions.erase(m_MoveFunctions.begin() + idx);
 		}
 
-		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2Int> points, std::vector<f_MovePtrFunction> funcs)
+		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2> points, std::vector<f_MovePtrFunction> funcs)
 		{
 			LOG(LVL_WARNING, "Function Set All Patrol not implemented.");
 			return;
@@ -89,13 +80,6 @@ namespace novazero
 
 			m_PatrolPoints.clear();
 			m_MoveFunctions.clear();
-
-			for (size_t i = 0; i < points.size(); i++)
-			{
-				// round to even patrol points as patrolling steps by 2
-				points[i].x = n2dRoundEven(points[i].x);
-				points[i].y = n2dRoundEven(points[i].y);
-			}
 
 			m_PatrolPoints = points;
 			m_MoveFunctions = funcs;
@@ -157,12 +141,12 @@ namespace novazero
 
 			if (m_PatrolIndex < (int)m_PatrolPoints.size())
 			{
-				int currentX = GetX();
-				int currentY = GetY();
-				Vec2Int endVector = m_PatrolPoints.at(m_PatrolIndex);
+				float currentX = GetX();
+				float currentY = GetY();
+				Vec2 endVector = m_PatrolPoints.at(m_PatrolIndex);
 
-				int newX = currentX > endVector.x ? currentX - 2 : currentX + 2;
-				int newY = currentY > endVector.y ? currentY - 2 : currentY + 2;
+				float newX = currentX > endVector.x ? currentX - 2 : currentX + 2;
+				float newY = currentY > endVector.y ? currentY - 2 : currentY + 2;
 
 				if (currentX == endVector.x) newX = endVector.x;
 				if (currentY == endVector.y) newY = endVector.y;

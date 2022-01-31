@@ -41,7 +41,7 @@ namespace novazero
 
 			SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay);
 
-			void AddSprite(std::string assetName, Vec2Int position, Vec2Int size, char layer);
+			void AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
 			Sprite* GetSprite() const { return m_Sprite; }
 
 			void Configure(float moveSpeed, Rect aliveBounds);
