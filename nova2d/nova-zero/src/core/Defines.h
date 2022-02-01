@@ -13,6 +13,9 @@ namespace novazero
 		// Max graver groups
 		#define MAX_GRAVER_GROUPS 255
 
+		// Max particles
+		#define MAX_PARTICLES 255
+
 	}
 }
 
@@ -203,6 +206,12 @@ nova2d Load and Add Texture (std::string assetName, std::string resourcePath)
 Loads asset into Game's Asset Manager
 */
 #define n2dAssetsLoadAndAddTexture(assetName, assetPath) novazero::core::Game::s_AssetManager->LoadAndAddTexture(assetName, assetPath);
+
+/*
+nova2d Get Texture by name (std::string textureName)
+Return pointer to a preloaded texture
+*/
+#define n2dAssetsGetTexture(textureName) novazero::core::Game::s_AssetManager->GetTexture(textureName);
 
 /*
 nova2d Add Color (std::string colorName, std::string colorHex, float alpha)

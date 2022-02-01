@@ -11,7 +11,7 @@ namespace novazero
 
 		Renderer::Renderer(SDL_Window& window, Color* backgroundColor)
 		{
-			m_Renderer = SDL_CreateRenderer(&window, -1, 0);
+			m_Renderer = SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED);
 			m_BackgroundColor = backgroundColor;
 			s_DrawLayers = new DrawLayers();
 		}
