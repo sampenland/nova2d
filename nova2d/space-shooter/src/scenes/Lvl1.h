@@ -1,6 +1,7 @@
 #pragma once
 #include "core/Scene.h"
 #include "graphics/Text.h"
+#include "../specials/LeaderController.h"
 
 namespace spaceshooter
 {
@@ -14,11 +15,11 @@ namespace spaceshooter
 	private:
 
 		Text* m_ScoreText = nullptr;
+		LeaderController* m_LeaderController;
 
 	public:
 
 		Lvl1(std::string sceneName);
-		~Lvl1();
 
 		void Start() override;
 		void End() override;

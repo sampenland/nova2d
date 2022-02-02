@@ -24,6 +24,7 @@ namespace spaceshooter
 		float m_DelayShootMax = 5.0f;
 
 		SimpleStatBar* m_HealthBar = nullptr;
+		int m_HealthMax = 64;
 		int m_Health = 64;
 
 		std::vector<Vec2> m_PatrolMemory;
@@ -39,7 +40,7 @@ namespace spaceshooter
 	
 	public:
 
-		Leader(std::string assetName, Vec2 position, Vec2Int size, char layer);	
+		Leader(std::string assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer);
 
 		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
 

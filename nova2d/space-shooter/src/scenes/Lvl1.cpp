@@ -11,12 +11,7 @@ namespace spaceshooter
 
 	Lvl1::Lvl1(std::string sceneName) : Scene(sceneName)
 	{
-		
-	}
-
-	Lvl1::~Lvl1()
-	{
-
+		m_LeaderController = nullptr;
 	}
 
 	void Lvl1::Start()
@@ -28,17 +23,19 @@ namespace spaceshooter
 
 		n2dReferenceAdd("player", player);
 
-		Leader* leader = new Leader("leader", Vec2((float)Game::s_Width / 2 - 8, -48.0f), Vec2Int(16, 16), 1);
+		/*Leader* leader = new Leader("leader", Vec2((float)Game::s_Width / 2 - 8, -48.0f), Vec2Int(16, 16), 1);*/
+		m_LeaderController = new LeaderController();
+		m_LeaderController->CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 16, 1, 1);
 
 		const int scoreSize = 128;
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
 		n2dAddDrawable(m_ScoreText, 0);
 
-		TimeWarp* tw = new TimeWarp(Vec2((float)Game::s_Width / 2 - 40, (float)Game::s_Height - 256), 
-			0.25f, 80, 10000);
+		/*TimeWarp* tw = new TimeWarp(Vec2((float)Game::s_Width / 2 - 40, (float)Game::s_Height - 256), 
+			0.25f, 80, 10000);*/
 		
 		AddObjectToCleanUp(player);
-		AddObjectToCleanUp(leader);
+		AddObjectToCleanUp(m_LeaderController);
 		AddObjectToCleanUp(m_ScoreText);
 
 	}

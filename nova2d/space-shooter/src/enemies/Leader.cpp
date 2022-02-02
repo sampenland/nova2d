@@ -1,13 +1,17 @@
 #include "Leader.h"
 #include "ai/SimpleFollower.h"
 #include "physics/Collision.h"
+#include "../specials/LeaderController.h"
 
 namespace spaceshooter
 {
-	Leader::Leader(std::string assetName, Vec2 position, Vec2Int size, char layer)
+	Leader::Leader(std::string assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer)
 	{
 		AddSprite(assetName, position, size, layer);
 		
+		m_HealthMax = maxHealth;
+		m_Health = maxHealth;
+
 		int forwardMove = 96;
 		AddPatrolPointWithFunction(Vec2(position.x, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 
@@ -21,7 +25,7 @@ namespace spaceshooter
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
-		GeneratePawnWave(2, 3);
+		GeneratePawnWave(pawnRows, pawnCols);
 
 		ConfigureUsingBounds(false, false);
 		ConfigureCollider(m_Sprite, 0, "leader");
@@ -101,7 +105,7 @@ namespace spaceshooter
 
 			float x = p.GetX();
 			p.AddPatrolPointWithFunction(Vec2(x, (float)Game::s_Height + 48), std::bind(p.GetLinearPatrolMove()));
-			p.Configure(250, false);
+			p.Configure(10, false);
 			p.EnableAI(true);
 		}
 		
@@ -109,7 +113,7 @@ namespace spaceshooter
 
 	void Leader::HealthUpdate()
 	{
-		m_HealthBar->Update(m_Health, (int)m_Sprite->GetX() - 24, (int)m_Sprite->GetY() - 16);
+		m_HealthBar->Update((int)(((float)m_Health / m_HealthMax) * 64), (int)m_Sprite->GetX() - 24, (int)m_Sprite->GetY() - 16);
 	}
 
 	void Leader::DeployBomb()
@@ -248,6 +252,7 @@ namespace spaceshooter
 		m_Destroyed = true;
 		m_Alive = false;
 
+		LeaderController::s_LeaderExists = false;
 		m_DeleteNow = 1;
 
 		CleanUpdaters();

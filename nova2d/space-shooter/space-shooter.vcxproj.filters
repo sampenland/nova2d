@@ -33,6 +33,9 @@
     <ClCompile Include="src\specials\TimeWarp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\specials\LeaderController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ship_01.png">
@@ -89,6 +92,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\specials\TimeWarp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\specials\LeaderController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
