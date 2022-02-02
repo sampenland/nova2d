@@ -130,6 +130,8 @@
     <ClCompile Include="src\graphics\Text.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
+    <ClCompile Include="src\particles\Dot.cpp" />
+    <ClCompile Include="src\particles\Particle.cpp" />
     <ClCompile Include="src\physics\TimeEffected.cpp" />
     <ClCompile Include="src\physics\TimeEffector.cpp" />
     <ClCompile Include="src\physics\TimeEffectorManager.cpp" />
@@ -182,6 +184,8 @@
     <ClInclude Include="src\input\Inputable.h" />
     <ClInclude Include="src\input\TextInput.h" />
     <ClInclude Include="src\maths\Vec2.h" />
+    <ClInclude Include="src\particles\Dot.h" />
+    <ClInclude Include="src\particles\Particle.h" />
     <ClInclude Include="src\physics\TimeEffected.h" />
     <ClInclude Include="src\physics\TimeEffector.h" />
     <ClInclude Include="src\physics\TimeEffectorManager.h" />

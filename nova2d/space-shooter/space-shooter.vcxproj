@@ -94,6 +94,7 @@
     <ClCompile Include="src\enemies\Pawn.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\scenes\Lvl1.cpp" />
+    <ClCompile Include="src\specials\TimeWarp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nova-zero\nova-zero.vcxproj">
@@ -120,6 +121,7 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
     <ClInclude Include="src\specials\PawnBullet.h" />
+    <ClInclude Include="src\specials\TimeWarp.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

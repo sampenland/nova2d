@@ -13,36 +13,47 @@ namespace novazero
 			
 		}
 
-		void TweenManager::AddTweenInt(int* propertyEffected, float start, float end, float durationMS)
+		unsigned int TweenManager::AddTweenInt(int* propertyEffected, float start, float end, float durationMS, bool loop)
 		{
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
 
+			t->initStart = start;
 			t->isFloat = false;
 			t->intPropertyEffected = propertyEffected;
 			t->step = (end - start) / (durationMS / 10);
 			t->durationLeft = durationMS;
 			t->start = start;
 			t->end = end;
+			t->loop = loop;
 
 			m_Timers[id] = t;
+			return id;
 		}
 
-		void TweenManager::AddTweenFloat(float* propertyEffected, float start, float end, float durationMS)
+		unsigned int TweenManager::AddTweenFloat(float* propertyEffected, float start, float end, float durationMS, bool loop)
 		{
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
 
+			t->initStart = start;
 			t->isFloat = true;
 			t->floatPropertyEffected = propertyEffected;
 			t->step = (end - start) / (durationMS / 10);
 			t->durationLeft = durationMS;
 			t->start = start;
 			t->end = end;
+			t->loop = loop;
 
 			m_Timers[id] = t;
+			return id;
+		}
+
+		void TweenManager::RemoveTween(unsigned int tweenID)
+		{
+			m_Timers.erase(tweenID);
 		}
 
 		void TweenManager::Update()
@@ -62,10 +73,20 @@ namespace novazero
 					*it->second->intPropertyEffected = (int)it->second->start;
 				}
 
-				if (*it->second->intPropertyEffected < it->second->end)
+				if (((it->second->step < 0) && (*it->second->intPropertyEffected < it->second->end)) || 
+					it->second->step > 0 && (*it->second->intPropertyEffected > it->second->end))
 				{
-					removeIDs.push_back(it->first);
-				}
+					if (it->second->loop)
+					{
+						it->second->start = it->second->initStart;
+					}
+					else
+					{
+						removeIDs.push_back(it->first);
+					}
+				}	
+
+				//TODO: float tween
 			}
 
 			for (size_t i = 0; i < removeIDs.size(); i++)

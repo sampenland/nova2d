@@ -40,8 +40,8 @@ namespace spaceshooter
 		id = n2dAddUpdater(Leader::WatchPawns, this);
 		m_CleanUpdaters.push_back(id);
 
-		auto moveR = n2dRandomFloat(10000, 20000);
-		auto bombR = n2dRandomFloat(10000, 20000);
+		auto moveR = n2dRandomFloat(5000, 10000);
+		auto bombR = n2dRandomFloat(5000, 10000);
 		m_MoveTimer = new Timer(moveR, false, std::bind(&Leader::MoveForwardThenBack, this));
 		m_BombTimer = new Timer(bombR, false, std::bind(&Leader::DeployBomb, this));
 

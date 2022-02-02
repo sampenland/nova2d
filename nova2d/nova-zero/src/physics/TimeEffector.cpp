@@ -52,12 +52,36 @@ namespace novazero
 			}			
 		}
 
+		void TimeEffector::ReDrawIfNeeded()
+		{
+			if (m_IsCircleEffect)
+			{
+				if (m_EffectCircle->GetDrawCircleRadius() != m_EffectRadius)
+				{
+					m_EffectCircle->SetDrawCircleRadius(m_EffectRadius);
+				}
+			}
+			else
+			{
+				if (m_EffectRect->GetDrawRectSize().x != m_EffectRectHolder->x ||
+					m_EffectRect->GetDrawRectSize().y != m_EffectRectHolder->y)
+				{
+					m_EffectRect->SetDrawRectSize(m_EffectRectHolder);
+				}
+			}
+		}
+
 		void TimeEffector::TimeEffectorUpdate()
 		{
 			if (!IsEnabled()) return;
 
-			m_EffectCircle->SetPosition(m_Position);
-			m_EffectRect->SetPosition(m_Position);
+			if(m_EffectCircle)
+				m_EffectCircle->SetPosition(m_Position);
+
+			if(m_EffectRect)
+				m_EffectRect->SetPosition(m_Position);
+
+			ReDrawIfNeeded();
 
 		}
 
@@ -82,6 +106,10 @@ namespace novazero
 
 		void TimeEffector::DestroySelf()
 		{
+			if (m_Destroyed) return;
+
+			m_Destroyed = true;
+
 			if (m_EffectCircle)
 				m_EffectCircle->DestroySelf();
 

@@ -153,6 +153,12 @@
     <ClCompile Include="src\maths\Vec2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\particles\Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\particles\Dot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Window.h">
@@ -324,6 +330,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\maths\Vec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particles\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\particles\Dot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

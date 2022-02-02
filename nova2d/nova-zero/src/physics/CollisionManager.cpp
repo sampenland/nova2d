@@ -12,11 +12,6 @@ namespace novazero
 			
 		}
 
-		CollisionManager::~CollisionManager()
-		{
-
-		}
-
 		void CollisionManager::ClearColliders()
 		{
 			m_Colliders.clear();

@@ -31,7 +31,7 @@ namespace novazero
 
         void Particle::Draw()
         {
-            m_Texture->Draw(m_OffsetX, m_OffsetY);
+            //m_Texture->Draw(m_OffsetX, m_OffsetY);
             m_CurrentFrame++;
         }
 

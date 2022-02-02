@@ -39,6 +39,9 @@ namespace novazero
 			int x = (int)GetX();
 			int y = (int)GetY();
 
+			if (m_Radius < 1)
+				m_Radius = 1;
+
 			int r = 1;
 			if (m_Filled)
 			{

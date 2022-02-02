@@ -111,14 +111,22 @@ Returns total tweens (usually attached to positionals)
 /*
 nova2d Add Tween Int
 Tweens *refInt (referenced int) from start to end in duration milliseconds
+RETURNS ID for clean up
 */
-#define n2dTweenAddInt(refInt, start, end, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenInt(refInt, start, end, durationMS);
+#define n2dTweenAddInt(refInt, start, end, durationMS, loop) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenInt(refInt, start, end, durationMS, loop);
 
 /*
 nova2d Add Tween Float
 Tweens *refFloat (referenced float) from start to end in duration milliseconds
+RETURNS ID for clean up
 */
-#define n2dTweenAddFloat(refFloat, start, end, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS);
+#define n2dTweenAddFloat(refFloat, start, end, durationMS, loop) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS, loop);
+
+/*
+nova2d Remove Tween (unsigned int tweenID)
+Remove a tween
+*/
+#define n2dTweenRemove(id) novazero::core::Game::s_SceneManager->s_TweenManager->RemoveTween(id);
 
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)

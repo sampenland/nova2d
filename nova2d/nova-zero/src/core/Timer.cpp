@@ -8,7 +8,7 @@ namespace novazero
 		Timer::Timer(const float delayMS, const bool loop, std::function<void()> endDelayFunc)
 			: Deleteable("timer")
 		{
-			m_DelayMax = delayMS;
+			m_DelayMax = delayMS * 2;
 			m_Delay = m_DelayMax;
 			m_Loop = loop;
 
@@ -19,11 +19,6 @@ namespace novazero
 
 			m_CleanUpdaters.push_back(cleanID);
 
-		}
-
-		Timer::~Timer()
-		{
-			
 		}
 
 		void Timer::DestroySelf()
@@ -39,6 +34,7 @@ namespace novazero
 
 		void Timer::Tick()
 		{
+			if (!IsEnabled()) return;
 			if (!m_Alive) return;
 
 			if (m_Delay < 0)

@@ -21,7 +21,7 @@ namespace novazero
         void Dot::Draw()
         {
             //Show the dot
-            gDotTexture.render(m_OffsetX, m_OffsetY);
+            //gDotTexture.render(m_OffsetX, m_OffsetY);
 
             //Show particles on top of dot
             DrawParticles();

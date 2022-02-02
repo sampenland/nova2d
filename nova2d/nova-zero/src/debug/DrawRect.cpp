@@ -29,6 +29,8 @@ namespace novazero
 			m_Outline->w = rect.w;
 			m_Outline->h = rect.h;
 
+			m_Thickness = outlineThickness;
+
 			m_Fill->x = rect.x + outlineThickness;
 			m_Fill->y = rect.y + outlineThickness;
 			m_Fill->w = rect.w - 2 * outlineThickness;

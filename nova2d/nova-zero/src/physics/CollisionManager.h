@@ -17,7 +17,6 @@ namespace novazero
 		public:
 
 			CollisionManager();
-			~CollisionManager();
 
 			void ClearColliders();
 

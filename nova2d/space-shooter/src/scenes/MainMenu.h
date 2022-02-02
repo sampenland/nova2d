@@ -61,7 +61,7 @@ namespace spaceshooter
 				StartListening();
 			});
 
-			Timer* t = new Timer(1000, false, *startListening);
+			Timer* t = new Timer(500, false, *startListening);
 		}
 
 		void StartListening()

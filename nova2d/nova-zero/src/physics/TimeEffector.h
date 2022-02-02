@@ -28,6 +28,7 @@ namespace novazero
 		private:
 
 			unsigned int m_CleanID = 0;
+			bool m_Destroyed = false;
 
 		public:
 
@@ -50,7 +51,26 @@ namespace novazero
 			void ConfigureTimeEffectorVisible(bool filled, std::string fillColor, 
 				std::string outlineColor, char layer);
 
+			int* GetEffectorRadiusRef() 
+			{ 
+				if (m_EffectCircle)
+				{
+					return m_EffectCircle->GetDrawCircleRadiusRef();
+				}
+				return nullptr;
+			}
+
+			int GetEffectorRadius()
+			{
+				if (m_EffectCircle)
+				{
+					return m_EffectCircle->GetDrawCircleRadius();
+				}
+			}
+
 			void TimeEffectorUpdate();
+			void ReDrawIfNeeded();
+
 			void DestroySelf();
 
 			bool TimeEffectedWithinEffect(const TimeEffected& effected);
