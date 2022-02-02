@@ -2,6 +2,7 @@
 #include "ai/SimpleFollower.h"
 #include "physics/Collision.h"
 #include "../specials/LeaderController.h"
+#include "../scenes/Lvl1.h"
 
 namespace spaceshooter
 {
@@ -198,7 +199,18 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
-		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
+		std::string playerNumber = "player1";
+
+		if (Lvl1::s_Players != 1)
+		{
+			float rnd = n2dRandomFloat(0, 10);
+			if (rnd > 5)
+			{
+				playerNumber = "player2";
+			}
+		}
+
+		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced(playerNumber);
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");

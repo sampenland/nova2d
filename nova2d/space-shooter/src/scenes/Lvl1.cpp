@@ -16,14 +16,37 @@ namespace spaceshooter
 
 	void Lvl1::Start()
 	{
-		Player* player = new Player("player", Vec2((float)Game::s_Width / 2 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
-		player->Configure(1500);
-		player->ConfigureMove(3);
-		player->SetMoveBounds(Game::GetGameBounds());
+		if (s_Players == 1)
+		{
+			Player* player1 = new Player("player", "player1", Vec2((float)Game::s_Width / 2 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
+			player1->Configure(1500);
+			player1->ConfigureMove(3);
+			player1->SetMoveBounds(Game::GetGameBounds());
 
-		n2dReferenceAdd("player", player);
+			n2dReferenceAdd("player1", player1);
+			AddObjectToCleanUp(player1);
+		}
+		else
+		{
+			Player* player1 = new Player("player", "player1", Vec2((float)Game::s_Width / 3 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
+			player1->Configure(1500);
+			player1->ConfigureMove(3);
+			player1->SetMoveBounds(Game::GetGameBounds());
+			player1->EnableArrowKeys(false);
 
-		/*Leader* leader = new Leader("leader", Vec2((float)Game::s_Width / 2 - 8, -48.0f), Vec2Int(16, 16), 1);*/
+			n2dReferenceAdd("player1", player1);
+			AddObjectToCleanUp(player1);
+
+			Player* player2 = new Player("player", "player2", Vec2((float)Game::s_Width - Game::s_Width / 3 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
+			player2->Configure(1500);
+			player2->ConfigureMove(3);
+			player2->SetMoveBounds(Game::GetGameBounds());
+			player2->EnableWASD(false);
+
+			n2dReferenceAdd("player2", player2);
+			AddObjectToCleanUp(player2);
+		}
+		
 		m_LeaderController = new LeaderController();
 		m_LeaderController->CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 16, 1, 1);
 
@@ -33,8 +56,7 @@ namespace spaceshooter
 
 		/*TimeWarp* tw = new TimeWarp(Vec2((float)Game::s_Width / 2 - 40, (float)Game::s_Height - 256), 
 			0.25f, 80, 10000);*/
-		
-		AddObjectToCleanUp(player);
+
 		AddObjectToCleanUp(m_LeaderController);
 		AddObjectToCleanUp(m_ScoreText);
 

@@ -10,9 +10,11 @@ namespace spaceshooter
 	using namespace novazero::ai;
 	using namespace novazero::input;
 
-	Player::Player(std::string assetName, Vec2 position, Vec2Int size, char layer)
+	Player::Player(std::string assetName, std::string playerNumber, Vec2 position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
+		m_PlayerNumber = playerNumber;
+
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
 		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
 
@@ -23,13 +25,13 @@ namespace spaceshooter
 		}
 
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
-		ConfigureCollider(m_Sprite, 0, "player");
+		ConfigureCollider(m_Sprite, 0, m_PlayerNumber);
 
 		int startX = 8;
 		int startY = 8;
 		for (int i = 0; i < m_Lives; i++)
 		{
-			Sprite* life = new Sprite("player", Vec2((float)startX + (i * 16), (float)startY), Vec2Int(16, 16), 0);
+			Sprite* life = new Sprite(m_PlayerNumber, Vec2((float)startX + (i * 16), (float)startY), Vec2Int(16, 16), 0);
 			m_LifeSprites.push_back(life);
 		}
 
@@ -137,22 +139,26 @@ namespace spaceshooter
 		// create and shoot bullet
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetHeight()), Vec2Int((int)GetX(), (int)-GetHeight() - 64), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
-		bullet->AddSprite("player-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
-		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
+		bullet->AddSprite(m_PlayerNumber + "-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
+		bullet->ConfigureCollider(bullet->GetSprite(), 0, m_PlayerNumber + "-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 
 		auto collisionFunction = new auto ([](Collision* collision) {
 
+			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player1-bullet";
+			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player1-bullet";
+
+			bool collAisPlayer2Bullet = collision->m_ColliderA->m_ColliderName == "player2-bullet";
+			bool collBisPlayer2Bullet = collision->m_ColliderB->m_ColliderName == "player2-bullet";
+
 			// Bullet with bullet
-			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderB->m_ColliderName == "pawn-bullet"))
+			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn-bullet")
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((PawnBullet*)collision->m_ColliderB)->DestroySelf();
 				n2dScoreAdd(2);
 			}
-			else if((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
+			else if(((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
@@ -160,28 +166,24 @@ namespace spaceshooter
 			}
 			
 			// Bullet with pawn
-			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderB->m_ColliderName == "pawn"))
+			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn")
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((Pawn*)collision->m_ColliderB)->Hurt(4);
 			}
-			else if ((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderA->m_ColliderName == "pawn"))
+			else if ((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn")
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((Pawn*)collision->m_ColliderA)->Hurt(4);
 			}
 
 			// Bullet with leader
-			if ((collision->m_ColliderA->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderB->m_ColliderName == "leader"))
+			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "leader")
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((Leader*)collision->m_ColliderB)->Hurt(2);
 			}
-			else if ((collision->m_ColliderB->m_ColliderName == "player-bullet" &&
-				collision->m_ColliderA->m_ColliderName == "leader"))
+			else if ((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "leader")
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((Leader*)collision->m_ColliderA)->Hurt(2);

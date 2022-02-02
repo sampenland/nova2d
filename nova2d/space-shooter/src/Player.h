@@ -17,6 +17,8 @@ namespace spaceshooter
 
 	private:
 
+		std::string m_PlayerNumber = "player1";
+
 		bool m_CanSpace = true;
 		float m_SpaceDelayReset = 0.0f;
 		double m_SpaceDelay = 0.00;
@@ -30,7 +32,7 @@ namespace spaceshooter
 
 	public:
 
-		Player(std::string assetName, Vec2 position, Vec2Int size, char layer);
+		Player(std::string assetName, std::string playerNumber, Vec2 position, Vec2Int size, char layer);
 		~Player();
 
 		Sprite* GetSprite() const { return m_Sprite; }
