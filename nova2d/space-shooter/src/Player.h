@@ -23,7 +23,7 @@ namespace spaceshooter
 
 		Timer* m_ShootTimer = nullptr;
 
-		int m_Lives = 3;
+		int m_Lives = 20;
 		std::vector<Sprite*> m_LifeSprites;
 
 		unsigned int m_CleanID = 0;

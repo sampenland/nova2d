@@ -31,6 +31,7 @@ namespace novazero
 
 			if (idx != -1)
 			{
+				EffectorReset(idx);
 				m_AllEffectors.erase(m_AllEffectors.begin() + idx);
 			}
 		}
@@ -39,6 +40,7 @@ namespace novazero
 		{
 			for (size_t i = 0; i < m_AllEffectors.size(); i++)
 			{
+				EffectorReset(i);
 				m_AllEffectors[i]->DestroySelf();
 			}
 			m_AllEffectors.clear();
@@ -67,6 +69,17 @@ namespace novazero
 			if (idx != -1)
 			{
 				m_AllEffected.erase(m_AllEffected.begin() + idx);
+			}
+		}
+
+		void TimeEffectorManager::EffectorReset(int index)
+		{
+			TimeEffector& effector = *m_AllEffectors[index];
+
+			for (size_t j = 0; j < m_AllEffected.size(); j++)
+			{
+				TimeEffected& effected = *m_AllEffected[j];
+				effected.SetTimeInfluence(1.0f);
 			}
 		}
 

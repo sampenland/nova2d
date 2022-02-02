@@ -27,6 +27,7 @@ namespace novazero
 
 			void AddEffected(TimeEffected* effected);
 			void RemoveEffected(TimeEffected* effected);
+			void EffectorReset(int index);
 			void ClearEffected();
 
 			int GetEffectorCount() { return (int)m_AllEffectors.size(); }
