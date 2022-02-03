@@ -6,6 +6,9 @@
 
 namespace spaceshooter
 {
+	int Leader::s_PawnCount = 0;
+	std::vector<Pawn*> Leader::s_Pawns;
+
 	Leader::Leader(std::string assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer)
 	{
 		AddSprite(assetName, position, size, layer);
@@ -56,7 +59,7 @@ namespace spaceshooter
 
 	void Leader::WatchPawns()
 	{
-		if (m_PawnCount < 1)
+		if (s_PawnCount < 1)
 		{
 			int rows = n2dRandomInt(2, 5);
 			int cols = 3;
@@ -87,8 +90,7 @@ namespace spaceshooter
 				float rMax = n2dRandomFloat(5000, 8000);
 				pawn->ConfigureShoot(rMin, rMax);
 
-				m_Pawns.push_back(pawn);
-				m_PawnCount++;
+				s_Pawns.push_back(pawn);
 
 			}
 		}
@@ -96,18 +98,26 @@ namespace spaceshooter
 
 	void Leader::PawnAttack()
 	{
-		for (size_t i = 0; i < m_Pawns.size(); i++)
+		for (std::vector<Pawn*>::iterator it = s_Pawns.begin(); it != s_Pawns.end();)
 		{
-			if (!m_Pawns[i]->IsDeleted() == 0) continue;
+			Pawn& p = **it;
 
-			Pawn& p = *m_Pawns[i];
+			if (p.m_Destroyed)
+			{
+				it = s_Pawns.erase(it);
+				continue;
+			}
 
 			p.ClearPatrol();
-
+			
 			float x = p.GetX();
 			p.AddPatrolPointWithFunction(Vec2(x, (float)Game::s_Height + 48), std::bind(p.GetLinearPatrolMove()));
 			p.Configure(10, false);
 			p.EnableAI(true);
+			p.ConfigureAliveBounds(Game::GetGameBounds());
+			p.ConfigureUsingBounds(false, true);
+
+			it++;
 		}
 		
 	}
@@ -221,14 +231,20 @@ namespace spaceshooter
 		
 		auto onCollision = new auto ([](Collision* collision)
 		{
+			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player1-bullet";
+			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player1-bullet";
+
+			bool collAisPlayer2Bullet = collision->m_ColliderA->m_ColliderName == "player2-bullet";
+			bool collBisPlayer2Bullet = collision->m_ColliderB->m_ColliderName == "player2-bullet";
+
 			if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" &&
-				collision->m_ColliderB->m_ColliderName == "player-bullet"))
+				(collBisPlayer1Bullet || collBisPlayer2Bullet)))
 			{
 				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 			}
 			else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" &&
-				collision->m_ColliderA->m_ColliderName == "player-bullet"))
+				(collAisPlayer1Bullet || collAisPlayer2Bullet)))
 			{
 				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
@@ -256,7 +272,7 @@ namespace spaceshooter
 
 		n2dReferenceRemove("leader");
 
-		if ((int)m_Pawns.size() > 0)
+		if ((int)s_Pawns.size() > 0)
 		{
 			PawnAttack();
 		}

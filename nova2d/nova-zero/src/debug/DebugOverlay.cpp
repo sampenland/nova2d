@@ -16,6 +16,8 @@ namespace novazero
 		{
 			m_ID = n2dGameGetID();
 
+			m_Position = Vec2((float)position.x, (float)position.y);
+
 			int x = (int)m_Position.x;
 			int y = (int)m_Position.y;
 
@@ -57,6 +59,8 @@ namespace novazero
 
 		void DebugOverlay::Update()
 		{
+			if (m_Destroyed) return;
+
 			std::stringstream ss;
 			ss << std::fixed << std::setprecision(2) << Game::s_FPS;
 			std::string fps = ss.str();
@@ -107,6 +111,9 @@ namespace novazero
 
 		void DebugOverlay::DestroySelf()
 		{
+			if (m_Destroyed) return;
+			m_Destroyed = true;
+
 			m_FPS->DestroySelf();
 			m_Drawables->DestroySelf();
 			m_Updaters->DestroySelf();

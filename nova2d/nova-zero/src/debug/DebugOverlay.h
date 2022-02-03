@@ -27,6 +27,8 @@ namespace novazero
 			Text* m_TimeEffects = nullptr;
 			Text* m_TimeEffecteds = nullptr;
 
+			bool m_Destroyed = false;
+
 		public:
 
 			DebugOverlay(Vec2Int position);

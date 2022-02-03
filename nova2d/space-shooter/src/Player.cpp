@@ -4,6 +4,7 @@
 #include "enemies/Pawn.h"
 #include "enemies/Leader.h"
 #include "specials/PawnBullet.h"
+#include "scenes/Lvl1.h"
 
 namespace spaceshooter
 {
@@ -15,25 +16,36 @@ namespace spaceshooter
 	{
 		m_PlayerNumber = playerNumber;
 
-		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
-		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
-
-		if (SDL_NumJoysticks() > 0)
+		if (Lvl1::s_Players == 2)
 		{
-			AddJoyEventListener(0, SDL_CONTROLLER_BUTTON_B, &InputHandler::IsJoystickButtonDown,
-				std::bind(&Player::Shoot, this));
+			if (playerNumber == "player1")
+			{
+
+			}
+		}
+		else
+		{
+			n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
+			n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
+
+			if (SDL_NumJoysticks() > 0)
+			{
+				AddJoyEventListener(0, SDL_CONTROLLER_BUTTON_B, &InputHandler::IsJoystickButtonDown,
+					std::bind(&Player::Shoot, this));
+			}
+
+			int startX = 8;
+			int startY = 8;
+			for (int i = 0; i < m_Lives; i++)
+			{
+				Sprite* life = new Sprite("player", Vec2((float)startX + (i * 16), (float)startY), Vec2Int(16, 16), 0);
+				m_LifeSprites.push_back(life);
+			}
+
 		}
 
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, m_PlayerNumber);
-
-		int startX = 8;
-		int startY = 8;
-		for (int i = 0; i < m_Lives; i++)
-		{
-			Sprite* life = new Sprite(m_PlayerNumber, Vec2((float)startX + (i * 16), (float)startY), Vec2Int(16, 16), 0);
-			m_LifeSprites.push_back(life);
-		}
 
 		m_ShootTimer = new Timer(125, true, std::bind(&Player::Shoot, this));
 
@@ -139,7 +151,7 @@ namespace spaceshooter
 		// create and shoot bullet
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetHeight()), Vec2Int((int)GetX(), (int)-GetHeight() - 64), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
-		bullet->AddSprite(m_PlayerNumber + "-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
+		bullet->AddSprite("player-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, m_PlayerNumber + "-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 

@@ -66,12 +66,39 @@ namespace novazero
 			void EnableAI(bool isEnabled);
 			void ResetAI();
 
-			inline float GetX() const { return m_Sprite->GetX(); }
-			inline float GetY() const { return m_Sprite->GetY(); }
-			inline void SetPositionInt(int x, int y) { m_Sprite->SetPositionInt(Vec2Int(x, y)); }
-			inline void SetPosition(float x, float y) { m_Sprite->SetPosition(Vec2(x, y)); }
+			inline float GetX() const 
+			{
+				if (m_Sprite)
+					return m_Sprite->GetX();
+				else
+					return 0;
 
-			inline void SetVisible(bool isVisible) { m_Sprite->m_Visible = isVisible; }
+			}
+
+			inline float GetY() const 
+			{ 
+				if (m_Sprite)
+					return m_Sprite->GetY();
+				else
+					return 0; 
+			}
+
+			inline void SetPositionInt(int x, int y) 
+			{ 
+				if(m_Sprite)
+					m_Sprite->SetPositionInt(Vec2Int(x, y)); 
+			}
+			inline void SetPosition(float x, float y) 
+			{ 
+				if (m_Sprite)
+					m_Sprite->SetPosition(Vec2(x, y)); 
+			}
+
+			inline void SetVisible(bool isVisible) 
+			{ 
+				if (m_Sprite)
+					m_Sprite->m_Visible = isVisible; 
+			}
 
 			void AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
 

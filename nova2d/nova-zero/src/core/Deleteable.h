@@ -26,7 +26,7 @@ namespace novazero
 		public:
 
 			virtual ~Deleteable() {};
-			bool IsDeleted() { return m_DeleteNow; }
+			bool IsDeleted() { return m_DeleteNow == 1; }
 			void SetDeleted(bool v) { m_DeleteNow = v ? 1 : 0; }
 
 			void SetEnabled(bool v) { m_Enabled = v; }

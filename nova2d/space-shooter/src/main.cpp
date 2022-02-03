@@ -22,7 +22,7 @@ int main(int argc, char* argv[])
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32);
 	game.ConfigureDebug(true);
-	game.ConfigureDebugPosition(Vec2Int(32, 100));
+	game.ConfigureDebugPosition(Vec2Int(32, Game::s_Height - 200));
 
 	n2dAddColor("background", "201533", 255);
 	n2dAddColor("purple", "252446", 255);

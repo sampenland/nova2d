@@ -13,6 +13,8 @@ namespace spaceshooter
 	Pawn::Pawn(std::string assetName, Vec2 position, Vec2Int size, char layer, const float moveUpdateDelay)
 		: SimpleWeakAI()
 	{
+		Leader::s_PawnCount++;
+		
 		m_DeleteName = assetName + std::to_string(SimpleWeakAI::Collider::m_ID);
 		
 		AddSprite(assetName, position, size, layer);
@@ -91,16 +93,12 @@ namespace spaceshooter
 		m_Alive = false;
 		m_Destroyed = true;
 
-		Leader* leader = (Leader*)n2dReferenceGet("leader");
-		if (leader)
-		{
-			leader->m_PawnCount--;
-		}
+		Leader::s_PawnCount--;
 
   		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
 
-		m_DeleteNow = 1;
-		SimpleWeakAI::DestroySelf();
+		if (m_Sprite)
+			m_Sprite->DestroySelf();
 	}
 }

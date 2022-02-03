@@ -32,11 +32,11 @@ namespace spaceshooter
 		Timer* m_BombTimer = nullptr;
 		Timer* m_MoveTimer = nullptr;
 
-		std::vector<Pawn*> m_Pawns;
 
 	public:
 	
-		int m_PawnCount = 0;
+		static std::vector<Pawn*> s_Pawns;
+		static int s_PawnCount;
 	
 	public:
 
