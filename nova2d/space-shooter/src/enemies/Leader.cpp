@@ -86,8 +86,8 @@ namespace spaceshooter
 				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
 				pawn->EnableAI(true);
 				pawn->Configure(20, true);
-				float rMin = n2dRandomFloat(1000, 3000);
-				float rMax = n2dRandomFloat(5000, 8000);
+				float rMin = n2dRandomFloat(3000, 6000);
+				float rMax = n2dRandomFloat(7000, 15000);
 				pawn->ConfigureShoot(rMin, rMax);
 
 				s_Pawns.push_back(pawn);
@@ -274,7 +274,7 @@ namespace spaceshooter
 
 		if ((int)s_Pawns.size() > 0)
 		{
-			PawnAttack();
+			PawnAttack(); // TODO: crash here
 		}
 
 		m_Destroyed = true;

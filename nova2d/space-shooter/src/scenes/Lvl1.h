@@ -15,6 +15,8 @@ namespace spaceshooter
 	private:
 
 		Text* m_ScoreText = nullptr;
+		Text* m_StreakText = nullptr;
+
 		LeaderController* m_LeaderController;
 
 	public:

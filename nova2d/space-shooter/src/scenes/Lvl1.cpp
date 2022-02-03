@@ -52,13 +52,16 @@ namespace spaceshooter
 
 		const int scoreSize = 128;
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
-		n2dAddDrawable(m_ScoreText, 0);
+		
+		const int streakSize = 144;
+		m_StreakText = new Text("font1", "Streak: 0", "light-blue", Rect(Game::s_Width - scoreSize - 8, 32, scoreSize, 16), 0);
 
 		/*TimeWarp* tw = new TimeWarp(Vec2((float)Game::s_Width / 2 - 40, (float)Game::s_Height - 256), 
 			0.25f, 80, 10000);*/
 
 		AddObjectToCleanUp(m_LeaderController);
 		AddObjectToCleanUp(m_ScoreText);
+		AddObjectToCleanUp(m_StreakText);
 
 	}
 
@@ -66,6 +69,7 @@ namespace spaceshooter
 	{
 		auto score = n2dScoreGet();
 		m_ScoreText->UpdateText("Score: " + std::to_string(score));
+		m_StreakText->UpdateText("Streak: " + std::to_string(Player::s_MaxStreak));
 	}
 
 	void Lvl1::End()

@@ -11,6 +11,10 @@ namespace spaceshooter
 	using namespace novazero::ai;
 	using namespace novazero::input;
 
+	Uint32 Player::s_LastPawnKillTime = 0;
+	int Player::s_Streak = 0;
+	int Player::s_MaxStreak = 0;
+
 	Player::Player(std::string assetName, std::string playerNumber, Vec2 position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{

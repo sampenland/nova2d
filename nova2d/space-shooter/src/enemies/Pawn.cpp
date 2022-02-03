@@ -3,6 +3,7 @@
 #include "Leader.h"
 #include "../specials/PawnBullet.h"
 #include "../Player.h"
+#include "../scenes/Lvl1.h"
 
 namespace spaceshooter
 {
@@ -90,6 +91,19 @@ namespace spaceshooter
 	{
 		if (m_Destroyed) return;
 
+		if (Lvl1::s_Players == 1)
+		{
+			Player* player1 = (Player*)n2dReferenceGet("player1");
+			player1->NewKill();
+		}
+		else
+		{
+			Player* player1 = (Player*)n2dReferenceGet("player1");
+			player1->NewKill();
+			Player* player2 = (Player*)n2dReferenceGet("player2");
+			player2->NewKill();
+		}
+
 		m_Alive = false;
 		m_Destroyed = true;
 
@@ -100,5 +114,7 @@ namespace spaceshooter
 
 		if (m_Sprite)
 			m_Sprite->DestroySelf();
+
+		SimpleWeakAI::DestroySelf(); // TODO: possible bug
 	}
 }
