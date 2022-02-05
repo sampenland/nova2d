@@ -62,6 +62,7 @@ namespace spaceshooter
 
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, m_PlayerNumber);
+		SetTimeEffectEnabled(false);
 
 		m_ShootTimer = new Timer(SHOOT_TIME, true, std::bind(&Player::Shoot, this));
 
@@ -195,7 +196,7 @@ namespace spaceshooter
 			m_LifeSprites.pop_back();
 			m_Lives--;
 
-			SetPosition(Game::s_Width / 2 - GetWidth() / 2, Game::s_Height - 64);
+			SetPosition((float)Game::s_Width / 2 - GetWidth() / 2, (float)Game::s_Height - 64);
 
 		}
 		else

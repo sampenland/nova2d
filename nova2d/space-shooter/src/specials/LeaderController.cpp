@@ -69,7 +69,7 @@ namespace spaceshooter
 			break;
 		}
 
-		m_Leader->ConfigureShoot(min * 1000, max * 1000);
+		m_Leader->ConfigureShoot((float)min * 1000, (float)max * 1000);
 		if (m_Leader)
 		{
 			s_LeaderExists = true;

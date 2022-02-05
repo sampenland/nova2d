@@ -17,7 +17,7 @@ namespace spaceshooter
 
 	private:
 
-		const int SHOOT_TIME = 230;
+		const float SHOOT_TIME = 230;
 
 		std::string m_PlayerNumber = "player1";
 
@@ -71,7 +71,6 @@ namespace spaceshooter
 			if (playerNumber == "player1")
 			{
 				Uint32 deltaTicks = ticks - s_Player1LastPawnKillTime;
-				LOG(LVL_WARNING, std::to_string(deltaTicks) + " :: " + std::to_string(s_StreakTime));
 				if (deltaTicks < s_StreakTime)
 				{
 					s_Player1Streak++;
@@ -87,7 +86,6 @@ namespace spaceshooter
 			else if(playerNumber == "player2")
 			{
 				Uint32 deltaTicks = ticks - s_Player2LastPawnKillTime;
-				LOG(LVL_WARNING, std::to_string(deltaTicks) + " :: " + std::to_string(s_StreakTime));
 				if (deltaTicks < s_StreakTime)
 				{
 					s_Player2Streak++;

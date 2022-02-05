@@ -350,7 +350,7 @@ namespace spaceshooter
 		
 		});
 
-		auto destructR = n2dRandomFloatMinChance(6500, 12000, 0.2);
+		auto destructR = n2dRandomFloatMinChance(6500.0f, 12000.0f, 0.2);
 		Timer* bulletDestruct = new Timer(destructR, false, *bulletDestroy);
 		bullet->AddTimer(bulletDestruct);
 
