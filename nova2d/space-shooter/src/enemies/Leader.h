@@ -34,7 +34,6 @@ namespace spaceshooter
 
 		Timer* m_BombTimer = nullptr;
 		Timer* m_MoveTimer = nullptr;
-		Timer* m_DestructTimer = nullptr;
 		Timer* m_GenTimer = nullptr;
 
 	public:
@@ -67,7 +66,6 @@ namespace spaceshooter
 		void Hurt(int damage, std::string damager = "player0");
 		void SmallExplosion();
 
-		void StartDestruct();
 		void DestroySelf() override;
 
 	public:

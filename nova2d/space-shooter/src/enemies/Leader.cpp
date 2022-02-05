@@ -105,7 +105,7 @@ namespace spaceshooter
 
 					s_PawnWave++;
 
-					if (s_PawnWave >= 4)
+					if (s_PawnWave >= 1)
 					{
 						Retreat();
 					}
@@ -123,12 +123,9 @@ namespace spaceshooter
 		ClearPatrol();
 		AddPatrolPointWithFunction(Vec2(GetX(), GetY()), std::bind(&SimpleWeakAI::LinearPatrolMove, this));
 		AddPatrolPointWithFunction(Vec2(GetX(), -32), std::bind(&SimpleWeakAI::LinearPatrolMove, this));
-		ConfigureOnPatrolComplete(std::bind(&Leader::StartDestruct, this));
-	}
 
-	void Leader::StartDestruct()
-	{
-		m_DestructTimer = new Timer(2000, false, std::bind(&Leader::DestroySelf, this));
+		ConfigureAliveBounds(Game::GetGameBounds(32));
+		ConfigureUsingBounds(false, true);
 	}
 
 	void Leader::GeneratePawnWave(char rows, char cols)
@@ -403,9 +400,6 @@ namespace spaceshooter
 
 		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
-
-		if (m_DestructTimer)
-			m_DestructTimer->DestroySelf();
 
 		if (m_GenTimer)
 			m_GenTimer->DestroySelf();

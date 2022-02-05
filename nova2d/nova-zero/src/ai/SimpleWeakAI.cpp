@@ -48,6 +48,8 @@ namespace novazero
 			
 			if ((int)m_MoveFunctions.size() > 0)
 				m_MoveFunctions.clear();
+
+			m_PatrolIndex = 0;
 		}
 
 		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2 point)
