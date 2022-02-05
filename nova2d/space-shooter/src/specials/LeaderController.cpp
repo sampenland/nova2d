@@ -18,6 +18,58 @@ namespace spaceshooter
 	void LeaderController::CreateLeader(Vec2 position, int maxHealth, int pawnRows, int pawnCols)
 	{
 		m_Leader = new Leader("leader", Vec2((float)Game::s_Width / 2 - 8, -48.0f), Vec2Int(16, 16), maxHealth, pawnRows, pawnCols, 1);
+		
+		int min = 4;
+		int max = 8;
+		switch (s_Wave)
+		{
+		case 1:
+			min = 4;
+			max = 8;
+			break;
+		case 2:
+			min = 4;
+			max = 8;
+			break;
+		case 3:
+			min = 4;
+			max = 8;
+			break;
+		case 4:
+			min = 4;
+			max = 8;
+			break;
+		case 5:
+			min = 4;
+			max = 8;
+			break;
+		case 6:
+			min = 4;
+			max = 8;
+			break;
+		case 7:
+			min = 4;
+			max = 8;
+			break;
+		case 8:
+			min = 4;
+			max = 8;
+			break;
+		case 9:
+			min = 4;
+			max = 8;
+			break;
+		case 10:
+			min = 4;
+			max = 8;
+			break;
+		default:
+			min = 4;
+			max = 8;
+			break;
+		}
+
+		m_Leader->ConfigureShoot(min * 1000, max * 1000);
 		if (m_Leader)
 		{
 			s_LeaderExists = true;

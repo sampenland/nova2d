@@ -116,11 +116,36 @@ namespace novazero
 			{
 				return min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));
 			}
+			static float RandomFloatWithMaxChance(float min, float max, float chanceOfMax)
+			{
+				float chance = n2dRandomFloat(0, 1);
+				if (chance < chanceOfMax) return max;
+				return n2dRandomFloat(min, max);
+			}
+			static float RandomFloatWithMinChance(float min, float max, float chanceOfMin)
+			{
+				float chance = n2dRandomFloat(0, 1);
+				if (chance < chanceOfMin) return min;
+				return n2dRandomFloat(min, max);
+			}
 			static int RandomInt(int min, int max)
 			{
 				// Random int between min-max
 				return (int)(rand() % min + max);
 			}
+			static int RandomIntWithMaxChance(int min, int max, float chanceOfMax)
+			{
+				float chance = n2dRandomFloat(0, 1);
+				if (chance < chanceOfMax) return max;
+				return n2dRandomInt(min, max);
+			}
+			static int RandomIntWithMinChance(int min, int max, float chanceOfMin)
+			{
+				float chance = n2dRandomFloat(0, 1);
+				if (chance < chanceOfMin) return min;
+				return n2dRandomInt(min, max);
+			}
+			
 		};
 	}
 }

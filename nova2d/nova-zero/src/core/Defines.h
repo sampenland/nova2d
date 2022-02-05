@@ -50,10 +50,33 @@ Returns a random float in range
 #define n2dRandomFloat(min, max) novazero::core::Game::RandomFloat(min, max);
 
 /*
+nova2d Random Float with MAX chance(float min, float max, 0-1 percent chance of MAX)
+Returns a random float in range with a likeliness of hitting MAX
+*/
+#define n2dRandomFloatMaxChance(min, max, chanceOfMax) novazero::core::Game::RandomFloatWithMaxChance(min, max, chanceOfMax);
+/*
+nova2d Random Float with MIN chance(float min, float max, 0-1 percent chance of MIN)
+Returns a random float in range with a likeliness of hitting MIN
+*/
+#define n2dRandomFloatMinChance(min, max, chanceOfMin) novazero::core::Game::RandomFloatWithMinChance(min, max, chanceOfMin);
+
+/*
 nova2d Random Int (int min, int max)
 Returns a random integer in range
 */
 #define n2dRandomInt(min, max) novazero::core::Game::RandomInt(min, max);
+
+/*
+nova2d Random Int with MAX chance (int min, int max, float 0-1 percent chance of MAX)
+Returns a random integer in range with a chance of hitting MAX
+*/
+#define n2dRandomIntMaxChance(min, max, chanceOfMax) novazero::core::Game::RandomIntWithMaxChance(min, max, chanceOfMax);
+
+/*
+nova2d Random Int with MIN chance (int min, int max, float 0-1 percent chance of MIN)
+Returns a random integer in range with a chance of hitting MIN
+*/
+#define n2dRandomIntMinChance(min, max, chanceOfMin) novazero::core::Game::RandomIntWithMaxChance(min, max, chanceOfMin);
 
 /*
 nova2d Round To Even (number)

@@ -17,6 +17,8 @@ namespace spaceshooter
 
 	private:
 
+		const int SHOOT_TIME = 230;
+
 		std::string m_PlayerNumber = "player1";
 
 		bool m_SpacePressed = false;
@@ -28,7 +30,6 @@ namespace spaceshooter
 		int m_Lives = 20;
 		std::vector<Sprite*> m_LifeSprites;
 		Sprite* m_StreakSprite;
-		DrawCircle* m_ClockPower = nullptr;
 
 		unsigned int m_CleanID = 0;
 
@@ -45,6 +46,8 @@ namespace spaceshooter
 		void OnSpace();
 		void OnSpaceUp();
 		void Shoot();
+
+		void Die();
 
 		void SmallExplosion();
 		void Quit();

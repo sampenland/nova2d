@@ -66,7 +66,7 @@ namespace spaceshooter
 		int* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, m_EffectRadius, 1000.0f, false);
+			m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, m_EffectRadius, 600.0f, false);
 		}
 
 		m_DestroyTimer = new Timer(m_DestroyTime, false, std::bind(&TimeWarp::DestroySelf, this));

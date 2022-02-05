@@ -31,7 +31,7 @@ namespace spaceshooter
 	public:
 
 		Pawn(std::string assetName, Vec2 position, Vec2Int size, 
-			char layer, const float moveUpdateDelay);
+			char layer, const float moveUpdateDelay, float shootMin, float shootMax);
 		
 		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
 

@@ -25,8 +25,6 @@ namespace spaceshooter
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
 		m_PlayerNumber = playerNumber;
-		m_ClockPower = new DrawCircle("white", "white", false, position, 0, 0);
-		m_ClockPower->SetVisible(false);
 
 		m_StreakSprite = new Sprite("streaks", Vec2(0.f, 0.f), Vec2Int(48, 8), 0);
 		m_StreakSprite->ConfigureAnimation(0, 16, 0, false);
@@ -65,7 +63,7 @@ namespace spaceshooter
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, m_PlayerNumber);
 
-		m_ShootTimer = new Timer(125, true, std::bind(&Player::Shoot, this));
+		m_ShootTimer = new Timer(SHOOT_TIME, true, std::bind(&Player::Shoot, this));
 
 		m_CleanID = n2dAddUpdater(Player::Update, this);
 
@@ -84,16 +82,19 @@ namespace spaceshooter
 
 	void Player::OnCollision(Collision* collision)
 	{
+		bool collAisPlayer = collision->m_ColliderA->m_ColliderName == m_PlayerNumber;
+		bool collBisPlayer = collision->m_ColliderB->m_ColliderName == m_PlayerNumber;
+
 		bool hit = false;
-		if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" && collision->m_ColliderB->m_ColliderName == "player") ||
-			(collision->m_ColliderA->m_ColliderName == "pawn-bullet" && collision->m_ColliderB->m_ColliderName == "player"))
+		if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" && collBisPlayer) ||
+			(collision->m_ColliderA->m_ColliderName == "pawn-bullet" && collBisPlayer))
 		{
 			// Bullets with player
 			((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 			hit = true;
 		}
-		else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" && collision->m_ColliderA->m_ColliderName == "player") ||
-			(collision->m_ColliderB->m_ColliderName == "pawn-bullet" && collision->m_ColliderA->m_ColliderName == "player"))
+		else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" && collAisPlayer) ||
+			(collision->m_ColliderB->m_ColliderName == "pawn-bullet" && collAisPlayer))
 		{
 			// Bullets with player
 			((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
@@ -107,13 +108,11 @@ namespace spaceshooter
 
 		if (hit && m_Lives > 1)
 		{
-			Sprite* s = m_LifeSprites.at(m_Lives - 1);
-			s->DestroySelf();
-			m_LifeSprites.pop_back();
-			m_Lives--;
+			Die();
 		}
 		else if (hit)
 		{
+			//TODO: two player games don't end on one player death; living player can revive other
 			m_ShootTimer->DestroySelf();
 
 			// Game over
@@ -149,8 +148,12 @@ namespace spaceshooter
 			m_StreakSprite->JumpToFrame(s_Player2Streak);
 		}
 
-		m_ClockPower->SetPosition(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2));
+	}
 
+	void Player::OnSpace()
+	{
+		bool justDown = !m_SpacePressed;
+		m_SpacePressed = true;
 	}
 
 	void Player::OnSpaceUp()
@@ -172,60 +175,31 @@ namespace spaceshooter
 			maxSize = s_Player2Streak * 30;
 		}
 
+		if (maxSize > 120) maxSize = 120;
+
 		if (justUp)
 		{
-			int maxSize = s_Player1Streak * 35;
-
-			if (maxSize > 200)
-				maxSize = 200;
-
-			int size = (int)((float)maxSize * ((float)m_SpaceDuration / c_MaxSpaceHoldTime));
-
-			if (size < 60) size = 80;
-
-			int timeTillDestruct = 8000;
-			if (size < 80) timeTillDestruct = 6000;
-			if (size == 200) timeTillDestruct = 8000;
-
-			m_ClockPower->SetVisible(false);
 			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2), 0.25f,
-				size, 1000, timeTillDestruct);
+				maxSize, 1000, 8000);
 		}
 	}
 
-	void Player::OnSpace()
+	void Player::Die()
 	{
-		bool justDown = !m_SpacePressed;
-		m_SpacePressed = true;
-
-		if (m_SpaceDuration > c_MaxSpaceHoldTime) return;
-
-		m_SpaceDuration = (float)(m_SpaceDuration + Game::s_DeltaTime);
-
-		if (justDown)
+		if (Lvl1::s_Players == 1)
 		{
-			m_SpaceDuration = 0.0f;
+			// one player
+			Sprite* s = m_LifeSprites.at(m_Lives - 1);
+			s->DestroySelf();
+			m_LifeSprites.pop_back();
+			m_Lives--;
+
+			SetPosition(Game::s_Width / 2 - GetWidth() / 2, Game::s_Height - 64);
+
 		}
 		else
 		{
-			int streak = s_Player1Streak;
-			if (m_PlayerNumber == "player2")
-				streak = s_Player2Streak;
-
-			if (streak == 0)
-			{
-				m_ClockPower->SetVisible(false);
-			}
-			else
-			{
-				m_ClockPower->SetVisible(true);
-
-				int maxSize = streak * 30;
-				if (maxSize > 100)maxSize = 100;
-				int size = (int)((float)maxSize * ((float)m_SpaceDuration / c_MaxSpaceHoldTime));
-
-				m_ClockPower->SetDrawCircleRadius(size);
-			}
+			// two player
 		}
 	}
 

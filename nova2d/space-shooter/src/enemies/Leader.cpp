@@ -123,7 +123,8 @@ namespace spaceshooter
 				float offsetX = (float)col * 48;
 				float offsetY = (float)-row * 32;
 
-				Pawn* pawn = new Pawn("pawn", Vec2((Game::s_Width / 2) + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
+				Pawn* pawn = new Pawn("pawn", Vec2((Game::s_Width / 2) + offsetX, offsetY), 
+					Vec2Int(16, 16), 1, 0.0f, 2000, 5000);
 				offsetY += moveForward;
 				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
 				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX() - 200, offsetY), pawn->GetLinearPatrolMove());
@@ -297,17 +298,46 @@ namespace spaceshooter
 			bool collAisPlayer2Bullet = collision->m_ColliderA->m_ColliderName == "player2-bullet";
 			bool collBisPlayer2Bullet = collision->m_ColliderB->m_ColliderName == "player2-bullet";
 
+			bool collAisPlayer1 = collision->m_ColliderA->m_ColliderName == "player1";
+			bool collBisPlayer1 = collision->m_ColliderB->m_ColliderName == "player1";
+
+			bool collAisPlayer2 = collision->m_ColliderA->m_ColliderName == "player2";
+			bool collBisPlayer2 = collision->m_ColliderB->m_ColliderName == "player2";
+
+			// player 1 with leader bullet
+			if (collision->m_ColliderA->m_ColliderName == "leader-bullet" && 
+				(collBisPlayer1 || collBisPlayer2))
+			{
+				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
+				((Player*)collision->m_ColliderB)->Die();
+			}
+			else if (collision->m_ColliderB->m_ColliderName == "leader-bullet" && 
+				(collAisPlayer1 || collAisPlayer2))
+			{
+				((Player*)collision->m_ColliderA)->Die();
+				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
+			}
+
 			if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" &&
 				(collBisPlayer1Bullet || collBisPlayer2Bullet)))
 			{
+				// leader pullet with player bullet
 				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 			}
 			else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" &&
 				(collAisPlayer1Bullet || collAisPlayer2Bullet)))
 			{
+				// leader pullet with player bullet
 				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+			}
+			else if (collision->m_ColliderA->m_ColliderName == "leader-bullet" &&
+				collision->m_ColliderB->m_ColliderName == "leader-bullet")
+			{
+				// leader bullet with another leader bullet
+				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
+				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 			}
 		});
 
@@ -320,7 +350,7 @@ namespace spaceshooter
 		
 		});
 
-		auto destructR = n2dRandomFloat(6500, 12000);
+		auto destructR = n2dRandomFloatMinChance(6500, 12000, 0.2);
 		Timer* bulletDestruct = new Timer(destructR, false, *bulletDestroy);
 		bullet->AddTimer(bulletDestruct);
 
