@@ -175,12 +175,13 @@ namespace spaceshooter
 			maxSize = s_Player2Streak * 30;
 		}
 
-		if (maxSize > 120) maxSize = 120;
+		if (maxSize < 60) maxSize = 60;
+		if (maxSize > 120) maxSize = 150;
 
 		if (justUp)
 		{
-			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2), 0.25f,
-				maxSize, 1000, 8000);
+			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2), 0.15f,
+				maxSize, 1000, 12 * 1000); // 1/8 speed for 12 seconds
 		}
 	}
 
@@ -212,6 +213,7 @@ namespace spaceshooter
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, m_PlayerNumber + "-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 		bullet->MetaAdd("playerNum", m_PlayerNumber);
+		bullet->SetTimeEffectEnabled(false);
 
 		auto collisionFunction = new auto ([](Collision* collision) {
 
