@@ -324,6 +324,7 @@ namespace spaceshooter
 				// leader pullet with player bullet
 				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				n2dScoreAdd(10);
 			}
 			else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" &&
 				(collAisPlayer1Bullet || collAisPlayer2Bullet)))
@@ -331,6 +332,7 @@ namespace spaceshooter
 				// leader pullet with player bullet
 				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				n2dScoreAdd(10);
 			}
 			else if (collision->m_ColliderA->m_ColliderName == "leader-bullet" &&
 				collision->m_ColliderB->m_ColliderName == "leader-bullet")
