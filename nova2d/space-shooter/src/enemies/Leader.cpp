@@ -96,8 +96,21 @@ namespace spaceshooter
 		}
 	}
 
+	void Leader::ClearDeadPawns()
+	{
+		for (std::vector<Pawn*>::iterator it = s_Pawns.begin(); it != s_Pawns.end();)
+		{
+			Pawn& p = **it;
+			if (p.m_Dead == 1)
+				it = s_Pawns.erase(it);
+
+			it++;
+		}
+	}
+
 	void Leader::PawnAttack()
 	{
+		ClearDeadPawns();
 		for (std::vector<Pawn*>::iterator it = s_Pawns.begin(); it != s_Pawns.end();)
 		{
 			Pawn& p = **it;
@@ -142,13 +155,14 @@ namespace spaceshooter
 		
 	}
 
-	void Leader::Hurt(int damage)
+	void Leader::Hurt(int damage, std::string damager)
 	{
 		SmallExplosion();
 
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
+			m_KilledBy = damager;
 			n2dScoreAdd(80);
 			DestroySelf();
 		}
@@ -274,7 +288,7 @@ namespace spaceshooter
 
 		if ((int)s_Pawns.size() > 0)
 		{
-			PawnAttack(); // TODO: crash here
+			PawnAttack();
 		}
 
 		m_Destroyed = true;

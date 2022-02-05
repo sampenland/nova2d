@@ -35,6 +35,7 @@ namespace novazero
 					Collider* a = m_Colliders.at(left);
 					Collider* b = m_Colliders.at(i);
 
+					if (!a->m_UsingCollider || !b->m_UsingCollider)continue;
 					if (a->m_ID == b->m_ID) continue;
 					if (a->m_CollisionLayer != b->m_CollisionLayer) continue;
 

@@ -22,6 +22,11 @@ namespace spaceshooter
 
 		SimpleStatBar* m_HealthBar = nullptr;
 		int m_Health = 8;
+		std::string m_KilledBy = "player0";
+
+	public:
+
+		bool m_Dead = 0;
 
 	public:
 
@@ -35,7 +40,7 @@ namespace spaceshooter
 		void PawnUpdate();
 		void Shoot();
 
-		void Hurt(int damage);
+		void Hurt(int damage, std::string damager);
 		void SmallExplosion();
 
 		void DestroySelf() override;

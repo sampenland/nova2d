@@ -6,6 +6,7 @@
 #include "../core/Deleteable.h"
 #include "../physics/Graver.h"
 #include "../physics/TimeEffected.h"
+#include "../core/Meta.h"
 
 namespace novazero
 {
@@ -20,7 +21,8 @@ namespace novazero
 			: public EventListener, 
 			public BoundUser,
 			public Collider,
-			public TimeEffected
+			public TimeEffected,
+			public Meta
 		{
 
 		private:

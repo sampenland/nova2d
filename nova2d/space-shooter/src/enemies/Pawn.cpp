@@ -48,7 +48,7 @@ namespace spaceshooter
 		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
 	}
 
-	void Pawn::Hurt(int damage)
+	void Pawn::Hurt(int damage, std::string damager)
 	{
 		SmallExplosion();
 
@@ -57,6 +57,7 @@ namespace spaceshooter
 		{
 			if (m_Alive)
 			{
+				m_KilledBy = damager;
 				n2dScoreAdd(14);
 				DestroySelf();
 			}
@@ -90,24 +91,25 @@ namespace spaceshooter
 	void Pawn::DestroySelf()
 	{
 		if (m_Destroyed) return;
+		m_Destroyed = true;
 
 		if (Lvl1::s_Players == 1)
 		{
 			Player* player1 = (Player*)n2dReferenceGet("player1");
-			player1->NewKill();
 		}
 		else
 		{
 			Player* player1 = (Player*)n2dReferenceGet("player1");
-			player1->NewKill();
 			Player* player2 = (Player*)n2dReferenceGet("player2");
-			player2->NewKill();
 		}
 
+		Player::NewKill(m_KilledBy);
+
 		m_Alive = false;
-		m_Destroyed = true;
 
 		Leader::s_PawnCount--;
+
+		m_UsingCollider = false;
 
   		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
@@ -115,6 +117,6 @@ namespace spaceshooter
 		if (m_Sprite)
 			m_Sprite->DestroySelf();
 
-		SimpleWeakAI::DestroySelf(); // TODO: possible bug
+		m_Dead = 1;
 	}
 }

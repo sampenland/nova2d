@@ -26,6 +26,7 @@ namespace spaceshooter
 		SimpleStatBar* m_HealthBar = nullptr;
 		int m_HealthMax = 64;
 		int m_Health = 64;
+		std::string m_KilledBy;
 
 		std::vector<Vec2> m_PatrolMemory;
 
@@ -53,12 +54,13 @@ namespace spaceshooter
 		void MoveForwardThenBack();
 		void RememberOldMoving();
 		void PawnAttack();
+		void ClearDeadPawns();
 		void RemovePawn(unsigned int pawnID);
 
 		void DeployBomb();
 
 		void HealthUpdate();
-		void Hurt(int damage);
+		void Hurt(int damage, std::string damager = "player0");
 		void SmallExplosion();
 
 		void DestroySelf() override;

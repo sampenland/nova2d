@@ -166,6 +166,7 @@
     <ClInclude Include="src\core\Deleteable.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />
+    <ClInclude Include="src\core\Meta.h" />
     <ClInclude Include="src\core\Referenceable.h" />
     <ClInclude Include="src\core\Timer.h" />
     <ClInclude Include="src\core\TimerWatcher.h" />

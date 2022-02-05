@@ -7,6 +7,7 @@
 #include "../core/TimerWatcher.h"
 #include "../physics/Collider.h"
 #include "../physics/TimeEffected.h"
+#include "../core/Meta.h"
 
 namespace novazero
 {
@@ -22,7 +23,8 @@ namespace novazero
 			public BoundUser,
 			public TimerWatcher,
 			public Collider,
-			public TimeEffected
+			public TimeEffected,
+			public Meta
 		{
 
 		private:

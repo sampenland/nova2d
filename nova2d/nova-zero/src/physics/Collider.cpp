@@ -20,7 +20,7 @@ namespace novazero
 
 		Collider::~Collider()
 		{
-			SceneManager::s_CollisionManager->RemoveCollider(this);
+			SceneManager::s_CollisionManager->RemoveCollider(this); // TODO: am i making pointers with new and need to delete in manager?
 		}
 			
 		void Collider::ConfigureCollider(Sprite* sprite, int collisionLayer, std::string colliderName)

@@ -15,7 +15,7 @@ namespace novazero
 			m_Sprite = sprite;
 		}
 
-		float Positional::GetX() const { return m_Position.x; } // TODO: crashes here sometimes
+		float Positional::GetX() const { return m_Position.x; }
 		float Positional::GetY() const { return m_Position.y; }
 		Vec2 Positional::GetPosition() const { return m_Position; }
 		Vec2Int Positional::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }
