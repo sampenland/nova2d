@@ -48,6 +48,14 @@ namespace novazero
 				}
 			}
 
+			for (size_t i = 0; i < m_KeysConditions1.size(); i++)
+			{
+				if (m_KeysConditions1[i](m_KeyCodes1[i]) == true)
+				{
+					m_KeysEvents1[i]();
+				}
+			}
+
 			for (size_t i = 0; i < m_JoysticksConditions.size(); i++)
 			{
 				if (m_JoysticksConditions[i](m_JoysticksIDs[i], m_JoystickButtons[i]) == true)
@@ -74,6 +82,18 @@ namespace novazero
 			m_KeysConditions.push_back(conditionalFunction);
 			m_KeysEvents.push_back(executeFunction);
 		}
+
+		void EventListener::AddKeysEventListener1(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		{
+			if (m_KeyCodes1.end() != std::find(m_KeyCodes1.begin(), m_KeyCodes1.end(), key))
+			{
+				return;
+			}
+
+			m_KeyCodes1.push_back(key);
+			m_KeysConditions1.push_back(conditionalFunction);
+			m_KeysEvents1.push_back(executeFunction);
+		}
 		
 		void EventListener::RemoveEventListener(SDL_KeyCode key)
 		{
@@ -92,6 +112,26 @@ namespace novazero
 			m_KeyCodes.erase(m_KeyCodes.begin() + idx);
 			m_KeysConditions.erase(m_KeysConditions.begin() + idx);
 			m_KeysEvents.erase(m_KeysEvents.begin() + idx);
+
+		}
+
+		void EventListener::RemoveEventListener1(SDL_KeyCode key)
+		{
+			int idx = -1;
+			for (size_t i = 0; i < m_KeyCodes1.size(); i++)
+			{
+				if (m_KeyCodes1[i] == key)
+				{
+					idx = i;
+					break;
+				}
+			}
+
+			if (idx == -1) return;
+
+			m_KeyCodes1.erase(m_KeyCodes1.begin() + idx);
+			m_KeysConditions1.erase(m_KeysConditions1.begin() + idx);
+			m_KeysEvents1.erase(m_KeysEvents1.begin() + idx);
 
 		}
 

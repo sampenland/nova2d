@@ -20,6 +20,7 @@ namespace novazero
 			int m_Radius = 1;
 			int m_CleanID = 0;
 			bool m_Filled = false;
+			bool m_Visible = true;
 			std::string m_OutlineColor = "";
 			std::string m_FillColor = "";
 
@@ -31,6 +32,8 @@ namespace novazero
 			int* GetDrawCircleRadiusRef() { return &m_Radius; }
 			bool IsDrawCircleFilled() { return m_Filled; }
 			void SetDrawCircleRadius(int r) { m_Radius = r; }
+
+			void SetVisible(bool v) { m_Visible = v; }
 
 			void Draw() override;
 			void DestroySelf();

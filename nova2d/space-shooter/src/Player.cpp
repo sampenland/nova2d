@@ -5,6 +5,7 @@
 #include "enemies/Leader.h"
 #include "specials/PawnBullet.h"
 #include "scenes/Lvl1.h"
+#include "specials/TimeWarp.h"
 
 namespace spaceshooter
 {
@@ -24,6 +25,8 @@ namespace spaceshooter
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
 		m_PlayerNumber = playerNumber;
+		m_ClockPower = new DrawCircle("white", "white", false, position, 0, 0);
+		m_ClockPower->SetVisible(false);
 
 		m_StreakSprite = new Sprite("streaks", Vec2(0.f, 0.f), Vec2Int(48, 8), 0);
 		m_StreakSprite->ConfigureAnimation(0, 16, 0, false);
@@ -39,6 +42,8 @@ namespace spaceshooter
 		else
 		{
 			n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
+			n2dAddKeyUpListener(SDLK_SPACE, Player::OnSpaceUp, this);
+			
 			n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
 
 			if (SDL_NumJoysticks() > 0)
@@ -134,20 +139,6 @@ namespace spaceshooter
 
 	void Player::Update()
 	{
-		if (!m_CanSpace)
-		{
-			if (m_SpaceDelay > 0)
-			{
-				m_SpaceDelay -= Game::s_DeltaTime;
-				return;
-			}
-			else
-			{
-				m_CanSpace = true;
-				m_SpaceDelay = m_SpaceDelayReset;
-			}
-		}
-
 		m_StreakSprite->SetPosition(Vec2(GetX() - 16, GetY() + 24));
 		if (m_PlayerNumber == "player1")
 		{
@@ -158,16 +149,84 @@ namespace spaceshooter
 			m_StreakSprite->JumpToFrame(s_Player2Streak);
 		}
 
+		m_ClockPower->SetPosition(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2));
+
+	}
+
+	void Player::OnSpaceUp()
+	{
+		bool justUp = m_SpacePressed;
+		if (!justUp) return;
+
+		m_SpacePressed = false;
+
+		int maxSize = 30;
+		if (m_PlayerNumber == "player1")
+		{
+			if (s_Player1Streak == 0) return;
+			maxSize = s_Player1Streak * 30;
+		}
+		if(m_PlayerNumber == "player2")
+		{
+			if (s_Player2Streak == 0) return;
+			maxSize = s_Player2Streak * 30;
+		}
+
+		if (justUp)
+		{
+			int maxSize = s_Player1Streak * 35;
+
+			if (maxSize > 200)
+				maxSize = 200;
+
+			int size = (int)((float)maxSize * ((float)m_SpaceDuration / c_MaxSpaceHoldTime));
+
+			if (size < 60) size = 80;
+
+			int timeTillDestruct = 8000;
+			if (size < 80) timeTillDestruct = 6000;
+			if (size == 200) timeTillDestruct = 8000;
+
+			m_ClockPower->SetVisible(false);
+			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2), 0.25f,
+				size, 1000, timeTillDestruct);
+		}
 	}
 
 	void Player::OnSpace()
 	{
-		if (!m_CanSpace) return;
+		bool justDown = !m_SpacePressed;
+		m_SpacePressed = true;
 
-		m_CanSpace = false;
-		m_CanSpace = m_SpaceDelayReset;
+		if (m_SpaceDuration > c_MaxSpaceHoldTime) return;
 
-		// shield / or something on space key
+		m_SpaceDuration = (float)(m_SpaceDuration + Game::s_DeltaTime);
+
+		if (justDown)
+		{
+			m_SpaceDuration = 0.0f;
+		}
+		else
+		{
+			int streak = s_Player1Streak;
+			if (m_PlayerNumber == "player2")
+				streak = s_Player2Streak;
+
+			if (streak == 0)
+			{
+				m_ClockPower->SetVisible(false);
+			}
+			else
+			{
+				m_ClockPower->SetVisible(true);
+
+				int maxSize = streak * 30;
+				if (maxSize > 100)maxSize = 100;
+				int size = (int)((float)maxSize * ((float)m_SpaceDuration / c_MaxSpaceHoldTime));
+
+				m_ClockPower->SetDrawCircleRadius(size);
+			}
+		}
 	}
 
 	void Player::Shoot()

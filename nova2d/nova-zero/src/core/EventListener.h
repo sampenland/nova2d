@@ -16,6 +16,10 @@ namespace novazero
 			std::vector<f_ConditionalFunction> m_KeysConditions;
 			std::vector<f_VoidFunction> m_KeysEvents;
 
+			std::vector<SDL_Keycode> m_KeyCodes1;
+			std::vector<f_ConditionalFunction> m_KeysConditions1;
+			std::vector<f_VoidFunction> m_KeysEvents1;
+
 			std::vector<int> m_JoysticksIDs;
 			std::vector<int> m_JoystickButtons;
 			std::vector<f_JoyStickConditionalFunction> m_JoysticksConditions;
@@ -40,6 +44,9 @@ namespace novazero
 
 			void AddKeysEventListener(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
 			void RemoveEventListener(SDL_KeyCode key);
+
+			void AddKeysEventListener1(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
+			void RemoveEventListener1(SDL_KeyCode key);
 
 			void AddJoyEventListener(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
 			void RemoveJoyEventListener(int joystickID);

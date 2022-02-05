@@ -25,12 +25,13 @@ namespace spaceshooter
 		unsigned int m_TweenID = 0;
 		int m_EffectRadius = 0;
 		Timer* m_PickupLimit = nullptr;
-		Timer* m_DestroyTime = nullptr;
+		Timer* m_DestroyTimer = nullptr;
+		int m_DestroyTime = 0;
 		Sprite* m_Sprite = nullptr;
 
 	public:
 
-		TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime);
+		TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime, int destroyMS);
 
 		void OnCollision(Collision* collision);
 		void PickupAndExpand();

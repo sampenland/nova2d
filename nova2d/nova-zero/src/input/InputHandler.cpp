@@ -98,6 +98,11 @@ namespace novazero
 			return false;
 		}
 
+		bool InputHandler::IsKeyUp(SDL_Keycode key)
+		{
+			return !IsKeyDown(key);
+		}
+
 		void InputHandler::KeyDown(SDL_Event* e)
 		{
 			if (e->key.keysym.sym == SDLK_BACKSPACE)

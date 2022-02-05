@@ -185,6 +185,20 @@ Must be called on in a class that inherits from EventListener
 #define n2dRemoveKeyDownListener(key) RemoveEventListener(key);
 
 /*
+nova2d Add Key Up Listener (SDL_KeyCode key, void() function, context)
+Calls function on SDL_KeyCode key up
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddKeyUpListener(key, func, context) AddKeysEventListener1(key, &InputHandler::IsKeyUp, std::bind(&func, context));
+
+/*
+nova2d Remove Key Up Listener (SDL_KeyCode key)
+Removes previously added key up listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveKeyUpListener(key) RemoveEventListener1(key);
+
+/*
 nova2d Add Updater(void(*f) funcToCall, context)
 Updaters are called each frame; this adds a new funcToCall as an Updater
 RETURNS unsigned int CleanID

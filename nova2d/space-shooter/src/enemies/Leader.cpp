@@ -7,6 +7,7 @@
 namespace spaceshooter
 {
 	int Leader::s_PawnCount = 0;
+	int Leader::s_PawnWave = 0;
 	std::vector<Pawn*> Leader::s_Pawns;
 
 	Leader::Leader(std::string assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer)
@@ -61,10 +62,55 @@ namespace spaceshooter
 	{
 		if (s_PawnCount < 1)
 		{
-			int rows = n2dRandomInt(2, 5);
-			int cols = 3;
+			int maxC = LeaderController::s_Wave;
+			int minC = s_PawnWave;
+
+			if (maxC < minC)
+			{
+				int t = minC;
+				minC = maxC;
+				maxC = t;
+			}
+
+			int maxR = LeaderController::s_Wave;
+			int minR = s_PawnWave;
+
+			if (maxR < minR)
+			{
+				int t = minR;
+				minR = maxR;
+				maxR = t;
+			}
+
+			if (minR == 0)
+				minR = 1;
+			
+			if (maxR == 0)
+			{
+				minR = 1;
+				maxR = 1;
+			}
+
+			if (minC == 0)
+				minC = 2;
+
+			if (maxC == 0)
+			{
+				minC = 2;
+				maxC = 2;
+			}
+
+			int rows = n2dRandomInt(minR, maxR);
+			int cols = n2dRandomInt(minC, maxC);
+
+			if (rows > 4) rows = 4;
+			if (cols > 10) cols = 10;
+
 			GeneratePawnWave(rows, cols);
+		
+			s_PawnWave++;
 		}
+		
 	}
 
 	void Leader::GeneratePawnWave(char rows, char cols)
@@ -74,7 +120,7 @@ namespace spaceshooter
 		{
 			for (int col = -cols+1; col < cols; col++)
 			{
-				float offsetX = (float)col * 96;
+				float offsetX = (float)col * 48;
 				float offsetY = (float)-row * 32;
 
 				Pawn* pawn = new Pawn("pawn", Vec2((Game::s_Width / 2) + offsetX, offsetY), Vec2Int(16, 16), 1, 0.0f);
@@ -104,7 +150,7 @@ namespace spaceshooter
 			if (p.m_Dead == 1)
 				it = s_Pawns.erase(it);
 
-			it++;
+			it++; //TODO: crash here
 		}
 	}
 

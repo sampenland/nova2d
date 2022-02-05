@@ -3,12 +3,13 @@
 
 namespace spaceshooter
 {
-	TimeWarp::TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime) : 
+	TimeWarp::TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime, int destroyMS) : 
 		TimeEffector(position, timeEffect, effectRadius, Rect((int)position.x, (int)position.y, effectRadius, effectRadius), TimeEffectorType::Circle),
 		Collider(0)
 	{
 		TimeEffector::m_ID = n2dGameGetID();
 		m_DeleteName = "timeWarp_" + std::to_string(TimeEffector::m_ID);
+		m_DestroyTime = destroyMS;
 
 		m_CleanID = n2dAddDeleteable(this);
 
@@ -32,11 +33,16 @@ namespace spaceshooter
 
 	void TimeWarp::OnCollision(Collision* collision)
 	{
-		if (collision->m_ColliderA->m_ColliderName == "clock" && collision->m_ColliderB->m_ColliderName == "player")
+		bool aIsPlayer = collision->m_ColliderA->m_ColliderName == "player1" ||
+			collision->m_ColliderA->m_ColliderName == "player2";
+		bool bIsPlayer = collision->m_ColliderB->m_ColliderName == "player1" ||
+			collision->m_ColliderB->m_ColliderName == "player2";
+
+		if (collision->m_ColliderA->m_ColliderName == "clock" && bIsPlayer)
 		{
 			((TimeWarp*)(collision->m_ColliderA))->PickupAndExpand();
 		}
-		else if (collision->m_ColliderB->m_ColliderName == "clock" && collision->m_ColliderA->m_ColliderName == "player")
+		else if (collision->m_ColliderB->m_ColliderName == "clock" && aIsPlayer)
 		{
 			((TimeWarp*)(collision->m_ColliderB))->PickupAndExpand();
 		}
@@ -63,7 +69,7 @@ namespace spaceshooter
 			m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, m_EffectRadius, 1000.0f, false);
 		}
 
-		m_DestroyTime = new Timer(3000, false, std::bind(&TimeWarp::DestroySelf, this));
+		m_DestroyTimer = new Timer(m_DestroyTime, false, std::bind(&TimeWarp::DestroySelf, this));
 
 		SetEnabled(true);
 	}
@@ -76,8 +82,8 @@ namespace spaceshooter
 			m_PickupLimit->DestroySelf();
 		}
 
-		if (m_DestroyTime)
-			m_DestroyTime->DestroySelf();
+		if (m_DestroyTimer)
+			m_DestroyTimer->DestroySelf();
 
 		if (m_Sprite)
 			m_Sprite->DestroySelf();

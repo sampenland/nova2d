@@ -3,12 +3,16 @@
 namespace spaceshooter
 {
 	bool LeaderController::s_LeaderExists = false;
+	int LeaderController::s_Wave = 0;
 
 	LeaderController::LeaderController()
 		: Deleteable("leader-controller")
 	{
 		auto cleanID = n2dAddUpdater(LeaderController::Update, this);
 		m_CleanUpdaters.push_back(cleanID);
+
+		m_Waves = new Text("font1", "", "white", Rect(Game::s_Width / 2 - 96, Game::s_Height / 2 - 32, 192, 64),
+			0);
 	}
 
 	void LeaderController::CreateLeader(Vec2 position, int maxHealth, int pawnRows, int pawnCols)
@@ -26,14 +30,74 @@ namespace spaceshooter
 
 		if (!s_LeaderExists)
 		{
-			m_Wave++;
-		
-			int row = n2dRandomInt(1, m_Wave);
-			int col = n2dRandomInt(1, m_Wave);
-			if (row > 6)row = 6;
-			if (col > 4)col = 4;
-			CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 32, row, col);
+			s_Wave++;
+			Leader::s_PawnWave = 0;
+
+			char rows = 0;
+			char cols = 0;
+
+			switch (s_Wave)
+			{
+			case 0: // Wave 0
+				rows = 1;
+				cols = 3;
+				break;
+			case 1: // Wave 1
+				rows = 1;
+				cols = 5;
+				break;
+			case 2:
+				rows = 2;
+				cols = 2;
+				break;
+			case 3:
+				rows = 2;
+				cols = 4;
+				break;
+			case 4:
+				rows = 2;
+				cols = 5;
+				break;
+			case 5:
+				rows = 3;
+				cols = 3;
+				break;
+			case 6:
+				rows = 3;
+				cols = 4;
+				break;
+			case 7:
+				rows = 4;
+				cols = 3;
+				break;
+			case 8:
+				rows = 4;
+				cols = 4;
+				break;
+			case 9:
+				rows = 4;
+				cols = 6;
+				break;
+			case 10:
+				rows = 5;
+				cols = 6;
+				break;
+			}
+
+			CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 32, rows, cols);
+			ShowWaveAnimation();
+
 		}
+	}
+
+	void LeaderController::ShowWaveAnimation()
+	{
+		m_Waves->UpdateText("Wave " + std::to_string(s_Wave));
+		
+		Timer* hideText = new Timer(2000, false, [=]() {
+			m_Waves->UpdateText("");
+		});
+		//TODO: tween alpha from 0-1 and 1-0
 	}
 
 	void LeaderController::DestroySelf()

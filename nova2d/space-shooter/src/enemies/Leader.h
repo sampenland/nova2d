@@ -65,5 +65,9 @@ namespace spaceshooter
 
 		void DestroySelf() override;
 
+	public:
+
+		static int s_PawnWave;
+
 	};
 }

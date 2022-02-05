@@ -56,6 +56,7 @@ namespace novazero
 		public:
 
 			static bool IsKeyDown(SDL_Keycode key);
+			static bool IsKeyUp(SDL_Keycode key);
 			static std::vector<SDL_Keycode> s_KeyIsPressed;
 
 			static float GetJoystickAxis(char joystickID, JoystickAxis axis);

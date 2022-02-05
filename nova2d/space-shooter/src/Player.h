@@ -19,15 +19,16 @@ namespace spaceshooter
 
 		std::string m_PlayerNumber = "player1";
 
-		bool m_CanSpace = true;
-		float m_SpaceDelayReset = 0.0f;
-		double m_SpaceDelay = 0.00;
+		bool m_SpacePressed = false;
+		float m_SpaceDuration = 0.0f;
+		const int c_MaxSpaceHoldTime = 4000;
 
 		Timer* m_ShootTimer = nullptr;
 
 		int m_Lives = 20;
 		std::vector<Sprite*> m_LifeSprites;
 		Sprite* m_StreakSprite;
+		DrawCircle* m_ClockPower = nullptr;
 
 		unsigned int m_CleanID = 0;
 
@@ -38,12 +39,11 @@ namespace spaceshooter
 
 		Sprite* GetSprite() const { return m_Sprite; }
 
-		void Configure(float spaceDelayReset) { m_SpaceDelayReset = spaceDelayReset / 10; }
-
 		void OnCollision(Collision* collision) override;
 
 		void Update();
 		void OnSpace();
+		void OnSpaceUp();
 		void Shoot();
 
 		void SmallExplosion();
