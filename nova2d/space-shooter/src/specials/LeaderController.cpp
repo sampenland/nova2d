@@ -84,7 +84,6 @@ namespace spaceshooter
 
 		if (!s_LeaderExists)
 		{
-			s_Wave++;
 			Leader::s_PawnWave = 0;
 
 			char rows = 0;
@@ -97,8 +96,8 @@ namespace spaceshooter
 				cols = 3;
 				break;
 			case 1: // Wave 2
-				rows = 1;
-				cols = 5;
+				rows = 2;
+				cols = 2;
 				break;
 			case 2:
 				rows = 2;
@@ -140,6 +139,8 @@ namespace spaceshooter
 
 			CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 32, rows, cols);
 			ShowWaveAnimation();
+
+			s_Wave++;
 
 		}
 	}

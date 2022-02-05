@@ -45,7 +45,6 @@ namespace spaceshooter
 		}
 		
 		m_LeaderController = new LeaderController();
-		m_LeaderController->CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 16, 1, 1);
 
 		const int scoreSize = 128;
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);

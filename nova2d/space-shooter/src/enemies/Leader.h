@@ -29,10 +29,13 @@ namespace spaceshooter
 		std::string m_KilledBy;
 
 		std::vector<Vec2> m_PatrolMemory;
+		bool m_Retreating = false;
+		bool m_GeneratingPawnWave = false;
 
 		Timer* m_BombTimer = nullptr;
 		Timer* m_MoveTimer = nullptr;
-
+		Timer* m_DestructTimer = nullptr;
+		Timer* m_GenTimer = nullptr;
 
 	public:
 	
@@ -50,6 +53,7 @@ namespace spaceshooter
 
 		void WatchPawns();
 		void GeneratePawnWave(char rows, char cols);
+		void Retreat();
 
 		void MoveForwardThenBack();
 		void RememberOldMoving();
@@ -63,6 +67,7 @@ namespace spaceshooter
 		void Hurt(int damage, std::string damager = "player0");
 		void SmallExplosion();
 
+		void StartDestruct();
 		void DestroySelf() override;
 
 	public:

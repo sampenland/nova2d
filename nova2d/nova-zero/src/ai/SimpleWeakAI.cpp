@@ -40,6 +40,7 @@ namespace novazero
 			m_MoveFunctions.push_back(func);
 		}
 
+		/* Clears all patrol points */
 		void SimpleWeakAI::ClearPatrol()
 		{
 			if((int)m_PatrolPoints.size() > 0)

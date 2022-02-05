@@ -26,12 +26,12 @@ namespace spaceshooter
 		int m_EffectRadius = 0;
 		Timer* m_PickupLimit = nullptr;
 		Timer* m_DestroyTimer = nullptr;
-		int m_DestroyTime = 0;
+		float m_DestroyTime = 0;
 		Sprite* m_Sprite = nullptr;
 
 	public:
 
-		TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime, int destroyMS);
+		TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime, float destroyMS);
 
 		void OnCollision(Collision* collision);
 		void PickupAndExpand();

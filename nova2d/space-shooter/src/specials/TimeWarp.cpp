@@ -3,7 +3,7 @@
 
 namespace spaceshooter
 {
-	TimeWarp::TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime, int destroyMS) : 
+	TimeWarp::TimeWarp(Vec2 position, float timeEffect, int effectRadius, float captureTime, float destroyMS) : 
 		TimeEffector(position, timeEffect, effectRadius, Rect((int)position.x, (int)position.y, effectRadius, effectRadius), TimeEffectorType::Circle),
 		Collider(0)
 	{
@@ -25,7 +25,7 @@ namespace spaceshooter
 		int* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			m_TweenID = n2dTweenAddInt(ptrToRadius, effectRadius, 1.0f, 1000.0f, true);
+			m_TweenID = n2dTweenAddInt(ptrToRadius, (float)effectRadius, 1.0f, 1000.0f, true);
 		}
 
 		ConfigureCollider(m_Sprite, 0, "clock");
@@ -66,7 +66,7 @@ namespace spaceshooter
 		int* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, m_EffectRadius, 600.0f, false);
+			m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, (float)m_EffectRadius, 600.0f, false);
 		}
 
 		m_DestroyTimer = new Timer(m_DestroyTime, false, std::bind(&TimeWarp::DestroySelf, this));

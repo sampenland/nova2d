@@ -87,7 +87,11 @@ namespace novazero
 
 		void CollisionManager::RemoveCollider(Collider* collider)
 		{
-			std::vector<Collider*>::iterator f = std::find(m_Colliders.begin(), m_Colliders.end(), collider); //TODO: crash here sometimes
+			//TODO: crash here sometimes
+			if ((int)m_Colliders.size() == 0)
+				return;
+
+			std::vector<Collider*>::iterator f = std::find(m_Colliders.begin(), m_Colliders.end(), collider); 
 			if (f != m_Colliders.end()) 
 			{
 				m_Colliders.erase(f);

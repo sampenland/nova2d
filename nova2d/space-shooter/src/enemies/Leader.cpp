@@ -60,57 +60,75 @@ namespace spaceshooter
 
 	void Leader::WatchPawns()
 	{
+		if (s_PawnWave >= 4)
+		{
+			return;
+		}
+
 		if (s_PawnCount < 1)
 		{
-			int maxC = LeaderController::s_Wave;
-			int minC = s_PawnWave;
-
-			if (maxC < minC)
+			if (!m_GeneratingPawnWave)
 			{
-				int t = minC;
-				minC = maxC;
-				maxC = t;
+				m_GeneratingPawnWave = true;
+				m_GenTimer = new Timer(1000, false, [=]() {
+					
+					m_GeneratingPawnWave = false;
+
+					int rows = 2;
+					int cols = 2;
+
+					switch (s_PawnWave)
+					{
+					case 0:
+						rows = 2;
+						cols = 2;
+						break;
+					case 1:
+						rows = 2;
+						cols = 3;
+						break;
+					case 2:
+						rows = 2;
+						cols = 4;
+						break;
+					case 3:
+						rows = 4;
+						cols = 2;
+						break;
+					case 4:
+						rows = 4;
+						cols = 4;
+						break;
+					}
+
+					GeneratePawnWave(rows, cols);
+
+					s_PawnWave++;
+
+					if (s_PawnWave >= 4)
+					{
+						Retreat();
+					}
+
+				});
+				return;
 			}
-
-			int maxR = LeaderController::s_Wave;
-			int minR = s_PawnWave;
-
-			if (maxR < minR)
-			{
-				int t = minR;
-				minR = maxR;
-				maxR = t;
-			}
-
-			if (minR == 0)
-				minR = 1;
-			
-			if (maxR == 0)
-			{
-				minR = 1;
-				maxR = 1;
-			}
-
-			if (minC == 0)
-				minC = 2;
-
-			if (maxC == 0)
-			{
-				minC = 2;
-				maxC = 2;
-			}
-
-			int rows = n2dRandomInt(minR, maxR);
-			int cols = n2dRandomInt(minC, maxC);
-
-			if (rows > 4) rows = 4;
-			if (cols > 10) cols = 10;
-
-			GeneratePawnWave(rows, cols);
-		
-			s_PawnWave++;
 		}
-		
+	}
+
+	void Leader::Retreat()
+	{
+		if (m_Retreating) return;
+		m_Retreating = true;
+		ClearPatrol();
+		AddPatrolPointWithFunction(Vec2(GetX(), GetY()), std::bind(&SimpleWeakAI::LinearPatrolMove, this));
+		AddPatrolPointWithFunction(Vec2(GetX(), -32), std::bind(&SimpleWeakAI::LinearPatrolMove, this));
+		ConfigureOnPatrolComplete(std::bind(&Leader::StartDestruct, this));
+	}
+
+	void Leader::StartDestruct()
+	{
+		m_DestructTimer = new Timer(2000, false, std::bind(&Leader::DestroySelf, this));
 	}
 
 	void Leader::GeneratePawnWave(char rows, char cols)
@@ -352,7 +370,7 @@ namespace spaceshooter
 		
 		});
 
-		auto destructR = n2dRandomFloatMinChance(6500.0f, 12000.0f, 0.2);
+		auto destructR = n2dRandomFloatMinChance(6500.0f, 12000.0f, 0.2f);
 		Timer* bulletDestruct = new Timer(destructR, false, *bulletDestroy);
 		bullet->AddTimer(bulletDestruct);
 
@@ -361,6 +379,7 @@ namespace spaceshooter
 	void Leader::DestroySelf()
 	{
 		if (m_Destroyed) return;
+		m_Destroyed = true;
 
 		n2dReferenceRemove("leader");
 
@@ -369,7 +388,6 @@ namespace spaceshooter
 			PawnAttack();
 		}
 
-		m_Destroyed = true;
 		m_Alive = false;
 
 		LeaderController::s_LeaderExists = false;
@@ -385,6 +403,12 @@ namespace spaceshooter
 
 		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
+
+		if (m_DestructTimer)
+			m_DestructTimer->DestroySelf();
+
+		if (m_GenTimer)
+			m_GenTimer->DestroySelf();
 
 		SimpleWeakAI::DestroySelf();
 	}
