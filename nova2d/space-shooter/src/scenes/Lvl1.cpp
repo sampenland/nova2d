@@ -19,25 +19,18 @@ namespace spaceshooter
 		if (s_Players == 1)
 		{
 			Player* player1 = new Player("player", "player1", Vec2((float)Game::s_Width / 2 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
-			player1->ConfigureMove(3);
-			player1->SetMoveBounds(Game::GetGameBounds());
-
 			n2dReferenceAdd("player1", player1);
 			AddObjectToCleanUp(player1);
 		}
 		else
 		{
 			Player* player1 = new Player("player", "player1", Vec2((float)Game::s_Width / 3 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
-			player1->ConfigureMove(3);
-			player1->SetMoveBounds(Game::GetGameBounds());
 			player1->EnableArrowKeys(false);
 
 			n2dReferenceAdd("player1", player1);
 			AddObjectToCleanUp(player1);
 
 			Player* player2 = new Player("player", "player2", Vec2((float)Game::s_Width - Game::s_Width / 3 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
-			player2->ConfigureMove(3);
-			player2->SetMoveBounds(Game::GetGameBounds());
 			player2->EnableWASD(false);
 
 			n2dReferenceAdd("player2", player2);

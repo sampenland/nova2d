@@ -25,6 +25,33 @@ namespace novazero
 		void SimpleController::SetMoveSpeed(float mSpeed)
 		{
 			m_MoveSpeed = mSpeed;
+			m_CurrentSpeed = mSpeed;
+		}
+
+		void SimpleController::SetAcceleration(AccelerationTypes type, float timeToMaxSpeed)
+		{
+			m_TotalAccelerationSpeedMS = timeToMaxSpeed;
+
+			if (type == AccelerationTypes::Linear)
+			{
+				m_AccelerationTween = n2dTweenAddFloat(&m_CurrentSpeed, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true);
+				n2dTweenEnable(m_AccelerationTween, false, true);
+				m_CurrentSpeed = 0;
+			}
+
+			m_UsingAcceleration = true;
+		}
+
+		void SimpleController::MovementIsZero()
+		{
+			if (!m_Stopping) return;
+
+			if (m_AccelerationTween && m_CurrentSpeed > 0)
+			{
+				m_Stopping = true;
+				n2dTweenReconfigure(m_AccelerationTween, m_CurrentSpeed, 0, m_TotalAccelerationSpeedMS, false, false);
+				n2dTweenEnable(m_AccelerationTween, true, false);
+			}
 		}
 
 		void SimpleController::SetPositionInt(int x, int y)

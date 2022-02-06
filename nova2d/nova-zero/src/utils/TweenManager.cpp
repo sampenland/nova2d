@@ -8,12 +8,9 @@ namespace novazero
 	{
 		using namespace core;
 
-		TweenManager::TweenManager()
-		{
-			
-		}
+		TweenManager::TweenManager() { }
 
-		unsigned int TweenManager::AddTweenInt(int* propertyEffected, float start, float end, float durationMS, bool loop)
+		unsigned int TweenManager::AddTweenInt(int* propertyEffected, float start, float end, float durationMS, bool loop, bool autoDelete)
 		{
 			unsigned int id = n2dGameGetID();
 
@@ -24,15 +21,19 @@ namespace novazero
 			t->intPropertyEffected = propertyEffected;
 			t->step = (end - start) / (durationMS / 10);
 			t->durationLeft = durationMS;
-			t->start = start;
+			t->current = start;
 			t->end = end;
 			t->loop = loop;
+			t->deleteOnComplete = autoDelete;
+
+			if (autoDelete)
+				LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(id));
 
 			m_Timers[id] = t;
 			return id;
 		}
 
-		unsigned int TweenManager::AddTweenFloat(float* propertyEffected, float start, float end, float durationMS, bool loop)
+		unsigned int TweenManager::AddTweenFloat(float* propertyEffected, float start, float end, float durationMS, bool loop, bool autoDelete)
 		{
 			unsigned int id = n2dGameGetID();
 
@@ -43,9 +44,13 @@ namespace novazero
 			t->floatPropertyEffected = propertyEffected;
 			t->step = (end - start) / (durationMS / 10);
 			t->durationLeft = durationMS;
-			t->start = start;
+			t->current = start;
 			t->end = end;
 			t->loop = loop;
+			t->deleteOnComplete = autoDelete;
+			
+			if (autoDelete)
+				LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(id));
 
 			m_Timers[id] = t;
 			return id;
@@ -56,37 +61,98 @@ namespace novazero
 			m_Timers.erase(tweenID);
 		}
 
+		void TweenManager::EnableTween(unsigned int tweenID, bool enabled, bool reset)
+		{
+			if (m_Timers.find(tweenID) != m_Timers.end())
+			{
+				m_Timers[tweenID]->enabled = enabled;
+				
+				if(reset)
+					m_Timers[tweenID]->current = m_Timers[tweenID]->initStart;
+			}
+		}
+
+		void TweenManager::ResetTween(unsigned int tweenID)
+		{
+			if (m_Timers.find(tweenID) != m_Timers.end())
+			{
+				m_Timers[tweenID]->current = m_Timers[tweenID]->initStart;
+			}
+		}
+
+		void TweenManager::Reconfigure(unsigned int tweenID, float start, 
+			float end, float durationMS, bool loop, bool autoDelete)
+		{
+			if (m_Timers.find(tweenID) != m_Timers.end())
+			{
+				m_Timers[tweenID]->current = start;
+				m_Timers[tweenID]->end = end;
+				m_Timers[tweenID]->durationLeft = durationMS;
+				m_Timers[tweenID]->loop = loop;
+				m_Timers[tweenID]->current = start;
+				m_Timers[tweenID]->deleteOnComplete = autoDelete;
+
+				if (autoDelete)
+					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID));
+
+			}
+		}
+
 		void TweenManager::Update()
 		{
 			std::vector<unsigned int> removeIDs;
 			std::map<unsigned int, Tween*>::iterator it;
 			for (it = m_Timers.begin(); it != m_Timers.end(); it++)
 			{
+				if (!it->second->enabled)
+					continue;
+
 				if (it->second->isFloat)
 				{
-					it->second->start += it->second->step;
-					*it->second->floatPropertyEffected = it->second->start;
+					it->second->current += it->second->step;
+					*it->second->floatPropertyEffected = it->second->current;
+					
+					LOG(LVL_INFO, std::to_string(it->second->current) + "/" + std::to_string(it->second->end));
+
+					if (((it->second->step < 0) && (*it->second->floatPropertyEffected < it->second->end)) ||
+						it->second->step > 0 && (*it->second->floatPropertyEffected > it->second->end))
+					{
+						if (it->second->loop)
+						{
+							it->second->current = it->second->initStart;
+						}
+						else
+						{
+							if (it->second->deleteOnComplete)
+								removeIDs.push_back(it->first);
+							else
+								it->second->enabled = false;
+						}
+					}
+				
 				}
 				else
 				{
-					it->second->start += it->second->step;
-					*it->second->intPropertyEffected = (int)it->second->start;
-				}
+					it->second->current += it->second->step;
+					*it->second->intPropertyEffected = (int)it->second->current;
 
-				if (((it->second->step < 0) && (*it->second->intPropertyEffected < it->second->end)) || 
-					it->second->step > 0 && (*it->second->intPropertyEffected > it->second->end))
-				{
-					if (it->second->loop)
+					if (((it->second->step < 0) && (*it->second->intPropertyEffected < it->second->end)) ||
+						it->second->step > 0 && (*it->second->intPropertyEffected > it->second->end))
 					{
-						it->second->start = it->second->initStart;
+						if (it->second->loop)
+						{
+							it->second->current = it->second->initStart;
+						}
+						else
+						{
+							if(it->second->deleteOnComplete)
+								removeIDs.push_back(it->first);
+							else
+								it->second->enabled = false;
+						}
 					}
-					else
-					{
-						removeIDs.push_back(it->first);
-					}
+
 				}	
-
-				//TODO: float tween
 			}
 
 			for (size_t i = 0; i < removeIDs.size(); i++)

@@ -9,7 +9,7 @@ namespace novazero
 		struct Tween
 		{
 			float initStart;
-			float start;
+			float current;
 			float end;
 			float step;
 			float durationLeft;
@@ -17,6 +17,8 @@ namespace novazero
 			float* floatPropertyEffected;
 			bool isFloat;
 			bool loop;
+			bool deleteOnComplete = true;
+			bool enabled = true;
 		};
 
 		class TweenManager
@@ -31,9 +33,12 @@ namespace novazero
 
 			TweenManager();
 
-			unsigned int AddTweenInt(int* propertyEffected, float start, float end, float durationMS, bool loop = false);
-			unsigned int AddTweenFloat(float* propertyEffected, float start, float end, float durationMS, bool loop = false);
+			void Reconfigure(unsigned int tweenID, float start, float end, float durationMS, bool loop, bool autodelete = true);
+			unsigned int AddTweenInt(int* propertyEffected, float start, float end, float durationMS, bool loop = false, bool autoDelete = false);
+			unsigned int AddTweenFloat(float* propertyEffected, float start, float end, float durationMS, bool loop = false, bool autoDelete = false);
 
+			void EnableTween(unsigned int tweenID, bool enabled, bool reset);
+			void ResetTween(unsigned int tweenID);
 			void RemoveTween(unsigned int tweenID);
 
 			void Update();

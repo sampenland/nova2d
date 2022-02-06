@@ -12,6 +12,9 @@ namespace novazero
 			EnableWASD(true);
 			EnableArrowKeys(true);
 			EnableXbox360(true);
+
+			auto cleanID = n2dAddUpdater(UDRLController::ResetAccelerationCheck, this);
+			SimpleController::m_CleanUpdaters.push_back(cleanID);
 		}
 
 		UDRLController::~UDRLController()
@@ -21,9 +24,13 @@ namespace novazero
 			EnableXbox360(false);
 		}
 
-		void UDRLController::ConfigureMove(float moveSpeed)
+		void UDRLController::ConfigureMove(float moveSpeed, float timeToMaxMoveSpeed)
 		{
-			m_MoveSpeed = moveSpeed;
+			SetMoveSpeed(moveSpeed);
+			if (timeToMaxMoveSpeed != 0)
+			{
+				SetAcceleration(AccelerationTypes::Linear, timeToMaxMoveSpeed);
+			}
 		}
 
 		void UDRLController::EnableWASD(bool isEnabled)
@@ -108,13 +115,25 @@ namespace novazero
 			}
 		}
 
+		void UDRLController::Accelerate()
+		{
+			if (!m_Starting)
+			{
+				m_Starting = true;
+				m_Stopping = false;
+				n2dTweenReconfigure(m_AccelerationTween, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false);
+				n2dTweenEnable(m_AccelerationTween, true, true);
+			}
+		}
+
 		void UDRLController::MoveUp()
 		{
 			Vec2 pos = GetPosition();
-			float newY = pos.y - (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
+			float newY = pos.y - (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (IsWithinMoveBounds((int)pos.x, (int)newY))
 			{
+				Accelerate();
 				SetY(newY);
 			}
 		}
@@ -122,12 +141,13 @@ namespace novazero
 		void UDRLController::MoveDown()
 		{
 			Vec2 pos = GetPosition();
-			float newY = pos.y + (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
+			float newY = pos.y + (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (newY - (int)newY > 0) newY = ceil(newY);
 
 			if (IsWithinMoveBounds((int)pos.x, (int)newY))
 			{
+				Accelerate();
 				SetY(newY);
 			}
 		}
@@ -135,12 +155,13 @@ namespace novazero
 		void UDRLController::MoveRight()
 		{
 			Vec2 pos = GetPosition();
-			float newX = pos.x + (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
+			float newX = pos.x + (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (newX - (int)newX > 0) newX = ceil(newX);
 
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
+				Accelerate();
 				SetX(newX);
 			}
 		}
@@ -148,10 +169,11 @@ namespace novazero
 		void UDRLController::MoveLeft()
 		{
 			Vec2 pos = GetPosition();
-			float newX = pos.x - (m_MoveSpeed * n2dTimeScale * GetTimeInfluence());
+			float newX = pos.x - (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
 
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
+				Accelerate();
 				SetX(newX);
 			}
 		}
@@ -169,6 +191,30 @@ namespace novazero
 				m_Sprite->DestroySelf();
 
 			SimpleController::SetDeleted(true);
+		}
+
+		void UDRLController::ResetAccelerationCheck()
+		{
+			if (IsUsingAcceleration())
+			{
+				if (
+					Game::s_InputHandler->IsKeyUp(SDLK_w) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_a) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_s) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_d) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_UP) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_DOWN) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_RIGHT) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_LEFT)
+					)
+				{
+					if (m_Starting)
+					{
+						m_Starting = false;
+						MovementIsZero();
+					}
+				}
+			}
 		}
 	}
 }

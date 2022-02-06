@@ -4,6 +4,11 @@ namespace novazero
 {
 	namespace core
 	{
+		enum class AccelerationTypes
+		{
+			Linear
+		};
+
 		// Max gamepads
 		#define MAX_JOYSTICKS 8
 
@@ -136,20 +141,40 @@ nova2d Add Tween Int
 Tweens *refInt (referenced int) from start to end in duration milliseconds
 RETURNS ID for clean up
 */
-#define n2dTweenAddInt(refInt, start, end, durationMS, loop) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenInt(refInt, start, end, durationMS, loop);
+#define n2dTweenAddInt(refInt, start, end, durationMS, loop, del) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenInt(refInt, start, end, durationMS, loop, del);
 
 /*
 nova2d Add Tween Float
 Tweens *refFloat (referenced float) from start to end in duration milliseconds
 RETURNS ID for clean up
 */
-#define n2dTweenAddFloat(refFloat, start, end, durationMS, loop) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS, loop);
+#define n2dTweenAddFloat(refFloat, start, end, durationMS, loop, del) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS, loop, del);
 
 /*
 nova2d Remove Tween (unsigned int tweenID)
 Remove a tween
 */
 #define n2dTweenRemove(id) novazero::core::Game::s_SceneManager->s_TweenManager->RemoveTween(id);
+
+/*
+nova2d Restart Tween (unsigned int tweenID)
+Restart a tween
+*/
+#define n2dTweenReset(id) novazero::core::Game::s_SceneManager->s_TweenManager->ResetTween(id);
+
+/*
+nova2d Enable/disable Tween (unsigned int tweenID)
+Enable/disable a tween
+*/
+#define n2dTweenEnable(id, enabled, reset) novazero::core::Game::s_SceneManager->s_TweenManager->EnableTween(id, enabled, reset);
+
+/*
+nova2d Reconfigure Tween (unsigned int tweenID, float start, float end, 
+float durationMS, bool loop, bool autodelete)
+Reset/reconfigure a tween with an id
+*/
+#define n2dTweenReconfigure(tweenID, start, end, durationMS, loop, autodelete) \
+	novazero::core::Game::s_SceneManager->s_TweenManager->Reconfigure(tweenID, start, end, durationMS, loop, autodelete);
 
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)

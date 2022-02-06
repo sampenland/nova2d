@@ -63,6 +63,9 @@ namespace spaceshooter
 		m_Sprite->ConfigureAnimation(0, 2, 100, true);
 		ConfigureCollider(m_Sprite, 0, m_PlayerNumber);
 		SetTimeEffectEnabled(false);
+		
+		ConfigureMove(3, 2000);
+		SetMoveBounds(Game::GetGameBounds());
 
 		m_ShootTimer = new Timer(SHOOT_TIME, true, std::bind(&Player::Shoot, this));
 
@@ -148,7 +151,6 @@ namespace spaceshooter
 		{
 			m_StreakSprite->JumpToFrame(s_Player2Streak);
 		}
-
 	}
 
 	void Player::OnSpace()
