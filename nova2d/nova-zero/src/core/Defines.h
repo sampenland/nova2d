@@ -177,6 +177,12 @@ Reset/reconfigure a tween with an id
 	novazero::core::Game::s_SceneManager->s_TweenManager->Reconfigure(tweenID, start, end, durationMS, loop, autodelete);
 
 /*
+nova2d Is key down (SDL_Keycode key)
+Returns realtime if key is pressed down
+*/
+#define n2dIsKeyDown(key) Game::s_InputHandler->IsKeyDown(key)
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */

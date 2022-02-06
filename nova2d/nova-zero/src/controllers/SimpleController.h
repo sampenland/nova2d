@@ -30,7 +30,8 @@ namespace novazero
 			~SimpleController();
 
 			void SetMoveSpeed(float mSpeed);
-			void MovementIsZero();
+			void MovementIsZeroX();
+			void MovementIsZeroY();
 
 			void SetPositionInt(int x, int y);
 			void SetPosition(float x, float y);
@@ -54,19 +55,31 @@ namespace novazero
 
 		protected:
 
-			void SetAcceleration(AccelerationTypes type, float timeToMaxSpeed);
+			void SetAcceleration(AccelerationTypes type, float accelerationTimeMS, float deaccelerationTimeMS);
 			bool IsUsingAcceleration() { return m_UsingAcceleration; }
 
 		public:
 
-			unsigned int m_AccelerationTween = 0;
+			unsigned int m_AccelerationTweenX = 0;
+			unsigned int m_AccelerationTweenY = 0;
 			float m_MoveSpeed = 0.0f;
-			bool m_Stopping = true;
-			float m_CurrentSpeed = 0.0f;
+			
+			bool m_StoppingX = true;
+			bool m_StoppingY = true;
+			bool m_StartingX = false;
+			bool m_StartingY = false;
+
+			float m_CurrentAccelerationX = 0.0f;
+			float m_CurrentAccelerationY = 0.0f;
+
+			AccelerationTypes m_AccelerationType = AccelerationTypes::Linear;
 			float m_TotalAccelerationSpeedMS = 1000.f;
+			float m_TotalDeaccelerationSpeedMS = 1000.f;
+
+			Vec2 m_Velocity = Vec2(0, 0);
+			Vec2Int m_Moving = Vec2Int(0, 0);
 
 			void EnableAcceleration(bool v) { m_UsingAcceleration = v; }
-			void ResetAcceleration() { m_CurrentSpeed = m_MoveSpeed; }
 
 		};
 	}

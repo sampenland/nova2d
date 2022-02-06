@@ -23,14 +23,10 @@ namespace novazero
 
 		public:
 
-			bool m_Starting = false;
-
-		public:
-
 			UDRLController(std::string spriteSheet, Vec2 position, Vec2Int size, char layer);
 			~UDRLController();
 
-			void ConfigureMove(float moveSpeed, float timeToMaxMoveSpeed = 0.f);
+			void ConfigureMove(float moveSpeed, float accelerationMS = 0.f, float deaccelerationTimeMS = 0.f);
 			void ConfigureJoystickNumber(char num) { m_JoyStickNumber = num; }
 
 			void EnableWASD(bool isEnabled);
@@ -40,8 +36,12 @@ namespace novazero
 			void LJoyX(float delta);
 			void LJoyY(float delta);
 
+			void UpdateController();
 			void ResetAccelerationCheck();
-			void Accelerate();
+
+			void AccelerateX();
+			void AccelerateY();
+
 			void MoveUp();
 			void MoveDown();
 			void MoveRight();

@@ -26,8 +26,11 @@ namespace novazero
 
 			bool m_AnimationRunning = false;
 			bool m_AnimationLooping = false;
+			int m_StartFrame = 0;
 			int m_Frames = 1;
+			int m_AnimationLength = 1;
 			int m_CurrentFrame = 0;
+			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
 
 			Timer* m_AnimationTimer = nullptr;
@@ -39,12 +42,15 @@ namespace novazero
 			Sprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
 
 			void ConfigureAnimating(bool isRunning) { m_AnimationRunning = true; }
-			void ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop);
+			void ConfigureAnimation(int startFrame, int animationLength, int totalFrames, float animationSpeed, bool loop);
 			void ConfigureAnimationEnd(std::function<void(Sprite* sprite)> f) { f_OnAnimationEnd = f; }
 			void NextFrame();
 			void JumpToFrame(int frame);
 
 			void Update();
+
+			void Flip(SDL_RendererFlip flip);
+
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
 			void Draw() override;

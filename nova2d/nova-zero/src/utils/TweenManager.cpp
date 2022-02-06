@@ -113,8 +113,6 @@ namespace novazero
 					it->second->current += it->second->step;
 					*it->second->floatPropertyEffected = it->second->current;
 					
-					LOG(LVL_INFO, std::to_string(it->second->current) + "/" + std::to_string(it->second->end));
-
 					if (((it->second->step < 0) && (*it->second->floatPropertyEffected < it->second->end)) ||
 						it->second->step > 0 && (*it->second->floatPropertyEffected > it->second->end))
 					{

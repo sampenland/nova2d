@@ -15,6 +15,9 @@ namespace novazero
 
 			auto cleanID = n2dAddUpdater(UDRLController::ResetAccelerationCheck, this);
 			SimpleController::m_CleanUpdaters.push_back(cleanID);
+
+			cleanID = n2dAddUpdater(UDRLController::UpdateController, this);
+			SimpleController::m_CleanUpdaters.push_back(cleanID);
 		}
 
 		UDRLController::~UDRLController()
@@ -24,12 +27,12 @@ namespace novazero
 			EnableXbox360(false);
 		}
 
-		void UDRLController::ConfigureMove(float moveSpeed, float timeToMaxMoveSpeed)
+		void UDRLController::ConfigureMove(float moveSpeed, float accelerationMS, float deaccelerationTimeMS)
 		{
 			SetMoveSpeed(moveSpeed);
-			if (timeToMaxMoveSpeed != 0)
+			if (accelerationMS != 0)
 			{
-				SetAcceleration(AccelerationTypes::Linear, timeToMaxMoveSpeed);
+				SetAcceleration(AccelerationTypes::Linear, accelerationMS, deaccelerationTimeMS);
 			}
 		}
 
@@ -115,67 +118,86 @@ namespace novazero
 			}
 		}
 
-		void UDRLController::Accelerate()
+		void UDRLController::UpdateController()
 		{
-			if (!m_Starting)
+			if (m_Velocity == Vec2(0.f, 0.f)) return;
+
+			m_Velocity.x *= (m_CurrentAccelerationX * n2dTimeScale * GetTimeInfluence());
+			m_Velocity.y *= (m_CurrentAccelerationY * n2dTimeScale * GetTimeInfluence());
+
+			Vec2 pos = GetPosition();
+			float newX = pos.x + m_Velocity.x;
+			float newY = pos.y + m_Velocity.y;
+
+			if (m_Velocity.x > 0) newX = (int)ceil(newX);
+			if (m_Velocity.y > 0) newY = (int)ceil(newY);
+
+			LOG(LVL_WARNING, std::to_string(m_Velocity.x) + ", " + std::to_string(m_Velocity.y));
+			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
-				m_Starting = true;
-				m_Stopping = false;
-				n2dTweenReconfigure(m_AccelerationTween, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false);
-				n2dTweenEnable(m_AccelerationTween, true, true);
+				SetX((int)newX);
+			}
+
+			if (IsWithinMoveBounds((int)pos.x, (int)newY))
+			{
+				SetY((int)newY);
+			}
+		}
+
+		void UDRLController::AccelerateX()
+		{
+			if (!m_StartingX)
+			{
+				m_StartingX = true;
+				m_StoppingX = false;
+
+				n2dTweenReconfigure(m_AccelerationTweenX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false);
+				n2dTweenEnable(m_AccelerationTweenX, true, true);
+			}
+		}
+
+		void UDRLController::AccelerateY()
+		{
+			if (!m_StartingY)
+			{
+				m_StartingY = true;
+				m_StoppingY = false;
+
+				n2dTweenReconfigure(m_AccelerationTweenY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false);
+				n2dTweenEnable(m_AccelerationTweenY, true, true);
 			}
 		}
 
 		void UDRLController::MoveUp()
 		{
-			Vec2 pos = GetPosition();
-			float newY = pos.y - (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
-
-			if (IsWithinMoveBounds((int)pos.x, (int)newY))
-			{
-				Accelerate();
-				SetY(newY);
-			}
+			if (m_Velocity.y == -1) return;
+			AccelerateY();
+			m_Velocity.y = -1;
+			m_Moving.y = 1;
 		}
 
 		void UDRLController::MoveDown()
 		{
-			Vec2 pos = GetPosition();
-			float newY = pos.y + (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
-
-			if (newY - (int)newY > 0) newY = ceil(newY);
-
-			if (IsWithinMoveBounds((int)pos.x, (int)newY))
-			{
-				Accelerate();
-				SetY(newY);
-			}
+			if (m_Velocity.y == 1) return;
+			AccelerateY();
+			m_Velocity.y = 1;
+			m_Moving.y = 1;
 		}
 
 		void UDRLController::MoveRight()
 		{
-			Vec2 pos = GetPosition();
-			float newX = pos.x + (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
-
-			if (newX - (int)newX > 0) newX = ceil(newX);
-
-			if (IsWithinMoveBounds((int)newX, (int)pos.y))
-			{
-				Accelerate();
-				SetX(newX);
-			}
+			if (m_Velocity.x == 1) return;
+			AccelerateX();
+			m_Velocity.x = 1;
+			m_Moving.x = 1;
 		}
 
 		void UDRLController::MoveLeft()
 		{
-			Vec2 pos = GetPosition();
-			float newX = pos.x - (m_CurrentSpeed * n2dTimeScale * GetTimeInfluence());
-
-			if (IsWithinMoveBounds((int)newX, (int)pos.y))
-			{
-				Accelerate();
-				SetX(newX);
-			}
+			if (m_Velocity.x == -1) return;
+			AccelerateX();
+			m_Velocity.x = -1;
+			m_Moving.x = 1;
 		}
 
 		void UDRLController::DestroySelf()
@@ -198,21 +220,32 @@ namespace novazero
 			if (IsUsingAcceleration())
 			{
 				if (
-					Game::s_InputHandler->IsKeyUp(SDLK_w) &&
 					Game::s_InputHandler->IsKeyUp(SDLK_a) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_s) &&
 					Game::s_InputHandler->IsKeyUp(SDLK_d) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_UP) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_DOWN) &&
 					Game::s_InputHandler->IsKeyUp(SDLK_RIGHT) &&
 					Game::s_InputHandler->IsKeyUp(SDLK_LEFT)
 					)
 				{
-					if (m_Starting)
+					if (m_StartingX)
 					{
-						m_Starting = false;
-						m_Stopping = true;
-						MovementIsZero();
+						m_StartingX = false;
+						m_StoppingX = true;
+						MovementIsZeroX();
+					}
+				}
+
+				if (
+					Game::s_InputHandler->IsKeyUp(SDLK_w) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_s) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_UP) &&
+					Game::s_InputHandler->IsKeyUp(SDLK_DOWN)
+					)
+				{
+					if (m_StartingY)
+					{
+						m_StartingY = false;
+						m_StoppingY = true;
+						MovementIsZeroY();
 					}
 				}
 			}

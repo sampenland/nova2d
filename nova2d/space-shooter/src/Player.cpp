@@ -27,7 +27,7 @@ namespace spaceshooter
 		m_PlayerNumber = playerNumber;
 
 		m_StreakSprite = new Sprite("streaks", Vec2(0.f, 0.f), Vec2Int(48, 8), 0);
-		m_StreakSprite->ConfigureAnimation(0, 16, 0, false);
+		m_StreakSprite->ConfigureAnimation(0, 16, 16, 0, false);
 		m_StreakSprite->ConfigureAnimating(false);
 
 		if (Lvl1::s_Players == 2)
@@ -60,11 +60,11 @@ namespace spaceshooter
 
 		}
 
-		m_Sprite->ConfigureAnimation(0, 2, 100, true);
+		m_Sprite->ConfigureAnimation(0, 2, 8, 100, true);
 		ConfigureCollider(m_Sprite, 0, m_PlayerNumber);
 		SetTimeEffectEnabled(false);
 		
-		ConfigureMove(3, 2000);
+		ConfigureMove(3.f, 200, 10);
 		SetMoveBounds(Game::GetGameBounds());
 
 		m_ShootTimer = new Timer(SHOOT_TIME, true, std::bind(&Player::Shoot, this));
@@ -133,7 +133,7 @@ namespace spaceshooter
 	void Player::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
-		explosion->ConfigureAnimation(0, 5, 100, true);
+		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 			});
@@ -151,6 +151,29 @@ namespace spaceshooter
 		{
 			m_StreakSprite->JumpToFrame(s_Player2Streak);
 		}
+
+		// Display moving
+		if (n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_UP) && m_Moving != PlayerMoving::UP)
+		{
+			m_Sprite->JumpToFrame(0);
+		}
+
+		if (n2dIsKeyDown(SDLK_s) || n2dIsKeyDown(SDLK_DOWN) && m_Moving != PlayerMoving::DOWN)
+		{
+			m_Sprite->JumpToFrame(6);
+		}
+
+		if (n2dIsKeyDown(SDLK_d) || n2dIsKeyDown(SDLK_RIGHT) && m_Moving != PlayerMoving::RIGHT)
+		{
+			m_Sprite->JumpToFrame(4);
+		}
+
+		if (n2dIsKeyDown(SDLK_a) || n2dIsKeyDown(SDLK_LEFT) && m_Moving != PlayerMoving::LEFT)
+		{
+			m_Sprite->JumpToFrame(2);
+		}
+
+
 	}
 
 	void Player::OnSpace()
@@ -183,6 +206,15 @@ namespace spaceshooter
 
 		if (justUp)
 		{
+			if (m_PlayerNumber == "player1")
+			{
+				s_Player1Streak = 0;
+			}
+			else
+			{
+				s_Player2Streak = 0;
+			}
+
 			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2), 0.15f,
 				maxSize, 1000, 12 * 1000); // 1/8 speed for 12 seconds
 		}
@@ -209,10 +241,30 @@ namespace spaceshooter
 
 	void Player::Shoot()
 	{
+		int shootDir = (int)-GetHeight() - 64;
+		bool downShoot = false;
+		if (n2dIsKeyDown(SDLK_f))
+		{
+			shootDir = Game::s_Height + GetHeight() + 64;
+			downShoot = true;
+		}
+
 		// create and shoot bullet
-		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetHeight()), Vec2Int((int)GetX(), (int)-GetHeight() - 64), 4);
+		Vec2 bulletCreatePos = Vec2(GetX(), GetY() - GetHeight());
+		if (downShoot)
+		{
+			bulletCreatePos = Vec2(GetX(), GetY() + GetHeight());
+		}
+
+		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetHeight()), Vec2Int((int)GetX(), shootDir), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
-		bullet->AddSprite("player-bullet", Vec2(GetX(), GetY() - GetHeight()), Vec2Int(16, 16), 1);
+		bullet->AddSprite("player-bullet", bulletCreatePos, Vec2Int(16, 16), 1);
+
+		if (downShoot)
+		{
+			bullet->GetSprite()->Flip(SDL_FLIP_VERTICAL);
+		}
+
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, m_PlayerNumber + "-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 		bullet->MetaAdd("playerNum", m_PlayerNumber);

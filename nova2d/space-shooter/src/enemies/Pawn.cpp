@@ -77,7 +77,7 @@ namespace spaceshooter
 	void Pawn::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
-		explosion->ConfigureAnimation(0, 5, 100, true);
+		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 			});

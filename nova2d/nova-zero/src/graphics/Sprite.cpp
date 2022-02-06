@@ -41,10 +41,13 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		void Sprite::ConfigureAnimation(int startFrame, int totalFrames, float animationSpeed, bool loop)
+		void Sprite::ConfigureAnimation(int startFrame, int animationLength, int totalFrames, float animationSpeed, bool loop)
 		{
 			m_Frames = totalFrames;
+			m_AnimationLength = animationLength;
 			m_CurrentFrame = startFrame;
+			m_StartFrame = startFrame;
+
 			if (m_CurrentFrame >= m_Frames) m_CurrentFrame = 0;
 
 			if (m_AnimationTimer)
@@ -69,11 +72,11 @@ namespace novazero
 
 			m_CurrentFrame++;
 
-			if (m_CurrentFrame >= m_Frames)
+			if (m_CurrentFrame >= m_StartFrame + m_AnimationLength)
 			{
 				if (m_AnimationLooping)
 				{
-					m_CurrentFrame = 0;
+					m_CurrentFrame = m_StartFrame;
 				}
 				else
 				{
@@ -90,6 +93,11 @@ namespace novazero
 
 		}
 
+		void Sprite::Flip(SDL_RendererFlip flip)
+		{
+			m_Flip = flip;
+		}
+
 		void Sprite::Draw()
 		{
 			if (!m_Visible || !m_Alive) return;
@@ -100,7 +108,7 @@ namespace novazero
 			m_DestRect.x = (int)m_Position.x;
 			m_DestRect.y = (int)m_Position.y;
 
-			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, SDL_FLIP_NONE);
+			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 		}
 
 		bool Sprite::operator==(const Sprite& other)

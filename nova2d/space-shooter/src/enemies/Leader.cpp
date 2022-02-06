@@ -6,6 +6,8 @@
 
 namespace spaceshooter
 {
+	bool Leader::s_Debug = false;
+
 	int Leader::s_PawnCount = 0;
 	int Leader::s_PawnWave = 0;
 	std::vector<Pawn*> Leader::s_Pawns;
@@ -60,6 +62,8 @@ namespace spaceshooter
 
 	void Leader::WatchPawns()
 	{
+		if (s_Debug) return;
+
 		if (s_PawnWave >= 4)
 		{
 			return;
@@ -130,6 +134,8 @@ namespace spaceshooter
 
 	void Leader::GeneratePawnWave(char rows, char cols)
 	{
+		if (s_Debug) return;
+
 		const int moveForward = 132 + (rows * 32);
 		for (int row = 0; row < rows; row++)
 		{
@@ -211,7 +217,7 @@ namespace spaceshooter
 				2.0f);
 
 		bomb->AddSprite("bomb", Vec2(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
-		bomb->GetSprite()->ConfigureAnimation(0, 4, 1000, true);
+		bomb->GetSprite()->ConfigureAnimation(0, 4, 4, 1000, true);
 		bomb->ConfigureCollider(bomb->GetSprite(), 0, "bomb");
 		bomb->Configure(2, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
 		
@@ -261,7 +267,7 @@ namespace spaceshooter
 	void Leader::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
-		explosion->ConfigureAnimation(0, 5, 100, true);
+		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 			});
@@ -285,6 +291,8 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
+		if (s_Debug) return;
+
 		std::string playerNumber = "player1";
 
 		if (Lvl1::s_Players != 1)
