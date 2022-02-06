@@ -211,6 +211,7 @@ namespace novazero
 					if (m_Starting)
 					{
 						m_Starting = false;
+						m_Stopping = true;
 						MovementIsZero();
 					}
 				}

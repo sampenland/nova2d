@@ -86,10 +86,11 @@ namespace novazero
 			if (m_Timers.find(tweenID) != m_Timers.end())
 			{
 				m_Timers[tweenID]->current = start;
+				m_Timers[tweenID]->initStart = start;
+				m_Timers[tweenID]->step = (end - start) / (durationMS / 10);;
 				m_Timers[tweenID]->end = end;
 				m_Timers[tweenID]->durationLeft = durationMS;
 				m_Timers[tweenID]->loop = loop;
-				m_Timers[tweenID]->current = start;
 				m_Timers[tweenID]->deleteOnComplete = autoDelete;
 
 				if (autoDelete)
