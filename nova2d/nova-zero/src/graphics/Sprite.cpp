@@ -98,15 +98,15 @@ namespace novazero
 			m_Flip = flip;
 		}
 
-		void Sprite::Draw()
+		void Sprite::Draw(float oX, float oY)
 		{
 			if (!m_Visible || !m_Alive) return;
 
 			m_SrcRect.x = m_CurrentFrame * m_FrameSize.x;
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)m_Position.x;
-			m_DestRect.y = (int)m_Position.y;
+			m_DestRect.x = (int)m_Position.x + oX;
+			m_DestRect.y = (int)m_Position.y + oY;
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 		}
@@ -125,7 +125,7 @@ namespace novazero
 
 			n2dRemoveDrawable(m_ID, m_Layer);
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }

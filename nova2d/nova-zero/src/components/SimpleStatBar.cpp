@@ -73,7 +73,7 @@ namespace novazero
 			m_ForegroundColorFourth = colorForeground4;
 		}
 
-		void SimpleStatBar::Draw()
+		void SimpleStatBar::Draw(float oX, float oY)
 		{
 			m_Outline->x = m_Pos.x - m_OutlineThickness;
 			m_Outline->y = m_Pos.y - m_OutlineThickness;
@@ -153,7 +153,7 @@ namespace novazero
 
 			n2dRemoveDrawable(m_ID, m_Layer);
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }

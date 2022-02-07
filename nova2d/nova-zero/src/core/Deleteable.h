@@ -12,12 +12,12 @@ namespace novazero
 		private:
 
 			bool m_Enabled = true;
+			bool m_DeleteNow = 0;
 
 		protected:
 
 			Deleteable(std::string name);
 
-			bool m_DeleteNow = 0;
 			std::string m_DeleteName = "";
 
 			std::vector<unsigned int> m_CleanUpdaters;

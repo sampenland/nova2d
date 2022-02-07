@@ -89,13 +89,13 @@ namespace novazero
 
 		}
 
-		void Text::Draw()
+		void Text::Draw(float oX, float oY)
 		{
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
-			m_DrawRect.x = (int)GetX();
-			m_DrawRect.y = (int)GetY();
+			m_DrawRect.x = (int)GetX() + oX;
+			m_DrawRect.y = (int)GetY() + oY;
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
 		}
@@ -104,7 +104,7 @@ namespace novazero
 		{
 			n2dRemoveDrawable(m_ID, m_Layer);
 			CleanUpdaters();
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 
 	}

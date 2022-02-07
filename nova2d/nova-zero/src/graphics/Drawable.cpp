@@ -1,5 +1,6 @@
 #include "Drawable.h"
 #include "../core/Game.h"
+#include "../graphics/DrawableCollection.h"
 
 namespace novazero
 {
@@ -11,9 +12,17 @@ namespace novazero
 			m_ID = n2dGameGetID();
 		};
 
-		Drawable::~Drawable()
+		void Drawable::SetDrawableCollection(DrawableCollection* collection)
 		{
+			n2dRemoveDrawable(m_ID, m_Layer);
+			m_DrawableCollection = collection;
+			m_DrawableCollection->AddChild(this);
+		}
 
+		void Drawable::ClearDrawableCollection(unsigned int id)
+		{
+			if (!m_DrawableCollection) return;
+			m_DrawableCollection->RemoveChild(id);			
 		}
 	}
 }

@@ -53,7 +53,7 @@ namespace novazero
 				std::string colorForeground4);
 
 			void Update(int v, int x, int y);
-			void Draw() override;
+			void Draw(float oX = 0.f, float oY = 0.f) override;
 
 			void DestroySelf();
 

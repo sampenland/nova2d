@@ -84,20 +84,29 @@ namespace novazero
 			}
 		}
 
-		void TextInput::Draw()
+		void TextInput::Draw(float oX, float oY)
 		{
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);
 
 			n2dRenderDrawColor(m_BackgroundColor);
-			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Background);
+			float tX = 0.f;
+			float tY = 0.f;
+			tX = m_Background->x;
+			tY = m_Background->y;
+			m_Background->x += oX;
+			m_Background->y += oY;
 
+			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Background);
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);
 
 			if (m_DisplayText)
 			{
-				m_DisplayText->Draw();
+				m_DisplayText->Draw(oX, oY);
 			}
+
+			m_Background->x = tX;
+			m_Background->y = tY;
 		}
 
 		void TextInput::DestroySelf()
@@ -108,7 +117,7 @@ namespace novazero
 			if (m_DisplayText)
 				m_DisplayText->DestroySelf();
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }

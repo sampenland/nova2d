@@ -48,7 +48,7 @@ namespace novazero
 			SetDeleted(true);
 		}
 
-		void DrawRect::Draw()
+		void DrawRect::Draw(float oX, float oY)
 		{
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);

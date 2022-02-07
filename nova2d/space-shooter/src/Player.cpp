@@ -130,9 +130,14 @@ namespace spaceshooter
 		}
 	}
 
-	void Player::SmallExplosion()
+	void Player::SmallExplosion(Vec2 posIfNotPlayer)
 	{
-		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
+		if (posIfNotPlayer.x == -100)
+		{
+			posIfNotPlayer = m_Sprite->GetPosition();
+		}
+
+		Sprite* explosion = new Sprite("explode", posIfNotPlayer, Vec2Int(16, 16), 0);
 		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
@@ -270,7 +275,7 @@ namespace spaceshooter
 		bullet->MetaAdd("playerNum", m_PlayerNumber);
 		bullet->SetTimeEffectEnabled(false);
 
-		auto collisionFunction = new auto ([](Collision* collision) {
+		auto collisionFunction = new auto ([=](Collision* collision) {
 
 			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player1-bullet";
 			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player1-bullet";
@@ -283,13 +288,26 @@ namespace spaceshooter
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((PawnBullet*)collision->m_ColliderB)->DestroySelf();
+				SmallExplosion(((PawnBullet*)collision->m_ColliderB)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
 			}
 			else if(((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
 			{
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
+				SmallExplosion(((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
+			}
+
+			// Bullet with leader bullet
+			// more handled on Leader Shoot() bullet lamda collision
+			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "leader-bullet")
+			{
+				SmallExplosion(((SimpleFollower*)collision->m_ColliderB)->GetSprite()->GetPosition());
+			}
+			else if (((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "leader-bullet"))
+			{
+				SmallExplosion(((SimpleFollower*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 			
 			// Bullet with pawn

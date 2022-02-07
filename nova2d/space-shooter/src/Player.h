@@ -55,7 +55,7 @@ namespace spaceshooter
 
 		void Die();
 
-		void SmallExplosion();
+		void SmallExplosion(Vec2 posIfNotPlayer = Vec2(-100, -100));
 		void Quit();
 
 	public:

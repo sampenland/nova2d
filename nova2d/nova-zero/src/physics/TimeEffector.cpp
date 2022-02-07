@@ -120,7 +120,7 @@ namespace novazero
 			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffector(this);
 			n2dRemoveDeleteable(m_CleanID);
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }

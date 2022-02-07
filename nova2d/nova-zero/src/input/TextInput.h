@@ -36,7 +36,7 @@ namespace novazero
 
 			void Update();
 			void Select(bool isSelected, bool reset);
-			void Draw() override;
+			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void DestroySelf();
 
 		};

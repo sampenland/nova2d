@@ -48,7 +48,7 @@ namespace novazero
 				m_Fill->h = rect->h - 2 * m_Thickness;
 			}
 
-			void Draw() override;
+			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void DestroySelf();
 
 		};

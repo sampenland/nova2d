@@ -103,7 +103,7 @@ namespace novazero
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 			
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }

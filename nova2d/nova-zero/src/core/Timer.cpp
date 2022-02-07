@@ -29,7 +29,7 @@ namespace novazero
 			if (f_OnFinish)
 				f_OnFinish = NULL;
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 
 		void Timer::Tick()

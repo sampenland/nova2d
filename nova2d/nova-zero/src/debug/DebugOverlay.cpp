@@ -104,7 +104,7 @@ namespace novazero
 
 		}
 		
-		void DebugOverlay::Draw()
+		void DebugOverlay::Draw(float oX, float oY)
 		{
 			
 		}
@@ -126,7 +126,7 @@ namespace novazero
 
 			n2dRemoveDrawable(m_ID, m_Layer);
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }

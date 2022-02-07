@@ -117,7 +117,7 @@ namespace novazero
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 
-			Deleteable::m_DeleteNow = 1;
+			Deleteable::SetDeleted(true);
 		}
 
 		void SimpleFollower::OnCollision(Collision* collision)

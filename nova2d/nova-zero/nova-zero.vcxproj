@@ -122,6 +122,7 @@
     <ClCompile Include="src\debug\DrawRect.cpp" />
     <ClCompile Include="src\graphics\AnsiColor.cpp" />
     <ClCompile Include="src\graphics\Drawable.cpp" />
+    <ClCompile Include="src\graphics\DrawableCollection.cpp" />
     <ClCompile Include="src\graphics\gfx\SDL2_framerate.c" />
     <ClCompile Include="src\graphics\gfx\SDL2_gfxPrimitives.c" />
     <ClCompile Include="src\graphics\gfx\SDL2_gfxPrimitives.c.c" />
@@ -176,6 +177,7 @@
     <ClInclude Include="src\debug\DrawRect.h" />
     <ClInclude Include="src\graphics\AnsiColor.h" />
     <ClInclude Include="src\graphics\Drawable.h" />
+    <ClInclude Include="src\graphics\DrawableCollection.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_framerate.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_gfxPrimitives.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_gfxPrimitives_font.h" />
@@ -221,6 +223,20 @@
     <Font Include="res\fonts\pixel2.ttf" />
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bomb_anim.png" />
+    <Image Include="res\bullet_01.png" />
+    <Image Include="res\bullet_02.png" />
+    <Image Include="res\bullet_03.png" />
+    <Image Include="res\explode_anim.png" />
+    <Image Include="res\gameOverTitle.png" />
+    <Image Include="res\nova2d-logo.png" />
+    <Image Include="res\ship_01.png" />
+    <Image Include="res\ship_01_anim.png" />
+    <Image Include="res\ship_02.png" />
+    <Image Include="res\ship_03.png" />
+    <Image Include="res\title.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

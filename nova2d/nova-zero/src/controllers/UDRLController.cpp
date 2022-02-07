@@ -129,10 +129,9 @@ namespace novazero
 			float newX = pos.x + m_Velocity.x;
 			float newY = pos.y + m_Velocity.y;
 
-			if (m_Velocity.x > 0) newX = (int)ceil(newX);
-			if (m_Velocity.y > 0) newY = (int)ceil(newY);
+			if (m_Velocity.x > 0) newX = ceil(newX);
+			if (m_Velocity.y > 0) newY = ceil(newY);
 
-			LOG(LVL_WARNING, std::to_string(m_Velocity.x) + ", " + std::to_string(m_Velocity.y));
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
 				SetX((int)newX);

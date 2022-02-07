@@ -24,7 +24,7 @@ namespace novazero
 		void EventListener::DestroySelf()
 		{
 			EndEventListener();
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 
 		void EventListener::StartEventListener()

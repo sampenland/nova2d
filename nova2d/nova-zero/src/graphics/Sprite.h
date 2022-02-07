@@ -53,7 +53,7 @@ namespace novazero
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
-			void Draw() override;
+			void Draw(float oX = 0.f, float oY = 0.f) override;
 
 			void DestroySelf();
 

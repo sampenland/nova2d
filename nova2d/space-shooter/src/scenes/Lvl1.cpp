@@ -48,9 +48,6 @@ namespace spaceshooter
 		if(s_Players != 1)
 			m_P2StreakText = new Text("font1", "P2 Streak: 0", "light-blue", Rect(Game::s_Width - scoreSize - 8, 48, scoreSize, 16), 0);
 
-		/*TimeWarp* tw = new TimeWarp(Vec2((float)Game::s_Width / 2 - 40, (float)Game::s_Height - 256), 
-			0.25f, 80, 10000);*/
-
 		AddObjectToCleanUp(m_LeaderController);
 		AddObjectToCleanUp(m_ScoreText);
 		AddObjectToCleanUp(m_P1StreakText);

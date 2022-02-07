@@ -68,6 +68,15 @@
     <Image Include="res\title.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\bomb_anim.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\clock_anim.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\streaks_count.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Player.h">

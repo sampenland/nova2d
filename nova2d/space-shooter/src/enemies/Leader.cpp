@@ -396,7 +396,7 @@ namespace spaceshooter
 		m_Alive = false;
 
 		LeaderController::s_LeaderExists = false;
-		m_DeleteNow = 1;
+		SetDeleted(true);
 
 		CleanUpdaters();
 

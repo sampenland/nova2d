@@ -48,7 +48,7 @@ namespace novazero
         {
             CleanUpdaters();
             
-            m_DeleteNow = 1;
+            SetDeleted(true);
         }
 	}
 }

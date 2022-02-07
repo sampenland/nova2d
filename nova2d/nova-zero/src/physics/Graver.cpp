@@ -162,7 +162,7 @@ namespace novazero
 			if (m_EffectCircle)
 				m_EffectCircle->DestroySelf();
 
-			m_DeleteNow = 1;
+			SetDeleted(true);
 		}
 	}
 }
