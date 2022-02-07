@@ -16,6 +16,19 @@ namespace spaceshooter
 
 	void Lvl1::Start()
 	{
+		n2dScoreSet(0);
+
+		LeaderController::s_Wave = 0;
+		LeaderController::s_LeaderExists = false;
+
+		Leader::s_PawnCount = 0;
+		Leader::s_PawnWave = 0;
+
+		Player::s_Player1Streak = 0;
+		Player::s_Player1MaxStreak = 0;
+		Player::s_Player2Streak = 0;
+		Player::s_Player2MaxStreak = 0;
+
 		if (s_Players == 1)
 		{
 			Player* player1 = new Player("player", "player1", Vec2((float)Game::s_Width / 2 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);

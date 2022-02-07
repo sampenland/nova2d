@@ -42,12 +42,6 @@ namespace spaceshooter
 
 		void Start() override
 		{
-			n2dScoreSet(0);
-			Player::s_Player1Streak = 0;
-			Player::s_Player1MaxStreak = 0;
-			Player::s_Player2Streak = 0;
-			Player::s_Player2MaxStreak = 0;
-
 			screen = new DrawableCollection(Vec2(0, 0), 0);
 
 			title = new Text("font1", "SPACE SHOOTER", "white",
