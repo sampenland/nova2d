@@ -6,9 +6,13 @@ Simple Win32 experimental 2d SDL2 based game engine specifically made for Arcade
  
  Graphics
  - Simple 2D sprites with Animations, if desired
+ - Draw Collections which can be used for Screen animations, possibily 2D cameras later on
  - Simple TextInput and Text Displays
  - 4 built in fonts: "font1", "font2", "font3", "font4"
  - Debug Draw shapes: Circle and Rectangle
+ 
+ Prefabs
+ - Basic WSAD/ArrowKeys controller with built-in movement bounds, acceleration, Graver, Time Effected, etc.
  
  Managment
  - Ease of use Color Managament, Referencer and Asset(sprite/texutre) Managament
@@ -43,3 +47,7 @@ Simple Win32 experimental 2d SDL2 based game engine specifically made for Arcade
  
  n2dMacros
  - Easy to use MACROs to simplify use of complex functions / lenghtly functions
+ 
+ **Samples**
+ - Space shooter : Simple shooter like Dragon Spirit for NES. Project used for testing, game not really polished in any way.
+ 
