@@ -50,12 +50,6 @@ namespace novazero
 		/* Clears all patrol points */
 		void SimpleWeakAI::ClearPatrol()
 		{
-			for (size_t i = 0; i < m_PatrolPoints.size(); i++)
-			{
-				if (m_PatrolPoints[i])
-					delete[] m_PatrolPoints[i];
-			}
-
 			if((int)m_PatrolPoints.size() > 0)
 				m_PatrolPoints.clear();
 			
@@ -202,6 +196,8 @@ namespace novazero
 		void SimpleWeakAI::DestroySelf()
 		{
 			CleanUpdaters();
+
+			SceneManager::s_CollisionManager->RemoveCollider(this);
 
 			if (m_Sprite)
 				m_Sprite->DestroySelf();

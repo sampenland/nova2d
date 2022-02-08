@@ -12,6 +12,16 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "pawn1");
 	}
 
+	void Pawn1::Hurt(int damage, const std::string& damager)
+	{
+		if (m_Alive)
+		{
+			m_KilledBy = damager;
+			n2dScoreAdd(25);
+			DestroySelf();
+		}
+	}
+
 	void Pawn1::Shoot()
 	{
 		Player* player;
@@ -35,6 +45,7 @@ namespace spaceshooter
 		SimpleWeakAI* pawn1Bullet = new SimpleWeakAI();
 		pawn1Bullet->EnableAI(true);
 		pawn1Bullet->AddSprite("pawn1-bullet", Vec2(GetX(), GetY()), Vec2Int(16, 16), 0);
+		pawn1Bullet->ConfigureCollider(pawn1Bullet->GetSprite(), 0, "pawn1-bullet");
 		pawn1Bullet->ConfigureTimeEffected(pawn1Bullet->GetSprite());
 		pawn1Bullet->Configure(20, false);
 		pawn1Bullet->ConfigureContinueAfterPatrolComplete(true);

@@ -10,12 +10,15 @@ namespace spaceshooter
 
 	private:
 
+		std::string m_KilledBy = "";
+
 	protected:
 
 	public:
 
 		Pawn1(Vec2 position);
 
+		void Hurt(int damage, const std::string& damager);
 		void Shoot();
 
 	};

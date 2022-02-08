@@ -6,6 +6,7 @@
 #include "specials/PawnBullet.h"
 #include "scenes/Lvl1.h"
 #include "specials/TimeWarp.h"
+#include "enemies/Pawn1.h"
 
 namespace spaceshooter
 {
@@ -283,7 +284,7 @@ namespace spaceshooter
 			bool collAisPlayer2Bullet = collision->m_ColliderA->m_ColliderName == "player2-bullet";
 			bool collBisPlayer2Bullet = collision->m_ColliderB->m_ColliderName == "player2-bullet";
 
-			// Bullet with bullet
+			// Bullet with pawn bullet
 			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn-bullet")
 			{
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
@@ -297,6 +298,22 @@ namespace spaceshooter
 				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
 				SmallExplosion(((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
+			}
+
+			// Bullet with pawn1-bullet
+			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn1-bullet")
+			{
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderB)->GetSprite()->GetPosition());
+				((SimpleWeakAI*)collision->m_ColliderB)->DestroySelf();
+				n2dScoreAdd(5);
+			}
+			else if (((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn1-bullet"))
+			{
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderA)->GetSprite()->GetPosition());
+				((SimpleWeakAI*)collision->m_ColliderA)->DestroySelf();
+				n2dScoreAdd(5);
 			}
 
 			// Bullet with leader bullet
@@ -322,6 +339,22 @@ namespace spaceshooter
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				std::string pNum = ((SimpleBulletController*)collision->m_ColliderB)->MetaGet("playerNum");
 				((Pawn*)collision->m_ColliderA)->Hurt(4, pNum);
+			}
+
+			// Bullet with pawn1
+			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn1")
+			{
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				std::string pNum = ((SimpleBulletController*)collision->m_ColliderA)->MetaGet("playerNum");
+				SmallExplosion(((Pawn1*)collision->m_ColliderB)->GetPosition());
+				((Pawn1*)collision->m_ColliderB)->Hurt(4, pNum);
+			}
+			else if ((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn1")
+			{
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+				std::string pNum = ((SimpleBulletController*)collision->m_ColliderB)->MetaGet("playerNum");
+				SmallExplosion(((Pawn1*)collision->m_ColliderA)->GetPosition());
+				((Pawn1*)collision->m_ColliderA)->Hurt(4, pNum);
 			}
 
 			// Bullet with leader
