@@ -25,6 +25,7 @@ namespace novazero
 			void RemoveChild(unsigned int id);
 
 			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void ClearChildren();
 
 			void DestroySelf();
 

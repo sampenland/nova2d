@@ -45,8 +45,19 @@ namespace novazero
 			}
 		}
 
+		void DrawableCollection::ClearChildren()
+		{
+			for (std::map<unsigned int, Drawable*>::iterator it = m_Children.begin(); it != m_Children.end(); it++)
+			{
+				n2dRemoveDrawable(it->second->m_ID, it->second->m_Layer);
+			}
+
+			m_Children.clear();
+		}
+
 		void DrawableCollection::DestroySelf()
 		{
+			ClearChildren();
 			n2dRemoveDrawable(m_ID, m_Layer);
 			CleanUpdaters();
 			SetDeleted(true);
