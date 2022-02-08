@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("clock", "res/clock_anim.png");
 	n2dAssetsLoadAndAddTexture("streaks", "res/streaks_count.png");
 	n2dAssetsLoadAndAddTexture("pawn1", "res/ship_04_anim.png");
+	n2dAssetsLoadAndAddTexture("pawn1-bullet", "res/bullet_04.png");
 
 	MainMenu* mainMenuScene = new MainMenu("mainMenu");
 	Lvl1* level1 = new Lvl1("level1");

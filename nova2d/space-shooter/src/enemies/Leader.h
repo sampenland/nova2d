@@ -28,7 +28,7 @@ namespace spaceshooter
 		int m_Health = 64;
 		std::string m_KilledBy;
 
-		std::vector<Vec2> m_PatrolMemory;
+		std::vector<Vec2*> m_PatrolMemory;
 		bool m_Retreating = false;
 		bool m_GeneratingPawnWave = false;
 

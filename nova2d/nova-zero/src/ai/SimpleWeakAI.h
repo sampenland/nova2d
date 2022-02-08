@@ -47,10 +47,11 @@ namespace novazero
 
 			Vec2 m_MemoryMovement;
 			bool m_ContinueAfterPatrolComplete = false;
+			
+			std::vector<Vec2*> m_PatrolPoints;
 
 		protected:
 			
-			std::vector<Vec2> m_PatrolPoints;
 			Sprite* m_Sprite = nullptr;
 
 		public:
@@ -77,6 +78,15 @@ namespace novazero
 			void EnableAI(bool isEnabled);
 			void ResetAI();
 
+			void SetAllPatrolPoints(std::vector<Vec2*> points);
+			std::vector<Vec2*> GetPatrolPoints()
+			{
+				return m_PatrolPoints;
+			}
+			Sprite* GetSprite()
+			{
+				return m_Sprite;
+			}
 			inline float GetX() const 
 			{
 				if (m_Sprite)
@@ -104,6 +114,13 @@ namespace novazero
 				if (m_Sprite)
 					m_Sprite->SetPosition(Vec2(x, y)); 
 			}
+			inline void SetPosition(Vec2 pos)
+			{
+				if (m_Sprite)
+					m_Sprite->SetPosition(pos);
+			}
+			inline Vec2 GetPosition() { return m_Sprite->GetPosition(); }
+			inline Vec2Int GetPositionInt() { return m_Sprite->GetPositionInt(); }
 
 			inline void SetVisible(bool isVisible) 
 			{ 
@@ -113,10 +130,11 @@ namespace novazero
 
 			void AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
 
+			void AddPatrolPointWithFunction(Vec2* point, f_MovePtrFunction func);
 			void AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func);
-			void RemovePatrolPointWithFunction(Vec2 point);
+			void RemovePatrolPointWithFunction(Vec2* point);
 
-			void SetAllPatrol(std::vector<Vec2> points, std::vector<f_MovePtrFunction> funcs);
+			void SetAllPatrol(std::vector<Vec2*> points, std::vector<f_MovePtrFunction> funcs);
 			void ClearPatrol();
 
 			void LinearPatrolMove();

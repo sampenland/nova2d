@@ -83,6 +83,12 @@
     <Image Include="res\streaks_count.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\ship_04_anim.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bullet_04.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Player.h">

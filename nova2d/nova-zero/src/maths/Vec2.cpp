@@ -40,6 +40,14 @@ namespace novazero
 			return *this;
 		}
 
+		Vec2& Vec2::scale(const float mag)
+		{
+			x *= mag;
+			y *= mag;
+
+			return *this;
+		}
+
 		Vec2& Vec2::divide(const Vec2& other)
 		{
 			x /= other.x;
@@ -96,6 +104,16 @@ namespace novazero
 		bool Vec2::operator!=(const Vec2& other)
 		{
 			return !(*this == other);
+		}
+
+		Vec2& Vec2::normalize()
+		{
+			float mag = (float)std::sqrt((std::pow(x, 2) + std::pow(y, 2)));
+			
+			x /= mag;
+			y /= mag;
+
+			return *this;
 		}
 
 		std::ostream& operator<<(std::ostream& stream, const Vec2& vector)

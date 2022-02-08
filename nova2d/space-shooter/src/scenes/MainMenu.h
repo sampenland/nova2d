@@ -24,6 +24,7 @@ namespace spaceshooter
 		Text* playerCount2 = nullptr;
 
 		DrawableCollection* screen = nullptr;
+		unsigned int crawlTweenId = 0;
 
 	public:
 
@@ -66,17 +67,22 @@ namespace spaceshooter
 
 
 			const float crawlTime = 5000.0f;
-			n2dTweenAddFloat(screen->GetYRef(), Game::s_Height, 0, crawlTime, false, true);
+			crawlTweenId = n2dTweenAddFloat(screen->GetYRef(), Game::s_Height, 0, crawlTime, false, true);
 		
 			auto startListening = new auto([=] {
 				StartListening();
 			});
 
 			Timer* t = new Timer(crawlTime, false, *startListening);
+			n2dAddKeyDownListener(SDLK_SPACE, MainMenu::StartListening, this);
 		}
 
 		void StartListening()
 		{
+			n2dRemoveKeyDownListener(SDLK_SPACE);
+			n2dTweenRemove(crawlTweenId);
+			screen->SetPosition(Vec2(0, 0));
+
 			n2dAddKeyDownListener(SDLK_1, MainMenu::OnePlayer, this);
 			n2dAddKeyDownListener(SDLK_2, MainMenu::TwoPlayer, this);
 			n2dAddKeyDownListener(SDLK_ESCAPE, MainMenu::OnEscape, this);

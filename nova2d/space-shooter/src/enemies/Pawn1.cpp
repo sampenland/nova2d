@@ -33,8 +33,10 @@ namespace spaceshooter
 		}
 
 		SimpleWeakAI* pawn1Bullet = new SimpleWeakAI();
-		pawn1Bullet->AddSprite("leader-bullet", Vec2(GetX(), GetY()), Vec2Int(16, 16), 0);
-		pawn1Bullet->Configure(10, false);
+		pawn1Bullet->EnableAI(true);
+		pawn1Bullet->AddSprite("pawn1-bullet", Vec2(GetX(), GetY()), Vec2Int(16, 16), 0);
+		pawn1Bullet->ConfigureTimeEffected(pawn1Bullet->GetSprite());
+		pawn1Bullet->Configure(20, false);
 		pawn1Bullet->ConfigureContinueAfterPatrolComplete(true);
 		pawn1Bullet->AddPatrolPointWithFunction(player->GetPosition(), std::bind(&SimpleWeakAI::LinearPatrolMove, pawn1Bullet));
 		pawn1Bullet->ConfigureAliveBounds(Game::GetGameBounds(32));

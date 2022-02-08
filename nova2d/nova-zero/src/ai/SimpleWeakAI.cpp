@@ -34,15 +34,28 @@ namespace novazero
 			m_DeleteName = assetName;
 		}
 
-		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func)
+		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2* point, f_MovePtrFunction func)
 		{
 			m_PatrolPoints.push_back(point);
+			m_MoveFunctions.push_back(func);
+		}
+
+		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func)
+		{
+			Vec2* v = new Vec2(point.x, point.y);
+			m_PatrolPoints.push_back(v);
 			m_MoveFunctions.push_back(func);
 		}
 
 		/* Clears all patrol points */
 		void SimpleWeakAI::ClearPatrol()
 		{
+			for (size_t i = 0; i < m_PatrolPoints.size(); i++)
+			{
+				if (m_PatrolPoints[i])
+					delete m_PatrolPoints[i];
+			}
+
 			if((int)m_PatrolPoints.size() > 0)
 				m_PatrolPoints.clear();
 			
@@ -52,7 +65,7 @@ namespace novazero
 			m_PatrolIndex = 0;
 		}
 
-		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2 point)
+		void SimpleWeakAI::RemovePatrolPointWithFunction(Vec2* point)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < m_PatrolPoints.size(); i++)
@@ -70,7 +83,7 @@ namespace novazero
 			m_MoveFunctions.erase(m_MoveFunctions.begin() + idx);
 		}
 
-		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2> points, std::vector<f_MovePtrFunction> funcs)
+		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2*> points, std::vector<f_MovePtrFunction> funcs)
 		{
 			LOG(LVL_WARNING, "Function Set All Patrol not implemented.");
 			return;
@@ -89,6 +102,13 @@ namespace novazero
 
 			EnableAI(true);
 
+		}
+
+		void SimpleWeakAI::SetAllPatrolPoints(std::vector<Vec2*> points)
+		{
+			ClearPatrol();
+			m_PatrolPoints = points;
+			EnableAI(true);
 		}
 
 		void SimpleWeakAI::Update()
@@ -136,8 +156,7 @@ namespace novazero
 			m_MoveFunctions[m_PatrolIndex]();
 		}
 
-		// Using Linear moving presumes your patrol points distances
-		// are divisble by 2
+		// Using Linear moving
 		void SimpleWeakAI::LinearPatrolMove()
 		{
 			if (m_PatrolIndex == -1)
@@ -150,22 +169,20 @@ namespace novazero
 
 			if (m_PatrolIndex < (int)m_PatrolPoints.size())
 			{
-				float currentX = GetX();
-				float currentY = GetY();
-				Vec2 endVector = m_PatrolPoints.at(m_PatrolIndex);
+				//                   end vector (target)       -     currentPosition
+				Vec2 currentPos = GetPosition();
+				Vec2 targetPos = Vec2((*(m_PatrolPoints.at(m_PatrolIndex))).x, (*(m_PatrolPoints.at(m_PatrolIndex))).y);
+				Vec2 dirNormVector = targetPos;
 
-				float newX = currentX > endVector.x ? currentX - 2 : currentX + 2;
-				float newY = currentY > endVector.y ? currentY - 2 : currentY + 2;
+				dirNormVector.subtract(currentPos).normalize();
+				dirNormVector.scale(2.5f * n2dTimeScale * GetTimeInfluence());
 
-				if (currentX == endVector.x) newX = endVector.x;
-				if (currentY == endVector.y) newY = endVector.y;
+				Vec2 newPos = currentPos.add(dirNormVector);
 
-				SetPosition(newX, newY);
-				m_MemoryMovement = Vec2(newX - currentX, newY - currentY);
+				const float tolerance = 2.f;
+				bool reachedTarget = Vec2::Distance(targetPos, newPos) < tolerance;
 
-				const char tolerance = 10;
-				if (endVector.x > newX - tolerance && endVector.x < newX + tolerance &&
-					endVector.y > newY - tolerance && endVector.y < newY + tolerance)
+				if (reachedTarget)
 				{
 					m_PatrolIndex++;
 					if (m_PatrolIndex >= (int)m_PatrolPoints.size())
@@ -174,7 +191,11 @@ namespace novazero
 						return;
 					}
 				}
-
+				else
+				{
+					m_MemoryMovement = dirNormVector;
+					SetPosition(newPos);
+				}
 			}
 		}
 

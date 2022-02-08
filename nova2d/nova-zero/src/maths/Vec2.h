@@ -16,6 +16,9 @@ namespace novazero
 			Vec2& subtract(const Vec2& other);
 			Vec2& multiply(const Vec2& other);
 			Vec2& divide(const Vec2& other);
+			Vec2& scale(const float mag);
+
+			Vec2& normalize();
 
 			friend Vec2 operator+(Vec2 left, Vec2& right);
 			friend Vec2 operator-(Vec2 left, Vec2& right);
@@ -36,6 +39,13 @@ namespace novazero
 			{
 				double angle = atan2(b.y - a.y, b.x - a.x);
 				return (float)floor((angle * (180.0 / 3.141592653589793238463))) + degExtraRotate;
+			}
+
+			static float Distance(Vec2 a, Vec2 b)
+			{
+				Vec2 m = b.subtract(a);
+				float mag = (float)std::sqrt((std::pow(m.x, 2) + std::pow(m.y, 2)));
+				return mag;
 			}
 
 		};

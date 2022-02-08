@@ -55,11 +55,11 @@ namespace spaceshooter
 			pawn1->ConfigureAliveBounds(Game::GetGameBounds(32));
 			if (n2dCoinFlip())
 			{
-				pawn1->AddPatrolPointWithFunction(Vec2(Game::s_Width + 16, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
+				pawn1->AddPatrolPointWithFunction(Vec2(Game::s_Width + 48, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
 			}
 			else
 			{
-				pawn1->AddPatrolPointWithFunction(Vec2(-16, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
+				pawn1->AddPatrolPointWithFunction(Vec2(-48, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
 			}
 
 		});

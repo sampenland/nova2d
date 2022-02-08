@@ -109,6 +109,7 @@
     <Image Include="res\bullet_01.png" />
     <Image Include="res\bullet_02.png" />
     <Image Include="res\bullet_03.png" />
+    <Image Include="res\bullet_04.png" />
     <Image Include="res\clock_anim.png" />
     <Image Include="res\explode_anim.png" />
     <Image Include="res\gameOverTitle.png" />
@@ -116,6 +117,7 @@
     <Image Include="res\ship_01_anim.png" />
     <Image Include="res\ship_02.png" />
     <Image Include="res\ship_03.png" />
+    <Image Include="res\ship_04_anim.png" />
     <Image Include="res\streaks_count.png" />
     <Image Include="res\title.png" />
   </ItemGroup>

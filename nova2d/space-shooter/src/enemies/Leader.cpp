@@ -6,7 +6,7 @@
 
 namespace spaceshooter
 {
-	bool Leader::s_Debug = true;
+	bool Leader::s_Debug = false;
 
 	int Leader::s_PawnCount = 0;
 	int Leader::s_PawnWave = 0;
@@ -242,8 +242,8 @@ namespace spaceshooter
 
 	void Leader::MoveForwardThenBack()
 	{
-		m_PatrolMemory = m_PatrolPoints;
-		m_PatrolPoints.clear();
+		m_PatrolMemory = GetPatrolPoints();
+		ClearPatrol();
 
 		AddPatrolPointWithFunction(Vec2(GetX(), GetY() + 128),
 			std::bind(&SimpleWeakAI::LinearPatrolMove, this));
@@ -259,7 +259,7 @@ namespace spaceshooter
 
 	void Leader::RememberOldMoving()
 	{
-		m_PatrolPoints = m_PatrolMemory;
+		SetAllPatrolPoints(m_PatrolMemory);
 		ConfigureOnPatrolComplete(([]() {}));
 		Configure(30, true);
 	}
