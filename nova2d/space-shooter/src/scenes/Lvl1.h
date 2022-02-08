@@ -24,7 +24,7 @@ namespace spaceshooter
 
 	public:
 
-		Lvl1(std::string sceneName);
+		Lvl1(const std::string& sceneName);
 
 		void Start() override;
 		void End() override;

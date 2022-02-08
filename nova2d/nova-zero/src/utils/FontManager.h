@@ -19,9 +19,9 @@ namespace novazero
 			FontManager();
 			~FontManager();
 
-			void AddFont(std::string fontName, std::string fontPath, int fontSize);
-			TTF_Font* GetFont(std::string fontName);
-			void RemoveFont(std::string fontName);
+			void AddFont(const std::string& fontName, const std::string& fontPath, int fontSize);
+			TTF_Font* GetFont(const std::string& fontName);
+			void RemoveFont(const std::string& fontName);
 
 		};
 	}

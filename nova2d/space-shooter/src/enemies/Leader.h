@@ -44,7 +44,7 @@ namespace spaceshooter
 	
 	public:
 
-		Leader(std::string assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer);
+		Leader(const std::string& assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer);
 
 		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
 
@@ -64,7 +64,7 @@ namespace spaceshooter
 		void DeployBomb();
 
 		void HealthUpdate();
-		void Hurt(int damage, std::string damager = "player0");
+		void Hurt(int damage, const std::string& damager = "player0");
 		void SmallExplosion();
 
 		void DestroySelf() override;

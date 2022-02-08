@@ -36,12 +36,12 @@ namespace novazero
 			SceneManager();
 			~SceneManager();
 
-			void ConfigureFirstScene(std::string sceneName);
+			void ConfigureFirstScene(const std::string& sceneName);
 			
-			void AddScene(std::string sceneName, Scene* scene);
-			void RemoveScene(std::string sceneName);
-			Scene* GetScene(std::string sceneName);
-			void ChangeScene(std::string sceneName);
+			void AddScene(const std::string& sceneName, Scene* scene);
+			void RemoveScene(const std::string& sceneName);
+			Scene* GetScene(const std::string& sceneName);
+			void ChangeScene(const std::string& sceneName);
 
 			void Update();
 			void ProcessUpdaters();

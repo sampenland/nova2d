@@ -9,7 +9,7 @@ namespace novazero
 	{
 		using namespace graphics;
 
-		DrawRect::DrawRect(std::string fillColor, std::string outlineColor,
+		DrawRect::DrawRect(const std::string& fillColor, const std::string& outlineColor,
 			bool filled, Rect rect, int outlineThickness, char layer)
 			: Drawable(), Deleteable("rect_")
 		{

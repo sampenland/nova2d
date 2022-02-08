@@ -128,7 +128,7 @@ namespace novazero
 					m_Sprite->m_Visible = isVisible; 
 			}
 
-			void AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
+			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
 
 			void AddPatrolPointWithFunction(Vec2* point, f_MovePtrFunction func);
 			void AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func);

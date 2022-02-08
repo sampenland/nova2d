@@ -48,8 +48,8 @@ namespace novazero
 			
 			void ConfigureTimeEffector(float timeEffect);
 
-			void ConfigureTimeEffectorVisible(bool filled, std::string fillColor, 
-				std::string outlineColor, char layer);
+			void ConfigureTimeEffectorVisible(bool filled, const std::string& fillColor,
+				const std::string& outlineColor, char layer);
 
 			int* GetEffectorRadiusRef() 
 			{ 

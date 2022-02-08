@@ -74,12 +74,13 @@ namespace novazero
 
 		}
 
-		void Game::ConfigureFirstScene(std::string sceneName)
+		void Game::ConfigureFirstScene(const std::string& sceneName)
 		{
 			s_SceneManager->ConfigureFirstScene(sceneName);
 		}
 
-		void Game::ConfigureSQL(std::string databaseName, std::string connectionString, std::string user, std::string pass, bool useNovaSQLScoring)
+		void Game::ConfigureSQL(const std::string& databaseName, const std::string& connectionString, const std::string& user, 
+			const std::string& pass, bool useNovaSQLScoring)
 		{
 			s_SQLManager->Configure(databaseName, connectionString, user, pass);
 

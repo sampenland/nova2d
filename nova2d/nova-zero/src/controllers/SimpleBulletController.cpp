@@ -27,7 +27,7 @@ namespace novazero
 			SetEnabled(true);
 		}
 
-		void SimpleBulletController::AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
+		void SimpleBulletController::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			m_DeleteName = assetName;
 			m_Sprite = new Sprite(assetName, position, size, layer);

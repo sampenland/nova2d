@@ -55,7 +55,7 @@ namespace novazero
 			}
 		}
 
-		void SceneManager::ConfigureFirstScene(std::string sceneName)
+		void SceneManager::ConfigureFirstScene(const std::string& sceneName)
 		{
 			Scene* loadScene = GetScene(sceneName);
 			if (loadScene == nullptr)
@@ -69,23 +69,23 @@ namespace novazero
 			m_CurrentScene->Start();
 		}
 
-		void SceneManager::AddScene(std::string sceneName, Scene* scene)
+		void SceneManager::AddScene(const std::string& sceneName, Scene* scene)
 		{
 			m_Scenes[sceneName] = scene;
 		}
 
-		void SceneManager::RemoveScene(std::string sceneName)
+		void SceneManager::RemoveScene(const std::string& sceneName)
 		{
 			m_Scenes.erase(sceneName);
 		}
 
-		Scene* SceneManager::GetScene(std::string sceneName)
+		Scene* SceneManager::GetScene(const std::string& sceneName)
 		{
 			if (m_Scenes.find(sceneName) == m_Scenes.end()) return nullptr;
 			return m_Scenes[sceneName];
 		}
 
-		void SceneManager::ChangeScene(std::string sceneName)
+		void SceneManager::ChangeScene(const std::string& sceneName)
 		{
 			Scene* loadScene = GetScene(sceneName);
 			if (loadScene == nullptr)

@@ -19,7 +19,7 @@ namespace novazero
 		{
 		public:
 
-			static void LogOut(std::string level, std::string text)
+			static void LogOut(const std::string& level, const std::string& text)
 			{
 				std::string out = "";
 				

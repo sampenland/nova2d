@@ -58,9 +58,10 @@ namespace novazero
 			void Render();
 			void Clean();
 
-			void ConfigureFirstScene(std::string sceneName);
+			void ConfigureFirstScene(const std::string& sceneName);
 			void ConfigureIcon(const char* iconPath) { m_MainWindow->ConfigureIcon(iconPath); }
-			void ConfigureSQL(std::string databaseName, std::string connectionString, std::string user, std::string pass, bool useNovaSQLScoring);
+			void ConfigureSQL(const std::string& databaseName, const std::string& connectionString, const std::string& user,
+				const std::string& pass, bool useNovaSQLScoring);
 
 		public:
 

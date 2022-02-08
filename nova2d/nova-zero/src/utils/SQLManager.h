@@ -39,7 +39,7 @@ namespace novazero
 				 - tableName = name for the table inside the database 
 				 - columns   = map<string, string> like { 'age' : 'int(2)' , 'name' : 'varchar(20)' }		
 			*/
-			void CreateTableIfNotExist(std::string tableName, std::map<std::string, std::string> &columns)
+			void CreateTableIfNotExist(const std::string& tableName, std::map<std::string, std::string> &columns)
 			{
 				std::string createQuery = "CREATE TABLE IF NOT EXISTS " + tableName + " ( id int NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
 
@@ -61,7 +61,7 @@ namespace novazero
 				ExecuteNonResult(createQuery);
 			}
 
-			void Configure(std::string databaseName, std::string connectionString, std::string user, std::string pass)
+			void Configure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass)
 			{
 				m_UsingSQL = true;
 
@@ -98,7 +98,7 @@ namespace novazero
 				m_CurrentTable = "scores";
 			}
 
-			void AddScore(std::string playerName, int score)
+			void AddScore(const std::string& playerName, int score)
 			{
 				int sqlScore = GetPlayerScore(playerName);
 				if (sqlScore == -1)
@@ -120,7 +120,7 @@ namespace novazero
 
 			// Returns -1 for no SQL entry found
 			// Returns int of player's score if playername found
-			int GetPlayerScore(std::string playerName)
+			int GetPlayerScore(const std::string& playerName)
 			{
 				CheckIfUsingSQL();
 
@@ -222,7 +222,7 @@ namespace novazero
 				}
 			}
 
-			void RemoveScore(std::string playerName, int score)
+			void RemoveScore(const std::string& playerName, int score)
 			{
 				ExecuteNonResult("DELETE FROM scores WHERE playerName = '" + playerName + "' AND score = '" + std::to_string(score) + "';");
 			}
@@ -230,8 +230,8 @@ namespace novazero
 			/*
 				Executes a query which does not return a result set (or is thrown away if returned)
 			*/
-			void ExecuteNonResult(std::string query, std::string connectionString = "-1",
-				std::string table = "-1", std::string user = "-1", std::string pass = "-1", bool creatingDatabase = false)
+			void ExecuteNonResult(const std::string& query, const std::string& connectionString = "-1",
+				const std::string& table = "-1", const std::string& user = "-1", const std::string& pass = "-1", bool creatingDatabase = false)
 			{
 
 				CheckIfUsingSQL();
@@ -269,11 +269,6 @@ namespace novazero
 						LOG(LVL_NON_FATAL_ERROR, e.what());
 					}
 				}
-			};
-
-			~SQLManager()
-			{
-
 			};
 
 		};

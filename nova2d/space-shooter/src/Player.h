@@ -41,7 +41,7 @@ namespace spaceshooter
 
 	public:
 
-		Player(std::string assetName, std::string playerNumber, Vec2 position, Vec2Int size, char layer);
+		Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer);
 		~Player();
 
 		Sprite* GetSprite() const { return m_Sprite; }
@@ -71,7 +71,7 @@ namespace spaceshooter
 		static int s_Player1MaxStreak;
 		static int s_Player2MaxStreak;
 
-		static void NewKill(std::string playerNumber)
+		static void NewKill(const std::string& playerNumber)
 		{
 			Uint32 ticks = SDL_GetTicks();
 			if (playerNumber == "player1")

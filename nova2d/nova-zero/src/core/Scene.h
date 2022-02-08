@@ -17,8 +17,7 @@ namespace novazero
 
 		public:
 
-			Scene(std::string sceneName);
-			~Scene();
+			Scene(const std::string& sceneName);
 
 			bool m_Started = false;
 			std::string m_SceneName = "";

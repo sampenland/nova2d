@@ -9,7 +9,7 @@ namespace spaceshooter
 {
 	char Lvl1::s_Players = 1;
 
-	Lvl1::Lvl1(std::string sceneName) : Scene(sceneName)
+	Lvl1::Lvl1(const std::string& sceneName) : Scene(sceneName)
 	{
 		m_LeaderController = nullptr;
 	}

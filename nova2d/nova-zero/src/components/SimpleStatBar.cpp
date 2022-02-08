@@ -8,8 +8,8 @@ namespace novazero
 
 	namespace components
 	{
-		SimpleStatBar::SimpleStatBar(bool vertical, int x, int y, int w, int h, std::string colorOutline,
-			std::string colorBackground, std::string colorForeground, char layer)
+		SimpleStatBar::SimpleStatBar(bool vertical, int x, int y, int w, int h, const std::string& colorOutline,
+			const std::string& colorBackground, const std::string& colorForeground, char layer)
 			: Deleteable("statbar_")
 		{
 
@@ -59,14 +59,14 @@ namespace novazero
 			m_OutlineThickness = outlineThickness;
 		}
 
-		void SimpleStatBar::ConfigureNonForeground(int outlineThickness, std::string colorOutline, std::string colorBackground)
+		void SimpleStatBar::ConfigureNonForeground(int outlineThickness, const std::string& colorOutline, const std::string& colorBackground)
 		{
 			m_OutlineThickness = outlineThickness;
 			m_OutlineColor = colorOutline;
 			m_BackgroundColor = colorBackground;
 		}
 
-		void SimpleStatBar::ConfigureForeground(std::string colorForeground, std::string colorForeground2, std::string colorForeground4)
+		void SimpleStatBar::ConfigureForeground(const std::string& colorForeground, const std::string& colorForeground2, const std::string& colorForeground4)
 		{
 			m_ForegroundColorAll = colorForeground;
 			m_ForegroundColorHalf = colorForeground2;

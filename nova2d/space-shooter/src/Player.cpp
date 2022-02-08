@@ -21,7 +21,7 @@ namespace spaceshooter
 	int Player::s_Player1MaxStreak = 0;
 	int Player::s_Player2MaxStreak = 0;
 
-	Player::Player(std::string assetName, std::string playerNumber, Vec2 position, Vec2Int size, char layer)
+	Player::Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
 		m_PlayerNumber = playerNumber;

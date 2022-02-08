@@ -12,7 +12,7 @@ namespace spaceshooter
 	int Leader::s_PawnWave = 0;
 	std::vector<Pawn*> Leader::s_Pawns;
 
-	Leader::Leader(std::string assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer)
+	Leader::Leader(const std::string& assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer)
 	{
 		AddSprite(assetName, position, size, layer);
 		
@@ -223,7 +223,7 @@ namespace spaceshooter
 		
 	}
 
-	void Leader::Hurt(int damage, std::string damager)
+	void Leader::Hurt(int damage, const std::string& damager)
 	{
 		SmallExplosion();
 

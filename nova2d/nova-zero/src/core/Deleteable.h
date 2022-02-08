@@ -16,7 +16,7 @@ namespace novazero
 
 		protected:
 
-			Deleteable(std::string name);
+			Deleteable(const std::string& name);
 
 			std::string m_DeleteName = "";
 

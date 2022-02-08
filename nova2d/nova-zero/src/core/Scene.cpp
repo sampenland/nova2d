@@ -4,15 +4,10 @@ namespace novazero
 {
 	namespace core
 	{
-		Scene::Scene(std::string sceneName)
+		Scene::Scene(const std::string& sceneName)
 			:m_SceneName(sceneName)
 		{
 			
-		}
-
-		Scene::~Scene()
-		{
-
 		}
 
 		void Scene::Restart()

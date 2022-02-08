@@ -22,10 +22,10 @@ namespace novazero
 			ReferenceManager();
 			~ReferenceManager();
 
-			void AddReference(std::string name, Referenceable* object);
-			void RemoveReference(std::string name);
+			void AddReference(const std::string& name, Referenceable* object);
+			void RemoveReference(const std::string& name);
 
-			Referenceable* GetReferenced(std::string name);
+			Referenceable* GetReferenced(const std::string& name);
 			unsigned int GetReferenceCount() { return (unsigned int)m_References.size(); }
 
 		};

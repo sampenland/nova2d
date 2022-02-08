@@ -30,7 +30,7 @@ namespace spaceshooter
 
 	public:
 
-		Pawn(std::string assetName, Vec2 position, Vec2Int size, 
+		Pawn(const std::string& assetName, Vec2 position, Vec2Int size,
 			char layer, const float moveUpdateDelay, float shootMin, float shootMax);
 		
 		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
@@ -40,7 +40,7 @@ namespace spaceshooter
 		void PawnUpdate();
 		void Shoot();
 
-		void Hurt(int damage, std::string damager);
+		void Hurt(int damage, const std::string& damager);
 		void SmallExplosion();
 
 		void DestroySelf() override;

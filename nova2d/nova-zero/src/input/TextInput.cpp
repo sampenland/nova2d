@@ -5,7 +5,8 @@ namespace novazero
 {
 	namespace input
 	{
-		TextInput::TextInput(std::string fontName, std::string placeholderText, std::string textColorName, std::string backgroundColorName, Rect drawRect,
+		TextInput::TextInput(const std::string& fontName, const std::string& placeholderText, const std::string& textColorName, 
+			const std::string& backgroundColorName, Rect drawRect,
 			char layer) : Deleteable("textinput")
 		{
 			m_ID = n2dGameGetID();
@@ -28,11 +29,6 @@ namespace novazero
 			m_CleanUpdaters.push_back(cleanID);			
 
 		};
-
-		TextInput::~TextInput()
-		{
-			
-		}
 
 		void TextInput::Configure(bool startSelected, int maxChars)
 		{

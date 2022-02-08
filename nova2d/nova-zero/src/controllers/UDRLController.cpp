@@ -6,7 +6,7 @@ namespace novazero
 	{
 		using namespace input;
 
-		UDRLController::UDRLController(std::string assetName, Vec2 position, Vec2Int size, char layer)
+		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 			: SimpleController(assetName, position, size, layer)
 		{
 			EnableWASD(true);

@@ -18,13 +18,13 @@ namespace novazero
 			}
 		}
 
-		void AssetManager::LoadAndAddTexture(std::string name, std::string path)
+		void AssetManager::LoadAndAddTexture(const std::string& name, std::string path)
 		{
 			SDL_Texture* texture = TextureLoader::Load(path);
 			m_Textures[name] = texture;
 		}
 
-		void AssetManager::RemoveTexture(std::string name)
+		void AssetManager::RemoveTexture(const std::string& name)
 		{
 			if (m_Textures.end() != m_Textures.find(name))
 			{

@@ -34,10 +34,5 @@ namespace spaceshooter
 			SimpleBulletController::DestroySelf();
 		}
 
-		~PawnBullet() 
-		{
-			
-		};
-
 	};
 }

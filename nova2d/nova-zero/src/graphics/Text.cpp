@@ -43,7 +43,7 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		void Text::UpdateText(std::string newText)
+		void Text::UpdateText(const std::string& newText)
 		{
 			Construct(newText, Vec2Int(m_DrawRect.x, m_DrawRect.y));
 		}

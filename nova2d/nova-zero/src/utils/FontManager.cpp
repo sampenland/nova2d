@@ -24,7 +24,7 @@ namespace novazero
 			m_Fonts.clear();
 		}
 
-		void FontManager::AddFont(std::string fontName, std::string fontPath, int fontSize)
+		void FontManager::AddFont(const std::string& fontName, const std::string& fontPath, int fontSize)
 		{
 			TTF_Font* font = TTF_OpenFont(fontPath.c_str(), fontSize);
 
@@ -38,7 +38,7 @@ namespace novazero
 			m_Fonts[fontName] = font;
 		}
 
-		TTF_Font* FontManager::GetFont(std::string fontName)
+		TTF_Font* FontManager::GetFont(const std::string& fontName)
 		{
 			if (m_Fonts.find(fontName) != m_Fonts.end())
 			{
@@ -50,7 +50,7 @@ namespace novazero
 			return nullptr;
 		}
 
-		void FontManager::RemoveFont(std::string fontName)
+		void FontManager::RemoveFont(const std::string& fontName)
 		{
 			if (m_Fonts.find(fontName) != m_Fonts.end())
 			{

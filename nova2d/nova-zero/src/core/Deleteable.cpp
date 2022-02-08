@@ -8,7 +8,7 @@ namespace novazero
 	{
 		using namespace logging;
 
-		Deleteable::Deleteable(std::string name)
+		Deleteable::Deleteable(const std::string& name)
 			: m_DeleteName(name)
 		{
 			 

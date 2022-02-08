@@ -39,7 +39,7 @@ namespace novazero
 
 		public:
 
-			Sprite(std::string assetName, Vec2 position, Vec2Int size, char layer);
+			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
 
 			void ConfigureAnimating(bool isRunning) { m_AnimationRunning = true; }
 			void ConfigureAnimation(int startFrame, int animationLength, int totalFrames, float animationSpeed, bool loop);

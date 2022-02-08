@@ -19,13 +19,12 @@ namespace novazero
 		public:
 
 			ColorManager();
-			~ColorManager();
 
-			Color* AddColor(const std::string name, Color* color);
-			Color* AddColor(const std::string name, std::string hexCode, const Uint8 alpha);
-			void RemoveColor(const std::string name);
+			Color* AddColor(const std::string& name, Color* color);
+			Color* AddColor(const std::string& name, std::string hexCode, const Uint8 alpha);
+			void RemoveColor(const std::string& name);
 
-			Color* GetColor(const std::string name) const;
+			Color* GetColor(const std::string& name) const;
 
 		};
 	}

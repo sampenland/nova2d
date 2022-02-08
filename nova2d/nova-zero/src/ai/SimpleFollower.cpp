@@ -23,7 +23,7 @@ namespace novazero
 			Deleteable::m_CleanUpdaters.push_back(id);
 		}
 
-		void SimpleFollower::AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
+		void SimpleFollower::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			ConfigureTimeEffected(m_Sprite);

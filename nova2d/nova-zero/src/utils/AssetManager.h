@@ -20,8 +20,8 @@ namespace novazero
 			AssetManager();
 			~AssetManager();
 
-			void LoadAndAddTexture(std::string name, std::string path);
-			void RemoveTexture(std::string name);
+			void LoadAndAddTexture(const std::string& name, std::string path);
+			void RemoveTexture(const std::string& name);
 			
 			SDL_Texture* GetTexture(std::string name);
 

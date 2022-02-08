@@ -9,7 +9,7 @@ namespace novazero
 		class TextureLoader
 		{
 		public:
-			static SDL_Texture* Load(std::string path);
+			static SDL_Texture* Load(const std::string& path);
 		};
 	}
 }

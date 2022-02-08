@@ -11,7 +11,7 @@ namespace novazero
         using namespace logging;
         using namespace core;
 
-        SDL_Texture* TextureLoader::Load(std::string path)
+        SDL_Texture* TextureLoader::Load(const std::string& path)
         {
             //The final texture
             SDL_Texture* newTexture = NULL;

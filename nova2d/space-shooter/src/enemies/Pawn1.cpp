@@ -41,7 +41,5 @@ namespace spaceshooter
 		pawn1Bullet->AddPatrolPointWithFunction(player->GetPosition(), std::bind(&SimpleWeakAI::LinearPatrolMove, pawn1Bullet));
 		pawn1Bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
 		pawn1Bullet->LookAt(player->GetPositionInt(), -90);
-		
-
 	}
 }

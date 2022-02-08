@@ -11,7 +11,7 @@ namespace spaceshooter
 	using namespace novazero::controllers;
 	using namespace novazero::core;
 
-	Pawn::Pawn(std::string assetName, Vec2 position, Vec2Int size, char layer, const float moveUpdateDelay,
+	Pawn::Pawn(const std::string& assetName, Vec2 position, Vec2Int size, char layer, const float moveUpdateDelay,
 		float shootMin, float shootMax)
 		: SimpleWeakAI()
 	{
@@ -54,7 +54,7 @@ namespace spaceshooter
 		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
 	}
 
-	void Pawn::Hurt(int damage, std::string damager)
+	void Pawn::Hurt(int damage, const std::string& damager)
 	{
 		SmallExplosion();
 

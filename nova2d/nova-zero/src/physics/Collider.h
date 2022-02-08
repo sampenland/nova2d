@@ -33,7 +33,7 @@ namespace novazero
 
 			std::function<void(Collision* c)> f_OnCollision = nullptr;
 
-			void ConfigureCollider(Sprite* sprite, int collisionLayer, std::string colliderName);
+			void ConfigureCollider(Sprite* sprite, int collisionLayer, const std::string& colliderName);
 			void ConfigureOnCollision(std::function<void(Collision*)> onCollision) { f_OnCollision = onCollision; }
 			virtual void OnCollision(Collision* collision) = 0;
 

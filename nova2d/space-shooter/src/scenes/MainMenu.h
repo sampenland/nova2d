@@ -28,7 +28,7 @@ namespace spaceshooter
 
 	public:
 
-		MainMenu(std::string sceneName)
+		MainMenu(const std::string& sceneName)
 			: Scene(sceneName)
 		{
 			

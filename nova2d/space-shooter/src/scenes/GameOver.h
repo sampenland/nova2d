@@ -26,7 +26,7 @@ namespace spaceshooter
 
 	public:
 
-		GameOver(std::string sceneName) : Scene(sceneName) { };
+		GameOver(const std::string& sceneName) : Scene(sceneName) { };
 		~GameOver() { };
 
 		void Update() override

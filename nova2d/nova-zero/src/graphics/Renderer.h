@@ -29,8 +29,8 @@ namespace novazero
 
 			inline SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 			
-			void SetBackgroundColor(std::string colorName);
-			void SetDrawColor(std::string colorName);
+			void SetBackgroundColor(const std::string& colorName);
+			void SetDrawColor(const std::string& colorName);
 
 			void PreDraw() const;
 			void PostDraw() const;

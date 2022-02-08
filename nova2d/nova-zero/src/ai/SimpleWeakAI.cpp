@@ -28,7 +28,7 @@ namespace novazero
 			m_PatrolIndex = m_LoopStartIndex;
 		}
 
-		void SimpleWeakAI::AddSprite(std::string assetName, Vec2 position, Vec2Int size, char layer)
+		void SimpleWeakAI::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			m_DeleteName = assetName;
@@ -53,7 +53,7 @@ namespace novazero
 			for (size_t i = 0; i < m_PatrolPoints.size(); i++)
 			{
 				if (m_PatrolPoints[i])
-					delete m_PatrolPoints[i];
+					delete[] m_PatrolPoints[i];
 			}
 
 			if((int)m_PatrolPoints.size() > 0)

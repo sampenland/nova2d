@@ -16,12 +16,12 @@ namespace novazero
 		public:
 
 			std::map<std::string, std::string> s_Meta;
-			void MetaAdd(std::string key, std::string value)
+			void MetaAdd(const std::string& key, std::string value)
 			{
 				s_Meta[key] = value;
 			}
 
-			std::string MetaGet(std::string key) 
+			std::string MetaGet(const std::string& key)
 			{ 
 				if (s_Meta.find(key) == s_Meta.end())
 				{
