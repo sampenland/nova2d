@@ -49,10 +49,16 @@ Sets a float value which directly effects all moving objects
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
 
 /*
+nova2d Coin Flip ()
+Simply returns heads/tails (true or false) : 50% chance
+*/
+#define n2dCoinFlip() novazero::core::Game::CoinFlip()
+
+/*
 nova2d Random Float (float min, float max)
 Returns a random float in range
 */
-#define n2dRandomFloat(min, max) novazero::core::Game::RandomFloat(min, max);
+#define n2dRandomFloat(min, max) novazero::core::Game::RandomFloat(min, max)
 
 /*
 nova2d Random Float with MAX chance(float min, float max, 0-1 percent chance of MAX)

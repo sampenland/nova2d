@@ -6,7 +6,7 @@
 
 namespace spaceshooter
 {
-	bool Leader::s_Debug = false;
+	bool Leader::s_Debug = true;
 
 	int Leader::s_PawnCount = 0;
 	int Leader::s_PawnWave = 0;

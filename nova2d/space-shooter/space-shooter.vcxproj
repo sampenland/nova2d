@@ -90,11 +90,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\enemies\Leader.cpp" />
+    <ClCompile Include="src\enemies\Pawn1.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\enemies\Pawn.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\scenes\Lvl1.cpp" />
     <ClCompile Include="src\specials\LeaderController.cpp" />
+    <ClCompile Include="src\specials\Pawn1Controller.cpp" />
     <ClCompile Include="src\specials\TimeWarp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +120,7 @@
     <Image Include="res\title.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\enemies\Pawn1.h" />
     <ClInclude Include="src\scenes\GameOver.h" />
     <ClInclude Include="src\scenes\Lvl1.h" />
     <ClInclude Include="src\enemies\Leader.h" />
@@ -125,6 +128,7 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
     <ClInclude Include="src\specials\LeaderController.h" />
+    <ClInclude Include="src\specials\Pawn1Controller.h" />
     <ClInclude Include="src\specials\PawnBullet.h" />
     <ClInclude Include="src\specials\TimeWarp.h" />
   </ItemGroup>

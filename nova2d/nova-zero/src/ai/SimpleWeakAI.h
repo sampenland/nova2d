@@ -45,6 +45,9 @@ namespace novazero
 			float m_DelayMS = 1000;
 			int m_DelayMaxMS = 1000;
 
+			Vec2 m_MemoryMovement;
+			bool m_ContinueAfterPatrolComplete = false;
+
 		protected:
 			
 			std::vector<Vec2> m_PatrolPoints;
@@ -60,6 +63,14 @@ namespace novazero
 				m_LoopMoving = true;
 			}
 
+			void LookAt(Vec2Int target, int extraRotation)
+			{
+				int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)GetX(), (int)GetY()), 
+					target, extraRotation);
+				m_Sprite->SetAngle(lookAtAngle);
+			}
+
+			void ConfigureContinueAfterPatrolComplete(bool continueAfter) { m_ContinueAfterPatrolComplete = continueAfter; }
 			void ConfigureOnPatrolComplete(std::function<void()> f) { f_OnPatrolComplete = f; }
 			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }
 			void RestartPatrol() { m_PatrolIndex = 0; }

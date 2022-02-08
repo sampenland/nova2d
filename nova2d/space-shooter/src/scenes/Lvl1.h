@@ -2,6 +2,7 @@
 #include "core/Scene.h"
 #include "graphics/Text.h"
 #include "../specials/LeaderController.h"
+#include "../specials/Pawn1Controller.h"
 
 namespace spaceshooter
 {
@@ -19,6 +20,7 @@ namespace spaceshooter
 		Text* m_P2StreakText = nullptr;
 
 		LeaderController* m_LeaderController;
+		Pawn1Controller* m_Pawn1Controller;
 
 	public:
 

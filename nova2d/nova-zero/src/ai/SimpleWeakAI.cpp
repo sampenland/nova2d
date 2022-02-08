@@ -104,6 +104,12 @@ namespace novazero
 
 			m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
 
+			if ((m_MemoryMovement.x != 0 || m_MemoryMovement.y != 0) && m_PatrolIndex == -1 && m_ContinueAfterPatrolComplete)
+			{
+				SetPosition(GetX() + m_MemoryMovement.x, GetY() + m_MemoryMovement.y);
+				return;
+			}
+
 			if (m_PatrolIndex == -1 && (int)m_PatrolPoints.size() > 0)
 			{
 				if(f_OnPatrolComplete)
@@ -155,8 +161,11 @@ namespace novazero
 				if (currentY == endVector.y) newY = endVector.y;
 
 				SetPosition(newX, newY);
+				m_MemoryMovement = Vec2(newX - currentX, newY - currentY);
 
-				if (newX == endVector.x && newY == endVector.y)
+				const char tolerance = 10;
+				if (endVector.x > newX - tolerance && endVector.x < newX + tolerance &&
+					endVector.y > newY - tolerance && endVector.y < newY + tolerance)
 				{
 					m_PatrolIndex++;
 					if (m_PatrolIndex >= (int)m_PatrolPoints.size())

@@ -51,6 +51,7 @@ namespace spaceshooter
 		}
 		
 		m_LeaderController = new LeaderController();
+		m_Pawn1Controller = new Pawn1Controller();
 
 		const int scoreSize = 128;
 		m_ScoreText = new Text("font1", "Score: 0", "white", Rect(Game::s_Width - scoreSize - 8, 8, scoreSize, 16), 0);
