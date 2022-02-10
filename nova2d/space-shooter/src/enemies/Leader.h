@@ -64,7 +64,7 @@ namespace spaceshooter
 		void DeployBomb();
 
 		void HealthUpdate();
-		void DisplayHit(int damage, Vec2 pos);
+		void DisplayHit(int score, Vec2 pos);
 		void Hurt(int damage, const std::string& damager = "player0");
 		void SmallExplosion();
 

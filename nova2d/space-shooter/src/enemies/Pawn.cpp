@@ -57,7 +57,7 @@ namespace spaceshooter
 
 	void Pawn::DisplayHit(int damage)
 	{
-		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "red", Rect(GetX() - GetWidth()/2, GetY() - 16, 24, 16),
+		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "green", Rect(GetX() - GetWidth()/2, GetY() - 16, 24, 16),
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 

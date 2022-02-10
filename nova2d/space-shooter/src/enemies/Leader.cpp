@@ -225,10 +225,10 @@ namespace spaceshooter
 		
 	}
 
-	void Leader::DisplayHit(int damage, Vec2 pos)
+	void Leader::DisplayHit(int score, Vec2 pos)
 	{
 		Rect rect = Rect(pos.x - GetWidth() / 2, pos.y - 16, 24, 16);
-		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "yellow", rect,
+		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", "yellow", rect,
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 
@@ -356,7 +356,7 @@ namespace spaceshooter
 				(collBisPlayer1Bullet || collBisPlayer2Bullet)))
 			{
 				// leader pullet with player bullet
-				DisplayHit(24, ((Positional*)collision->m_ColliderA)->GetPosition());
+				DisplayHit(24, ((SimpleFollower*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				n2dScoreAdd(24);
@@ -365,7 +365,7 @@ namespace spaceshooter
 				(collAisPlayer1Bullet || collAisPlayer2Bullet)))
 			{
 				// leader pullet with player bullet
-				DisplayHit(24, ((Positional*)collision->m_ColliderB)->GetPosition());
+				DisplayHit(24, ((SimpleFollower*)collision->m_ColliderB)->GetSprite()->GetPosition());
 				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				n2dScoreAdd(24);

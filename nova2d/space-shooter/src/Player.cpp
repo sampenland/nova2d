@@ -81,10 +81,10 @@ namespace spaceshooter
 		UDRLController::DestroySelf();
 	}
 
-	void Player::DisplayHit(int damage, Vec2 pos)
+	void Player::DisplayHit(int score, Vec2 pos, const std::string& fontColor)
 	{
 		Rect rect = Rect(pos.x - GetWidth() / 2, pos.y - 16, 24, 16);
-		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "red", rect,
+		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", fontColor, rect,
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 
@@ -295,37 +295,37 @@ namespace spaceshooter
 			// Bullet with pawn bullet
 			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn-bullet")
 			{
+				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition(), "green");
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				((PawnBullet*)collision->m_ColliderB)->DestroySelf();
 				SmallExplosion(((PawnBullet*)collision->m_ColliderB)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
-				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 			else if(((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
 			{
+				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition(), "green");
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
 				SmallExplosion(((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
-				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 
 			// Bullet with pawn1-bullet
 			if ((collAisPlayer1Bullet || collAisPlayer2Bullet) && collision->m_ColliderB->m_ColliderName == "pawn1-bullet")
 			{
+				DisplayHit(25, ((SimpleWeakAI*)collision->m_ColliderB)->GetSprite()->GetPosition(), "white");
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
 				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderB)->GetSprite()->GetPosition());
 				((SimpleWeakAI*)collision->m_ColliderB)->DestroySelf();
-				n2dScoreAdd(5);
-				DisplayHit(5, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
+				n2dScoreAdd(25);
 			}
 			else if (((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn1-bullet"))
 			{
+				DisplayHit(25, ((SimpleWeakAI*)collision->m_ColliderA)->GetSprite()->GetPosition(), "white");
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
 				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				((SimpleWeakAI*)collision->m_ColliderA)->DestroySelf();
-				n2dScoreAdd(5);
-				DisplayHit(5, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
+				n2dScoreAdd(25);
 			}
 
 			// Bullet with leader bullet

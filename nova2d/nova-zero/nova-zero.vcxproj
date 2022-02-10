@@ -219,6 +219,7 @@
     <ClInclude Include="src\graphics\Sprite.h" />
     <ClInclude Include="src\graphics\Window.h" />
     <ClInclude Include="src\logging\Logging.h" />
+    <ClInclude Include="src\utils\Tweens.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

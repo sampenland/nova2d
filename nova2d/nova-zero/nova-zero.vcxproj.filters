@@ -353,6 +353,9 @@
     <ClInclude Include="src\components\HitDisplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\Tweens.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

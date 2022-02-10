@@ -21,6 +21,8 @@ namespace novazero
 		// Max particles
 		#define MAX_PARTICLES 255
 
+		#define PI 2*acos(0.0)
+
 	}
 }
 

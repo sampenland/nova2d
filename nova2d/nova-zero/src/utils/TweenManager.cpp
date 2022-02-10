@@ -10,11 +10,24 @@ namespace novazero
 
 		TweenManager::TweenManager() { }
 
-		unsigned int TweenManager::AddTweenInt(int* propertyEffected, float start, float end, float durationMS, bool loop, bool autoDelete)
+		void TweenManager::SetTweenType(Tween& t, TweenTypes type)
+		{
+			t.tweenEasingFunc = &Tweens::EaseOutCubic;
+
+			switch (type)
+			{
+				case TweenTypes::
+			}
+		}
+
+		unsigned int TweenManager::AddTweenInt(TweenTypes type, int* propertyEffected, float start, 
+			float end, float durationMS, bool loop, bool autoDelete)
 		{
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
+
+			
 
 			t->initStart = start;
 			t->isFloat = false;
@@ -33,12 +46,14 @@ namespace novazero
 			return id;
 		}
 
-		unsigned int TweenManager::AddTweenFloat(float* propertyEffected, float start, float end, float durationMS, bool loop, bool autoDelete)
+		unsigned int TweenManager::AddTweenFloat(TweenTypes type, float* propertyEffected, float start, 
+			float end, float durationMS, bool loop, bool autoDelete)
 		{
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
 
+			t->type = type;
 			t->initStart = start;
 			t->isFloat = true;
 			t->floatPropertyEffected = propertyEffected;
@@ -110,8 +125,7 @@ namespace novazero
 
 				if (it->second->isFloat)
 				{
-					it->second->current += it->second->step;
-					*it->second->floatPropertyEffected = it->second->current;
+					FloatTween(it);
 					
 					if (((it->second->step < 0) && (*it->second->floatPropertyEffected < it->second->end)) ||
 						it->second->step > 0 && (*it->second->floatPropertyEffected > it->second->end))
@@ -132,8 +146,7 @@ namespace novazero
 				}
 				else
 				{
-					it->second->current += it->second->step;
-					*it->second->intPropertyEffected = (int)it->second->current;
+					IntTween(it);
 
 					if (((it->second->step < 0) && (*it->second->intPropertyEffected < it->second->end)) ||
 						it->second->step > 0 && (*it->second->intPropertyEffected > it->second->end))
@@ -159,6 +172,18 @@ namespace novazero
 				m_Timers.erase(removeIDs[i]);
 			}
 		};
+
+		void TweenManager::FloatTween(std::map<unsigned int, Tween*>::iterator it)
+		{
+			it->second->current += it->second->step;
+			*it->second->floatPropertyEffected = it->second->current;
+		}
+
+		void TweenManager::IntTween(std::map<unsigned int, Tween*>::iterator it)
+		{
+			it->second->current += it->second->step;
+			*it->second->intPropertyEffected = it->second->current;
+		}
 
 		void TweenManager::ClearTweens()
 		{
