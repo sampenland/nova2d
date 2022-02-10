@@ -1,6 +1,7 @@
 #include "Pawn1.h"
 #include "../Player.h"
 #include "../scenes/Lvl1.h"
+#include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
@@ -12,12 +13,19 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "pawn1");
 	}
 
+	void Pawn1::DisplayHit(int damage)
+	{
+		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "red", Rect(GetX() - GetWidth() / 2, GetY() - 16, 24, 16),
+			Vec2(GetX(), GetY() - 128), 4000, 0);
+	}
+
 	void Pawn1::Hurt(int damage, const std::string& damager)
 	{
 		if (m_Alive)
 		{
 			m_KilledBy = damager;
 			n2dScoreAdd(25);
+			DisplayHit(damage);
 			DestroySelf();
 		}
 	}

@@ -4,6 +4,7 @@
 #include "../specials/PawnBullet.h"
 #include "../Player.h"
 #include "../scenes/Lvl1.h"
+#include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
@@ -54,6 +55,12 @@ namespace spaceshooter
 		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
 	}
 
+	void Pawn::DisplayHit(int damage)
+	{
+		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "red", Rect(GetX() - GetWidth()/2, GetY() - 16, 24, 16),
+			Vec2(GetX(), GetY() - 128), 4000, 0);
+	}
+
 	void Pawn::Hurt(int damage, const std::string& damager)
 	{
 		SmallExplosion();
@@ -65,12 +72,14 @@ namespace spaceshooter
 			{
 				m_KilledBy = damager;
 				n2dScoreAdd(14);
+				DisplayHit(14);
 				DestroySelf();
 			}
 		}
 		else
 		{
 			n2dScoreAdd(4);
+			DisplayHit(4);
 		}
 	}
 

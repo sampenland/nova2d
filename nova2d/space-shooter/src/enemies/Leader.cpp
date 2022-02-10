@@ -3,6 +3,7 @@
 #include "physics/Collision.h"
 #include "../specials/LeaderController.h"
 #include "../scenes/Lvl1.h"
+#include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
@@ -144,8 +145,12 @@ namespace spaceshooter
 				float offsetX = (float)col * 48;
 				float offsetY = (float)-row * 32;
 
+				float rMin = n2dRandomFloat(6000, 8000);
+				float rMax = n2dRandomFloat(8000, 12000);
+				
 				Pawn* pawn = new Pawn("pawn", Vec2((Game::s_Width / 2) + offsetX, offsetY), 
-					Vec2Int(16, 16), 1, 0.0f, 2000, 5000);
+					Vec2Int(16, 16), 1, 0.0f, rMin, rMax);
+
 				offsetY += moveForward;
 				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
 				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX() - 200, offsetY), pawn->GetLinearPatrolMove());
@@ -154,9 +159,6 @@ namespace spaceshooter
 				pawn->AddPatrolPointWithFunction(Vec2(pawn->GetX(), offsetY), pawn->GetLinearPatrolMove());
 				pawn->EnableAI(true);
 				pawn->Configure(20, true);
-				float rMin = n2dRandomFloat(3000, 6000);
-				float rMax = n2dRandomFloat(7000, 15000);
-				pawn->ConfigureShoot(rMin, rMax);
 
 				s_Pawns.push_back(pawn);
 
@@ -223,6 +225,13 @@ namespace spaceshooter
 		
 	}
 
+	void Leader::DisplayHit(int damage, Vec2 pos)
+	{
+		Rect rect = Rect(pos.x - GetWidth() / 2, pos.y - 16, 24, 16);
+		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "yellow", rect,
+			Vec2(GetX(), GetY() - 128), 4000, 0);
+	}
+
 	void Leader::Hurt(int damage, const std::string& damager)
 	{
 		SmallExplosion();
@@ -232,11 +241,13 @@ namespace spaceshooter
 		{
 			m_KilledBy = damager;
 			n2dScoreAdd(80);
+			DisplayHit(80, GetPosition());
 			DestroySelf();
 		}
 		else
 		{
-			n2dScoreAdd(6);
+			n2dScoreAdd(12);
+			DisplayHit(12, GetPosition());
 		}
 	}
 
@@ -313,7 +324,7 @@ namespace spaceshooter
 		bullet->Configure(1, delayStart, Vec2Int((int)GetX(), (int)Game::s_Height + 32));
 		bullet->ConfigureRotation(true, -90);
 		
-		auto onCollision = new auto ([](Collision* collision)
+		auto onCollision = new auto ([=](Collision* collision)
 		{
 			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player1-bullet";
 			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player1-bullet";
@@ -345,17 +356,19 @@ namespace spaceshooter
 				(collBisPlayer1Bullet || collBisPlayer2Bullet)))
 			{
 				// leader pullet with player bullet
+				DisplayHit(24, ((Positional*)collision->m_ColliderA)->GetPosition());
 				((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				n2dScoreAdd(10);
+				n2dScoreAdd(24);
 			}
 			else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" &&
 				(collAisPlayer1Bullet || collAisPlayer2Bullet)))
 			{
 				// leader pullet with player bullet
+				DisplayHit(24, ((Positional*)collision->m_ColliderB)->GetPosition());
 				((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
 				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				n2dScoreAdd(10);
+				n2dScoreAdd(24);
 			}
 			else if (collision->m_ColliderA->m_ColliderName == "leader-bullet" &&
 				collision->m_ColliderB->m_ColliderName == "leader-bullet")

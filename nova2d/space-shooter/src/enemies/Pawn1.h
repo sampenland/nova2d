@@ -18,6 +18,7 @@ namespace spaceshooter
 
 		Pawn1(Vec2 position);
 
+		void DisplayHit(int damage);
 		void Hurt(int damage, const std::string& damager);
 		void Shoot();
 

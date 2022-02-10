@@ -59,7 +59,7 @@ namespace novazero
 			else
 				m_DisplayText = newText;
 
-			SDL_Surface* surface = TTF_RenderText_Solid(font, m_DisplayText.c_str(), sdlColor);
+			SDL_Surface* surface = TTF_RenderText_Solid(font, m_DisplayText.c_str(), sdlColor); // TODO: alpha enabled text
 
 			m_DrawRect.x = newPos.x;
 			m_DrawRect.y = newPos.y;

@@ -107,6 +107,7 @@
   <ItemGroup>
     <ClCompile Include="src\ai\SimpleFollower.cpp" />
     <ClCompile Include="src\ai\SimpleWeakAI.cpp" />
+    <ClCompile Include="src\components\HitDisplay.cpp" />
     <ClCompile Include="src\components\SimpleStatBar.cpp" />
     <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
     <ClCompile Include="src\controllers\SimpleController.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
+    <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />
     <ClInclude Include="src\controllers\SimpleBulletController.h" />
     <ClInclude Include="src\controllers\SimpleController.h" />

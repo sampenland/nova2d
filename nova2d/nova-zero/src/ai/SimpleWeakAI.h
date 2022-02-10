@@ -96,6 +96,16 @@ namespace novazero
 
 			}
 
+			inline int GetWidth() const
+			{
+				return m_Sprite->GetWidth();
+			}
+
+			inline int GetHeight() const
+			{
+				return m_Sprite->GetHeight();
+			}
+
 			inline float GetY() const 
 			{ 
 				if (m_Sprite)

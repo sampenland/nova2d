@@ -53,6 +53,7 @@ namespace spaceshooter
 		void OnSpaceUp();
 		void Shoot();
 
+		void DisplayHit(int damage, Vec2 pos);
 		void Die();
 
 		void SmallExplosion(Vec2 posIfNotPlayer = Vec2(-100, -100));

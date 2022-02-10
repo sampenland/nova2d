@@ -40,6 +40,7 @@ namespace spaceshooter
 		void PawnUpdate();
 		void Shoot();
 
+		void DisplayHit(int damage);
 		void Hurt(int damage, const std::string& damager);
 		void SmallExplosion();
 

@@ -7,6 +7,7 @@
 #include "scenes/Lvl1.h"
 #include "specials/TimeWarp.h"
 #include "enemies/Pawn1.h"
+#include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
@@ -78,6 +79,13 @@ namespace spaceshooter
 	{
 		n2dRemoveUpdater(m_CleanID);
 		UDRLController::DestroySelf();
+	}
+
+	void Player::DisplayHit(int damage, Vec2 pos)
+	{
+		Rect rect = Rect(pos.x - GetWidth() / 2, pos.y - 16, 24, 16);
+		HitDisplay* hitDisplay = new HitDisplay("- " + std::to_string(damage), "font4", "red", rect,
+			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 
 	void Player::Quit()
@@ -291,6 +299,7 @@ namespace spaceshooter
 				((PawnBullet*)collision->m_ColliderB)->DestroySelf();
 				SmallExplosion(((PawnBullet*)collision->m_ColliderB)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
+				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 			else if(((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
 			{
@@ -298,6 +307,7 @@ namespace spaceshooter
 				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
 				SmallExplosion(((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				n2dScoreAdd(2);
+				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 
 			// Bullet with pawn1-bullet
@@ -307,6 +317,7 @@ namespace spaceshooter
 				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderB)->GetSprite()->GetPosition());
 				((SimpleWeakAI*)collision->m_ColliderB)->DestroySelf();
 				n2dScoreAdd(5);
+				DisplayHit(5, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 			else if (((collBisPlayer1Bullet || collBisPlayer2Bullet) && collision->m_ColliderA->m_ColliderName == "pawn1-bullet"))
 			{
@@ -314,6 +325,7 @@ namespace spaceshooter
 				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderA)->GetSprite()->GetPosition());
 				((SimpleWeakAI*)collision->m_ColliderA)->DestroySelf();
 				n2dScoreAdd(5);
+				DisplayHit(5, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
 			}
 
 			// Bullet with leader bullet
