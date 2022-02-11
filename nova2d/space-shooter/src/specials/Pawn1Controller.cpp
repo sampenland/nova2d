@@ -25,7 +25,7 @@ namespace spaceshooter
 
 		int y = n2dRandomInt(Game::s_Height / 2, Game::s_Height);
 
-		Pawn1* pawn1 = new Pawn1(Vec2(x, y));
+		Pawn1* pawn1 = new Pawn1(Vec2((float)x, (float)y));
 
 		Player* player;
 		if (Lvl1::s_Players == 1)
@@ -55,11 +55,11 @@ namespace spaceshooter
 			pawn1->ConfigureAliveBounds(Game::GetGameBounds(32));
 			if (n2dCoinFlip())
 			{
-				pawn1->AddPatrolPointWithFunction(Vec2(Game::s_Width + 48, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
+				pawn1->AddPatrolPointWithFunction(Vec2((float)Game::s_Width + 48.f, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
 			}
 			else
 			{
-				pawn1->AddPatrolPointWithFunction(Vec2(-48, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
+				pawn1->AddPatrolPointWithFunction(Vec2(-48.f, pawn1->GetY()), std::bind(&Pawn1::LinearPatrolMove, pawn1));
 			}
 
 		});

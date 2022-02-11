@@ -134,12 +134,12 @@ namespace novazero
 
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
-				SetX((int)newX);
+				SetX(newX);
 			}
 
 			if (IsWithinMoveBounds((int)pos.x, (int)newY))
 			{
-				SetY((int)newY);
+				SetY(newY);
 			}
 		}
 

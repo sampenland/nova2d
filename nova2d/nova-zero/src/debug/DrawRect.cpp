@@ -19,22 +19,22 @@ namespace novazero
 			m_OutlineColor = outlineColor;
 			m_Filled = filled;
 
-			SetPositionInt(Vec2Int(rect.x, rect.y));
+			SetPositionInt(Vec2Int((int)rect.x, (int)rect.y));
 
 			m_Outline = new SDL_Rect();
 			m_Fill = new SDL_Rect();
 
-			m_Outline->x = rect.x;
-			m_Outline->y = rect.y;
-			m_Outline->w = rect.w;
-			m_Outline->h = rect.h;
+			m_Outline->x = (int)rect.x;
+			m_Outline->y = (int)rect.y;
+			m_Outline->w = (int)rect.w;
+			m_Outline->h = (int)rect.h;
 
 			m_Thickness = outlineThickness;
 
-			m_Fill->x = rect.x + outlineThickness;
-			m_Fill->y = rect.y + outlineThickness;
-			m_Fill->w = rect.w - 2 * outlineThickness;
-			m_Fill->h = rect.h - 2 * outlineThickness;
+			m_Fill->x = (int)rect.x + outlineThickness;
+			m_Fill->y = (int)rect.y + outlineThickness;
+			m_Fill->w = (int)rect.w - 2 * outlineThickness;
+			m_Fill->h = (int)rect.h - 2 * outlineThickness;
 
 			n2dAddDrawable(this, layer);
 

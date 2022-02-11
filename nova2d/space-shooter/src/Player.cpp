@@ -83,7 +83,7 @@ namespace spaceshooter
 
 	void Player::DisplayHit(int score, Vec2 pos, const std::string& fontColor)
 	{
-		Rect rect = Rect(pos.x - GetWidth() / 2, pos.y - 16, 24, 16);
+		Rect rect = Rect(pos.x - (float)GetWidth() / 2.f, pos.y - 16.f, 24.f, 16.f);
 		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", fontColor, rect,
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}

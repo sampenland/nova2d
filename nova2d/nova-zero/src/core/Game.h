@@ -91,8 +91,8 @@ namespace novazero
 			{
 				return Vec2((float)s_Width / 2 - xCorrection, (float)s_Height / 2 - yCorrection);
 			}
-			static novazero::maths::Rect GetGameBounds(int paddingOverride = 0);
-			static void SetGamePadding(int padding);
+			static novazero::maths::Rect GetGameBounds(float paddingOverride = 0.f);
+			static void SetGamePadding(float padding);
 			
 			static unsigned int s_IDCount;
 			static unsigned int GetNextID() { s_IDCount++; return s_IDCount; }

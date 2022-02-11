@@ -10,7 +10,7 @@ namespace novazero
 	{
 		using namespace utils;
 
-		class Tween;
+		struct Tween;
 
 		class TweenManager
 		{

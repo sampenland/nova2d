@@ -16,7 +16,7 @@ namespace novazero
 
 			SetTimeEffectEnabled(false);
 
-			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
+			m_AliveBounds = Rect(0.f, 0.f, (float)Game::s_Width, (float)Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
 			auto id = n2dAddUpdater(SimpleFollower::UpdateFollower, this);

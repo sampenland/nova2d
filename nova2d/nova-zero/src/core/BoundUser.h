@@ -59,10 +59,10 @@ namespace novazero
 					int w = sprite->GetWidth();
 					int h = sprite->GetHeight();
 
-					int bx = m_AliveBounds.x;
-					int by = m_AliveBounds.y;
-					int bw = m_AliveBounds.w;
-					int bh = m_AliveBounds.h;
+					float bx = m_AliveBounds.x;
+					float by = m_AliveBounds.y;
+					float bw = m_AliveBounds.w;
+					float bh = m_AliveBounds.h;
 
 					return !(x > bx && x < bx + bw - w && y > by && y < by + bh - h);
 				}

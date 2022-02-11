@@ -37,15 +37,15 @@ namespace novazero
 			Vec2Int GetDrawRectSize() { return Vec2Int(m_Fill->w, m_Fill->h); }
 			void SetDrawRectSize(Rect* rect) 
 			{
-				m_Outline->x = rect->x;
-				m_Outline->y = rect->y;
-				m_Outline->w = rect->w;
-				m_Outline->h = rect->h;
+				m_Outline->x = (int)rect->x;
+				m_Outline->y = (int)rect->y;
+				m_Outline->w = (int)rect->w;
+				m_Outline->h = (int)rect->h;
 
-				m_Fill->x = rect->x + m_Thickness;
-				m_Fill->y = rect->y + m_Thickness;
-				m_Fill->w = rect->w - 2 * m_Thickness;
-				m_Fill->h = rect->h - 2 * m_Thickness;
+				m_Fill->x = (int)rect->x + m_Thickness;
+				m_Fill->y = (int)rect->y + m_Thickness;
+				m_Fill->w = (int)rect->w - 2 * m_Thickness;
+				m_Fill->h = (int)rect->h - 2 * m_Thickness;
 			}
 
 			void Draw(float oX = 0.f, float oY = 0.f) override;

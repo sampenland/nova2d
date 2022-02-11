@@ -18,10 +18,10 @@ namespace novazero
 			m_BackgroundColor = backgroundColorName;
 
 			m_Background = new SDL_Rect();
-			m_Background->x = drawRect.x;
-			m_Background->y = drawRect.y;
-			m_Background->w = drawRect.w;
-			m_Background->h = drawRect.h;
+			m_Background->x = (int)drawRect.x;
+			m_Background->y = (int)drawRect.y;
+			m_Background->w = (int)drawRect.w;
+			m_Background->h = (int)drawRect.h;
 
 			n2dAddDrawable(this, m_Layer);
 
@@ -88,10 +88,10 @@ namespace novazero
 			n2dRenderDrawColor(m_BackgroundColor);
 			float tX = 0.f;
 			float tY = 0.f;
-			tX = m_Background->x;
-			tY = m_Background->y;
-			m_Background->x += oX;
-			m_Background->y += oY;
+			tX = (float)m_Background->x;
+			tY = (float)m_Background->y;
+			m_Background->x += (int)oX;
+			m_Background->y += (int)oY;
 
 			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Background);
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);
@@ -101,8 +101,8 @@ namespace novazero
 				m_DisplayText->Draw(oX, oY);
 			}
 
-			m_Background->x = tX;
-			m_Background->y = tY;
+			m_Background->x = (int)tX;
+			m_Background->y = (int)tY;
 		}
 
 		void TextInput::DestroySelf()

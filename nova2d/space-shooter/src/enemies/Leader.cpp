@@ -221,13 +221,13 @@ namespace spaceshooter
 		bomb->AddSprite("bomb", Vec2(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
 		bomb->GetSprite()->ConfigureAnimation(0, 4, 4, 1000, true);
 		bomb->ConfigureCollider(bomb->GetSprite(), 0, "bomb");
-		bomb->Configure(2, Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
+		bomb->Configure(2, Rect(-16.f, -16.f, (float)Game::s_Width + 16.f, (float)Game::s_Height + 16.f));
 		
 	}
 
 	void Leader::DisplayHit(int score, Vec2 pos)
 	{
-		Rect rect = Rect(pos.x - GetWidth() / 2, pos.y - 16, 24, 16);
+		Rect rect = Rect(pos.x - GetWidth() / 2.f, pos.y - 16.f, 24.f, 16.f);
 		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", "yellow", rect,
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
@@ -319,7 +319,7 @@ namespace spaceshooter
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");
-		bullet->ConfigureAliveBounds(Rect(-16, -16, Game::s_Width + 16, Game::s_Height + 16));
+		bullet->ConfigureAliveBounds(Rect(-16.f, -16.f, (float)Game::s_Width + 16.f, (float)Game::s_Height + 16.f));
 		auto delayStart = n2dRandomFloat(0, 4000);
 		bullet->Configure(1, delayStart, Vec2Int((int)GetX(), (int)Game::s_Height + 32));
 		bullet->ConfigureRotation(true, -90);

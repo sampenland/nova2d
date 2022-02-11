@@ -22,16 +22,16 @@ namespace novazero
 			m_DisplayText = text;
 			m_CharMax = text.length();
 
-			SetSize(Vec2Int(drawRect.w, drawRect.h));
+			SetSize(Vec2Int((int)drawRect.w, (int)drawRect.h));
 
-			m_DrawRect.x = drawRect.x;
-			m_DrawRect.y = drawRect.y;
-			m_DrawRect.w = drawRect.w;
-			m_DrawRect.h = drawRect.h;	
+			m_DrawRect.x = (int)drawRect.x;
+			m_DrawRect.y = (int)drawRect.y;
+			m_DrawRect.w = (int)drawRect.w;
+			m_DrawRect.h = (int)drawRect.h;	
 
 			m_Dynamic = false;
 			
-			Construct(m_DisplayText, Vec2Int(drawRect.x, drawRect.y));
+			Construct(m_DisplayText, Vec2Int((int)drawRect.x, (int)drawRect.y));
 
 			if(autoAddDrawable) n2dAddDrawable(this, m_Layer);
 
@@ -94,8 +94,8 @@ namespace novazero
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
-			m_DrawRect.x = (int)GetX() + oX;
-			m_DrawRect.y = (int)GetY() + oY;
+			m_DrawRect.x = (int)(GetX() + oX);
+			m_DrawRect.y = (int)(GetY() + oY);
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
 		}

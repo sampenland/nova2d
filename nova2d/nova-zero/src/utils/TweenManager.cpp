@@ -165,7 +165,7 @@ namespace novazero
 			t->current = t->initStart;
 			t->xStart = 0.f;
 			t->xCurrent = 0.f;
-			t->xStep = ((t->end - t->initStart) / t->end) / (durationMS/10); // how much x to increment per millisecond
+			t->xStep = ((t->end - t->initStart) / t->end) / (durationMS/10);
 
 			t->referenceP = propertyEffected;
 			t->loop = loop;
@@ -252,7 +252,6 @@ namespace novazero
 			{
 				value = (1.f - percentToEnd) * tween.end;
 			}
-			LOG(LVL_CONFIRMATION, std::to_string(value));
 
 			float current = tween.current / tween.end;
 			float easingValue = tween.tweenEasingFunc(current);

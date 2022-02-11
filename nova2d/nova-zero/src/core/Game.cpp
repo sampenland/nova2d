@@ -207,17 +207,17 @@ namespace novazero
 
 		}
 
-		Rect Game::GetGameBounds(int paddingOverride)
+		Rect Game::GetGameBounds(float paddingOverride)
 		{
 			if (paddingOverride != 0)
 			{
 				return Rect(-paddingOverride, -paddingOverride, s_Width + paddingOverride, s_Height + paddingOverride);
 			}
 
-			return Rect(0 + s_Padding, 0 + s_Padding,
-				s_Width - ((int)(s_Padding * 2.5)), s_Height - ((int)(s_Padding * 2.5)));
+			return Rect(0.f + s_Padding, 0.f + s_Padding,
+				s_Width - ((s_Padding * 2.5f)), s_Height - ((s_Padding * 2.5f)));
 		}
 
-		void Game::SetGamePadding(int padding) { s_Padding = padding; }
+		void Game::SetGamePadding(float padding) { s_Padding = (int)padding; }
 	}
 }

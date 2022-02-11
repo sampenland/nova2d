@@ -66,9 +66,9 @@ namespace spaceshooter
 			spaceToContinue->SetDrawableCollection(screen);
 
 
-			const float crawlTime = 7000.0f;
-			screen->SetY(Game::s_Height);
-			crawlTweenId = n2dTweenAdd(screen->GetYRef(), Game::s_Height, 0, crawlTime, false, true, TweenTypes::EaseOutBounce);
+			const float crawlTime = 5000.0f;
+			screen->SetY((float)Game::s_Height);
+			crawlTweenId = n2dTweenAdd(screen->GetYRef(), (float)Game::s_Height, 0.f, crawlTime, false, true, TweenTypes::EaseOutBounce);
 		
 			auto startListening = new auto([=] {
 				StartListening();

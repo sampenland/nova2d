@@ -47,8 +47,8 @@ namespace novazero
 				if (m_EffectRect)
 					m_EffectRect->DestroySelf();
 
-				m_EffectRect = new DrawRect(fillColor, outlineColor, filled, Rect((int)m_Position.x, (int)m_Position.y, m_EffectRectHolder->w, m_EffectRectHolder->h), 2, layer);
-				m_EffectRect->SetSize(Vec2Int(m_EffectRectHolder->w, m_EffectRectHolder->h));
+				m_EffectRect = new DrawRect(fillColor, outlineColor, filled, Rect(m_Position.x, m_Position.y, m_EffectRectHolder->w, m_EffectRectHolder->h), 2, layer);
+				m_EffectRect->SetSize(Vec2Int((int)m_EffectRectHolder->w, (int)m_EffectRectHolder->h));
 			}			
 		}
 

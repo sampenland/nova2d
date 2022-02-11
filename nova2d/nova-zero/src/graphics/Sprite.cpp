@@ -105,8 +105,8 @@ namespace novazero
 			m_SrcRect.x = m_CurrentFrame * m_FrameSize.x;
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)m_Position.x + oX;
-			m_DestRect.y = (int)m_Position.y + oY;
+			m_DestRect.x = (int)(m_Position.x + oX);
+			m_DestRect.y = (int)(m_Position.y + oY);
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 		}

@@ -16,7 +16,7 @@ namespace novazero
 			m_Start = start;
 			m_End = end;
 
-			m_AliveBounds = Rect(0, 0, Game::s_Width, Game::s_Height);
+			m_AliveBounds = Rect(0.f, 0.f, (float)Game::s_Width, (float)Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
 
 			auto cleanID = n2dAddUpdater(SimpleBulletController::Update, this);
