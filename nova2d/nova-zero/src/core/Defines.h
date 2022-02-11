@@ -21,7 +21,7 @@ namespace novazero
 		// Max particles
 		#define MAX_PARTICLES 255
 
-		#define PI 2*acos(0.0)
+		#define PI (float)(2*acos(0.0))
 
 	}
 }
@@ -145,18 +145,11 @@ Returns total tweens (usually attached to positionals)
 #define n2dDebugTweenCount() novazero::core::Game::s_SceneManager->s_TweenManager->GetTweenCount();
 
 /*
-nova2d Add Tween Int
-Tweens *refInt (referenced int) from start to end in duration milliseconds
-RETURNS ID for clean up
-*/
-#define n2dTweenAddInt(refInt, start, end, durationMS, loop, del) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenInt(refInt, start, end, durationMS, loop, del);
-
-/*
-nova2d Add Tween Float
+nova2d Add Tween Float *ref, start, end, duration, loop, auto delete, TweenType::
 Tweens *refFloat (referenced float) from start to end in duration milliseconds
 RETURNS ID for clean up
 */
-#define n2dTweenAddFloat(refFloat, start, end, durationMS, loop, del) novazero::core::Game::s_SceneManager->s_TweenManager->AddTweenFloat(refFloat, start, end, durationMS, loop, del);
+#define n2dTweenAdd(refFloat, start, end, durationMS, loop, del, type) novazero::core::Game::s_SceneManager->s_TweenManager->AddTween(refFloat, start, end, durationMS, loop, del, type);
 
 /*
 nova2d Remove Tween (unsigned int tweenID)

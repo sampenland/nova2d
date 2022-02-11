@@ -38,11 +38,11 @@ namespace novazero
 
 			if (type == AccelerationTypes::Linear)
 			{
-				m_AccelerationTweenX = n2dTweenAddFloat(&m_CurrentAccelerationX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true);
+				m_AccelerationTweenX = n2dTweenAdd(&m_CurrentAccelerationX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true, TweenTypes::EaseInCubic);
 				n2dTweenEnable(m_AccelerationTweenX, false, true);
 				m_CurrentAccelerationX = 0;
 
-				m_AccelerationTweenY = n2dTweenAddFloat(&m_CurrentAccelerationY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true);
+				m_AccelerationTweenY = n2dTweenAdd(&m_CurrentAccelerationY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true, TweenTypes::EaseInCubic);
 				n2dTweenEnable(m_AccelerationTweenY, false, true);
 				m_CurrentAccelerationY = 0;
 			}

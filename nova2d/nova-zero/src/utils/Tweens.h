@@ -1,11 +1,13 @@
 #pragma once
 #include "../core/Defines.h"
+#include <cmath>
 
 namespace novazero
 {
 	namespace utils
 	{
 		// easings.net //
+		// Tween-easing functions
 		enum class TweenTypes
 		{
 			EaseInSine,
@@ -30,7 +32,7 @@ namespace novazero
 
 			EaseInExpo,
 			EaseOutExpo,
-			EaseInOutv,
+			EaseInOutExpo,
 
 			EaseInCirc,
 			EaseOutCirc,
@@ -60,17 +62,17 @@ namespace novazero
 
 			static float EaseInSine(float x)
 			{
-				return 1 - std::cos((x * PI) / 2);
+				return 1.f - std::cos((x * PI) / 2.f);
 			}
 
 			static float EaseOutSine(float x)
 			{
-				return std::sin((x * PI) / 2);
+				return std::sin((x * PI) / 2.f);
 			}
 			
 			static float EaseInOutSine(float x)
 			{
-				return -(std::cos(PI * x) - 1) / 2;
+				return -(std::cos(PI * x) - 1.f) / 2.f;
 			}
 			
 			static float EaseInQuad(float x)
@@ -80,12 +82,12 @@ namespace novazero
 			
 			static float EaseOutQuad(float x)
 			{
-				return 1 - (1 - x) * (1 - x);
+				return 1.f - (1.f - x) * (1.f - x);
 			}
 			
 			static float EaseInOutQuad(float x)
 			{
-				return x < 0.5 ? 2 * x * x : 1 - pow(-2 * x + 2, 2) / 2;
+				return x < 0.5f ? 2.f * x * x : 1.f - pow(-2.f * x + 2.f, 2.f) / 2.f;
 			}
 
 			static float EaseInCubic(float x)
@@ -95,12 +97,12 @@ namespace novazero
 
 			static float EaseOutCubic(float x)
 			{
-				return 1 - pow(1 - x, 3);
+				return 1.f - pow(1.f - x, 3.f);
 			}
 
 			static float EaseInOutCubic(float x)
 			{
-				return x < 0.5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2;
+				return x < 0.5f ? 4.f * x * x * x : 1.f - pow(-2.f * x + 2.f, 3.f) / 2.f;
 			}
 
 			static float EaseInQuart(float x)
@@ -110,12 +112,12 @@ namespace novazero
 
 			static float EaseOutQuart(float x)
 			{
-				return 1 - pow(1 - x, 4);
+				return 1.f - pow(1.f - x, 4.f);
 			}
 
 			static float EaseInOutQuart(float x)
 			{
-				return x < 0.5 ? 8 * x * x * x * x : 1 - pow(-2 * x + 2, 4) / 2;
+				return x < 0.5f ? 8.f * x * x * x * x : 1.f - pow(-2.f * x + 2.f, 4.f) / 2.f;
 			}
 
 			static float EaseInQuint(float x)
@@ -125,141 +127,141 @@ namespace novazero
 
 			static float EaseOutQuint(float x)
 			{
-				return 1 - pow(1 - x, 5);
+				return 1.f - pow(1.f - x, 5.f);
 			}
 
 			static float EaseInOutQuint(float x)
 			{
-				return x < 0.5 ? 16 * x * x * x * x * x : 1 - pow(-2 * x + 2, 5) / 2;
+				return x < 0.5f ? 16.f * x * x * x * x * x : 1.f - pow(-2.f * x + 2.f, 5.f) / 2.f;
 			}
 
 			static float EaseInExpo(float x)
 			{
-				return x == 0 ? 0 : pow(2, 10 * x - 10);
+				return x == 0.f ? 0.f : pow(2.f, 10.f * x - 10.f);
 			}
 
 			static float EaseOutExpo(float x)
 			{
-				return x == 1 ? 1 : 1 - pow(2, -10 * x);
+				return x == 1.f ? 1.f : 1.f - pow(2.f, -10.f * x);
 			}
 
 			static float EaseInOutExpo(float x)
 			{
-				return x == 0
-					? 0
-					: x == 1
-					? 1
-					: x < 0.5 ? pow(2, 20 * x - 10) / 2
-					: (2 - pow(2, -20 * x + 10)) / 2;
+				return x == 0.f
+					? 0.f
+					: x == 1.f
+					? 1.f
+					: x < 0.5f ? pow(2.f, 20.f * x - 10.f) / 2.f
+					: (2.f - pow(2.f, -20.f * x + 10.f)) / 2.f;
 			}
 
 			static float EaseInCirc(float x)
 			{
-				return 1 - sqrt(1 - pow(x, 2));
+				return 1.f - sqrt(1.f - pow(x, 2.f));
 			}
 
 			static float EaseOutCirc(float x)
 			{
-				return sqrt(1 - pow(x - 1, 2));
+				return sqrt(1.f - pow(x - 1.f, 2.f));
 			}
 
 			static float EaseInOutCirc(float x)
 			{
-				return x < 0.5
-					? (1 - sqrt(1 - pow(2 * x, 2))) / 2
-					: (sqrt(1 - pow(-2 * x + 2, 2)) + 1) / 2;
+				return x < 0.5f
+					? (1.f - sqrt(1.f - pow(2.f * x, 2.f))) / 2.f
+					: (sqrt(1.f - pow(-2.f * x + 2.f, 2.f)) + 1.f) / 2.f;
 			}
 
 			static float EaseInBack(float x)
 			{
-				const float c1 = 1.70158;
-				const float c3 = c1 + 1;
+				const float c1 = 1.70158f;
+				const float c3 = c1 + 1.f;
 
 				return c3 * x * x * x - c1 * x * x;
 			}
 
 			static float EaseOutBack(float x)
 			{
-				const float c1 = 1.70158;
-				const float c3 = c1 + 1;
+				const float c1 = 1.70158f;
+				const float c3 = c1 + 1.f;
 
-				return 1 + c3 * pow(x - 1, 3) + c1 * pow(x - 1, 2);
+				return 1.f + c3 * pow(x - 1.f, 3.f) + c1 * pow(x - 1.f, 2.f);
 			}
 
 			static float EaseInOutBack(float x)
 			{
-				const float c1 = 1.70158;
-				const float c2 = c1 * 1.525;
+				const float c1 = 1.70158f;
+				const float c2 = c1 * 1.525f;
 
-				return x < 0.5
-					? (pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
-					: (pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
+				return x < 0.5f
+					? (pow(2.f * x, 2.f) * ((c2 + 1.f) * 2.f * x - c2)) / 2.f
+					: (pow(2.f * x - 2.f, 2.f) * ((c2 + 1.f) * (x * 2.f - 2.f) + c2) + 2.f) / 2.f;
 			}
 
 			static float EaseInElastic(float x)
 			{
-				const float c4 = (2 * PI) / 3;
+				const float c4 = (2.f * PI) / 3.f;
 
-				return x == 0
-					? 0
-					: x == 1
-					? 1
-					: -pow(2, 10 * x - 10) * sin((x * 10 - 10.75) * c4);
+				return x == 0.f
+					? 0.f
+					: x == 1.f
+					? 1.f
+					: -pow(2.f, 10.f * x - 10.f) * sin((x * 10.f - 10.75f) * c4);
 			}
 
 			static float EaseOutElastic(float x)
 			{
-				const float c4 = (2 * PI) / 3;
+				const float c4 = (2.f * PI) / 3.f;
 
-				return x == 0
-					? 0
-					: x == 1
-					? 1
-					: pow(2, -10 * x) * sin((x * 10 - 0.75) * c4) + 1;
+				return x == 0.f
+					? 0.f
+					: x == 1.f
+					? 1.f
+					: pow(2.f, -10.f * x) * sin((x * 10.f - 0.75f) * c4) + 1.f;
 			}
 
 			static float EaseInOutElastic(float x)
 			{
-				const float c5 = (2 * PI) / 4.5;
+				const float c5 = (2 * PI) / 4.5f;
 
-				return x == 0
-					? 0
-					: x == 1
-					? 1
-					: x < 0.5
-					? -(pow(2, 20 * x - 10) * sin((20 * x - 11.125) * c5)) / 2
-					: (pow(2, -20 * x + 10) * sin((20 * x - 11.125) * c5)) / 2 + 1;
+				return x == 0.f
+					? 0.f
+					: x == 1.f
+					? 1.f
+					: x < 0.5f
+					? -(pow(2.f, 20.f * x - 10.f) * sin((20.f * x - 11.125f) * c5)) / 2.f
+					: (pow(2.f, -20.f * x + 10.f) * sin((20.f * x - 11.125f) * c5)) / 2.f + 1.f;
 			}
 
 			static float EaseOutBounce(float x)
 			{
-				const float n1 = 7.5625;
-				const float d1 = 2.75;
+				const float n1 = 7.5625f;
+				const float d1 = 2.75f;
 
-				if (x < 1 / d1) {
+				if (x < 1.f / d1) {
 					return n1 * x * x;
 				}
-				else if (x < 2 / d1) {
-					return n1 * (x -= 1.5 / d1) * x + 0.75;
+				else if (x < 2.f / d1) {
+					return n1 * (x -= 1.5f / d1) * x + 0.75f;
 				}
-				else if (x < 2.5 / d1) {
-					return n1 * (x -= 2.25 / d1) * x + 0.9375;
+				else if (x < 2.5f / d1) {
+					return n1 * (x -= 2.25f / d1) * x + 0.9375f;
 				}
 				else {
-					return n1 * (x -= 2.625 / d1) * x + 0.984375;
+					return n1 * (x -= 2.625f / d1) * x + 0.984375f;
 				}
 			}
 
 			static float EaseInBounce(float x)
 			{
-				return 1 - EaseOutBounce(1 - x);
+				return 1.f - EaseOutBounce(1.f - x);
 			}
 
 			static float EaseInOutBounce(float x)
 			{
-				return x < 0.5
-					? (1 - EaseOutBounce(1 - 2 * x)) / 2
-					: (1 + EaseOutBounce(2 * x - 1)) / 2;
+				return x < 0.5f
+					? (1.f - EaseOutBounce(1.f - 2.f * x)) / 2.f
+					: (1.f + EaseOutBounce(2.f * x - 1.f)) / 2.f;
 			}
 
 

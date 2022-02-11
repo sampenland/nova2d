@@ -25,7 +25,7 @@ namespace spaceshooter
 		int* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			m_TweenID = n2dTweenAddInt(ptrToRadius, (float)effectRadius, 1.0f, 1000.0f, true, true);
+			//m_TweenID = n2dTweenAddInt(ptrToRadius, (float)effectRadius, 1.0f, 1000.0f, true, true);
 		}
 
 		ConfigureCollider(m_Sprite, 0, "clock");
@@ -66,7 +66,7 @@ namespace spaceshooter
 		int* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, (float)m_EffectRadius, 600.0f, false, true);
+			//m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, (float)m_EffectRadius, 600.0f, false, true);
 		}
 
 		m_DestroyTimer = new Timer(m_DestroyTime, false, std::bind(&TimeWarp::DestroySelf, this));

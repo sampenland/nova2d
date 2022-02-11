@@ -8,6 +8,26 @@ namespace novazero
 	{
 		using namespace core;
 
+		struct Tween
+		{
+			std::function<float(float)> tweenEasingFunc = nullptr;
+
+			float xStart = 0.f;
+			float xStep = 0.f;
+			float xCurrent = 0.0f;
+			const float xEnd = 1.f;
+
+			float durationMS = 1000.f;
+			float initStart = 0.f;
+			float end = 0.f;
+			float current = 0.f;
+			bool invert = false;
+			float* referenceP;
+			bool loop = false;
+			bool deleteOnComplete = true;
+			bool enabled = true;
+		};
+
 		TweenManager::TweenManager() { }
 
 		void TweenManager::SetTweenType(Tween& t, TweenTypes type)
@@ -16,97 +36,182 @@ namespace novazero
 
 			switch (type)
 			{
-				case TweenTypes::
+
+			case TweenTypes::EaseInSine:
+				t.tweenEasingFunc = &Tweens::EaseInSine;
+				break;
+			case TweenTypes::EaseOutSine:
+				t.tweenEasingFunc = &Tweens::EaseOutSine;
+				break;
+			case TweenTypes::EaseInOutSine:
+				t.tweenEasingFunc = &Tweens::EaseInOutSine;
+				break;
+
+			case TweenTypes::EaseInQuad:
+				t.tweenEasingFunc = &Tweens::EaseInQuad;
+				break;
+			case TweenTypes::EaseOutQuad:
+				t.tweenEasingFunc = &Tweens::EaseOutQuad;
+				break;
+			case TweenTypes::EaseInOutQuad:
+				t.tweenEasingFunc = &Tweens::EaseInOutQuad;
+				break;
+
+			case TweenTypes::EaseInCubic:
+				t.tweenEasingFunc = &Tweens::EaseInCubic;
+				break;
+			case TweenTypes::EaseOutCubic:
+				t.tweenEasingFunc = &Tweens::EaseOutCubic;
+				break;
+			case TweenTypes::EaseInOutCubic:
+				t.tweenEasingFunc = &Tweens::EaseInOutCubic;
+				break;
+
+			case TweenTypes::EaseInQuart:
+				t.tweenEasingFunc = &Tweens::EaseInQuart;
+				break;
+			case TweenTypes::EaseOutQuart:
+				t.tweenEasingFunc = &Tweens::EaseOutQuart;
+				break;
+			case TweenTypes::EaseInOutQuart:
+				t.tweenEasingFunc = &Tweens::EaseInOutQuart;
+				break;
+
+			case TweenTypes::EaseInQuint:
+				t.tweenEasingFunc = &Tweens::EaseInQuint;
+				break;
+			case TweenTypes::EaseOutQuint:
+				t.tweenEasingFunc = &Tweens::EaseOutQuint;
+				break;
+			case TweenTypes::EaseInOutQuint:
+				t.tweenEasingFunc = &Tweens::EaseInOutQuint;
+				break;
+
+			case TweenTypes::EaseInExpo:
+				t.tweenEasingFunc = &Tweens::EaseInExpo;
+				break;
+			case TweenTypes::EaseOutExpo:
+				t.tweenEasingFunc = &Tweens::EaseOutExpo;
+				break;
+			case TweenTypes::EaseInOutExpo:
+				t.tweenEasingFunc = &Tweens::EaseInOutExpo;
+				break;
+
+			case TweenTypes::EaseInCirc:
+				t.tweenEasingFunc = &Tweens::EaseInCirc;
+				break;
+			case TweenTypes::EaseOutCirc:
+				t.tweenEasingFunc = &Tweens::EaseOutCirc;
+				break;
+			case TweenTypes::EaseInOutCirc:
+				t.tweenEasingFunc = &Tweens::EaseInOutCirc;
+				break;
+
+			case TweenTypes::EaseInBack:
+				t.tweenEasingFunc = &Tweens::EaseInBack;
+				break;
+			case TweenTypes::EaseOutBack:
+				t.tweenEasingFunc = &Tweens::EaseOutBack;
+				break;
+			case TweenTypes::EaseInOutBack:
+				t.tweenEasingFunc = &Tweens::EaseInOutBack;
+				break;
+
+			case TweenTypes::EaseInElastic:
+				t.tweenEasingFunc = &Tweens::EaseInElastic;
+				break;
+			case TweenTypes::EaseOutElastic:
+				t.tweenEasingFunc = &Tweens::EaseOutElastic;
+				break;
+			case TweenTypes::EaseInOutElastic:
+				t.tweenEasingFunc = &Tweens::EaseInOutElastic;
+				break;
+
+			case TweenTypes::EaseInBounce:
+				t.tweenEasingFunc = &Tweens::EaseInBounce;
+				break;
+			case TweenTypes::EaseOutBounce:
+				t.tweenEasingFunc = &Tweens::EaseOutBounce;
+				break;
+			case TweenTypes::EaseInOutBounce:
+				t.tweenEasingFunc = &Tweens::EaseInOutBounce;
+				break;
 			}
 		}
 
-		unsigned int TweenManager::AddTweenInt(TweenTypes type, int* propertyEffected, float start, 
-			float end, float durationMS, bool loop, bool autoDelete)
+		unsigned int TweenManager::AddTween(float* propertyEffected, float start,
+			float end, float durationMS, bool loop, bool autoDelete, TweenTypes type)
 		{
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
 
+			SetTweenType(*t, type);
 			
+			t->durationMS = durationMS;
+			t->invert = end < start;
 
-			t->initStart = start;
-			t->isFloat = false;
-			t->intPropertyEffected = propertyEffected;
-			t->step = (end - start) / (durationMS / 10);
-			t->durationLeft = durationMS;
-			t->current = start;
-			t->end = end;
+			if (t->invert)
+			{
+				t->initStart = end;
+				t->end = start;
+			}
+			else
+			{
+				t->initStart = start;			
+				t->end = end;
+			}
+
+			t->current = t->initStart;
+			t->xStart = 0.f;
+			t->xCurrent = 0.f;
+			t->xStep = ((t->end - t->initStart) / t->end) / (durationMS/10); // how much x to increment per millisecond
+
+			t->referenceP = propertyEffected;
 			t->loop = loop;
 			t->deleteOnComplete = autoDelete;
 
 			if (!autoDelete)
 				LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(id));
 
-			m_Timers[id] = t;
-			return id;
-		}
-
-		unsigned int TweenManager::AddTweenFloat(TweenTypes type, float* propertyEffected, float start, 
-			float end, float durationMS, bool loop, bool autoDelete)
-		{
-			unsigned int id = n2dGameGetID();
-
-			Tween* t = new Tween();
-
-			t->type = type;
-			t->initStart = start;
-			t->isFloat = true;
-			t->floatPropertyEffected = propertyEffected;
-			t->step = (end - start) / (durationMS / 10);
-			t->durationLeft = durationMS;
-			t->current = start;
-			t->end = end;
-			t->loop = loop;
-			t->deleteOnComplete = autoDelete;
-			
-			if (!autoDelete)
-				LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(id));
-
-			m_Timers[id] = t;
+			m_Tweens[id] = t;
 			return id;
 		}
 
 		void TweenManager::RemoveTween(unsigned int tweenID)
 		{
-			m_Timers.erase(tweenID);
+			m_Tweens.erase(tweenID);
 		}
 
 		void TweenManager::EnableTween(unsigned int tweenID, bool enabled, bool reset)
 		{
-			if (m_Timers.find(tweenID) != m_Timers.end())
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
-				m_Timers[tweenID]->enabled = enabled;
-				
-				if(reset)
-					m_Timers[tweenID]->current = m_Timers[tweenID]->initStart;
+				m_Tweens[tweenID]->enabled = enabled;
+
+				if (reset)
+					m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
 			}
 		}
 
 		void TweenManager::ResetTween(unsigned int tweenID)
 		{
-			if (m_Timers.find(tweenID) != m_Timers.end())
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
-				m_Timers[tweenID]->current = m_Timers[tweenID]->initStart;
+				m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
 			}
 		}
 
-		void TweenManager::Reconfigure(unsigned int tweenID, float start, 
+		void TweenManager::Reconfigure(unsigned int tweenID, float start,
 			float end, float durationMS, bool loop, bool autoDelete)
 		{
-			if (m_Timers.find(tweenID) != m_Timers.end())
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
-				m_Timers[tweenID]->current = start;
-				m_Timers[tweenID]->initStart = start;
-				m_Timers[tweenID]->step = (end - start) / (durationMS / 10);;
-				m_Timers[tweenID]->end = end;
-				m_Timers[tweenID]->durationLeft = durationMS;
-				m_Timers[tweenID]->loop = loop;
-				m_Timers[tweenID]->deleteOnComplete = autoDelete;
+				
+				// TODO: re setup values
+
+				m_Tweens[tweenID]->loop = loop;
+				m_Tweens[tweenID]->deleteOnComplete = autoDelete;
 
 				if (!autoDelete)
 					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID));
@@ -118,71 +223,42 @@ namespace novazero
 		{
 			std::vector<unsigned int> removeIDs;
 			std::map<unsigned int, Tween*>::iterator it;
-			for (it = m_Timers.begin(); it != m_Timers.end(); it++)
+			for (it = m_Tweens.begin(); it != m_Tweens.end();)
 			{
+				if (it->second->xCurrent >= 1.f)
+				{
+					it = m_Tweens.erase(it);
+					continue;
+				}
+
 				if (!it->second->enabled)
 					continue;
 
-				if (it->second->isFloat)
-				{
-					FloatTween(it);
-					
-					if (((it->second->step < 0) && (*it->second->floatPropertyEffected < it->second->end)) ||
-						it->second->step > 0 && (*it->second->floatPropertyEffected > it->second->end))
-					{
-						if (it->second->loop)
-						{
-							it->second->current = it->second->initStart;
-						}
-						else
-						{
-							if (it->second->deleteOnComplete)
-								removeIDs.push_back(it->first);
-							else
-								it->second->enabled = false;
-						}
-					}
-				
-				}
-				else
-				{
-					IntTween(it);
+				InterfaceToEasings(*it->second);
 
-					if (((it->second->step < 0) && (*it->second->intPropertyEffected < it->second->end)) ||
-						it->second->step > 0 && (*it->second->intPropertyEffected > it->second->end))
-					{
-						if (it->second->loop)
-						{
-							it->second->current = it->second->initStart;
-						}
-						else
-						{
-							if(it->second->deleteOnComplete)
-								removeIDs.push_back(it->first);
-							else
-								it->second->enabled = false;
-						}
-					}
-
-				}	
-			}
-
-			for (size_t i = 0; i < removeIDs.size(); i++)
-			{
-				m_Timers.erase(removeIDs[i]);
+				it++;
 			}
 		};
 
-		void TweenManager::FloatTween(std::map<unsigned int, Tween*>::iterator it)
+		void TweenManager::InterfaceToEasings(Tween& tween)
 		{
-			it->second->current += it->second->step;
-			*it->second->floatPropertyEffected = it->second->current;
-		}
+			// Increment x such that duration is full time of tween
+			float percentToEnd = tween.tweenEasingFunc(tween.xCurrent);
+			float value = percentToEnd * tween.end;
+			
+			tween.xCurrent += tween.xStep;
 
-		void TweenManager::IntTween(std::map<unsigned int, Tween*>::iterator it)
-		{
-			it->second->current += it->second->step;
-			*it->second->intPropertyEffected = it->second->current;
+			if (tween.invert)
+			{
+				value = (1.f - percentToEnd) * tween.end;
+			}
+			LOG(LVL_CONFIRMATION, std::to_string(value));
+
+			float current = tween.current / tween.end;
+			float easingValue = tween.tweenEasingFunc(current);
+
+			*tween.referenceP = value;
+
 		}
 
 		void TweenManager::ClearTweens()
@@ -190,17 +266,12 @@ namespace novazero
 			std::vector<unsigned int> removeIDs;
 			std::map<unsigned int, Tween*>::iterator it;
 
-			for (it = m_Timers.begin(); it != m_Timers.end(); it++)
+			for (it = m_Tweens.begin(); it != m_Tweens.end(); )
 			{
-				removeIDs.push_back(it->first);
+				it = m_Tweens.erase(it);
 			}
 
-			for (size_t i = 0; i < removeIDs.size(); i++)
-			{
-				m_Timers.erase(removeIDs[i]);
-			}
-
-			m_Timers.clear();
+			m_Tweens.clear();
 		}
 	}
 }
