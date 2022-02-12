@@ -16,12 +16,10 @@ namespace novazero
 		{
 			m_ID = n2dGameGetID();
 
-			m_Position = Vec2((float)position.x, (float)position.y);
+			m_Position = position;
 
-			int x = (int)m_Position.x;
-			int y = (int)m_Position.y;
-
-			m_Position = Vec2((float)x, (float)y);
+			int x = m_Position.x;
+			int y = m_Position.y;
 
 			m_FPS = new Text("font3", "FPS: 60", "white", Rect(x, y,
 				100, 20), 0);

@@ -57,7 +57,7 @@ namespace novazero
 			void GonfigureLookAt(bool lookAt) { m_LookAtTarget = lookAt; }
 
 			void ConfigureGraverVisible(bool filled, std::string fillColor, std::string outlineColor,
-				float radius, char layer);
+				int radius, char layer);
 
 			void AddEffectedGraver(Graver* graver);
 			void RemoveEffectedGraver(Graver* graver);

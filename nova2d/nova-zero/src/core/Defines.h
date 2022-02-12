@@ -147,7 +147,14 @@ nova2d Add Tween Float *ref, start, end, duration, loop, auto delete, TweenType:
 Tweens *refFloat (referenced float) from start to end in duration milliseconds
 RETURNS ID for clean up
 */
-#define n2dTweenAdd(refFloat, start, end, durationMS, loop, del, type) novazero::core::Game::s_SceneManager->s_TweenManager->AddTween(refFloat, start, end, durationMS, loop, del, type);
+#define n2dTweenAdd(isFloat, ref, start, end, durationMS, loop, del, type) novazero::core::Game::s_SceneManager->s_TweenManager->AddTween(isFloat, ref, start, end, durationMS, loop, del, type);
+
+/*
+nova2d GetTween(unsigned int id)
+Gets a created tween from game's tween manager
+RETURNS tween reference
+*/
+#define n2dTweenGet(id) novazero::core::Game::s_SceneManager->s_TweenManager->GetTween(id);
 
 /*
 nova2d Remove Tween (unsigned int tweenID)

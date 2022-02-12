@@ -44,7 +44,7 @@ namespace novazero
 		protected:
 		public:
 
-			TimeEffector(Vec2 position, float timeEffect, float effectRadius, 
+			TimeEffector(Vec2 position, float timeEffect, int effectRadius, 
 				Rect effectRect, TimeEffectorType type);
 			
 			void ConfigureTimeEffector(float timeEffect);
@@ -52,7 +52,7 @@ namespace novazero
 			void ConfigureTimeEffectorVisible(bool filled, const std::string& fillColor,
 				const std::string& outlineColor, char layer);
 
-			float* GetEffectorRadiusRef() 
+			int* GetEffectorRadiusRef() 
 			{ 
 				if (m_EffectCircle)
 				{
@@ -61,7 +61,7 @@ namespace novazero
 				return nullptr;
 			}
 
-			float GetEffectorRadius()
+			int GetEffectorRadius()
 			{
 				if (m_EffectCircle)
 				{

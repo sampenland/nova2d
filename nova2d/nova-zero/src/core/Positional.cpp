@@ -15,10 +15,10 @@ namespace novazero
 			m_Sprite = sprite;
 		}
 
-		float Positional::GetX() const { return m_Position.x; }
-		float Positional::GetY() const { return m_Position.y; }
-		Vec2 Positional::GetPosition() const { return m_Position; }
+		float Positional::GetX() const { return (float)m_Position.x; }
+		float Positional::GetY() const { return (float)m_Position.y; }
 		Vec2Int Positional::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }
+		Vec2 Positional::GetPosition() const { return Vec2((float)m_Position.x, (float)m_Position.y); }
 
 		int Positional::GetWidth() const { return m_Size.x; }
 		int Positional::GetHeight() const { return m_Size.y; }
@@ -33,22 +33,23 @@ namespace novazero
 
 		void Positional::SetX(float x)
 		{
-			m_Position.x = x;
+			m_Position.x = (int)x;
 		}
 
 		void Positional::SetY(float y)
 		{
-			m_Position.y = y;
+			m_Position.y = (int)y;
 		}
 
 		void Positional::SetPosition(Vec2 position)
 		{
-			m_Position = position;
+			SetX(position.x);
+			SetY(position.y);
 		}
 
 		void Positional::SetPositionInt(Vec2Int position)
 		{
-			m_Position = Vec2((float)position.x, (float)position.y);
+			m_Position = position;
 		}
 
 		void Positional::SetSize(Vec2Int size)

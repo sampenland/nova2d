@@ -6,11 +6,33 @@
 
 namespace novazero
 {
-	namespace maths
+	namespace utils
 	{
-		using namespace utils;
+		struct Tween
+		{
+			std::function<float(float)> tweenEasingFunc = nullptr;
 
-		struct Tween;
+			bool isFloat = true;
+
+			float xStart = 0.f;
+			float xStep = 0.f;
+			float xCurrent = 0.0f;
+			const float xEnd = 1.f;
+
+			float durationMS = 1000.f;
+			float initStart = 0.f;
+			float end = 0.f;
+			float current = 0.f;
+			bool invert = false;
+
+			float* referenceF = nullptr;
+			int* referenceI = nullptr;
+
+			bool loop = false;
+			bool completed = false;
+			bool deleteOnComplete = true;
+			bool enabled = true;
+		};
 
 		class TweenManager
 		{
@@ -25,9 +47,10 @@ namespace novazero
 			TweenManager();
 
 			void Reconfigure(unsigned int tweenID, float start, float end, float durationMS, bool loop, bool autodelete = true);
-			unsigned int AddTween(float* propertyEffected, float start, float end, float durationMS, bool loop = false, bool autoDelete = false, TweenTypes type = TweenTypes::EaseInCubic);
+			unsigned int AddTween(bool isFloat, void* propertyEffected, float start, float end, float durationMS, bool loop = false, bool autoDelete = false, TweenTypes type = TweenTypes::EaseInCubic);
 
 			void EnableTween(unsigned int tweenID, bool enabled, bool reset);
+			Tween& GetTween(unsigned int tweenID);
 			void ResetTween(unsigned int tweenID);
 			void RemoveTween(unsigned int tweenID);
 

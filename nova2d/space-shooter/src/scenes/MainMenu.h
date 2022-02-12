@@ -30,19 +30,17 @@ namespace spaceshooter
 		MainMenu(const std::string& sceneName)
 			: Scene(sceneName)
 		{
-			
 		};
 
 		~MainMenu() { };
 
 		void Update() override
 		{
-
 		}
 
 		void Start() override
 		{
-			screen = new DrawableCollection(Vec2(0, 0), 0);
+			screen = new DrawableCollection(Vec2(0.f, (int)Game::s_Height), 0);
 
 			title = new Text("font1", "SPACE SHOOTER", "white",
 				Rect(Game::s_Width / 2 - 300, Game::s_Height / 4, 600, 60), 0);
@@ -60,8 +58,7 @@ namespace spaceshooter
 			spaceToContinue->SetDrawableCollection(screen);
 
 			const float crawlTime = 5000.0f;
-			screen->SetY((float)Game::s_Height);
-			crawlTweenId = n2dTweenAdd(screen->GetYRef(), (float)Game::s_Height, 0.f, crawlTime, false, true, TweenTypes::EaseOutBounce);
+			crawlTweenId = n2dTweenAdd(false, screen->GetYRef(), (float)Game::s_Height, 0.f, crawlTime, false, true, TweenTypes::EaseOutBounce);
 		
 			auto startListening = new auto([=] {
 				StartListening();

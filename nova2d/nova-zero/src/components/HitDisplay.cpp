@@ -14,8 +14,8 @@ namespace novazero
 			
 			n2dAddDrawable(this, layer);
 
-			m_XTweenID = n2dTweenAdd(GetXRef(), drawRect.x, endPos.x, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
-			m_YTweenID = n2dTweenAdd(GetYRef(), drawRect.y, endPos.y, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
+			m_XTweenID = n2dTweenAdd(false, GetXRef(), drawRect.x, endPos.x, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
+			m_YTweenID = n2dTweenAdd(false, GetYRef(), drawRect.y, endPos.y, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
 
 			Timer* t = new Timer(startToEndTimeMS + 500, false, std::bind(&HitDisplay::DestroySelf, this)); // clean
 

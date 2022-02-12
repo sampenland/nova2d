@@ -20,7 +20,7 @@ namespace novazero
 
 		protected:
 			
-			Vec2 m_Position;
+			Vec2Int m_Position;
 			int m_Angle = 0;
 			Vec2Int m_Size;
 			Sprite* m_Sprite = nullptr;
@@ -33,9 +33,9 @@ namespace novazero
 			Sprite* GetLinkedSprite() { return m_Sprite; }
 
 			float GetX() const;
-			float* GetXRef() { return &m_Position.x; }
+			int* GetXRef() { return &m_Position.x; }
 			float GetY() const;
-			float* GetYRef() { return &m_Position.y; }
+			int* GetYRef() { return &m_Position.y; }
 			Vec2 GetPosition() const;
 			Vec2Int GetPositionInt() const;
 

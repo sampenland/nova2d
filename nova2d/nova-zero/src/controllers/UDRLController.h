@@ -37,6 +37,7 @@ namespace novazero
 			void LJoyY(float delta);
 
 			void UpdateController();
+
 			void ResetAccelerationCheck();
 
 			void AccelerateX();

@@ -4,29 +4,9 @@
 
 namespace novazero
 {
-	namespace maths
+	namespace utils
 	{
 		using namespace core;
-
-		struct Tween
-		{
-			std::function<float(float)> tweenEasingFunc = nullptr;
-
-			float xStart = 0.f;
-			float xStep = 0.f;
-			float xCurrent = 0.0f;
-			const float xEnd = 1.f;
-
-			float durationMS = 1000.f;
-			float initStart = 0.f;
-			float end = 0.f;
-			float current = 0.f;
-			bool invert = false;
-			float* referenceP = nullptr;
-			bool loop = false;
-			bool deleteOnComplete = true;
-			bool enabled = true;
-		};
 
 		TweenManager::TweenManager() { }
 
@@ -139,7 +119,7 @@ namespace novazero
 			}
 		}
 
-		unsigned int TweenManager::AddTween(float* propertyEffected, float start,
+		unsigned int TweenManager::AddTween(bool isFloat, void* propertyEffected, float start,
 			float end, float durationMS, bool loop, bool autoDelete, TweenTypes type)
 		{
 			unsigned int id = n2dGameGetID();
@@ -167,7 +147,17 @@ namespace novazero
 			t->xCurrent = 0.f;
 			t->xStep = ((t->end - t->initStart) / t->end) / (durationMS/10);
 
-			t->referenceP = propertyEffected;
+			if (isFloat)
+			{
+				t->isFloat = true;
+				t->referenceF = (float*)propertyEffected;
+			}
+			else
+			{
+				t->isFloat = false;
+				t->referenceI = (int*)propertyEffected;
+			}
+
 			t->loop = loop;
 			t->deleteOnComplete = autoDelete;
 
@@ -176,6 +166,11 @@ namespace novazero
 
 			m_Tweens[id] = t;
 			return id;
+		}
+
+		Tween& TweenManager::GetTween(unsigned int tweenID)
+		{
+			return *m_Tweens[tweenID];
 		}
 
 		void TweenManager::RemoveTween(unsigned int tweenID)
@@ -207,6 +202,7 @@ namespace novazero
 		{
 			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
+				m_Tweens[tweenID]->completed = false;
 				m_Tweens[tweenID]->durationMS = durationMS;
 				m_Tweens[tweenID]->invert = end < start;
 
@@ -240,11 +236,16 @@ namespace novazero
 			std::map<unsigned int, Tween*>::iterator it;
 			for (it = m_Tweens.begin(); it != m_Tweens.end();)
 			{
-				if (it->second->xCurrent >= 1.f)
+				if (it->second->completed)
 				{
 					if (it->second->deleteOnComplete)
 					{
 						it = m_Tweens.erase(it);
+						continue;
+					}
+					else
+					{
+						it++;
 						continue;
 					}
 				}
@@ -271,6 +272,20 @@ namespace novazero
 			{
 				tween.xCurrent += tween.xStep;
 			}
+			else
+			{
+				if (tween.loop)
+				{
+					tween.xCurrent = 0;
+					return;
+				}
+				else
+				{
+					tween.completed = true;
+					tween.xCurrent = 0;
+					return;
+				}
+			}
 
 			if (tween.invert)
 			{
@@ -280,8 +295,14 @@ namespace novazero
 			float current = tween.current / tween.end;
 			float easingValue = tween.tweenEasingFunc(current);
 
-			*tween.referenceP = value;
-
+			if (tween.isFloat)
+			{
+				*tween.referenceF = (float)value;
+			}
+			else
+			{
+				*tween.referenceI = (int)value;
+			}
 		}
 
 		void TweenManager::ClearTweens()

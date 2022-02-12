@@ -30,11 +30,11 @@ namespace novazero
 			m_TotalAccelerationSpeedMS = accelerationTimeMS;
 			m_TotalDeaccelerationSpeedMS = deaccelerationTimeMS;
 
-			m_AccelerationTweenX = n2dTweenAdd(&m_CurrentAccelerationX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false, TweenTypes::EaseInCubic);
+			m_AccelerationTweenX = n2dTweenAdd(true, &m_CurrentAccelerationX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false, TweenTypes::EaseInCubic);
 			n2dTweenEnable(m_AccelerationTweenX, false, true);
 			m_CurrentAccelerationX = 0;
 
-			m_AccelerationTweenY = n2dTweenAdd(&m_CurrentAccelerationY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false, TweenTypes::EaseInCubic);
+			m_AccelerationTweenY = n2dTweenAdd(true, &m_CurrentAccelerationY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false, TweenTypes::EaseInCubic);
 			n2dTweenEnable(m_AccelerationTweenY, false, true);
 			m_CurrentAccelerationY = 0;
 

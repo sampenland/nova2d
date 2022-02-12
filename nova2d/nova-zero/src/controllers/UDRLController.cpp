@@ -1,10 +1,12 @@
 #include "UDRLController.h"
+#include "../utils/TweenManager.h"
 
 namespace novazero
 {
 	namespace controllers
 	{
 		using namespace input;
+		using namespace utils;
 
 		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 			: SimpleController(assetName, position, size, layer)
@@ -124,15 +126,12 @@ namespace novazero
 		{
 			if (m_Velocity == Vec2(0.f, 0.f)) return;
 
-			m_Velocity.x *= (m_CurrentAccelerationX * n2dTimeScale * GetTimeInfluence());
-			m_Velocity.y *= (m_CurrentAccelerationY * n2dTimeScale * GetTimeInfluence());
+			float timeScaleX = m_CurrentAccelerationX * n2dTimeScale * GetTimeInfluence();
+			float timeScaleY = m_CurrentAccelerationY * n2dTimeScale * GetTimeInfluence();
 
 			Vec2 pos = GetPosition();
-			float newX = pos.x + m_Velocity.x;
-			float newY = pos.y + m_Velocity.y;
-
-			if (m_Velocity.x > 0) newX = ceil(newX);
-			if (m_Velocity.y > 0) newY = ceil(newY);
+			float newX = pos.x + (m_Velocity.x * timeScaleX);
+			float newY = pos.y + (m_Velocity.y * timeScaleY);
 
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{

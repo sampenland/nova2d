@@ -10,7 +10,7 @@ namespace novazero
 		using namespace graphics;
 
 		DrawCircle::DrawCircle(const std::string& fillColor, const std::string& outlineColor,
-			bool filled, Vec2 position, float radius, char layer)
+			bool filled, Vec2Int position, int radius, char layer)
 			: Drawable(), Deleteable("circle_")
 		{
 			m_DeleteName = "circle_" + std::to_string(m_ID);
@@ -19,7 +19,7 @@ namespace novazero
 			m_OutlineColor = outlineColor;
 			m_Filled = filled;
 
-			SetPosition(position);
+			SetPositionInt(position);
 			m_Radius = radius;
 
 			n2dAddDrawable(this, layer);
@@ -43,7 +43,7 @@ namespace novazero
 
 			if (m_Radius < 1.f)
 			{
-				m_Radius = 2.f;
+				m_Radius = 2;
 				LOG(LVL_WARNING, "Circle radius too small. Defaulting to 2.");
 			}
 

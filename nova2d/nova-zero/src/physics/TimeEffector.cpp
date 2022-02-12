@@ -7,7 +7,7 @@ namespace novazero
 	{
 		using namespace core;
 
-		TimeEffector::TimeEffector(Vec2 position, float timeEffect, float effectRadius, 
+		TimeEffector::TimeEffector(Vec2 position, float timeEffect, int effectRadius, 
 			Rect effectRect, TimeEffectorType type) : Deleteable("timeEffector_")
 		{
 			m_ID = n2dGameGetID();
@@ -40,14 +40,14 @@ namespace novazero
 				if (m_EffectCircle)
 					m_EffectCircle->DestroySelf();
 
-				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, (float)m_EffectRadius, layer);
+				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, m_EffectRadius, layer);
 			}
 			else
 			{
 				if (m_EffectRect)
 					m_EffectRect->DestroySelf();
 
-				m_EffectRect = new DrawRect(fillColor, outlineColor, filled, Rect(m_Position.x, m_Position.y, m_EffectRectHolder->w, m_EffectRectHolder->h), 2, layer);
+				m_EffectRect = new DrawRect(fillColor, outlineColor, filled, Rect((float)m_Position.x, (float)m_Position.y, m_EffectRectHolder->w, m_EffectRectHolder->h), 2, layer);
 				m_EffectRect->SetSize(Vec2Int((int)m_EffectRectHolder->w, (int)m_EffectRectHolder->h));
 			}			
 		}
@@ -76,10 +76,10 @@ namespace novazero
 			if (!IsEnabled()) return;
 
 			if(m_EffectCircle)
-				m_EffectCircle->SetPosition(m_Position);
+				m_EffectCircle->SetPositionInt(m_Position);
 
 			if(m_EffectRect)
-				m_EffectRect->SetPosition(m_Position);
+				m_EffectRect->SetPositionInt(m_Position);
 
 			ReDrawIfNeeded();
 
