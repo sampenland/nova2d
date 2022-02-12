@@ -16,12 +16,6 @@ namespace novazero
 			ConfigureTimeEffected(m_Sprite);
 		}
 
-		SimpleController::~SimpleController()
-		{
-			if (m_Sprite)
-				m_Sprite->DestroySelf();
-		}
-
 		void SimpleController::SetMoveSpeed(float mSpeed)
 		{
 			m_MoveSpeed = mSpeed;
@@ -30,22 +24,19 @@ namespace novazero
 			m_CurrentAccelerationY = mSpeed;
 		}
 
-		void SimpleController::SetAcceleration(AccelerationTypes type, float accelerationTimeMS, float deaccelerationTimeMS)
+		void SimpleController::SetAcceleration(TweenTypes type, float accelerationTimeMS, float deaccelerationTimeMS)
 		{
 			m_AccelerationType = type;
 			m_TotalAccelerationSpeedMS = accelerationTimeMS;
 			m_TotalDeaccelerationSpeedMS = deaccelerationTimeMS;
 
-			if (type == AccelerationTypes::Linear)
-			{
-				m_AccelerationTweenX = n2dTweenAdd(&m_CurrentAccelerationX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true, TweenTypes::EaseInCubic);
-				n2dTweenEnable(m_AccelerationTweenX, false, true);
-				m_CurrentAccelerationX = 0;
+			m_AccelerationTweenX = n2dTweenAdd(&m_CurrentAccelerationX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false, TweenTypes::EaseInCubic);
+			n2dTweenEnable(m_AccelerationTweenX, false, true);
+			m_CurrentAccelerationX = 0;
 
-				m_AccelerationTweenY = n2dTweenAdd(&m_CurrentAccelerationY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, true, TweenTypes::EaseInCubic);
-				n2dTweenEnable(m_AccelerationTweenY, false, true);
-				m_CurrentAccelerationY = 0;
-			}
+			m_AccelerationTweenY = n2dTweenAdd(&m_CurrentAccelerationY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false, TweenTypes::EaseInCubic);
+			n2dTweenEnable(m_AccelerationTweenY, false, true);
+			m_CurrentAccelerationY = 0;
 
 			m_UsingAcceleration = true;
 		}
@@ -63,15 +54,8 @@ namespace novazero
 				{
 					// deaccelerate
 					m_StoppingX = true;
-
-					switch (m_AccelerationType)
-					{
-					case AccelerationTypes::Linear:
-					default:
-						n2dTweenReconfigure(m_AccelerationTweenX, m_CurrentAccelerationX, 0, m_TotalDeaccelerationSpeedMS, false, false);
-						n2dTweenEnable(m_AccelerationTweenX, true, false);
-						break;
-					}
+					n2dTweenReconfigure(m_AccelerationTweenX, m_CurrentAccelerationX, 0.f, m_TotalDeaccelerationSpeedMS, false, false);
+					n2dTweenEnable(m_AccelerationTweenX, true, false);
 				}
 			}
 		}
@@ -85,19 +69,12 @@ namespace novazero
 
 			if (m_StoppingY)
 			{
-				if (m_AccelerationTweenY && m_CurrentAccelerationY > 0)
+				if (m_AccelerationTweenY && m_CurrentAccelerationY > 0.0f)
 				{
 					// deaccelerate
 					m_StoppingY = true;
-
-					switch (m_AccelerationType)
-					{
-					case AccelerationTypes::Linear:
-					default:
-						n2dTweenReconfigure(m_AccelerationTweenY, m_CurrentAccelerationY, 0, m_TotalDeaccelerationSpeedMS, false, false);
-						n2dTweenEnable(m_AccelerationTweenY, true, false);
-						break;
-					}
+					n2dTweenReconfigure(m_AccelerationTweenY, m_CurrentAccelerationY, 0, m_TotalDeaccelerationSpeedMS, false, false);
+					n2dTweenEnable(m_AccelerationTweenY, true, false);
 				}
 			}
 		}
@@ -126,6 +103,9 @@ namespace novazero
 
 		void SimpleController::DestroySelf()
 		{
+			if (m_Sprite)
+				m_Sprite->DestroySelf();
+
 			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffected(this);
 		}
 	}

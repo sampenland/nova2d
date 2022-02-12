@@ -102,6 +102,10 @@ namespace novazero
 			static unsigned int GetScore() { return s_Score; }
 			static void SetScore(unsigned int score) { s_Score = score; }
 
+			static bool s_Debug;
+			static bool IsDebug() { return s_Debug; }
+			static void SetDebug(bool val) { s_Debug = val; }
+
 			static float s_TimeScale;
 
 			static bool s_Running;

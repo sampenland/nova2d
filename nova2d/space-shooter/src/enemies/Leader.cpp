@@ -7,8 +7,6 @@
 
 namespace spaceshooter
 {
-	bool Leader::s_Debug = false;
-
 	int Leader::s_PawnCount = 0;
 	int Leader::s_PawnWave = 0;
 	std::vector<Pawn*> Leader::s_Pawns;
@@ -63,7 +61,7 @@ namespace spaceshooter
 
 	void Leader::WatchPawns()
 	{
-		if (s_Debug) return;
+		if (n2dDebug) return;
 
 		if (s_PawnWave >= 4)
 		{
@@ -135,7 +133,7 @@ namespace spaceshooter
 
 	void Leader::GeneratePawnWave(char rows, char cols)
 	{
-		if (s_Debug) return;
+		if (n2dDebug) return;
 
 		const int moveForward = 132 + (rows * 32);
 		for (int row = 0; row < rows; row++)
@@ -302,20 +300,9 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
-		if (s_Debug) return;
+		if (n2dDebug) return;
 
-		std::string playerNumber = "player1";
-
-		if (Lvl1::s_Players != 1)
-		{
-			float rnd = n2dRandomFloat(0, 10);
-			if (rnd > 5)
-			{
-				playerNumber = "player2";
-			}
-		}
-
-		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced(playerNumber);
+		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
 		bullet->AddSprite("leader-bullet", Vec2(GetX(), GetY() + 32), Vec2Int(16, 16), 1);
 		bullet->ConfigureCollider(bullet->GetSprite(), 0, "leader-bullet");
@@ -326,8 +313,8 @@ namespace spaceshooter
 		
 		auto onCollision = new auto ([=](Collision* collision)
 		{
-			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player1-bullet";
-			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player1-bullet";
+			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player-bullet";
+			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player-bullet";
 
 			bool collAisPlayer2Bullet = collision->m_ColliderA->m_ColliderName == "player2-bullet";
 			bool collBisPlayer2Bullet = collision->m_ColliderB->m_ColliderName == "player2-bullet";

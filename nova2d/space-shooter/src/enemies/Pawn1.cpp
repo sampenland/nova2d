@@ -19,11 +19,10 @@ namespace spaceshooter
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 
-	void Pawn1::Hurt(int damage, const std::string& damager)
+	void Pawn1::Hurt(int damage)
 	{
 		if (m_Alive)
 		{
-			m_KilledBy = damager;
 			n2dScoreAdd(25);
 			DisplayHit(25);
 			DestroySelf();
@@ -32,23 +31,7 @@ namespace spaceshooter
 
 	void Pawn1::Shoot()
 	{
-		Player* player;
-		if (Lvl1::s_Players == 1)
-		{
-			player = (Player*)n2dReferenceGet("player1");
-		}
-		else
-		{
-			if (n2dCoinFlip())
-			{
-				player = (Player*)n2dReferenceGet("player1");
-			}
-			else
-			{
-				player = (Player*)n2dReferenceGet("player2");
-
-			}
-		}
+		Player* player = (Player*)n2dReferenceGet("player");
 
 		SimpleWeakAI* pawn1Bullet = new SimpleWeakAI();
 		pawn1Bullet->EnableAI(true);

@@ -4,11 +4,6 @@ namespace novazero
 {
 	namespace core
 	{
-		enum class AccelerationTypes
-		{
-			Linear
-		};
-
 		// Max gamepads
 		#define MAX_JOYSTICKS 8
 
@@ -25,6 +20,9 @@ namespace novazero
 
 	}
 }
+
+#define n2dDebug novazero::core::Game::IsDebug()
+#define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
 
 /*
 nova2d Get Unique Game ID

@@ -72,7 +72,7 @@ namespace novazero
 			if (newX - (int)newX > 0) newX = ceil(newX);
 			if (newY - (int)newY > 0) newY = ceil(newY);
 
-			m_Sprite->SetPosition(Vec2(newX, newY));
+			m_Sprite->SetPositionInt(Vec2Int((int)newX, (int)newY));
 
 		}
 

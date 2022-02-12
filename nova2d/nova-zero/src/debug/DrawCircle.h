@@ -17,7 +17,7 @@ namespace novazero
 
 		private:
 
-			int m_Radius = 1;
+			float m_Radius = 1;
 			int m_CleanID = 0;
 			bool m_Filled = false;
 			bool m_Visible = true;
@@ -26,12 +26,13 @@ namespace novazero
 
 		public:
 
-			DrawCircle(const std::string& filleColor, const std::string& outlineColor, bool filled, Vec2 position, int radius, char layer);
+			DrawCircle(const std::string& filleColor, const std::string& outlineColor, 
+				bool filled, Vec2 position, float radius, char layer);
 
-			int GetDrawCircleRadius() { return m_Radius; }
-			int* GetDrawCircleRadiusRef() { return &m_Radius; }
+			float GetDrawCircleRadius() { return m_Radius; }
+			float* GetDrawCircleRadiusRef() { return &m_Radius; }
 			bool IsDrawCircleFilled() { return m_Filled; }
-			void SetDrawCircleRadius(int r) { m_Radius = r; }
+			void SetDrawCircleRadius(float r) { m_Radius = r; }
 
 			void SetVisible(bool v) { m_Visible = v; }
 

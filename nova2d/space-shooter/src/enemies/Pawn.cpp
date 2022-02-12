@@ -61,7 +61,7 @@ namespace spaceshooter
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 
-	void Pawn::Hurt(int damage, const std::string& damager)
+	void Pawn::Hurt(int damage)
 	{
 		SmallExplosion();
 
@@ -70,7 +70,6 @@ namespace spaceshooter
 		{
 			if (m_Alive)
 			{
-				m_KilledBy = damager;
 				n2dScoreAdd(14);
 				DisplayHit(14);
 				DestroySelf();
@@ -108,17 +107,7 @@ namespace spaceshooter
 		if (m_Destroyed) return;
 		m_Destroyed = true;
 
-		if (Lvl1::s_Players == 1)
-		{
-			Player* player1 = (Player*)n2dReferenceGet("player1");
-		}
-		else
-		{
-			Player* player1 = (Player*)n2dReferenceGet("player1");
-			Player* player2 = (Player*)n2dReferenceGet("player2");
-		}
-
-		Player::NewKill(m_KilledBy);
+		Player::NewKill();
 
 		m_Alive = false;
 

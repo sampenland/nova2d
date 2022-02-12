@@ -31,8 +31,5 @@ namespace spaceshooter
 
 		void Update() override;
 
-	public:
-
-		static char s_Players;
 	};
 }

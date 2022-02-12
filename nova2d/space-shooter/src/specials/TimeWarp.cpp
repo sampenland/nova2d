@@ -22,10 +22,10 @@ namespace spaceshooter
 		m_Sprite = new Sprite("clock", Vec2(position.x - 8, position.y - 8), Vec2Int(16, 16), 0);
 		m_Sprite->ConfigureAnimation(0, 4, 4, 250, true);
 
-		int* ptrToRadius = GetEffectorRadiusRef();
+		float* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			//m_TweenID = n2dTweenAddInt(ptrToRadius, (float)effectRadius, 1.0f, 1000.0f, true, true);
+			m_TweenID = n2dTweenAdd(ptrToRadius, (float)effectRadius, 1.0f, 1000.f, true, true, TweenTypes::EaseInCubic);
 		}
 
 		ConfigureCollider(m_Sprite, 0, "clock");
@@ -63,10 +63,10 @@ namespace spaceshooter
 			n2dTweenRemove(m_TweenID);
 		}
 
-		int* ptrToRadius = GetEffectorRadiusRef();
+		float* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)
 		{
-			//m_TweenID = n2dTweenAddInt(ptrToRadius, 1.0f, (float)m_EffectRadius, 600.0f, false, true);
+			m_TweenID = n2dTweenAdd(ptrToRadius, 1.0f, (float)m_EffectRadius, 600.0f, false, true, TweenTypes::EaseInCubic);;
 		}
 
 		m_DestroyTimer = new Timer(m_DestroyTime, false, std::bind(&TimeWarp::DestroySelf, this));

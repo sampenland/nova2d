@@ -27,7 +27,6 @@ namespace novazero
 		public:
 
 			SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
-			~SimpleController();
 
 			void SetMoveSpeed(float mSpeed);
 			void MovementIsZeroX();
@@ -55,7 +54,7 @@ namespace novazero
 
 		protected:
 
-			void SetAcceleration(AccelerationTypes type, float accelerationTimeMS, float deaccelerationTimeMS);
+			void SetAcceleration(TweenTypes type, float accelerationTimeMS, float deaccelerationTimeMS);
 			bool IsUsingAcceleration() { return m_UsingAcceleration; }
 
 		public:
@@ -72,7 +71,7 @@ namespace novazero
 			float m_CurrentAccelerationX = 0.0f;
 			float m_CurrentAccelerationY = 0.0f;
 
-			AccelerationTypes m_AccelerationType = AccelerationTypes::Linear;
+			TweenTypes m_AccelerationType = TweenTypes::EaseInCubic;
 			float m_TotalAccelerationSpeedMS = 1000.f;
 			float m_TotalDeaccelerationSpeedMS = 1000.f;
 

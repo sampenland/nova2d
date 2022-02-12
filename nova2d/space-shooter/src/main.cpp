@@ -58,6 +58,8 @@ int main(int argc, char* argv[])
 	
 	n2dGameConfigFirstScene(mainMenuScene);
 
+	n2dDebugSet(true);
+
 	while (Game::IsRunning())
 	{
 		game.Tick();

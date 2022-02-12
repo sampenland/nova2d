@@ -22,7 +22,7 @@ namespace novazero
 			float end = 0.f;
 			float current = 0.f;
 			bool invert = false;
-			float* referenceP;
+			float* referenceP = nullptr;
 			bool loop = false;
 			bool deleteOnComplete = true;
 			bool enabled = true;
@@ -190,7 +190,7 @@ namespace novazero
 				m_Tweens[tweenID]->enabled = enabled;
 
 				if (reset)
-					m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
+					m_Tweens[tweenID]->xCurrent = 0;
 			}
 		}
 
@@ -198,7 +198,7 @@ namespace novazero
 		{
 			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
-				m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
+				m_Tweens[tweenID]->xCurrent = 0;
 			}
 		}
 
@@ -207,15 +207,30 @@ namespace novazero
 		{
 			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
-				
-				// TODO: re setup values
+				m_Tweens[tweenID]->durationMS = durationMS;
+				m_Tweens[tweenID]->invert = end < start;
 
+				if (m_Tweens[tweenID]->invert)
+				{
+					m_Tweens[tweenID]->initStart = end;
+					m_Tweens[tweenID]->end = start;
+				}
+				else
+				{
+					m_Tweens[tweenID]->initStart = start;
+					m_Tweens[tweenID]->end = end;
+				}
+
+				m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
+				m_Tweens[tweenID]->xStart = 0.f;
+				m_Tweens[tweenID]->xCurrent = 0.f;
+				m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
+				
 				m_Tweens[tweenID]->loop = loop;
 				m_Tweens[tweenID]->deleteOnComplete = autoDelete;
 
 				if (!autoDelete)
-					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID));
-
+					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); m_Tweens[tweenID]->loop = loop;
 			}
 		}
 
@@ -227,12 +242,18 @@ namespace novazero
 			{
 				if (it->second->xCurrent >= 1.f)
 				{
-					it = m_Tweens.erase(it);
-					continue;
+					if (it->second->deleteOnComplete)
+					{
+						it = m_Tweens.erase(it);
+						continue;
+					}
 				}
 
 				if (!it->second->enabled)
+				{
+					it++;
 					continue;
+				}
 
 				InterfaceToEasings(*it->second);
 
@@ -246,7 +267,10 @@ namespace novazero
 			float percentToEnd = tween.tweenEasingFunc(tween.xCurrent);
 			float value = percentToEnd * tween.end;
 			
-			tween.xCurrent += tween.xStep;
+			if (tween.xCurrent < 1.0f)
+			{
+				tween.xCurrent += tween.xStep;
+			}
 
 			if (tween.invert)
 			{

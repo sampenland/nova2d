@@ -7,7 +7,7 @@ namespace novazero
 	{
 		using namespace core;
 
-		TimeEffector::TimeEffector(Vec2 position, float timeEffect, int effectRadius, 
+		TimeEffector::TimeEffector(Vec2 position, float timeEffect, float effectRadius, 
 			Rect effectRect, TimeEffectorType type) : Deleteable("timeEffector_")
 		{
 			m_ID = n2dGameGetID();
@@ -40,7 +40,7 @@ namespace novazero
 				if (m_EffectCircle)
 					m_EffectCircle->DestroySelf();
 
-				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, m_EffectRadius, layer);
+				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, (float)m_EffectRadius, layer);
 			}
 			else
 			{

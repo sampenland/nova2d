@@ -25,7 +25,7 @@ namespace novazero
 		// Graver Types:
 		// implosion and explosion will use the vec2int.x value for strength
 		// others use vec2int
-		Graver::Graver(GraverType type, int effectRadius, 
+		Graver::Graver(GraverType type, float effectRadius, 
 			Vec2 defaultGraverEffectMag, Positional* physicalHook) : Deleteable("graver")
 		{
 			m_ID = n2dGameGetID();
@@ -52,7 +52,7 @@ namespace novazero
 		// Graver Types:
 		// implosion and explosion will use the vec2int.x value for strength
 		// others use vec2int
-		void Graver::ConfigureGraver(GraverType type, int effectRadius, 
+		void Graver::ConfigureGraver(GraverType type, float effectRadius, 
 			Vec2 defaultGraverEffectMag, Positional* physicalHook)
 		{
 			m_GraverType = type;
@@ -102,7 +102,7 @@ namespace novazero
 		}
 
 		void Graver::ConfigureGraverVisible(bool filled, std::string fillColor, std::string outlineColor,
-			int radius, char layer)
+			float radius, char layer)
 		{
 			if (m_EffectCircle)
 				m_EffectCircle->DestroySelf();
@@ -143,11 +143,6 @@ namespace novazero
 
 			return std::pow(otherCenter.x - selfCenter.x, 2) +
 				std::pow(otherCenter.y - selfCenter.y, 2) < std::pow(m_GraverEffectRadius, 2);
-		}
-
-		Graver::~Graver()
-		{
-			
 		}
 
 		void Graver::DestroySelf()

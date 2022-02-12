@@ -10,7 +10,7 @@ namespace novazero
 		using namespace graphics;
 
 		DrawCircle::DrawCircle(const std::string& fillColor, const std::string& outlineColor,
-			bool filled, Vec2 position, int radius, char layer)
+			bool filled, Vec2 position, float radius, char layer)
 			: Drawable(), Deleteable("circle_")
 		{
 			m_DeleteName = "circle_" + std::to_string(m_ID);
@@ -41,9 +41,9 @@ namespace novazero
 			int x = (int)GetX();
 			int y = (int)GetY();
 
-			if (m_Radius < 1)
+			if (m_Radius < 1.f)
 			{
-				m_Radius = 2;
+				m_Radius = 2.f;
 				LOG(LVL_WARNING, "Circle radius too small. Defaulting to 2.");
 			}
 
@@ -52,13 +52,13 @@ namespace novazero
 			{
 				Color* fc = n2dGetColor(m_FillColor);
 				r = filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(), x, y, 
-					m_Radius, fc->r, fc->g, fc->b, fc->a);
+					(int)m_Radius, fc->r, fc->g, fc->b, fc->a);
 			}
 			else
 			{
 				Color* oc = n2dGetColor(m_OutlineColor);
 				r = circleRGBA(Game::s_Renderer->GetSDLRenderer(), x, y,
-					m_Radius, oc->r, oc->g, oc->b, oc->a);
+					(int)m_Radius, oc->r, oc->g, oc->b, oc->a);
 			}
 
 			if (r != 0)

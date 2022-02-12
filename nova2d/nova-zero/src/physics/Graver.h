@@ -34,7 +34,7 @@ namespace novazero
 		public:
 
 			unsigned int m_ID = 0;
-			int m_GraverEffectRadius = 2;
+			float m_GraverEffectRadius = 2.f;
 			bool m_LookAtTarget = true;
 		
 			Vec2 m_GraverEffectMagnitude;
@@ -48,17 +48,16 @@ namespace novazero
 			Graver();
 		public:
 
-			Graver(GraverType type, int effectRadius, 
+			Graver(GraverType type, float effectRadius,
 				Vec2 defaultGraverEffectMag, Positional* physicalHook);
-			~Graver();
 
-			void ConfigureGraver(GraverType type, int effectRadius, 
+			void ConfigureGraver(GraverType type, float effectRadius, 
 				Vec2 defaultGraverEffectMag, Positional* physicalHook);
 
 			void GonfigureLookAt(bool lookAt) { m_LookAtTarget = lookAt; }
 
 			void ConfigureGraverVisible(bool filled, std::string fillColor, std::string outlineColor,
-				int radius, char layer);
+				float radius, char layer);
 
 			void AddEffectedGraver(Graver* graver);
 			void RemoveEffectedGraver(Graver* graver);

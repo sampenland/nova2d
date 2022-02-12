@@ -15,10 +15,10 @@ namespace spaceshooter
 
 	void Pawn1Controller::CreatePawn1()
 	{
-		auto r = n2dRandomFloat(0, 10);
+		if (n2dDebug) return;
 
 		int x = -16;
-		if (r > 5)
+		if (n2dCoinFlip())
 		{
 			x = Game::s_Width + 16;
 		}
@@ -27,24 +27,8 @@ namespace spaceshooter
 
 		Pawn1* pawn1 = new Pawn1(Vec2((float)x, (float)y));
 
-		Player* player;
-		if (Lvl1::s_Players == 1)
-		{
-			player = (Player*)n2dReferenceGet("player1");
-		}
-		else
-		{
-			if (n2dCoinFlip())
-			{
-				player = (Player*)n2dReferenceGet("player1");
-			}
-			else
-			{
-				player = (Player*)n2dReferenceGet("player2");
-
-			}
-		}
-
+		Player* player = (Player*)n2dReferenceGet("player");
+		
 		Vec2 targetPosition = player->GetPosition();
 		pawn1->AddPatrolPointWithFunction(targetPosition, std::bind(&Pawn1::LinearPatrolMove, pawn1));
 		pawn1->EnableAI(true);

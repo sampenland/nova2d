@@ -40,7 +40,6 @@ namespace spaceshooter
 	
 		static std::vector<Pawn*> s_Pawns;
 		static int s_PawnCount;
-		static bool s_Debug;
 	
 	public:
 

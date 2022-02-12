@@ -27,12 +27,14 @@ namespace novazero
 			EnableXbox360(false);
 		}
 
-		void UDRLController::ConfigureMove(float moveSpeed, float accelerationMS, float deaccelerationTimeMS)
+		void UDRLController::ConfigureMove(float moveSpeed, 
+			TweenTypes accelerationType, float accelerationMS,	
+			float deaccelerationTimeMS)
 		{
 			SetMoveSpeed(moveSpeed);
 			if (accelerationMS != 0)
 			{
-				SetAcceleration(AccelerationTypes::Linear, accelerationMS, deaccelerationTimeMS);
+				SetAcceleration(accelerationType, accelerationMS, deaccelerationTimeMS);
 			}
 		}
 

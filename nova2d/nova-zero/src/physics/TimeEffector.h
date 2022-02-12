@@ -37,21 +37,22 @@ namespace novazero
 			DrawCircle* m_EffectCircle = nullptr;
 			Rect* m_EffectRectHolder = nullptr;
 			DrawRect* m_EffectRect = nullptr;
-			int m_EffectRadius = 2;
+			float m_EffectRadius = 2.f;
 			float m_TimeEffect = 1.0f;
 			bool m_IsCircleEffect = true;
 
 		protected:
 		public:
 
-			TimeEffector(Vec2 position, float timeEffect, int effectRadius, Rect effectRect, TimeEffectorType type);
+			TimeEffector(Vec2 position, float timeEffect, float effectRadius, 
+				Rect effectRect, TimeEffectorType type);
 			
 			void ConfigureTimeEffector(float timeEffect);
 
 			void ConfigureTimeEffectorVisible(bool filled, const std::string& fillColor,
 				const std::string& outlineColor, char layer);
 
-			int* GetEffectorRadiusRef() 
+			float* GetEffectorRadiusRef() 
 			{ 
 				if (m_EffectCircle)
 				{
@@ -60,7 +61,7 @@ namespace novazero
 				return nullptr;
 			}
 
-			int GetEffectorRadius()
+			float GetEffectorRadius()
 			{
 				if (m_EffectCircle)
 				{
