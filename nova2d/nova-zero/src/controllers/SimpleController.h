@@ -63,11 +63,7 @@ namespace novazero
 			unsigned int m_AccelerationTweenY = 0;
 			float m_MoveSpeed = 0.0f;
 			
-			bool m_StoppingX = true;
-			bool m_StoppingY = false;
-
-			bool m_StartingX = false;
-			bool m_StartingY = false;
+			bool m_AcceleratingX = false;
 			bool m_AcceleratingY = false;
 
 			float m_CurrentAccelerationX = 0.0f;
@@ -76,8 +72,6 @@ namespace novazero
 			TweenTypes m_AccelerationType = TweenTypes::EaseInCubic;
 			float m_TotalAccelerationSpeedMS = 1000.f;
 			float m_TotalDeaccelerationSpeedMS = 1000.f;
-
-			Vec2 m_Velocity = Vec2(0, 0);
 
 			void EnableAcceleration(bool v) { m_UsingAcceleration = v; }
 

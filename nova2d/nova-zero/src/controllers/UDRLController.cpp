@@ -126,7 +126,7 @@ namespace novazero
 			float timeScaleY = m_CurrentAccelerationY * n2dTimeScale * GetTimeInfluence();
 
 			Vec2 pos = GetPosition();
-			float newX = pos.x + (m_Velocity.x * timeScaleX);
+			float newX = pos.x + (timeScaleX);
 			float newY = pos.y + (timeScaleY);
 
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
@@ -139,35 +139,53 @@ namespace novazero
 				SetY(newY);
 			}
 
+			bool xKeys = n2dIsKeyDown(SDLK_a) || n2dIsKeyDown(SDLK_d) ||
+				n2dIsKeyDown(SDLK_RIGHT) || n2dIsKeyDown(SDLK_LEFT);
+
+			if (!xKeys && m_AcceleratingX)
+			{
+				m_AcceleratingX = false;
+				n2dTweenReconfigure(m_AccelerationTweenX, m_CurrentAccelerationX, 0.f, m_TotalDeaccelerationSpeedMS, false, false);
+				n2dTweenEnable(m_AccelerationTweenX, true, false);
+			}
+
 			bool yKeys = n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_s) || 
 				n2dIsKeyDown(SDLK_UP) || n2dIsKeyDown(SDLK_DOWN);
 
-			if (!yKeys)
+			if (!yKeys && m_AcceleratingY)
 			{
 				m_AcceleratingY = false;
-				n2dTweenSetDuration(m_AccelerationTweenY, m_TotalDeaccelerationSpeedMS);
+				n2dTweenReconfigure(m_AccelerationTweenY, m_CurrentAccelerationY, 0.f, m_TotalDeaccelerationSpeedMS, false, false);
 				n2dTweenEnable(m_AccelerationTweenY, true, false);
 			}
 				
 		}
 
-		void UDRLController::AccelerateX()
+		void UDRLController::AccelerateX(bool left)
 		{
-			if (!m_StartingX)
+			if (m_AcceleratingX)
 			{
-				m_StartingX = true;
-				m_StoppingX = false;
-
-				n2dTweenReconfigure(m_AccelerationTweenX, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false);
-				n2dTweenEnable(m_AccelerationTweenX, true, true);
+				return;
 			}
+
+			m_AcceleratingX = true;
+
+			float start = 0.f;
+			float end = m_MoveSpeed;
+
+			if (left)
+			{
+				end *= -1;
+			}
+
+			n2dTweenReconfigure(m_AccelerationTweenX, start, end, m_TotalAccelerationSpeedMS, false, false);
+			n2dTweenEnable(m_AccelerationTweenX, true, true);
 		}
 
 		void UDRLController::AccelerateY(bool up)
 		{
 			if (m_AcceleratingY)
 			{
-				n2dTweenEnable(m_AccelerationTweenY, false, false);
 				return;
 			}
 
@@ -179,11 +197,6 @@ namespace novazero
 			if (up)
 			{
 				end *= -1;
-			}
-			else
-			{
-				start = m_MoveSpeed;
-				end = 0.f;
 			}
 
 			n2dTweenReconfigure(m_AccelerationTweenY, start, end, m_TotalAccelerationSpeedMS, false, false);
@@ -202,16 +215,12 @@ namespace novazero
 
 		void UDRLController::MoveRight()
 		{
-			if (m_Velocity.x == 1) return;
-			AccelerateX();
-			m_Velocity.x = 1;
+			AccelerateX(false);
 		}
 
 		void UDRLController::MoveLeft()
 		{
-			if (m_Velocity.x == -1) return;
-			AccelerateX();
-			m_Velocity.x = -1;
+			AccelerateX(true);
 		}
 
 		void UDRLController::DestroySelf()

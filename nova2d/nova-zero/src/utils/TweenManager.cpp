@@ -268,6 +268,11 @@ namespace novazero
 					m_Tweens[tweenID]->negate = true;
 					end *= -1;
 				}
+				else if (start < 0.f)
+				{
+					m_Tweens[tweenID]->negate = true;
+					start *= -1;
+				}
 				else
 				{
 					m_Tweens[tweenID]->negate = false;
@@ -357,20 +362,14 @@ namespace novazero
 				else
 				{
 					tween.completed = true;
-					tween.xCurrent = 0.f;
-					
-					if (tween.isFloat)
-						*tween.referenceF = 0.f;
-					else
-						*tween.referenceI = 0;
-
-					return;
+					tween.xCurrent = 1.f;
+					percentToEnd = 1.f;
 				}
 			}
 
 			if (tween.negate)
 			{
-				if (tween.invert)
+				if (!tween.invert)
 				{
 					value = (1.f - percentToEnd) * tween.initStart;
 				}
@@ -391,7 +390,6 @@ namespace novazero
 			float current = tween.current / tween.end;
 			float easingValue = tween.tweenEasingFunc(current);
 
-			LOG(LVL_INFO, std::to_string(tween.xCurrent) + " :: " + std::to_string(value));
  			if (tween.isFloat)
 			{
 				*tween.referenceF = (float)value;

@@ -41,30 +41,6 @@ namespace novazero
 			m_UsingAcceleration = true;
 		}
 
-		void SimpleController::MovementIsZeroX()
-		{
-			if (m_CurrentAccelerationX < 1 && m_Velocity != Vec2(0.0f, 0.0f))
-			{
-				m_Velocity.x = 0.f;
-			}
-
-			if (m_StoppingX)
-			{
-				if (m_AccelerationTweenX && m_CurrentAccelerationX > 0)
-				{
-					// deaccelerate
-					m_StoppingX = true;
-					n2dTweenReconfigure(m_AccelerationTweenX, m_CurrentAccelerationX, 0.f, m_TotalDeaccelerationSpeedMS, false, false);
-					n2dTweenEnable(m_AccelerationTweenX, true, false);
-				}
-			}
-		}
-
-		void SimpleController::MovementIsZeroY()
-		{
-			
-		}
-
 		void SimpleController::SetPositionInt(int x, int y)
 		{
 			m_Sprite->SetX((float)x);
