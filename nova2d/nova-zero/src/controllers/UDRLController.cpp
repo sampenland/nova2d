@@ -15,10 +15,7 @@ namespace novazero
 			EnableArrowKeys(true);
 			EnableXbox360(true);
 
-			auto cleanID = n2dAddUpdater(UDRLController::ResetAccelerationCheck, this);
-			SimpleController::m_CleanUpdaters.push_back(cleanID);
-
-			cleanID = n2dAddUpdater(UDRLController::UpdateController, this);
+			auto cleanID = n2dAddUpdater(UDRLController::UpdateController, this);
 			SimpleController::m_CleanUpdaters.push_back(cleanID);
 		}
 
@@ -124,14 +121,13 @@ namespace novazero
 
 		void UDRLController::UpdateController()
 		{
-			if (m_Velocity == Vec2(0.f, 0.f)) return;
 
 			float timeScaleX = m_CurrentAccelerationX * n2dTimeScale * GetTimeInfluence();
 			float timeScaleY = m_CurrentAccelerationY * n2dTimeScale * GetTimeInfluence();
 
 			Vec2 pos = GetPosition();
 			float newX = pos.x + (m_Velocity.x * timeScaleX);
-			float newY = pos.y + (m_Velocity.y * timeScaleY);
+			float newY = pos.y + (timeScaleY);
 
 			if (IsWithinMoveBounds((int)newX, (int)pos.y))
 			{
@@ -142,6 +138,17 @@ namespace novazero
 			{
 				SetY(newY);
 			}
+
+			bool yKeys = n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_s) || 
+				n2dIsKeyDown(SDLK_UP) || n2dIsKeyDown(SDLK_DOWN);
+
+			if (!yKeys)
+			{
+				m_AcceleratingY = false;
+				n2dTweenSetDuration(m_AccelerationTweenY, m_TotalDeaccelerationSpeedMS);
+				n2dTweenEnable(m_AccelerationTweenY, true, false);
+			}
+				
 		}
 
 		void UDRLController::AccelerateX()
@@ -156,32 +163,41 @@ namespace novazero
 			}
 		}
 
-		void UDRLController::AccelerateY()
+		void UDRLController::AccelerateY(bool up)
 		{
-			if (!m_StartingY)
+			if (m_AcceleratingY)
 			{
-				m_StartingY = true;
-				m_StoppingY = false;
-
-				n2dTweenReconfigure(m_AccelerationTweenY, 0, m_MoveSpeed, m_TotalAccelerationSpeedMS, false, false);
-				n2dTweenEnable(m_AccelerationTweenY, true, true);
+				n2dTweenEnable(m_AccelerationTweenY, false, false);
+				return;
 			}
+
+			m_AcceleratingY = true;
+
+			float start = 0.f;
+			float end = m_MoveSpeed;
+
+			if (up)
+			{
+				end *= -1;
+			}
+			else
+			{
+				start = m_MoveSpeed;
+				end = 0.f;
+			}
+
+			n2dTweenReconfigure(m_AccelerationTweenY, start, end, m_TotalAccelerationSpeedMS, false, false);
+			n2dTweenEnable(m_AccelerationTweenY, true, true);
 		}
 
 		void UDRLController::MoveUp()
 		{
-			if (m_Velocity.y == -1) return;
-			AccelerateY();
-			m_Velocity.y = -1;
-			m_Moving.y = 1;
+			AccelerateY(true);
 		}
 
 		void UDRLController::MoveDown()
 		{
-			if (m_Velocity.y == 1) return;
-			AccelerateY();
-			m_Velocity.y = 1;
-			m_Moving.y = 1;
+			AccelerateY(false);
 		}
 
 		void UDRLController::MoveRight()
@@ -189,7 +205,6 @@ namespace novazero
 			if (m_Velocity.x == 1) return;
 			AccelerateX();
 			m_Velocity.x = 1;
-			m_Moving.x = 1;
 		}
 
 		void UDRLController::MoveLeft()
@@ -197,7 +212,6 @@ namespace novazero
 			if (m_Velocity.x == -1) return;
 			AccelerateX();
 			m_Velocity.x = -1;
-			m_Moving.x = 1;
 		}
 
 		void UDRLController::DestroySelf()
@@ -215,40 +229,5 @@ namespace novazero
 			SimpleController::SetDeleted(true);
 		}
 
-		void UDRLController::ResetAccelerationCheck()
-		{
-			if (IsUsingAcceleration())
-			{
-				if (
-					Game::s_InputHandler->IsKeyUp(SDLK_a) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_d) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_RIGHT) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_LEFT)
-					)
-				{
-					if (m_StartingX)
-					{
-						m_StartingX = false;
-						m_StoppingX = true;
-						MovementIsZeroX();
-					}
-				}
-
-				if (
-					Game::s_InputHandler->IsKeyUp(SDLK_w) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_s) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_UP) &&
-					Game::s_InputHandler->IsKeyUp(SDLK_DOWN)
-					)
-				{
-					if (m_StartingY)
-					{
-						m_StartingY = false;
-						m_StoppingY = true;
-						MovementIsZeroY();
-					}
-				}
-			}
-		}
 	}
 }

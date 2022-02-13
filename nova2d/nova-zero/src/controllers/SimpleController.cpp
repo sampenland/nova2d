@@ -62,21 +62,7 @@ namespace novazero
 
 		void SimpleController::MovementIsZeroY()
 		{
-			if (m_CurrentAccelerationY < 1 && m_Velocity.y != 0.0f)
-			{
-				m_Velocity.y = 0.f;
-			}
-
-			if (m_StoppingY)
-			{
-				if (m_AccelerationTweenY && m_CurrentAccelerationY > 0.0f)
-				{
-					// deaccelerate
-					m_StoppingY = true;
-					n2dTweenReconfigure(m_AccelerationTweenY, m_CurrentAccelerationY, 0, m_TotalDeaccelerationSpeedMS, false, false);
-					n2dTweenEnable(m_AccelerationTweenY, true, false);
-				}
-			}
+			
 		}
 
 		void SimpleController::SetPositionInt(int x, int y)

@@ -175,6 +175,18 @@ Enable/disable a tween
 #define n2dTweenEnable(id, enabled, reset) novazero::core::Game::s_SceneManager->s_TweenManager->EnableTween(id, enabled, reset);
 
 /*
+nova2d Set Loop Index For Tween (unsigned int tweenID, loopIDX)
+Sets the value for when a tween hits the end and is set to loop
+*/
+#define n2dTweenSetLoopIndex(id, index) novazero::core::Game::s_SceneManager->s_TweenManager->SetTweenLoopValue(id, index);
+
+/*
+nova2d Resets duration for tween (unsigned int tweenID, newDurationMS)
+Sets the value for when a tween hits the end and is set to loop
+*/
+#define n2dTweenSetDuration(id, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->ResetDuration(id, durationMS);
+
+/*
 nova2d Reconfigure Tween (unsigned int tweenID, float start, float end, 
 float durationMS, bool loop, bool autodelete)
 Reset/reconfigure a tween with an id

@@ -131,6 +131,16 @@ namespace novazero
 			t->durationMS = durationMS;
 			t->invert = end < start;
 
+			if (end < 0.f)
+			{
+				t->negate = true;
+				end *= -1;
+			}
+			else
+			{
+				t->negate = false;
+			}
+
 			if (t->invert)
 			{
 				t->initStart = end;
@@ -145,7 +155,15 @@ namespace novazero
 			t->current = t->initStart;
 			t->xStart = 0.f;
 			t->xCurrent = 0.f;
-			t->xStep = ((t->end - t->initStart) / t->end) / (durationMS/10);
+
+			if (t->negate)
+			{
+				t->xStep = ((t->initStart - t->end) / t->initStart) / (durationMS / 10);
+			}
+			else
+			{
+				t->xStep = ((t->end - t->initStart) / t->end) / (durationMS / 10);
+			}
 
 			if (isFloat)
 			{
@@ -178,6 +196,16 @@ namespace novazero
 			m_Tweens.erase(tweenID);
 		}
 
+		void TweenManager::SetTweenLoopValue(unsigned int tweenID, float valueBtw0And1)
+		{
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
+			{
+				if (valueBtw0And1 < 0.f) valueBtw0And1 = 0.f;
+				if (valueBtw0And1 > 1.f) valueBtw0And1 = 1.f;
+				m_Tweens[tweenID]->loopResetValue = valueBtw0And1;
+			}
+		}
+
 		void TweenManager::EnableTween(unsigned int tweenID, bool enabled, bool reset)
 		{
 			if (m_Tweens.find(tweenID) != m_Tweens.end())
@@ -186,6 +214,35 @@ namespace novazero
 
 				if (reset)
 					m_Tweens[tweenID]->xCurrent = 0;
+			}
+		}
+
+		void TweenManager::SetTweenValue(unsigned int tweenID, float value)
+		{
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
+			{
+				Tween& t = *m_Tweens[tweenID];
+
+				if ((t.end > t.initStart ? t.end : t.initStart) < value) 
+					value = (t.end > t.initStart ? t.end : t.initStart);
+				t.xCurrent = value / (t.end > t.initStart ? t.end : t.initStart);
+			}
+		}
+
+		void TweenManager::ResetDuration(unsigned int tweenID, float durationMS)
+		{
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
+			{
+				m_Tweens[tweenID]->durationMS = durationMS;
+
+				if (m_Tweens[tweenID]->negate)
+				{
+					m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->initStart - m_Tweens[tweenID]->end) / m_Tweens[tweenID]->initStart) / (durationMS / 10);
+				}
+				else
+				{
+					m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
+				}
 			}
 		}
 
@@ -206,6 +263,16 @@ namespace novazero
 				m_Tweens[tweenID]->durationMS = durationMS;
 				m_Tweens[tweenID]->invert = end < start;
 
+				if (end < 0.f)
+				{
+					m_Tweens[tweenID]->negate = true;
+					end *= -1;
+				}
+				else
+				{
+					m_Tweens[tweenID]->negate = false;
+				}
+
 				if (m_Tweens[tweenID]->invert)
 				{
 					m_Tweens[tweenID]->initStart = end;
@@ -220,7 +287,15 @@ namespace novazero
 				m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
 				m_Tweens[tweenID]->xStart = 0.f;
 				m_Tweens[tweenID]->xCurrent = 0.f;
-				m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
+
+				if (m_Tweens[tweenID]->negate)
+				{
+					m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->initStart - m_Tweens[tweenID]->end) / m_Tweens[tweenID]->initStart) / (durationMS / 10);
+				}
+				else
+				{
+					m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
+				}
 				
 				m_Tweens[tweenID]->loop = loop;
 				m_Tweens[tweenID]->deleteOnComplete = autoDelete;
@@ -276,26 +351,48 @@ namespace novazero
 			{
 				if (tween.loop)
 				{
-					tween.xCurrent = 0;
+					tween.xCurrent = tween.loopResetValue;
 					return;
 				}
 				else
 				{
 					tween.completed = true;
-					tween.xCurrent = 0;
+					tween.xCurrent = 0.f;
+					
+					if (tween.isFloat)
+						*tween.referenceF = 0.f;
+					else
+						*tween.referenceI = 0;
+
 					return;
 				}
 			}
 
-			if (tween.invert)
+			if (tween.negate)
 			{
-				value = (1.f - percentToEnd) * tween.end;
+				if (tween.invert)
+				{
+					value = (1.f - percentToEnd) * tween.initStart;
+				}
+				else
+				{
+					value = percentToEnd * tween.initStart;
+				}
+				value *= -1;
+			}
+			else
+			{
+				if (tween.invert)
+				{
+					value = (1.f - percentToEnd) * tween.end;
+				}
 			}
 
 			float current = tween.current / tween.end;
 			float easingValue = tween.tweenEasingFunc(current);
 
-			if (tween.isFloat)
+			LOG(LVL_INFO, std::to_string(tween.xCurrent) + " :: " + std::to_string(value));
+ 			if (tween.isFloat)
 			{
 				*tween.referenceF = (float)value;
 			}

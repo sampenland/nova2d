@@ -38,10 +38,8 @@ namespace novazero
 
 			void UpdateController();
 
-			void ResetAccelerationCheck();
-
 			void AccelerateX();
-			void AccelerateY();
+			void AccelerateY(bool up);
 
 			void MoveUp();
 			void MoveDown();

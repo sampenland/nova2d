@@ -50,7 +50,7 @@ namespace spaceshooter
 		ConfigureCollider(m_Sprite, 0, "player");
 		SetTimeEffectEnabled(false);
 		
-		ConfigureMove(3.f, TweenTypes::EaseInExpo, 1000.f, 1000.f);
+		ConfigureMove(3.f, TweenTypes::EaseOutQuint, 3000.f, 200.f);
 		SetMoveBounds(Game::GetGameBounds());
 
 		m_ShootTimer = new Timer(SHOOT_TIME, true, std::bind(&Player::Shoot, this));

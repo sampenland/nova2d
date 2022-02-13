@@ -64,9 +64,11 @@ namespace novazero
 			float m_MoveSpeed = 0.0f;
 			
 			bool m_StoppingX = true;
-			bool m_StoppingY = true;
+			bool m_StoppingY = false;
+
 			bool m_StartingX = false;
 			bool m_StartingY = false;
+			bool m_AcceleratingY = false;
 
 			float m_CurrentAccelerationX = 0.0f;
 			float m_CurrentAccelerationY = 0.0f;
@@ -76,7 +78,6 @@ namespace novazero
 			float m_TotalDeaccelerationSpeedMS = 1000.f;
 
 			Vec2 m_Velocity = Vec2(0, 0);
-			Vec2Int m_Moving = Vec2Int(0, 0);
 
 			void EnableAcceleration(bool v) { m_UsingAcceleration = v; }
 
