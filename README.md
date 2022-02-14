@@ -1,8 +1,10 @@
 ![image](https://user-images.githubusercontent.com/49030884/151238809-8672aba8-410b-42de-84c0-c1407d83caf0.png)
 
-Simple Win32 experimental 2d SDL2 based game engine specifically made for Arcade Games.
-TODO: Plan to target Steam Deck
+nova2d
+---
+2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck. Currently in development.
 
+---
 **Feature Set**
  
  Graphics
@@ -20,7 +22,7 @@ TODO: Plan to target Steam Deck
  - Simple 2D Collision Manager
  - Simple 2D Renderering with 20 layers for PhotoShop like layer rendering
  - Gravers : Component type gravity objects that apply forces to attached objects
- - Tweens : Ability to Tween an object's X, Y, etc. from startValue to endValue in N amount of milliseconds
+ - Tweens : Ability to Tween an object's X, Y, etc. from startValue to endValue in N amount of milliseconds (all implemented curves shown here: www.easings.net )
  - TimeEffectors : aka: Time Bubbles. A circluar or rectangular area in which Time slows or speeds up. Works similar to Gravers.
 	- All 'TimeEffected' objects are effected by such Effectors.
  
