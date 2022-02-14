@@ -29,8 +29,6 @@ namespace novazero
 			SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
 
 			void SetMoveSpeed(float mSpeed);
-			void MovementIsZeroX();
-			void MovementIsZeroY();
 
 			void SetPositionInt(int x, int y);
 			void SetPosition(float x, float y);

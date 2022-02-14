@@ -121,22 +121,30 @@ namespace novazero
 
 		void UDRLController::UpdateController()
 		{
+			float accelX = m_CurrentAccelerationX;
+			float accelY = m_CurrentAccelerationY;
 
-			float timeScaleX = m_CurrentAccelerationX * n2dTimeScale * GetTimeInfluence();
-			float timeScaleY = m_CurrentAccelerationY * n2dTimeScale * GetTimeInfluence();
+			if (accelX > 0.f && accelX < 1.f) accelX = 1.f;
+			if (accelY > 0.f && accelY < 1.f) accelY = 1.f;
+
+			float timeScaleX = accelX * n2dTimeScale * GetTimeInfluence();
+			float timeScaleY = accelY * n2dTimeScale * GetTimeInfluence();
 
 			Vec2 pos = GetPosition();
-			float newX = pos.x + (timeScaleX);
-			float newY = pos.y + (timeScaleY);
+			float newX = pos.x + (timeScaleX); // fix int casting ROUND downwards to 0 speed issue
+			float newY = pos.y + (timeScaleY); // fix int casting ROUND downwards to 0 speed issue
 
-			if (IsWithinMoveBounds((int)newX, (int)pos.y))
+			if (pos != Vec2(newX, newY))
 			{
-				SetX(newX);
-			}
+				if (IsWithinMoveBounds((int)newX, (int)pos.y))
+				{
+					SetX(newX);
+				}
 
-			if (IsWithinMoveBounds((int)pos.x, (int)newY))
-			{
-				SetY(newY);
+				if (IsWithinMoveBounds((int)pos.x, (int)newY))
+				{
+					SetY(newY);
+				}
 			}
 
 			bool xKeys = n2dIsKeyDown(SDLK_a) || n2dIsKeyDown(SDLK_d) ||

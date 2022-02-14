@@ -387,9 +387,6 @@ namespace novazero
 				}
 			}
 
-			float current = tween.current / tween.end;
-			float easingValue = tween.tweenEasingFunc(current);
-
  			if (tween.isFloat)
 			{
 				*tween.referenceF = (float)value;
