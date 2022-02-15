@@ -112,7 +112,7 @@ namespace novazero
 			if(!m_CurrentScene->m_Started) m_CurrentScene->Restart();
 			m_CurrentScene->m_Started = true;
 
-			LOG(LVL_INFO, "Starting scene: " + m_CurrentScene->m_SceneName);
+			LOG(LVL_INFO, "Starting Scene [ " + m_CurrentScene->m_SceneName + " ]");
 
 			m_CurrentScene->Start();
 

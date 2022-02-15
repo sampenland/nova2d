@@ -11,7 +11,7 @@ namespace novazero
 		#define MAX_JOYSTICKS 8
 
 		// Max draw layers
-		#define MAX_LAYERS 20
+		#define MAX_LAYERS 256
 
 		// Max graver groups
 		#define MAX_GRAVER_GROUPS 255
@@ -20,6 +20,8 @@ namespace novazero
 		#define MAX_PARTICLES 255
 
 		#define PI (float)(2*acos(0.0))
+
+		#define BYTE unsigned char
 
 	}
 }

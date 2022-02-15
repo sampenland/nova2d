@@ -48,7 +48,7 @@ namespace novazero
 
 		public:
 
-			Game(const novazero::maths::Vec2Int screenSize, const char* title);
+			Game(const char* title, const novazero::maths::Vec2Int screenSize = novazero::maths::Vec2Int(1280, 800));
 			~Game();
 
 			void Tick();

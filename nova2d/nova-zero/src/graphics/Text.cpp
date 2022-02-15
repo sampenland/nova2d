@@ -13,8 +13,8 @@ namespace novazero
 			m_ID = n2dGameGetID();
 			m_DeleteName = "text_" + std::to_string(m_ID);
 
-			m_Position.x = (float)drawRect.x;
-			m_Position.y = (float)drawRect.y;
+			m_Position.x = (int)drawRect.x;
+			m_Position.y = (int)drawRect.y;
 			m_Layer = layer;
 
 			m_TextColor = colorName;

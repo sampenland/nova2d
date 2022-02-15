@@ -19,16 +19,16 @@ namespace novazero
 			bool m_Visible = false;
 			bool m_Destroyed = false;
 
+			Text* m_Title = nullptr;
+
 		public:
 
-			Director(Vec2Int position);
+			Director(Vec2Int position = Vec2Int(150, 32));
 
 			void Update();
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
-			void Show() { m_Visible = true; }
-			void Hide() { m_Visible = false; }
-			void Toggle() { m_Visible = !m_Visible; }
+			void Toggle();
 
 			void DestroySelf();
 

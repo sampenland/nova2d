@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 	using namespace controllers;
 	using namespace spaceshooter;
 
-	Game game(Vec2Int(800, 640), "Space Shooter");
+	Game game("Space Shooter");
 	game.ConfigureIcon("res/ship_01.png");
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32);

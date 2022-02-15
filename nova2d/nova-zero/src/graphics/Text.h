@@ -41,6 +41,8 @@ namespace novazero
 			std::string GetText() { return m_DisplayText; }
 			void SetDynamicWithCharMax(int max) { m_CharMax = max; m_Dynamic = true; }
 
+			void SetVisible(bool v) { m_Visible = v; }
+
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void DestroySelf();
 

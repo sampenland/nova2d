@@ -37,7 +37,7 @@ namespace novazero
 		float Game::s_TimeScale = 1.0f;
 
 		// --------------------------------
-		Game::Game(const Vec2Int screenSize, const char* title)
+		Game::Game(const char* title, const Vec2Int screenSize)
 			: m_Title(title), NOW(0), LAST(0)
 		{
 			m_SceneManager = new SceneManager();
@@ -64,7 +64,7 @@ namespace novazero
 			s_SceneManager = new SceneManager();
 			s_FontManager = new FontManager();
 			s_SQLManager = new SQLManager();
-			s_Director = new Director(Vec2Int(0, 0));
+			s_Director = new Director();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -74,7 +74,7 @@ namespace novazero
 
 			srand((unsigned int)time(NULL));
 
-			LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Game Engine started.");
+			LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started.");
 
 		}
 

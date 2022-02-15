@@ -13,7 +13,7 @@ namespace novazero
 			m_ID = n2dGameGetID();
 			m_DeleteName = "timeEffector_" + std::to_string(m_ID);
 			m_TimeEffect = timeEffect;
-			m_EffectRadius = effectRadius;
+			m_EffectRadius = (float)effectRadius;
 			
 			m_IsCircleEffect = type == TimeEffectorType::Circle;
 
@@ -40,7 +40,7 @@ namespace novazero
 				if (m_EffectCircle)
 					m_EffectCircle->DestroySelf();
 
-				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, m_EffectRadius, layer);
+				m_EffectCircle = new DrawCircle(fillColor, outlineColor, filled, m_Position, (int)m_EffectRadius, layer);
 			}
 			else
 			{
@@ -58,7 +58,7 @@ namespace novazero
 			{
 				if (m_EffectCircle->GetDrawCircleRadius() != m_EffectRadius)
 				{
-					m_EffectCircle->SetDrawCircleRadius(m_EffectRadius);
+					m_EffectCircle->SetDrawCircleRadius((int)m_EffectRadius);
 				}
 			}
 			else
