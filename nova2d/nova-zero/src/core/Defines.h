@@ -201,6 +201,12 @@ Returns realtime if key is pressed down
 #define n2dIsKeyDown(key) Game::s_InputHandler->IsKeyDown(key)
 
 /*
+nova2d Is key down (joystickID, button)
+Returns realtime if key is pressed down
+*/
+#define n2dIsJoyKeyDown(controllerID, button) Game::s_InputHandler->IsJoystickButtonDown(controllerID, button)
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */

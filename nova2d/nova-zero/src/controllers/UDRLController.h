@@ -20,6 +20,8 @@ namespace novazero
 
 			bool m_UsingJoystick = false;
 			char m_JoyStickNumber = 0;
+			bool m_JoyY = false;
+			bool m_JoyX = false;
 
 		public:
 

@@ -8,10 +8,15 @@ namespace novazero
 	{
 
 #define LVL_FATAL_ERROR "Fatal Error"
+#define LVL_FE "Fatal Error"
 #define LVL_NON_FATAL_ERROR "Non-Fatal Error"
+#define LVL_NFE "Non-Fatal Error"
 #define LVL_WARNING "Warning"
+#define LVL_W "Warning"
 #define LVL_INFO "Info"
+#define LVL_I "Info"
 #define LVL_CONFIRMATION "Confirmation"
+#define LVL_C "Confirmation"
 
 #define LOG(lvl, text) novazero::logging::Logging::LogOut(lvl, text);
 

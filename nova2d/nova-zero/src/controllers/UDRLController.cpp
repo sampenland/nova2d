@@ -97,25 +97,27 @@ namespace novazero
 
 		void UDRLController::LJoyX(float delta)
 		{
-			if (delta == 32767)
+			if (delta == 32767 || delta == -32768)
 			{
-				MoveRight();
+				AccelerateX(delta == -32768);
+				m_JoyX = true;
 			}
-			else if (delta == -32768)
+			else
 			{
-				MoveLeft();
+				m_JoyX = false;
 			}
 		}
 
 		void UDRLController::LJoyY(float delta)
 		{
-			if (delta == 32767)
+			if (delta == 32767 || delta == -32768)
 			{
-				MoveDown();
+				AccelerateY(delta == -32768);
+				m_JoyY = true;
 			}
-			else if (delta == -32768)
+			else
 			{
-				MoveUp();
+				m_JoyY = false;
 			}
 		}
 
@@ -148,7 +150,7 @@ namespace novazero
 			}
 
 			bool xKeys = n2dIsKeyDown(SDLK_a) || n2dIsKeyDown(SDLK_d) ||
-				n2dIsKeyDown(SDLK_RIGHT) || n2dIsKeyDown(SDLK_LEFT);
+				n2dIsKeyDown(SDLK_RIGHT) || n2dIsKeyDown(SDLK_LEFT) || m_JoyX;
 
 			if (!xKeys && m_AcceleratingX)
 			{
@@ -158,7 +160,7 @@ namespace novazero
 			}
 
 			bool yKeys = n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_s) || 
-				n2dIsKeyDown(SDLK_UP) || n2dIsKeyDown(SDLK_DOWN);
+				n2dIsKeyDown(SDLK_UP) || n2dIsKeyDown(SDLK_DOWN) || m_JoyY;
 
 			if (!yKeys && m_AcceleratingY)
 			{
