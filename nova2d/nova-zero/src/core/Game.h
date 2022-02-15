@@ -13,6 +13,7 @@
 #include "../utils/FontManager.h"
 #include "../utils/SQLManager.h"
 #include "../debug/DebugOverlay.h"
+#include "../utils/Director.h"
 
 #include "../graphics/Color.h"
 #include <vector>
@@ -73,6 +74,7 @@ namespace novazero
 			static novazero::utils::FontManager* s_FontManager;
 			static novazero::utils::SQLManager* s_SQLManager;
 			static novazero::debug::DebugOverlay* s_DebugOverlay;
+			static novazero::utils::Director* s_Director;
 
 			static void ConfigureDebug(bool isVisible);
 			// Must call ConfigureDebug(true) before this works

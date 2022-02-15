@@ -23,6 +23,7 @@ namespace novazero
 		FontManager* Game::s_FontManager;
 		SQLManager* Game::s_SQLManager;
 		DebugOverlay* Game::s_DebugOverlay;
+		Director* Game::s_Director;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -63,6 +64,7 @@ namespace novazero
 			s_SceneManager = new SceneManager();
 			s_FontManager = new FontManager();
 			s_SQLManager = new SQLManager();
+			s_Director = new Director(Vec2Int(0, 0));
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -72,7 +74,7 @@ namespace novazero
 
 			srand((unsigned int)time(NULL));
 
-			LOG(LVL_CONFIRMATION, "Nova Boot : Game Engine started.");
+			LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Game Engine started.");
 
 		}
 
@@ -121,7 +123,14 @@ namespace novazero
 				break;
 
 			case SDL_KEYUP:
+
 				s_InputHandler->KeyUp(&event);
+
+				if (Game::s_Debug && event.key.keysym.sym == SDLK_BACKQUOTE) // ` key press
+				{
+					s_Director->Toggle();
+				}
+
 				break;
 
 			case SDL_TEXTINPUT:

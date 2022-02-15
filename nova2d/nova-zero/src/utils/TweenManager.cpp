@@ -348,7 +348,6 @@ namespace novazero
 			float percentToEnd = tween.tweenEasingFunc(tween.xCurrent);
 			float value = percentToEnd * tween.end;
 			
-			LOG(LVL_W, std::to_string(tween.xCurrent));
 			if (tween.xCurrent < 1.0f)
 			{
 				tween.xCurrent += tween.xStep;

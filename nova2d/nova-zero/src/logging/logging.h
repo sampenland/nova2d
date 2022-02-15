@@ -19,10 +19,16 @@ namespace novazero
 #define LVL_C "Confirmation"
 
 #define LOG(lvl, text) novazero::logging::Logging::LogOut(lvl, text);
+#define LOGS(text) novazero::logging::Logging::LogSimple(text);
 
 		class Logging
 		{
 		public:
+
+			static void LogSimple(const std::string& text) 
+			{
+				std::cout << text << std::endl;
+			}
 
 			static void LogOut(const std::string& level, const std::string& text)
 			{

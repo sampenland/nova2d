@@ -137,6 +137,7 @@
     <ClCompile Include="src\physics\TimeEffected.cpp" />
     <ClCompile Include="src\physics\TimeEffector.cpp" />
     <ClCompile Include="src\physics\TimeEffectorManager.cpp" />
+    <ClCompile Include="src\utils\Director.cpp" />
     <ClCompile Include="src\utils\TweenManager.cpp" />
     <ClCompile Include="src\physics\Collider.cpp" />
     <ClCompile Include="src\physics\CollisionManager.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="src\physics\TimeEffected.h" />
     <ClInclude Include="src\physics\TimeEffector.h" />
     <ClInclude Include="src\physics\TimeEffectorManager.h" />
+    <ClInclude Include="src\utils\Director.h" />
     <ClInclude Include="src\utils\TweenManager.h" />
     <ClInclude Include="src\physics\Collider.h" />
     <ClInclude Include="src\physics\Collision.h" />

@@ -4,6 +4,9 @@ namespace novazero
 {
 	namespace core
 	{
+		// nova2d Version	
+		#define NOVA_VERSION "0.0.01"
+		
 		// Max gamepads
 		#define MAX_JOYSTICKS 8
 
