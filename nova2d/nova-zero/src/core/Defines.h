@@ -23,12 +23,14 @@ namespace novazero
 
 		#define BYTE unsigned char
 
+		#define tostring(v) std::to_string(v)
+
 	}
 }
 
 #define n2dDebug novazero::core::Game::IsDebug()
 #define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
-
+#define n2dWarn Game::s_NovaWarnings
 /*
 nova2d Get Unique Game ID
 Returns a unique unsigned int ID value
@@ -40,6 +42,17 @@ nova2d Get Delta Time
 Returns time between frames
 */
 #define n2dDeltaTime() novazero::core::Game::GetDeltaTime()
+
+/*
+nova2d Pause Game (bool pause)
+*/
+#define n2dPauseGame(pause) novazero::core::Game::PauseGame(pause);
+
+/*
+nova2d Set Pause key (SDL_KeyCode key)
+*/
+#define n2dPauseKeySet(key) novazero::core::Game::s_PauseKey = key;
+#define n2dPauseKeyClear() novazero::core::Game::s_PauseKey = SDLK_WWW;
 
 /*
 nova2d Get Time Scale
@@ -98,6 +111,12 @@ Returns a random integer in range with a chance of hitting MIN
 nova2d Round To Even (number)
 */
 #define n2dRoundEven(num) (num % 2 == 0) ? num : (num + 1);
+
+/*
+nova2d Renderer Blend Modes (bool alpha)
+Enables alpha blending if needed
+*/
+#define n2dBlend(alpha) novazero::core::Game::s_Renderer->SetBlendMode(alpha);
 
 /*
 nova2d Get total instances
@@ -204,6 +223,12 @@ nova2d Is key down (SDL_Keycode key)
 Returns realtime if key is pressed down
 */
 #define n2dIsKeyDown(key) Game::s_InputHandler->IsKeyDown(key)
+
+/*
+nova2d Is key up (SDL_Keycode key)
+Returns realtime if key is up
+*/
+#define n2dIsKeyUp(key) Game::s_InputHandler->IsKeyUp(key)
 
 /*
 nova2d Is key down (joystickID, button)

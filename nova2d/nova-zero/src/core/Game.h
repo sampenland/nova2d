@@ -76,10 +76,12 @@ namespace novazero
 			static novazero::debug::DebugOverlay* s_DebugOverlay;
 			static novazero::utils::Director* s_Director;
 
+			static SDL_KeyCode s_PauseKey;
+			static void PauseGame(bool pause);
+
 			static void ConfigureDebug(bool isVisible);
 			// Must call ConfigureDebug(true) before this works
 			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
-
 
 			static double s_DeltaTime;
 			static double GetDeltaTime() { return s_DeltaTime; }
@@ -109,6 +111,7 @@ namespace novazero
 			static void SetDebug(bool val) { s_Debug = val; }
 
 			static float s_TimeScale;
+			static float s_TimeScaleMemory;
 
 			static bool s_Running;
 			static bool IsRunning() { return s_Running; }

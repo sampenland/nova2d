@@ -16,6 +16,15 @@ namespace novazero
 			s_DrawLayers = new DrawLayers();
 		}
 
+		void Renderer::SetBlendMode(bool enableAlpha)
+		{
+			if(enableAlpha)
+				SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_BLEND);
+			else
+				SDL_SetRenderDrawBlendMode(m_Renderer, SDL_BLENDMODE_NONE);
+
+		}
+
 		Renderer::~Renderer()
 		{
 			if (m_Renderer)
@@ -38,9 +47,10 @@ namespace novazero
 			m_BackgroundColor = n2dGetColor(colorName);
 		}
 
-		void Renderer::SetDrawColor(const std::string& colorName)
+		void Renderer::SetDrawColor(const std::string& colorName, Uint8 alphaOverride)
 		{
 			Color* c = n2dGetColor(colorName);
+			if (alphaOverride != 255) c->a = alphaOverride;
 			if (c)
 			{
 				SDL_SetRenderDrawColor(GetSDLRenderer(), c->r, c->g, c->b, c->a);

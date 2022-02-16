@@ -3,6 +3,8 @@
 #include "../maths/Vec2Int.h"
 #include "../core/Deleteable.h"
 #include "../graphics/Text.h"
+#include "../debug/DrawRect.h"
+#include "../input/ScrollSelect.h"
 
 namespace novazero
 {
@@ -10,6 +12,8 @@ namespace novazero
 	{
 		using namespace graphics;
 		using namespace core;
+		using namespace debug;
+		using namespace input;
 
 		class Director : public Drawable, public Deleteable
 		{
@@ -19,7 +23,13 @@ namespace novazero
 			bool m_Visible = false;
 			bool m_Destroyed = false;
 
+			int m_Width = 1000;
+			int m_Height = 700;
+
 			Text* m_Title = nullptr;
+			DrawRect* m_Background = nullptr;
+
+			ScrollSelect* m_ScrollTime = nullptr;
 
 		public:
 

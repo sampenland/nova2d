@@ -25,11 +25,6 @@ int main(int argc, char* argv[])
 	game.ConfigureDebugPosition(Vec2Int(32, Game::s_Height - 200));
 
 	n2dAddColor("background", "201533", 255);
-	n2dAddColor("purple", "252446", 255);
-	n2dAddColor("dark-blue", "203562", 255);
-	n2dAddColor("blue", "1e579c", 255);
-	n2dAddColor("light-blue", "0098db", 255);
-	n2dAddColor("bright-blue", "0ce6f2", 255);
 	
 	n2dSetBackgroundColor("background");
 	
@@ -62,6 +57,11 @@ int main(int argc, char* argv[])
 
 	while (Game::IsRunning())
 	{
+		if (n2dIsKeyDown(SDLK_r))
+		{
+			
+		}
+
 		game.Tick();
 	}
 

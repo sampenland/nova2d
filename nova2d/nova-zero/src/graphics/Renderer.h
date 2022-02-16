@@ -28,9 +28,11 @@ namespace novazero
 			~Renderer();
 
 			inline SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
+
+			void SetBlendMode(bool enableAlpha);
 			
 			void SetBackgroundColor(const std::string& colorName);
-			void SetDrawColor(const std::string& colorName);
+			void SetDrawColor(const std::string& colorName, Uint8 alphaOverride = 255);
 
 			void PreDraw() const;
 			void PostDraw() const;

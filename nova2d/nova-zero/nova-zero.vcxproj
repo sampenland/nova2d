@@ -130,6 +130,7 @@
     <ClCompile Include="src\graphics\gfx\SDL2_imageFilter.c" />
     <ClCompile Include="src\graphics\gfx\SDL2_rotozoom.c" />
     <ClCompile Include="src\graphics\Text.cpp" />
+    <ClCompile Include="src\input\ScrollSelect.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\particles\Dot.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="src\graphics\gfx\SDL2_gfxPrimitives_font.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_imageFilter.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_rotozoom.h" />
+    <ClInclude Include="src\input\ScrollSelect.h" />
     <ClInclude Include="src\graphics\Text.h" />
     <ClInclude Include="src\input\Inputable.h" />
     <ClInclude Include="src\input\TextInput.h" />

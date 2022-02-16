@@ -35,6 +35,8 @@ namespace novazero
 		bool Game::s_Running = 0;
 		unsigned int Game::s_Score = 0;
 		float Game::s_TimeScale = 1.0f;
+		float Game::s_TimeScaleMemory = 1.0f;
+		SDL_KeyCode Game::s_PauseKey = SDLK_p;
 
 		// --------------------------------
 		Game::Game(const char* title, const Vec2Int screenSize)
@@ -57,8 +59,16 @@ namespace novazero
 			n2dAddColor("red", "f02b2b", 255);
 			n2dAddColor("green", "2bf038", 255);
 			n2dAddColor("yellow", "d8d831", 255);
+			n2dAddColor("purple", "252446", 255);
+			n2dAddColor("dark-blue", "203562", 255);
+			n2dAddColor("blue", "1e579c", 255);
+			n2dAddColor("a20-blue", "1e579c", 20);
+			n2dAddColor("light-blue", "0098db", 255);
+			n2dAddColor("bright-blue", "0ce6f2", 255);
 
 			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
+			n2dBlend(true);
+
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
 			s_SceneManager = new SceneManager();
@@ -72,6 +82,8 @@ namespace novazero
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
 
+			n2dPauseKeyClear();
+
 			srand((unsigned int)time(NULL));
 
 			LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started.");
@@ -81,6 +93,19 @@ namespace novazero
 		void Game::ConfigureFirstScene(const std::string& sceneName)
 		{
 			s_SceneManager->ConfigureFirstScene(sceneName);
+		}
+
+		void Game::PauseGame(bool pause)
+		{
+			if (!pause)
+			{
+				n2dTimeScaleSet(Game::s_TimeScaleMemory);
+			}
+			else
+			{
+				Game::s_TimeScaleMemory = n2dTimeScale;
+				n2dTimeScaleSet(0.f);
+			}
 		}
 
 		void Game::ConfigureSQL(const std::string& databaseName, const std::string& connectionString, const std::string& user, 
@@ -131,6 +156,11 @@ namespace novazero
 					s_Director->Toggle();
 				}
 
+				if (event.key.keysym.sym == Game::s_PauseKey)
+				{
+					n2dPauseGame(n2dTimeScale != 0.f);
+				}
+
 				break;
 
 			case SDL_TEXTINPUT:
@@ -150,7 +180,7 @@ namespace novazero
 			// ----------------------
 			LAST = NOW;
 			NOW = SDL_GetPerformanceCounter();
-			Game::s_DeltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
+			Game::s_DeltaTime = (double)(n2dTimeScale * ((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency()));
 			// ----------------
 
 			Process();

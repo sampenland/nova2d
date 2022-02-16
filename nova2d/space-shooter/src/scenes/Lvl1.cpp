@@ -14,6 +14,7 @@ namespace spaceshooter
 
 	void Lvl1::Start()
 	{
+		n2dPauseKeySet(SDLK_r);
 		n2dScoreSet(0);
 
 		LeaderController::s_Wave = 0;
@@ -48,11 +49,12 @@ namespace spaceshooter
 	{
 		auto score = n2dScoreGet();
 		m_ScoreText->UpdateText("Score: " + std::to_string(score));
-		m_P1StreakText->UpdateText("P1 Streak: " + std::to_string(Player::s_Player1MaxStreak));
+		m_P1StreakText->UpdateText("Streak: " + std::to_string(Player::s_Player1MaxStreak));
 	}
 
 	void Lvl1::End()
 	{
+		n2dPauseKeyClear();
 		n2dRemoveDrawable(m_ScoreText->m_ID, 0);
 		CleanUp();
 	}
