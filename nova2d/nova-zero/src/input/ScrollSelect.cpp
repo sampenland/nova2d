@@ -19,7 +19,7 @@ namespace novazero
 			m_DeleteName = "scrollSelect_" + tostring(m_ID);
 
 			m_Width = (int)width;
-			m_Height = (int)height;
+			m_Height = (int)background.h;
 
 			m_Min = min;
 			m_Max = max;
@@ -36,20 +36,22 @@ namespace novazero
 			float scrollPosX = background.x + (percent * width) - scrollSize / 2;
 			
 			m_ScrollRect = new DrawRect(scrollColor, scrollColor, true,
-				Rect(scrollPosX, background.y, scrollSize, height), 2, layer);
+				Rect(scrollPosX, background.y, scrollSize, background.h), 2, layer);
 
 			const float labelWidths = 60.f;
 			const float labelHeights = 20.f;
 
 			m_TextMin = new Text("font3", tostring(min), textColor,
-				Rect(background.x, background.y + height + 4, labelWidths, labelHeights), layer);
+				Rect(background.x, background.y + background.h + 4, labelWidths, labelHeights), layer);
 
 			m_TextVal = new Text("font3", tostring(*refVal), textColor,
-				Rect(background.x + width/2 - scrollSize/2, background.y + height + 4, labelWidths, labelHeights), layer);
+				Rect(background.x + width/2 - scrollSize/2, background.y + background.h + 4, labelWidths, labelHeights), layer);
 
 			m_TextMax = new Text("font3", tostring(max), textColor,
-				Rect(background.x + width - labelWidths, background.y + height + 4, labelWidths, labelHeights), layer);
+				Rect(background.x + width - labelWidths, background.y + background.h + 4, labelWidths, labelHeights), layer);
 			m_TextMax->SetX(m_TextMax->GetX() - 15);
+
+			m_TextVal->UpdateText(tostring(m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
 
 			auto cleanID = n2dAddUpdater(ScrollSelect::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
@@ -69,11 +71,47 @@ namespace novazero
 
 		void ScrollSelect::Update()
 		{
-			float total = m_Max - m_Min;
-			float percent = m_Ref / total;
-			float scrollSize = m_Width / 20;
-			float scrollPosX = m_Background->GetX() + (percent * m_Width) - scrollSize / 2;
-			m_TextVal->SetPosition(Vec2(scrollPosX - 6, m_Background->GetY() + m_Height + 4));
+			if (m_Selected)
+			{
+				HandleSelected();
+			}
+		}
+
+		void ScrollSelect::HandleSelected()
+		{
+			bool update = false;
+			if (n2dIsKeyDown(SDLK_LEFT))
+			{
+				if (m_Ref > m_Min)
+				{
+					m_Ref -= 0.01f;
+					update = true;
+				}
+			}
+			else if (n2dIsKeyDown(SDLK_RIGHT))
+			{
+				if (m_Ref < m_Max)
+				{
+					m_Ref += 0.01f;
+					update = true;
+				}
+			}
+
+			if (update)
+			{
+				float total = m_Max - m_Min;
+				float percent = m_Ref / total;
+				float scrollSize = m_Width / 20;
+				float scrollPosX = m_Background->GetX() + (percent * m_Width);
+				m_TextVal->UpdateText(tostring(m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
+				m_ScrollRect->SetPosition(Vec2(scrollPosX, m_ScrollRect->GetY()));
+			}
+		}
+
+		void ScrollSelect::Select(bool isSelected, const std::string& fillColor, const std::string& outlineColor)
+		{
+			m_Selected = isSelected;
+			m_Background->SetColors(fillColor, outlineColor);
 		}
 
 		void ScrollSelect::Draw(float oX, float oY)

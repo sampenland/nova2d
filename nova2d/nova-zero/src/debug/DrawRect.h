@@ -50,6 +50,8 @@ namespace novazero
 				m_Fill->h = (int)rect->h - 2 * m_Thickness;
 			}
 
+			void SetColors(const std::string& fillColor, const std::string& outlineColor);
+
 			void SetVisible(bool isVisible) { m_Visible = isVisible; }
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void DestroySelf();

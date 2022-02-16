@@ -368,6 +368,9 @@
     <ClInclude Include="src\input\ScrollSelect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\input\DirectorStackable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

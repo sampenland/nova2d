@@ -38,7 +38,7 @@ namespace novazero
 			void Update();
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
-			void Toggle();
+			void Toggle(bool pauseChange = true);
 
 			void DestroySelf();
 

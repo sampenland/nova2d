@@ -38,7 +38,13 @@ namespace novazero
 
 			n2dAddDrawable(this, layer);
 
-		};
+		}
+
+		void DrawRect::SetColors(const std::string& fillColor, const std::string& outlineColor)
+		{
+			m_FillColor = fillColor;
+			m_OutlineColor = outlineColor;
+		}
 
 		void DrawRect::DestroySelf()
 		{
@@ -47,10 +53,16 @@ namespace novazero
 
 			SetDeleted(true);
 		}
-		
+
 		void DrawRect::Draw(float oX, float oY)
 		{
 			if (!m_Visible) return;
+
+			m_Fill->x = GetX() + oX + m_Thickness;
+			m_Fill->y = GetY() + oY + m_Thickness;
+			
+			m_Outline->x = GetX() + oX;
+			m_Outline->y = GetY() + oY;
 
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);

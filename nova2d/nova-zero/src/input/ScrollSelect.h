@@ -4,6 +4,7 @@
 #include "../debug/DrawRect.h"
 #include "../graphics/Text.h"
 #include "../core/Defines.h"
+#include "../input/DirectorStackable.h"
 
 namespace novazero
 {
@@ -15,7 +16,8 @@ namespace novazero
 
 		class ScrollSelect :
 			public Drawable,
-			public Deleteable
+			public Deleteable,
+			public DirectorStackable
 		{
 
 		private:
@@ -34,9 +36,9 @@ namespace novazero
 			Text* m_TextVal = nullptr;
 			Text* m_TextMax = nullptr;
 
-			int m_Min = 0;
-			int m_Max = 0;
-			int m_Ref;
+			float m_Min = 0;
+			float m_Max = 0;
+			float m_Ref;
 
 		public:
 
@@ -48,7 +50,19 @@ namespace novazero
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void SetVisible(bool isVisible);
 
-			void Update();
+			void SetLabelColor(std::string colorName)
+			{
+				m_Label->SetColor(colorName);
+			}
+
+			void SetValueColor(std::string colorName)
+			{
+				m_TextVal->SetColor(colorName);
+			}
+
+			void Update() override;
+			void HandleSelected();
+			void Select(bool isSelected, const std::string& fillColor, const std::string& outlineColor) override;
 
 			void DestroySelf();
 

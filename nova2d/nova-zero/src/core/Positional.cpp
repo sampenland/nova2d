@@ -22,6 +22,8 @@ namespace novazero
 
 		int Positional::GetWidth() const { return m_Size.x; }
 		int Positional::GetHeight() const { return m_Size.y; }
+		void Positional::SetWidth(int w) { m_Size.x = w; }
+		void Positional::SetHeight(int h) { m_Size.y = h; }
 		Vec2Int Positional::GetSize() const { return Vec2Int(m_Size.x, m_Size.y); }
 		
 		Vec2 Positional::GetCenter() const 

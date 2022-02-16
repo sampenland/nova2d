@@ -41,13 +41,16 @@ namespace novazero
 
 			int GetWidth() const;
 			int GetHeight() const;
+
+			void SetWidth(int w);
+			void SetHeight(int h);
+
 			Vec2Int GetSize() const;
 			Vec2 GetCenter() const;
 
 			int GetAngle() const;
 
-			void SetX(float x);
-			
+			void SetX(float x);			
 			void SetY(float y);
 
 			void SetPosition(Vec2 position);

@@ -187,6 +187,7 @@
     <ClInclude Include="src\graphics\gfx\SDL2_gfxPrimitives_font.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_imageFilter.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_rotozoom.h" />
+    <ClInclude Include="src\input\DirectorStackable.h" />
     <ClInclude Include="src\input\ScrollSelect.h" />
     <ClInclude Include="src\graphics\Text.h" />
     <ClInclude Include="src\input\Inputable.h" />
