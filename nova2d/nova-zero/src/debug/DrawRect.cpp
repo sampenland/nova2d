@@ -58,11 +58,11 @@ namespace novazero
 		{
 			if (!m_Visible) return;
 
-			m_Fill->x = GetX() + oX + m_Thickness;
-			m_Fill->y = GetY() + oY + m_Thickness;
+			m_Fill->x = (int)(GetX() + oX + m_Thickness);
+			m_Fill->y = (int)(GetY() + oY + m_Thickness);
 			
-			m_Outline->x = GetX() + oX;
-			m_Outline->y = GetY() + oY;
+			m_Outline->x = (int)(GetX() + oX);
+			m_Outline->y = (int)(GetY() + oY);
 
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);

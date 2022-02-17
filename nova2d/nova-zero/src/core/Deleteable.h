@@ -29,7 +29,7 @@ namespace novazero
 			bool IsDeleted() { return m_DeleteNow == 1; }
 			void SetDeleted(bool v) { m_DeleteNow = v ? 1 : 0; }
 
-			void SetEnabled(bool v) { m_Enabled = v; } //TODO: crash here
+			void SetEnabled(bool v) { m_Enabled = v; }
 			bool IsEnabled() { return m_Enabled; }
 
 		};

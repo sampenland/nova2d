@@ -4,9 +4,13 @@
 #include "maths/Vec2Int.h"
 #include "graphics/Text.h"
 #include "../specials/TimeWarp.h"
+#include "input/ScrollSelect.h"
 
 namespace spaceshooter
 {
+
+	using namespace novazero::input;
+
 	Lvl1::Lvl1(const std::string& sceneName) : Scene(sceneName)
 	{
 		m_LeaderController = nullptr;
@@ -39,6 +43,8 @@ namespace spaceshooter
 		const int streakSize = 144;
 		m_P1StreakText = new Text("font1", "P1 Streak: 0", "light-blue", Rect(Game::s_Width - scoreSize - 8, 32, scoreSize, 16), 0);
 		
+		n2dDirectorAddToStack(false, 0, "Move Speed", 70, 1.f, 6.f, &player->m_MoveSpeed);
+
 		AddObjectToCleanUp(m_LeaderController);
 		AddObjectToCleanUp(m_ScoreText);
 		AddObjectToCleanUp(m_P1StreakText);

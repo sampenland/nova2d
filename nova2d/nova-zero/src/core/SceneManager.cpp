@@ -10,6 +10,11 @@ namespace novazero
 		std::map<unsigned int, f_VoidFunction> SceneManager::s_Updaters;
 		std::map<unsigned int, bool> SceneManager::s_UpdaterErasers;
 		std::map<unsigned int, f_VoidFunction> SceneManager::s_UpdatersToAdd;
+
+		std::map<unsigned int, f_VoidFunction> SceneManager::s_PersistentUpdaters;
+		std::map<unsigned int, bool> SceneManager::s_PersistentUpdaterErasers;
+		std::map<unsigned int, f_VoidFunction> SceneManager::s_PersistentUpdatersToAdd;
+
 		std::map<unsigned int, Deleteable*> SceneManager::s_Deleteables;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
@@ -158,6 +163,7 @@ namespace novazero
 		{
 			m_CurrentScene->Update();
 
+			ProcessPersistentUpdaters();
 			ProcessUpdaters();
 
 			s_CollisionManager->Update();
@@ -204,6 +210,44 @@ namespace novazero
  			}
 		}
 
+		void SceneManager::ProcessPersistentUpdaters()
+		{
+			// Add new updaters
+			std::map<unsigned int, f_VoidFunction>::iterator itA = s_PersistentUpdatersToAdd.begin();
+			while (itA != s_PersistentUpdatersToAdd.end())
+			{
+				s_PersistentUpdaters[itA->first] = itA->second;
+				s_PersistentUpdaterErasers[itA->first] = false;
+				itA++;
+			}
+
+			s_PersistentUpdatersToAdd.clear();
+
+			// Remove any removed updaters
+			std::map<unsigned int, bool>::iterator it = s_PersistentUpdaterErasers.begin();
+			while (it != s_PersistentUpdaterErasers.end())
+			{
+				if (it->second)
+				{
+					s_PersistentUpdaters.erase(it->first);
+				}
+
+				it++;
+			}
+
+			s_PersistentUpdaterErasers.clear();
+
+			// Update
+			std::map<unsigned int, f_VoidFunction>::iterator it2 = s_PersistentUpdaters.begin();
+			for (; it2 != s_PersistentUpdaters.end(); ++it2)
+			{
+				if (it2->second)
+				{
+					it2->second();
+				}
+			}
+		}
+
 		void SceneManager::RemoveUpdater(unsigned int id)
 		{
 			s_UpdaterErasers[id] = true;
@@ -213,6 +257,18 @@ namespace novazero
 		{
 			unsigned int id = n2dGameGetID();
 			s_UpdatersToAdd[id] = updater;
+			return id;
+		}
+
+		void SceneManager::RemovePersistentUpdater(unsigned int id)
+		{
+			s_PersistentUpdaterErasers[id] = true;
+		}
+
+		unsigned int SceneManager::AddPersistentUpdater(f_VoidFunction persistentUpdater)
+		{
+			unsigned int id = n2dGameGetID();
+			s_PersistentUpdatersToAdd[id] = persistentUpdater;
 			return id;
 		}
 

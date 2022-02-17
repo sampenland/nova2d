@@ -38,14 +38,14 @@ namespace novazero
 
 			float m_Min = 0;
 			float m_Max = 0;
-			float m_Ref;
+			float* m_Ref;
 
 		public:
 
 			ScrollSelect(std::string labelText, int labelWidth, std::string textColor,
 				float width, float height, float min, float max, float* refVal,
 				Rect background, std::string backgroundColor, std::string scrollColor,
-				BYTE layer);
+				BYTE layer, bool isPersistent = false);
 
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void SetVisible(bool isVisible);

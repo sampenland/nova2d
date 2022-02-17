@@ -13,7 +13,7 @@ namespace novazero
 			std::string labelText, int labelWidth, std::string textColor,
 			float width, float height, float min, float max, float* refVal,
 			Rect background, std::string backgroundColor, std::string scrollColor,
-			BYTE layer) : Deleteable("scrollSelect_")
+			BYTE layer, bool isPersistent) : Deleteable("scrollSelect_")
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "scrollSelect_" + tostring(m_ID);
@@ -23,17 +23,19 @@ namespace novazero
 
 			m_Min = min;
 			m_Max = max;
-			m_Ref = *refVal;
+			m_Ref = refVal;
 
 			m_Label = new Text("font1", labelText, textColor,
 				Rect(background.x, background.y - height, (float)labelWidth, height), layer);
 
-			m_Background = new DrawRect(backgroundColor, backgroundColor, true, background, 2, layer);
-			
 			float total = max - min;
 			float percent = *refVal / total;
 			float scrollSize = width / 20;
 			float scrollPosX = background.x + (percent * width) - scrollSize / 2;
+			
+			m_Width = background.w - scrollSize + 10;
+			m_Background = new DrawRect(backgroundColor, backgroundColor, true,
+				Rect(background.x, background.y, (float)m_Width, background.h), 2, layer);
 			
 			m_ScrollRect = new DrawRect(scrollColor, scrollColor, true,
 				Rect(scrollPosX, background.y, scrollSize, background.h), 2, layer);
@@ -49,13 +51,20 @@ namespace novazero
 
 			m_TextMax = new Text("font3", tostring(max), textColor,
 				Rect(background.x + width - labelWidths, background.y + background.h + 4, labelWidths, labelHeights), layer);
-			m_TextMax->SetX(m_TextMax->GetX() - 15);
+			m_TextMax->SetX(background.x + m_Width - labelWidths);
 
-			m_TextVal->UpdateText(tostring(m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
+			m_TextVal->UpdateText(tostring(*m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
 
-			auto cleanID = n2dAddUpdater(ScrollSelect::Update, this);
-			m_CleanUpdaters.push_back(cleanID);
-
+			if (isPersistent)
+			{
+				auto cleanID = n2dAddUpdaterPersistent(ScrollSelect::Update, this);
+				m_CleanUpdaters.push_back(cleanID);
+			}
+			else
+			{
+				auto cleanID = n2dAddUpdater(ScrollSelect::Update, this);
+				m_CleanUpdaters.push_back(cleanID);
+			}
 		}
 
 		void ScrollSelect::SetVisible(bool isVisible)
@@ -71,6 +80,8 @@ namespace novazero
 
 		void ScrollSelect::Update()
 		{
+			if (!IsEnabled()) return;
+
 			if (m_Selected)
 			{
 				HandleSelected();
@@ -82,17 +93,19 @@ namespace novazero
 			bool update = false;
 			if (n2dIsKeyDown(SDLK_LEFT))
 			{
-				if (m_Ref > m_Min)
+				if (*m_Ref > m_Min)
 				{
-					m_Ref -= 0.01f;
+					*m_Ref -= 0.01f;
+					if (*m_Ref < 0.01) *m_Ref = m_Min;
 					update = true;
 				}
 			}
 			else if (n2dIsKeyDown(SDLK_RIGHT))
 			{
-				if (m_Ref < m_Max)
+				if (*m_Ref < m_Max)
 				{
-					m_Ref += 0.01f;
+					*m_Ref += 0.01f;
+					if (*m_Ref > m_Max) *m_Ref = m_Max;
 					update = true;
 				}
 			}
@@ -100,10 +113,14 @@ namespace novazero
 			if (update)
 			{
 				float total = m_Max - m_Min;
-				float percent = m_Ref / total;
-				float scrollSize = m_Width / 20;
+				float percent = *m_Ref / total;
+				float scrollSize = (float)m_Width / 20;
 				float scrollPosX = m_Background->GetX() + (percent * m_Width);
-				m_TextVal->UpdateText(tostring(m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
+				
+				if (scrollPosX > m_Width + scrollSize * 2 + 18)
+					scrollPosX = m_Width + scrollSize * 2 + 18;
+				
+				m_TextVal->UpdateText(tostring(*m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
 				m_ScrollRect->SetPosition(Vec2(scrollPosX, m_ScrollRect->GetY()));
 			}
 		}

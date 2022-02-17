@@ -5,6 +5,7 @@
 #include "../graphics/Text.h"
 #include "../debug/DrawRect.h"
 #include "../input/ScrollSelect.h"
+#include <vector>
 
 namespace novazero
 {
@@ -15,21 +16,31 @@ namespace novazero
 		using namespace debug;
 		using namespace input;
 
-		class Director : public Drawable, public Deleteable
+		struct DirectorPage
+		{
+			std::vector<ScrollSelect*> m_LeftStack;
+			std::vector<ScrollSelect*> m_RightStack;
+		};
+
+		class Director : 
+			public Drawable, 
+			public Deleteable
 		{
 
 		private:
-
-			bool m_Visible = false;
-			bool m_Destroyed = false;
-
-			int m_Width = 1000;
-			int m_Height = 700;
 
 			Text* m_Title = nullptr;
 			DrawRect* m_Background = nullptr;
 
 			ScrollSelect* m_ScrollTime = nullptr;
+
+			int m_Width = 1000;
+			int m_Height = 700;
+
+		protected:
+
+			bool m_Destroyed = false;
+			bool m_Visible = false;
 
 		public:
 
@@ -38,9 +49,19 @@ namespace novazero
 			void Update();
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
-			void Toggle(bool pauseChange = true);
+			void Toggle();
 
 			void DestroySelf();
+
+		public:
+
+			static const int s_LeftStackX = 160;
+			static const int s_RightStackX = 950;
+			static const int s_StackStartY = 155;
+
+			static BYTE s_CurrentPage;
+			static std::vector<DirectorPage*> s_Pages;
+			static void AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float min, float max, float* refVal);
 
 		};
 	}

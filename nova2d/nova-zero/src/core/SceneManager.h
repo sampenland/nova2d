@@ -45,6 +45,7 @@ namespace novazero
 
 			void Update();
 			void ProcessUpdaters();
+			void ProcessPersistentUpdaters();
 			void CleanUpdaters();
 			void Clean();
 
@@ -62,6 +63,16 @@ namespace novazero
 			static unsigned int GetUpdaterCount() 
 			{ 
 				return (unsigned int)s_Updaters.size(); 
+			};
+
+			static std::map<unsigned int, f_VoidFunction> s_PersistentUpdaters;
+			static std::map<unsigned int, bool> s_PersistentUpdaterErasers;
+			static std::map<unsigned int, f_VoidFunction> s_PersistentUpdatersToAdd;
+			static unsigned int AddPersistentUpdater(f_VoidFunction persistentUpdater);
+			static void RemovePersistentUpdater(unsigned int id);
+			static unsigned int GetPersistentUpdaterCount()
+			{
+				return (unsigned int)s_PersistentUpdaters.size();
 			};
 
 			static std::map<unsigned int, Deleteable*> s_Deleteables;

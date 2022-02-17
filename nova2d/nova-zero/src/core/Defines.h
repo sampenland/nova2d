@@ -1,36 +1,33 @@
 #pragma once
 
-namespace novazero
-{
-	namespace core
-	{
-		// nova2d Version	
-		#define NOVA_VERSION "0.0.01"
-		
-		// Max gamepads
-		#define MAX_JOYSTICKS 8
+// nova2d Version	
+#define NOVA_VERSION "0.0.01"
 
-		// Max draw layers
-		#define MAX_LAYERS 256
+// Max gamepads
+#define MAX_JOYSTICKS 8
 
-		// Max graver groups
-		#define MAX_GRAVER_GROUPS 255
+// Max draw layers
+#define MAX_LAYERS 256
 
-		// Max particles
-		#define MAX_PARTICLES 255
+// Max director pages
+#define MAX_DIRECTOR_PAGES 20
 
-		#define PI (float)(2*acos(0.0))
+// Max graver groups
+#define MAX_GRAVER_GROUPS 255
 
-		#define BYTE unsigned char
+// Max particles
+#define MAX_PARTICLES 255
 
-		#define tostring(v) std::to_string(v)
+#define PI (float)(2*acos(0.0))
 
-	}
-}
+#define BYTE unsigned char
+
+#define tostring(v) std::to_string(v)
 
 #define n2dDebug novazero::core::Game::IsDebug()
 #define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
 #define n2dWarn Game::s_NovaWarnings
+
 /*
 nova2d Get Unique Game ID
 Returns a unique unsigned int ID value
@@ -65,6 +62,12 @@ nova2d Set Time Scale (float value)
 Sets a float value which directly effects all moving objects
 */
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
+
+/*
+n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float min, float max, float* refVal)
+Adds a persistent ScrollSelect to Director's page Left/Right stacks
+*/
+#define n2dDirectorAddToStack(left, page, labelText, labelWidth, min, max, refVal) novazero::core::Game::s_Director->AddToStack(left, page, labelText, labelWidth, min, max, refVal);
 
 /*
 nova2d Coin Flip ()
@@ -312,6 +315,14 @@ Updaters are called each frame; this adds a new funcToCall as an Updater
 RETURNS unsigned int CleanID
 */
 #define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context));
+
+/*
+nova2d Add a Persistent Updater(void(*f) funcToCall, context)
+Updaters are called each frame; this adds a new funcToCall as an Updater
+(PERSISTENT MEANS this will remain in game until removed manually)
+RETURNS unsigned int CleanID
+*/
+#define n2dAddUpdaterPersistent(funcToCall, context) novazero::core::SceneManager::AddPersistentUpdater(std::bind(&funcToCall, context));
 
 /*
 nova2d Remove Updater(void(*f) funcToRemove)
