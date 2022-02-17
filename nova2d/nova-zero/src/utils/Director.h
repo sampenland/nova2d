@@ -37,6 +37,10 @@ namespace novazero
 			int m_Width = 1000;
 			int m_Height = 700;
 
+			bool m_SelectionLock = false;
+			bool m_LeftSelectedStack = true;
+			short m_CurrentSelected = -1;
+
 		protected:
 
 			bool m_Destroyed = false;
@@ -49,6 +53,7 @@ namespace novazero
 			void Update();
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
+			void ChangeSelection(ScrollSelect* oldSelected);
 			void Toggle();
 
 			void DestroySelf();

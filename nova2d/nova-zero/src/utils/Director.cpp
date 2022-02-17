@@ -43,11 +43,147 @@ namespace novazero
 			m_Visible = true;
 			Toggle();
 
+			auto cleanID = n2dAddUpdaterPersistent(Director::Update, this);
+			m_CleanUpdaters.push_back(cleanID);
+
 		}
 
 		void Director::Update()
 		{
 			if (m_Destroyed) return;
+			if (!IsEnabled()) return;
+
+			if (n2dIsKeyUp(SDLK_UP) && n2dIsKeyUp(SDLK_DOWN))
+			{
+				m_SelectionLock = false;
+			}
+
+			if (m_SelectionLock) return;
+
+			const size_t leftCount = s_Pages[s_CurrentPage]->m_LeftStack.size();
+			const size_t rightCount = s_Pages[s_CurrentPage]->m_RightStack.size();
+
+			bool selectNew = false;
+			ScrollSelect* currentSelected = m_ScrollTime;
+
+			if (n2dIsKeyDown(SDLK_UP))
+			{
+				m_SelectionLock = true;
+
+				if (m_CurrentSelected != -1)
+				{
+					if (m_LeftSelectedStack)
+					{
+						currentSelected = s_Pages[m_CurrentSelected]->m_LeftStack.at(m_CurrentSelected);
+					}
+					else
+					{
+						currentSelected = s_Pages[m_CurrentSelected]->m_RightStack.at(m_CurrentSelected);
+					}
+				}			
+
+				if (m_LeftSelectedStack)
+				{
+					if (m_CurrentSelected > -1)
+					{
+						m_CurrentSelected--;
+						selectNew = true;
+					}
+					else
+					{
+						return;
+					}
+				}
+				else
+				{
+					if (m_CurrentSelected <= 0)
+					{
+						m_LeftSelectedStack = true;
+						m_CurrentSelected = leftCount - 1;						
+						selectNew = true;
+					}
+					else
+					{
+						m_CurrentSelected--;
+						selectNew = true;
+					}
+				}
+			}
+			else if (n2dIsKeyDown(SDLK_DOWN))
+			{
+				m_SelectionLock = true;
+
+				if (m_CurrentSelected != -1)
+				{
+					if (m_LeftSelectedStack)
+					{
+						currentSelected = s_Pages[m_CurrentSelected]->m_LeftStack.at(m_CurrentSelected);
+					}
+					else
+					{
+						currentSelected = s_Pages[m_CurrentSelected]->m_RightStack.at(m_CurrentSelected);
+					}
+				}
+
+				if (m_LeftSelectedStack)
+				{
+					if (leftCount != 0)
+					{
+						if (m_CurrentSelected == -1 && leftCount > 0)
+						{
+							m_CurrentSelected = 0;
+							selectNew = true;
+						}
+						else if (m_CurrentSelected < leftCount - 1)
+						{
+							m_CurrentSelected++;
+							selectNew = true;
+						}
+						else if(rightCount > 0)
+						{
+							m_CurrentSelected = 0;
+							m_LeftSelectedStack = false;
+							selectNew = true;
+						}
+					}
+				}
+				else
+				{
+					if (rightCount != 0)
+					{
+						if (m_CurrentSelected < rightCount - 1)
+						{
+							m_CurrentSelected++;
+							selectNew = true;
+						}
+					}
+				}
+			}
+
+			if (selectNew)
+			{
+				ChangeSelection(currentSelected);
+			}
+		}
+
+		void Director::ChangeSelection(ScrollSelect* oldSelected)
+		{
+			oldSelected->Select(false, "light-blue", "white");
+
+			if (m_CurrentSelected == -1)
+			{
+				m_ScrollTime->Select(true, "bright-blue", "white");
+				return;
+			}
+
+			if (m_LeftSelectedStack)
+			{
+				s_Pages[m_CurrentSelected]->m_LeftStack.at(m_CurrentSelected)->Select(true, "bright-blue", "white");
+			}
+			else
+			{
+				s_Pages[m_CurrentSelected]->m_RightStack.at(m_CurrentSelected)->Select(true, "bright-blue", "white");
+			}
 		}
 
 		void Director::Toggle()
