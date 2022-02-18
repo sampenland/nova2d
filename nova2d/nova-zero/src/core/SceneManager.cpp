@@ -123,7 +123,7 @@ namespace novazero
 
 			if (Game::s_DebugOverlay)
 			{
-				Game::ConfigureDebug(true);
+				Game::ConfigureDebugOverlay(true);
 				Game::ConfigureDebugPosition(Vec2Int(32, 32));
 			}
 

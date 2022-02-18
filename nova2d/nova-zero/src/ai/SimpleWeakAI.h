@@ -8,6 +8,7 @@
 #include "../physics/Collider.h"
 #include "../core/Deleteable.h"
 #include "../physics/TimeEffected.h"
+#include "../core/Positional.h"
 
 typedef std::function<void()> f_MovePtrFunction;
 
@@ -30,7 +31,8 @@ namespace novazero
 			public BoundUser, 
 			public Collider, 
 			public Deleteable,
-			public TimeEffected
+			public TimeEffected,
+			public Positional
 		{
 
 		private:
@@ -50,10 +52,6 @@ namespace novazero
 			
 			std::vector<Vec2*> m_PatrolPoints;
 
-		protected:
-			
-			Sprite* m_Sprite = nullptr;
-
 		public:
 
 			SimpleWeakAI();
@@ -68,7 +66,7 @@ namespace novazero
 			{
 				int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)GetX(), (int)GetY()), 
 					target, extraRotation);
-				m_Sprite->SetAngle(lookAtAngle);
+				GetSprite()->SetAngle(lookAtAngle);
 			}
 
 			void ConfigureContinueAfterPatrolComplete(bool continueAfter) { m_ContinueAfterPatrolComplete = continueAfter; }
@@ -85,57 +83,13 @@ namespace novazero
 			}
 			Sprite* GetSprite()
 			{
-				return m_Sprite;
+				return Positional::GetLinkedSprite();
 			}
-			inline float GetX() const 
-			{
-				if (m_Sprite)
-					return m_Sprite->GetX();
-				else
-					return 0;
-
-			}
-
-			inline int GetWidth() const
-			{
-				return m_Sprite->GetWidth();
-			}
-
-			inline int GetHeight() const
-			{
-				return m_Sprite->GetHeight();
-			}
-
-			inline float GetY() const 
-			{ 
-				if (m_Sprite)
-					return m_Sprite->GetY();
-				else
-					return 0; 
-			}
-
-			inline void SetPositionInt(int x, int y) 
-			{ 
-				if(m_Sprite)
-					m_Sprite->SetPositionInt(Vec2Int(x, y)); 
-			}
-			inline void SetPosition(float x, float y) 
-			{ 
-				if (m_Sprite)
-					m_Sprite->SetPosition(Vec2(x, y)); 
-			}
-			inline void SetPosition(Vec2 pos)
-			{
-				if (m_Sprite)
-					m_Sprite->SetPosition(pos);
-			}
-			inline Vec2 GetPosition() { return m_Sprite->GetPosition(); }
-			inline Vec2Int GetPositionInt() { return m_Sprite->GetPositionInt(); }
 
 			inline void SetVisible(bool isVisible) 
 			{ 
-				if (m_Sprite)
-					m_Sprite->m_Visible = isVisible; 
+				if (GetSprite())
+					GetSprite()->m_Visible = isVisible;
 			}
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);

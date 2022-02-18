@@ -80,8 +80,6 @@ namespace spaceshooter
 
 	void LeaderController::Update()
 	{
-		if (n2dDebug) return;
-
 		if (!IsEnabled()) return;
 
 		if (!s_LeaderExists)

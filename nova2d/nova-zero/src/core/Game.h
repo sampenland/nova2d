@@ -79,7 +79,7 @@ namespace novazero
 			static SDL_KeyCode s_PauseKey;
 			static void PauseGame(bool pause);
 
-			static void ConfigureDebug(bool isVisible);
+			static void ConfigureDebugOverlay(bool isVisible);
 			// Must call ConfigureDebug(true) before this works
 			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
 

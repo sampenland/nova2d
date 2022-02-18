@@ -378,6 +378,7 @@ namespace novazero
 					value = percentToEnd * tween.initStart;
 				}
 				value *= -1;
+				value -= tween.end; // offset to starting value
 			}
 			else
 			{
@@ -385,6 +386,7 @@ namespace novazero
 				{
 					value = (1.f - percentToEnd) * tween.end;
 				}
+				value += tween.initStart;
 			}
 
  			if (tween.isFloat)

@@ -8,9 +8,9 @@ namespace spaceshooter
 	Pawn1::Pawn1(Vec2 position) : SimpleWeakAI()
 	{
 		AddSprite("pawn1", position, Vec2Int(16, 16), 0);
-		m_Sprite->ConfigureAnimation(0, 16, 16, 100, true);
+		GetSprite()->ConfigureAnimation(0, 16, 16, 100, true);
 		Configure(10, false);
-		ConfigureCollider(m_Sprite, 0, "pawn1");
+		ConfigureCollider(GetSprite(), 0, "pawn1");
 	}
 
 	void Pawn1::DisplayHit(int damage)

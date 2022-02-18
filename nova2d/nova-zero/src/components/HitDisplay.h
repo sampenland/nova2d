@@ -18,7 +18,7 @@ namespace novazero
 		private:
 
 			Text* m_Display = nullptr;
-			unsigned int m_XTweenID, m_YTweenID;
+			unsigned int m_YTweenID;
 
 		protected:
 

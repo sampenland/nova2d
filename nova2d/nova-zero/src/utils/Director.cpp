@@ -195,6 +195,7 @@ namespace novazero
 		void Director::Toggle()
 		{
 			m_Visible = !m_Visible;
+			SetEnabled(m_Visible);
 
 			m_Background->SetVisible(m_Visible);
 			m_Title->SetVisible(m_Visible);

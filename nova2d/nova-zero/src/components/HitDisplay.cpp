@@ -11,11 +11,11 @@ namespace novazero
 		{
 			m_DeleteName = "hitDisplay_" + std::to_string(m_ID);
 			m_Display = new Text(fontName, startText, colorName, drawRect, layer, false);
-			
+			m_Display->SetPosition(Vec2(drawRect.x, drawRect.y));
+
 			n2dAddDrawable(this, layer);
 
-			m_XTweenID = n2dTweenAdd(false, GetXRef(), drawRect.x, endPos.x, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
-			m_YTweenID = n2dTweenAdd(false, GetYRef(), drawRect.y, endPos.y, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
+			m_YTweenID = n2dTweenAdd(false, m_Display->GetYRef(), drawRect.y, endPos.y, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
 
 			Timer* t = new Timer(startToEndTimeMS + 500, false, std::bind(&HitDisplay::DestroySelf, this)); // clean
 
@@ -26,7 +26,7 @@ namespace novazero
 
 		void HitDisplay::Update()
 		{
-			m_Display->SetPosition(GetPosition());
+			//m_Display->SetPosition(GetPosition());
 		}
 
 		void HitDisplay::Draw(float oX, float oY)
@@ -42,8 +42,6 @@ namespace novazero
 				m_Display->DestroySelf();
 
 			n2dRemoveDrawable(m_ID, m_Layer);
-
-			n2dTweenRemove(m_XTweenID);
 			n2dTweenRemove(m_YTweenID);
 
 			SetDeleted(true);

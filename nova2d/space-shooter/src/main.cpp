@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 	game.ConfigureIcon("res/ship_01.png");
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32);
-	game.ConfigureDebug(true);
+	game.ConfigureDebugOverlay(true);
 	game.ConfigureDebugPosition(Vec2Int(32, Game::s_Height - 200));
 
 	n2dAddColor("background", "201533", 255);
@@ -57,11 +57,6 @@ int main(int argc, char* argv[])
 
 	while (Game::IsRunning())
 	{
-		if (n2dIsKeyDown(SDLK_r))
-		{
-			
-		}
-
 		game.Tick();
 	}
 

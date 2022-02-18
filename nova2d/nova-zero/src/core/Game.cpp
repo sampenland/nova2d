@@ -120,7 +120,7 @@ namespace novazero
 		}
 
 		// Must be called before debug position setting
-		void Game::ConfigureDebug(bool isVisible)
+		void Game::ConfigureDebugOverlay(bool isVisible)
 		{
 			if (s_DebugOverlay) s_DebugOverlay->DestroySelf();
 
