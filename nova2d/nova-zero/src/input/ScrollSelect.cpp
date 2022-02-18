@@ -11,7 +11,7 @@ namespace novazero
 
 		ScrollSelect::ScrollSelect(
 			std::string labelText, int labelWidth, std::string textColor,
-			float width, float height, float min, float max, float* refVal,
+			float width, float height, float inOrDecreaseBy, float max, float* refVal,
 			Rect background, std::string backgroundColor, std::string scrollColor,
 			BYTE layer, bool isPersistent) : Deleteable("scrollSelect_")
 		{
@@ -21,17 +21,21 @@ namespace novazero
 			m_Width = (int)width;
 			m_Height = (int)background.h;
 
-			m_Min = min;
+			m_InOrDecreaseBy = inOrDecreaseBy;
 			m_Max = max;
 			m_Ref = refVal;
+
+			m_Position = Vec2Int((int)background.x, (int)background.y);
 
 			m_Label = new Text("font1", labelText, textColor,
 				Rect(background.x, background.y - height, (float)labelWidth, height), layer);
 
-			float total = max - min;
-			float percent = *refVal / total;
-			float scrollSize = width / 20;
-			float scrollPosX = background.x + (percent * width) - scrollSize / 2;
+			float percent = *m_Ref / m_Max;
+			float scrollSize = (float)m_Width / 20;
+			float scrollPosX = m_Position.x + (percent * m_Width);
+
+			if (scrollPosX > m_Position.x + m_Width - scrollSize / 2)
+				scrollPosX = m_Position.x + m_Width - scrollSize / 2;
 			
 			m_Width = background.w - scrollSize + 10;
 			m_Background = new DrawRect(backgroundColor, backgroundColor, true,
@@ -43,7 +47,7 @@ namespace novazero
 			const float labelWidths = 60.f;
 			const float labelHeights = 20.f;
 
-			m_TextMin = new Text("font3", tostring(min), textColor,
+			m_TextMin = new Text("font3", "0.0", textColor,
 				Rect(background.x, background.y + background.h + 4, labelWidths, labelHeights), layer);
 
 			m_TextVal = new Text("font3", tostring(*refVal), textColor,
@@ -95,8 +99,8 @@ namespace novazero
 			{
 				if (*m_Ref > m_Min)
 				{
-					*m_Ref -= 0.01f;
-					if (*m_Ref < 0.01) *m_Ref = m_Min;
+					*m_Ref -= m_InOrDecreaseBy;
+					if (*m_Ref < m_InOrDecreaseBy) *m_Ref = m_Min;
 					update = true;
 				}
 			}
@@ -104,7 +108,7 @@ namespace novazero
 			{
 				if (*m_Ref < m_Max)
 				{
-					*m_Ref += 0.01f;
+					*m_Ref += m_InOrDecreaseBy;
 					if (*m_Ref > m_Max) *m_Ref = m_Max;
 					update = true;
 				}
@@ -112,13 +116,12 @@ namespace novazero
 
 			if (update)
 			{
-				float total = m_Max - m_Min;
-				float percent = *m_Ref / total;
+				float percent = *m_Ref / m_Max;
 				float scrollSize = (float)m_Width / 20;
-				float scrollPosX = m_Background->GetX() + (percent * m_Width);
+				float scrollPosX = m_Position.x + (percent * m_Width);
 				
-				if (scrollPosX > m_Width + scrollSize * 2 + 18)
-					scrollPosX = m_Width + scrollSize * 2 + 18;
+				if (scrollPosX > m_Position.x + m_Width - scrollSize/2)
+					scrollPosX = m_Position.x + m_Width - scrollSize/2;
 				
 				m_TextVal->UpdateText(tostring(*m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
 				m_ScrollRect->SetPosition(Vec2(scrollPosX, m_ScrollRect->GetY()));

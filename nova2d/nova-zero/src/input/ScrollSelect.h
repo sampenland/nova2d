@@ -36,14 +36,15 @@ namespace novazero
 			Text* m_TextVal = nullptr;
 			Text* m_TextMax = nullptr;
 
-			float m_Min = 0;
+			const float m_Min = 0;
 			float m_Max = 0;
+			float m_InOrDecreaseBy = 0.1f;
 			float* m_Ref;
 
 		public:
 
 			ScrollSelect(std::string labelText, int labelWidth, std::string textColor,
-				float width, float height, float min, float max, float* refVal,
+				float width, float height, float inOrDecreaseBy, float max, float* refVal,
 				Rect background, std::string backgroundColor, std::string scrollColor,
 				BYTE layer, bool isPersistent = false);
 

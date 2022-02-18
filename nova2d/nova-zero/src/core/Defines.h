@@ -64,10 +64,10 @@ Sets a float value which directly effects all moving objects
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
 
 /*
-n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float min, float max, float* refVal)
+n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
 Adds a persistent ScrollSelect to Director's page Left/Right stacks
 */
-#define n2dDirectorAddToStack(left, page, labelText, labelWidth, min, max, refVal) novazero::core::Game::s_Director->AddToStack(left, page, labelText, labelWidth, min, max, refVal);
+#define n2dDirectorAddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal) novazero::core::Game::s_Director->AddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal);
 
 /*
 nova2d Coin Flip ()

@@ -34,7 +34,7 @@ namespace novazero
 			int padding = 10;
  			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 100.f, 30.f), m_Layer);
 
-			m_ScrollTime = new ScrollSelect("Time Scale", 60, "white", (float)m_Width - m_Title->GetWidth(), 20.f, 0.f, 4.f, &Game::s_TimeScaleMemory,
+			m_ScrollTime = new ScrollSelect("Time Scale", 60, "white", (float)m_Width - m_Title->GetWidth(), 20.f, 0.01f, 4.f, &Game::s_TimeScaleMemory,
 				Rect((float)x + padding, (float)y + padding + 15.f, (float)m_Width + padding, 30.f), "light-blue", "white", m_Layer, true);
 
 			m_ScrollTime->Select(true, "bright-blue", "white");
@@ -146,6 +146,12 @@ namespace novazero
 							selectNew = true;
 						}
 					}
+					else
+					{
+						m_LeftSelectedStack = false;
+						m_CurrentSelected = 0;
+						selectNew = rightCount > 0;
+					}
 				}
 				else
 				{
@@ -222,7 +228,7 @@ namespace novazero
 
 		}
 
-		void Director::AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float min, float max, float* refVal)
+		void Director::AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseby, float max, float* refVal)
 		{
 			if (page < 0) page = 0;
 			if (page > MAX_DIRECTOR_PAGES) page = MAX_DIRECTOR_PAGES;
@@ -264,7 +270,7 @@ namespace novazero
 				float x = s_LeftStackX;
 				float y = s_StackStartY + currentLeftSize * 50.f;
 
-				ScrollSelect* selector = new ScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, min, max, refVal,
+				ScrollSelect* selector = new ScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, inOrDecreaseby, max, refVal,
 					Rect(x, y, 180.f, 30.f), "light-blue", "white", 255, true);
 				
 				selector->SetValueColor("purple");
@@ -278,7 +284,7 @@ namespace novazero
 				float x = s_RightStackX;
 				float y = s_StackStartY + currentRightSize * 50.f;
 
-				ScrollSelect* selector = new ScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, min, max, refVal,
+				ScrollSelect* selector = new ScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, inOrDecreaseby, max, refVal,
 					Rect(x, y, 180.f, 30.f), "light-blue", "white", 255, true);
 				
 				selector->SetValueColor("purple");
