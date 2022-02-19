@@ -144,6 +144,11 @@ namespace novazero
 			return SDL_JoystickGetButton(s_JoySticks[joystickID], button) == 1;
 		}
 
+		bool InputHandler::IsJoystickButtonUp(char joystickID, int button)
+		{
+			return !IsJoystickButtonDown(joystickID, button);
+		}
+
 		float InputHandler::GetJoystickAxis(char joystickID, JoystickAxis axis)
 		{
 			if (joystickID > MAX_JOYSTICKS - 1) return false;

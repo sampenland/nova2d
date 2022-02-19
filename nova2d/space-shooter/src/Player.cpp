@@ -32,12 +32,6 @@ namespace spaceshooter
 
 		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
 
-		if (SDL_NumJoysticks() > 0)
-		{
-			AddJoyEventListener(0, SDL_CONTROLLER_BUTTON_B, &InputHandler::IsJoystickButtonDown,
-				std::bind(&Player::Shoot, this));
-		}
-
 		int startX = 8;
 		int startY = 8;
 		for (int i = 0; i < m_Lives; i++)
@@ -208,7 +202,7 @@ namespace spaceshooter
 	{
 		int shootDir = (int)-GetHeight() - 64;
 		bool downShoot = false;
-		if (n2dIsKeyDown(SDLK_f))
+		if (n2dIsKeyDown(SDLK_f) || n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_A))
 		{
 			shootDir = Game::s_Height + GetHeight() + 64;
 			downShoot = true;

@@ -240,6 +240,12 @@ Returns realtime if key is pressed down
 #define n2dIsJoyKeyDown(controllerID, button) Game::s_InputHandler->IsJoystickButtonDown(controllerID, button)
 
 /*
+nova2d Is key up (joystickID, button)
+Returns realtime if key is not pressed
+*/
+#define n2dIsJoyKeyUp(controllerID, button) novazero::core::Game::s_InputHandler->IsJoystickButtonUp(controllerID, button)
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */
@@ -294,6 +300,20 @@ Removes previously added key down listener attached to SLD_KeyCode key
 Must be called on in a class that inherits from EventListener
 */
 #define n2dRemoveKeyDownListener(key) RemoveEventListener(key);
+
+/*
+nova2d Add Joystick Key Down Listener (int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+Calls function on SDL_CONTOLLER_BUTTON key down
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddJoyKeyDownListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonDown, std::bind(&func, context))
+
+/*
+nova2d Remove Key Down Listener (int joystickID, int button)
+Removes previously added key down listener attached to SDL_CONTROLLER BUTTON
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveJoyKeyDownListener(joystickID, button) RemoveJoyEventListener(joystickID, button)
 
 /*
 nova2d Add Key Up Listener (SDL_KeyCode key, void() function, context)

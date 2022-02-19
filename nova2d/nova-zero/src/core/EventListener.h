@@ -49,7 +49,7 @@ namespace novazero
 			void RemoveEventListener1(SDL_KeyCode key);
 
 			void AddJoyEventListener(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
-			void RemoveJoyEventListener(int joystickID);
+			void RemoveJoyEventListener(int joystickID, int button);
 
 			void AddJoyAxisEventListener(int joystickID, JoystickAxis axis, f_JoyStickAxisConditionalFunction conditionalFunction, f_FloatPassFunction executeFunction);
 			void RemoveJoyAxisEventListener(int joystickID);

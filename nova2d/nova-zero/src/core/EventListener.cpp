@@ -148,12 +148,13 @@ namespace novazero
 			m_JoysticksEvents.push_back(executeFunction);
 		}
 
-		void EventListener::RemoveJoyEventListener(int joystickID)
+		void EventListener::RemoveJoyEventListener(int joystickID, int button)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < m_JoysticksIDs.size(); i++)
 			{
-				if (m_JoysticksIDs[i] == joystickID)
+				if (m_JoysticksIDs[i] == joystickID &&
+					m_JoystickButtons[i] == button)
 				{
 					idx = i;
 					break;

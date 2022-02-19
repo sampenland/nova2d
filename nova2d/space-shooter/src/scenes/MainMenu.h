@@ -65,23 +65,35 @@ namespace spaceshooter
 			});
 
 			Timer* t = new Timer(crawlTime, false, *startListening);
-			n2dAddKeyDownListener(SDLK_SPACE, MainMenu::StartListening, this);
+			n2dAddKeyDownListener(SDLK_SPACE, MainMenu::WaitABit, this);
+			n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, MainMenu::WaitABit, this);
+		}
+
+		void WaitABit()
+		{
+			n2dRemoveKeyDownListener(SDLK_SPACE);
+			n2dRemoveJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A);
+			n2dTweenRemove(crawlTweenId);
+			screen->SetPosition(Vec2(0, 0));
+
+			auto waitBeforeControlEnable = new auto([=] {
+				StartListening();
+			});
+
+			Timer* t = new Timer(1000.f, false, *waitBeforeControlEnable);
 		}
 
 		void StartListening()
 		{
-			n2dRemoveKeyDownListener(SDLK_SPACE);
-			n2dTweenRemove(crawlTweenId);
-			screen->SetPosition(Vec2(0, 0));
-
 			n2dAddKeyDownListener(SDLK_f, MainMenu::OnePlayer, this);
+			n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, MainMenu::OnePlayer, this);
 			n2dAddKeyDownListener(SDLK_ESCAPE, MainMenu::OnEscape, this);
 		}
 
 		void OnePlayer()
 		{
-			n2dRemoveKeyDownListener(SDLK_1);
-			n2dRemoveKeyDownListener(SDLK_2);
+			n2dRemoveKeyDownListener(SDLK_f);
+			n2dRemoveJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A);
 			n2dRemoveKeyDownListener(SDLK_ESCAPE);
 			n2dSceneChange("level1");
 		}

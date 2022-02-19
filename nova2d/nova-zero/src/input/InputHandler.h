@@ -61,6 +61,7 @@ namespace novazero
 
 			static float GetJoystickAxis(char joystickID, JoystickAxis axis);
 			static bool IsJoystickButtonDown(char joystickID, int button);
+			static bool IsJoystickButtonUp(char joystickID, int button);
 			static SDL_Joystick* s_JoySticks[MAX_JOYSTICKS];
 
 		};
