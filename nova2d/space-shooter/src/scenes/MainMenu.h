@@ -47,12 +47,12 @@ namespace spaceshooter
 			title->SetPositionPercents(50, 15);
 			title->SetDrawableCollection(screen);
 
-			playerCount1 = new Text("font1", "Press F to Begin", "light-blue",
+			playerCount1 = new Text("font1", "Press A to Begin", "light-blue",
 				Rect(Game::s_Width / 2 - 200, Game::s_Height / 2 + 50, 400, 40), 0);
 			playerCount1->SetPositionPercents(50, 40);
 			playerCount1->SetDrawableCollection(screen);
 			
-			spaceToContinue = new Text("font1", "press escape to quit", "red",
+			spaceToContinue = new Text("font1", "press home to quit", "red",
 				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 + 50, 200, 20), 0);
 			spaceToContinue->SetPositionPercents(50, 90);
 			spaceToContinue->SetDrawableCollection(screen);

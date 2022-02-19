@@ -7,6 +7,8 @@ namespace novazero
 	{
 		std::vector<SDL_Keycode> InputHandler::s_KeyIsPressed;
 		SDL_Joystick* InputHandler::s_JoySticks[MAX_JOYSTICKS];
+		std::map<int, float> InputHandler::s_JoyAxis[MAX_JOYSTICKS];
+		int InputHandler::s_JoyStickDeadzone = 800;
 
 		InputHandler::InputHandler()
 		{
@@ -135,7 +137,12 @@ namespace novazero
 
 		void InputHandler::Configure(int joyStickDeadzone)
 		{
-			m_JoyStickDeadzone = joyStickDeadzone;
+			s_JoyStickDeadzone = joyStickDeadzone;
+		}
+
+		void InputHandler::JoyAxisChange(SDL_Event* event)
+		{
+			s_JoyAxis[event->jdevice.which][event->jaxis.axis] = event->jaxis.value;
 		}
 		
 		bool InputHandler::IsJoystickButtonDown(char joystickID, int button)
@@ -151,6 +158,15 @@ namespace novazero
 
 		float InputHandler::GetJoystickAxis(char joystickID, JoystickAxis axis)
 		{
+			std::map<int, float>::iterator f = s_JoyAxis[joystickID].find(axis);
+
+			if (f != s_JoyAxis->end())
+			{
+				return s_JoyAxis[joystickID].at(axis);
+			}
+
+			return 0.f;
+			
 			if (joystickID > MAX_JOYSTICKS - 1) return false;
 			return SDL_JoystickGetAxis(s_JoySticks[joystickID], (int)axis);
 		}

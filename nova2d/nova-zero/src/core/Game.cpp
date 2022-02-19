@@ -151,7 +151,7 @@ namespace novazero
 
 				s_InputHandler->KeyUp(&event);
 
-				if (Game::s_Debug && event.key.keysym.sym == SDLK_BACKQUOTE) // ` key press
+				if (Game::s_Debug && (event.key.keysym.sym == SDLK_BACKQUOTE)) // ` key press
 				{
 					s_Director->Toggle();
 				}
@@ -161,6 +161,12 @@ namespace novazero
 					n2dPauseGame(n2dTimeScale != 0.f);
 				}
 
+				break;
+
+			case SDL_JOYAXISMOTION:
+
+				s_InputHandler->JoyAxisChange(&event);
+				
 				break;
 
 			case SDL_TEXTINPUT:

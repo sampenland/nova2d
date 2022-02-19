@@ -148,6 +148,19 @@ namespace novazero
 			m_JoysticksEvents.push_back(executeFunction);
 		}
 
+		void EventListener::AddJoyEventListener1(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		{
+			if (m_JoysticksIDs1.end() != std::find(m_JoysticksIDs1.begin(), m_JoysticksIDs1.end(), joystickID))
+			{
+				return;
+			}
+
+			m_JoysticksIDs1.push_back(joystickID);
+			m_JoystickButtons1.push_back(button);
+			m_JoysticksConditions1.push_back(conditionalFunction);
+			m_JoysticksEvents1.push_back(executeFunction);
+		}
+
 		void EventListener::RemoveJoyEventListener(int joystickID, int button)
 		{
 			int idx = -1;
@@ -167,6 +180,28 @@ namespace novazero
 			m_JoystickButtons.erase(m_JoystickButtons.begin() + idx);
 			m_JoysticksConditions.erase(m_JoysticksConditions.begin() + idx);
 			m_JoysticksEvents.erase(m_JoysticksEvents.begin() + idx);
+
+		}
+
+		void EventListener::RemoveJoyEventListener1(int joystickID, int button)
+		{
+			int idx = -1;
+			for (size_t i = 0; i < m_JoysticksIDs1.size(); i++)
+			{
+				if (m_JoysticksIDs1[i] == joystickID &&
+					m_JoystickButtons1[i] == button)
+				{
+					idx = i;
+					break;
+				}
+			}
+
+			if (idx == -1) return;
+
+			m_JoysticksIDs1.erase(m_JoysticksIDs1.begin() + idx);
+			m_JoystickButtons1.erase(m_JoystickButtons1.begin() + idx);
+			m_JoysticksConditions1.erase(m_JoysticksConditions1.begin() + idx);
+			m_JoysticksEvents1.erase(m_JoysticksEvents1.begin() + idx);
 
 		}
 

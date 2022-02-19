@@ -25,6 +25,11 @@ namespace novazero
 			std::vector<f_JoyStickConditionalFunction> m_JoysticksConditions;
 			std::vector<f_VoidFunction> m_JoysticksEvents;
 
+			std::vector<int> m_JoysticksIDs1;
+			std::vector<int> m_JoystickButtons1;
+			std::vector<f_JoyStickConditionalFunction> m_JoysticksConditions1;
+			std::vector<f_VoidFunction> m_JoysticksEvents1;
+
 			std::vector<int> m_JoystickAxisIDs;
 			std::vector<JoystickAxis> m_JoystickAxisAxis;
 			std::vector<f_JoyStickAxisConditionalFunction> m_JoystickAxisConditions;
@@ -50,6 +55,9 @@ namespace novazero
 
 			void AddJoyEventListener(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
 			void RemoveJoyEventListener(int joystickID, int button);
+
+			void AddJoyEventListener1(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
+			void RemoveJoyEventListener1(int joystickID, int button);
 
 			void AddJoyAxisEventListener(int joystickID, JoystickAxis axis, f_JoyStickAxisConditionalFunction conditionalFunction, f_FloatPassFunction executeFunction);
 			void RemoveJoyAxisEventListener(int joystickID);

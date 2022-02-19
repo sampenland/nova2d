@@ -5,6 +5,7 @@
 #include "../core/Defines.h"
 #include "../core/TypeDefs.h"
 #include "Inputable.h"
+#include <map>
 
 namespace novazero
 {
@@ -15,12 +16,13 @@ namespace novazero
 
 		private:
 
-			int m_JoyStickDeadzone = 8000;
 			char m_CharBuffer[1024] = {};
 			int m_CharBufferMax = 1024;
 			int m_CharBufferIndex = 0;
 
 			Inputable* m_SelectedInput = nullptr;
+
+			static std::map<int, float> s_JoyAxis[MAX_JOYSTICKS];
 
 		public:
 
@@ -31,6 +33,8 @@ namespace novazero
 
 			void KeyDown(SDL_Event* event);
 			void KeyUp(SDL_Event* event);
+
+			void JoyAxisChange(SDL_Event* event);
 
 			void SelectInputTarget(Inputable* inputTarget);
 			void ClearInputTarget() { m_SelectedInput = nullptr; m_CharBufferIndex = 0; };
@@ -58,6 +62,8 @@ namespace novazero
 			static bool IsKeyDown(SDL_Keycode key);
 			static bool IsKeyUp(SDL_Keycode key);
 			static std::vector<SDL_Keycode> s_KeyIsPressed;
+
+			static int s_JoyStickDeadzone;
 
 			static float GetJoystickAxis(char joystickID, JoystickAxis axis);
 			static bool IsJoystickButtonDown(char joystickID, int button);

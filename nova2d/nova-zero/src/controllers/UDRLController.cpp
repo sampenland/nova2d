@@ -10,22 +10,14 @@ namespace novazero
 		using namespace utils;
 		using namespace core;
 
-		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer,
+			char controllerID)
 			: SimpleController(assetName, position, size, layer)
 		{
-			/*EnableWASD(true);
-			EnableArrowKeys(true);*/
-			EnableXbox360(true);
+			m_JoyStickNumber = controllerID;
 
 			auto cleanID = n2dAddUpdater(UDRLController::UpdateController, this);
 			SimpleController::m_CleanUpdaters.push_back(cleanID);
-		}
-
-		UDRLController::~UDRLController()
-		{
-			/*EnableWASD(false);
-			EnableArrowKeys(false);*/
-			EnableXbox360(false);
 		}
 
 		void UDRLController::ConfigureMove(float moveSpeed, 
@@ -39,97 +31,13 @@ namespace novazero
 			}
 		}
 
-		void UDRLController::EnableWASD(bool isEnabled)
-		{
-			//if (isEnabled)
-			//{
-			//	// WSAD
-			//	AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
-			//	AddKeysEventListener(SDLK_s, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
-			//	AddKeysEventListener(SDLK_d, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
-			//	AddKeysEventListener(SDLK_a, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
-			//}
-			//else
-			//{
-			//	// WSAD
-			//	RemoveEventListener(SDLK_w);
-			//	RemoveEventListener(SDLK_s);
-			//	RemoveEventListener(SDLK_d);
-			//	RemoveEventListener(SDLK_a);
-			//}
-		}
-
-		void UDRLController::EnableArrowKeys(bool isEnabled)
-		{
-			//if (isEnabled)
-			//{
-			//	// Arrow Keys
-			//	AddKeysEventListener(SDLK_UP, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
-			//	AddKeysEventListener(SDLK_DOWN, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
-			//	AddKeysEventListener(SDLK_RIGHT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
-			//	AddKeysEventListener(SDLK_LEFT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
-			//}
-			//else
-			//{
-			//	// Arrow Keys
-			//	RemoveEventListener(SDLK_UP);
-			//	RemoveEventListener(SDLK_DOWN);
-			//	RemoveEventListener(SDLK_RIGHT);
-			//	RemoveEventListener(SDLK_LEFT);
-			//}
-		}
-
-		void UDRLController::EnableXbox360(bool isEnabled)
-		{
-			if (isEnabled)
-			{
-				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_X,
-					&InputHandler::GetJoystickAxis,
-					std::bind(&UDRLController::LJoyX, this, std::placeholders::_1));
-				
-				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_Y,
-					&InputHandler::GetJoystickAxis,
-					std::bind(&UDRLController::LJoyY, this, std::placeholders::_1));
-			}
-			else
-			{
-				RemoveJoyAxisEventListener(m_JoyStickNumber);
-			}
-		}
-
-		void UDRLController::LJoyX(float delta)
-		{
-			if (delta == 32767 || delta == -32768)
-			{
-				AccelerateX(delta == -32768);
-				m_JoyX = true;
-			}
-			else
-			{
-				m_JoyX = false;
-			}
-		}
-
-		void UDRLController::LJoyY(float delta)
-		{
-			if (delta == 32767 || delta == -32768)
-			{
-				AccelerateY(delta == -32768);
-				m_JoyY = true;
-			}
-			else
-			{
-				m_JoyY = false;
-			}
-		}
-
 		void UDRLController::UpdateController()
 		{
-			bool pX = n2dIsKeyDown(SDLK_RIGHT);
-			bool nX = n2dIsKeyDown(SDLK_LEFT);
+			bool pX = n2dIsKeyDown(SDLK_RIGHT) || n2dJoySimpleRight(m_JoyStickNumber);
+			bool nX = n2dIsKeyDown(SDLK_LEFT) || n2dJoySimpleLeft(m_JoyStickNumber);
 
-			bool pY = n2dIsKeyDown(SDLK_DOWN);
-			bool nY = n2dIsKeyDown(SDLK_UP);
+			bool pY = n2dIsKeyDown(SDLK_DOWN) || n2dJoySimpleDown(m_JoyStickNumber);
+			bool nY = n2dIsKeyDown(SDLK_UP) || n2dJoySimpleUp(m_JoyStickNumber);
 
 			float accelX = m_CurrentAccelerationX;
 			float accelY = m_CurrentAccelerationY;

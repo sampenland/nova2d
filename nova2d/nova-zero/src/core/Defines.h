@@ -4,7 +4,7 @@
 #define NOVA_VERSION "0.0.02"
 
 // Max gamepads
-#define MAX_JOYSTICKS 8
+#define MAX_JOYSTICKS 4
 
 // Max draw layers
 #define MAX_LAYERS 256
@@ -246,6 +246,27 @@ Returns realtime if key is not pressed
 #define n2dIsJoyKeyUp(controllerID, button) novazero::core::Game::s_InputHandler->IsJoystickButtonUp(controllerID, button)
 
 /*
+nova2d Joy Simple Direction means joy is mostly left on axis
+*/
+#define n2dJoySimpleLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, JOY_STICK_AXIS_X) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d Joy Simple Direction means joy is mostly right on axis
+*/
+#define n2dJoySimpleRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, JOY_STICK_AXIS_X) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d Joy Simple Direction means joy is mostly up on axis
+USES InputHandler::s_JoyStickDeadzone
+*/
+#define n2dJoySimpleUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, JOY_STICK_AXIS_Y) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d Joy Simple Direction means joy is mostly down on axis
+*/
+#define n2dJoySimpleDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, JOY_STICK_AXIS_Y) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */
@@ -314,6 +335,22 @@ Removes previously added key down listener attached to SDL_CONTROLLER BUTTON
 Must be called on in a class that inherits from EventListener
 */
 #define n2dRemoveJoyKeyDownListener(joystickID, button) RemoveJoyEventListener(joystickID, button)
+
+//---
+/*
+nova2d Add Key Up Listener (SDL_CONTROLLER_BUTTON button, void() function, context)
+Calls function on SDL_KeyCode key up
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddJoyKeyUpListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonUp, std::bind(&func, context))
+
+/*
+nova2d Remove Key Up Listener (SDL_KeyCode key)
+Removes previously added key up listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveJoyUpListener(joystickID, button) RemoveJoyEventListener1(joystickID, button);
+//---
 
 /*
 nova2d Add Key Up Listener (SDL_KeyCode key, void() function, context)
