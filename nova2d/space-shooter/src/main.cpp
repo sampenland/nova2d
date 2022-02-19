@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
 	Game::SetGamePadding(32);
 	game.ConfigureDebugOverlay(true);
 	game.ConfigureDebugPosition(Vec2Int(32, Game::s_Height - 200));
+	game.s_InputHandler->Configure(8000);
 
 	n2dAddColor("background", "201533", 255);
 	

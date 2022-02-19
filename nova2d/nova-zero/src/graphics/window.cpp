@@ -30,7 +30,7 @@ namespace novazero
 		{
 			using namespace logging;
 			
-			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0) {
+			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) != 0) {
 				SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
 				return;
 			}

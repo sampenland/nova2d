@@ -53,9 +53,10 @@ namespace novazero
 			if (m_Destroyed) return;
 			if (!IsEnabled()) return;
 
-			if (n2dIsKeyUp(SDLK_UP) && n2dIsKeyUp(SDLK_DOWN) && 
-				n2dIsJoyKeyUp(0, SDL_CONTROLLER_BUTTON_DPAD_UP) &&
-				n2dIsJoyKeyUp(0, SDL_CONTROLLER_BUTTON_DPAD_DOWN))
+			if (n2dIsKeyUp(SDLK_UP) && 
+				n2dIsKeyUp(SDLK_DOWN) && 
+				!n2dJoyDPadUp(0) &&
+				!n2dJoyDPadDown(0))
 			{
 				m_SelectionLock = false;
 			}
@@ -68,7 +69,7 @@ namespace novazero
 			bool selectNew = false;
 			ScrollSelect* currentSelected = m_ScrollTime;
 
-			if (n2dIsKeyDown(SDLK_UP) || n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_DPAD_UP))
+			if (n2dIsKeyDown(SDLK_UP) || n2dJoyDPadUp(0))
 			{
 				m_SelectionLock = true;
 
@@ -111,7 +112,7 @@ namespace novazero
 					}
 				}
 			}
-			else if (n2dIsKeyDown(SDLK_DOWN) || n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_DPAD_DOWN))
+			else if (n2dIsKeyDown(SDLK_DOWN) || n2dJoyDPadDown(0))
 			{
 				m_SelectionLock = true;
 

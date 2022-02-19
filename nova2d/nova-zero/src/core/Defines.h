@@ -64,6 +64,12 @@ Sets a float value which directly effects all moving objects
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
 
 /*
+nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
+Rumble the controller at power for duration milliseconds
+*/
+#define n2dRumble(joystickID, power, durationMS) novazero::core::Game::Rumble(joystickID, power, durationMS);
+
+/*
 n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
 Adds a persistent ScrollSelect to Director's page Left/Right stacks
 */
@@ -244,6 +250,26 @@ nova2d Is key up (joystickID, button)
 Returns realtime if key is not pressed
 */
 #define n2dIsJoyKeyUp(controllerID, button) novazero::core::Game::s_InputHandler->IsJoystickButtonUp(controllerID, button)
+
+/*
+nova2d JoyDPad Left pressed down
+*/
+#define n2dJoyDPadLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_LEFT)
+
+/*
+nova2d JoyDPad Right pressed down
+*/
+#define n2dJoyDPadRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_RIGHT)
+
+/*
+nova2d JoyDPad Up pressed down
+*/
+#define n2dJoyDPadUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_UP)
+
+/*
+nova2d JoyDPad Down pressed down
+*/
+#define n2dJoyDPadDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_DOWN)
 
 /*
 nova2d Joy Simple Direction means joy is mostly left on axis

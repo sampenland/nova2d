@@ -122,6 +122,29 @@ namespace novazero
 				s_Running = false;
 			}
 
+			static SDL_Haptic* s_Rumbler; //TODO: fix
+			static char Rumble(int joystickID, float power, Uint32 durationMS)
+			{
+				if (s_Rumbler == nullptr)
+				{
+					s_Rumbler = SDL_HapticOpenFromJoystick(s_InputHandler->s_JoySticks[joystickID]);
+				}
+
+				if (s_Rumbler == NULL)
+				{
+					LOG(LVL_W, "Couldn't rumble: " + std::string(SDL_GetError()));
+					return -1;
+				}
+
+				if (SDL_HapticRumbleInit(s_Rumbler) != 0)
+					return -1;
+
+				if (SDL_HapticRumblePlay(s_Rumbler, power, durationMS) != 0)
+					return -1;
+
+				SDL_HapticClose(s_Rumbler);
+			}
+
 			static bool CoinFlip()
 			{
 				auto r = n2dRandomFloat(1, 10);

@@ -1,14 +1,16 @@
 #include "InputHandler.h"
-#include <cstring>
+#include <string>
 
 namespace novazero
 {
 	namespace input
 	{
+		int InputHandler::s_JoyStickDeadzone = 800;
+
 		std::vector<SDL_Keycode> InputHandler::s_KeyIsPressed;
 		SDL_Joystick* InputHandler::s_JoySticks[MAX_JOYSTICKS];
 		std::map<int, float> InputHandler::s_JoyAxis[MAX_JOYSTICKS];
-		int InputHandler::s_JoyStickDeadzone = 800;
+		std::map<int, bool> InputHandler::s_JoyHat[MAX_JOYSTICKS];
 
 		InputHandler::InputHandler()
 		{
@@ -144,6 +146,29 @@ namespace novazero
 		{
 			s_JoyAxis[event->jdevice.which][event->jaxis.axis] = event->jaxis.value;
 		}
+
+		void InputHandler::JoyHatChange(SDL_Event* event)
+		{
+			s_JoyHat[event->jdevice.which][SDL_HAT_LEFT] = false;
+			s_JoyHat[event->jdevice.which][SDL_HAT_RIGHT] = false;
+			s_JoyHat[event->jdevice.which][SDL_HAT_UP] = false;
+			s_JoyHat[event->jdevice.which][SDL_HAT_DOWN] = false;
+
+			s_JoyHat[event->jdevice.which][event->jhat.value] = true;
+			
+		}
+
+		bool InputHandler::GetJoystickHat(char joystickID, Uint8 button)
+		{
+			std::map<int, bool>::iterator f = s_JoyHat[joystickID].find(button);
+
+			if (f != s_JoyHat->end())
+			{
+				return s_JoyHat[joystickID].at(button);
+			}
+
+			return false;
+		}
 		
 		bool InputHandler::IsJoystickButtonDown(char joystickID, int button)
 		{
@@ -166,9 +191,6 @@ namespace novazero
 			}
 
 			return 0.f;
-			
-			if (joystickID > MAX_JOYSTICKS - 1) return false;
-			return SDL_JoystickGetAxis(s_JoySticks[joystickID], (int)axis);
 		}
 
 		void InputHandler::MouseClick(SDL_Event* e)

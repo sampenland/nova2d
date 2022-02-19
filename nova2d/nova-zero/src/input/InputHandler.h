@@ -23,6 +23,7 @@ namespace novazero
 			Inputable* m_SelectedInput = nullptr;
 
 			static std::map<int, float> s_JoyAxis[MAX_JOYSTICKS];
+			static std::map<int, bool> s_JoyHat[MAX_JOYSTICKS];
 
 		public:
 
@@ -35,6 +36,7 @@ namespace novazero
 			void KeyUp(SDL_Event* event);
 
 			void JoyAxisChange(SDL_Event* event);
+			void JoyHatChange(SDL_Event* event);
 
 			void SelectInputTarget(Inputable* inputTarget);
 			void ClearInputTarget() { m_SelectedInput = nullptr; m_CharBufferIndex = 0; };
@@ -65,6 +67,7 @@ namespace novazero
 
 			static int s_JoyStickDeadzone;
 
+			static bool GetJoystickHat(char joystickID, Uint8 button);
 			static float GetJoystickAxis(char joystickID, JoystickAxis axis);
 			static bool IsJoystickButtonDown(char joystickID, int button);
 			static bool IsJoystickButtonUp(char joystickID, int button);

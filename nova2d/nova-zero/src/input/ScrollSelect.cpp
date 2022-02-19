@@ -95,7 +95,7 @@ namespace novazero
 		void ScrollSelect::HandleSelected()
 		{
 			bool update = false;
-			if (n2dIsKeyDown(SDLK_LEFT))
+			if (n2dIsKeyDown(SDLK_LEFT) || n2dJoyDPadLeft(0))
 			{
 				if (*m_Ref > m_Min)
 				{
@@ -104,7 +104,7 @@ namespace novazero
 					update = true;
 				}
 			}
-			else if (n2dIsKeyDown(SDLK_RIGHT))
+			else if (n2dIsKeyDown(SDLK_RIGHT) || n2dJoyDPadRight(0))
 			{
 				if (*m_Ref < m_Max)
 				{

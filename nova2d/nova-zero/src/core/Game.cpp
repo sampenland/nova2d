@@ -37,6 +37,7 @@ namespace novazero
 		float Game::s_TimeScale = 1.0f;
 		float Game::s_TimeScaleMemory = 1.0f;
 		SDL_KeyCode Game::s_PauseKey = SDLK_p;
+		SDL_Haptic* Game::s_Rumbler = nullptr;
 
 		// --------------------------------
 		Game::Game(const char* title, const Vec2Int screenSize)
@@ -140,7 +141,7 @@ namespace novazero
 		{
 			SDL_Event event;
 			SDL_PollEvent(&event);
-
+			int i;
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:
@@ -168,6 +169,24 @@ namespace novazero
 				s_InputHandler->JoyAxisChange(&event);
 				
 				break;
+
+			case SDL_JOYHATMOTION:
+
+				s_InputHandler->JoyHatChange(&event);
+
+				break;
+
+			case SDL_JOYBUTTONDOWN:
+
+				if (Game::IsDebug() && event.jbutton.button == SDL_CONTROLLER_BUTTON_GUIDE + 1)
+				{
+					s_Director->Toggle();
+				}
+
+				if (event.jbutton.button == SDL_CONTROLLER_BUTTON_START + 1)
+				{
+					n2dPauseGame(n2dTimeScale != 0.f);
+				}
 
 			case SDL_TEXTINPUT:
 				s_InputHandler->OnTextChange(&event);
