@@ -1,5 +1,6 @@
 #include "UDRLController.h"
 #include "../utils/TweenManager.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -7,23 +8,16 @@ namespace novazero
 	{
 		using namespace input;
 		using namespace utils;
+		using namespace core;
 
-		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer,
+			char controllerID)
 			: SimpleController(assetName, position, size, layer)
 		{
-			EnableWASD(true);
-			EnableArrowKeys(true);
-			EnableXbox360(true);
+			m_JoyStickNumber = controllerID;
 
 			auto cleanID = n2dAddUpdater(UDRLController::UpdateController, this);
 			SimpleController::m_CleanUpdaters.push_back(cleanID);
-		}
-
-		UDRLController::~UDRLController()
-		{
-			EnableWASD(false);
-			EnableArrowKeys(false);
-			EnableXbox360(false);
 		}
 
 		void UDRLController::ConfigureMove(float moveSpeed, 
@@ -37,90 +31,14 @@ namespace novazero
 			}
 		}
 
-		void UDRLController::EnableWASD(bool isEnabled)
-		{
-			if (isEnabled)
-			{
-				// WSAD
-				AddKeysEventListener(SDLK_w, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
-				AddKeysEventListener(SDLK_s, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
-				AddKeysEventListener(SDLK_d, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
-				AddKeysEventListener(SDLK_a, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
-			}
-			else
-			{
-				// WSAD
-				RemoveEventListener(SDLK_w);
-				RemoveEventListener(SDLK_s);
-				RemoveEventListener(SDLK_d);
-				RemoveEventListener(SDLK_a);
-			}
-		}
-
-		void UDRLController::EnableArrowKeys(bool isEnabled)
-		{
-			if (isEnabled)
-			{
-				// Arrow Keys
-				AddKeysEventListener(SDLK_UP, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveUp, this));
-				AddKeysEventListener(SDLK_DOWN, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveDown, this));
-				AddKeysEventListener(SDLK_RIGHT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveRight, this));
-				AddKeysEventListener(SDLK_LEFT, &InputHandler::IsKeyDown, std::bind(&UDRLController::MoveLeft, this));
-			}
-			else
-			{
-				// Arrow Keys
-				RemoveEventListener(SDLK_UP);
-				RemoveEventListener(SDLK_DOWN);
-				RemoveEventListener(SDLK_RIGHT);
-				RemoveEventListener(SDLK_LEFT);
-			}
-		}
-
-		void UDRLController::EnableXbox360(bool isEnabled)
-		{
-			if (isEnabled)
-			{
-				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_X,
-					&InputHandler::GetJoystickAxis,
-					std::bind(&UDRLController::LJoyX, this, std::placeholders::_1));
-				
-				AddJoyAxisEventListener(m_JoyStickNumber, JOY_STICK_AXIS_Y,
-					&InputHandler::GetJoystickAxis,
-					std::bind(&UDRLController::LJoyY, this, std::placeholders::_1));
-			}
-			else
-			{
-				RemoveJoyAxisEventListener(m_JoyStickNumber);
-			}
-		}
-
-		void UDRLController::LJoyX(float delta)
-		{
-			if (delta == 32767)
-			{
-				MoveRight();
-			}
-			else if (delta == -32768)
-			{
-				MoveLeft();
-			}
-		}
-
-		void UDRLController::LJoyY(float delta)
-		{
-			if (delta == 32767)
-			{
-				MoveDown();
-			}
-			else if (delta == -32768)
-			{
-				MoveUp();
-			}
-		}
-
 		void UDRLController::UpdateController()
 		{
+			bool pX = n2dIsKeyDown(SDLK_RIGHT) || n2dJoySimpleRight(m_JoyStickNumber);
+			bool nX = n2dIsKeyDown(SDLK_LEFT) || n2dJoySimpleLeft(m_JoyStickNumber);
+
+			bool pY = n2dIsKeyDown(SDLK_DOWN) || n2dJoySimpleDown(m_JoyStickNumber);
+			bool nY = n2dIsKeyDown(SDLK_UP) || n2dJoySimpleUp(m_JoyStickNumber);
+
 			float accelX = m_CurrentAccelerationX;
 			float accelY = m_CurrentAccelerationY;
 
@@ -129,6 +47,42 @@ namespace novazero
 
 			float timeScaleX = accelX * n2dTimeScale * GetTimeInfluence();
 			float timeScaleY = accelY * n2dTimeScale * GetTimeInfluence();
+
+			if (timeScaleX == 0.f)
+			{
+				m_DeacceleratingX = false;
+			}
+
+			if (timeScaleY == 0.f)
+			{
+				m_DeacceleratingY = false;
+			}
+
+			if (!pX && !nX)
+			{
+				m_AcceleratingX = false;
+			}
+			else if (pX && accelX < 0.f)
+			{
+				m_AcceleratingX = false;
+			}
+			else if (nX && accelX > 0.f)
+			{
+				m_AcceleratingX = false;
+			}
+
+			if (!pY && !nY)
+			{
+				m_AcceleratingY = false;
+			}
+			else if (pY && accelY < 0.f)
+			{
+				m_AcceleratingY = false;
+			}
+			else if (nY && accelY > 0.f)
+			{
+				m_AcceleratingY = false;
+			}
 
 			Vec2 pos = GetPosition();
 			float newX = pos.x + (timeScaleX); // fix int casting ROUND downwards to 0 speed issue
@@ -147,22 +101,38 @@ namespace novazero
 				}
 			}
 
-			bool xKeys = n2dIsKeyDown(SDLK_a) || n2dIsKeyDown(SDLK_d) ||
-				n2dIsKeyDown(SDLK_RIGHT) || n2dIsKeyDown(SDLK_LEFT);
-
-			if (!xKeys && m_AcceleratingX)
+			if (nX)
 			{
-				m_AcceleratingX = false;
+				AccelerateX(true);
+			}
+			
+			if (pX)
+			{
+				AccelerateX(false);
+			}
+
+			if (nY)
+			{
+				AccelerateY(true);
+			}
+
+			if (pY)
+			{
+				AccelerateY(false);
+			}
+
+			bool stopX = (!pX && !nX) || (!pX && m_CurrentAccelerationX > 0.f) || (!nX && m_CurrentAccelerationX < 0.f);
+			if (stopX && !m_DeacceleratingX && m_CurrentAccelerationX != 0.f)
+			{
+				m_DeacceleratingX = true;
 				n2dTweenReconfigure(m_AccelerationTweenX, m_CurrentAccelerationX, 0.f, m_TotalDeaccelerationSpeedMS, false, false);
 				n2dTweenEnable(m_AccelerationTweenX, true, false);
 			}
 
-			bool yKeys = n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_s) || 
-				n2dIsKeyDown(SDLK_UP) || n2dIsKeyDown(SDLK_DOWN);
-
-			if (!yKeys && m_AcceleratingY)
+			bool stopY = (!pY && !nY) || (!pY && m_CurrentAccelerationY > 0.f) || (!nY && m_CurrentAccelerationY < 0.f);
+			if (stopY && !m_DeacceleratingY && m_CurrentAccelerationY != 0.f)
 			{
-				m_AcceleratingY = false;
+				m_DeacceleratingY = true;
 				n2dTweenReconfigure(m_AccelerationTweenY, m_CurrentAccelerationY, 0.f, m_TotalDeaccelerationSpeedMS, false, false);
 				n2dTweenEnable(m_AccelerationTweenY, true, false);
 			}

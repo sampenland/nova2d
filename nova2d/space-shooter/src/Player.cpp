@@ -28,15 +28,11 @@ namespace spaceshooter
 		m_StreakSprite->ConfigureAnimating(false);
 
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
+		n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, Player::OnSpace, this);
 		n2dAddKeyUpListener(SDLK_SPACE, Player::OnSpaceUp, this);
+		n2dAddJoyKeyUpListener(0, SDL_CONTROLLER_BUTTON_A, Player::OnSpaceUp, this);
 
 		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
-
-		if (SDL_NumJoysticks() > 0)
-		{
-			AddJoyEventListener(0, SDL_CONTROLLER_BUTTON_B, &InputHandler::IsJoystickButtonDown,
-				std::bind(&Player::Shoot, this));
-		}
 
 		int startX = 8;
 		int startY = 8;
@@ -69,7 +65,7 @@ namespace spaceshooter
 	{
 		Rect rect = Rect(pos.x - (float)GetWidth() / 2.f, pos.y - 16.f, 24.f, 16.f);
 		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", fontColor, rect,
-			Vec2(GetX(), GetY() - 128), 4000, 0);
+			Vec2(pos.x, pos.y - 128), 4000, 0);
 	}
 
 	void Player::Quit()
@@ -208,7 +204,7 @@ namespace spaceshooter
 	{
 		int shootDir = (int)-GetHeight() - 64;
 		bool downShoot = false;
-		if (n2dIsKeyDown(SDLK_f))
+		if (n2dIsKeyDown(SDLK_f) || n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_X))
 		{
 			shootDir = Game::s_Height + GetHeight() + 64;
 			downShoot = true;

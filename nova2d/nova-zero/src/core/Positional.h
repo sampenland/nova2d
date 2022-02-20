@@ -18,12 +18,15 @@ namespace novazero
 		class Positional
 		{
 
+		private:
+
+			Sprite* m_Sprite = nullptr;
+
 		protected:
 			
 			Vec2Int m_Position;
 			int m_Angle = 0;
 			Vec2Int m_Size;
-			Sprite* m_Sprite = nullptr;
 
 		public:
 
@@ -41,13 +44,16 @@ namespace novazero
 
 			int GetWidth() const;
 			int GetHeight() const;
+
+			void SetWidth(int w);
+			void SetHeight(int h);
+
 			Vec2Int GetSize() const;
 			Vec2 GetCenter() const;
 
 			int GetAngle() const;
 
-			void SetX(float x);
-			
+			void SetX(float x);			
 			void SetY(float y);
 
 			void SetPosition(Vec2 position);

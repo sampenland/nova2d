@@ -145,11 +145,13 @@ namespace novazero
 			{
 				t->initStart = end;
 				t->end = start;
+				t->offset = end;
 			}
 			else
 			{
 				t->initStart = start;			
 				t->end = end;
+				t->offset = start;
 			}
 
 			t->current = t->initStart;
@@ -194,6 +196,11 @@ namespace novazero
 		void TweenManager::RemoveTween(unsigned int tweenID)
 		{
 			m_Tweens.erase(tweenID);
+		}
+
+		void TweenManager::RemoveOffset(unsigned int tweenID)
+		{
+			m_Tweens[tweenID]->offset = 0.f;
 		}
 
 		void TweenManager::SetTweenLoopValue(unsigned int tweenID, float valueBtw0And1)
@@ -350,7 +357,7 @@ namespace novazero
 			
 			if (tween.xCurrent < 1.0f)
 			{
-				tween.xCurrent += tween.xStep;
+				tween.xCurrent += tween.xStep * n2dTimeScale;
 			}
 			else
 			{
@@ -378,6 +385,7 @@ namespace novazero
 					value = percentToEnd * tween.initStart;
 				}
 				value *= -1;
+				value -= tween.offset; // offset to starting value
 			}
 			else
 			{
@@ -385,6 +393,7 @@ namespace novazero
 				{
 					value = (1.f - percentToEnd) * tween.end;
 				}
+				value += tween.offset;
 			}
 
  			if (tween.isFloat)

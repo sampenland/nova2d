@@ -18,7 +18,7 @@ namespace novazero
 		private:
 
 			Text* m_Display = nullptr;
-			unsigned int m_XTweenID, m_YTweenID;
+			unsigned int m_YTweenID;
 
 		protected:
 
@@ -27,7 +27,6 @@ namespace novazero
 			HitDisplay(const std::string& startText, const std::string& fontName, const std::string& colorName,
 				Rect drawRect, Vec2 endPos, float startToEndTimeMS, char layer);
 
-			void Update();
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 			void DestroySelf();
 

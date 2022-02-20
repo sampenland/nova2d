@@ -1,7 +1,8 @@
 #pragma once
-#include "../core/TypeDefs.h"
+#include "SDL.h"
 #include <vector>
 #include "../core/Deleteable.h"
+#include <functional>
 
 namespace novazero
 {
@@ -13,22 +14,27 @@ namespace novazero
 		private:
 			
 			std::vector<SDL_Keycode> m_KeyCodes;
-			std::vector<f_ConditionalFunction> m_KeysConditions;
-			std::vector<f_VoidFunction> m_KeysEvents;
+			std::vector<std::function<bool(SDL_Keycode)>> m_KeysConditions;
+			std::vector<std::function<void()>> m_KeysEvents;
 
 			std::vector<SDL_Keycode> m_KeyCodes1;
-			std::vector<f_ConditionalFunction> m_KeysConditions1;
-			std::vector<f_VoidFunction> m_KeysEvents1;
+			std::vector<std::function<bool(SDL_Keycode)>> m_KeysConditions1;
+			std::vector<std::function<void()>> m_KeysEvents1;
 
 			std::vector<int> m_JoysticksIDs;
 			std::vector<int> m_JoystickButtons;
-			std::vector<f_JoyStickConditionalFunction> m_JoysticksConditions;
-			std::vector<f_VoidFunction> m_JoysticksEvents;
+			std::vector<std::function<bool(int, int)>> m_JoysticksConditions;
+			std::vector<std::function<void()>> m_JoysticksEvents;
+
+			std::vector<int> m_JoysticksIDs1;
+			std::vector<int> m_JoystickButtons1;
+			std::vector<std::function<bool(int, int)>> m_JoysticksConditions1;
+			std::vector<std::function<void()>> m_JoysticksEvents1;
 
 			std::vector<int> m_JoystickAxisIDs;
-			std::vector<JoystickAxis> m_JoystickAxisAxis;
-			std::vector<f_JoyStickAxisConditionalFunction> m_JoystickAxisConditions;
-			std::vector<f_FloatPassFunction> m_JoystickAxisEvents;
+			std::vector<int> m_JoystickAxisAxis;
+			std::vector<std::function<bool(int, int)>> m_JoystickAxisConditions;
+			std::vector<std::function<void(float)>> m_JoystickAxisEvents;
 
 			unsigned int m_ID = 0;
 
@@ -42,16 +48,19 @@ namespace novazero
 
 			void EventStep();
 
-			void AddKeysEventListener(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
+			void AddKeysEventListener(SDL_KeyCode key, std::function<bool(SDL_Keycode)> conditionalFunction, std::function<void()> executeFunction);
 			void RemoveEventListener(SDL_KeyCode key);
 
-			void AddKeysEventListener1(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
+			void AddKeysEventListener1(SDL_KeyCode key, std::function<bool(SDL_Keycode)> conditionalFunction, std::function<void()> executeFunction);
 			void RemoveEventListener1(SDL_KeyCode key);
 
-			void AddJoyEventListener(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction);
-			void RemoveJoyEventListener(int joystickID);
+			void AddJoyEventListener(int joystickID, int button, std::function<bool(int, int)> conditionalFunction, std::function<void()> executeFunction);
+			void RemoveJoyEventListener(int joystickID, int button);
 
-			void AddJoyAxisEventListener(int joystickID, JoystickAxis axis, f_JoyStickAxisConditionalFunction conditionalFunction, f_FloatPassFunction executeFunction);
+			void AddJoyEventListener1(int joystickID, int button, std::function<bool(int, int)> conditionalFunction, std::function<void()> executeFunction);
+			void RemoveJoyEventListener1(int joystickID, int button);
+
+			void AddJoyAxisEventListener(int joystickID, int axis, std::function<bool(int, int)> conditionalFunction, std::function<void(float)> executeFunction);
 			void RemoveJoyAxisEventListener(int joystickID);
 
 			bool operator==(const EventListener& other);

@@ -4,6 +4,7 @@
 #include "../specials/LeaderController.h"
 #include "../scenes/Lvl1.h"
 #include "components/HitDisplay.h"
+#include "utils/ValueManager.h"
 
 namespace spaceshooter
 {
@@ -13,6 +14,7 @@ namespace spaceshooter
 
 	Leader::Leader(const std::string& assetName, Vec2 position, Vec2Int size, int maxHealth, int pawnRows, int pawnCols, char layer)
 	{
+		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
 		
 		m_HealthMax = maxHealth;
@@ -27,16 +29,21 @@ namespace spaceshooter
 		AddPatrolPointWithFunction(Vec2(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 		
 		EnableAI(true);
-		Configure(5, true);
+
+		// special config - pointer for director to be able to change value
+		float* leaderSpeed = n2dValueManagerGetRef("leader-speed");
+		Configure(leaderSpeed, true); 
+		// ----------------------------------------------------------------
+
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 
 		GeneratePawnWave(pawnRows, pawnCols);
 
 		ConfigureUsingBounds(false, false);
-		ConfigureCollider(m_Sprite, 0, "leader");
+		ConfigureCollider(GetSprite(), 0, "leader");
 
-		m_HealthBar = new SimpleStatBar(false, (int)m_Sprite->GetX(), (int)m_Sprite->GetY() - 2,
+		m_HealthBar = new SimpleStatBar(false, (int)GetX(), (int)GetY() - 2,
 			64, 12, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
@@ -61,8 +68,6 @@ namespace spaceshooter
 
 	void Leader::WatchPawns()
 	{
-		if (n2dDebug) return;
-
 		if (s_PawnWave >= 4)
 		{
 			return;
@@ -133,8 +138,6 @@ namespace spaceshooter
 
 	void Leader::GeneratePawnWave(char rows, char cols)
 	{
-		if (n2dDebug) return;
-
 		const int moveForward = 132 + (rows * 32);
 		for (int row = 0; row < rows; row++)
 		{
@@ -205,39 +208,38 @@ namespace spaceshooter
 
 	void Leader::HealthUpdate()
 	{
-		m_HealthBar->Update((int)(((float)m_Health / m_HealthMax) * 64), (int)m_Sprite->GetX() - 24, (int)m_Sprite->GetY() - 16);
+		m_HealthBar->Update((int)(((float)m_Health / m_HealthMax) * 64), (int)GetX() - 24, (int)GetY() - 16);
 	}
 
 	void Leader::DeployBomb()
 	{
 		SimpleBulletController* bomb = new
 			SimpleBulletController(
-				Vec2Int((int)m_Sprite->GetX(), (int)m_Sprite->GetY() + 8),
-				Vec2Int((int)m_Sprite->GetX(), (int)Game::s_Height + 32),
+				Vec2Int((int)GetX(), (int)GetY() + 8),
+				Vec2Int((int)GetX(), (int)Game::s_Height + 32),
 				2.0f);
 
-		bomb->AddSprite("bomb", Vec2(m_Sprite->GetX(), m_Sprite->GetY() + 32), Vec2Int(16, 16), 0);
+		bomb->AddSprite("bomb", Vec2(GetX(), GetY() + 32), Vec2Int(16, 16), 0);
 		bomb->GetSprite()->ConfigureAnimation(0, 4, 4, 1000, true);
 		bomb->ConfigureCollider(bomb->GetSprite(), 0, "bomb");
 		bomb->Configure(2, Rect(-16.f, -16.f, (float)Game::s_Width + 16.f, (float)Game::s_Height + 16.f));
 		
 	}
 
-	void Leader::DisplayHit(int score, Vec2 pos)
+	void Leader::DisplayHit(int score, Vec2 startPos)
 	{
-		Rect rect = Rect(pos.x - GetWidth() / 2.f, pos.y - 16.f, 24.f, 16.f);
+		Rect rect = Rect(startPos.x - GetWidth() / 2.f, startPos.y + GetHeight()*2, 24.f, 16.f);
 		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", "yellow", rect,
-			Vec2(GetX(), GetY() - 128), 4000, 0);
+			Vec2(startPos.x, startPos.y + 64), 4000, 0);
 	}
 
-	void Leader::Hurt(int damage, const std::string& damager)
+	void Leader::Hurt(int damage)
 	{
 		SmallExplosion();
 
 		m_Health -= damage;
 		if (m_Health < 1)
 		{
-			m_KilledBy = damager;
 			n2dScoreAdd(80);
 			DisplayHit(80, GetPosition());
 			DestroySelf();
@@ -275,7 +277,7 @@ namespace spaceshooter
 
 	void Leader::SmallExplosion()
 	{
-		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
+		Sprite* explosion = new Sprite("explode", GetPosition(), Vec2Int(16, 16), 0);
 		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();

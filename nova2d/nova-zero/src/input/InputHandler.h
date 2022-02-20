@@ -5,6 +5,7 @@
 #include "../core/Defines.h"
 #include "../core/TypeDefs.h"
 #include "Inputable.h"
+#include <map>
 
 namespace novazero
 {
@@ -15,22 +16,26 @@ namespace novazero
 
 		private:
 
-			int m_JoyStickDeadzone = 8000;
 			char m_CharBuffer[1024] = {};
 			int m_CharBufferMax = 1024;
 			int m_CharBufferIndex = 0;
 
 			Inputable* m_SelectedInput = nullptr;
 
+			static std::map<int, float> s_JoyAxis[MAX_JOYSTICKS];
+			static std::map<int, bool> s_JoyHat[MAX_JOYSTICKS];
+
 		public:
 
 			InputHandler();
-			~InputHandler();
 
 			void Configure(int joyStickDeadzone);
 
 			void KeyDown(SDL_Event* event);
 			void KeyUp(SDL_Event* event);
+
+			void JoyAxisChange(SDL_Event* event);
+			void JoyHatChange(SDL_Event* event);
 
 			void SelectInputTarget(Inputable* inputTarget);
 			void ClearInputTarget() { m_SelectedInput = nullptr; m_CharBufferIndex = 0; };
@@ -53,14 +58,20 @@ namespace novazero
 			
 			void MouseClick(SDL_Event* event);
 
+			void DestroySelf();
+
 		public:
 
 			static bool IsKeyDown(SDL_Keycode key);
 			static bool IsKeyUp(SDL_Keycode key);
 			static std::vector<SDL_Keycode> s_KeyIsPressed;
 
-			static float GetJoystickAxis(char joystickID, JoystickAxis axis);
+			static int s_JoyStickDeadzone;
+
+			static bool GetJoystickHat(char joystickID, Uint8 button);
+			static float GetJoystickAxis(char joystickID, int axis);
 			static bool IsJoystickButtonDown(char joystickID, int button);
+			static bool IsJoystickButtonUp(char joystickID, int button);
 			static SDL_Joystick* s_JoySticks[MAX_JOYSTICKS];
 
 		};

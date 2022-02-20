@@ -23,6 +23,7 @@ namespace novazero
 		FontManager* Game::s_FontManager;
 		SQLManager* Game::s_SQLManager;
 		DebugOverlay* Game::s_DebugOverlay;
+		Director* Game::s_Director;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -34,9 +35,12 @@ namespace novazero
 		bool Game::s_Running = 0;
 		unsigned int Game::s_Score = 0;
 		float Game::s_TimeScale = 1.0f;
+		float Game::s_TimeScaleMemory = 1.0f;
+		SDL_KeyCode Game::s_PauseKey = SDLK_p;
+		SDL_Haptic* Game::s_Rumbler = nullptr;
 
 		// --------------------------------
-		Game::Game(const Vec2Int screenSize, const char* title)
+		Game::Game(const char* title, const Vec2Int screenSize)
 			: m_Title(title), NOW(0), LAST(0)
 		{
 			m_SceneManager = new SceneManager();
@@ -56,13 +60,22 @@ namespace novazero
 			n2dAddColor("red", "f02b2b", 255);
 			n2dAddColor("green", "2bf038", 255);
 			n2dAddColor("yellow", "d8d831", 255);
+			n2dAddColor("purple", "252446", 255);
+			n2dAddColor("dark-blue", "203562", 255);
+			n2dAddColor("blue", "1e579c", 255);
+			n2dAddColor("a20-blue", "1e579c", 20);
+			n2dAddColor("light-blue", "0098db", 255);
+			n2dAddColor("bright-blue", "0ce6f2", 255);
 
 			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
+			n2dBlend(true);
+
 			s_InputHandler = new InputHandler();
 			s_AssetManager = new AssetManager();
 			s_SceneManager = new SceneManager();
 			s_FontManager = new FontManager();
 			s_SQLManager = new SQLManager();
+			s_Director = new Director();
 
 			s_Width = (int)floor(screenSize.x);
 			s_Height = (int)floor(screenSize.y);
@@ -70,15 +83,30 @@ namespace novazero
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
 
+			n2dPauseKeyClear();
+
 			srand((unsigned int)time(NULL));
 
-			LOG(LVL_CONFIRMATION, "Nova Boot : Game Engine started.");
+			LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started.");
 
 		}
 
 		void Game::ConfigureFirstScene(const std::string& sceneName)
 		{
 			s_SceneManager->ConfigureFirstScene(sceneName);
+		}
+
+		void Game::PauseGame(bool pause)
+		{
+			if (!pause)
+			{
+				n2dTimeScaleSet(Game::s_TimeScaleMemory);
+			}
+			else
+			{
+				Game::s_TimeScaleMemory = n2dTimeScale;
+				n2dTimeScaleSet(0.f);
+			}
 		}
 
 		void Game::ConfigureSQL(const std::string& databaseName, const std::string& connectionString, const std::string& user, 
@@ -93,7 +121,7 @@ namespace novazero
 		}
 
 		// Must be called before debug position setting
-		void Game::ConfigureDebug(bool isVisible)
+		void Game::ConfigureDebugOverlay(bool isVisible)
 		{
 			if (s_DebugOverlay) s_DebugOverlay->DestroySelf();
 
@@ -113,7 +141,7 @@ namespace novazero
 		{
 			SDL_Event event;
 			SDL_PollEvent(&event);
-
+			
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:
@@ -121,8 +149,44 @@ namespace novazero
 				break;
 
 			case SDL_KEYUP:
+
 				s_InputHandler->KeyUp(&event);
+
+				if (Game::s_Debug && (event.key.keysym.sym == SDLK_BACKQUOTE)) // ` key press
+				{
+					s_Director->Toggle();
+				}
+
+				if (event.key.keysym.sym == Game::s_PauseKey)
+				{
+					n2dPauseGame(n2dTimeScale != 0.f);
+				}
+
 				break;
+
+			case SDL_JOYAXISMOTION:
+
+				s_InputHandler->JoyAxisChange(&event);
+				
+				break;
+
+			case SDL_JOYHATMOTION:
+
+				s_InputHandler->JoyHatChange(&event);
+
+				break;
+
+			case SDL_JOYBUTTONDOWN:
+
+				if (Game::IsDebug() && event.jbutton.button == SDL_CONTROLLER_BUTTON_GUIDE + 1)
+				{
+					s_Director->Toggle();
+				}
+
+				if (event.jbutton.button == SDL_CONTROLLER_BUTTON_START + 1)
+				{
+					n2dPauseGame(n2dTimeScale != 0.f);
+				}
 
 			case SDL_TEXTINPUT:
 				s_InputHandler->OnTextChange(&event);
@@ -141,7 +205,7 @@ namespace novazero
 			// ----------------------
 			LAST = NOW;
 			NOW = SDL_GetPerformanceCounter();
-			Game::s_DeltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
+			Game::s_DeltaTime = (double)(n2dTimeScale * ((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency()));
 			// ----------------
 
 			Process();
@@ -187,23 +251,41 @@ namespace novazero
 
 		Game::~Game()
 		{
-			if (m_SceneManager) 
+			if (m_SceneManager)
+			{
+				m_SceneManager->DestroySelf();
 				delete m_SceneManager;
+			}
 
-			if (m_MainWindow) 
+			if (m_MainWindow)
+			{
+				m_MainWindow->DestroySelf();
 				delete m_MainWindow;
+			}
 
 			if (s_Renderer)
+			{
+				s_Renderer->DestroySelf();
 				delete s_Renderer;
+			}
 
 			if (s_ColorManager)
+			{
+				s_ColorManager->DestroySelf();
 				delete s_ColorManager;
+			}
 
 			if (s_InputHandler)
+			{
+				s_InputHandler->DestroySelf();
 				delete s_InputHandler;
+			}
 
 			if (s_AssetManager)
+			{
+				s_AssetManager->DestroySelf();
 				delete s_AssetManager;
+			}
 
 			SDL_Quit();
 

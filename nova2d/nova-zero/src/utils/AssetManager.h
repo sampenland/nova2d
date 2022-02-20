@@ -18,12 +18,13 @@ namespace novazero
 		public:
 
 			AssetManager();
-			~AssetManager();
 
 			void LoadAndAddTexture(const std::string& name, std::string path);
 			void RemoveTexture(const std::string& name);
 			
 			SDL_Texture* GetTexture(std::string name);
+
+			void DestroySelf();
 
 		};
 

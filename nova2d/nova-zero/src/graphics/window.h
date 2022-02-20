@@ -26,7 +26,6 @@ namespace novazero
 		public:
 
 			Window(const Vec2Int screenSize, const char* title);
-			~Window();
 
 			void Init();
 			void ConfigureIcon(const char* path)
@@ -40,6 +39,8 @@ namespace novazero
 			}
 
 			SDL_Window* GetWindow() const;
+			
+			void DestroySelf();
 
 		};
 	}

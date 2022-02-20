@@ -40,19 +40,19 @@ namespace spaceshooter
 
 		void Start() override
 		{
-			screen = new DrawableCollection(Vec2(0.f, (int)Game::s_Height), 0);
+			screen = new DrawableCollection(Vec2(0.f, (float)Game::s_Height), 0);
 
 			title = new Text("font1", "SPACE SHOOTER", "white",
 				Rect(Game::s_Width / 2 - 300, Game::s_Height / 4, 600, 60), 0);
 			title->SetPositionPercents(50, 15);
 			title->SetDrawableCollection(screen);
 
-			playerCount1 = new Text("font1", "Press F to Begin", "light-blue",
+			playerCount1 = new Text("font1", "Press A to Begin", "light-blue",
 				Rect(Game::s_Width / 2 - 200, Game::s_Height / 2 + 50, 400, 40), 0);
 			playerCount1->SetPositionPercents(50, 40);
 			playerCount1->SetDrawableCollection(screen);
 			
-			spaceToContinue = new Text("font1", "press escape to quit", "red",
+			spaceToContinue = new Text("font1", "press home to quit", "red",
 				Rect(Game::s_Width / 2 - 100, Game::s_Height / 2 + 50, 200, 20), 0);
 			spaceToContinue->SetPositionPercents(50, 90);
 			spaceToContinue->SetDrawableCollection(screen);
@@ -65,23 +65,35 @@ namespace spaceshooter
 			});
 
 			Timer* t = new Timer(crawlTime, false, *startListening);
-			n2dAddKeyDownListener(SDLK_SPACE, MainMenu::StartListening, this);
+			n2dAddKeyDownListener(SDLK_SPACE, MainMenu::WaitABit, this);
+			n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, MainMenu::WaitABit, this);
+		}
+
+		void WaitABit()
+		{
+			n2dRemoveKeyDownListener(SDLK_SPACE);
+			n2dRemoveJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A);
+			n2dTweenRemove(crawlTweenId);
+			screen->SetPosition(Vec2(0, 0));
+
+			auto waitBeforeControlEnable = new auto([=] {
+				StartListening();
+			});
+
+			Timer* t = new Timer(1000.f, false, *waitBeforeControlEnable);
 		}
 
 		void StartListening()
 		{
-			n2dRemoveKeyDownListener(SDLK_SPACE);
-			n2dTweenRemove(crawlTweenId);
-			screen->SetPosition(Vec2(0, 0));
-
 			n2dAddKeyDownListener(SDLK_f, MainMenu::OnePlayer, this);
+			n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, MainMenu::OnePlayer, this);
 			n2dAddKeyDownListener(SDLK_ESCAPE, MainMenu::OnEscape, this);
 		}
 
 		void OnePlayer()
 		{
-			n2dRemoveKeyDownListener(SDLK_1);
-			n2dRemoveKeyDownListener(SDLK_2);
+			n2dRemoveKeyDownListener(SDLK_f);
+			n2dRemoveJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A);
 			n2dRemoveKeyDownListener(SDLK_ESCAPE);
 			n2dSceneChange("level1");
 		}

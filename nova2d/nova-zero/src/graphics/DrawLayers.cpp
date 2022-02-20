@@ -19,12 +19,7 @@ namespace novazero
 			}
 		}
 
-		DrawLayers::~DrawLayers()
-		{
-
-		}
-
-		void DrawLayers::AddSprite(Drawable* sprite, const char layer)
+		void DrawLayers::AddSprite(Drawable* sprite, const BYTE layer)
 		{
 			if (sprite)
 			{
@@ -40,7 +35,7 @@ namespace novazero
 			}
 		}
 
-		bool DrawLayers::HasSpriteOnLayer(Drawable* sprite, const char layer)
+		bool DrawLayers::HasSpriteOnLayer(Drawable* sprite, const BYTE layer)
 		{
 			if (sprite)
 			{
@@ -53,9 +48,10 @@ namespace novazero
 			return false;
 		}
 
-		void DrawLayers::RemoveSprite(unsigned int id, char layer)
+		// Does not remove sprites from 255 layer
+		void DrawLayers::RemoveSprite(unsigned int id, BYTE layer)
 		{
-			if (layer < 0 || layer > MAX_LAYERS) return;
+			if (layer < 0 || layer > MAX_LAYERS - 1) return;
 
 			int idx = -1;
 			for (int i = 0; i < (int)m_Layers[layer].size(); i++)
@@ -74,16 +70,17 @@ namespace novazero
 			s_TotalInstances--;
 		}
 
+		// LAYER 255 doesn't get cleared automatically
 		void DrawLayers::ClearSprites()
 		{
-			for (int layer = 0; layer < MAX_LAYERS; layer++)
+			for (int layer = 0; layer < MAX_LAYERS - 1; layer++)
 			{
 				m_Layers[layer].clear();
 			}
-			s_TotalInstances = 0;
+			s_TotalInstances = (int)m_Layers[MAX_LAYERS - 1].size();
 		}
 
-		void DrawLayers::DrawLayer(const char layer) const
+		void DrawLayers::DrawLayer(const BYTE layer) const
 		{
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{

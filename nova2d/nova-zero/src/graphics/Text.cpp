@@ -13,8 +13,8 @@ namespace novazero
 			m_ID = n2dGameGetID();
 			m_DeleteName = "text_" + std::to_string(m_ID);
 
-			m_Position.x = (float)drawRect.x;
-			m_Position.y = (float)drawRect.y;
+			m_Position.x = (int)drawRect.x;
+			m_Position.y = (int)drawRect.y;
 			m_Layer = layer;
 
 			m_TextColor = colorName;
@@ -23,7 +23,7 @@ namespace novazero
 			m_CharMax = text.length();
 
 			SetSize(Vec2Int((int)drawRect.w, (int)drawRect.h));
-
+			
 			m_DrawRect.x = (int)drawRect.x;
 			m_DrawRect.y = (int)drawRect.y;
 			m_DrawRect.w = (int)drawRect.w;
@@ -43,9 +43,22 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		void Text::UpdateText(const std::string& newText)
+		void Text::UpdateText(const std::string& newText, Vec2Int newPosition)
 		{
-			Construct(newText, Vec2Int(m_DrawRect.x, m_DrawRect.y));
+			if (newPosition.x == -1 && newPosition.y == -1)
+			{
+				newPosition.x = m_DrawRect.x;
+				newPosition.y = m_DrawRect.y;
+			}
+
+			SetPositionInt(newPosition);
+			Construct(newText, newPosition);
+		}
+
+		void Text::SetColor(const std::string& colorName)
+		{
+			m_TextColor = colorName;
+			Construct(m_DisplayText, GetPositionInt());
 		}
 
 		void Text::Construct(std::string newText, Vec2Int newPos)

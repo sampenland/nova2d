@@ -101,6 +101,20 @@ namespace novazero
 			m_TimeEffecteds->UpdateText("TimD: " + std::to_string(timeEffecteds));
 
 		}
+
+		void DebugOverlay::Toggle()
+		{
+			// TODO: doesn't work
+			m_Visible = !m_Visible;
+
+			m_FPS->SetVisible(m_Visible);
+			m_Drawables->SetVisible(m_Visible);
+			m_Updaters->SetVisible(m_Visible);
+			m_Deletables->SetVisible(m_Visible);
+			m_References->SetVisible(m_Visible);
+			m_Gravers->SetVisible(m_Visible);
+			m_Tweens->SetVisible(m_Visible);
+		}
 		
 		void DebugOverlay::Draw(float oX, float oY)
 		{

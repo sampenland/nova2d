@@ -1,6 +1,6 @@
 #pragma once
-#include "TypeDefs.h"
 #include "../core/Deleteable.h"
+#include <functional>
 
 namespace novazero
 {
@@ -17,11 +17,25 @@ namespace novazero
 			bool m_Alive = true;
 			unsigned int m_ID = 0;
 
-			f_VoidFunction f_OnFinish;
+			bool m_Randomized = false;
+			float m_RandomMin = 0.0f;
+			float m_RandomMax = 0.0f;
+
+			bool m_UsingFloatRefs = false;
+			float* m_RandomMinRef = nullptr;
+			float* m_RandomMaxRef = nullptr;
+
+			std::function<void()> f_OnFinish;
 
 		public:
 
-			Timer(const float delayMS, const bool loop, f_VoidFunction endDelayFunc);
+			Timer(const float delayMS, const bool loop, std::function<void()> endDelayFunc,
+				const float loopRndMin = -1.f, const float loopRndMax = -1.f);
+
+			Timer(float* loopRndMin, float* loopRndMax, std::function<void()> endDelayFunc);
+
+			float* GetRefRndMin() { return &m_RandomMin; } // for tweens and Director ref-ing
+			float* GetRefRndMax() { return &m_RandomMax; } // for tweens and Director ref-ing
 
 			void DestroySelf();
 			

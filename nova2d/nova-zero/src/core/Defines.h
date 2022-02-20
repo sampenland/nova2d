@@ -1,28 +1,32 @@
 #pragma once
 
-namespace novazero
-{
-	namespace core
-	{
-		// Max gamepads
-		#define MAX_JOYSTICKS 8
+// nova2d Version	
+#define NOVA_VERSION "0.0.03"
 
-		// Max draw layers
-		#define MAX_LAYERS 20
+// Max gamepads
+#define MAX_JOYSTICKS 4
 
-		// Max graver groups
-		#define MAX_GRAVER_GROUPS 255
+// Max draw layers
+#define MAX_LAYERS 256
 
-		// Max particles
-		#define MAX_PARTICLES 255
+// Max director pages
+#define MAX_DIRECTOR_PAGES 20
 
-		#define PI (float)(2*acos(0.0))
+// Max graver groups
+#define MAX_GRAVER_GROUPS 255
 
-	}
-}
+// Max particles
+#define MAX_PARTICLES 255
+
+#define PI (float)(2*acos(0.0))
+
+#define BYTE unsigned char
+
+#define tostring(v) std::to_string(v)
 
 #define n2dDebug novazero::core::Game::IsDebug()
 #define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
+#define n2dWarn Game::s_NovaWarnings
 
 /*
 nova2d Get Unique Game ID
@@ -37,6 +41,17 @@ Returns time between frames
 #define n2dDeltaTime() novazero::core::Game::GetDeltaTime()
 
 /*
+nova2d Pause Game (bool pause)
+*/
+#define n2dPauseGame(pause) novazero::core::Game::PauseGame(pause);
+
+/*
+nova2d Set Pause key (SDL_KeyCode key)
+*/
+#define n2dPauseKeySet(key) novazero::core::Game::s_PauseKey = key;
+#define n2dPauseKeyClear() novazero::core::Game::s_PauseKey = SDLK_WWW;
+
+/*
 nova2d Get Time Scale
 Returns a float value which directly effects all moving objects
 */
@@ -47,6 +62,43 @@ nova2d Set Time Scale (float value)
 Sets a float value which directly effects all moving objects
 */
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
+
+/*
+nova2d Value Add
+Adds a global variable which can be grabbed from anywhere in your code
+*/
+#define n2dValueManagerAdd(name, value) novazero::utils::ValueManager::AddValue(name, value);
+
+/*
+nova2d Value Get
+Gets a previously added variable
+*/
+#define n2dValueManagerGet(name) novazero::utils::ValueManager::GetValue(name);
+
+/*
+Gets a reference to a previously added variable
+THIS can be used for tweens, Director stackables, etc.
+*/
+#define n2dValueManagerGetRef(name) novazero::utils::ValueManager::GetRefToValue(name);
+
+/*
+nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
+Rumble the controller at power for duration milliseconds
+*/
+#define n2dRumble(joystickID, power, durationMS) novazero::core::Game::Rumble(joystickID, power, durationMS);
+
+/*
+n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
+Adds a persistent ScrollSelect to Director's page Left/Right stacks
+*/
+#define n2dDirectorAddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal) novazero::core::Game::s_Director->AddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal);
+
+/*
+n2d Director AddToStackMinMax(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal)
+Adds a persistent ScrollSelect to Director's page Left/Right stacks
+*/
+#define n2dDirectorAddToStackMinMax(left, page, labelText, labelWidth, inOrDecreaseBy, min, max, minRefVal, maxRefVal) novazero::core::Game::s_Director->AddToStackMinMax(left, page, labelText, labelWidth, inOrDecreaseBy, min, max, minRefVal, maxRefVal);
+
 
 /*
 nova2d Coin Flip ()
@@ -93,6 +145,12 @@ Returns a random integer in range with a chance of hitting MIN
 nova2d Round To Even (number)
 */
 #define n2dRoundEven(num) (num % 2 == 0) ? num : (num + 1);
+
+/*
+nova2d Renderer Blend Modes (bool alpha)
+Enables alpha blending if needed
+*/
+#define n2dBlend(alpha) novazero::core::Game::s_Renderer->SetBlendMode(alpha);
 
 /*
 nova2d Get total instances
@@ -201,6 +259,86 @@ Returns realtime if key is pressed down
 #define n2dIsKeyDown(key) Game::s_InputHandler->IsKeyDown(key)
 
 /*
+nova2d Is key up (SDL_Keycode key)
+Returns realtime if key is up
+*/
+#define n2dIsKeyUp(key) Game::s_InputHandler->IsKeyUp(key)
+
+/*
+nova2d Is key down (joystickID, button)
+Returns realtime if key is pressed down
+*/
+#define n2dIsJoyKeyDown(controllerID, button) Game::s_InputHandler->IsJoystickButtonDown(controllerID, button)
+
+/*
+nova2d Is key up (joystickID, button)
+Returns realtime if key is not pressed
+*/
+#define n2dIsJoyKeyUp(controllerID, button) novazero::core::Game::s_InputHandler->IsJoystickButtonUp(controllerID, button)
+
+/*
+nova2d JoyDPad Left pressed down
+*/
+#define n2dJoyDPadLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_LEFT)
+
+/*
+nova2d JoyDPad Right pressed down
+*/
+#define n2dJoyDPadRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_RIGHT)
+
+/*
+nova2d JoyDPad Up pressed down
+*/
+#define n2dJoyDPadUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_UP)
+
+/*
+nova2d JoyDPad Down pressed down
+*/
+#define n2dJoyDPadDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_DOWN)
+
+/*
+nova2d Joy Simple Direction means joy is mostly left on axis
+*/
+#define n2dJoySimpleLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d Joy Simple Direction means joy is mostly right on axis
+*/
+#define n2dJoySimpleRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d Joy Simple Direction means joy is mostly up on axis
+USES InputHandler::s_JoyStickDeadzone
+*/
+#define n2dJoySimpleUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d Joy Simple Direction means joy is mostly down on axis
+*/
+#define n2dJoySimpleDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d RIGHT Joy Simple Direction means joy is mostly left on axis
+*/
+#define n2dJoyRSimpleLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d RIGHT Joy Simple Direction means joy is mostly right on axis
+*/
+#define n2dJoyRSimpleRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d RIGHT Joy Simple Direction means joy is mostly up on axis
+USES InputHandler::s_JoyStickDeadzone
+*/
+#define n2dJoyRSimpleUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
+nova2d RIGHT Joy Simple Direction means joy is mostly down on axis
+*/
+#define n2dJoyRSimpleDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
+
+/*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
 Enables SQL use
 */
@@ -257,6 +395,34 @@ Must be called on in a class that inherits from EventListener
 #define n2dRemoveKeyDownListener(key) RemoveEventListener(key);
 
 /*
+nova2d Add Joystick Key Down Listener (int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+Calls function on SDL_CONTOLLER_BUTTON key down
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddJoyKeyDownListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonDown, std::bind(&func, context))
+
+/*
+nova2d Remove Key Down Listener (int joystickID, int button)
+Removes previously added key down listener attached to SDL_CONTROLLER BUTTON
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveJoyKeyDownListener(joystickID, button) RemoveJoyEventListener(joystickID, button)
+
+/*
+nova2d Add Key Up Listener (SDL_CONTROLLER_BUTTON button, void() function, context)
+Calls function on SDL_KeyCode key up
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddJoyKeyUpListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonUp, std::bind(&func, context))
+
+/*
+nova2d Remove Key Up Listener (SDL_KeyCode key)
+Removes previously added key up listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveJoyUpListener(joystickID, button) RemoveJoyEventListener1(joystickID, button);
+
+/*
 nova2d Add Key Up Listener (SDL_KeyCode key, void() function, context)
 Calls function on SDL_KeyCode key up
 Must be called on in a class that inherits from EventListener
@@ -276,6 +442,14 @@ Updaters are called each frame; this adds a new funcToCall as an Updater
 RETURNS unsigned int CleanID
 */
 #define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context));
+
+/*
+nova2d Add a Persistent Updater(void(*f) funcToCall, context)
+Updaters are called each frame; this adds a new funcToCall as an Updater
+(PERSISTENT MEANS this will remain in game until removed manually)
+RETURNS unsigned int CleanID
+*/
+#define n2dAddUpdaterPersistent(funcToCall, context) novazero::core::SceneManager::AddPersistentUpdater(std::bind(&funcToCall, context));
 
 /*
 nova2d Remove Updater(void(*f) funcToRemove)

@@ -18,23 +18,14 @@ namespace novazero
 
 		private:
 
-			bool m_UsingJoystick = false;
 			char m_JoyStickNumber = 0;
 
 		public:
 
-			UDRLController(const std::string& spriteSheet, Vec2 position, Vec2Int size, char layer);
-			~UDRLController();
-
+			UDRLController(const std::string& spriteSheet, Vec2 position, Vec2Int size, char layer, char controllerID = 0);
+			
 			void ConfigureMove(float moveSpeed, TweenTypes accelerationType = TweenTypes::EaseInCubic, float accelerationMS = 0.f, float deaccelerationTimeMS = 0.f);
 			void ConfigureJoystickNumber(char num) { m_JoyStickNumber = num; }
-
-			void EnableWASD(bool isEnabled);
-			void EnableArrowKeys(bool isEnabled);
-			void EnableXbox360(bool isEnabled);
-
-			void LJoyX(float delta);
-			void LJoyY(float delta);
 
 			void UpdateController();
 

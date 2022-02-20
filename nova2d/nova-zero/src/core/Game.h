@@ -13,6 +13,7 @@
 #include "../utils/FontManager.h"
 #include "../utils/SQLManager.h"
 #include "../debug/DebugOverlay.h"
+#include "../utils/Director.h"
 
 #include "../graphics/Color.h"
 #include <vector>
@@ -47,7 +48,7 @@ namespace novazero
 
 		public:
 
-			Game(const novazero::maths::Vec2Int screenSize, const char* title);
+			Game(const char* title, const novazero::maths::Vec2Int screenSize = novazero::maths::Vec2Int(1280, 800));
 			~Game();
 
 			void Tick();
@@ -73,11 +74,14 @@ namespace novazero
 			static novazero::utils::FontManager* s_FontManager;
 			static novazero::utils::SQLManager* s_SQLManager;
 			static novazero::debug::DebugOverlay* s_DebugOverlay;
+			static novazero::utils::Director* s_Director;
 
-			static void ConfigureDebug(bool isVisible);
+			static SDL_KeyCode s_PauseKey;
+			static void PauseGame(bool pause);
+
+			static void ConfigureDebugOverlay(bool isVisible);
 			// Must call ConfigureDebug(true) before this works
 			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
-
 
 			static double s_DeltaTime;
 			static double GetDeltaTime() { return s_DeltaTime; }
@@ -107,6 +111,7 @@ namespace novazero
 			static void SetDebug(bool val) { s_Debug = val; }
 
 			static float s_TimeScale;
+			static float s_TimeScaleMemory;
 
 			static bool s_Running;
 			static bool IsRunning() { return s_Running; }
@@ -115,6 +120,29 @@ namespace novazero
 			{
 				s_ExitCode = exitCode;
 				s_Running = false;
+			}
+
+			static SDL_Haptic* s_Rumbler; //TODO: Game.h Rumble Not Working
+			static char Rumble(int joystickID, float power, Uint32 durationMS)
+			{
+				if (s_Rumbler == nullptr)
+				{
+					s_Rumbler = SDL_HapticOpenFromJoystick(s_InputHandler->s_JoySticks[joystickID]);
+				}
+
+				if (s_Rumbler == NULL)
+				{
+					LOG(LVL_W, "Couldn't rumble: " + std::string(SDL_GetError()));
+					return -1;
+				}
+
+				if (SDL_HapticRumbleInit(s_Rumbler) != 0)
+					return -1;
+
+				if (SDL_HapticRumblePlay(s_Rumbler, power, durationMS) != 0)
+					return -1;
+
+				SDL_HapticClose(s_Rumbler);
 			}
 
 			static bool CoinFlip()

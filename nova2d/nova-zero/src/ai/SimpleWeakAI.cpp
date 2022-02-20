@@ -30,7 +30,8 @@ namespace novazero
 
 		void SimpleWeakAI::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 		{
-			m_Sprite = new Sprite(assetName, position, size, layer);
+			SetPosition(position);
+			Positional::LinkPositionalSprite(new Sprite(assetName, position, size, layer));
 			m_DeleteName = assetName;
 		}
 
@@ -109,6 +110,8 @@ namespace novazero
 		{
 			if (!m_Alive) return;
 
+			GetSprite()->SetPosition(GetPosition());
+
 			if (m_DelayMS > 0)
 			{
 				auto d = n2dDeltaTime();
@@ -116,11 +119,18 @@ namespace novazero
 				return;
 			}
 
-			m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
-
+			if (!m_UsingPatrolSpeedOverride)
+			{
+				m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
+			}
+			else
+			{
+				m_DelayMS = (*m_PatrolSpeedRef) * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
+			}
+			
 			if ((m_MemoryMovement.x != 0 || m_MemoryMovement.y != 0) && m_PatrolIndex == -1 && m_ContinueAfterPatrolComplete)
 			{
-				SetPosition(GetX() + m_MemoryMovement.x, GetY() + m_MemoryMovement.y);
+				SetPosition(Vec2(GetX() + m_MemoryMovement.x, GetY() + m_MemoryMovement.y));
 				return;
 			}
 
@@ -130,7 +140,7 @@ namespace novazero
 					f_OnPatrolComplete();
 			}
 
-			if (OutOfBounds(m_Sprite))
+			if (OutOfBounds(GetSprite()))
 			{
 				DestroySelf();
 				return;
@@ -199,8 +209,8 @@ namespace novazero
 
 			SceneManager::s_CollisionManager->RemoveCollider(this);
 
-			if (m_Sprite)
-				m_Sprite->DestroySelf();
+			if (GetSprite())
+				GetSprite()->DestroySelf();
 
 			SetDeleted(true);
 		}

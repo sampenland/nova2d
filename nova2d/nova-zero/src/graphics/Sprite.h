@@ -3,6 +3,7 @@
 #include "../core/Timer.h"
 #include "Drawable.h"
 #include <functional>
+#include "SDL.h"
 
 namespace novazero
 {

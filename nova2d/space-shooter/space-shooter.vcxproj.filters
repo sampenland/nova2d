@@ -130,5 +130,6 @@
     <Font Include="res\fonts\pixel2.ttf" />
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
+    <Font Include="res\fonts\narrow.ttf" />
   </ItemGroup>
 </Project>

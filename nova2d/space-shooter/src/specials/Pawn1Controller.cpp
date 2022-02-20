@@ -3,6 +3,7 @@
 #include "core/Game.h"
 #include "../Player.h"
 #include "../scenes/Lvl1.h"
+#include "utils/ValueManager.h"
 
 namespace spaceshooter
 {
@@ -10,13 +11,16 @@ namespace spaceshooter
 
 	Pawn1Controller::Pawn1Controller()
 	{
-		m_Pawn1Timer = new Timer(6000, true, std::bind(&Pawn1Controller::CreatePawn1, this));
+		// LINK TO DIRECTOR ---------------------------------
+		float* min = n2dValueManagerAdd("pawn1-creation-min", 6000.f);
+		float* max = n2dValueManagerAdd("pawn1-creation-max", 12000.f);
+		n2dDirectorAddToStackMinMax(true, 0, "Pawn1 Creation", 70.f, 50.f, 1000.f, 20000.f, min, max);
+		// ---------------------------------------------------
+		m_Pawn1Timer = new Timer(min, max, std::bind(&Pawn1Controller::CreatePawn1, this));
 	}
 
 	void Pawn1Controller::CreatePawn1()
 	{
-		if (n2dDebug) return;
-
 		int x = -16;
 		if (n2dCoinFlip())
 		{

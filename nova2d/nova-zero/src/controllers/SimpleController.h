@@ -62,7 +62,9 @@ namespace novazero
 			float m_MoveSpeed = 0.0f;
 			
 			bool m_AcceleratingX = false;
+			bool m_DeacceleratingX = false;
 			bool m_AcceleratingY = false;
+			bool m_DeacceleratingY = false;
 
 			float m_CurrentAccelerationX = 0.0f;
 			float m_CurrentAccelerationY = 0.0f;

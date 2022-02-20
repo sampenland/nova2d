@@ -71,7 +71,7 @@ namespace novazero
 
 		}
 
-		void EventListener::AddKeysEventListener(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddKeysEventListener(SDL_KeyCode key, std::function<bool(SDL_Keycode)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_KeyCodes.end() != std::find(m_KeyCodes.begin(), m_KeyCodes.end(), key))
 			{
@@ -83,7 +83,7 @@ namespace novazero
 			m_KeysEvents.push_back(executeFunction);
 		}
 
-		void EventListener::AddKeysEventListener1(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddKeysEventListener1(SDL_KeyCode key, std::function<bool(SDL_Keycode)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_KeyCodes1.end() != std::find(m_KeyCodes1.begin(), m_KeyCodes1.end(), key))
 			{
@@ -135,7 +135,7 @@ namespace novazero
 
 		}
 
-		void EventListener::AddJoyEventListener(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddJoyEventListener(int joystickID, int button, std::function<bool(int, int)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_JoysticksIDs.end() != std::find(m_JoysticksIDs.begin(), m_JoysticksIDs.end(), joystickID))
 			{
@@ -148,12 +148,26 @@ namespace novazero
 			m_JoysticksEvents.push_back(executeFunction);
 		}
 
-		void EventListener::RemoveJoyEventListener(int joystickID)
+		void EventListener::AddJoyEventListener1(int joystickID, int button, std::function<bool(int, int)> conditionalFunction, std::function<void()> executeFunction)
+		{
+			if (m_JoysticksIDs1.end() != std::find(m_JoysticksIDs1.begin(), m_JoysticksIDs1.end(), joystickID))
+			{
+				return;
+			}
+
+			m_JoysticksIDs1.push_back(joystickID);
+			m_JoystickButtons1.push_back(button);
+			m_JoysticksConditions1.push_back(conditionalFunction);
+			m_JoysticksEvents1.push_back(executeFunction);
+		}
+
+		void EventListener::RemoveJoyEventListener(int joystickID, int button)
 		{
 			int idx = -1;
 			for (size_t i = 0; i < m_JoysticksIDs.size(); i++)
 			{
-				if (m_JoysticksIDs[i] == joystickID)
+				if (m_JoysticksIDs[i] == joystickID &&
+					m_JoystickButtons[i] == button)
 				{
 					idx = i;
 					break;
@@ -169,7 +183,29 @@ namespace novazero
 
 		}
 
-		void EventListener::AddJoyAxisEventListener(int joystickID, JoystickAxis axis, f_JoyStickAxisConditionalFunction conditionalFunction, f_FloatPassFunction executeFunction)
+		void EventListener::RemoveJoyEventListener1(int joystickID, int button)
+		{
+			int idx = -1;
+			for (size_t i = 0; i < m_JoysticksIDs1.size(); i++)
+			{
+				if (m_JoysticksIDs1[i] == joystickID &&
+					m_JoystickButtons1[i] == button)
+				{
+					idx = i;
+					break;
+				}
+			}
+
+			if (idx == -1) return;
+
+			m_JoysticksIDs1.erase(m_JoysticksIDs1.begin() + idx);
+			m_JoystickButtons1.erase(m_JoystickButtons1.begin() + idx);
+			m_JoysticksConditions1.erase(m_JoysticksConditions1.begin() + idx);
+			m_JoysticksEvents1.erase(m_JoysticksEvents1.begin() + idx);
+
+		}
+
+		void EventListener::AddJoyAxisEventListener(int joystickID, int axis, std::function<bool(int, int)> conditionalFunction, std::function<void(float)> executeFunction)
 		{
 			if (m_JoysticksIDs.end() != std::find(m_JoysticksIDs.begin(), m_JoysticksIDs.end(), joystickID))
 			{

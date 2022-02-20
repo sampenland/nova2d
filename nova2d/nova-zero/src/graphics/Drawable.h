@@ -22,7 +22,7 @@ namespace novazero
 
 		public:
 
-			char m_Layer = 0;
+			unsigned char m_Layer = 0;
 			unsigned int m_ID = 0;
 
 			void SetDrawableCollection(DrawableCollection* collection);

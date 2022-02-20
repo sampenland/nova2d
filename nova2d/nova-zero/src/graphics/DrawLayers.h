@@ -20,15 +20,14 @@ namespace novazero
 		public:
 
 			DrawLayers();
-			~DrawLayers();
 
-			void AddSprite(Drawable* sprite, const char layer);
-			void RemoveSprite(unsigned int id, char layer);
-			bool HasSpriteOnLayer(Drawable* sprite, const char layer);
+			void AddSprite(Drawable* sprite, const BYTE layer);
+			void RemoveSprite(unsigned int id, BYTE layer);
+			bool HasSpriteOnLayer(Drawable* sprite, const BYTE layer);
 
 			void ClearSprites();
 
-			void DrawLayer(const char layer) const;
+			void DrawLayer(const BYTE layer) const;
 			void DrawAllLayers() const;
 
 			static unsigned int s_TotalInstances;

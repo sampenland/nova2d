@@ -20,11 +20,12 @@ namespace spaceshooter
 		
 		m_DeleteName = assetName + std::to_string(SimpleWeakAI::Collider::m_ID);
 		
+		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
-		ConfigureCollider(m_Sprite, 0, "pawn");
+		ConfigureCollider(GetSprite(), 0, "pawn");
 		ConfigureUsingBounds(false, false);
 
-		m_HealthBar = new SimpleStatBar(false, (int)m_Sprite->GetX(), (int)m_Sprite->GetY() - 2,
+		m_HealthBar = new SimpleStatBar(false, (int)GetX(), (int)GetY() - 2,
 			16, 4, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
@@ -44,7 +45,7 @@ namespace spaceshooter
 	{
 		if (!m_Alive) return;
 
-		m_HealthBar->Update(m_Health*2, (int)m_Sprite->GetX(), (int)m_Sprite->GetY() - 8);
+		m_HealthBar->Update(m_Health*2, (int)GetX(), (int)GetY() - 8);
 
 		if (m_DelayShoot < 0)
 		{
@@ -57,8 +58,10 @@ namespace spaceshooter
 
 	void Pawn::DisplayHit(int damage)
 	{
-		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "green", Rect(GetX() - (float)GetWidth() / 2.f, GetY() - 16.f, 24.f, 16.f),
-			Vec2(GetX(), GetY() - 128), 4000, 0);
+		Vec2 pos = GetPosition();
+		int width = GetWidth();
+		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "green", Rect(pos.x - width/2, GetY() - 16.f, 24.f, 16.f),
+			Vec2(pos.x, pos.y - 128), 4000, 0);
 	}
 
 	void Pawn::Hurt(int damage)
@@ -84,7 +87,7 @@ namespace spaceshooter
 
 	void Pawn::SmallExplosion()
 	{
-		Sprite* explosion = new Sprite("explode", m_Sprite->GetPosition(), Vec2Int(16, 16), 0);
+		Sprite* explosion = new Sprite("explode", GetPosition(), Vec2Int(16, 16), 0);
 		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
@@ -97,9 +100,9 @@ namespace spaceshooter
 		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
 		m_DelayShoot = r;
 
-		PawnBullet* bullet = new PawnBullet(Vec2Int((int)m_Sprite->GetX(), (int)m_Sprite->GetY() + 8),
-			Vec2Int((int)m_Sprite->GetX(), (int)Game::s_Height + 32),
-			2.0f, m_Sprite);
+		PawnBullet* bullet = new PawnBullet(Vec2Int((int)GetX(), (int)GetY() + 8),
+			Vec2Int((int)GetX(), (int)Game::s_Height + 32),
+			2.0f, GetSprite());
 	}
 
 	void Pawn::DestroySelf()
@@ -118,8 +121,8 @@ namespace spaceshooter
   		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
 
-		if (m_Sprite)
-			m_Sprite->DestroySelf();
+		if (GetSprite())
+			GetSprite()->DestroySelf();
 
 		m_Dead = 1;
 	}
