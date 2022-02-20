@@ -32,6 +32,11 @@ namespace novazero
 			Scene* m_CurrentScene = nullptr;
 
 		public:
+
+			std::string m_LastSceneName = "none";
+			std::string m_CurrentSceneName = "none";
+
+		public:
 		
 			SceneManager();
 			~SceneManager();

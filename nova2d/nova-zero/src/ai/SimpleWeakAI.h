@@ -52,6 +52,9 @@ namespace novazero
 			
 			std::vector<Vec2*> m_PatrolPoints;
 
+			bool m_UsingPatrolSpeedOverride = false;
+			float* m_PatrolSpeedRef = nullptr;
+
 		public:
 
 			SimpleWeakAI();
@@ -60,6 +63,14 @@ namespace novazero
 			{ 
 				m_DelayMaxMS = patrolDelayMS;
 				m_LoopMoving = true;
+				m_UsingPatrolSpeedOverride = false;
+			}
+
+			void Configure(float* patrolDelayMS, bool loop)
+			{
+				m_PatrolSpeedRef = patrolDelayMS;
+				m_LoopMoving = loop;
+				m_UsingPatrolSpeedOverride = true;
 			}
 
 			void LookAt(Vec2Int target, int extraRotation)

@@ -37,7 +37,7 @@ namespace novazero
 			if (scrollPosX > m_Position.x + m_Width - scrollSize / 2)
 				scrollPosX = m_Position.x + m_Width - scrollSize / 2;
 			
-			m_Width = background.w - scrollSize + 10;
+			m_Width = (int)(background.w - scrollSize + 10);
 			m_Background = new DrawRect(backgroundColor, backgroundColor, true,
 				Rect(background.x, background.y, (float)m_Width, background.h), 2, layer);
 			

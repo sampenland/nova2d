@@ -64,6 +64,24 @@ Sets a float value which directly effects all moving objects
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
 
 /*
+nova2d Value Add
+Adds a global variable which can be grabbed from anywhere in your code
+*/
+#define n2dValueManagerAdd(name, value) novazero::utils::ValueManager::AddValue(name, value);
+
+/*
+nova2d Value Get
+Gets a previously added variable
+*/
+#define n2dValueManagerGet(name) novazero::utils::ValueManager::GetValue(name);
+
+/*
+Gets a reference to a previously added variable
+THIS can be used for tweens, Director stackables, etc.
+*/
+#define n2dValueManagerGetRef(name) novazero::utils::ValueManager::GetRefToValue(name);
+
+/*
 nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
 Rumble the controller at power for duration milliseconds
 */
@@ -74,6 +92,13 @@ n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWi
 Adds a persistent ScrollSelect to Director's page Left/Right stacks
 */
 #define n2dDirectorAddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal) novazero::core::Game::s_Director->AddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal);
+
+/*
+n2d Director AddToStackMinMax(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal)
+Adds a persistent ScrollSelect to Director's page Left/Right stacks
+*/
+#define n2dDirectorAddToStackMinMax(left, page, labelText, labelWidth, inOrDecreaseBy, min, max, minRefVal, maxRefVal) novazero::core::Game::s_Director->AddToStackMinMax(left, page, labelText, labelWidth, inOrDecreaseBy, min, max, minRefVal, maxRefVal);
+
 
 /*
 nova2d Coin Flip ()

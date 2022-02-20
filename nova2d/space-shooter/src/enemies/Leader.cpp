@@ -4,6 +4,7 @@
 #include "../specials/LeaderController.h"
 #include "../scenes/Lvl1.h"
 #include "components/HitDisplay.h"
+#include "utils/ValueManager.h"
 
 namespace spaceshooter
 {
@@ -28,7 +29,12 @@ namespace spaceshooter
 		AddPatrolPointWithFunction(Vec2(position.x + 300, position.y + forwardMove), std::bind(&Leader::LinearPatrolMove, this));
 		
 		EnableAI(true);
-		Configure(5, true);
+
+		// special config - pointer for director to be able to change value
+		float* leaderSpeed = n2dValueManagerGetRef("leader-speed");
+		Configure(leaderSpeed, true); 
+		// ----------------------------------------------------------------
+
 		ConfigureLoopIndex(1);
 		ConfigureShoot(2000, 5000);
 

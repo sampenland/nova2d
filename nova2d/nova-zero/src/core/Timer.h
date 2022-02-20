@@ -17,11 +17,19 @@ namespace novazero
 			bool m_Alive = true;
 			unsigned int m_ID = 0;
 
+			bool m_Randomized = false;
+			float m_RandomMin = 0.0f;
+			float m_RandomMax = 0.0f;
+
 			f_VoidFunction f_OnFinish;
 
 		public:
 
-			Timer(const float delayMS, const bool loop, f_VoidFunction endDelayFunc);
+			Timer(const float delayMS, const bool loop, std::function<void()> endDelayFunc,
+				const float loopRndMin = -1.f, const float loopRndMax = -1.f);
+
+			float* GetRefRndMin() { return &m_RandomMin; } // for tweens and Director ref-ing
+			float* GetRefRndMax() { return &m_RandomMax; } // for tweens and Director ref-ing
 
 			void DestroySelf();
 			

@@ -5,12 +5,20 @@ namespace novazero
 {
 	namespace core
 	{
-		Timer::Timer(const float delayMS, const bool loop, std::function<void()> endDelayFunc)
+		Timer::Timer(const float delayMS, const bool loop, std::function<void()> endDelayFunc, 
+			const float loopRndMin, const float loopRndMax)
 			: Deleteable("timer")
 		{
 			m_DelayMax = delayMS * 2;
 			m_Delay = m_DelayMax;
 			m_Loop = loop;
+
+			if (loopRndMin != -1.f && loopRndMax != -1.f)
+			{
+				m_Randomized = true;
+				m_RandomMin = loopRndMin;
+				m_RandomMax = loopRndMax;
+			}
 
 			f_OnFinish = endDelayFunc;
 
@@ -45,7 +53,15 @@ namespace novazero
 				if (m_Loop)
 				{
 					m_Alive = true;
-					m_Delay = m_DelayMax;
+
+					if (m_Randomized)
+					{
+						m_Delay = n2dRandomFloat(m_RandomMin, m_RandomMax);
+					}
+					else
+					{
+						m_Delay = m_DelayMax;
+					}
 				}
 				else
 				{

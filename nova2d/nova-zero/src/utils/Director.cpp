@@ -1,5 +1,6 @@
 #include "Director.h"
 #include "../core/Game.h"
+#include "../input/MinMaxScrollSelect.h"
 
 namespace novazero
 {
@@ -12,6 +13,7 @@ namespace novazero
 		// ----------------------------
 		BYTE Director::s_CurrentPage = 0;
 		std::vector<DirectorPage*> Director::s_Pages;
+		const float Director::s_StackPadding = 80.f;
 
 		Director::Director(Vec2Int position) : Drawable(), Deleteable("director")
 		{
@@ -63,11 +65,29 @@ namespace novazero
 
 			if (m_SelectionLock) return;
 
+			// restart scene with Y button
+			if (m_Visible && n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_Y) &&
+				Game::s_SceneManager->m_CurrentSceneName != "none")
+			{
+				Toggle();
+				Game::s_SceneManager->ChangeScene(Game::s_SceneManager->m_CurrentSceneName);
+				return;
+			}
+			// move back a scene on Left bumper
+			else if (m_Visible && n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_BACK) &&
+				Game::s_SceneManager->m_LastSceneName != "none")
+			{
+				Toggle();
+				Game::s_SceneManager->ChangeScene(Game::s_SceneManager->m_LastSceneName);
+				return;
+			}
+			//TODO: move to next scene - how do we know what's next?
+
 			const size_t leftCount = s_Pages[s_CurrentPage]->m_LeftStack.size();
 			const size_t rightCount = s_Pages[s_CurrentPage]->m_RightStack.size();
 
 			bool selectNew = false;
-			ScrollSelect* currentSelected = m_ScrollTime;
+			DirectorStackable* currentSelected = m_ScrollTime;
 
 			if (n2dIsKeyDown(SDLK_UP) || n2dJoyDPadUp(0))
 			{
@@ -77,11 +97,11 @@ namespace novazero
 				{
 					if (m_LeftSelectedStack)
 					{
-						currentSelected = s_Pages[m_CurrentSelected]->m_LeftStack.at(m_CurrentSelected);
+						currentSelected = s_Pages[s_CurrentPage]->m_LeftStack.at(m_CurrentSelected);
 					}
 					else
 					{
-						currentSelected = s_Pages[m_CurrentSelected]->m_RightStack.at(m_CurrentSelected);
+						currentSelected = s_Pages[s_CurrentPage]->m_RightStack.at(m_CurrentSelected);
 					}
 				}			
 
@@ -120,11 +140,11 @@ namespace novazero
 				{
 					if (m_LeftSelectedStack)
 					{
-						currentSelected = s_Pages[m_CurrentSelected]->m_LeftStack.at(m_CurrentSelected);
+						currentSelected = s_Pages[s_CurrentPage]->m_LeftStack.at(m_CurrentSelected);
 					}
 					else
 					{
-						currentSelected = s_Pages[m_CurrentSelected]->m_RightStack.at(m_CurrentSelected);
+						currentSelected = s_Pages[s_CurrentPage]->m_RightStack.at(m_CurrentSelected);
 					}
 				}
 
@@ -132,17 +152,17 @@ namespace novazero
 				{
 					if (leftCount != 0)
 					{
-						if (m_CurrentSelected == -1 && leftCount > 0)
+						if ((size_t)m_CurrentSelected == -1 && leftCount > 0)
 						{
 							m_CurrentSelected = 0;
 							selectNew = true;
 						}
-						else if (m_CurrentSelected < leftCount - 1)
+						else if ((size_t)m_CurrentSelected < leftCount - 1)
 						{
 							m_CurrentSelected++;
 							selectNew = true;
 						}
-						else if(rightCount > 0)
+						else if(rightCount > (size_t)0)
 						{
 							m_CurrentSelected = 0;
 							m_LeftSelectedStack = false;
@@ -158,7 +178,7 @@ namespace novazero
 				}
 				else
 				{
-					if (rightCount != 0)
+					if (rightCount != (size_t)0)
 					{
 						if (m_CurrentSelected < rightCount - 1)
 						{
@@ -175,9 +195,10 @@ namespace novazero
 			}
 		}
 
-		void Director::ChangeSelection(ScrollSelect* oldSelected)
+		void Director::ChangeSelection(DirectorStackable* oldSelected)
 		{
-			oldSelected->Select(false, "light-blue", "white");
+			if(oldSelected)
+				oldSelected->Select(false, "light-blue", "white");
 
 			if (m_CurrentSelected == -1)
 			{
@@ -187,11 +208,11 @@ namespace novazero
 
 			if (m_LeftSelectedStack)
 			{
-				s_Pages[m_CurrentSelected]->m_LeftStack.at(m_CurrentSelected)->Select(true, "bright-blue", "white");
+				s_Pages[s_CurrentPage]->m_LeftStack.at(m_CurrentSelected)->Select(true, "bright-blue", "white");
 			}
 			else
 			{
-				s_Pages[m_CurrentSelected]->m_RightStack.at(m_CurrentSelected)->Select(true, "bright-blue", "white");
+				s_Pages[s_CurrentPage]->m_RightStack.at(m_CurrentSelected)->Select(true, "bright-blue", "white");
 			}
 		}
 
@@ -225,6 +246,35 @@ namespace novazero
 
 			n2dPauseGame(m_Visible);
 
+		}
+
+		void Director::ClearStacksAndReset(bool left, bool right)
+		{
+
+			for (size_t i = 0; i < s_Pages.size(); i++)
+			{
+				if (left)
+				{
+					std::vector<DirectorStackable*>::iterator it = s_Pages[i]->m_LeftStack.begin();
+					while (it != s_Pages[i]->m_LeftStack.end())
+					{
+						it = s_Pages[i]->m_LeftStack.erase(it);
+					}
+				}
+				
+				if (right)
+				{
+					std::vector<DirectorStackable*>::iterator it = s_Pages[i]->m_RightStack.begin();
+					while (it != s_Pages[i]->m_RightStack.end())
+					{
+						it = s_Pages[i]->m_RightStack.erase(it);
+					}
+				}
+			}
+
+			m_LeftSelectedStack = true;
+			m_CurrentSelected = -1;
+			ChangeSelection(nullptr);
 		}
 
 		void Director::Draw(float oX, float oY)
@@ -272,7 +322,7 @@ namespace novazero
 			if (left)
 			{
 				float x = s_LeftStackX;
-				float y = s_StackStartY + currentLeftSize * 50.f;
+				float y = s_StackStartY + currentLeftSize * s_StackPadding;
 
 				ScrollSelect* selector = new ScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, inOrDecreaseby, max, refVal,
 					Rect(x, y, 180.f, 30.f), "light-blue", "white", 255, true);
@@ -286,11 +336,81 @@ namespace novazero
 			else
 			{		
 				float x = s_RightStackX;
-				float y = s_StackStartY + currentRightSize * 50.f;
+				float y = s_StackStartY + currentRightSize * s_StackPadding;
 
 				ScrollSelect* selector = new ScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, inOrDecreaseby, max, refVal,
 					Rect(x, y, 180.f, 30.f), "light-blue", "white", 255, true);
 				
+				selector->SetValueColor("purple");
+				selector->SetVisible(false);
+				selector->SetEnabled(false);
+
+				s_Pages.at(page)->m_RightStack.push_back(selector);
+			}
+		}
+
+		void Director::AddToStackMinMax(bool left, BYTE page, std::string labelText, 
+			int labelWidth, float inOrDecreaseby, float min, float max, float* minRefVal, float* maxRefVal)
+		{
+			if (page < 0) page = 0;
+			if (page > MAX_DIRECTOR_PAGES) page = MAX_DIRECTOR_PAGES;
+
+			const int currentLeftSize = s_Pages.at(page)->m_LeftStack.size();
+			const int currentRightSize = s_Pages.at(page)->m_RightStack.size();
+
+			if (left && currentLeftSize >= 5)
+			{
+				if (page != MAX_DIRECTOR_PAGES)
+				{
+					page++;
+					LOG(LVL_I, "Could not place " + labelText +
+						" on Director Page [" + tostring(page) + "]. Added to next page.");
+				}
+				else
+				{
+					LOG(LVL_W, "Ran out of space to place: " + labelText + " on Director LEFT stack");
+					return;
+				}
+			}
+			else if (!left && currentRightSize)
+			{
+				if (page != MAX_DIRECTOR_PAGES)
+				{
+					page++;
+					LOG(LVL_I, "Could not place " + labelText +
+						" on Director Page [" + tostring(page) + "]. Added to next page.");
+				}
+				else
+				{
+					LOG(LVL_W, "Ran out of space to place: " + labelText + " on Director RIGHT stack");
+					return;
+				}
+			}
+
+			if (left)
+			{
+				float x = s_LeftStackX;
+				float y = s_StackStartY + currentLeftSize * s_StackPadding;
+
+				MinMaxScrollSelect* selector = new MinMaxScrollSelect(labelText, labelWidth, "white", 150.f, 14.f, 
+					inOrDecreaseby, min, max, minRefVal, maxRefVal,
+					Rect(x, y, 180.f, 30.f), "light-blue", "white", 255, true);
+
+				selector->SetValueColor("purple");
+				selector->SetVisible(false);
+				selector->SetEnabled(false);
+
+				s_Pages.at(page)->m_LeftStack.push_back(selector);
+			}
+			else
+			{
+				float x = s_RightStackX;
+				float y = s_StackStartY + currentRightSize * s_StackPadding;
+
+				MinMaxScrollSelect* selector = new MinMaxScrollSelect(labelText, labelWidth, "white", 150.f, 14.f,
+					inOrDecreaseby, min, max, minRefVal, maxRefVal,
+					Rect(x, y, 180.f, 30.f), "light-blue", "white", 255, true);
+
 				selector->SetValueColor("purple");
 				selector->SetVisible(false);
 				selector->SetEnabled(false);

@@ -118,8 +118,15 @@ namespace novazero
 				return;
 			}
 
-			m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
-
+			if (!m_UsingPatrolSpeedOverride)
+			{
+				m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
+			}
+			else
+			{
+				m_DelayMS = (*m_PatrolSpeedRef) * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
+			}
+			
 			if ((m_MemoryMovement.x != 0 || m_MemoryMovement.y != 0) && m_PatrolIndex == -1 && m_ContinueAfterPatrolComplete)
 			{
 				SetPosition(Vec2(GetX() + m_MemoryMovement.x, GetY() + m_MemoryMovement.y));

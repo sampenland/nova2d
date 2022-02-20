@@ -141,7 +141,7 @@ namespace novazero
 		{
 			SDL_Event event;
 			SDL_PollEvent(&event);
-			int i;
+			
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:

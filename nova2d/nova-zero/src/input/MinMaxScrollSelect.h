@@ -14,7 +14,7 @@ namespace novazero
 		using namespace graphics;
 		using namespace debug;
 
-		class ScrollSelect :
+		class MinMaxScrollSelect :
 			public Drawable,
 			public Deleteable,
 			public DirectorStackable
@@ -30,21 +30,29 @@ namespace novazero
 
 			Text* m_Label = nullptr;
 			DrawRect* m_Background = nullptr;
-			DrawRect* m_ScrollRect = nullptr;
+			DrawRect* m_MinScrollRect = nullptr;
+			DrawRect* m_MaxScrollRect = nullptr;
 
 			Text* m_TextMin = nullptr;
-			Text* m_TextVal = nullptr;
+			Text* m_TextMinVal = nullptr;
+			Text* m_TextMaxVal = nullptr;
 			Text* m_TextMax = nullptr;
 
-			const float m_Min = 0;
+			float m_Min = 0;
 			float m_Max = 0;
+
 			float m_InOrDecreaseBy = 0.1f;
-			float* m_Ref;
+
+			float* m_MinRef;
+			float* m_MaxRef;
+
+			bool m_MinSelected = true;
+			bool m_SelectionLock = false;
 
 		public:
 
-			ScrollSelect(std::string labelText, int labelWidth, std::string textColor,
-				float width, float height, float inOrDecreaseBy, float max, float* refVal,
+			MinMaxScrollSelect(std::string labelText, int labelWidth, std::string textColor,
+				float width, float height, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal,
 				Rect background, std::string backgroundColor, std::string scrollColor,
 				BYTE layer, bool isPersistent = false);
 
@@ -62,8 +70,11 @@ namespace novazero
 
 			void SetValueColor(std::string colorName)
 			{
-				m_TextVal->SetColor(colorName);
+				m_TextMinVal->SetColor(colorName);
+				m_TextMaxVal->SetColor(colorName);
 			}
+
+			void HandleValueChanging();
 
 			void Update() override;
 			void HandleSelected();

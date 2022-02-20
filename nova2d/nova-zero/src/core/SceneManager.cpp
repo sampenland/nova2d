@@ -69,6 +69,8 @@ namespace novazero
 				return;
 			}
 
+			m_LastSceneName = sceneName;
+			m_CurrentSceneName = sceneName;
 			m_CurrentScene = loadScene;
 			m_CurrentScene->m_Started = true;
 			m_CurrentScene->Start();
@@ -99,6 +101,9 @@ namespace novazero
 				return;
 			}
 
+			if(m_CurrentSceneName != m_CurrentScene->m_SceneName)
+				m_LastSceneName = m_CurrentSceneName;
+			
 			m_CurrentScene->Clean();
 			m_CurrentScene->CleanUp();
 			m_CurrentScene->End();
@@ -111,6 +116,7 @@ namespace novazero
 			s_TweenManager->ClearTweens();
 			s_TimeEffectorManager->ClearEffectors();
 			s_TimeEffectorManager->ClearEffected();
+			Game::s_Director->ClearStacksAndReset(true, true);
 
 			m_CurrentScene = loadScene;
 			
@@ -119,6 +125,7 @@ namespace novazero
 
 			LOG(LVL_INFO, "Starting Scene [ " + m_CurrentScene->m_SceneName + " ]");
 
+			m_CurrentSceneName = m_CurrentScene->m_SceneName;
 			m_CurrentScene->Start();
 
 			if (Game::s_DebugOverlay)
@@ -161,6 +168,12 @@ namespace novazero
 		
 		void SceneManager::Update()
 		{
+			if (Game::s_TimeScale == 0.f)
+			{
+				ProcessPersistentUpdaters();
+				return;
+			}
+
 			m_CurrentScene->Update();
 
 			ProcessPersistentUpdaters();

@@ -122,7 +122,7 @@ namespace novazero
 				s_Running = false;
 			}
 
-			static SDL_Haptic* s_Rumbler; //TODO: fix
+			static SDL_Haptic* s_Rumbler; //TODO: Game.h Rumble Not Working
 			static char Rumble(int joystickID, float power, Uint32 durationMS)
 			{
 				if (s_Rumbler == nullptr)

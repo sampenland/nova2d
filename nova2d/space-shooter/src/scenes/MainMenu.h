@@ -40,7 +40,7 @@ namespace spaceshooter
 
 		void Start() override
 		{
-			screen = new DrawableCollection(Vec2(0.f, (int)Game::s_Height), 0);
+			screen = new DrawableCollection(Vec2(0.f, (float)Game::s_Height), 0);
 
 			title = new Text("font1", "SPACE SHOOTER", "white",
 				Rect(Game::s_Width / 2 - 300, Game::s_Height / 4, 600, 60), 0);
