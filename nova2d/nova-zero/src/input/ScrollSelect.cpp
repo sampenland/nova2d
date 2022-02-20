@@ -27,7 +27,7 @@ namespace novazero
 
 			m_Position = Vec2Int((int)background.x, (int)background.y);
 
-			m_Label = new Text("font1", labelText, textColor,
+			m_Label = new Text("narrow", labelText, textColor,
 				Rect(background.x, background.y - height, (float)labelWidth, height), layer);
 
 			float percent = *m_Ref / m_Max;
@@ -47,13 +47,13 @@ namespace novazero
 			const float labelWidths = 60.f;
 			const float labelHeights = 20.f;
 
-			m_TextMin = new Text("font3", "0.0", textColor,
+			m_TextMin = new Text("narrow", "0.0", textColor,
 				Rect(background.x, background.y + background.h + 4, labelWidths, labelHeights), layer);
 
-			m_TextVal = new Text("font3", tostring(*refVal), textColor,
+			m_TextVal = new Text("narrow", tostring(*refVal), textColor,
 				Rect(background.x + width/2 - scrollSize/2, background.y + background.h + 4, labelWidths, labelHeights), layer);
 
-			m_TextMax = new Text("font3", tostring(max), textColor,
+			m_TextMax = new Text("narrow", tostring(max), textColor,
 				Rect(background.x + width - labelWidths, background.y + background.h + 4, labelWidths, labelHeights), layer);
 			m_TextMax->SetX(background.x + m_Width - labelWidths);
 
@@ -95,7 +95,7 @@ namespace novazero
 		void ScrollSelect::HandleSelected()
 		{
 			bool update = false;
-			if (n2dIsKeyDown(SDLK_LEFT) || n2dJoyDPadLeft(0))
+			if (n2dIsKeyDown(SDLK_LEFT) || n2dJoyRSimpleLeft(0))
 			{
 				if (*m_Ref > m_Min)
 				{
@@ -104,7 +104,7 @@ namespace novazero
 					update = true;
 				}
 			}
-			else if (n2dIsKeyDown(SDLK_RIGHT) || n2dJoyDPadRight(0))
+			else if (n2dIsKeyDown(SDLK_RIGHT) || n2dJoyRSimpleRight(0))
 			{
 				if (*m_Ref < m_Max)
 				{

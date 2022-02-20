@@ -30,6 +30,7 @@ namespace novazero
 
 		void SimpleWeakAI::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 		{
+			SetPosition(position);
 			Positional::LinkPositionalSprite(new Sprite(assetName, position, size, layer));
 			m_DeleteName = assetName;
 		}

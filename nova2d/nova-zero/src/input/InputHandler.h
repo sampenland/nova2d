@@ -28,7 +28,6 @@ namespace novazero
 		public:
 
 			InputHandler();
-			~InputHandler();
 
 			void Configure(int joyStickDeadzone);
 
@@ -59,6 +58,8 @@ namespace novazero
 			
 			void MouseClick(SDL_Event* event);
 
+			void DestroySelf();
+
 		public:
 
 			static bool IsKeyDown(SDL_Keycode key);
@@ -68,7 +69,7 @@ namespace novazero
 			static int s_JoyStickDeadzone;
 
 			static bool GetJoystickHat(char joystickID, Uint8 button);
-			static float GetJoystickAxis(char joystickID, JoystickAxis axis);
+			static float GetJoystickAxis(char joystickID, int axis);
 			static bool IsJoystickButtonDown(char joystickID, int button);
 			static bool IsJoystickButtonUp(char joystickID, int button);
 			static SDL_Joystick* s_JoySticks[MAX_JOYSTICKS];

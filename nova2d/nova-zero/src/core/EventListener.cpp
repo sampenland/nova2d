@@ -71,7 +71,7 @@ namespace novazero
 
 		}
 
-		void EventListener::AddKeysEventListener(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddKeysEventListener(SDL_KeyCode key, std::function<bool(SDL_Keycode)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_KeyCodes.end() != std::find(m_KeyCodes.begin(), m_KeyCodes.end(), key))
 			{
@@ -83,7 +83,7 @@ namespace novazero
 			m_KeysEvents.push_back(executeFunction);
 		}
 
-		void EventListener::AddKeysEventListener1(SDL_KeyCode key, f_ConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddKeysEventListener1(SDL_KeyCode key, std::function<bool(SDL_Keycode)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_KeyCodes1.end() != std::find(m_KeyCodes1.begin(), m_KeyCodes1.end(), key))
 			{
@@ -135,7 +135,7 @@ namespace novazero
 
 		}
 
-		void EventListener::AddJoyEventListener(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddJoyEventListener(int joystickID, int button, std::function<bool(int, int)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_JoysticksIDs.end() != std::find(m_JoysticksIDs.begin(), m_JoysticksIDs.end(), joystickID))
 			{
@@ -148,7 +148,7 @@ namespace novazero
 			m_JoysticksEvents.push_back(executeFunction);
 		}
 
-		void EventListener::AddJoyEventListener1(int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+		void EventListener::AddJoyEventListener1(int joystickID, int button, std::function<bool(int, int)> conditionalFunction, std::function<void()> executeFunction)
 		{
 			if (m_JoysticksIDs1.end() != std::find(m_JoysticksIDs1.begin(), m_JoysticksIDs1.end(), joystickID))
 			{
@@ -205,7 +205,7 @@ namespace novazero
 
 		}
 
-		void EventListener::AddJoyAxisEventListener(int joystickID, JoystickAxis axis, f_JoyStickAxisConditionalFunction conditionalFunction, f_FloatPassFunction executeFunction)
+		void EventListener::AddJoyAxisEventListener(int joystickID, int axis, std::function<bool(int, int)> conditionalFunction, std::function<void(float)> executeFunction)
 		{
 			if (m_JoysticksIDs.end() != std::find(m_JoysticksIDs.begin(), m_JoysticksIDs.end(), joystickID))
 			{

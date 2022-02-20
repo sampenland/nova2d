@@ -8,16 +8,6 @@ namespace novazero
 	{
 		AssetManager::AssetManager() { }
 
-		AssetManager::~AssetManager() 
-		{
-			std::map<std::string, SDL_Texture*>::iterator it;
-
-			for (it = m_Textures.begin(); it != m_Textures.end(); it++)
-			{
-				SDL_DestroyTexture(m_Textures.at(it->first));
-			}
-		}
-
 		void AssetManager::LoadAndAddTexture(const std::string& name, std::string path)
 		{
 			SDL_Texture* texture = TextureLoader::Load(path);
@@ -45,6 +35,18 @@ namespace novazero
 				LOG(LVL_NON_FATAL_ERROR, oor.what());
 				return nullptr;
 			}
+		}
+
+		void AssetManager::DestroySelf()
+		{
+			std::map<std::string, SDL_Texture*>::iterator it;
+
+			for (it = m_Textures.begin(); it != m_Textures.end(); it++)
+			{
+				SDL_DestroyTexture(m_Textures.at(it->first));
+			}
+
+			m_Textures.clear();
 		}
 	}
 }

@@ -7,13 +7,13 @@ namespace novazero
 {
 	namespace core
 	{
-		std::map<unsigned int, f_VoidFunction> SceneManager::s_Updaters;
+		std::map<unsigned int, std::function<void()>> SceneManager::s_Updaters;
 		std::map<unsigned int, bool> SceneManager::s_UpdaterErasers;
-		std::map<unsigned int, f_VoidFunction> SceneManager::s_UpdatersToAdd;
+		std::map<unsigned int, std::function<void()>> SceneManager::s_UpdatersToAdd;
 
-		std::map<unsigned int, f_VoidFunction> SceneManager::s_PersistentUpdaters;
+		std::map<unsigned int, std::function<void()>> SceneManager::s_PersistentUpdaters;
 		std::map<unsigned int, bool> SceneManager::s_PersistentUpdaterErasers;
-		std::map<unsigned int, f_VoidFunction> SceneManager::s_PersistentUpdatersToAdd;
+		std::map<unsigned int, std::function<void()>> SceneManager::s_PersistentUpdatersToAdd;
 
 		std::map<unsigned int, Deleteable*> SceneManager::s_Deleteables;
 
@@ -31,35 +31,7 @@ namespace novazero
 			s_TweenManager = new TweenManager();
 			s_TimeEffectorManager = new TimeEffectorManager();
 		}
-
-		SceneManager::~SceneManager()
-		{
-			if (s_ReferenceManager)
-				delete s_ReferenceManager;
-
-			if (s_CollisionManager)
-				delete s_CollisionManager;
-
-			if (s_GraverManager)
-			{
-				s_GraverManager->ClearGravers();
-				delete s_GraverManager;
-			}
-
-			if (s_TweenManager)
-			{
-				s_TweenManager->ClearTweens();
-				delete s_TweenManager;
-			}
-
-			if (s_TimeEffectorManager)
-			{
-				s_TimeEffectorManager->ClearEffectors();
-				s_TimeEffectorManager->ClearEffected();
-				delete s_TimeEffectorManager;
-			}
-		}
-
+		
 		void SceneManager::ConfigureFirstScene(const std::string& sceneName)
 		{
 			Scene* loadScene = GetScene(sceneName);
@@ -139,7 +111,7 @@ namespace novazero
 		void SceneManager::CleanUpdaters()
 		{
 			// mark all updaters to be removed
-			std::map<unsigned int, f_VoidFunction>::iterator it = s_Updaters.begin();
+			std::map<unsigned int, std::function<void()>>::iterator it = s_Updaters.begin();
 			while (it != s_Updaters.end())
 			{
 				s_UpdaterErasers[it->first] = true;
@@ -168,6 +140,8 @@ namespace novazero
 		
 		void SceneManager::Update()
 		{
+			if (m_Destroyed) return;
+
 			if (Game::s_TimeScale == 0.f)
 			{
 				ProcessPersistentUpdaters();
@@ -188,7 +162,7 @@ namespace novazero
 		void SceneManager::ProcessUpdaters()
 		{
 			// Add new updaters
-			std::map<unsigned int, f_VoidFunction>::iterator itA = s_UpdatersToAdd.begin();
+			std::map<unsigned int, std::function<void()>>::iterator itA = s_UpdatersToAdd.begin();
 			while (itA != s_UpdatersToAdd.end())
 			{
 				s_Updaters[itA->first] = itA->second;
@@ -213,7 +187,7 @@ namespace novazero
 			s_UpdaterErasers.clear();
 
 			// Update
-			std::map<unsigned int, f_VoidFunction>::iterator it2 = s_Updaters.begin();
+			std::map<unsigned int, std::function<void()>>::iterator it2 = s_Updaters.begin();
 			for (; it2 != s_Updaters.end(); ++it2)
 			{
 				if (it2->second)
@@ -226,7 +200,7 @@ namespace novazero
 		void SceneManager::ProcessPersistentUpdaters()
 		{
 			// Add new updaters
-			std::map<unsigned int, f_VoidFunction>::iterator itA = s_PersistentUpdatersToAdd.begin();
+			std::map<unsigned int, std::function<void()>>::iterator itA = s_PersistentUpdatersToAdd.begin();
 			while (itA != s_PersistentUpdatersToAdd.end())
 			{
 				s_PersistentUpdaters[itA->first] = itA->second;
@@ -251,7 +225,7 @@ namespace novazero
 			s_PersistentUpdaterErasers.clear();
 
 			// Update
-			std::map<unsigned int, f_VoidFunction>::iterator it2 = s_PersistentUpdaters.begin();
+			std::map<unsigned int, std::function<void()>>::iterator it2 = s_PersistentUpdaters.begin();
 			for (; it2 != s_PersistentUpdaters.end(); ++it2)
 			{
 				if (it2->second)
@@ -266,7 +240,7 @@ namespace novazero
 			s_UpdaterErasers[id] = true;
 		}
 
-		unsigned int SceneManager::AddUpdater(f_VoidFunction updater)
+		unsigned int SceneManager::AddUpdater(std::function<void()> updater)
 		{
 			unsigned int id = n2dGameGetID();
 			s_UpdatersToAdd[id] = updater;
@@ -278,7 +252,7 @@ namespace novazero
 			s_PersistentUpdaterErasers[id] = true;
 		}
 
-		unsigned int SceneManager::AddPersistentUpdater(f_VoidFunction persistentUpdater)
+		unsigned int SceneManager::AddPersistentUpdater(std::function<void()> persistentUpdater)
 		{
 			unsigned int id = n2dGameGetID();
 			s_PersistentUpdatersToAdd[id] = persistentUpdater;
@@ -295,6 +269,37 @@ namespace novazero
 			unsigned int id = n2dGameGetID();
 			s_Deleteables[id] = object;
 			return id;
+		}
+
+		void SceneManager::DestroySelf()
+		{
+			if (m_Destroyed) return;
+			m_Destroyed = true;
+
+			if (s_ReferenceManager)
+				delete s_ReferenceManager;
+
+			if (s_CollisionManager)
+				delete s_CollisionManager;
+
+			if (s_GraverManager)
+			{
+				s_GraverManager->ClearGravers();
+				delete s_GraverManager;
+			}
+
+			if (s_TweenManager)
+			{
+				s_TweenManager->ClearTweens();
+				delete s_TweenManager;
+			}
+
+			if (s_TimeEffectorManager)
+			{
+				s_TimeEffectorManager->ClearEffectors();
+				s_TimeEffectorManager->ClearEffected();
+				delete s_TimeEffectorManager;
+			}
 		}
 	}
 }

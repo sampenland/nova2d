@@ -17,11 +17,11 @@ namespace novazero
 			Init();
 		}
 
-		Window::~Window()
+		void Window::DestroySelf()
 		{
 			if (m_Icon)
 				SDL_FreeSurface(m_Icon);
-			
+
 			m_Icon = NULL;
 			SDL_DestroyWindow(m_Window);
 		}

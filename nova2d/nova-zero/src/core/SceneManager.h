@@ -30,6 +30,7 @@ namespace novazero
 		
 			std::map<std::string, Scene*> m_Scenes;
 			Scene* m_CurrentScene = nullptr;
+			bool m_Destroyed = false;
 
 		public:
 
@@ -39,7 +40,6 @@ namespace novazero
 		public:
 		
 			SceneManager();
-			~SceneManager();
 
 			void ConfigureFirstScene(const std::string& sceneName);
 			
@@ -54,26 +54,28 @@ namespace novazero
 			void CleanUpdaters();
 			void Clean();
 
+			void DestroySelf();
+
 			static ReferenceManager* s_ReferenceManager;
 			static CollisionManager* s_CollisionManager;
 			static GraverManager* s_GraverManager;
 			static TweenManager* s_TweenManager;
 			static TimeEffectorManager* s_TimeEffectorManager;
 
-			static std::map<unsigned int, f_VoidFunction> s_Updaters;
+			static std::map<unsigned int, std::function<void()>> s_Updaters;
 			static std::map<unsigned int, bool> s_UpdaterErasers;
-			static std::map<unsigned int, f_VoidFunction> s_UpdatersToAdd;
-			static unsigned int AddUpdater(f_VoidFunction updater);
+			static std::map<unsigned int, std::function<void()>> s_UpdatersToAdd;
+			static unsigned int AddUpdater(std::function<void()> updater);
 			static void RemoveUpdater(unsigned int id);
 			static unsigned int GetUpdaterCount() 
 			{ 
 				return (unsigned int)s_Updaters.size(); 
 			};
 
-			static std::map<unsigned int, f_VoidFunction> s_PersistentUpdaters;
+			static std::map<unsigned int, std::function<void()>> s_PersistentUpdaters;
 			static std::map<unsigned int, bool> s_PersistentUpdaterErasers;
-			static std::map<unsigned int, f_VoidFunction> s_PersistentUpdatersToAdd;
-			static unsigned int AddPersistentUpdater(f_VoidFunction persistentUpdater);
+			static std::map<unsigned int, std::function<void()>> s_PersistentUpdatersToAdd;
+			static unsigned int AddPersistentUpdater(std::function<void()> persistentUpdater);
 			static void RemovePersistentUpdater(unsigned int id);
 			static unsigned int GetPersistentUpdaterCount()
 			{

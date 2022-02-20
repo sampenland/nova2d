@@ -17,9 +17,13 @@ namespace novazero
 		public:
 						
 			static std::map<std::string, float> s_Values;
-			static float* AddValue(const std::string& valueName, float value);
-			static float GetValue(const std::string& valueName);
-			static float* GetRefToValue(const std::string& valueName);
+			static std::map<std::string, float> s_PersistentValues;
+			static float* AddValue(const std::string& valueName, float value, bool persistent = false);
+			static void RemoveValue(const std::string& valueName, bool persistent = false);
+			static float GetValue(const std::string& valueName, bool persistent = false);
+			static float* GetRefToValue(const std::string& valueName, bool persistent = false);
+
+			static void ClearValues(bool persistent = false);
 
 		};
 	}

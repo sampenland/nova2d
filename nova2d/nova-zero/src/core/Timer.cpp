@@ -29,6 +29,28 @@ namespace novazero
 
 		}
 
+		Timer::Timer(float* loopRndMin, float* loopRndMax, std::function<void()> endDelayFunc)
+			: Deleteable("timer")
+		{
+			m_DelayMax = *loopRndMin * 2;
+			m_Delay = m_DelayMax;
+			m_Loop = true;
+
+			m_Randomized = true;
+
+			m_UsingFloatRefs = true;
+			m_RandomMinRef = loopRndMin;
+			m_RandomMaxRef = loopRndMax;
+
+			f_OnFinish = endDelayFunc;
+
+			auto cleanID = n2dAddUpdater(Timer::Tick, this);
+			m_DeleteName = "timer_" + std::to_string(cleanID);
+
+			m_CleanUpdaters.push_back(cleanID);
+
+		}
+
 		void Timer::DestroySelf()
 		{
  			CleanUpdaters();
@@ -56,7 +78,14 @@ namespace novazero
 
 					if (m_Randomized)
 					{
-						m_Delay = n2dRandomFloat(m_RandomMin, m_RandomMax);
+						if (m_UsingFloatRefs)
+						{
+							m_Delay = n2dRandomFloat(*m_RandomMinRef, *m_RandomMaxRef);
+						}
+						else
+						{
+							m_Delay = n2dRandomFloat(m_RandomMin, m_RandomMax);
+						}
 					}
 					else
 					{

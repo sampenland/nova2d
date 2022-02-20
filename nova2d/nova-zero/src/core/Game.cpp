@@ -251,23 +251,41 @@ namespace novazero
 
 		Game::~Game()
 		{
-			if (m_SceneManager) 
+			if (m_SceneManager)
+			{
+				m_SceneManager->DestroySelf();
 				delete m_SceneManager;
+			}
 
-			if (m_MainWindow) 
+			if (m_MainWindow)
+			{
+				m_MainWindow->DestroySelf();
 				delete m_MainWindow;
+			}
 
 			if (s_Renderer)
+			{
+				s_Renderer->DestroySelf();
 				delete s_Renderer;
+			}
 
 			if (s_ColorManager)
+			{
+				s_ColorManager->DestroySelf();
 				delete s_ColorManager;
+			}
 
 			if (s_InputHandler)
+			{
+				s_InputHandler->DestroySelf();
 				delete s_InputHandler;
+			}
 
 			if (s_AssetManager)
+			{
+				s_AssetManager->DestroySelf();
 				delete s_AssetManager;
+			}
 
 			SDL_Quit();
 

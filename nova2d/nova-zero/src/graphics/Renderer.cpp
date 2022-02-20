@@ -25,15 +25,6 @@ namespace novazero
 
 		}
 
-		Renderer::~Renderer()
-		{
-			if (m_Renderer)
-				SDL_DestroyRenderer(m_Renderer);
-
-			if (s_DrawLayers)
-				delete s_DrawLayers;
-		}
-
 		void Renderer::PreDraw() const
 		{
 			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor->r, (Uint8)m_BackgroundColor->g,
@@ -70,6 +61,18 @@ namespace novazero
 				s_DrawLayers->DrawAllLayers();
 			
 			PostDraw();
+		}
+
+		void Renderer::DestroySelf()
+		{
+			if (m_Renderer)
+				SDL_DestroyRenderer(m_Renderer);
+
+			if (s_DrawLayers)
+			{
+				s_DrawLayers->ClearSprites();
+				delete s_DrawLayers;
+			}
 		}
 	}
 }

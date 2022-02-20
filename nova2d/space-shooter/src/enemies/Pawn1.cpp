@@ -15,7 +15,10 @@ namespace spaceshooter
 
 	void Pawn1::DisplayHit(int damage)
 	{
-		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "yellow", Rect(GetX() - (float)GetWidth() / 2.f, GetY() - 16.f, 24.f, 16.f),
+		Vec2 pos = GetPosition();
+		Vec2 pos2 = Vec2(GetX(), GetY());
+		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), 
+			"font4", "yellow", Rect(GetX() - (float)GetWidth() / 2.f, GetY() - 16.f, 24.f, 16.f),
 			Vec2(GetX(), GetY() - 128), 4000, 0);
 	}
 
@@ -35,7 +38,7 @@ namespace spaceshooter
 
 		SimpleWeakAI* pawn1Bullet = new SimpleWeakAI();
 		pawn1Bullet->EnableAI(true);
-		pawn1Bullet->AddSprite("pawn1-bullet", Vec2(GetX(), GetY()), Vec2Int(16, 16), 0);
+		pawn1Bullet->AddSprite("pawn1-bullet", GetPosition(), Vec2Int(16, 16), 0);
 		pawn1Bullet->ConfigureCollider(pawn1Bullet->GetSprite(), 0, "pawn1-bullet");
 		pawn1Bullet->ConfigureTimeEffected(pawn1Bullet->GetSprite());
 		pawn1Bullet->Configure(20, false);

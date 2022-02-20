@@ -5,43 +5,119 @@ namespace novazero
 	namespace utils
 	{
 		std::map<std::string, float> ValueManager::s_Values;
+		std::map<std::string, float> ValueManager::s_PersistentValues;
 
-		float* ValueManager::AddValue(const std::string& valueName, float value)
+		void ValueManager::RemoveValue(const std::string& valueName, bool persistent)
 		{
-			if (s_Values.find(valueName) != s_Values.end())
+			if (persistent)
 			{
-				LOG(LVL_W, valueName + " ALREADY in values...overwriting.");
-				s_Values[valueName] = value;
-			}
-
-			s_Values[valueName] = value;
-
-			return &s_Values[valueName];
-		}
-
-		float ValueManager::GetValue(const std::string& valueName)
-		{
-			if (s_Values.find(valueName) != s_Values.end())
-			{
-				return s_Values[valueName];
+				if (s_PersistentValues.find(valueName) != s_PersistentValues.end())
+				{
+					s_PersistentValues.erase(valueName);
+				}
 			}
 			else
 			{
-				LOG(LVL_W, valueName + " NOT FOUND...returning 0.0f");
-				return 0.f;
+				if (s_Values.find(valueName) != s_Values.end())
+				{
+					s_Values.erase(valueName);
+				}
 			}
 		}
 
-		float* ValueManager::GetRefToValue(const std::string& valueName)
+		void ValueManager::ClearValues(bool persistent)
 		{
-			if (s_Values.find(valueName) != s_Values.end())
+			if (persistent)
 			{
+				s_PersistentValues.clear();
+				s_Values.clear();
+			}
+			else
+			{
+				s_Values.clear();
+			}
+		}
+
+		float* ValueManager::AddValue(const std::string& valueName, float value, bool persistent)
+		{
+			if (persistent)
+			{
+				if (s_PersistentValues.find(valueName) != s_PersistentValues.end())
+				{
+					LOG(LVL_W, valueName + " ALREADY in Persistent Values... WILL NOT OVERWRITE.");
+					return nullptr;
+				}
+
+				s_PersistentValues[valueName] = value;
+				return &s_PersistentValues[valueName];
+			}
+			else
+			{
+				if (s_Values.find(valueName) != s_Values.end())
+				{
+					LOG(LVL_W, valueName + " ALREADY in Values...overwriting.");
+					s_Values[valueName] = value;
+				}
+
+				s_Values[valueName] = value;
+
 				return &s_Values[valueName];
 			}
+		}
+
+		float ValueManager::GetValue(const std::string& valueName, bool persistent)
+		{
+			if (persistent)
+			{
+				if (s_PersistentValues.find(valueName) != s_PersistentValues.end())
+				{
+					return s_PersistentValues[valueName];
+				}
+				else
+				{
+					LOG(LVL_W, valueName + " NOT FOUND in Persistent Values...returning 0.0f");
+					return 0.f;
+				}
+			}
 			else
 			{
-				LOG(LVL_W, valueName + " NOT FOUND...returning 0.0f");
-				return nullptr;
+				if (s_Values.find(valueName) != s_Values.end())
+				{
+					return s_Values[valueName];
+				}
+				else
+				{
+					LOG(LVL_W, valueName + " NOT FOUND in Values...returning 0.0f");
+					return 0.f;
+				}
+			}
+		}
+
+		float* ValueManager::GetRefToValue(const std::string& valueName, bool persistent)
+		{
+			if (persistent)
+			{
+				if (s_PersistentValues.find(valueName) != s_PersistentValues.end())
+				{
+					return &s_PersistentValues[valueName];
+				}
+				else
+				{
+					LOG(LVL_W, valueName + " NOT FOUND in Persistent Values...returning 0.0f");
+					return nullptr;
+				}
+			}
+			else
+			{
+				if (s_Values.find(valueName) != s_Values.end())
+				{
+					return &s_Values[valueName];
+				}
+				else
+				{
+					LOG(LVL_W, valueName + " NOT FOUND in Values...returning 0.0f");
+					return nullptr;
+				}
 			}
 		}
 	}

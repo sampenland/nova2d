@@ -28,9 +28,9 @@ namespace spaceshooter
 		m_StreakSprite->ConfigureAnimating(false);
 
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
-		n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_B, Player::OnSpace, this);
+		n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, Player::OnSpace, this);
 		n2dAddKeyUpListener(SDLK_SPACE, Player::OnSpaceUp, this);
-		n2dAddJoyKeyUpListener(0, SDL_CONTROLLER_BUTTON_B, Player::OnSpaceUp, this);
+		n2dAddJoyKeyUpListener(0, SDL_CONTROLLER_BUTTON_A, Player::OnSpaceUp, this);
 
 		n2dAddKeyDownListener(SDLK_ESCAPE, Player::Quit, this);
 

@@ -231,6 +231,7 @@
     <ClInclude Include="src\utils\ValueManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="res\fonts\narrow.ttf" />
     <Font Include="res\fonts\pixel1.ttf" />
     <Font Include="res\fonts\pixel2.ttf" />
     <Font Include="res\fonts\pixel3.ttf" />

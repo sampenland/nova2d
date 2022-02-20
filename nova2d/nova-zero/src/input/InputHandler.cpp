@@ -26,15 +26,6 @@ namespace novazero
 
 		}
 
-		InputHandler::~InputHandler() 
-		{
-			for (int i = 0; i < SDL_NumJoysticks(); i++)
-			{
-				SDL_JoystickClose(s_JoySticks[i]);
-				s_JoySticks[i] = NULL;
-			}
-		}
-
 		void InputHandler::SelectInputTarget(Inputable* inputTarget)
 		{
 			m_SelectedInput = inputTarget;
@@ -181,7 +172,7 @@ namespace novazero
 			return !IsJoystickButtonDown(joystickID, button);
 		}
 
-		float InputHandler::GetJoystickAxis(char joystickID, JoystickAxis axis)
+		float InputHandler::GetJoystickAxis(char joystickID, int axis)
 		{
 			std::map<int, float>::iterator f = s_JoyAxis[joystickID].find(axis);
 
@@ -196,6 +187,15 @@ namespace novazero
 		void InputHandler::MouseClick(SDL_Event* e)
 		{
 
+		}
+
+		void InputHandler::DestroySelf()
+		{
+			for (int i = 0; i < SDL_NumJoysticks(); i++)
+			{
+				SDL_JoystickClose(s_JoySticks[i]);
+				s_JoySticks[i] = NULL;
+			}
 		}
 	}
 }

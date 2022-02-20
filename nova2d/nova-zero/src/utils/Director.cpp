@@ -107,7 +107,7 @@ namespace novazero
 
 				if (m_LeftSelectedStack)
 				{
-					if (m_CurrentSelected > -1)
+					if (m_CurrentSelected > -1 && leftCount > (size_t)0)
 					{
 						m_CurrentSelected--;
 						selectNew = true;
@@ -171,9 +171,12 @@ namespace novazero
 					}
 					else
 					{
-						m_LeftSelectedStack = false;
-						m_CurrentSelected = 0;
-						selectNew = rightCount > 0;
+						if (rightCount > (size_t)0)
+						{
+							m_LeftSelectedStack = false;
+							m_CurrentSelected = 0;
+							selectNew = rightCount > 0;
+						}
 					}
 				}
 				else
@@ -352,6 +355,13 @@ namespace novazero
 		void Director::AddToStackMinMax(bool left, BYTE page, std::string labelText, 
 			int labelWidth, float inOrDecreaseby, float min, float max, float* minRefVal, float* maxRefVal)
 		{
+
+			if (min >= max)
+			{
+				min = 0;
+				LOG(LVL_W, labelText + " added to stack but min > max... forcing min to 0.f");
+			}
+
 			if (page < 0) page = 0;
 			if (page > MAX_DIRECTOR_PAGES) page = MAX_DIRECTOR_PAGES;
 

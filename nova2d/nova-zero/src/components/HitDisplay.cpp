@@ -16,17 +16,10 @@ namespace novazero
 			n2dAddDrawable(this, layer);
 
 			m_YTweenID = n2dTweenAdd(false, m_Display->GetYRef(), drawRect.y, endPos.y, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
+			Game::s_SceneManager->s_TweenManager->RemoveOffset(m_YTweenID);
 
 			Timer* t = new Timer(startToEndTimeMS + 500, false, std::bind(&HitDisplay::DestroySelf, this)); // clean
 
-			auto cleanID = n2dAddUpdater(HitDisplay::Update, this);
-			m_CleanUpdaters.push_back(cleanID);
-
-		}
-
-		void HitDisplay::Update()
-		{
-			//m_Display->SetPosition(GetPosition());
 		}
 
 		void HitDisplay::Draw(float oX, float oY)

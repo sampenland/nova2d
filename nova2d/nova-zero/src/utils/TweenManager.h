@@ -23,6 +23,7 @@ namespace novazero
 			float initStart = 0.f;
 			float end = 0.f;
 			float current = 0.f;
+			float offset = 0.f;
 
 			bool invert = false;
 			bool negate = false;
@@ -60,6 +61,7 @@ namespace novazero
 			void SetTweenValue(unsigned int tweenID, float value);
 			void SetTweenLoopValue(unsigned int tweenID, float valueBtw0And1);
 			void RemoveTween(unsigned int tweenID);
+			void RemoveOffset(unsigned int tweenID);
 
 			void Update();
 

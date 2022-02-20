@@ -26,6 +26,8 @@ namespace novazero
 
 			Color* GetColor(const std::string& name) const;
 
+			void DestroySelf();
+
 		};
 	}
 }

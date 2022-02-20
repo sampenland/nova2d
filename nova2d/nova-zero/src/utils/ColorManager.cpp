@@ -9,10 +9,7 @@ namespace novazero
 	{
 		using namespace logging;
 
-		ColorManager::ColorManager()
-		{
-			
-		}
+		ColorManager::ColorManager() {}
 
 		Color* ColorManager::AddColor(const std::string& name, Color* c)
 		{
@@ -53,6 +50,11 @@ namespace novazero
 				return new Color(0, 0, 0, 1);
 			}
 			
+		}
+
+		void ColorManager::DestroySelf()
+		{
+			m_ColorMap.clear();
 		}
 	}
 }

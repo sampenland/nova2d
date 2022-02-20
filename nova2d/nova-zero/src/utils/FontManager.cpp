@@ -17,6 +17,7 @@ namespace novazero
 			AddFont("font2", "res/fonts/pixel2.ttf", 20);
 			AddFont("font3", "res/fonts/pixel3.ttf", 20);
 			AddFont("font4", "res/fonts/pixel4.ttf", 20);
+			AddFont("narrow", "res/fonts/narrow.ttf", 30);
 		}
 
 		FontManager::~FontManager()

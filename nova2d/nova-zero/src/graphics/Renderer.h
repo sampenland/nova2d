@@ -25,7 +25,6 @@ namespace novazero
 		public:
 
 			Renderer(SDL_Window& window, Color* backgroundColor);
-			~Renderer();
 
 			inline SDL_Renderer* GetSDLRenderer() const { return m_Renderer; }
 
@@ -37,6 +36,8 @@ namespace novazero
 			void PreDraw() const;
 			void PostDraw() const;
 			void Draw() const;
+
+			void DestroySelf();
 
 		public:
 
