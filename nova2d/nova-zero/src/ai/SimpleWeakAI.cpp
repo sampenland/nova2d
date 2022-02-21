@@ -35,13 +35,13 @@ namespace novazero
 			m_DeleteName = assetName;
 		}
 
-		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2* point, f_MovePtrFunction func)
+		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2* point, std::function<void()> func)
 		{
 			m_PatrolPoints.push_back(point);
 			m_MoveFunctions.push_back(func);
 		}
 
-		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func)
+		void SimpleWeakAI::AddPatrolPointWithFunction(Vec2 point, std::function<void()> func)
 		{
 			Vec2* v = new Vec2(point.x, point.y);
 			m_PatrolPoints.push_back(v);
@@ -78,7 +78,7 @@ namespace novazero
 			m_MoveFunctions.erase(m_MoveFunctions.begin() + idx);
 		}
 
-		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2*> points, std::vector<f_MovePtrFunction> funcs)
+		void SimpleWeakAI::SetAllPatrol(std::vector<Vec2*> points, std::vector<std::function<void()>> funcs)
 		{
 			LOG(LVL_WARNING, "Function Set All Patrol not implemented.");
 			return;

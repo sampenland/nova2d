@@ -1,6 +1,5 @@
 #pragma once
 #include "../core/Defines.h"
-#include "../core/TypeDefs.h"
 #include "SDL.h"
 
 #include "../input/InputHandler.h"

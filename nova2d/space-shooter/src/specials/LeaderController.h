@@ -30,6 +30,7 @@ namespace spaceshooter
 	public:
 
 		static bool s_LeaderExists;
+		static bool s_LeaderKilled;
 		static int s_Wave;
 
 	};

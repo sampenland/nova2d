@@ -1,6 +1,5 @@
 #pragma once
 #include "Scene.h"
-#include "TypeDefs.h"
 #include "../physics/CollisionManager.h"
 #include "../utils/ReferenceManager.h"
 #include <map>

@@ -10,8 +10,6 @@
 #include "../physics/TimeEffected.h"
 #include "../core/Positional.h"
 
-typedef std::function<void()> f_MovePtrFunction;
-
 namespace novazero
 {
 	namespace ai
@@ -24,7 +22,7 @@ namespace novazero
 		struct PatrolVec2IntWithMoveFunction
 		{
 			Vec2 patrolVec2;
-			f_MovePtrFunction moveFunction;
+			std::function<void()> moveFunction;
 		};
 
 		class SimpleWeakAI : 
@@ -37,7 +35,7 @@ namespace novazero
 
 		private:
 
-			std::vector<f_MovePtrFunction> m_MoveFunctions;
+			std::vector<std::function<void()>> m_MoveFunctions;
 
 			bool m_LoopMoving = true;
 			int m_PatrolIndex = -1;
@@ -105,11 +103,11 @@ namespace novazero
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
 
-			void AddPatrolPointWithFunction(Vec2* point, f_MovePtrFunction func);
-			void AddPatrolPointWithFunction(Vec2 point, f_MovePtrFunction func);
+			void AddPatrolPointWithFunction(Vec2* point, std::function<void()> func);
+			void AddPatrolPointWithFunction(Vec2 point, std::function<void()> func);
 			void RemovePatrolPointWithFunction(Vec2* point);
 
-			void SetAllPatrol(std::vector<Vec2*> points, std::vector<f_MovePtrFunction> funcs);
+			void SetAllPatrol(std::vector<Vec2*> points, std::vector<std::function<void()>> funcs);
 			void ClearPatrol();
 
 			void LinearPatrolMove();

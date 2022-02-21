@@ -3,6 +3,7 @@
 namespace spaceshooter
 {
 	bool LeaderController::s_LeaderExists = false;
+	bool LeaderController::s_LeaderKilled = false;
 	int LeaderController::s_Wave = 0;
 
 	LeaderController::LeaderController()
@@ -84,7 +85,13 @@ namespace spaceshooter
 
 		if (!s_LeaderExists)
 		{
-			Leader::s_PawnWave = 0;
+			if (s_LeaderKilled)
+			{
+				s_Wave++;
+				ShowWaveAnimation();
+				s_LeaderKilled = false;
+				Leader::s_PawnWave = 0;
+			}
 
 			char rows = 0;
 			char cols = 0;
@@ -138,9 +145,6 @@ namespace spaceshooter
 			}
 
 			CreateLeader(Vec2((float)Game::s_Width / 2, (float)Game::s_Height / 2), 32, rows, cols);
-			ShowWaveAnimation();
-
-			s_Wave++;
 
 		}
 	}

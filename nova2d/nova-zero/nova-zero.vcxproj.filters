@@ -275,9 +275,6 @@
     <ClInclude Include="src\physics\Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\TypeDefs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\SimpleStatBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>

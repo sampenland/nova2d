@@ -2,10 +2,7 @@
 #include "SimpleController.h"
 #include <functional>
 #include "../maths/Rect.h"
-#include "../core/TypeDefs.h"
 #include "../physics/Graver.h"
-
-typedef std::function<void()> f_VoidFunction;
 
 namespace novazero
 {

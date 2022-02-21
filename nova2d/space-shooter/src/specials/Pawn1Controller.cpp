@@ -11,6 +11,7 @@ namespace spaceshooter
 
 	Pawn1Controller::Pawn1Controller()
 	{
+		return;
 		// LINK TO DIRECTOR ---------------------------------
 		float* min = n2dValueManagerAdd("pawn1-creation-min", 6000.f);
 		float* max = n2dValueManagerAdd("pawn1-creation-max", 12000.f);

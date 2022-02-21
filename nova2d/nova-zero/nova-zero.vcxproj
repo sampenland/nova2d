@@ -177,7 +177,6 @@
     <ClInclude Include="src\core\Referenceable.h" />
     <ClInclude Include="src\core\Timer.h" />
     <ClInclude Include="src\core\TimerWatcher.h" />
-    <ClInclude Include="src\core\TypeDefs.h" />
     <ClInclude Include="src\debug\DebugOverlay.h" />
     <ClInclude Include="src\debug\DrawCircle.h" />
     <ClInclude Include="src\debug\DrawRect.h" />

@@ -3,7 +3,6 @@
 #include <vector>
 #include "SDL.h"
 #include "../core/Defines.h"
-#include "../core/TypeDefs.h"
 #include "Inputable.h"
 #include <map>
 

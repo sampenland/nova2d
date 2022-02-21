@@ -129,9 +129,9 @@ namespace spaceshooter
 		if (m_Retreating) return;
 		m_Retreating = true;
 		ClearPatrol();
-		AddPatrolPointWithFunction(Vec2(GetX(), GetY()), std::bind(&SimpleWeakAI::LinearPatrolMove, this));
-		AddPatrolPointWithFunction(Vec2(GetX(), -32), std::bind(&SimpleWeakAI::LinearPatrolMove, this));
-
+		AddPatrolPointWithFunction(GetPosition(), GetLinearPatrolMove());
+		AddPatrolPointWithFunction(Vec2(GetX(), -32), GetLinearPatrolMove());
+		LOGS("Retreating");
 		ConfigureAliveBounds(Game::GetGameBounds(32));
 		ConfigureUsingBounds(false, true);
 	}
@@ -162,8 +162,9 @@ namespace spaceshooter
 				pawn->Configure(20, true);
 
 				s_Pawns.push_back(pawn);
-
+				break;
 			}
+			break;
 		}
 	}
 
@@ -302,7 +303,7 @@ namespace spaceshooter
 
 	void Leader::Shoot()
 	{
-		if (n2dDebug) return;
+		if (n2dDebug) return; //TODO: nova2d - remove and add shoot timer to Director stack
 
 		Player* player = (Player*)SceneManager::s_ReferenceManager->GetReferenced("player");
 		SimpleFollower* bullet = new SimpleFollower(player->GetSprite(), 0.0f);
@@ -397,7 +398,9 @@ namespace spaceshooter
 
 		m_Alive = false;
 
+		LeaderController::s_LeaderKilled = !OutOfBounds(GetSprite());
 		LeaderController::s_LeaderExists = false;
+
 		SetDeleted(true);
 
 		CleanUpdaters();
