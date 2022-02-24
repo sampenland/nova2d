@@ -95,7 +95,7 @@ namespace spaceshooter
 			n2dRemoveKeyDownListener(SDLK_f);
 			n2dRemoveJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A);
 			n2dRemoveKeyDownListener(SDLK_ESCAPE);
-			n2dSceneChange("level1");
+			n2dSceneChange("playScene");
 		}
 
 		void OnEscape()

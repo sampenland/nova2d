@@ -41,8 +41,6 @@ namespace spaceshooter
 			title = new Text("font1", "Game Over", "red",
 				Rect(Game::s_Width / 2 - 250, 32, 500, 60), 0);
 			
-			auto score = n2dScoreGet();
-
 			playerScore = new Text("font1", "Top Scores", "bright-blue",
 				Rect(Game::s_Width / 2 - 150, 332, 300, 30), 0);
 
@@ -76,10 +74,10 @@ namespace spaceshooter
 				}
 			}
 
-			playerScore = new Text("font1", "Your Score: " + std::to_string(score), "white",
+			playerScore = new Text("font1", "Your Score: " + tostring(n2dScore), "white",
 				Rect(Game::s_Width / 2 - 150, 148, 300, 45), 0);
 
-			if (score > 0)
+			if (n2dScore > 0)
 			{
 				playerNameLabel = new Text("font1", "enter alias:", "light-blue",
 					Rect(Game::s_Width / 2 - 100, 216, 200, 20), 0);
@@ -100,14 +98,13 @@ namespace spaceshooter
 		void OnEnter()
 		{
 			n2dRemoveKeyDownListener(SDLK_RETURN);
-			auto score = n2dScoreGet();
-			
-			if (score > 0)
+						
+			if (n2dScore > 0)
 			{
 				std::string playerName = playerNameInput->GetText();
 				if (playerName == "") return;
 
-				n2dSQLScoreAdd(playerName, score);
+				n2dSQLScoreAdd(playerName, n2dScore);
 			}
 
 			n2dSceneChange("mainMenu");

@@ -38,7 +38,7 @@ Returns a unique unsigned int ID value
 nova2d Get Delta Time
 Returns time between frames
 */
-#define n2dDeltaTime() novazero::core::Game::GetDeltaTime()
+#define n2dDeltaTime novazero::core::Game::GetDeltaTime()
 
 /*
 nova2d Pause Game (bool pause)
@@ -577,7 +577,7 @@ Easy access globally to game score
 nova2d Global Game Score ()
 Easy access globally to game score
 */
-#define n2dScoreGet() novazero::core::Game::GetScore();
+#define n2dScore novazero::core::Game::GetScore()
 
 /*
 nova2d Global Game Score ()

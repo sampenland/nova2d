@@ -17,7 +17,6 @@ namespace spaceshooter
 
 		Text* m_ScoreText = nullptr;
 		Text* m_P1StreakText = nullptr;
-		Text* m_P2StreakText = nullptr;
 
 		LeaderController* m_LeaderController;
 		Pawn1Controller* m_Pawn1Controller;

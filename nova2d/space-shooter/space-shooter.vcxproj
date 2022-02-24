@@ -95,6 +95,7 @@
     <ClCompile Include="src\enemies\Pawn.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\scenes\Lvl1.cpp" />
+    <ClCompile Include="src\scenes\Play.cpp" />
     <ClCompile Include="src\specials\LeaderController.cpp" />
     <ClCompile Include="src\specials\Pawn1Controller.cpp" />
     <ClCompile Include="src\specials\TimeWarp.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="src\enemies\Pawn.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
+    <ClInclude Include="src\scenes\Play.h" />
     <ClInclude Include="src\specials\LeaderController.h" />
     <ClInclude Include="src\specials\Pawn1Controller.h" />
     <ClInclude Include="src\specials\PawnBullet.h" />

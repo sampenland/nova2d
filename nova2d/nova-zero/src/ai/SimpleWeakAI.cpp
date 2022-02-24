@@ -114,8 +114,7 @@ namespace novazero
 
 			if (m_DelayMS > 0)
 			{
-				auto d = n2dDeltaTime();
-				m_DelayMS = (float)(m_DelayMS - d);
+				m_DelayMS = (float)(m_DelayMS - n2dDeltaTime);
 				return;
 			}
 
