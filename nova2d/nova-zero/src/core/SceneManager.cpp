@@ -22,6 +22,7 @@ namespace novazero
 		GraverManager* SceneManager::s_GraverManager;
 		TweenManager* SceneManager::s_TweenManager;
 		TimeEffectorManager* SceneManager::s_TimeEffectorManager;
+		std::map<std::string, Timeline*> SceneManager::s_Timelines;
 
 		SceneManager::SceneManager()
 		{
@@ -30,6 +31,9 @@ namespace novazero
 			s_GraverManager = new GraverManager();
 			s_TweenManager = new TweenManager();
 			s_TimeEffectorManager = new TimeEffectorManager();
+			
+			// Default timeline
+			s_Timelines["default"] = new Timeline();
 		}
 		
 		void SceneManager::ConfigureFirstScene(const std::string& sceneName)
@@ -299,6 +303,12 @@ namespace novazero
 				s_TimeEffectorManager->ClearEffectors();
 				s_TimeEffectorManager->ClearEffected();
 				delete s_TimeEffectorManager;
+			}
+
+			if (s_TimelineDefault)
+			{
+				s_TimelineDefault->DestroySelf();
+				delete s_TimelineDefault;
 			}
 		}
 	}

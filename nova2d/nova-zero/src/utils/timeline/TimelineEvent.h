@@ -20,6 +20,8 @@ namespace novazero
 				std::function<bool()> f_NextEventTrigger = nullptr;
 
 				unsigned int m_ID = 0;
+				unsigned int m_CleanID = 0;
+				bool m_Running = false;
 
 			public:
 				
@@ -27,6 +29,7 @@ namespace novazero
 
 				// runs when the event begins
 				virtual void Start() = 0;
+				void SetRunning(bool val) { m_Running = val; }
 
 				// returns true when needing to move to next event
 				bool Tick();
@@ -34,7 +37,7 @@ namespace novazero
 				// runs when the event ends (optional)
 				virtual void End() {};
 
-				virtual void DestroySelf() = 0;
+				void DestroySelf();
 
 			};
 		}

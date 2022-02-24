@@ -9,6 +9,7 @@
 #include "../physics/GraverManager.h"
 #include "../utils/TweenManager.h"
 #include "../physics/TimeEffectorManager.h"
+#include "../utils/timeline/Timeline.h"
 
 namespace novazero
 {
@@ -20,6 +21,7 @@ namespace novazero
 	namespace core
 	{
 		using namespace utils;
+		using namespace utils::timeline;
 		using namespace physics;
 
 		class SceneManager
@@ -60,6 +62,7 @@ namespace novazero
 			static GraverManager* s_GraverManager;
 			static TweenManager* s_TweenManager;
 			static TimeEffectorManager* s_TimeEffectorManager;
+			static std::map<std::string, Timeline*> s_Timelines;
 
 			static std::map<unsigned int, std::function<void()>> s_Updaters;
 			static std::map<unsigned int, bool> s_UpdaterErasers;
@@ -89,6 +92,7 @@ namespace novazero
 				return (unsigned int)s_Deleteables.size();
 			};
 
+			static void AddTimelineEvent
 		};
 	}
 }

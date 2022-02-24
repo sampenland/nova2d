@@ -18,11 +18,13 @@ namespace novazero
 				m_TimeTillNextEventSeconds = timeTillNextEventSeconds;
 				f_NextEventTrigger = nextEventTrigger;
 
-				n2dAddDeleteable(this);
+				m_CleanID = n2dAddDeleteable(this);
 			}
 
 			bool TimelineEvent::Tick()
 			{
+				if (!m_Started) return;
+
 				if (f_NextEventTrigger)
 				{
 					End();
@@ -39,6 +41,13 @@ namespace novazero
 					End();
 					return true;
 				}
+			}
+
+			void TimelineEvent::DestroySelf()
+			{
+				CleanUpdaters();
+				n2dRemoveDeleteable(m_CleanID);
+				SetDeleted(true);
 			}
 		}
 	}
