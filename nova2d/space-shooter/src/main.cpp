@@ -2,11 +2,9 @@
 
 #include "scenes/MainMenu.h"
 #include "scenes/Play.h"
-#include "scenes/Lvl1.h"
 #include "scenes/GameOver.h"
 
 #include "Player.h"
-#include "enemies/Leader.h"
 
 int main(int argc, char* argv[])
 {
@@ -47,12 +45,10 @@ int main(int argc, char* argv[])
 
 	MainMenu* mainMenuScene = new MainMenu("mainMenu");
 	Play* playScene = new Play("playScene");
-	Lvl1* level1 = new Lvl1("level1");
 	GameOver* gameOver = new GameOver("gameOver");
 
 	n2dGameAddScene(mainMenuScene);
 	n2dGameAddScene(playScene);
-	n2dGameAddScene(level1);
 	n2dGameAddScene(gameOver);
 	
 	n2dGameConfigFirstScene(mainMenuScene);

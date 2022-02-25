@@ -3,7 +3,6 @@
 #include "maths/Vec2Int.h"
 #include "core/EventListener.h"
 #include "graphics/Text.h"
-#include "../scenes/Lvl1.h"
 #include "graphics/DrawableCollection.h"
 
 namespace spaceshooter

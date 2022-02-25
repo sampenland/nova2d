@@ -21,28 +21,16 @@
     <ClCompile Include="src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\enemies\Leader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\enemies\Pawn.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scenes\Lvl1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\specials\TimeWarp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\specials\LeaderController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\enemies\Pawn1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\specials\Pawn1Controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\scenes\Play.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\enemies\pawns\PawnController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\enemies\pawns\Pawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -97,37 +85,22 @@
     <ClInclude Include="src\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\enemies\Leader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\enemies\Pawn.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scenes\Lvl1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\scenes\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\GameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\specials\PawnBullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\specials\TimeWarp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\specials\LeaderController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\enemies\Pawn1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\specials\Pawn1Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\scenes\Play.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enemies\pawns\PawnController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enemies\pawns\Pawn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

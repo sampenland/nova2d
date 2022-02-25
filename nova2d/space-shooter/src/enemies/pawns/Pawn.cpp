@@ -1,25 +1,13 @@
 #include "Pawn.h"
-#include "graphics/Text.h"
-#include "Leader.h"
-#include "../specials/PawnBullet.h"
-#include "../Player.h"
-#include "../scenes/Lvl1.h"
-#include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
-	using namespace novazero::graphics;
-	using namespace novazero::controllers;
-	using namespace novazero::core;
-
 	Pawn::Pawn(const std::string& assetName, Vec2 position, Vec2Int size, char layer, const float moveUpdateDelay,
 		float shootMin, float shootMax)
 		: SimpleWeakAI()
 	{
-		Leader::s_PawnCount++;
-		
 		m_DeleteName = assetName + std::to_string(SimpleWeakAI::Collider::m_ID);
-		
+
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
 		ConfigureCollider(GetSprite(), 0, "pawn");
@@ -34,55 +22,28 @@ namespace spaceshooter
 		m_CleanUpdaters.push_back(cleanID);
 
 		n2dAddDeleteable(this);
-
-		m_DelayShootMin = shootMin;
-		m_DelayShootMax = shootMax;
-		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
-		m_DelayShoot = r;
 	}
 
 	void Pawn::PawnUpdate()
 	{
 		if (!m_Alive) return;
 
-		m_HealthBar->Update(m_Health*2, (int)GetX(), (int)GetY() - 8);
+		m_HealthBar->Update(m_Health * 2, (int)GetX(), (int)GetY() - 8);
 
-		if (m_DelayShoot < 0)
-		{
-			Shoot();
-			return;
-		}
-
-		m_DelayShoot = (float)(m_DelayShoot - Game::s_DeltaTime);
 	}
 
 	void Pawn::DisplayHit(int damage)
 	{
 		Vec2 pos = GetPosition();
 		int width = GetWidth();
-		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "green", Rect(pos.x - width/2, GetY() - 16.f, 24.f, 16.f),
+
+		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "green", Rect(pos.x - width / 2, GetY() - 16.f, 24.f, 16.f),
 			Vec2(pos.x, pos.y - 128), 4000, 0);
 	}
 
 	void Pawn::Hurt(int damage)
 	{
 		SmallExplosion();
-
-		m_Health -= damage;
-		if (m_Health < 1)
-		{
-			if (m_Alive)
-			{
-				n2dScoreAdd(14);
-				DisplayHit(14);
-				DestroySelf();
-			}
-		}
-		else
-		{
-			n2dScoreAdd(4);
-			DisplayHit(4);
-		}
 	}
 
 	void Pawn::SmallExplosion()
@@ -91,18 +52,8 @@ namespace spaceshooter
 		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
-			});
+		});
 		explosion->ConfigureAnimationEnd(*animEnd);
-	}
-
-	void Pawn::Shoot()
-	{
-		auto r = n2dRandomFloat(m_DelayShootMin, m_DelayShootMax);
-		m_DelayShoot = r;
-
-		PawnBullet* bullet = new PawnBullet(Vec2Int((int)GetX(), (int)GetY() + 8),
-			Vec2Int((int)GetX(), (int)Game::s_Height + 32),
-			2.0f, GetSprite());
 	}
 
 	void Pawn::DestroySelf()
@@ -110,15 +61,11 @@ namespace spaceshooter
 		if (m_Destroyed) return;
 		m_Destroyed = true;
 
-		Player::NewKill();
-
 		m_Alive = false;
-
-		Leader::s_PawnCount--;
 
 		m_UsingCollider = false;
 
-  		if (m_HealthBar)
+		if (m_HealthBar)
 			m_HealthBar->DestroySelf();
 
 		if (GetSprite())

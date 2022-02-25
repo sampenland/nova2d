@@ -4,6 +4,7 @@
 #include "controllers/SimpleBulletController.h"
 #include <string>
 #include "components/SimpleStatBar.h"
+#include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
@@ -16,10 +17,6 @@ namespace spaceshooter
 
 	private:
 
-		float m_DelayShoot = 0.0f;
-		float m_DelayShootMin = 1000.0f;
-		float m_DelayShootMax = 2000.0f;
-
 		SimpleStatBar* m_HealthBar = nullptr;
 		int m_Health = 8;
 
@@ -31,17 +28,11 @@ namespace spaceshooter
 
 		Pawn(const std::string& assetName, Vec2 position, Vec2Int size,
 			char layer, const float moveUpdateDelay, float shootMin, float shootMax);
-		
-		void ConfigureShoot(float minShootDelayMS, float maxShootDelayMS) { m_DelayShootMin = minShootDelayMS * 2; m_DelayShootMax = maxShootDelayMS * 2; }
-
-		Rect GetAliveBounds() const { return m_AliveBounds; }
 
 		void PawnUpdate();
-		void Shoot();
-
-		void DisplayHit(int damage);
 		void Hurt(int damage);
 		void SmallExplosion();
+		void DisplayHit(int damage);
 
 		void DestroySelf() override;
 

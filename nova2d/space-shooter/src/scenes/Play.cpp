@@ -1,14 +1,16 @@
 #include "Play.h"
 #include "../Player.h"
-#include "../enemies/Leader.h"
 #include "../specials/TimeWarp.h"
 #include "input/ScrollSelect.h"
 #include "utils/ValueManager.h"
+#include "utils/timeline/events/TimelineEventCreate.h"
+#include "../enemies/pawns/PawnController.h"
 
 namespace spaceshooter
 {
 
 	using namespace novazero::input;
+	using namespace novazero::utils::timeline::events;
 
 	Play::Play(const std::string& sceneName) : Scene(sceneName) { }
 
@@ -34,6 +36,14 @@ namespace spaceshooter
 
 		AddObjectToCleanUp(m_ScoreText);
 		AddObjectToCleanUp(m_P1StreakText);
+
+		PawnController* pawnController = new PawnController();
+
+		TimelineCreateEvent* pawnCreate = new TimelineCreateEvent(pawnController,
+			Vec2(Game::s_Width / 2, Game::s_Height / 2), nullptr, 5.f);
+		pawnCreate->SetRunning(true);
+
+		Game::s_SceneManager->AddTimelineEvent("main", pawnCreate);
 
 	}
 

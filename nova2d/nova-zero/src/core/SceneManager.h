@@ -55,6 +55,9 @@ namespace novazero
 			void CleanUpdaters();
 			void Clean();
 
+			static void AddTimelineEvent(const std::string& timelineName, TimelineEvent* timelineEvent);
+			static void CleanTimelines();
+
 			void DestroySelf();
 
 			static ReferenceManager* s_ReferenceManager;
@@ -91,8 +94,6 @@ namespace novazero
 			{
 				return (unsigned int)s_Deleteables.size();
 			};
-
-			static void AddTimelineEvent
 		};
 	}
 }

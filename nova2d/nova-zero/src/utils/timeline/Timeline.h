@@ -20,16 +20,19 @@ namespace novazero
 				unsigned int m_ID = 0;
 				unsigned int m_CleanID = 0;
 
+				std::string m_TimelineName = "";
+
 				std::vector<TimelineEvent*> m_TimelineEvents;
 
 			public:
 
-				Timeline();
+				Timeline(const std::string& timelineName);
 
 				void Update();
 
 				void ResetToStartEvent();
 
+				void AddEvent(TimelineEvent* timelineEvent);
 				void SetEvent(int index);
 
 				void DestroySelf();

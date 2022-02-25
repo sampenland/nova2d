@@ -9,13 +9,14 @@ namespace novazero
 		{
 			using namespace core;
 
-			TimelineEvent::TimelineEvent(float timeTillNextEventSeconds, std::function<bool()> nextEventTrigger)
+			TimelineEvent::TimelineEvent(NovaInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds)
 				: Deleteable("timelineEvent_")
 			{
 				m_ID = n2dGameGetID();
 				m_DeleteName = "timelineEvent_" + tostring(m_ID);
 
-				m_TimeTillNextEventSeconds = timeTillNextEventSeconds;
+				m_InstanceController = instanceController;
+				m_TimeTillNextEventSeconds = timeTillNextEventSeconds * 1000.f;
 				f_NextEventTrigger = nextEventTrigger;
 
 				m_CleanID = n2dAddDeleteable(this);
@@ -23,22 +24,24 @@ namespace novazero
 
 			bool TimelineEvent::Tick()
 			{
-				if (!m_Started) return;
+				if (!m_Running) return false;
 
 				if (f_NextEventTrigger)
 				{
-					End();
 					return true; // tell timeline to go to next event
 				}
 
-				if (m_TimeTillNextEventSeconds > 0)
+				if (m_TimeTillNextEventSeconds == -1)
+				{
+					return false;
+				}
+				else if (m_TimeTillNextEventSeconds > 0)
 				{
 					m_TimeTillNextEventSeconds -= n2dDeltaTime;
 					return false; // stay on this event
 				}
 				else
 				{
-					End();
 					return true;
 				}
 			}

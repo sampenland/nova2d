@@ -2,6 +2,7 @@
 #include <functional>
 #include <vector>
 #include "../../core/Deleteable.h"
+#include "../../core/NovaInstance.h"
 
 namespace novazero
 {
@@ -16,7 +17,7 @@ namespace novazero
 
 			private:
 
-				float m_TimeTillNextEventSeconds = 0.f; // in seconds
+				float m_TimeTillNextEventSeconds = -1.f; // in seconds
 				std::function<bool()> f_NextEventTrigger = nullptr;
 
 				unsigned int m_ID = 0;
@@ -25,17 +26,16 @@ namespace novazero
 
 			public:
 				
-				TimelineEvent(float timeTillNextEventSeconds, std::function<bool()> nextEventTrigger);
+				TimelineEvent(NovaInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds = -1.f);
 
+				NovaInstance* m_InstanceController = nullptr;
+				
 				// runs when the event begins
-				virtual void Start() = 0;
+				virtual void Execute() = 0;
 				void SetRunning(bool val) { m_Running = val; }
 
 				// returns true when needing to move to next event
 				bool Tick();
-
-				// runs when the event ends (optional)
-				virtual void End() {};
 
 				void DestroySelf();
 

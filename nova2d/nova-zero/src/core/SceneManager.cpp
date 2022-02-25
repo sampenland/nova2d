@@ -33,7 +33,7 @@ namespace novazero
 			s_TimeEffectorManager = new TimeEffectorManager();
 			
 			// Default timeline
-			s_Timelines["default"] = new Timeline();
+			AddTimelineEvent("main", nullptr);
 		}
 		
 		void SceneManager::ConfigureFirstScene(const std::string& sceneName)
@@ -150,6 +150,13 @@ namespace novazero
 			{
 				ProcessPersistentUpdaters();
 				return;
+			}
+
+			std::map<std::string, Timeline*>::iterator it = s_Timelines.begin();
+			while (it != s_Timelines.end())
+			{
+				it->second->Update();
+				it++;
 			}
 
 			m_CurrentScene->Update();
@@ -275,6 +282,35 @@ namespace novazero
 			return id;
 		}
 
+		void SceneManager::AddTimelineEvent(const std::string& timelineName, TimelineEvent* timelineEvent)
+		{
+			if (s_Timelines.find(timelineName) == s_Timelines.end())
+			{
+				Timeline* timeline = new Timeline(timelineName);
+				s_Timelines[timelineName] = timeline;
+				
+				if(timelineEvent != nullptr)
+					s_Timelines[timelineName]->AddEvent(timelineEvent);
+			}
+			else
+			{
+				if (timelineEvent != nullptr)
+					s_Timelines[timelineName]->AddEvent(timelineEvent);
+			}
+		}
+
+		void SceneManager::CleanTimelines()
+		{
+			std::map<std::string, Timeline*>::iterator it = s_Timelines.begin();
+			while (it != s_Timelines.end())
+			{
+				it->second->DestroySelf();
+				it = s_Timelines.erase(it);
+			}
+
+			s_Timelines.clear();
+		}
+
 		void SceneManager::DestroySelf()
 		{
 			if (m_Destroyed) return;
@@ -305,11 +341,8 @@ namespace novazero
 				delete s_TimeEffectorManager;
 			}
 
-			if (s_TimelineDefault)
-			{
-				s_TimelineDefault->DestroySelf();
-				delete s_TimelineDefault;
-			}
+			CleanTimelines();
+
 		}
 	}
 }

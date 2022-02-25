@@ -1,18 +1,14 @@
 #include "Player.h"
 #include "physics/Collision.h"
 #include "ai/SimpleFollower.h"
-#include "enemies/Pawn.h"
-#include "enemies/Leader.h"
-#include "specials/PawnBullet.h"
-#include "scenes/Lvl1.h"
 #include "specials/TimeWarp.h"
-#include "enemies/Pawn1.h"
 #include "components/HitDisplay.h"
 
 namespace spaceshooter
 {
 	using namespace novazero::ai;
 	using namespace novazero::input;
+	using namespace novazero::components;
 
 	Uint32 Player::s_Player1LastPawnKillTime = 0;
 	
@@ -232,93 +228,7 @@ namespace spaceshooter
 
 		auto collisionFunction = new auto ([=](Collision* collision) {
 
-			bool collAisPlayer1Bullet = collision->m_ColliderA->m_ColliderName == "player-bullet";
-			bool collBisPlayer1Bullet = collision->m_ColliderB->m_ColliderName == "player-bullet";
-
-			// Bullet with pawn bullet
-			if ((collAisPlayer1Bullet) && collision->m_ColliderB->m_ColliderName == "pawn-bullet")
-			{
-				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition(), "green");
-				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				((PawnBullet*)collision->m_ColliderB)->DestroySelf();
-				SmallExplosion(((PawnBullet*)collision->m_ColliderB)->GetSprite()->GetPosition());
-				n2dScoreAdd(2);
-			}
-			else if(((collBisPlayer1Bullet) && collision->m_ColliderA->m_ColliderName == "pawn-bullet"))
-			{
-				DisplayHit(2, ((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition(), "green");
-				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				((PawnBullet*)collision->m_ColliderA)->DestroySelf();
-				SmallExplosion(((PawnBullet*)collision->m_ColliderA)->GetSprite()->GetPosition());
-				n2dScoreAdd(2);
-			}
-
-			// Bullet with pawn1-bullet
-			if ((collAisPlayer1Bullet) && collision->m_ColliderB->m_ColliderName == "pawn1-bullet")
-			{
-				DisplayHit(25, ((SimpleWeakAI*)collision->m_ColliderB)->GetSprite()->GetPosition(), "white");
-				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderB)->GetSprite()->GetPosition());
-				((SimpleWeakAI*)collision->m_ColliderB)->DestroySelf();
-				n2dScoreAdd(25);
-			}
-			else if (((collBisPlayer1Bullet) && collision->m_ColliderA->m_ColliderName == "pawn1-bullet"))
-			{
-				DisplayHit(25, ((SimpleWeakAI*)collision->m_ColliderA)->GetSprite()->GetPosition(), "white");
-				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				SmallExplosion(((SimpleWeakAI*)collision->m_ColliderA)->GetSprite()->GetPosition());
-				((SimpleWeakAI*)collision->m_ColliderA)->DestroySelf();
-				n2dScoreAdd(25);
-			}
-
-			// Bullet with leader bullet
-			// more handled on Leader Shoot() bullet lamda collision
-			if ((collAisPlayer1Bullet) && collision->m_ColliderB->m_ColliderName == "leader-bullet")
-			{
-				SmallExplosion(((SimpleFollower*)collision->m_ColliderB)->GetSprite()->GetPosition());
-			}
-			else if (((collBisPlayer1Bullet) && collision->m_ColliderA->m_ColliderName == "leader-bullet"))
-			{
-				SmallExplosion(((SimpleFollower*)collision->m_ColliderA)->GetSprite()->GetPosition());
-			}
 			
-			// Bullet with pawn
-			if ((collAisPlayer1Bullet) && collision->m_ColliderB->m_ColliderName == "pawn")
-			{
-				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				((Pawn*)collision->m_ColliderB)->Hurt(4);
-			}
-			else if ((collBisPlayer1Bullet) && collision->m_ColliderA->m_ColliderName == "pawn")
-			{
-				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				((Pawn*)collision->m_ColliderA)->Hurt(4);
-			}
-
-			// Bullet with pawn1
-			if ((collAisPlayer1Bullet) && collision->m_ColliderB->m_ColliderName == "pawn1")
-			{
-				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				SmallExplosion(((Pawn1*)collision->m_ColliderB)->GetPosition());
-				((Pawn1*)collision->m_ColliderB)->Hurt(4);
-			}
-			else if ((collBisPlayer1Bullet) && collision->m_ColliderA->m_ColliderName == "pawn1")
-			{
-				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				SmallExplosion(((Pawn1*)collision->m_ColliderA)->GetPosition());
-				((Pawn1*)collision->m_ColliderA)->Hurt(4);
-			}
-
-			// Bullet with leader
-			if ((collAisPlayer1Bullet) && collision->m_ColliderB->m_ColliderName == "leader")
-			{
-				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				((Leader*)collision->m_ColliderB)->Hurt(2);
-			}
-			else if ((collBisPlayer1Bullet) && collision->m_ColliderA->m_ColliderName == "leader")
-			{
-				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-				((Leader*)collision->m_ColliderA)->Hurt(2);
-			}
 
 		});
 
