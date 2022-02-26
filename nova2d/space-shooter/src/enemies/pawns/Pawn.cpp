@@ -21,7 +21,6 @@ namespace spaceshooter
 		auto cleanID = n2dAddUpdater(Pawn::PawnUpdate, this);
 		m_CleanUpdaters.push_back(cleanID);
 
-		Configure(moveUpdateDelay, false);
 		AddPatrolPointWithFunction(Vec2(GetX(), GetY() + 200), GetLinearPatrolMove());
 		
 		EnableAI(true);

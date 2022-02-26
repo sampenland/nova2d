@@ -60,9 +60,9 @@ namespace spaceshooter
 
 		m_PawnController = new PawnController();
 
-		for (int pawnCount = 0; pawnCount < 12; pawnCount++)
+		for (int pawnCount = 0; pawnCount < 100; pawnCount++)
 		{
-			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.75f);
+			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.1f);
 			std::function<void(int, int)> func = n2dMakeFuncArgs2(PawnController::CreatePawn, m_PawnController);
 			pawnCreate->SetFunction(func, 1, pawnCount);
 			

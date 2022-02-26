@@ -178,12 +178,20 @@ namespace novazero
 				Vec2 dirNormVector = targetPos;
 
 				dirNormVector.subtract(currentPos).normalize();
-				dirNormVector.scale(2.5f * n2dTimeScale * GetTimeInfluence());
+
+				if (m_UsingPatrolSpeedOverride)
+				{
+					dirNormVector.scale(*m_PatrolSpeedRef * n2dTimeScale * GetTimeInfluence());
+				}
+				else
+				{
+					dirNormVector.scale(2.f * n2dTimeScale * GetTimeInfluence());
+				}
 
 				Vec2 newPos = currentPos.add(dirNormVector);
 
-				const float tolerance = 2.f;
-				bool reachedTarget = Vec2::Distance(targetPos, newPos) < tolerance;
+				const float tolerance = 3.f;
+				bool reachedTarget = Vec2::Distance(targetPos, newPos) <= tolerance;
 
 				if (reachedTarget)
 				{

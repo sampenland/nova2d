@@ -21,12 +21,15 @@ namespace spaceshooter
 		int m_RightPawns = 0;
 
 		char m_Padding = 48;
+		Vec2 m_Offset = Vec2(0.f, 200.f);;
 
-		char m_CurrentRow = 0;
-		char m_MaxRows = 16;
+		char m_CurrentRowL = 0;
+		char m_CurrentRowR = 0;
+		char m_MaxRows = 0;
 
-		char m_CurrentCol = 0;
-		char m_MaxCols = 6;
+		char m_CurrentColL = 0;
+		char m_CurrentColR = 0;
+		char m_MaxCols = 0;
 
 		float* m_PawnShootMin = nullptr;
 		float* m_PawnShootMax = nullptr;

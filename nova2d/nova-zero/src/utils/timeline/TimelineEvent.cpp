@@ -26,12 +26,12 @@ namespace novazero
 			{
 				if (!m_Running) return false;
 
-				if (f_NextEventTrigger)
+				if (f_NextEventTrigger && f_NextEventTrigger())
 				{
 					return true; // tell timeline to go to next event
 				}
 
-				if (m_TimeTillNextEventSeconds == -1)
+				if (m_TimeTillNextEventSeconds == -1000)
 				{
 					return false;
 				}
