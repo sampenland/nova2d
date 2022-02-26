@@ -56,7 +56,9 @@ namespace novazero
 			void Clean();
 
 			static void AddTimelineEvent(const std::string& timelineName, TimelineEvent* timelineEvent);
+			static void StartAndResetTimeline(const std::string& timelineName);
 			static void CleanTimelines();
+			static void CleanTimeline(const std::string& timelineName);
 
 			void DestroySelf();
 

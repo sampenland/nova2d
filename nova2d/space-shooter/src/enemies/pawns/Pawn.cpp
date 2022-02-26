@@ -2,11 +2,11 @@
 
 namespace spaceshooter
 {
-	Pawn::Pawn(const std::string& assetName, Vec2 position, Vec2Int size, char layer, const float moveUpdateDelay,
+	Pawn::Pawn(const std::string& assetName, Vec2 position, Vec2Int size, char layer, float* moveUpdateDelay,
 		float shootMin, float shootMax)
 		: SimpleWeakAI()
 	{
-		m_DeleteName = assetName + std::to_string(SimpleWeakAI::Collider::m_ID);
+		m_DeleteName = assetName + tostring(SimpleWeakAI::Collider::m_ID);
 
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
@@ -20,6 +20,11 @@ namespace spaceshooter
 
 		auto cleanID = n2dAddUpdater(Pawn::PawnUpdate, this);
 		m_CleanUpdaters.push_back(cleanID);
+
+		Configure(moveUpdateDelay, false);
+		AddPatrolPointWithFunction(Vec2(GetX(), GetY() + 200), GetLinearPatrolMove());
+		
+		EnableAI(true);
 
 		n2dAddDeleteable(this);
 	}

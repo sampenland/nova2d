@@ -19,7 +19,7 @@ namespace novazero
 
 			void Timeline::Update()
 			{
-				if (m_CurrentEvent == -1) return;
+ 				if (m_CurrentEvent == -1) return;
 
 				if (m_TimelineEvents.size() > m_CurrentEvent)
 				{
@@ -42,9 +42,15 @@ namespace novazero
 				}
 			}
 
-			void Timeline::ResetToStartEvent()
+			void Timeline::ResetToStartEvent(bool running)
 			{
 				m_CurrentEvent = 0;
+				
+				if (m_TimelineEvents.size() > 0)
+				{
+					m_TimelineEvents[m_CurrentEvent]->SetRunning(running);
+				}
+
 			}
 
 			void Timeline::AddEvent(TimelineEvent* timelineEvent)

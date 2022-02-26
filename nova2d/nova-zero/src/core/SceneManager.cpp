@@ -299,16 +299,40 @@ namespace novazero
 			}
 		}
 
+		void SceneManager::StartAndResetTimeline(const std::string& timelineName)
+		{
+			if (s_Timelines.find(timelineName) == s_Timelines.end())
+			{
+				LOG(LVL_W, timelineName + " does not exists. Cannot start/restart.");
+				return;
+			}
+			else
+			{
+				s_Timelines[timelineName]->ResetToStartEvent(true);
+			}
+		}
+
+		void SceneManager::CleanTimeline(const std::string& timelineName)
+		{
+			std::map<std::string, Timeline*>::iterator it = s_Timelines.begin();
+			while (it != s_Timelines.end())
+			{
+				if (it->first == timelineName)
+				{
+					it->second->DestroySelf();
+					return;
+				}
+			}
+		}
+
 		void SceneManager::CleanTimelines()
 		{
 			std::map<std::string, Timeline*>::iterator it = s_Timelines.begin();
 			while (it != s_Timelines.end())
 			{
 				it->second->DestroySelf();
-				it = s_Timelines.erase(it);
+				it++;
 			}
-
-			s_Timelines.clear();
 		}
 
 		void SceneManager::DestroySelf()

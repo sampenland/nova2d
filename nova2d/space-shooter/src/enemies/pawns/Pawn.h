@@ -27,7 +27,7 @@ namespace spaceshooter
 	public:
 
 		Pawn(const std::string& assetName, Vec2 position, Vec2Int size,
-			char layer, const float moveUpdateDelay, float shootMin, float shootMax);
+			char layer, float* moveUpdateDelay, float shootMin, float shootMax);
 
 		void PawnUpdate();
 		void Hurt(int damage);

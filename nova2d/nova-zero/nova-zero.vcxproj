@@ -204,7 +204,8 @@
     <ClInclude Include="src\physics\TimeEffectorManager.h" />
     <ClInclude Include="src\utils\Director.h" />
     <ClInclude Include="src\core\NovaInstance.h" />
-    <ClInclude Include="src\utils\timeline\events\TimelineEventCreate.h" />
+    <ClInclude Include="src\utils\timeline\events\TimelineCreateEvent.h" />
+    <ClInclude Include="src\utils\timeline\events\TimelineExecuteEvent.h" />
     <ClInclude Include="src\utils\timeline\Timeline.h" />
     <ClInclude Include="src\utils\timeline\TimelineEvent.h" />
     <ClInclude Include="src\utils\TweenManager.h" />

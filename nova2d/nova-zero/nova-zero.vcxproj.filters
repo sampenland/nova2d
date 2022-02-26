@@ -395,7 +395,10 @@
     <ClInclude Include="src\core\NovaInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\timeline\events\TimelineEventCreate.h">
+    <ClInclude Include="src\utils\timeline\events\TimelineCreateEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\timeline\events\TimelineExecuteEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

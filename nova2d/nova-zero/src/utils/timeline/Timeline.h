@@ -30,7 +30,7 @@ namespace novazero
 
 				void Update();
 
-				void ResetToStartEvent();
+				void ResetToStartEvent(bool running);
 
 				void AddEvent(TimelineEvent* timelineEvent);
 				void SetEvent(int index);

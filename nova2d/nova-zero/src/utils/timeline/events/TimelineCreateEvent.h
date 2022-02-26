@@ -29,7 +29,6 @@ namespace novazero
 					{
 						m_InstanceController->CreateInstance(m_CreatePosition);
 					}
-
 				};
 			}
 		}

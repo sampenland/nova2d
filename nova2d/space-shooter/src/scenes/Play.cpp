@@ -3,7 +3,8 @@
 #include "../specials/TimeWarp.h"
 #include "input/ScrollSelect.h"
 #include "utils/ValueManager.h"
-#include "utils/timeline/events/TimelineEventCreate.h"
+#include "utils/timeline/events/TimelineCreateEvent.h"
+#include "utils/timeline/events/TimelineExecuteEvent.h"
 #include "../enemies/pawns/PawnController.h"
 
 namespace spaceshooter
@@ -32,19 +33,66 @@ namespace spaceshooter
 		const int streakSize = 144;
 		m_P1StreakText = new Text("font1", "P1 Streak: 0", "light-blue", Rect(Game::s_Width - scoreSize - 8, 32, scoreSize, 16), 0);
 
+		m_Waves = new Text("font1", "", "white", Rect(Game::s_Width / 2 - 96, Game::s_Height / 2 - 32, 192, 64), 0);
+
 		n2dDirectorAddToStack(true, 0, "Move Speed", 70, 0.01f, 6.f, &player->m_MoveSpeed);
 
 		AddObjectToCleanUp(m_ScoreText);
 		AddObjectToCleanUp(m_P1StreakText);
+		AddObjectToCleanUp(m_Waves);
 
-		PawnController* pawnController = new PawnController();
+		Timer* startWaves = new Timer(1000, false, n2dMakeFunc(Play::Wave1, this));
 
-		TimelineCreateEvent* pawnCreate = new TimelineCreateEvent(pawnController,
-			Vec2(Game::s_Width / 2, Game::s_Height / 2), nullptr, 5.f);
-		pawnCreate->SetRunning(true);
+	}
 
-		Game::s_SceneManager->AddTimelineEvent("main", pawnCreate);
+	void Play::ShowWaveAnimation(unsigned char wave)
+	{
+		m_Waves->UpdateText("Wave " + tostring(wave));
 
+		Timer* hideText = new Timer(2000, false, [=]() {
+			m_Waves->UpdateText("");
+		});
+	}
+
+	void Play::Wave1()
+	{
+		ShowWaveAnimation(1);
+
+		m_PawnController = new PawnController();
+
+		for (int pawnCount = 0; pawnCount < 12; pawnCount++)
+		{
+			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.75f);
+			std::function<void(int, int)> func = n2dMakeFuncArgs2(PawnController::CreatePawn, m_PawnController);
+			pawnCreate->SetFunction(func, 1, pawnCount);
+			
+			Game::s_SceneManager->AddTimelineEvent("main", pawnCreate);
+		
+		}
+
+		TimelineExecuteEvent* gotoWave2 = new TimelineExecuteEvent(this, n2dMakeFunc(Play::NoPawns, this), -1.f);
+		std::function<void()> func = n2dMakeFunc(Play::Wave2, this);
+		gotoWave2->SetFunction(func);
+		
+		Game::s_SceneManager->AddTimelineEvent("main", gotoWave2);
+
+		Game::s_SceneManager->StartAndResetTimeline("main");
+	}
+
+	void Play::Wave2()
+	{
+		Game::s_SceneManager->CleanTimeline("main");
+		ShowWaveAnimation(2);
+	}
+
+	bool Play::NoPawns()
+	{
+		if (m_PawnController)
+		{
+			return m_PawnController->PawnCount() == 0;
+		}
+
+		return false;
 	}
 
 	void Play::Update()

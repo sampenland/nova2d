@@ -82,6 +82,17 @@ THIS can be used for tweens, Director stackables, etc.
 #define n2dValueManagerGetRef(name) novazero::utils::ValueManager::GetRefToValue(name);
 
 /*
+nova2d make func
+Binds to make a func pointer
+*/
+#define n2dMakeFunc(func, context) std::bind(&func, context)
+#define n2dMakeFuncArgs1(func, context, a1) std::bind(&func, context, std::placeholders::_1);
+#define n2dMakeFuncArgs2(func, context, a1, a2) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2);
+#define n2dMakeFuncArgs3(func, context, a1, a2, a3) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+#define n2dMakeFuncArgs4(func, context, a1, a2, a3, a4) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
+#define n2dMakeFuncArgs5(func, context, a1, a2, a3, a4, a5) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+
+/*
 nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
 Rumble the controller at power for duration milliseconds
 */
