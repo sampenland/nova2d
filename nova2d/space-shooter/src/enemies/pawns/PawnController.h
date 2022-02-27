@@ -21,7 +21,8 @@ namespace spaceshooter
 		int m_RightPawns = 0;
 
 		char m_Padding = 48;
-		Vec2 m_Offset = Vec2(0.f, 200.f);;
+		Vec2 m_Offset = Vec2(0.f, 100.f);
+		int m_CreationHealth = 0;
 
 		char m_CurrentRowL = 0;
 		char m_CurrentRowR = 0;

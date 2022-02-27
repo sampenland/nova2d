@@ -89,6 +89,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\enemies\pawns\Kamikaze.cpp" />
+    <ClCompile Include="src\enemies\pawns\KamikazeController.cpp" />
     <ClCompile Include="src\enemies\pawns\Pawn.cpp" />
     <ClCompile Include="src\enemies\pawns\PawnController.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -119,6 +121,8 @@
     <Image Include="res\title.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\enemies\pawns\Kamikaze.h" />
+    <ClInclude Include="src\enemies\pawns\KamikazeController.h" />
     <ClInclude Include="src\enemies\pawns\Pawn.h" />
     <ClInclude Include="src\enemies\pawns\PawnController.h" />
     <ClInclude Include="src\scenes\GameOver.h" />

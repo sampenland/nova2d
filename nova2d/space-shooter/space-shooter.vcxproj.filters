@@ -33,6 +33,12 @@
     <ClCompile Include="src\enemies\pawns\Pawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\enemies\pawns\Kamikaze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\enemies\pawns\KamikazeController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ship_01.png">
@@ -101,6 +107,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\enemies\pawns\Pawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enemies\pawns\KamikazeController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enemies\pawns\Kamikaze.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -41,6 +41,9 @@ namespace spaceshooter
 		AddObjectToCleanUp(m_P1StreakText);
 		AddObjectToCleanUp(m_Waves);
 
+		m_PawnController = new PawnController();
+		m_KamikazeController = new KamikazeController(player);
+
 		Timer* startWaves = new Timer(1000, false, n2dMakeFunc(Play::Wave1, this));
 
 	}
@@ -58,8 +61,6 @@ namespace spaceshooter
 	{
 		ShowWaveAnimation(1);
 
-		m_PawnController = new PawnController();
-
 		for (int pawnCount = 0; pawnCount < 100; pawnCount++)
 		{
 			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.1f);
@@ -76,12 +77,26 @@ namespace spaceshooter
 		
 		Game::s_SceneManager->AddTimelineEvent("main", gotoWave2);
 
+		// Kamikazes
+		for (int kCount = 0; kCount < 100; kCount++)
+		{
+			TimelineExecuteEvent* kamikazeCreate = new TimelineExecuteEvent(m_KamikazeController, nullptr, 6.f);
+			std::function<void(int, int)> func = n2dMakeFuncArgs2(KamikazeController::CreateKamikaze,
+				m_KamikazeController);
+			kamikazeCreate->SetFunction(func, 1, kCount);
+
+			Game::s_SceneManager->AddTimelineEvent("kamikazes", kamikazeCreate);
+		}
+
+
 		Game::s_SceneManager->StartAndResetTimeline("main");
+		Game::s_SceneManager->StartAndResetTimeline("kamikazes");
 	}
 
 	void Play::Wave2()
 	{
 		Game::s_SceneManager->CleanTimeline("main");
+		Game::s_SceneManager->CleanTimeline("kamikazes");
 		ShowWaveAnimation(2);
 	}
 

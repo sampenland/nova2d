@@ -42,9 +42,9 @@ namespace novazero
 
 		}
 
-		SimpleStatBar::~SimpleStatBar()
+		void SimpleStatBar::SetMaxWidth(int w)
 		{
-			
+			m_Size.x = w;
 		}
 
 		void SimpleStatBar::Update(int v, int x, int y)

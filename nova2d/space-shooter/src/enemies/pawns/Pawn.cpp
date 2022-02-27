@@ -1,9 +1,10 @@
 #include "Pawn.h"
+#include "../../Player.h"
 
 namespace spaceshooter
 {
 	Pawn::Pawn(const std::string& assetName, Vec2 position, Vec2Int size, char layer, float* moveUpdateDelay,
-		float shootMin, float shootMax)
+		float shootMin, float shootMax, int startHealth)
 		: SimpleWeakAI()
 	{
 		m_DeleteName = assetName + tostring(SimpleWeakAI::Collider::m_ID);
@@ -13,6 +14,8 @@ namespace spaceshooter
 		ConfigureCollider(GetSprite(), 0, "pawn");
 		ConfigureUsingBounds(false, false);
 
+		m_Health = startHealth;
+		m_HealthRatio = 16 / startHealth;
 		m_HealthBar = new SimpleStatBar(false, (int)GetX(), (int)GetY() - 2,
 			16, 4, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
@@ -32,7 +35,7 @@ namespace spaceshooter
 	{
 		if (!m_Alive) return;
 
-		m_HealthBar->Update(m_Health * 2, (int)GetX(), (int)GetY() - 8);
+		m_HealthBar->Update(m_Health * m_HealthRatio, (int)GetX(), (int)GetY() - 8);
 
 	}
 
@@ -48,6 +51,16 @@ namespace spaceshooter
 	void Pawn::Hurt(int damage)
 	{
 		SmallExplosion();
+
+		m_Health -= damage;
+		DisplayHit(damage);
+
+		if (m_Health < 1)
+		{
+			n2dScoreAdd(15);
+			Player::NewKill();
+			DestroySelf();
+		}
 	}
 
 	void Pawn::SmallExplosion()

@@ -22,7 +22,7 @@ namespace spaceshooter
 
 	private:
 
-		const float SHOOT_TIME = 230;
+		const float SHOOT_TIME = 230.f;
 
 		bool m_SpacePressed = false;
 		float m_SpaceDuration = 0.0f;
@@ -36,6 +36,9 @@ namespace spaceshooter
 		Sprite* m_StreakSprite;
 
 		unsigned int m_CleanID = 0;
+
+		// Damages
+		int m_ShootDamage = 2;
 
 	public:
 

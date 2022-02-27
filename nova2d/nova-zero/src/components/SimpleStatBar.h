@@ -45,12 +45,12 @@ namespace novazero
 			SimpleStatBar(bool vertical, int x, int y, int w, int h, const std::string& colorOutline,
 				const std::string& colorBackground, const std::string& colorForeground, char layer);
 
-			~SimpleStatBar();
-
 			void ConfigureThickness(int outlineThickness);
 			void ConfigureNonForeground(int outlineThickness, const std::string& colorOutline, const std::string& colorBackground);
 			void ConfigureForeground(const std::string& colorForeground, const std::string& colorForeground2,
 				const std::string& colorForeground4);
+
+			void SetMaxWidth(int w);
 
 			void Update(int v, int x, int y);
 			void Draw(float oX = 0.f, float oY = 0.f) override;

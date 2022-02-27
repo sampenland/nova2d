@@ -3,6 +3,8 @@
 #include "ai/SimpleFollower.h"
 #include "specials/TimeWarp.h"
 #include "components/HitDisplay.h"
+#include "utils/ValueManager.h"
+#include "enemies/pawns/Pawn.h"
 
 namespace spaceshooter
 {
@@ -228,7 +230,28 @@ namespace spaceshooter
 
 		auto collisionFunction = new auto ([=](Collision* collision) {
 
-			
+			//refs
+			Collider& a = *collision->m_ColliderA;
+			Collider& b = *collision->m_ColliderB;
+
+			// whats
+			bool aIsPlayerBullet = a.m_ColliderName == "player-bullet";
+			bool bIsPlayerBullet = b.m_ColliderName == "player-bullet";
+
+			bool aIsPawn = a.m_ColliderName == "pawn";
+			bool bIsPawn = b.m_ColliderName == "pawn";
+
+			if (aIsPlayerBullet && bIsPawn)
+			{
+				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
+				((Pawn*)collision->m_ColliderB)->Hurt(m_ShootDamage);
+			}
+
+			if (bIsPlayerBullet && aIsPawn)
+			{
+				((Pawn*)collision->m_ColliderA)->Hurt(m_ShootDamage);
+				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
+			}
 
 		});
 

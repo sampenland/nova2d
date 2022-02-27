@@ -19,6 +19,7 @@ namespace spaceshooter
 
 		SimpleStatBar* m_HealthBar = nullptr;
 		int m_Health = 8;
+		float m_HealthRatio = 1.f;
 
 	public:
 
@@ -27,7 +28,7 @@ namespace spaceshooter
 	public:
 
 		Pawn(const std::string& assetName, Vec2 position, Vec2Int size,
-			char layer, float* moveUpdateDelay, float shootMin, float shootMax);
+			char layer, float* moveUpdateDelay, float shootMin, float shootMax, int startHealth);
 
 		void PawnUpdate();
 		void Hurt(int damage);

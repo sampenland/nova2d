@@ -12,6 +12,9 @@
 // Max director pages
 #define MAX_DIRECTOR_PAGES 20
 
+// Max left and right slots on director
+#define MAX_DIRECTOR_SLOTS 8
+
 // Max graver groups
 #define MAX_GRAVER_GROUPS 255
 
@@ -64,10 +67,11 @@ Sets a float value which directly effects all moving objects
 #define n2dTimeScaleSet(timeScale) novazero::core::Game::s_TimeScale = timeScale;
 
 /*
-nova2d Value Add
+nova2d Value Add (std::string, float, bool persistent)
 Adds a global variable which can be grabbed from anywhere in your code
+RETURNS float* to value
 */
-#define n2dValueManagerAdd(name, value) novazero::utils::ValueManager::AddValue(name, value);
+#define n2dValueManagerAdd(name, value, persist) novazero::utils::ValueManager::AddValue(name, value, persist);
 
 /*
 nova2d Value Get

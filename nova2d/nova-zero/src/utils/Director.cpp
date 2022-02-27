@@ -293,7 +293,7 @@ namespace novazero
 			const int currentLeftSize = s_Pages.at(page)->m_LeftStack.size();
 			const int currentRightSize = s_Pages.at(page)->m_RightStack.size();
 			
-			if (left && currentLeftSize >= 5)
+			if (left && currentLeftSize >= MAX_DIRECTOR_SLOTS)
 			{
 				if (page != MAX_DIRECTOR_PAGES)
 				{
@@ -307,7 +307,7 @@ namespace novazero
 					return;
 				}
 			}
-			else if(!left && currentRightSize)
+			else if(!left && currentRightSize >= MAX_DIRECTOR_SLOTS)
 			{
 				if (page != MAX_DIRECTOR_PAGES)
 				{

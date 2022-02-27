@@ -25,11 +25,14 @@ namespace spaceshooter
 			switch (wave)
 			{
 			case 1:
+				m_Offset = Vec2(0.f, 100.f);
+				m_Padding = 64;
 				m_MaxRows = 5;
 				m_MaxCols = 6;
 				m_CurrentColL = m_MaxCols;
 				m_CurrentColR = 0;
 				m_CurrentRowL = m_CurrentRowR = 0;
+				m_CreationHealth = 2;
 				break;
 			}
 
@@ -64,7 +67,7 @@ namespace spaceshooter
 		}
 
 		Pawn* pawn = new Pawn("pawn", position,
-			Vec2Int(16, 16), 1, m_PawnMoveSpeed, *m_PawnShootMin, *m_PawnShootMax);
+			Vec2Int(16, 16), 1, m_PawnMoveSpeed, *m_PawnShootMin, *m_PawnShootMax, 4);
 		pawn->Configure(m_PawnMoveSpeed, false);
 
 		if (inverter == -1)

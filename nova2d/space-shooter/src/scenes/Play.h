@@ -2,6 +2,7 @@
 #include "core/Scene.h"
 #include "graphics/Text.h"
 #include "../enemies/pawns/PawnController.h"
+#include "../enemies/pawns/KamikazeController.h"
 
 namespace spaceshooter
 {
@@ -17,6 +18,7 @@ namespace spaceshooter
 		Text* m_Waves = nullptr;
 
 		PawnController* m_PawnController = nullptr;
+		KamikazeController* m_KamikazeController = nullptr;
 
 	public:
 
