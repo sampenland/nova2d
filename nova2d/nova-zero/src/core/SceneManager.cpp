@@ -320,8 +320,10 @@ namespace novazero
 				if (it->first == timelineName)
 				{
 					it->second->DestroySelf();
+					it++;
 					return;
 				}
+				it++;
 			}
 		}
 

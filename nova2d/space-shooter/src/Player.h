@@ -22,7 +22,7 @@ namespace spaceshooter
 
 	private:
 
-		const float SHOOT_TIME = 230.f;
+		const float SHOOT_TIME = 150.f;
 
 		bool m_SpacePressed = false;
 		float m_SpaceDuration = 0.0f;
