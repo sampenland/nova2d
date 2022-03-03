@@ -2,7 +2,7 @@
 
 nova2d
 ---
-2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck. Currently in development.
+!!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck.
 
 ---
 **Feature Set**
@@ -14,12 +14,17 @@ nova2d
  - 4 built in fonts: "font1", "font2", "font3", "font4"
  - Debug Draw shapes: Circle and Rectangle
  
- Prefabs
- - Basic WSAD/ArrowKeys controller with built-in movement bounds, acceleration, Graver, Time Effected, etc.
+ Prefabs/Components
+ - Basic StatBar (main use is Health Bars)
+ - HitDisplay (pre-made tweened text)
+ 
+ Controllers:
+ - Basic ArrowKeys/Joysticks controller with built-in movement bounds, acceleration, Graver, Time Effected, etc.
  
  Managment
  - Ease of use Color Managament, Referencer and Asset(sprite/texutre) Managament
  - Simple 2D Collision Manager
+ - Timelines - easily create an array of events to happen on an varying interval or on referenced condition function
  - Simple 2D Renderering with 20 layers for PhotoShop like layer rendering
  - Gravers : Component type gravity objects that apply forces to attached objects
  - Tweens : Ability to Tween an object's X, Y, etc. from startValue to endValue in N amount of milliseconds (all implemented curves shown here: www.easings.net )
@@ -32,6 +37,8 @@ nova2d
  - Simple Follower holder for target seeking behavior
  
  Debugging
+ - Director - add in any variable to the Director so that you can change it in realtime during gameplay
+	- also one key opening and altering Time Scale of game (such as speeding it up or down to see what works best)
  - Simple DebugOverlay (enabled with one line of code) which displays:
 	- FPS
 	- Drawables
@@ -53,4 +60,15 @@ nova2d
  
  **Samples**
  - Space shooter : Simple shooter like Dragon Spirit for NES. Project used for testing, game not really polished in any way.
+	- Great example use of following features:
+		- Sprites
+		- Animations
+		- Director
+		- Timelines
+		- Tweens
+		- Asset Management
+		- Debug Overlay
+		- SimpleWeak AI
+		- SimpleFollower AI
+		- SimpleBullet AI
  
