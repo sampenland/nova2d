@@ -22,6 +22,7 @@ namespace novazero
 
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
+			float m_Scale = 1.f;
 
 			bool m_Alive = true;
 
@@ -51,6 +52,9 @@ namespace novazero
 			void Update();
 
 			void Flip(SDL_RendererFlip flip);
+			
+			void Scale(float scale);
+			float GetScale() { return m_Scale; }
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }

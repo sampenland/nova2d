@@ -23,7 +23,7 @@ namespace spaceshooter
 		Player::s_Player1Streak = 0;
 		Player::s_Player1MaxStreak = 0;
 
-		Player* player = new Player("player", "player1", Vec2((float)Game::s_Width / 2 - 8, (float)Game::s_Height - 64), Vec2Int(16, 16), 1);
+		Player* player = new Player("player", "player1", Vec2((float)Game::s_Width / 2 - 8, (float)Game::s_Height - 96), Vec2Int(16, 16), 1);
 		n2dReferenceAdd("player", player);
 		AddObjectToCleanUp(player);
 
@@ -63,7 +63,7 @@ namespace spaceshooter
 
 		for (int pawnCount = 0; pawnCount < 100; pawnCount++)
 		{
-			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.1f);
+			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.25f);
 			std::function<void(int, int)> func = n2dMakeFuncArgs2(PawnController::CreatePawn, m_PawnController);
 			pawnCreate->SetFunction(func, 1, pawnCount);
 			

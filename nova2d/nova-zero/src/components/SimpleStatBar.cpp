@@ -35,6 +35,7 @@ namespace novazero
 			m_IsVertical = vertical;
 
 			m_Value = vertical ? h : w;
+			Update(m_Value, x, y);
 
 			n2dAddDrawable(this, layer);
 			auto cleanID = n2dAddDeleteable(this);
@@ -73,17 +74,22 @@ namespace novazero
 			m_ForegroundColorFourth = colorForeground4;
 		}
 
+		void SimpleStatBar::Scale(float scale)
+		{
+			m_Scale = scale;
+		}
+
 		void SimpleStatBar::Draw(float oX, float oY)
 		{
 			m_Outline->x = m_Pos.x - m_OutlineThickness;
 			m_Outline->y = m_Pos.y - m_OutlineThickness;
-			m_Outline->w = m_Size.x + 2 * m_OutlineThickness;
-			m_Outline->h = m_Size.y + 2 * m_OutlineThickness;
+			m_Outline->w = (m_Size.x * m_Scale) + 2 * m_OutlineThickness;
+			m_Outline->h = (m_Size.y * m_Scale) + 2 * m_OutlineThickness;
 
 			m_Background->x = m_Pos.x;
 			m_Background->y = m_Pos.y;
-			m_Background->w = m_Size.x;
-			m_Background->h = m_Size.y;
+			m_Background->w = (m_Size.x * m_Scale);
+			m_Background->h = (m_Size.y * m_Scale);
 
 			m_Foreground->x = m_Pos.x;
 			m_Foreground->y = m_Pos.y;
@@ -103,8 +109,8 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = m_Size.x;
-				m_Foreground->h = m_Value;
+				m_Foreground->w = (m_Size.x * m_Scale);
+				m_Foreground->h = (m_Value * m_Scale);
 			}
 			else
 			{
@@ -121,8 +127,8 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = m_Value;
-				m_Foreground->h = m_Size.y;
+				m_Foreground->w = (m_Value * m_Scale);
+				m_Foreground->h = (m_Size.y * m_Scale);
 			}
 
 			Uint8 r, g, b, a;

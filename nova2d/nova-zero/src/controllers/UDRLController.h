@@ -16,6 +16,7 @@ namespace novazero
 		private:
 
 			char m_JoyStickNumber = 0;
+			Vec2Int m_MoveOffsets = Vec2Int(0, 0);
 
 		public:
 
@@ -23,6 +24,16 @@ namespace novazero
 			
 			void ConfigureMove(float moveSpeed, TweenTypes accelerationType = TweenTypes::EaseInCubic, float accelerationMS = 0.f, float deaccelerationTimeMS = 0.f);
 			void ConfigureJoystickNumber(char num) { m_JoyStickNumber = num; }
+			void ConfigureMoveOffsets(Origins origin, int w, int h)
+			{
+				ConfigureOrigin(origin);
+				m_MoveOffsets = Vec2Int(w, h);
+			}
+			void ConfigureMoveOffsets(Origins origin, Sprite* sprite)
+			{
+				ConfigureOrigin(origin);
+				m_MoveOffsets = Vec2Int(sprite->GetWidth() / 2 * sprite->GetScale(), sprite->GetHeight() / 2 * sprite->GetScale());
+			}
 
 			void UpdateController();
 

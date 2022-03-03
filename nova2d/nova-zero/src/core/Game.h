@@ -88,7 +88,10 @@ namespace novazero
 
 			static int s_Width;
 			static int s_Height;
-			static int s_Padding;
+			static int s_PaddingT;
+			static int s_PaddingB;
+			static int s_PaddingL;
+			static int s_PaddingR;
 
 			static Vec2 GetCenterScreen(int xCorrection = 0, int yCorrection = 0) 
 			{
@@ -96,6 +99,7 @@ namespace novazero
 			}
 			static novazero::maths::Rect GetGameBounds(float paddingOverride = 0.f);
 			static void SetGamePadding(float padding);
+			static void SetGamePadding(float paddingTop, float paddingBottom, float paddingLeft, float paddingRight);
 			
 			static unsigned int s_IDCount;
 			static unsigned int GetNextID() { s_IDCount++; return s_IDCount; }

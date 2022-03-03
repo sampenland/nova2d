@@ -98,6 +98,13 @@ namespace novazero
 			m_Flip = flip;
 		}
 
+		void Sprite::Scale(float scale)
+		{
+			m_Scale = scale;
+			m_DestRect.w = m_FrameSize.x * scale;
+			m_DestRect.h = m_FrameSize.y * scale;
+		}
+
 		void Sprite::Draw(float oX, float oY)
 		{
 			if (!m_Visible || !m_Alive) return;

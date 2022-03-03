@@ -90,12 +90,12 @@ namespace novazero
 
 			if (pos != Vec2(newX, newY))
 			{
-				if (IsWithinMoveBounds((int)newX, (int)pos.y))
+				if (IsWithinMoveBounds((int)newX, (int)pos.y, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
 					SetX(newX);
 				}
 
-				if (IsWithinMoveBounds((int)pos.x, (int)newY))
+				if (IsWithinMoveBounds((int)pos.x, (int)newY, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
 					SetY(newY);
 				}

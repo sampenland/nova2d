@@ -1,5 +1,5 @@
 #pragma once
-
+#include "components/SimpleStatBar.h"
 #include "controllers/UDRLController.h"
 #include "maths/Vec2Int.h"
 #include "controllers/SimpleBulletController.h"
@@ -9,6 +9,7 @@ namespace spaceshooter
 {
 	using namespace novazero::graphics;
 	using namespace novazero::controllers;
+	using namespace novazero::components;
 
 	enum class PlayerMoving
 	{
@@ -31,9 +32,14 @@ namespace spaceshooter
 		Timer* m_ShootTimer = nullptr;
 		PlayerMoving m_Moving = PlayerMoving::UP;
 
-		int m_Lives = 20;
+		int m_Lives = 4;
 		std::vector<Sprite*> m_LifeSprites;
 		Sprite* m_StreakSprite;
+		
+		float m_Fuel = 100.f;
+		SimpleStatBar* m_FuelDisplay = nullptr;
+		SimpleStatBar* m_FuelDisplayMain = nullptr;
+		Sprite* m_FuelTank = nullptr;
 
 		unsigned int m_CleanID = 0;
 

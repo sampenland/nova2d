@@ -9,11 +9,18 @@ namespace novazero
 		using namespace graphics;
 		using namespace maths;
 
+		enum class Origins
+		{
+			TopLeft,
+			Centered
+		};
+
 		class BoundUser
 		{
 
 		private:
 
+			Origins m_Origin = Origins::TopLeft;
 		
 		protected:
 		
@@ -37,12 +44,31 @@ namespace novazero
 			}
 
 			void ConfigureAliveBounds(Rect bounds) { m_AliveBounds = bounds; m_UsingAliveBounds = true; }
+			void ConfigureOrigin(Origins origin)
+			{
+				m_Origin = origin;
+			}
+				
 			void SetMoveBounds(Rect bounds) { m_MoveBounds = bounds; m_UsingMoveBounds = true; }
 
-			bool IsWithinMoveBounds(int x, int y)
+			bool IsWithinMoveBounds(int x, int y, int spriteWidth = -1, int spriteHeight = -1)
 			{
 				if (!m_UsingMoveBounds) return true;
 
+				if (spriteWidth != -1 && spriteHeight != -1 && m_Origin != Origins::TopLeft)
+				{
+					switch (m_Origin)
+					{
+					case Origins::Centered:
+
+						return x + spriteWidth > m_MoveBounds.x && x + spriteWidth < m_MoveBounds.x + m_MoveBounds.w &&
+							y + spriteHeight > m_MoveBounds.y && y + spriteHeight < m_MoveBounds.y + m_MoveBounds.h;
+
+						break;
+					}
+				}
+
+				// Top left
 				return x > m_MoveBounds.x && x < m_MoveBounds.x + m_MoveBounds.w &&
 					y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
 			}

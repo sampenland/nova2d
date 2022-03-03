@@ -30,7 +30,10 @@ namespace novazero
 		int Game::s_Height;
 		double Game::s_DeltaTime;
 		double Game::s_FPS;
-		int Game::s_Padding;
+		int Game::s_PaddingT;
+		int Game::s_PaddingB;
+		int Game::s_PaddingL;
+		int Game::s_PaddingR;
 		int Game::s_ExitCode = 0;
 		bool Game::s_Running = 0;
 		unsigned int Game::s_Score = 0;
@@ -56,7 +59,7 @@ namespace novazero
 			s_ColorManager = new ColorManager();
 
 			n2dAddColor("white", "ffffff", 255);
-			n2dAddColor("black", "000000", 255);
+			n2dAddColor("black", "1f1f1f", 255);
 			n2dAddColor("red", "f02b2b", 255);
 			n2dAddColor("green", "2bf038", 255);
 			n2dAddColor("yellow", "d8d831", 255);
@@ -66,6 +69,7 @@ namespace novazero
 			n2dAddColor("a20-blue", "1e579c", 20);
 			n2dAddColor("light-blue", "0098db", 255);
 			n2dAddColor("bright-blue", "0ce6f2", 255);
+			n2dAddColor("transparent", "000000", 0);
 
 			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
 			n2dBlend(true);
@@ -125,7 +129,7 @@ namespace novazero
 		{
 			if (s_DebugOverlay) s_DebugOverlay->DestroySelf();
 
-			s_DebugOverlay = new DebugOverlay(Vec2Int(32, 32));
+			s_DebugOverlay = new DebugOverlay(Vec2Int(32, 48));
 			
 			if (isVisible)
 			{
@@ -298,10 +302,23 @@ namespace novazero
 				return Rect(-paddingOverride, -paddingOverride, s_Width + paddingOverride, s_Height + paddingOverride);
 			}
 
-			return Rect(0.f + s_Padding, 0.f + s_Padding,
-				s_Width - ((s_Padding * 2.5f)), s_Height - ((s_Padding * 2.5f)));
+			return Rect(s_PaddingL, s_PaddingT, s_Width - s_PaddingR, s_Height - s_PaddingB);
 		}
 
-		void Game::SetGamePadding(float padding) { s_Padding = (int)padding; }
+		void Game::SetGamePadding(float padding) 
+		{ 
+			s_PaddingT = (int)padding; 
+			s_PaddingB = (int)padding; 
+			s_PaddingL = (int)padding; 
+			s_PaddingR = (int)padding; 
+		}
+
+		void Game::SetGamePadding(float paddingTop, float paddingBottom, float paddingLeft, float paddingRight)
+		{
+			s_PaddingT = (int)paddingTop;
+			s_PaddingB = (int)paddingBottom;
+			s_PaddingL = (int)paddingLeft;
+			s_PaddingR = (int)paddingRight;
+		}
 	}
 }

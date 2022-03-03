@@ -25,6 +25,7 @@ namespace novazero
 			SDL_Rect* m_Foreground;
 			SDL_Rect* m_Outline;
 			SDL_Rect* m_Background;
+			float m_Scale = 1.f;
 
 			std::string m_OutlineColor;
 			std::string m_BackgroundColor;
@@ -51,6 +52,7 @@ namespace novazero
 				const std::string& colorForeground4);
 
 			void SetMaxWidth(int w);
+			void Scale(float scale);
 
 			void Update(int v, int x, int y);
 			void Draw(float oX = 0.f, float oY = 0.f) override;

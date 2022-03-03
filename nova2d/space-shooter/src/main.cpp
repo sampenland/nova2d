@@ -19,9 +19,8 @@ int main(int argc, char* argv[])
 	Game game("Space Shooter");
 	game.ConfigureIcon("res/ship_01.png");
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
-	Game::SetGamePadding(32);
+	Game::SetGamePadding(32, 64, 32, 32);
 	game.ConfigureDebugOverlay(true);
-	game.ConfigureDebugPosition(Vec2Int(32, Game::s_Height - 200));
 	game.s_InputHandler->Configure(8000);
 
 	n2dAddColor("background", "201533", 255);
@@ -42,6 +41,7 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("streaks", "res/streaks_count.png");
 	n2dAssetsLoadAndAddTexture("kamikaze", "res/ship_04_anim.png");
 	n2dAssetsLoadAndAddTexture("pawn1-bullet", "res/bullet_04.png");
+	n2dAssetsLoadAndAddTexture("fuel-tank", "res/fuel_tank.png");
 
 	MainMenu* mainMenuScene = new MainMenu("mainMenu");
 	Play* playScene = new Play("playScene");

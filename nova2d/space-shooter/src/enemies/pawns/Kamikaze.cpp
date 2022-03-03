@@ -13,6 +13,7 @@ namespace spaceshooter
 	{
 		AddSprite("kamikaze", position, Vec2Int(16, 16), 0);
 		GetSprite()->ConfigureAnimation(0, 16, 16, 10, true);
+		GetSprite()->Scale(2.f);
 
 		Collider::m_ID = n2dGameGetID();
 		m_DeleteName = "kamikaze_" + tostring(Collider::m_ID);

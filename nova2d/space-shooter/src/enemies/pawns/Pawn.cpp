@@ -11,6 +11,8 @@ namespace spaceshooter
 
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
+		GetSprite()->Scale(2.f);
+
 		ConfigureCollider(GetSprite(), 0, "pawn");
 		ConfigureUsingBounds(false, false);
 
@@ -20,6 +22,7 @@ namespace spaceshooter
 			16, 4, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
+		m_HealthBar->Scale(2.f);
 
 		auto cleanID = n2dAddUpdater(Pawn::PawnUpdate, this);
 		m_CleanUpdaters.push_back(cleanID);

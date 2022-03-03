@@ -25,7 +25,7 @@ namespace spaceshooter
 			switch (wave)
 			{
 			case 1:
-				m_Offset = Vec2(0.f, 100.f);
+				m_Offset = Vec2(0.f, 54.f);
 				m_Padding = 64;
 				m_MaxRows = 5;
 				m_MaxCols = 6;
