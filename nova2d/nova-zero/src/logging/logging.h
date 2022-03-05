@@ -31,6 +31,12 @@ namespace novazero
 				std::cout << text << std::endl;
 			}
 
+			template<typename T>
+			static void LogSimple(const T text)
+			{
+				std::cout << text << std::endl;
+			}
+
 			static void LogOut(const std::string& level, const std::string& text)
 			{
 				std::string out = "";

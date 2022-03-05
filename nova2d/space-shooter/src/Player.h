@@ -24,6 +24,7 @@ namespace spaceshooter
 	private:
 
 		const float SHOOT_TIME = 150.f;
+		const int FUEL_RIGHT_PADDING = 72;
 
 		bool m_SpacePressed = false;
 		float m_SpaceDuration = 0.0f;

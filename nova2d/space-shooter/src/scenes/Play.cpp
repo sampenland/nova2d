@@ -61,36 +61,42 @@ namespace spaceshooter
 	{
 		ShowWaveAnimation(1);
 
-		for (int pawnCount = 0; pawnCount < 100; pawnCount++)
+		for (int pawnCount = 0; pawnCount < 12; pawnCount++)
 		{
 			TimelineExecuteEvent* pawnCreate = new TimelineExecuteEvent(m_PawnController, nullptr, 0.25f);
 			std::function<void(int, int)> func = n2dMakeFuncArgs2(PawnController::CreatePawn, m_PawnController);
 			pawnCreate->SetFunction(func, 1, pawnCount);
 			
-			Game::s_SceneManager->AddTimelineEvent("main", pawnCreate);
-		
+			n2dAddTimeline("main", pawnCreate);
+					
 		}
 
-		TimelineExecuteEvent* gotoWave2 = new TimelineExecuteEvent(this, n2dMakeFunc(Play::NoPawns, this), -1.f);
-		std::function<void()> func = n2dMakeFunc(Play::Wave2, this);
-		gotoWave2->SetFunction(func);
+		// Single kamikaze halfway through wave
+		auto halfPawns = new auto ([=]()->bool {
+			return PawnController::s_KilledPawnsThisWave == 6;
+		});
+		TimelineExecuteEvent* kamikazeCreate = new TimelineExecuteEvent(m_KamikazeController, *halfPawns, -1.f);
+		std::function<void(int, int)> func = n2dMakeFuncArgs2(KamikazeController::CreateKamikaze,
+			m_KamikazeController);
+		kamikazeCreate->SetFunction(func, 1, 1);
+
+		n2dAddTimeline("kamikazes", kamikazeCreate);
+
+		// No pawns trigger function
+		auto noPawns = new auto ([=]() -> bool {
+			return m_PawnController->PawnCount() == 0;
+		});
+		TimelineExecuteEvent* gotoWave2 = new TimelineExecuteEvent(this, *noPawns, -1.f);
 		
-		Game::s_SceneManager->AddTimelineEvent("main", gotoWave2);
+		std::function<void()> triggerWave2Func = n2dMakeFunc(Play::Wave2, this);
+		gotoWave2->SetFunction(triggerWave2Func);
+		
+		// Next wave trigger
+		n2dAddTimeline("main", gotoWave2);
 
-		// Kamikazes
-		for (int kCount = 0; kCount < 100; kCount++)
-		{
-			TimelineExecuteEvent* kamikazeCreate = new TimelineExecuteEvent(m_KamikazeController, nullptr, 6.f);
-			std::function<void(int, int)> func = n2dMakeFuncArgs2(KamikazeController::CreateKamikaze,
-				m_KamikazeController);
-			kamikazeCreate->SetFunction(func, 1, kCount);
-
-			Game::s_SceneManager->AddTimelineEvent("kamikazes", kamikazeCreate);
-		}
-
-
-		Game::s_SceneManager->StartAndResetTimeline("main");
-		Game::s_SceneManager->StartAndResetTimeline("kamikazes");
+		// Start timelines
+		n2dStartTimeline("main");
+		n2dStartTimeline("kamikazes");
 	}
 
 	void Play::Wave2()
@@ -102,6 +108,7 @@ namespace spaceshooter
 
 	bool Play::NoPawns()
 	{
+		return false;
 		if (m_PawnController)
 		{
 			return m_PawnController->PawnCount() == 0;

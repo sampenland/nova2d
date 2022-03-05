@@ -28,9 +28,9 @@ namespace spaceshooter
 		m_StreakSprite->ConfigureAnimation(0, 16, 16, 0, false);
 		m_StreakSprite->ConfigureAnimating(false);
 
-		m_FuelDisplay = new SimpleStatBar(false, 0, Game::s_Height - 48, Game::s_Width, 48, "white", "blue", "light-blue", 0);
-		m_FuelDisplayMain = new SimpleStatBar(false, 48, 0, Game::s_Width - 54, 16, "black", "blue", "red", 0);
-		m_FuelTank = new Sprite("fuel-tank", Vec2(12, Game::s_Height - 48), Vec2Int(16, 16), 0);
+		m_FuelDisplay = new SimpleStatBar(false, 0, Game::s_Height - 40, Game::s_Width, 48, "white", "blue", "light-blue", 0);
+		m_FuelDisplayMain = new SimpleStatBar(false, 48, 0, Game::s_Width - FUEL_RIGHT_PADDING, 16, "black", "blue", "red", 0);
+		m_FuelTank = new Sprite("fuel-tank", Vec2(12, Game::s_Height - 40), Vec2Int(16, 16), 0);
 		m_FuelTank->Scale(2.f);
 
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
@@ -137,6 +137,7 @@ namespace spaceshooter
 		}
 
 		Sprite* explosion = new Sprite("explode", posIfNotPlayer, Vec2Int(16, 16), 0);
+		explosion->Scale(2.f);
 		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
@@ -159,7 +160,7 @@ namespace spaceshooter
 			return;
 		}
 
-		m_FuelDisplayMain->Update((int)(m_Fuel / 100 * Game::s_Width - 48), 48, Game::s_Height - 36);
+		m_FuelDisplayMain->Update(((int)(m_Fuel / 100 * (Game::s_Width - FUEL_RIGHT_PADDING))), 48, Game::s_Height - 24);
 
 		// Display moving
 		if (n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_UP) && m_Moving != PlayerMoving::UP)

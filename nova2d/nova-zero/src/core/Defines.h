@@ -97,6 +97,19 @@ Binds to make a func pointer
 #define n2dMakeFuncArgs5(func, context, a1, a2, a3, a4, a5) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
 
 /*
+nova2d Add to timeline (string timelineName, TimelineEvent event)
+Add's a timeline event to a timeline
+TimelineEvent is the base class of TimelineCreateEvent, TimelineExecuteEvent
+*/
+#define n2dAddTimeline(timelineName, timelineEvent) novazero::core::Game::s_SceneManager->AddTimelineEvent(timelineName, timelineEvent);
+
+/*
+nova2d Starts a timeline with a certain name
+Timeline must exists
+*/
+#define n2dStartTimeline(timelineName) novazero::core::Game::s_SceneManager->StartAndResetTimeline(timelineName);
+
+/*
 nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
 Rumble the controller at power for duration milliseconds
 */

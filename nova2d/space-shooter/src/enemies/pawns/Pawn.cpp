@@ -1,5 +1,6 @@
 #include "Pawn.h"
 #include "../../Player.h"
+#include "PawnController.h"
 
 namespace spaceshooter
 {
@@ -82,6 +83,9 @@ namespace spaceshooter
 		m_Destroyed = true;
 
 		m_Alive = false;
+
+		PawnController::s_KilledPawns++;
+		PawnController::s_KilledPawnsThisWave++;
 
 		m_UsingCollider = false;
 
