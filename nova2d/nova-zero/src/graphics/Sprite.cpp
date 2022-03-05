@@ -34,6 +34,10 @@ namespace novazero
 			m_DestRect.w = (int)size.x;
 			m_DestRect.h = (int)size.y;
 
+			// Setup a default 1 frame animation
+			AddAnimation("default", 0, 1, 0, false, nullptr, true);
+			n2dAddUpdater(Sprite::TickAnimation, this);
+
 			LinkPositionalSprite(this);
 
 			// Final
@@ -41,52 +45,139 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		void Sprite::ConfigureAnimation(int startFrame, int animationLength, int totalFrames, float animationSpeed, bool loop)
+		// Animations -------------------------------
+
+		void Sprite::AddAnimation(const std::string& animName, unsigned short startFrame, unsigned short totalFrames,
+			float timeBetweenFramesMS, bool loop, std::function<void(Sprite* sprite)> onComplete, bool makeActiveAnimation)
 		{
-			m_Frames = totalFrames;
-			m_AnimationLength = animationLength;
-			m_CurrentFrame = startFrame;
-			m_StartFrame = startFrame;
+			AnimStartEnd data;
+			data.StartFrame = startFrame;
+			data.EndFrame = startFrame + (totalFrames - 1);
+			data.TimeBetweenFramesMS = timeBetweenFramesMS;
+			data.CurrentFrameTime = 0;
+			data.Loop = loop;
+			data.OnAnimationEnd = onComplete;
 
-			if (m_CurrentFrame >= m_Frames) m_CurrentFrame = 0;
-
-			if (m_AnimationTimer)
+			if (m_Animations.find(animName) != m_Animations.end())
 			{
-				delete m_AnimationTimer;
+				LOG(LVL_W, animName + " already exists in animations. OVERWRITING!");
 			}
 
-			m_AnimationLooping = loop;
-			m_AnimationTimer = new Timer(animationSpeed, loop, std::bind(&Sprite::NextFrame, this));
+			m_Animations[animName] = data;
 
-		}
-
-		void Sprite::JumpToFrame(int frame)
-		{
-			if (frame < m_Frames)
-				m_CurrentFrame = frame;
-		}
-
-		void Sprite::NextFrame()
-		{
-			if (!m_Visible || !m_Alive) return;
-
-			m_CurrentFrame++;
-
-			if (m_CurrentFrame >= m_StartFrame + m_AnimationLength)
+			if (makeActiveAnimation)
 			{
-				if (m_AnimationLooping)
+				m_CurrentAnimation = animName;
+				m_AnimationRunning = true;
+			}
+
+		}
+
+		void Sprite::ChangeAnimation(const std::string& animName, short frameOffset)
+		{
+			if (m_CurrentAnimation == animName)
+			{
+				if (frameOffset > 0)
 				{
-					m_CurrentFrame = m_StartFrame;
+					if (m_Animations[animName].StartFrame + frameOffset <= m_Animations[animName].EndFrame)
+					{
+						m_Animations[animName].CurrentFrame = m_Animations[animName].StartFrame + frameOffset;
+						m_Animations[animName].CurrentFrameTime = m_Animations[animName].TimeBetweenFramesMS;
+					}
+				}
+
+				return;
+			}
+
+			if (m_Animations.find(animName) != m_Animations.end())
+			{
+				m_CurrentAnimation = animName;
+
+				if (frameOffset > 0)
+				{
+					if (m_Animations[animName].StartFrame + frameOffset <= m_Animations[animName].EndFrame)
+					{
+						m_Animations[animName].CurrentFrame = m_Animations[animName].StartFrame + frameOffset;
+						m_Animations[animName].CurrentFrameTime = m_Animations[animName].TimeBetweenFramesMS;
+					}
+					else
+					{
+						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames");
+					}
+				}
+			}
+		}
+
+		void Sprite::DeleteAnimation(const std::string& animName)
+		{
+			m_Animations.erase(animName);
+		}
+
+		void Sprite::StartAnimation()
+		{
+			m_AnimationRunning = true;
+		}
+
+		void Sprite::StopAnimation()
+		{
+			m_AnimationRunning = false;
+		}
+
+		void Sprite::JumpToFrame(unsigned short frame)
+		{
+			unsigned short animationFrame = m_Animations[m_CurrentAnimation].StartFrame + frame;
+			if (animationFrame < m_Animations[m_CurrentAnimation].EndFrame)
+			{
+				m_Animations[m_CurrentAnimation].CurrentFrame = animationFrame;
+				m_Animations[m_CurrentAnimation].CurrentFrameTime = m_Animations[m_CurrentAnimation].TimeBetweenFramesMS;
+			}
+		}
+
+		void Sprite::RestartAnimation()
+		{
+			m_Animations[m_CurrentAnimation].CurrentFrame = m_Animations[m_CurrentAnimation].StartFrame;
+			m_Animations[m_CurrentAnimation].CurrentFrameTime = m_Animations[m_CurrentAnimation].TimeBetweenFramesMS;
+		}
+
+		void Sprite::TickAnimation()
+		{
+			if (m_CurrentAnimation == "default" || !m_AnimationRunning) return;
+
+			if (m_Animations.find(m_CurrentAnimation) != m_Animations.end())
+			{
+				if (m_Animations[m_CurrentAnimation].CurrentFrameTime > 0.f)
+				{
+					m_Animations[m_CurrentAnimation].CurrentFrameTime -= n2dDeltaTime;
 				}
 				else
 				{
-					m_CurrentFrame = m_Frames - 1;
+					m_Animations[m_CurrentAnimation].CurrentFrameTime = m_Animations[m_CurrentAnimation].TimeBetweenFramesMS;
+					
+					m_Animations[m_CurrentAnimation].CurrentFrame++;
+					if (m_Animations[m_CurrentAnimation].CurrentFrame > m_Animations[m_CurrentAnimation].EndFrame)
+					{
+						if (m_Animations[m_CurrentAnimation].Loop)
+						{
+							m_Animations[m_CurrentAnimation].CurrentFrame = m_Animations[m_CurrentAnimation].StartFrame;
+						}
+						else
+						{
+							if(m_Animations[m_CurrentAnimation].OnAnimationEnd)
+								m_Animations[m_CurrentAnimation].OnAnimationEnd(this);
+					
+							m_AnimationRunning = false;
+						}
+					}
 				}
-
-				if (f_OnAnimationEnd)
-					f_OnAnimationEnd(this);
 			}
+			else
+			{
+				LOG(LVL_W, "Trying to tick animation: " + m_CurrentAnimation + " but animation by this name does not exists.");
+			}
+
 		}
+
+		// ------------------------------------------
 
 		void Sprite::Update()
 		{
@@ -109,7 +200,16 @@ namespace novazero
 		{
 			if (!m_Visible || !m_Alive) return;
 
-			m_SrcRect.x = m_CurrentFrame * m_FrameSize.x;
+			// At this moment Sprite sheets must be horizontal strips
+			if (m_Animations.find(m_CurrentAnimation) != m_Animations.end())
+			{
+				m_SrcRect.x = m_Animations[m_CurrentAnimation].CurrentFrame * m_FrameSize.x;
+			}
+			else
+			{
+				m_SrcRect.x = m_FrameSize.x;
+			}
+
 			m_SrcRect.w = m_FrameSize.x;
 
 			m_DestRect.x = (int)(m_Position.x + oX);
@@ -126,9 +226,6 @@ namespace novazero
 		void Sprite::DestroySelf()
 		{
 			m_Alive = 0;
-
-			if (m_AnimationTimer)
-				m_AnimationTimer->DestroySelf();
 
 			n2dRemoveDrawable(m_ID, m_Layer);
 

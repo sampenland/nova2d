@@ -25,8 +25,9 @@ namespace spaceshooter
 
 		m_StreakSprite = new Sprite("streaks", Vec2(0.f, 0.f), Vec2Int(48, 8), 0);
 		m_StreakSprite->Scale(2.f);
-		m_StreakSprite->ConfigureAnimation(0, 16, 16, 0, false);
-		m_StreakSprite->ConfigureAnimating(false);
+		m_StreakSprite->AddAnimation("streaks", 0, 16, 0, false, nullptr, true);
+		m_StreakSprite->StopAnimation();
+		m_StreakSprite->JumpToFrame(0);
 
 		m_FuelDisplay = new SimpleStatBar(false, 0, Game::s_Height - 40, Game::s_Width, 48, "white", "blue", "light-blue", 0);
 		m_FuelDisplayMain = new SimpleStatBar(false, 48, 0, Game::s_Width - FUEL_RIGHT_PADDING, 16, "black", "blue", "red", 0);
@@ -50,7 +51,12 @@ namespace spaceshooter
 			m_LifeSprites.push_back(life);
 		}
 
-		m_Sprite->ConfigureAnimation(0, 2, 8, 100, true);
+		const float animationSpeed = 100.f;
+		m_Sprite->AddAnimation("up", 0, 2, animationSpeed, true, nullptr);
+		m_Sprite->AddAnimation("left", 2, 2, animationSpeed, true, nullptr, false);
+		m_Sprite->AddAnimation("right", 4, 2, animationSpeed, true, nullptr, false);
+		m_Sprite->AddAnimation("down", 6, 2, animationSpeed, true, nullptr, false);
+
 		ConfigureCollider(m_Sprite, 0, "player");
 		SetTimeEffectEnabled(false);
 		
@@ -138,11 +144,10 @@ namespace spaceshooter
 
 		Sprite* explosion = new Sprite("explode", posIfNotPlayer, Vec2Int(16, 16), 0);
 		explosion->Scale(2.f);
-		explosion->ConfigureAnimation(0, 5, 5, 100, true);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 			});
-		explosion->ConfigureAnimationEnd(*animEnd);
+		explosion->AddAnimation("explode", 0, 5, 100.f, false, *animEnd);
 	}
 
 	void Player::Update()
@@ -163,24 +168,24 @@ namespace spaceshooter
 		m_FuelDisplayMain->Update(((int)(m_Fuel / 100 * (Game::s_Width - FUEL_RIGHT_PADDING))), 48, Game::s_Height - 24);
 
 		// Display moving
-		if (n2dIsKeyDown(SDLK_w) || n2dIsKeyDown(SDLK_UP) && m_Moving != PlayerMoving::UP)
+		if (n2dIsKeyDown(SDLK_UP))
 		{
-			m_Sprite->JumpToFrame(0);
+			m_Sprite->ChangeAnimation("up");
 		}
 
-		if (n2dIsKeyDown(SDLK_s) || n2dIsKeyDown(SDLK_DOWN) && m_Moving != PlayerMoving::DOWN)
+		if (n2dIsKeyDown(SDLK_DOWN))
 		{
-			m_Sprite->JumpToFrame(6);
+			m_Sprite->ChangeAnimation("down");
 		}
 
-		if (n2dIsKeyDown(SDLK_d) || n2dIsKeyDown(SDLK_RIGHT) && m_Moving != PlayerMoving::RIGHT)
+		if (n2dIsKeyDown(SDLK_RIGHT))
 		{
-			m_Sprite->JumpToFrame(4);
+			m_Sprite->ChangeAnimation("right");
 		}
 
-		if (n2dIsKeyDown(SDLK_a) || n2dIsKeyDown(SDLK_LEFT) && m_Moving != PlayerMoving::LEFT)
+		if (n2dIsKeyDown(SDLK_LEFT))
 		{
-			m_Sprite->JumpToFrame(2);
+			m_Sprite->ChangeAnimation("left");
 		}
 	}
 

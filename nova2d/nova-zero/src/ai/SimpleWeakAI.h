@@ -98,7 +98,7 @@ namespace novazero
 			inline void SetVisible(bool isVisible) 
 			{ 
 				if (GetSprite())
-					GetSprite()->m_Visible = isVisible;
+					GetSprite()->SetVisible(isVisible);
 			}
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);

@@ -20,7 +20,7 @@ namespace spaceshooter
 		SetEnabled(false);
 
 		m_Sprite = new Sprite("clock", Vec2(position.x - 8, position.y - 8), Vec2Int(16, 16), 0);
-		m_Sprite->ConfigureAnimation(0, 4, 4, 250, true);
+		m_Sprite->AddAnimation("ticking", 0, 4, 250.f, false, nullptr);
 
 		int* ptrToRadius = GetEffectorRadiusRef();
 		if (ptrToRadius)

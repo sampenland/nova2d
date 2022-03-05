@@ -3,6 +3,7 @@
 #include "../core/Timer.h"
 #include "Drawable.h"
 #include <functional>
+#include <map>
 #include "SDL.h"
 
 namespace novazero
@@ -12,6 +13,17 @@ namespace novazero
 		using namespace core;
 		using namespace maths;
 		
+		struct AnimStartEnd
+		{
+			unsigned short StartFrame = 0;
+			unsigned short CurrentFrame = 0;
+			unsigned short EndFrame = 0;
+			float TimeBetweenFramesMS = 0.f;
+			float CurrentFrameTime = 0.f;
+			bool Loop = false;
+			std::function<void(Sprite* sprite)> OnAnimationEnd = nullptr;
+		};
+
 		class Sprite : public Drawable, public Deleteable
 		{
 			
@@ -20,34 +32,45 @@ namespace novazero
 			SDL_Texture* m_SpriteSheet;
 			std::string m_AssetName;
 
+			// Animations ------------------------------
+			std::string m_CurrentAnimation = "default";
+			std::map<std::string, AnimStartEnd> m_Animations;
+			bool m_AnimationRunning = false;
+
+		public:
+
+			void AddAnimation(const std::string& animName, unsigned short startFrame, unsigned short totalFrames,
+				float timeBetweenFramesMS, bool loop, std::function<void(Sprite* sprite)> onComplete, bool makeActiveAnim = true);
+
+			void ChangeAnimation(const std::string& animName, short frameOffset = 0);
+
+			void DeleteAnimation(const std::string& animName);
+
+			void StartAnimation();
+			void StopAnimation();
+			void JumpToFrame(unsigned short frame);
+			void RestartAnimation();
+
+			void TickAnimation();
+
+			// ------------------------------------------
+
+		private:
+
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 			float m_Scale = 1.f;
 
 			bool m_Alive = true;
 
-			bool m_AnimationRunning = false;
-			bool m_AnimationLooping = false;
-			int m_StartFrame = 0;
-			int m_Frames = 1;
-			int m_AnimationLength = 1;
-			int m_CurrentFrame = 0;
 			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
 
-			Timer* m_AnimationTimer = nullptr;
-
-			std::function<void(Sprite* sprite)> f_OnAnimationEnd;
+			bool m_Visible = true;
 
 		public:
 
 			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
-
-			void ConfigureAnimating(bool isRunning) { m_AnimationRunning = true; }
-			void ConfigureAnimation(int startFrame, int animationLength, int totalFrames, float animationSpeed, bool loop);
-			void ConfigureAnimationEnd(std::function<void(Sprite* sprite)> f) { f_OnAnimationEnd = f; }
-			void NextFrame();
-			void JumpToFrame(int frame);
 
 			void Update();
 
@@ -62,7 +85,11 @@ namespace novazero
 
 			void DestroySelf();
 
-			bool m_Visible = true;
+			void SetVisible(bool isVisible)
+			{
+				m_Visible = isVisible;
+			}
+			
 			void ChangeLayer(char layer) { m_Layer = layer; }
 
 			bool operator==(const Sprite& other);
