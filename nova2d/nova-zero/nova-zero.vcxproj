@@ -133,6 +133,7 @@
     <ClCompile Include="src\input\MinMaxScrollSelect.cpp" />
     <ClCompile Include="src\input\ScrollSelect.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
+    <ClCompile Include="src\maps\TiledMap.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\particles\Dot.cpp" />
     <ClCompile Include="src\particles\Particle.cpp" />
@@ -197,12 +198,14 @@
     <ClInclude Include="src\graphics\Text.h" />
     <ClInclude Include="src\input\Inputable.h" />
     <ClInclude Include="src\input\TextInput.h" />
+    <ClInclude Include="src\maps\TiledMap.h" />
     <ClInclude Include="src\maths\Vec2.h" />
     <ClInclude Include="src\particles\Dot.h" />
     <ClInclude Include="src\particles\Particle.h" />
     <ClInclude Include="src\physics\TimeEffected.h" />
     <ClInclude Include="src\physics\TimeEffector.h" />
     <ClInclude Include="src\physics\TimeEffectorManager.h" />
+    <ClInclude Include="src\thirdparty\jsonparser\json.hpp" />
     <ClInclude Include="src\utils\Director.h" />
     <ClInclude Include="src\utils\timeline\TimelineInstance.h" />
     <ClInclude Include="src\utils\timeline\events\TimelineExecuteEvent.h" />
