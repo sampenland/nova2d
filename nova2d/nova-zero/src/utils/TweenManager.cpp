@@ -181,7 +181,7 @@ namespace novazero
 			t->loop = loop;
 			t->deleteOnComplete = autoDelete;
 
-			if (!autoDelete)
+			if (!autoDelete && n2dDebugVerbose)
 				LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(id));
 
 			m_Tweens[id] = t;
@@ -312,7 +312,7 @@ namespace novazero
 				m_Tweens[tweenID]->loop = loop;
 				m_Tweens[tweenID]->deleteOnComplete = autoDelete;
 
-				if (!autoDelete)
+				if (!autoDelete && n2dDebugVerbose)
 					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); m_Tweens[tweenID]->loop = loop;
 			}
 		}

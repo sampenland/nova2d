@@ -13,7 +13,8 @@ namespace novazero
 		using namespace input;
 		using namespace debug;
 
-		bool Game::s_Debug = false;
+		bool Game::s_Debug = true;
+		bool Game::s_DebugVerbose = false;
 
 		novazero::graphics::Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;

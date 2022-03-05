@@ -2,7 +2,7 @@
 #include <functional>
 #include <vector>
 #include "../../core/Deleteable.h"
-#include "../../core/NovaInstance.h"
+#include "TimelineInstance.h"
 
 namespace novazero
 {
@@ -11,6 +11,19 @@ namespace novazero
 		namespace timeline
 		{
 			using namespace core;
+
+			enum class FuncType
+			{
+				Void,
+				Int1Float1,
+				Int2Float1,
+				Float2Int1,
+				Float2Int2,
+				Float,
+				Float2,
+				Int,
+				Int2
+			};
 
 			class TimelineEvent : public Deleteable
 			{
@@ -26,9 +39,9 @@ namespace novazero
 
 			public:
 				
-				TimelineEvent(NovaInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds = -1.f);
+				TimelineEvent(TimelineInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds = -1.f);
 
-				NovaInstance* m_InstanceController = nullptr;
+				TimelineInstance* m_InstanceController = nullptr;
 				
 				// runs when the event begins
 				virtual void Execute() = 0;

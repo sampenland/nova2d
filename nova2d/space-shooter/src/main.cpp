@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32, 64, 32, 32);
 	game.ConfigureDebugOverlay(true);
-	game.s_InputHandler->Configure(8000);
+	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
 
 	n2dAddColor("background", "201533", 255);
 	
@@ -52,8 +52,6 @@ int main(int argc, char* argv[])
 	n2dGameAddScene(gameOver);
 	
 	n2dGameConfigFirstScene(mainMenuScene);
-
-	n2dDebugSet(true);
 
 	while (Game::IsRunning())
 	{

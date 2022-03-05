@@ -1,5 +1,5 @@
 #pragma once
-#include "core/NovaInstance.h"
+#include "utils/timeline/TimelineInstance.h"
 #include "Pawn.h"
 #include <vector>
 #include "utils/ValueManager.h"
@@ -8,7 +8,7 @@ namespace spaceshooter
 {
 	using namespace novazero::core;
 
-	class PawnController : public NovaInstance
+	class PawnController : public TimelineInstance
 	{
 
 	private:
@@ -56,9 +56,6 @@ namespace spaceshooter
 		}
 
 		void DestroySelf();
-
-		// Nova Instance overrides
-		void CreateInstance(Vec2 position) override {};
 
 	};
 }

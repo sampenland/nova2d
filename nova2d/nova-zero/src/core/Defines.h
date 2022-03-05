@@ -29,7 +29,8 @@
 
 #define n2dDebug novazero::core::Game::IsDebug()
 #define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
-#define n2dWarn Game::s_NovaWarnings
+#define n2dDebugVerbose novazero::core::Game::IsDebugVerbose()
+#define n2dDebugVerboseSet(isDebug) novazero::core::Game::SetDebugVerbose(isDebug);
 
 /*
 nova2d Get Unique Game ID
@@ -467,9 +468,10 @@ Must be called on in a class that inherits from EventListener
 /*
 nova2d Add Updater(void(*f) funcToCall, context)
 Updaters are called each frame; this adds a new funcToCall as an Updater
+REQUIRES: sceneManager include
 RETURNS unsigned int CleanID
 */
-#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context));
+#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context))
 
 /*
 nova2d Add a Persistent Updater(void(*f) funcToCall, context)

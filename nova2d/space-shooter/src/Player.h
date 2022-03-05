@@ -55,6 +55,11 @@ namespace spaceshooter
 		void OnSpaceUp();
 		void Shoot();
 
+		float GetFuel()
+		{
+			return m_Fuel;
+		}
+
 		void DisplayHit(int score, Vec2 pos, const std::string& fontColor);
 		void Die();
 

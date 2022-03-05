@@ -183,6 +183,9 @@
     <ClCompile Include="src\utils\timeline\Timeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\timeline\events\TimelineTriggerEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Window.h">
@@ -392,13 +395,13 @@
     <ClInclude Include="src\utils\timeline\TimelineEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\NovaInstance.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\timeline\events\TimelineCreateEvent.h">
+    <ClInclude Include="src\utils\timeline\TimelineInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\timeline\events\TimelineExecuteEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\timeline\events\TimelineTriggerEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

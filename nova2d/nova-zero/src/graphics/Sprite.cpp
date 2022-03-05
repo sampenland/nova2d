@@ -36,7 +36,7 @@ namespace novazero
 
 			// Setup a default 1 frame animation
 			AddAnimation("default", 0, 1, 0, false, nullptr, true);
-			n2dAddUpdater(Sprite::TickAnimation, this);
+			m_CleanUpdaters.push_back(n2dAddUpdater(Sprite::TickAnimation, this));
 
 			LinkPositionalSprite(this);
 

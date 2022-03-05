@@ -113,6 +113,10 @@ namespace novazero
 			static bool IsDebug() { return s_Debug; }
 			static void SetDebug(bool val) { s_Debug = val; }
 
+			static bool s_DebugVerbose;
+			static bool IsDebugVerbose() { return s_DebugVerbose; }
+			static void SetDebugVerbose(bool val) { s_DebugVerbose = val; }
+
 			static float s_TimeScale;
 			static float s_TimeScaleMemory;
 

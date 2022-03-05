@@ -3,8 +3,8 @@
 #include "../specials/TimeWarp.h"
 #include "input/ScrollSelect.h"
 #include "utils/ValueManager.h"
-#include "utils/timeline/events/TimelineCreateEvent.h"
 #include "utils/timeline/events/TimelineExecuteEvent.h"
+#include "utils/timeline/events/TimelineTriggerEvent.h"
 #include "../enemies/pawns/PawnController.h"
 
 namespace spaceshooter
@@ -45,6 +45,24 @@ namespace spaceshooter
 		m_KamikazeController = new KamikazeController(player);
 
 		Timer* startWaves = new Timer(1000, false, n2dMakeFunc(Play::Wave1, this));
+
+		// Fuel watcher
+		auto fuelLow = new auto ([=]() -> bool {
+			return player->GetFuel() < 20.f;
+		});
+		TimelineTrggerEvent* needFuelTrigger = new TimelineTrggerEvent(nullptr, "need-fuel",
+			n2dMakeFunc(Play::SendFuel, this), nullptr, *fuelLow, 0.f);
+		n2dAddTimeline("fuel-watcher", needFuelTrigger);
+
+	}
+
+	void Play::SendFuel()
+	{
+		if (m_SentFuel) return;
+
+		m_SentFuel = true;
+
+		LOGS("Sent fuel!");
 
 	}
 
@@ -104,17 +122,6 @@ namespace spaceshooter
 		Game::s_SceneManager->CleanTimeline("main");
 		Game::s_SceneManager->CleanTimeline("kamikazes");
 		ShowWaveAnimation(2);
-	}
-
-	bool Play::NoPawns()
-	{
-		return false;
-		if (m_PawnController)
-		{
-			return m_PawnController->PawnCount() == 0;
-		}
-
-		return false;
 	}
 
 	void Play::Update()
