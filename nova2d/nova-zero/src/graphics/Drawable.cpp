@@ -7,9 +7,10 @@ namespace novazero
 	namespace graphics
 	{
 
-		Drawable::Drawable() : m_Layer(0), Positional()
+		Drawable::Drawable(Vec2Int size) : m_Layer(0), Positional()
 		{
 			m_ID = n2dGameGetID();
+			m_Size = size;
 		};
 
 		void Drawable::SetDrawableCollection(DrawableCollection* collection)

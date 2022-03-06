@@ -13,7 +13,7 @@ namespace novazero
 			std::string labelText, int labelWidth, std::string textColor,
 			float width, float height, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal,
 			Rect background, std::string backgroundColor, std::string scrollColor,
-			BYTE layer, bool isPersistent) : Deleteable("minMaxScrollSelect_")
+			BYTE layer, bool isPersistent) : Deleteable("minMaxScrollSelect_"), Drawable(Vec2Int(background.w, background.h))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "minMaxScrollSelect_" + tostring(m_ID);

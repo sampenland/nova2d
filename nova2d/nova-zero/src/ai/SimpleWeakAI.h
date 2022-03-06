@@ -78,6 +78,9 @@ namespace novazero
 				GetSprite()->SetAngle(lookAtAngle);
 			}
 
+			int GetWidth() { return GetSprite()->GetWidth(); }
+			int GetHeight() { return GetSprite()->GetHeight(); }
+
 			void ConfigureContinueAfterPatrolComplete(bool continueAfter) { m_ContinueAfterPatrolComplete = continueAfter; }
 			void ConfigureOnPatrolComplete(std::function<void()> f) { f_OnPatrolComplete = f; }
 			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }

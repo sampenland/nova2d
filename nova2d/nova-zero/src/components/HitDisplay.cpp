@@ -7,7 +7,7 @@ namespace novazero
 	{
 		HitDisplay::HitDisplay(const std::string& startText, const std::string& fontName, const std::string& colorName, 
 				Rect drawRect, Vec2 endPos, float startToEndTimeMS, char layer) :
-					Deleteable("hitDisplay_")
+					Deleteable("hitDisplay_"), Drawable(Vec2Int(0,0))
 		{
 			m_DeleteName = "hitDisplay_" + std::to_string(m_ID);
 			m_Display = new Text(fontName, startText, colorName, drawRect, layer, false);

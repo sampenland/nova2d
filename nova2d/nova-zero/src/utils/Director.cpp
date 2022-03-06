@@ -15,7 +15,7 @@ namespace novazero
 		std::vector<DirectorPage*> Director::s_Pages;
 		const float Director::s_StackPadding = 80.f;
 
-		Director::Director(Vec2Int position) : Drawable(), Deleteable("director")
+		Director::Director(Vec2Int position) : Drawable(Vec2Int(0,0)), Deleteable("director")
 		{
 			m_ID = n2dGameGetID();
 			m_Layer = 255;

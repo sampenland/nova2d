@@ -10,7 +10,7 @@ namespace novazero
 	{
 		SimpleStatBar::SimpleStatBar(bool vertical, int x, int y, int w, int h, const std::string& colorOutline,
 			const std::string& colorBackground, const std::string& colorForeground, char layer)
-			: Deleteable("statbar_")
+			: Deleteable("statbar_"), Drawable(Vec2Int(0,0))
 		{
 
 			m_ID = Game::GetNextID();

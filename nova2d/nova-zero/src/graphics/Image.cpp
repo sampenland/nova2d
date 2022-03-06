@@ -8,7 +8,7 @@ namespace novazero
 		using namespace core;
 
 		Image::Image(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
-			: Deleteable("image_")
+			: Deleteable("image_"), Drawable(size)
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "image_" + tostring(m_ID);

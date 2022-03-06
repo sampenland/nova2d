@@ -16,12 +16,13 @@ namespace novazero
 
 			DrawableCollection* m_DrawableCollection = nullptr;
 			bool m_Visible = true;
+			Vec2Int m_Size;
 			Vec2Int m_Offset = Vec2Int(0, 0);
 			float m_Scale = 1.f;
 
 		protected:
 			
-			Drawable();
+			Drawable(Vec2Int size);
 
 		public:
 
@@ -35,6 +36,28 @@ namespace novazero
 
 			void SetDrawScale(float scale) { m_Scale = scale; }
 			float GetDrawScale() const { return m_Scale; }
+
+			int GetWidth() const 
+			{
+				return m_Size.x * m_Scale;
+			}
+
+			int GetHeight() const
+			{
+				return m_Size.y * m_Scale;
+			}
+
+			void SetWidth(int w) { m_Size.x = w; }
+			void SetHeight(int h) { m_Size.y = h; }
+
+			void SetSize(Vec2Int size) { m_Size = size; }
+			Vec2Int GetSize() const { return m_Size; }
+			Vec2 GetCenter() const 
+			{
+				return Vec2(-(GetWidth() * m_Scale) / 2, -(GetHeight() * m_Scale) / 2);
+			}
+
+			int GetAngle() const { return m_Angle; }
 
 			void OriginCenter();
 			void OriginTopLeft();
