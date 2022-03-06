@@ -8,7 +8,7 @@ namespace novazero
 	namespace graphics
 	{
 		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer,
-			bool autoAddDrawable) : Deleteable("text_"), Drawable(Vec2Int(drawRect.w, drawRect.h))
+			bool autoAddDrawable) : Deleteable("text_"), Drawable(Vec2Int((int)drawRect.w, (int)drawRect.h))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "text_" + std::to_string(m_ID);

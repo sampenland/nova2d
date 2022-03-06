@@ -419,6 +419,9 @@
     <ClInclude Include="src\graphics\Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\maps\TiledMapLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />

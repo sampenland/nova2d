@@ -13,7 +13,7 @@ namespace novazero
 			std::string labelText, int labelWidth, std::string textColor,
 			float width, float height, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal,
 			Rect background, std::string backgroundColor, std::string scrollColor,
-			BYTE layer, bool isPersistent) : Deleteable("minMaxScrollSelect_"), Drawable(Vec2Int(background.w, background.h))
+			BYTE layer, bool isPersistent) : Deleteable("minMaxScrollSelect_"), Drawable(Vec2Int((int)background.w, (int)background.h))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "minMaxScrollSelect_" + tostring(m_ID);
@@ -30,7 +30,7 @@ namespace novazero
 			m_Position = Vec2Int((int)background.x, (int)background.y);
 
 			m_Label = new Text("narrow", labelText, textColor,
-				Rect(background.x, background.y - height * 1.5, (float)labelWidth, height * 1.5), layer);
+				Rect(background.x, background.y - height * 1.5f, (float)labelWidth, height * 1.5f), layer);
 
 			float scrollSize = (float)m_Width / 10;
 			float percentMin = *m_MinRef / m_Max;
@@ -199,8 +199,8 @@ namespace novazero
 				float minScrollPosX = m_Position.x + (percentMin * m_Width);
 				float maxScrollPosX = m_Position.x + (percentMax * m_Width);
 
-				if (maxScrollPosX > m_Position.x + m_Width - scrollSize * 1.5)
-					maxScrollPosX = m_Position.x + m_Width - scrollSize * 1.5;
+				if (maxScrollPosX > m_Position.x + m_Width - scrollSize * 1.5f)
+					maxScrollPosX = m_Position.x + m_Width - scrollSize * 1.5f;
 				
 				if (minScrollPosX > maxScrollPosX)
 					minScrollPosX = maxScrollPosX;

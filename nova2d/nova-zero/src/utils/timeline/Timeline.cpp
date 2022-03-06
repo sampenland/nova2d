@@ -21,7 +21,7 @@ namespace novazero
 			{
  				if (m_CurrentEvent == -1) return;
 
-				if (m_TimelineEvents.size() > m_CurrentEvent)
+				if (m_TimelineEvents.size() > (size_t)m_CurrentEvent)
 				{
 					// Tick current Timeline Event
 					if (m_TimelineEvents[m_CurrentEvent]->Tick())

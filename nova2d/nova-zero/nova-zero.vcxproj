@@ -201,6 +201,7 @@
     <ClInclude Include="src\input\Inputable.h" />
     <ClInclude Include="src\input\TextInput.h" />
     <ClInclude Include="src\maps\TiledMap.h" />
+    <ClInclude Include="src\maps\TiledMapLayer.h" />
     <ClInclude Include="src\maths\Vec2.h" />
     <ClInclude Include="src\particles\Dot.h" />
     <ClInclude Include="src\particles\Particle.h" />

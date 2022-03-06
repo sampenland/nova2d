@@ -39,12 +39,12 @@ namespace novazero
 
 			int GetWidth() const 
 			{
-				return m_Size.x * m_Scale;
+				return (int)(m_Size.x * m_Scale);
 			}
 
 			int GetHeight() const
 			{
-				return m_Size.y * m_Scale;
+				return (int)(m_Size.y * m_Scale);
 			}
 
 			void SetWidth(int w) { m_Size.x = w; }

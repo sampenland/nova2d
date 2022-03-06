@@ -47,8 +47,8 @@ namespace novazero
 			if (GetDrawable())
 				GetDrawable()->SetDrawScale(scale);
 
-			m_DestRect.w = m_FrameSize.x * scale;
-			m_DestRect.h = m_FrameSize.y * scale;
+			m_DestRect.w = (int)(m_FrameSize.x * scale);
+			m_DestRect.h = (int)(m_FrameSize.y * scale);
 		}
 
 		void Image::Draw(float oX, float oY)

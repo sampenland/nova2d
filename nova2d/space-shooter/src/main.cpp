@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("fuel-tank", "res/fuel_tank.png");
 
 	// Maps
-	n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json", "res/maps/levels2/level2.png");
+	n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json", "res/maps/level2/level2.png");
 
 	MainMenu* mainMenu = new MainMenu("mainMenu");
 	Play* playScene = new Play("playScene");
