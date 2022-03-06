@@ -12,6 +12,7 @@ namespace spaceshooter
 
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
+
 		GetSprite()->Scale(2.f);
 
 		ConfigureCollider(GetSprite(), 0, "pawn");

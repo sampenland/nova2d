@@ -31,7 +31,7 @@ namespace novazero
 		void SimpleWeakAI::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
 		{
 			SetPosition(position);
-			Positional::LinkPositionalSprite(new Sprite(assetName, position, size, layer));
+			Positional::LinkPositionalDrawable(new Sprite(assetName, position, size, layer));
 			m_DeleteName = assetName;
 		}
 
@@ -139,7 +139,7 @@ namespace novazero
 					f_OnPatrolComplete();
 			}
 
-			if (OutOfBounds(GetSprite()))
+			if (OutOfBounds(GetDrawable()))
 			{
 				DestroySelf();
 				return;

@@ -10,9 +10,9 @@ namespace novazero
 
 		Positional::Positional() {};
 
-		void Positional::LinkPositionalSprite(Sprite* sprite)
+		void Positional::LinkPositionalDrawable(Drawable* drawable)
 		{
-			m_Sprite = sprite;
+			m_Drawable = drawable;
 		}
 
 		float Positional::GetX() const { return (float)m_Position.x; }

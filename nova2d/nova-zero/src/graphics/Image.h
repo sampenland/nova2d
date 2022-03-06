@@ -1,9 +1,8 @@
 #pragma once
 #include <string>
-#include "Drawable.h"
 #include "../core/Deleteable.h"
-#include "../core/Positional.h"
 #include "SDL.h"
+#include "Drawable.h"
 
 namespace novazero
 {
@@ -25,8 +24,6 @@ namespace novazero
 
 			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
-
-			bool m_Visible = true;
 			
 		public:
 
@@ -40,16 +37,11 @@ namespace novazero
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
 
-			void SetVisible(bool isVisible)
-			{
-				m_Visible = isVisible;
-			}
-
 			bool operator==(const Image& other);
 
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
-			void DestroySelf();
+			void DestroySelf() override;
 
 		};
 	}

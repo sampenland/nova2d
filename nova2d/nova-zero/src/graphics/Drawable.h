@@ -15,6 +15,7 @@ namespace novazero
 		private:
 
 			DrawableCollection* m_DrawableCollection = nullptr;
+			bool m_Visible = true;
 
 		protected:
 			
@@ -29,6 +30,10 @@ namespace novazero
 			void ClearDrawableCollection(unsigned int id);
 
 			virtual void Draw(float oX = 0.f, float oY = 0.f) = 0;
+
+			void SetVisible(bool isVisible) { m_Visible = isVisible; }
+			bool IsVisible() const { return m_Visible; }
+			virtual void DestroySelf() = 0;
 
 		};
 	}

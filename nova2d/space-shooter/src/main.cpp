@@ -49,12 +49,12 @@ int main(int argc, char* argv[])
 	// Maps
 	n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json", "res/maps/levels2/level2.png");
 
-	MainMenu* mainMenuScene = new MainMenu("mainMenu");
+	MainMenu* mainMenu = new MainMenu("mainMenu");
 	Play* playScene = new Play("playScene");
 	Level2* level2 = new Level2("level2");
 	GameOver* gameOver = new GameOver("gameOver");
 
-	n2dGameAddScene(mainMenuScene);
+	n2dGameAddScene(mainMenu);
 	n2dGameAddScene(playScene);
 	n2dGameAddScene(level2);
 	n2dGameAddScene(gameOver);

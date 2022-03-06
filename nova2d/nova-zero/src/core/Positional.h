@@ -8,6 +8,7 @@ namespace novazero
 	{
 		class Drawable;
 		class Sprite;
+		class Image;
 	}
 
 	namespace core
@@ -20,7 +21,7 @@ namespace novazero
 
 		private:
 
-			Sprite* m_Sprite = nullptr;
+			Drawable* m_Drawable = nullptr;
 
 		protected:
 			
@@ -32,8 +33,11 @@ namespace novazero
 
 			Positional();
 
-			void LinkPositionalSprite(Sprite* sprite);
-			Sprite* GetLinkedSprite() { return m_Sprite; }
+			void LinkPositionalDrawable(Drawable* drawable);
+
+			Sprite* GetSprite() { return (Sprite*)m_Drawable; }
+			Image* GetImage() { return (Image*)m_Drawable; }
+			Drawable* GetDrawable() { return m_Drawable; }
 
 			float GetX() const;
 			int* GetXRef() { return &m_Position.x; }

@@ -30,7 +30,7 @@ namespace novazero
 			m_DestRect.w = (int)size.x;
 			m_DestRect.h = (int)size.y;
 
-			LinkPositionalSprite(this);
+			LinkPositionalDrawable(this);
 
 			n2dAddDrawable(this, layer);
 		}
@@ -47,9 +47,9 @@ namespace novazero
 			m_DestRect.h = m_FrameSize.y * scale;
 		}
 
-		void Image::Draw(float oX = 0.f, float oY = 0.f)
+		void Image::Draw(float oX, float oY)
 		{
-			if (!m_Visible) return;
+			if (!IsVisible()) return;
 
 			m_SrcRect.x = 0;
 			m_SrcRect.w = m_FrameSize.x;
@@ -57,7 +57,7 @@ namespace novazero
 			m_DestRect.x = (int)(m_Position.x + oX);
 			m_DestRect.y = (int)(m_Position.y + oY);
 
-			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
+			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_ImageTexture, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 
 		}
 

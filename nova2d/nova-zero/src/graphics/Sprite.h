@@ -66,8 +66,6 @@ namespace novazero
 			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
 
-			bool m_Visible = true;
-
 		public:
 
 			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
@@ -83,12 +81,7 @@ namespace novazero
 			int GetHeight() const { return m_DestRect.h; }
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
-			void DestroySelf();
-
-			void SetVisible(bool isVisible)
-			{
-				m_Visible = isVisible;
-			}
+			void DestroySelf() override;
 			
 			void ChangeLayer(char layer) { m_Layer = layer; }
 

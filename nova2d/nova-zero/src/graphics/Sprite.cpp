@@ -38,7 +38,7 @@ namespace novazero
 			AddAnimation("default", 0, 1, 0, false, nullptr, true);
 			m_CleanUpdaters.push_back(n2dAddUpdater(Sprite::TickAnimation, this));
 
-			LinkPositionalSprite(this);
+			LinkPositionalDrawable(this);
 
 			// Final
 			m_ID = Game::GetNextID();
@@ -198,7 +198,7 @@ namespace novazero
 
 		void Sprite::Draw(float oX, float oY)
 		{
-			if (!m_Visible || !m_Alive) return;
+			if (!IsVisible() || !m_Alive) return;
 
 			// At this moment Sprite sheets must be horizontal strips
 			if (m_Animations.find(m_CurrentAnimation) != m_Animations.end())

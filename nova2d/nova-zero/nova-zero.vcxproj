@@ -129,6 +129,7 @@
     <ClCompile Include="src\graphics\gfx\SDL2_gfxPrimitives.c.c" />
     <ClCompile Include="src\graphics\gfx\SDL2_imageFilter.c" />
     <ClCompile Include="src\graphics\gfx\SDL2_rotozoom.c" />
+    <ClCompile Include="src\graphics\Image.cpp" />
     <ClCompile Include="src\graphics\Text.cpp" />
     <ClCompile Include="src\input\MinMaxScrollSelect.cpp" />
     <ClCompile Include="src\input\ScrollSelect.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="src\graphics\gfx\SDL2_gfxPrimitives_font.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_imageFilter.h" />
     <ClInclude Include="src\graphics\gfx\SDL2_rotozoom.h" />
+    <ClInclude Include="src\graphics\Image.h" />
     <ClInclude Include="src\input\DirectorStackable.h" />
     <ClInclude Include="src\input\MinMaxScrollSelect.h" />
     <ClInclude Include="src\input\ScrollSelect.h" />

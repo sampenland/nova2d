@@ -92,13 +92,12 @@ namespace novazero
 			}
 			Sprite* GetSprite()
 			{
-				return Positional::GetLinkedSprite();
+				return Positional::GetSprite();
 			}
 
 			inline void SetVisible(bool isVisible) 
 			{ 
-				if (GetSprite())
-					GetSprite()->SetVisible(isVisible);
+				Positional::GetSprite()->SetVisible(isVisible);
 			}
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
