@@ -24,5 +24,15 @@ namespace novazero
 			if (!m_DrawableCollection) return;
 			m_DrawableCollection->RemoveChild(id);			
 		}
+
+		void Drawable::OriginCenter()
+		{
+			m_Offset = Vec2Int(-(GetWidth() * m_Scale) / 2, -(GetHeight() * m_Scale) / 2);
+		}
+
+		void Drawable::OriginTopLeft()
+		{
+			m_Offset = Vec2Int(0, 0);
+		}
 	}
 }

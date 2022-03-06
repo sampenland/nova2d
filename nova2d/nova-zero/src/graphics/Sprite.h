@@ -59,7 +59,6 @@ namespace novazero
 
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
-			float m_Scale = 1.f;
 
 			bool m_Alive = true;
 
@@ -75,10 +74,17 @@ namespace novazero
 			void Flip(SDL_RendererFlip flip);
 			
 			void Scale(float scale);
-			float GetScale() { return m_Scale; }
+			float GetScale() { return GetDrawScale(); }
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
+
+			void OriginCenter() { GetDrawable()->OriginCenter(); }
+			void OriginTopLeft() { GetDrawable()->OriginTopLeft(); }
+
+			int OffsetX() { return GetDrawable()->OffsetX(); }
+			int OffsetY() { return GetDrawable()->OffsetY(); }
+
 			void Draw(float oX = 0.f, float oY = 0.f) override;
 
 			void DestroySelf() override;

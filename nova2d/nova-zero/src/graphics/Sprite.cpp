@@ -191,7 +191,9 @@ namespace novazero
 
 		void Sprite::Scale(float scale)
 		{
-			m_Scale = scale;
+			if (GetDrawable())
+				GetDrawable()->SetDrawScale(scale);
+
 			m_DestRect.w = m_FrameSize.x * scale;
 			m_DestRect.h = m_FrameSize.y * scale;
 		}
@@ -212,8 +214,8 @@ namespace novazero
 
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)(m_Position.x + oX);
-			m_DestRect.y = (int)(m_Position.y + oY);
+			m_DestRect.x = (int)(m_Position.x + oX + OffsetX());
+			m_DestRect.y = (int)(m_Position.y + oY + OffsetY());
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 		}

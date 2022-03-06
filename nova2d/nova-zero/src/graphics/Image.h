@@ -20,22 +20,27 @@ namespace novazero
 
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
-			float m_Scale = 1.f;
 
 			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
 			
 		public:
 
-			Image(std::string& assetName, Vec2 position, Vec2Int size, char layer);
-
-			void Scale(float scale);
-			float GetScale() { return m_Scale; }
+			Image(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
 
 			void Flip(SDL_RendererFlip flip);
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
+
+			void SetScale(float scale);
+			float GetScale() { return GetDrawScale(); }
+
+			void OriginCenter() { GetDrawable()->OriginCenter(); }
+			void OriginTopLeft() { GetDrawable()->OriginTopLeft(); }
+
+			int OffsetX() { return GetDrawable()->OffsetX(); }
+			int OffsetY() { return GetDrawable()->OffsetY(); }
 
 			bool operator==(const Image& other);
 
