@@ -3,6 +3,7 @@
 #include <vector>
 #include "../thirdparty/jsonparser/json.hpp"
 #include "../core/Deleteable.h"
+#include "../graphics/Drawable.h"
 #include "../maths/Vec2Int.h"
 #include "Tileset.h"
 #include "SDL.h"
@@ -54,12 +55,13 @@ namespace novazero
 			EVEN
 		};
 
-		class TiledMap : Deleteable
+		class TiledMap : Deleteable, public Drawable
 		{
 		
 		private:
 		
 			unsigned int m_ID = 0;
+			char m_Layer = 0;
 			unsigned int m_CleanID = 0;
 
 		private:
@@ -87,6 +89,7 @@ namespace novazero
 
 			std::vector<MapProperty> m_Properties;
 			std::vector<TiledMapLayer*> m_Layers;
+
 			std::vector<Tile*> m_Tiles;
 			
 			int m_HeightInTiles = 0;
@@ -107,10 +110,14 @@ namespace novazero
 
 			void LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath);
 			void LoadTileset(std::string& tilesetJSONexportFilePath);
+			void CreateTiles();
 			void ParseMap(std::string& tilesetJSONPath);
 
 			void ParseLayers(json layers);
 			void ClearLayers();
+
+			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void DrawTileLayers();
 
 			void DestroySelf();
 

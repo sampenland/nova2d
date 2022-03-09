@@ -19,8 +19,10 @@ namespace novazero
 			}
 		}
 
-		void DrawLayers::AddSprite(Drawable* sprite, const BYTE layer)
+		void DrawLayers::AddSprite(Drawable* sprite, BYTE layer)
 		{
+			layer++;
+
 			if (sprite)
 			{
 				if (layer < MAX_LAYERS)
@@ -31,6 +33,11 @@ namespace novazero
 						m_Layers[layer].push_back(sprite);
 						s_TotalInstances++;
 					}
+				}
+				else
+				{
+					LOG(LVL_W, "Could not add drawable: " + tostring(sprite->m_ID));
+					return;
 				}
 			}
 		}

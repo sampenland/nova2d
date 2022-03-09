@@ -9,6 +9,9 @@
 // Max draw layers
 #define MAX_LAYERS 256
 
+// Tilemap draw layer
+#define TILEMAP_DRAW_LAYER -1
+
 // Max director pages
 #define MAX_DIRECTOR_PAGES 20
 

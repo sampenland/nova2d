@@ -9,9 +9,11 @@ namespace novazero
 		using namespace graphics;
 		using namespace maths;
 
-		Tile::Tile(TiledMap* tilemap, Vec2Int tileSize, Vec2Int tilemapPosition, Vec2 position, char layer)
+		Tile::Tile(TiledMap* tilemap, Vec2Int tileSize, Vec2Int tilemapPosition, unsigned int tileID, char layer)
 			: Deleteable("tile_"), Drawable(tileSize)
 		{
+			m_TileID = tileID;
+
 			m_Layer = layer;
 			m_ID = n2dGameGetID();
 			m_DeleteName = "tile_" + tostring(m_ID);
@@ -27,16 +29,14 @@ namespace novazero
 
 			m_DestRect.w = tileSize.x;
 			m_DestRect.h = tileSize.y;
-
-			n2dAddDrawable(this, layer);
 		}
 
 		void Tile::Draw(float oX, float oY)
 		{
 			if (!IsVisible()) return;
 
-			m_DestRect.x = (int)(m_Position.x + oX + OffsetX());
-			m_DestRect.y = (int)(m_Position.y + oY + OffsetY());
+			m_DestRect.x = oX;
+			m_DestRect.y = oY;
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), &m_TiledMap->GetTilemapTextureRef(), &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 
@@ -44,9 +44,6 @@ namespace novazero
 
 		void Tile::DestroySelf()
 		{
-
-			n2dRemoveDrawable(m_ID, m_Layer);
-
 			CleanUpdaters();
 
 			SetDeleted(true);

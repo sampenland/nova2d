@@ -4,6 +4,7 @@
 #include "TiledMapLayer.h"
 #include "../logging/logging.h"
 #include "Tile.h"
+#include "Tileset.h"
 
 namespace novazero
 {
@@ -12,9 +13,10 @@ namespace novazero
 		using namespace logging;
 
 		TiledMap::TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetImgPath, std::string tilesetPath)
-			: Deleteable("tilemap_")
+			: Deleteable("tilemap_"), Drawable(Vec2Int(0,0))
 		{
 			m_ID = n2dGameGetID();
+			m_Layer = TILEMAP_DRAW_LAYER;
 
 			m_DeleteName = "tilemap_" + tostring(m_ID);
 			m_TilesetTexture = n2dAssetsLoadAndAddTexture(m_DeleteName, tilesetImgPath);
@@ -22,6 +24,7 @@ namespace novazero
 			LoadMap(tiledJSONexportFilePath, tilesetPath);
 
 			m_CleanID = n2dAddDeleteable(this);
+			n2dAddDrawable(this, m_Layer);
 		}
 
 		void TiledMap::LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath)
@@ -126,13 +129,79 @@ namespace novazero
 			m_Type = m_TileMap["type"];
 			m_Version = m_TileMap["version"];
 
-			m_HeightInTiles = m_TileMap["height"];
 			m_WidthInTiles = m_TileMap["width"];
+			m_HeightInTiles = m_TileMap["height"];
+
+			SetSize(Vec2Int(m_WidthInTiles * m_TileSize.x, m_HeightInTiles * m_TileSize.y));
 
 			LoadTileset(tilesetJSONPath);
+			CreateTiles();
 
 			ParseLayers(m_TileMap["layers"]);
 
+		}
+
+		void TiledMap::CreateTiles()
+		{
+			if (m_Tileset)
+			{
+				int x = 0;
+				int y = 0;
+
+				int tilesetWidth = m_Tileset->m_ImageSize.x;
+				int tilesetHeight = m_Tileset->m_ImageSize.y;
+
+				int tileWidth = m_Tileset->m_TileSize.x;
+				int tileHeight = m_Tileset->m_TileSize.y;
+
+				int cols = tilesetWidth / tileWidth;
+				int rows = tilesetHeight / tileHeight;
+
+				unsigned int tileID = 0;
+				for (int row = 0; row < rows; row++)
+				{
+					for (int col = 0; col < m_Tileset->m_Columns; col++)
+					{
+						x = col * tileWidth;
+						y = row * tileHeight;
+
+						Tile* tile = new Tile(this, Vec2Int(tileWidth, tileHeight), Vec2Int(x, y), tileID, m_Layer);
+						
+						m_Tiles.push_back(tile);
+						tileID++;
+					}
+				}
+			}
+		}
+
+		void TiledMap::Draw(float oX, float oY)
+		{
+			DrawTileLayers();
+		}
+
+		void TiledMap::DrawTileLayers()
+		{
+			std::vector<TiledMapLayer*>::iterator it = m_Layers.begin();
+			while (it != m_Layers.end())
+			{
+				std::vector<int>& data = (*it)->m_Data;
+
+				// LAYER DRAW
+				for (size_t i = 0; i < data.size(); i++)
+				{
+					int tileID = data.at(i);
+
+					int x = (i % m_WidthInTiles) * m_Tileset->m_TileSize.x;
+					int y = (i / m_WidthInTiles) * m_Tileset->m_TileSize.y;
+
+					if (tileID < (int)m_Tiles.size())
+					{
+						m_Tiles.at(tileID)->Draw(x, y);
+					}
+				}
+
+				it++;
+			}
 		}
 
 		void TiledMap::ParseLayers(json layers)
@@ -204,6 +273,7 @@ namespace novazero
 		void TiledMap::DestroySelf()
 		{
 			m_TileMap = NULL;
+			n2dRemoveDrawable(m_ID, m_Layer);
 			n2dRemoveDeleteable(m_CleanID);
 			SetDeleted(true);
 		}

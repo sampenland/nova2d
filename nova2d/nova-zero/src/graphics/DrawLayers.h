@@ -21,7 +21,7 @@ namespace novazero
 
 			DrawLayers();
 
-			void AddSprite(Drawable* sprite, const BYTE layer);
+			void AddSprite(Drawable* sprite, BYTE layer);
 			void RemoveSprite(unsigned int id, BYTE layer);
 			bool HasSpriteOnLayer(Drawable* sprite, const BYTE layer);
 

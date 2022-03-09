@@ -13,7 +13,7 @@ namespace novazero
 		class Tileset
 		{
 
-		private:
+		public:
 
 			int m_Columns = 0;
 			std::string m_Image = "";
@@ -26,9 +26,6 @@ namespace novazero
 			Vec2Int m_TileSize = Vec2Int(0, 0);
 			std::string m_Version = "";
 			const std::string m_Type = "tileset";
-
-
-		public:
 
 			Tileset(json tileset)
 			{
