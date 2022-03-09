@@ -59,6 +59,11 @@ namespace novazero
 		{
 		
 		private:
+
+			const unsigned FLIPPED_HORIZONTALLY_FLAG = 0x80000000;
+			const unsigned FLIPPED_VERTICALLY_FLAG = 0x40000000;
+			const unsigned FLIPPED_DIAGONALLY_FLAG = 0x20000000;
+			const unsigned ROTATED_HEXAGONAL_120_FLAG = 0x10000000;
 		
 			unsigned int m_ID = 0;
 			char m_Layer = 0;
@@ -90,7 +95,7 @@ namespace novazero
 			std::vector<MapProperty> m_Properties;
 			std::vector<TiledMapLayer*> m_Layers;
 
-			std::vector<Tile*> m_Tiles;
+			std::map<unsigned int, Tile*> m_Tiles;
 			
 			int m_HeightInTiles = 0;
 			int m_WidthInTiles = 0;
@@ -110,7 +115,7 @@ namespace novazero
 
 			void LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath);
 			void LoadTileset(std::string& tilesetJSONexportFilePath);
-			void CreateTiles();
+			void CreateLayerTiles(unsigned int layer);
 			void ParseMap(std::string& tilesetJSONPath);
 
 			void ParseLayers(json layers);

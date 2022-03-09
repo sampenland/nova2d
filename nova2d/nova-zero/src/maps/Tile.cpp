@@ -9,10 +9,10 @@ namespace novazero
 		using namespace graphics;
 		using namespace maths;
 
-		Tile::Tile(TiledMap* tilemap, Vec2Int tileSize, Vec2Int tilemapPosition, unsigned int tileID, char layer)
+		Tile::Tile(TiledMap* tilemap, Vec2Int tileSize, Vec2Int tilemapPosition, unsigned int tileGID, char layer)
 			: Deleteable("tile_"), Drawable(tileSize)
 		{
-			m_TileID = tileID;
+			m_TileGID = tileGID;
 
 			m_Layer = layer;
 			m_ID = n2dGameGetID();

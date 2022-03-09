@@ -38,7 +38,7 @@ namespace novazero
 
 			unsigned int m_ID = 0;
 
-			std::vector<int> m_Data;
+			std::vector<std::string> m_Data;
 			DrawOrders m_DrawOrder = DrawOrders::TopDown;
 			TiledLayerEncoding m_Encoding = TiledLayerEncoding::CSV;
 

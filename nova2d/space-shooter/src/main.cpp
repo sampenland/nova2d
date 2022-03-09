@@ -24,11 +24,7 @@ int main(int argc, char* argv[])
 	Game::SetGamePadding(32, 64, 32, 32);
 	game.ConfigureDebugOverlay(true);
 	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
-
-	// Colors
-	n2dAddColor("background", "201533", 255);
-	n2dSetBackgroundColor("background");
-	
+		
 	// Textures
 	n2dAssetsLoadAndAddTexture("player", "res/ship_01_anim.png");
 	n2dAssetsLoadAndAddTexture("leader", "res/ship_02.png");

@@ -3,6 +3,7 @@
 #include "../graphics/Drawable.h"
 #include "SDL.h"
 #include "TiledMap.h"
+#include "../graphics/Text.h"
 
 namespace novazero
 {
@@ -23,7 +24,7 @@ namespace novazero
 
 		private:
 
-			unsigned int m_TileID = 0;
+			unsigned int m_TileGID = 0;
 			TiledMap* m_TiledMap;
 
 			SDL_Rect m_SrcRect;

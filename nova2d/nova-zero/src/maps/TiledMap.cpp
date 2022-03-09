@@ -74,6 +74,11 @@ namespace novazero
 
 		void TiledMap::ParseMap(std::string& tilesetJSONPath)
 		{
+			m_BackgroundColor = m_TileMap["backgroundcolor"];
+			m_BackgroundColor.erase(std::remove(m_BackgroundColor.begin(), m_BackgroundColor.end(), '#'), m_BackgroundColor.end());
+			n2dAddColor("background", m_BackgroundColor, 255);
+			n2dSetBackgroundColor("background");
+
 			m_CompressionLevel = m_TileMap["compressionlevel"];
 			m_Infinte = m_TileMap["infinite"];
 			m_NextLayerID = m_TileMap["nextlayerid"];
@@ -135,16 +140,21 @@ namespace novazero
 			SetSize(Vec2Int(m_WidthInTiles * m_TileSize.x, m_HeightInTiles * m_TileSize.y));
 
 			LoadTileset(tilesetJSONPath);
-			CreateTiles();
-
 			ParseLayers(m_TileMap["layers"]);
+
+			for (size_t i = 0; i < m_Layers.size(); i++)
+			{
+				CreateLayerTiles((unsigned int) i);
+			}
 
 		}
 
-		void TiledMap::CreateTiles()
+		void TiledMap::CreateLayerTiles(unsigned int layer)
 		{
 			if (m_Tileset)
 			{
+				std::vector< std::string>& data = m_Layers[layer]->m_Data;
+
 				int x = 0;
 				int y = 0;
 
@@ -157,7 +167,7 @@ namespace novazero
 				int cols = tilesetWidth / tileWidth;
 				int rows = tilesetHeight / tileHeight;
 
-				unsigned int tileID = 0;
+				unsigned tile_index = 0;
 				for (int row = 0; row < rows; row++)
 				{
 					for (int col = 0; col < m_Tileset->m_Columns; col++)
@@ -165,10 +175,31 @@ namespace novazero
 						x = col * tileWidth;
 						y = row * tileHeight;
 
-						Tile* tile = new Tile(this, Vec2Int(tileWidth, tileHeight), Vec2Int(x, y), tileID, m_Layer);
+						//Read the GID in little-endian byte order:
+						unsigned int global_tile_id = 
+							std::stoi(data[tile_index]) |
+							std::stoi(data[tile_index + 1]) << 8 |
+							std::stoi(data[tile_index + 2]) << 16 |
+							std::stoi(data[tile_index + 3]) << 24;
+
+						tile_index += 4;
+
+						// Read out the flags
+						bool flipped_horizontally = (global_tile_id & FLIPPED_HORIZONTALLY_FLAG);
+						bool flipped_vertically = (global_tile_id & FLIPPED_VERTICALLY_FLAG);
+						bool flipped_diagonally = (global_tile_id & FLIPPED_DIAGONALLY_FLAG);
+						bool rotated_hex120 = (global_tile_id & ROTATED_HEXAGONAL_120_FLAG);
+
+						// Clear all four flags
+						global_tile_id &= ~(FLIPPED_HORIZONTALLY_FLAG |
+							FLIPPED_VERTICALLY_FLAG |
+							FLIPPED_DIAGONALLY_FLAG |
+							ROTATED_HEXAGONAL_120_FLAG);
+
+						Tile* tile = new Tile(this, Vec2Int(tileWidth, tileHeight), Vec2Int(x, y), global_tile_id, m_Layer);
 						
-						m_Tiles.push_back(tile);
-						tileID++;
+						m_Tiles[global_tile_id] = tile;
+
 					}
 				}
 			}
@@ -181,23 +212,27 @@ namespace novazero
 
 		void TiledMap::DrawTileLayers()
 		{
+			bool failed = false;
 			std::vector<TiledMapLayer*>::iterator it = m_Layers.begin();
-			while (it != m_Layers.end())
+			while (it != m_Layers.end() && !failed)
 			{
-				std::vector<int>& data = (*it)->m_Data;
-
+				std::vector<std::string>& data = (*it)->m_Data;
+				
 				// LAYER DRAW
-				for (size_t i = 0; i < data.size(); i++)
+				for (size_t i = 0; i < m_WidthInTiles * m_HeightInTiles; i++)
 				{
-					int tileID = data.at(i);
+					int tileGID = std::stoi(data.at(i));
 
 					int x = (i % m_WidthInTiles) * m_Tileset->m_TileSize.x;
 					int y = (i / m_WidthInTiles) * m_Tileset->m_TileSize.y;
 
-					if (tileID < (int)m_Tiles.size())
+					if (m_Tiles.find(tileGID) == m_Tiles.end())
 					{
-						m_Tiles.at(tileID)->Draw(x, y);
+						LOG(LVL_NFE, "Tile map draw failed");
+						failed = true;
+						break;
 					}
+					m_Tiles[tileGID]->Draw(x, y);
 				}
 
 				it++;
@@ -248,10 +283,11 @@ namespace novazero
 				newLayer->m_HeightInTiles = layer["height"];
 
 				// Tile data
-				for (auto it2 = layer["data"].begin(); it2 != layer["data"].end(); ++it2)
+				newLayer->m_Data.clear();
+				for (auto it2 = layer["data"].begin(); it2 != layer["data"].end();++it2)
 				{
-					auto tileVal = (*it2);
-					newLayer->m_Data.push_back(tileVal);
+					int tileVal = (*it2);
+					newLayer->m_Data.push_back(tostring(tileVal));
 				}
 
 				m_Layers.push_back(newLayer);
