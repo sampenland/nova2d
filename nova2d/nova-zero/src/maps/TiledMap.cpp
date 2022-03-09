@@ -196,7 +196,6 @@ namespace novazero
 			while (it != m_Layers.end() && !failed)
 			{
 				TiledMapLayer& layer = *(*it);
-				LOGS("drawing: " + layer.m_Name);
 				std::vector<std::string>& data = (*it)->m_Data;
 				
 				// LAYER DRAW
@@ -207,8 +206,10 @@ namespace novazero
 					unsigned int tileGID = tileID;
 					if (m_Tileset->m_FirstGID <= tileID)
 					{
-						tileGID = tileID - m_Tileset->m_FirstGID;
+						tileGID = tileID - m_Tileset->m_FirstGID + 1;
 					}
+
+					if (tileGID == 0) continue; // SKIP Transparents
 
 					int x = (i % m_WidthInTiles) * m_Tileset->m_TileSize.x;
 					int y = (i / m_WidthInTiles) * m_Tileset->m_TileSize.y;
