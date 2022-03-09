@@ -512,10 +512,10 @@ Return pointer to a preloaded texture
 #define n2dAssetsGetTexture(textureName) novazero::core::Game::s_AssetManager->GetTexture(textureName);
 
 /*
-nova2d Load Tilemap (std::string tilemapName, assetPath)
+nova2d Load Tilemap (std::string& name, std::string mapPath, std::string& tilesetImgPath, std::string& tilesetPath)
 Loads map into Game's asset manager
 */
-#define n2dAssetsLoadAndAddMap(mapName, mapPath, tilesetPath)  novazero::core::Game::s_AssetManager->LoadAndAddMap(mapName, mapPath, tilesetPath);
+#define n2dAssetsLoadAndAddMap(mapName, mapPath, tilesetImgPath, tilesetPath)  novazero::core::Game::s_AssetManager->LoadAndAddMap(mapName, mapPath, tilesetImgPath, tilesetPath);
 
 /*
 nova2d Get Tilemap by name (std::string mapName)

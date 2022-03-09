@@ -192,6 +192,9 @@
     <ClCompile Include="src\graphics\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\maps\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Window.h">
@@ -420,6 +423,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\maps\TiledMapLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maps\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maps\Tileset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

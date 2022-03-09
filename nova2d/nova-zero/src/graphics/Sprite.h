@@ -62,7 +62,6 @@ namespace novazero
 
 			bool m_Alive = true;
 
-			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
 
 		public:
@@ -70,8 +69,6 @@ namespace novazero
 			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
 
 			void Update();
-
-			void Flip(SDL_RendererFlip flip);
 			
 			void Scale(float scale);
 			float GetScale() { return GetDrawScale(); }

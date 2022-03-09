@@ -3,6 +3,7 @@
 #include <fstream>
 #include "TiledMapLayer.h"
 #include "../logging/logging.h"
+#include "Tile.h"
 
 namespace novazero
 {
@@ -10,20 +11,20 @@ namespace novazero
 	{
 		using namespace logging;
 
-		TiledMap::TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetName)
+		TiledMap::TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetImgPath, std::string tilesetPath)
 			: Deleteable("tilemap_")
 		{
 			m_ID = n2dGameGetID();
 
-			m_TilesetName = tilesetName;
 			m_DeleteName = "tilemap_" + tostring(m_ID);
+			m_TilesetTexture = n2dAssetsLoadAndAddTexture(m_DeleteName, tilesetImgPath);
 
-			LoadMap(tiledJSONexportFilePath);
+			LoadMap(tiledJSONexportFilePath, tilesetPath);
 
 			m_CleanID = n2dAddDeleteable(this);
 		}
 
-		void TiledMap::LoadMap(std::string& tiledJSONexportFilePath)
+		void TiledMap::LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath)
 		{
 			std::ifstream file(tiledJSONexportFilePath);
 
@@ -37,7 +38,7 @@ namespace novazero
 				}
 
 				m_TileMap = json::parse(readIn);
-				ParseMap();
+				ParseMap(tilesetJSONexportFilePath);
 			}
 			else
 			{
@@ -46,7 +47,29 @@ namespace novazero
 			}
 		}
 
-		void TiledMap::ParseMap()
+		void TiledMap::LoadTileset(std::string& tilesetJSONexportFilePath)
+		{
+			std::ifstream file(tilesetJSONexportFilePath);
+
+			if (file.is_open())
+			{
+				std::string readIn;
+				std::string line;
+				while (std::getline(file, line))
+				{
+					readIn.append(line);
+				}
+
+				m_Tileset = new Tileset(json::parse(readIn));
+			}
+			else
+			{
+				LOG(LVL_FATAL_ERROR, "Could not load json file for tilemap");
+				return;
+			}
+		}
+
+		void TiledMap::ParseMap(std::string& tilesetJSONPath)
 		{
 			m_CompressionLevel = m_TileMap["compressionlevel"];
 			m_Infinte = m_TileMap["infinite"];
@@ -106,10 +129,9 @@ namespace novazero
 			m_HeightInTiles = m_TileMap["height"];
 			m_WidthInTiles = m_TileMap["width"];
 
-			ParseLayers(m_TileMap["layers"]);
+			LoadTileset(tilesetJSONPath);
 
-			// TODO: tilesets
-			int i = 0;
+			ParseLayers(m_TileMap["layers"]);
 
 		}
 

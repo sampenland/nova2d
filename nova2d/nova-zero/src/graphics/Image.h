@@ -21,14 +21,11 @@ namespace novazero
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 
-			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 			Vec2Int m_FrameSize;
 			
 		public:
 
 			Image(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
-
-			void Flip(SDL_RendererFlip flip);
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }

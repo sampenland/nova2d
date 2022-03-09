@@ -142,6 +142,7 @@
     <Font Include="res\fonts\pixel4.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\maps\level2\level2-tileset.json" />
     <None Include="res\maps\level2\level2.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

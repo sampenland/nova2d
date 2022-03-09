@@ -134,5 +134,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\maps\level2\level2.json" />
+    <None Include="res\maps\level2\level2-tileset.json" />
   </ItemGroup>
 </Project>

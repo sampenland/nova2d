@@ -184,11 +184,6 @@ namespace novazero
 
 		}
 
-		void Sprite::Flip(SDL_RendererFlip flip)
-		{
-			m_Flip = flip;
-		}
-
 		void Sprite::Scale(float scale)
 		{
 			if (GetDrawable())
@@ -218,6 +213,7 @@ namespace novazero
 			m_DestRect.y = (int)(m_Position.y + oY + OffsetY());
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
+			
 		}
 
 		bool Sprite::operator==(const Sprite& other)
@@ -230,6 +226,9 @@ namespace novazero
 			m_Alive = 0;
 
 			n2dRemoveDrawable(m_ID, m_Layer);
+			
+			if(m_SpriteSheet)
+				SDL_DestroyTexture(m_SpriteSheet);
 
 			SetDeleted(true);
 		}

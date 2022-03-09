@@ -4,6 +4,8 @@
 #include "../thirdparty/jsonparser/json.hpp"
 #include "../core/Deleteable.h"
 #include "../maths/Vec2Int.h"
+#include "Tileset.h"
+#include "SDL.h"
 
 namespace novazero
 {
@@ -14,6 +16,7 @@ namespace novazero
 		using namespace maths;
 
 		class TiledMapLayer;
+		class Tile;
 
 		enum class MapOrientations
 		{
@@ -61,6 +64,9 @@ namespace novazero
 
 		private:
 
+			SDL_Texture* m_TilesetTexture;
+			Tileset* m_Tileset = nullptr;
+
 			// Tiled Map Export vars
 			std::string m_BackgroundColor;
 			int m_CompressionLevel = -1;
@@ -81,21 +87,27 @@ namespace novazero
 
 			std::vector<MapProperty> m_Properties;
 			std::vector<TiledMapLayer*> m_Layers;
+			std::vector<Tile*> m_Tiles;
 			
 			int m_HeightInTiles = 0;
 			int m_WidthInTiles = 0;
 
 		private:
 
-			std::string m_TilesetName = "";
 			json m_TileMap;
 
 		public:
 		
-			TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetName);
+			TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetImgPath, std::string tilesetPath);
 
-			void LoadMap(std::string& tiledJSONexportFilePath);
-			void ParseMap();
+			SDL_Texture& GetTilemapTextureRef()
+			{
+				return *m_TilesetTexture;
+			}
+
+			void LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath);
+			void LoadTileset(std::string& tilesetJSONexportFilePath);
+			void ParseMap(std::string& tilesetJSONPath);
 
 			void ParseLayers(json layers);
 			void ClearLayers();

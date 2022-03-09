@@ -37,11 +37,6 @@ namespace novazero
 			n2dAddDrawable(this, layer);
 		}
 
-		void Image::Flip(SDL_RendererFlip flip)
-		{
-			m_Flip = flip;
-		}
-
 		void Image::SetScale(float scale)
 		{
 			if (GetDrawable())
@@ -73,6 +68,10 @@ namespace novazero
 		void Image::DestroySelf()
 		{
 			n2dRemoveDrawable(m_ID, m_Layer);
+
+			if (m_ImageTexture)
+				SDL_DestroyTexture(m_ImageTexture);
+
 			SetDeleted(true);
 		}
 	}
