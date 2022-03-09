@@ -15,6 +15,7 @@ namespace novazero
 
 		public:
 
+			unsigned int m_FirstGID = 0;
 			int m_Columns = 0;
 			std::string m_Image = "";
 			Vec2Int m_ImageSize = Vec2Int(0, 0);
@@ -27,8 +28,10 @@ namespace novazero
 			std::string m_Version = "";
 			const std::string m_Type = "tileset";
 
-			Tileset(json tileset)
+			Tileset(json tileset, unsigned int firstGID)
 			{
+				m_FirstGID = firstGID;
+
 				m_Columns = tileset["columns"];
 				m_Image = tileset["image"];
 				m_ImageSize = Vec2Int(tileset["imagewidth"], tileset["imageheight"]);

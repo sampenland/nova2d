@@ -50,7 +50,7 @@ namespace novazero
 			}
 		}
 
-		void TiledMap::LoadTileset(std::string& tilesetJSONexportFilePath)
+		void TiledMap::LoadTileset(std::string& tilesetJSONexportFilePath, json tileset)
 		{
 			std::ifstream file(tilesetJSONexportFilePath);
 
@@ -63,7 +63,7 @@ namespace novazero
 					readIn.append(line);
 				}
 
-				m_Tileset = new Tileset(json::parse(readIn));
+				m_Tileset = new Tileset(json::parse(readIn), tileset[0]["firstgid"]);
 			}
 			else
 			{
@@ -139,7 +139,7 @@ namespace novazero
 
 			SetSize(Vec2Int(m_WidthInTiles * m_TileSize.x, m_HeightInTiles * m_TileSize.y));
 
-			LoadTileset(tilesetJSONPath);
+			LoadTileset(tilesetJSONPath, m_TileMap["tilesets"]);
 			ParseLayers(m_TileMap["layers"]);
 
 			for (size_t i = 0; i < m_Layers.size(); i++)
@@ -167,7 +167,7 @@ namespace novazero
 				int cols = tilesetWidth / tileWidth;
 				int rows = tilesetHeight / tileHeight;
 
-				unsigned tile_index = 0;
+				unsigned tileGID = m_Tileset->m_FirstGID;
 				for (int row = 0; row < rows; row++)
 				{
 					for (int col = 0; col < m_Tileset->m_Columns; col++)
@@ -175,30 +175,9 @@ namespace novazero
 						x = col * tileWidth;
 						y = row * tileHeight;
 
-						//Read the GID in little-endian byte order:
-						unsigned int global_tile_id = 
-							std::stoi(data[tile_index]) |
-							std::stoi(data[tile_index + 1]) << 8 |
-							std::stoi(data[tile_index + 2]) << 16 |
-							std::stoi(data[tile_index + 3]) << 24;
-
-						tile_index += 4;
-
-						// Read out the flags
-						bool flipped_horizontally = (global_tile_id & FLIPPED_HORIZONTALLY_FLAG);
-						bool flipped_vertically = (global_tile_id & FLIPPED_VERTICALLY_FLAG);
-						bool flipped_diagonally = (global_tile_id & FLIPPED_DIAGONALLY_FLAG);
-						bool rotated_hex120 = (global_tile_id & ROTATED_HEXAGONAL_120_FLAG);
-
-						// Clear all four flags
-						global_tile_id &= ~(FLIPPED_HORIZONTALLY_FLAG |
-							FLIPPED_VERTICALLY_FLAG |
-							FLIPPED_DIAGONALLY_FLAG |
-							ROTATED_HEXAGONAL_120_FLAG);
-
-						Tile* tile = new Tile(this, Vec2Int(tileWidth, tileHeight), Vec2Int(x, y), global_tile_id, m_Layer);
-						
-						m_Tiles[global_tile_id] = tile;
+						Tile* tile = new Tile(this, Vec2Int(tileWidth, tileHeight), Vec2Int(x, y), tileGID, m_Layer);
+						m_Tiles[tileGID] = tile;
+						tileGID++;
 
 					}
 				}
@@ -216,12 +195,20 @@ namespace novazero
 			std::vector<TiledMapLayer*>::iterator it = m_Layers.begin();
 			while (it != m_Layers.end() && !failed)
 			{
+				TiledMapLayer& layer = *(*it);
+				LOGS("drawing: " + layer.m_Name);
 				std::vector<std::string>& data = (*it)->m_Data;
 				
 				// LAYER DRAW
-				for (size_t i = 0; i < m_WidthInTiles * m_HeightInTiles; i++)
+				for (size_t i = 0; i < data.size(); i++)
 				{
-					int tileGID = std::stoi(data.at(i));
+					int tileID = std::stoi(data.at(i));
+
+					unsigned int tileGID = tileID;
+					if (m_Tileset->m_FirstGID <= tileID)
+					{
+						tileGID = tileID - m_Tileset->m_FirstGID;
+					}
 
 					int x = (i % m_WidthInTiles) * m_Tileset->m_TileSize.x;
 					int y = (i / m_WidthInTiles) * m_Tileset->m_TileSize.y;
@@ -232,6 +219,7 @@ namespace novazero
 						failed = true;
 						break;
 					}
+
 					m_Tiles[tileGID]->Draw(x, y);
 				}
 
