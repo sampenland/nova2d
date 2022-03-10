@@ -1,7 +1,7 @@
 #pragma once
 
 // nova2d Version	
-#define NOVA_VERSION "0.0.04"
+#define NOVA_VERSION "0.0.05"
 
 // Max gamepads
 #define MAX_JOYSTICKS 4

@@ -42,6 +42,11 @@ namespace novazero
 
 		}
 
+		SDL_Rect* Tile::GetTilesetRect()
+		{
+			return &m_SrcRect;
+		}
+
 		void Tile::DestroySelf()
 		{
 			CleanUpdaters();

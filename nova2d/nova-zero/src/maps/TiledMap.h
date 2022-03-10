@@ -67,6 +67,10 @@ namespace novazero
 		private:
 
 			SDL_Texture* m_TilesetTexture;
+
+			SDL_Texture* m_TilemapTexture;
+			SDL_Rect m_TilemapDrawRect;
+
 			Tileset* m_Tileset = nullptr;
 
 			// Tiled Map Export vars
@@ -112,6 +116,8 @@ namespace novazero
 			void LoadTileset(std::string& tilesetJSONexportFilePath, json tileset);
 			void CreateLayerTiles(unsigned int layer);
 			void ParseMap(std::string& tilesetJSONPath);
+
+			void CreateTilemapTexture();
 
 			void ParseLayers(json layers);
 			void ClearLayers();

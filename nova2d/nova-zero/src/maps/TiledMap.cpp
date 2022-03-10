@@ -147,6 +147,8 @@ namespace novazero
 				CreateLayerTiles((unsigned int) i);
 			}
 
+			CreateTilemapTexture();
+
 		}
 
 		void TiledMap::CreateLayerTiles(unsigned int layer)
@@ -184,13 +186,84 @@ namespace novazero
 			}
 		}
 
+		void TiledMap::CreateTilemapTexture()
+		{
+			m_TilemapDrawRect.x = m_Position.x;
+			m_TilemapDrawRect.y = m_Position.y;
+			m_TilemapDrawRect.w = m_WidthInTiles * m_TileSize.x;
+			m_TilemapDrawRect.h = m_HeightInTiles * m_TileSize.y;
+
+			m_TilemapTexture = SDL_CreateTexture(Game::s_Renderer->GetSDLRenderer(), 
+				SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, m_WidthInTiles * m_TileSize.x,
+				m_HeightInTiles * m_TileSize.y);
+
+			SDL_SetTextureBlendMode(m_TilemapTexture, SDL_BLENDMODE_BLEND);
+
+			SDL_SetRenderTarget(Game::s_Renderer->GetSDLRenderer(), m_TilemapTexture);
+
+			// Create tile to use for rendering
+			SDL_Rect tileSrcRect;
+			tileSrcRect.x = 0;
+			tileSrcRect.y = 0;
+			tileSrcRect.w = m_TileSize.x;
+			tileSrcRect.h = m_TileSize.y;
+
+			SDL_Rect tileDestRect;
+			tileDestRect.x = 0;
+			tileDestRect.y = 0;
+			tileDestRect.w = m_TileSize.x;
+			tileDestRect.h = m_TileSize.y;
+
+			bool failed = false;
+			std::vector<TiledMapLayer*>::iterator it = m_Layers.begin();
+			while (it != m_Layers.end() && !failed)
+			{
+				TiledMapLayer& layer = *(*it);
+				std::vector<std::string>& data = (*it)->m_Data;
+
+				// LAYER DRAW
+				for (size_t i = 0; i < data.size(); i++)
+				{
+					int tileID = std::stoi(data.at(i));
+
+					unsigned int tileGID = tileID;
+					if (m_Tileset->m_FirstGID <= tileID)
+					{
+						tileGID = tileID - m_Tileset->m_FirstGID + 1;
+					}
+
+					if (tileGID == 0) continue; // SKIP Transparents
+
+					int x = (i % m_WidthInTiles) * m_Tileset->m_TileSize.x;
+					int y = (i / m_WidthInTiles) * m_Tileset->m_TileSize.y;
+
+					if (m_Tiles.find(tileGID) == m_Tiles.end())
+					{
+						LOG(LVL_NFE, "Tile map draw failed. Tile not found.");
+						failed = true;
+						break;
+					}
+
+					tileDestRect.x = x;
+					tileDestRect.y = y;
+
+					SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_TilesetTexture, m_Tiles[tileGID]->GetTilesetRect(), &tileDestRect);
+				}
+
+				it++;
+			}
+
+			SDL_SetRenderTarget(Game::s_Renderer->GetSDLRenderer(), NULL);
+		}
+
 		void TiledMap::Draw(float oX, float oY)
 		{
-			DrawTileLayers();
+			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_TilemapTexture, NULL, &m_TilemapDrawRect);
 		}
 
 		void TiledMap::DrawTileLayers()
 		{
+			return;
 			bool failed = false;
 			std::vector<TiledMapLayer*>::iterator it = m_Layers.begin();
 			while (it != m_Layers.end() && !failed)
@@ -298,8 +371,18 @@ namespace novazero
 		void TiledMap::DestroySelf()
 		{
 			m_TileMap = NULL;
+
+			if (m_TilesetTexture)
+			{
+				SDL_DestroyTexture(m_TilesetTexture);
+			}
+
+			if (m_TilemapTexture)
+			{
+				SDL_DestroyTexture(m_TilemapTexture);
+			}
+
 			n2dRemoveDrawable(m_ID, m_Layer);
-			n2dRemoveDeleteable(m_CleanID);
 			SetDeleted(true);
 		}
 	}

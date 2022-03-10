@@ -77,13 +77,6 @@ namespace novazero
 			}
 
 			m_Textures.clear();
-
-			std::map<std::string, TiledMap*>::iterator it2;
-			for (it2 = m_Tilemaps.begin(); it2 != m_Tilemaps.end(); it2++)
-			{
-				it2->second->DestroySelf();
-			}
-
 			m_Tilemaps.clear();
 		}
 	}

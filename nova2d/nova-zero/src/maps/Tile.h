@@ -36,6 +36,7 @@ namespace novazero
 			Tile(TiledMap* tilemap, Vec2Int tileSize, Vec2Int tilemapPosition, unsigned int tileID, char layer);
 
 			void Draw(float oX = 0.f, float oY = 0.f) override;
+			SDL_Rect* GetTilesetRect();
 
 			void DestroySelf();
 		};
