@@ -1,4 +1,5 @@
-![image](https://user-images.githubusercontent.com/49030884/151238809-8672aba8-410b-42de-84c0-c1407d83caf0.png)
+![nova2d-logo](https://user-images.githubusercontent.com/49030884/157763854-97bc29ea-1284-43d3-b474-6535abd98ee3.svg)
+
 
 Doxygen Docs: https://n2d.dev/
 Check out the [Wiki](https://github.com/sampenland/nova2d/wiki) for a helpful CHEATSHEET and beginning work on some Docs.
