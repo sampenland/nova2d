@@ -12,7 +12,7 @@ namespace novazero
 		using namespace maths;
 		using namespace core;
 
-		DebugOverlay::DebugOverlay(Vec2Int position) : Drawable(), Deleteable("debugoverlay")
+		DebugOverlay::DebugOverlay(Vec2Int position) : Drawable(Vec2Int(0,0)), Deleteable("debugoverlay")
 		{
 			m_ID = n2dGameGetID();
 

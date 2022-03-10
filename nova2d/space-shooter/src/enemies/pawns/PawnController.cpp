@@ -2,6 +2,10 @@
 
 namespace spaceshooter
 {
+
+	short PawnController::s_KilledPawnsThisWave = 0;
+	unsigned int PawnController::s_KilledPawns = 0;
+
 	PawnController::PawnController()
 	{
 		m_PawnShootMin = ValueManager::AddValue("pawn-shoot-min", 6000.f);
@@ -13,22 +17,40 @@ namespace spaceshooter
 		m_PawnMoveSpeed = ValueManager::AddValue("pawn-speed", 4.f);
 		n2dDirectorAddToStack(true, 0, "PawnSpeed", 70.f, 0.050f, 5.5f, m_PawnMoveSpeed);
 
+		m_CleanID = n2dAddUpdater(PawnController::Update, this);
+
+	}
+
+	void PawnController::Update()
+	{
+		std::vector<Pawn*>::iterator it = m_Pawns.begin();
+		while (it != m_Pawns.end())
+		{
+
+			if ((*it)->m_Dead)
+			{
+				(*it)->DestroySelf();
+				it = m_Pawns.erase(it);
+				continue;
+			}
+
+			it++;
+		}
 	}
 
 	void PawnController::CreatePawn(int wave, int pawnCount)
 	{
 		if (wave != m_CurrentWave)
 		{
-			m_LeftPawns = 0;
-			m_RightPawns = 0;
+			s_KilledPawnsThisWave = 0;
 
 			switch (wave)
 			{
 			case 1:
 				m_Offset = Vec2(0.f, 54.f);
 				m_Padding = 64;
-				m_MaxRows = 5;
-				m_MaxCols = 6;
+				m_MaxRows = 2;
+				m_MaxCols = 3;
 				m_CurrentColL = m_MaxCols;
 				m_CurrentColR = 0;
 				m_CurrentRowL = m_CurrentRowR = 0;
@@ -44,6 +66,9 @@ namespace spaceshooter
 		{
 		case 1:
 			Wave1(pawnCount);
+			break;
+		case 2:
+			Wave2(pawnCount);
 			break;
 		}
 	}
@@ -136,5 +161,15 @@ namespace spaceshooter
 		}
 
 		m_Pawns.push_back(pawn);
+	}
+
+	void PawnController::Wave2(int pawnCount)
+	{
+		LOG(LVL_I, tostring(pawnCount));
+	}
+
+	void PawnController::DestroySelf()
+	{
+		n2dRemoveUpdater(m_CleanID);
 	}
 }

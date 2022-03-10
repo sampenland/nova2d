@@ -2,6 +2,7 @@
 
 #include "scenes/MainMenu.h"
 #include "scenes/Play.h"
+#include "scenes/groundLevels/Level2.h"
 #include "scenes/GameOver.h"
 
 #include "Player.h"
@@ -16,17 +17,15 @@ int main(int argc, char* argv[])
 	using namespace controllers;
 	using namespace spaceshooter;
 
+	// Game Config
 	Game game("Space Shooter");
 	game.ConfigureIcon("res/ship_01.png");
 	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	Game::SetGamePadding(32, 64, 32, 32);
 	game.ConfigureDebugOverlay(true);
-	game.s_InputHandler->Configure(8000);
-
-	n2dAddColor("background", "201533", 255);
-	
-	n2dSetBackgroundColor("background");
-	
+	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
+		
+	// Textures
 	n2dAssetsLoadAndAddTexture("player", "res/ship_01_anim.png");
 	n2dAssetsLoadAndAddTexture("leader", "res/ship_02.png");
 	n2dAssetsLoadAndAddTexture("pawn", "res/ship_03.png");
@@ -43,17 +42,21 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("pawn1-bullet", "res/bullet_04.png");
 	n2dAssetsLoadAndAddTexture("fuel-tank", "res/fuel_tank.png");
 
-	MainMenu* mainMenuScene = new MainMenu("mainMenu");
+	// Maps
+	n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json", 
+		"res/maps/level2/level2.png", "res/maps/level2/level2-tileset.json");
+
+	MainMenu* mainMenu = new MainMenu("mainMenu");
 	Play* playScene = new Play("playScene");
+	Level2* level2 = new Level2("level2");
 	GameOver* gameOver = new GameOver("gameOver");
 
-	n2dGameAddScene(mainMenuScene);
+	n2dGameAddScene(mainMenu);
 	n2dGameAddScene(playScene);
+	n2dGameAddScene(level2);
 	n2dGameAddScene(gameOver);
 	
-	n2dGameConfigFirstScene(mainMenuScene);
-
-	n2dDebugSet(true);
+	n2dGameConfigFirstScene(level2);
 
 	while (Game::IsRunning())
 	{

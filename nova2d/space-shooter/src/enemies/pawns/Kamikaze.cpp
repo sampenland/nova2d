@@ -12,8 +12,7 @@ namespace spaceshooter
 	Kamikaze::Kamikaze(Vec2 position, float* speed)
 	{
 		AddSprite("kamikaze", position, Vec2Int(16, 16), 0);
-		GetSprite()->ConfigureAnimation(0, 16, 16, 10, true);
-		GetSprite()->Scale(2.f);
+		GetSprite()->AddAnimation("idle", 0, 16, 10.f, true, nullptr);
 
 		Collider::m_ID = n2dGameGetID();
 		m_DeleteName = "kamikaze_" + tostring(Collider::m_ID);
@@ -44,11 +43,11 @@ namespace spaceshooter
 	void Kamikaze::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", GetPosition(), Vec2Int(16, 16), 0);
-		explosion->ConfigureAnimation(0, 5, 5, 100, true);
+		explosion->Scale(2.f);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 		});
-		explosion->ConfigureAnimationEnd(*animEnd);
+		explosion->AddAnimation("explode", 0, 5, 100.f, false, *animEnd);
 	}
 
 	void Kamikaze::DisplayHit(int damage)

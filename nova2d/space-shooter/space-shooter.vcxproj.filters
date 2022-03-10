@@ -86,6 +86,12 @@
     <Image Include="res\bullet_04.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\fuel_tank.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\maps\level2\level2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Player.h">
@@ -115,6 +121,9 @@
     <ClInclude Include="src\enemies\pawns\Kamikaze.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\scenes\groundLevels\Level2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\pixel1.ttf" />
@@ -122,5 +131,9 @@
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
     <Font Include="res\fonts\narrow.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\maps\level2\level2.json" />
+    <None Include="res\maps\level2\level2-tileset.json" />
   </ItemGroup>
 </Project>

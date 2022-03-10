@@ -1,5 +1,5 @@
 #pragma once
-#include "core/NovaInstance.h"
+#include "utils/timeline/TimelineInstance.h"
 #include "Kamikaze.h"
 #include "../../Player.h"
 #include <vector>
@@ -8,7 +8,7 @@ namespace spaceshooter
 {
 	using namespace novazero::core;
 
-	class KamikazeController : public NovaInstance
+	class KamikazeController : public TimelineInstance
 	{
 
 	private:
@@ -24,9 +24,6 @@ namespace spaceshooter
 
 		void CreateKamikaze(int wave, int kamikazeCount);
 		void Wave1(int kamikazeCount);
-
-		// Nova Instance Overrides
-		void CreateInstance(Vec2 position) override {};
 
 	};
 }

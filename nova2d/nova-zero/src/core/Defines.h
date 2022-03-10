@@ -1,13 +1,16 @@
 #pragma once
 
 // nova2d Version	
-#define NOVA_VERSION "0.0.04"
+#define NOVA_VERSION "0.0.05"
 
 // Max gamepads
 #define MAX_JOYSTICKS 4
 
 // Max draw layers
 #define MAX_LAYERS 256
+
+// Tilemap draw layer
+#define TILEMAP_DRAW_LAYER -1
 
 // Max director pages
 #define MAX_DIRECTOR_PAGES 20
@@ -29,7 +32,8 @@
 
 #define n2dDebug novazero::core::Game::IsDebug()
 #define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
-#define n2dWarn Game::s_NovaWarnings
+#define n2dDebugVerbose novazero::core::Game::IsDebugVerbose()
+#define n2dDebugVerboseSet(isDebug) novazero::core::Game::SetDebugVerbose(isDebug);
 
 /*
 nova2d Get Unique Game ID
@@ -95,6 +99,19 @@ Binds to make a func pointer
 #define n2dMakeFuncArgs3(func, context, a1, a2, a3) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 #define n2dMakeFuncArgs4(func, context, a1, a2, a3, a4) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4);
 #define n2dMakeFuncArgs5(func, context, a1, a2, a3, a4, a5) std::bind(&func, context, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3, std::placeholders::_4, std::placeholders::_5);
+
+/*
+nova2d Add to timeline (string timelineName, TimelineEvent event)
+Add's a timeline event to a timeline
+TimelineEvent is the base class of TimelineCreateEvent, TimelineExecuteEvent
+*/
+#define n2dAddTimeline(timelineName, timelineEvent) novazero::core::Game::s_SceneManager->AddTimelineEvent(timelineName, timelineEvent);
+
+/*
+nova2d Starts a timeline with a certain name
+Timeline must exists
+*/
+#define n2dStartTimeline(timelineName) novazero::core::Game::s_SceneManager->StartAndResetTimeline(timelineName);
 
 /*
 nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
@@ -454,9 +471,10 @@ Must be called on in a class that inherits from EventListener
 /*
 nova2d Add Updater(void(*f) funcToCall, context)
 Updaters are called each frame; this adds a new funcToCall as an Updater
+REQUIRES: sceneManager include
 RETURNS unsigned int CleanID
 */
-#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context));
+#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context))
 
 /*
 nova2d Add a Persistent Updater(void(*f) funcToCall, context)
@@ -495,6 +513,19 @@ nova2d Get Texture by name (std::string textureName)
 Return pointer to a preloaded texture
 */
 #define n2dAssetsGetTexture(textureName) novazero::core::Game::s_AssetManager->GetTexture(textureName);
+
+/*
+nova2d Load Tilemap (std::string& name, std::string mapPath, std::string& tilesetImgPath, std::string& tilesetPath)
+Loads map into Game's asset manager
+*/
+#define n2dAssetsLoadAndAddMap(mapName, mapPath, tilesetImgPath, tilesetPath)  novazero::core::Game::s_AssetManager->LoadAndAddMap(mapName, mapPath, tilesetImgPath, tilesetPath);
+
+/*
+nova2d Get Tilemap by name (std::string mapName)
+Return pointer to a preloaded tiled map
+*/
+#define n2dAssetsGetMap(mapName) novazero::core::Game::s_AssetManager->GetMap(mapName);
+
 
 /*
 nova2d Add Color (std::string colorName, std::string colorHex, float alpha)

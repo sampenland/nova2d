@@ -1,0 +1,14 @@
+{ "columns":10,
+ "image":"level2.png",
+ "imageheight":160,
+ "imagewidth":160,
+ "margin":0,
+ "name":"level2",
+ "spacing":0,
+ "tilecount":100,
+ "tiledversion":"1.8.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.8"
+}

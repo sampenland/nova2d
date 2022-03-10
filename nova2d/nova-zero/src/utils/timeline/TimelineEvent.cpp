@@ -9,7 +9,7 @@ namespace novazero
 		{
 			using namespace core;
 
-			TimelineEvent::TimelineEvent(NovaInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds)
+			TimelineEvent::TimelineEvent(TimelineInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds)
 				: Deleteable("timelineEvent_")
 			{
 				m_ID = n2dGameGetID();

@@ -11,7 +11,7 @@ namespace novazero
 
 		DrawRect::DrawRect(const std::string& fillColor, const std::string& outlineColor,
 			bool filled, Rect rect, int outlineThickness, char layer)
-			: Drawable(), Deleteable("rect_")
+			: Drawable(Vec2Int((int)rect.w, (int)rect.h)), Deleteable("rect_")
 		{
 			m_DeleteName = "rect_" + std::to_string(m_ID);
 

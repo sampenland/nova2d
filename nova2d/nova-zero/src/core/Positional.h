@@ -8,6 +8,8 @@ namespace novazero
 	{
 		class Drawable;
 		class Sprite;
+		class Image;
+		class Text;
 	}
 
 	namespace core
@@ -20,46 +22,41 @@ namespace novazero
 
 		private:
 
-			Sprite* m_Sprite = nullptr;
+			Drawable* m_Drawable = nullptr;
+			unsigned int m_ID;
 
 		protected:
-			
+
 			Vec2Int m_Position;
 			int m_Angle = 0;
-			Vec2Int m_Size;
 
 		public:
 
 			Positional();
 
-			void LinkPositionalSprite(Sprite* sprite);
-			Sprite* GetLinkedSprite() { return m_Sprite; }
+			void LinkPositionalDrawable(Drawable* drawable);
+
+			Sprite* GetSprite() { return (Sprite*)m_Drawable; }
+			Image* GetImage() { return (Image*)m_Drawable; }
+			Text* GetText() { return (Text*)m_Drawable; }
+
+			Drawable* GetDrawable() { return m_Drawable; }
 
 			float GetX() const;
 			int* GetXRef() { return &m_Position.x; }
+
 			float GetY() const;
 			int* GetYRef() { return &m_Position.y; }
+
 			Vec2 GetPosition() const;
 			Vec2Int GetPositionInt() const;
 
-			int GetWidth() const;
-			int GetHeight() const;
-
-			void SetWidth(int w);
-			void SetHeight(int h);
-
-			Vec2Int GetSize() const;
-			Vec2 GetCenter() const;
-
-			int GetAngle() const;
-
-			void SetX(float x);			
+			void SetX(float x);
 			void SetY(float y);
+			Vec2 GetCenter();
 
 			void SetPosition(Vec2 position);
 			void SetPositionInt(Vec2Int position);
-
-			void SetSize(Vec2Int size);
 
 			void SetAngle(int a);
 

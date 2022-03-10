@@ -45,6 +45,7 @@ namespace novazero
 			void SetColor(const std::string& colorName);
 
 			void Draw(float oX = 0.f, float oY = 0.f) override;
+			
 			void DestroySelf();
 
 		};

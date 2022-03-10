@@ -73,17 +73,17 @@ namespace novazero
 					y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
 			}
 
-			bool OutOfBounds(Sprite* sprite)
+			bool OutOfBounds(Drawable* drawable)
 			{
 				if (!m_UsingAliveBounds) return false;
 
 				bool outOfBounds = false;
-				if (sprite)
+				if (drawable)
 				{
-					float x = sprite->GetX();
-					float y = sprite->GetY();
-					int w = sprite->GetWidth();
-					int h = sprite->GetHeight();
+					float x = drawable->GetX();
+					float y = drawable->GetY();
+					int w = drawable->GetWidth();
+					int h = drawable->GetHeight();
 
 					float bx = m_AliveBounds.x;
 					float by = m_AliveBounds.y;

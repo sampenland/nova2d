@@ -78,6 +78,9 @@ namespace novazero
 				GetSprite()->SetAngle(lookAtAngle);
 			}
 
+			int GetWidth() { return GetSprite()->GetWidth(); }
+			int GetHeight() { return GetSprite()->GetHeight(); }
+
 			void ConfigureContinueAfterPatrolComplete(bool continueAfter) { m_ContinueAfterPatrolComplete = continueAfter; }
 			void ConfigureOnPatrolComplete(std::function<void()> f) { f_OnPatrolComplete = f; }
 			void ConfigureLoopIndex(int idx) { m_LoopStartIndex = idx; }
@@ -92,13 +95,12 @@ namespace novazero
 			}
 			Sprite* GetSprite()
 			{
-				return Positional::GetLinkedSprite();
+				return Positional::GetSprite();
 			}
 
 			inline void SetVisible(bool isVisible) 
 			{ 
-				if (GetSprite())
-					GetSprite()->m_Visible = isVisible;
+				Positional::GetSprite()->SetVisible(isVisible);
 			}
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);

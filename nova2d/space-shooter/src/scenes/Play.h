@@ -8,7 +8,7 @@ namespace spaceshooter
 {
 	using namespace novazero::core;
 
-	class Play : public Scene, public NovaInstance
+	class Play : public Scene, public TimelineInstance
 	{
 
 	private:
@@ -20,13 +20,15 @@ namespace spaceshooter
 		PawnController* m_PawnController = nullptr;
 		KamikazeController* m_KamikazeController = nullptr;
 
+		bool m_SentFuel = false;
+
 	public:
 
 		Play(const std::string& sceneName);
 
 		void Start() override;
 
-		bool NoPawns();
+		void SendFuel();		
 		
 		void ShowWaveAnimation(unsigned char wave);
 
@@ -39,9 +41,6 @@ namespace spaceshooter
 		void Update() override;
 
 		void End() override;
-
-		// Nova Instance
-		void CreateInstance(Vec2 pos) override {};
 
 	};
 }

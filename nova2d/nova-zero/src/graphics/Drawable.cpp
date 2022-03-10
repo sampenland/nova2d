@@ -7,9 +7,10 @@ namespace novazero
 	namespace graphics
 	{
 
-		Drawable::Drawable() : m_Layer(0), Positional()
+		Drawable::Drawable(Vec2Int size) : m_Layer(0), Positional()
 		{
 			m_ID = n2dGameGetID();
+			m_Size = size;
 		};
 
 		void Drawable::SetDrawableCollection(DrawableCollection* collection)
@@ -23,6 +24,16 @@ namespace novazero
 		{
 			if (!m_DrawableCollection) return;
 			m_DrawableCollection->RemoveChild(id);			
+		}
+
+		void Drawable::OriginCenter()
+		{
+			m_Offset = Vec2Int(-GetWidth() / 2, -GetHeight() / 2);
+		}
+
+		void Drawable::OriginTopLeft()
+		{
+			m_Offset = Vec2Int(0, 0);
 		}
 	}
 }

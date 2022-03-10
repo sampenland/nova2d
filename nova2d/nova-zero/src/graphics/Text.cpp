@@ -8,7 +8,7 @@ namespace novazero
 	namespace graphics
 	{
 		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer,
-			bool autoAddDrawable) : Deleteable("text_")
+			bool autoAddDrawable) : Deleteable("text_"), Drawable(Vec2Int((int)drawRect.w, (int)drawRect.h))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "text_" + std::to_string(m_ID);
@@ -32,6 +32,8 @@ namespace novazero
 			m_Dynamic = false;
 			
 			Construct(m_DisplayText, Vec2Int((int)drawRect.x, (int)drawRect.y));
+
+			LinkPositionalDrawable(this);
 
 			if(autoAddDrawable) n2dAddDrawable(this, m_Layer);
 

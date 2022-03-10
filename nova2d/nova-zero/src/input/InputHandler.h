@@ -28,7 +28,7 @@ namespace novazero
 
 			InputHandler();
 
-			void Configure(int joyStickDeadzone);
+			void ConfigureJoystickDeadzone(int joyStickDeadzone);
 
 			void KeyDown(SDL_Event* event);
 			void KeyUp(SDL_Event* event);

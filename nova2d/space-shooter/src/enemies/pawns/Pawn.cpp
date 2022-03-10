@@ -1,5 +1,6 @@
 #include "Pawn.h"
 #include "../../Player.h"
+#include "PawnController.h"
 
 namespace spaceshooter
 {
@@ -11,6 +12,7 @@ namespace spaceshooter
 
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
+
 		GetSprite()->Scale(2.f);
 
 		ConfigureCollider(GetSprite(), 0, "pawn");
@@ -69,11 +71,11 @@ namespace spaceshooter
 	void Pawn::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", GetPosition(), Vec2Int(16, 16), 0);
-		explosion->ConfigureAnimation(0, 5, 5, 100, true);
+		explosion->Scale(2.f);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 		});
-		explosion->ConfigureAnimationEnd(*animEnd);
+		explosion->AddAnimation("explode", 0, 5, 100.f, false, *animEnd);
 	}
 
 	void Pawn::DestroySelf()
@@ -82,6 +84,9 @@ namespace spaceshooter
 		m_Destroyed = true;
 
 		m_Alive = false;
+
+		PawnController::s_KilledPawns++;
+		PawnController::s_KilledPawnsThisWave++;
 
 		m_UsingCollider = false;
 

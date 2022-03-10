@@ -21,14 +21,14 @@ namespace novazero
 			{
  				if (m_CurrentEvent == -1) return;
 
-				if (m_TimelineEvents.size() > m_CurrentEvent)
+				if (m_TimelineEvents.size() > (size_t)m_CurrentEvent)
 				{
 					// Tick current Timeline Event
 					if (m_TimelineEvents[m_CurrentEvent]->Tick())
 					{
 						m_TimelineEvents[m_CurrentEvent]->Execute();
 
-						if (m_TimelineEvents.size() > m_CurrentEvent + 1)
+						if (m_TimelineEvents.size() > (size_t)m_CurrentEvent + 1)
 						{
 							m_TimelineEvents[m_CurrentEvent]->SetRunning(false);
 							m_CurrentEvent++;
@@ -60,7 +60,7 @@ namespace novazero
 
 			void Timeline::SetEvent(int index)
 			{
-				if (index >= 0 && index < m_TimelineEvents.size())
+				if (index >= 0 && index < (int)m_TimelineEvents.size())
 				{
 					m_CurrentEvent = index;
 				}

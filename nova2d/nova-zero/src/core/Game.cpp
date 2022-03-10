@@ -13,7 +13,8 @@ namespace novazero
 		using namespace input;
 		using namespace debug;
 
-		bool Game::s_Debug = false;
+		bool Game::s_Debug = true;
+		bool Game::s_DebugVerbose = false;
 
 		novazero::graphics::Renderer* Game::s_Renderer;
 		ColorManager* Game::s_ColorManager;
@@ -289,6 +290,15 @@ namespace novazero
 			{
 				s_AssetManager->DestroySelf();
 				delete s_AssetManager;
+			}
+
+			if (s_ExitCode == 0)
+			{
+				LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine ended successfully.");
+			}
+			else
+			{
+				LOG(LVL_FATAL_ERROR, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine FAILED WITH EXIT CODE: " + tostring(s_ExitCode));
 			}
 
 			SDL_Quit();

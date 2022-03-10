@@ -10,7 +10,7 @@ namespace novazero
 	{
 		SimpleStatBar::SimpleStatBar(bool vertical, int x, int y, int w, int h, const std::string& colorOutline,
 			const std::string& colorBackground, const std::string& colorForeground, char layer)
-			: Deleteable("statbar_")
+			: Deleteable("statbar_"), Drawable(Vec2Int(0,0))
 		{
 
 			m_ID = Game::GetNextID();
@@ -81,18 +81,18 @@ namespace novazero
 
 		void SimpleStatBar::Draw(float oX, float oY)
 		{
-			m_Outline->x = m_Pos.x - m_OutlineThickness;
-			m_Outline->y = m_Pos.y - m_OutlineThickness;
-			m_Outline->w = (m_Size.x * m_Scale) + 2 * m_OutlineThickness;
-			m_Outline->h = (m_Size.y * m_Scale) + 2 * m_OutlineThickness;
+			m_Outline->x = (int)m_Pos.x - m_OutlineThickness;
+			m_Outline->y = (int)m_Pos.y - m_OutlineThickness;
+			m_Outline->w = (int)(m_Size.x * m_Scale) + 2 * m_OutlineThickness;
+			m_Outline->h = (int)(m_Size.y * m_Scale) + 2 * m_OutlineThickness;
 
-			m_Background->x = m_Pos.x;
-			m_Background->y = m_Pos.y;
-			m_Background->w = (m_Size.x * m_Scale);
-			m_Background->h = (m_Size.y * m_Scale);
+			m_Background->x = (int)m_Pos.x;
+			m_Background->y = (int)m_Pos.y;
+			m_Background->w = (int)(m_Size.x * m_Scale);
+			m_Background->h = (int)(m_Size.y * m_Scale);
 
-			m_Foreground->x = m_Pos.x;
-			m_Foreground->y = m_Pos.y;
+			m_Foreground->x = (int)m_Pos.x;
+			m_Foreground->y = (int)m_Pos.y;
 
 			if (m_IsVertical)
 			{
@@ -109,8 +109,8 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = (m_Size.x * m_Scale);
-				m_Foreground->h = (m_Value * m_Scale);
+				m_Foreground->w = (int)(m_Size.x * m_Scale);
+				m_Foreground->h = (int)(m_Value * m_Scale);
 			}
 			else
 			{
@@ -127,8 +127,8 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = (m_Value * m_Scale);
-				m_Foreground->h = (m_Size.y * m_Scale);
+				m_Foreground->w = (int)(m_Value * m_Scale);
+				m_Foreground->h = (int)(m_Size.y * m_Scale);
 			}
 
 			Uint8 r, g, b, a;

@@ -24,6 +24,11 @@ namespace novazero
 				this->h = (float)h;
 			}
 
+			bool operator==(const Rect& other)
+			{
+				return x == other.x && y == other.y && w == other.w && h == other.h;
+			}
+
 		};
 	}
 }

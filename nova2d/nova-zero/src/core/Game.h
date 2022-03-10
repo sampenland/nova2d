@@ -83,7 +83,7 @@ namespace novazero
 			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
 
 			static double s_DeltaTime;
-			static double GetDeltaTime() { return s_DeltaTime; }
+			static float GetDeltaTime() { return (float)s_DeltaTime; }
 			static double s_FPS;
 
 			static int s_Width;
@@ -112,6 +112,10 @@ namespace novazero
 			static bool s_Debug;
 			static bool IsDebug() { return s_Debug; }
 			static void SetDebug(bool val) { s_Debug = val; }
+
+			static bool s_DebugVerbose;
+			static bool IsDebugVerbose() { return s_DebugVerbose; }
+			static void SetDebugVerbose(bool val) { s_DebugVerbose = val; }
 
 			static float s_TimeScale;
 			static float s_TimeScaleMemory;

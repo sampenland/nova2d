@@ -128,7 +128,7 @@ namespace novazero
 			s_KeyIsPressed.erase(s_KeyIsPressed.begin() + idx);
 		}
 
-		void InputHandler::Configure(int joyStickDeadzone)
+		void InputHandler::ConfigureJoystickDeadzone(int joyStickDeadzone)
 		{
 			s_JoyStickDeadzone = joyStickDeadzone;
 		}

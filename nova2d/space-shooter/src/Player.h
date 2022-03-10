@@ -11,11 +11,6 @@ namespace spaceshooter
 	using namespace novazero::controllers;
 	using namespace novazero::components;
 
-	enum class PlayerMoving
-	{
-		UP, DOWN, LEFT, RIGHT
-	};
-
 	class Player 
 		: public UDRLController, public Referenceable, 
 		public Collider
@@ -24,13 +19,13 @@ namespace spaceshooter
 	private:
 
 		const float SHOOT_TIME = 150.f;
+		const int FUEL_RIGHT_PADDING = 72;
 
 		bool m_SpacePressed = false;
 		float m_SpaceDuration = 0.0f;
 		const int c_MaxSpaceHoldTime = 4000;
 
 		Timer* m_ShootTimer = nullptr;
-		PlayerMoving m_Moving = PlayerMoving::UP;
 
 		int m_Lives = 4;
 		std::vector<Sprite*> m_LifeSprites;
@@ -59,6 +54,11 @@ namespace spaceshooter
 		void OnSpace();
 		void OnSpaceUp();
 		void Shoot();
+
+		float GetFuel()
+		{
+			return m_Fuel;
+		}
 
 		void DisplayHit(int score, Vec2 pos, const std::string& fontColor);
 		void Die();

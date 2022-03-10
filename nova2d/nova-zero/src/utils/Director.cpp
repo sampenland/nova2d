@@ -15,7 +15,7 @@ namespace novazero
 		std::vector<DirectorPage*> Director::s_Pages;
 		const float Director::s_StackPadding = 80.f;
 
-		Director::Director(Vec2Int position) : Drawable(), Deleteable("director")
+		Director::Director(Vec2Int position) : Drawable(Vec2Int(0,0)), Deleteable("director")
 		{
 			m_ID = n2dGameGetID();
 			m_Layer = 255;
@@ -122,7 +122,7 @@ namespace novazero
 					if (m_CurrentSelected <= 0)
 					{
 						m_LeftSelectedStack = true;
-						m_CurrentSelected = leftCount - 1;						
+						m_CurrentSelected = (short)leftCount - 1;						
 						selectNew = true;
 					}
 					else
@@ -183,7 +183,7 @@ namespace novazero
 				{
 					if (rightCount != (size_t)0)
 					{
-						if (m_CurrentSelected < rightCount - 1)
+						if (m_CurrentSelected < (short)rightCount - 1)
 						{
 							m_CurrentSelected++;
 							selectNew = true;

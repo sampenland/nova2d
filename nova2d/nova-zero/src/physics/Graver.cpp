@@ -88,7 +88,7 @@ namespace novazero
 				int lookAtAngle = Vec2Int::LookAtAngle(currentPosInt,
 					m_Physical->GetPositionInt() + m_GraverInfluencedMagInt, -90);
 
-				m_Physical->GetLinkedSprite()->SetAngle(lookAtAngle);
+				m_Physical->GetSprite()->SetAngle(lookAtAngle);
 			}
 
 			float ix = (float)m_GraverInfluencedMag.x * n2dTimeScale;

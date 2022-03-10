@@ -1,5 +1,6 @@
 #pragma once
 #include "../TimelineEvent.h"
+#include "../TimelineInstance.h"
 
 namespace novazero
 {
@@ -9,18 +10,6 @@ namespace novazero
 		{
 			namespace events
 			{
-				enum class FuncType
-				{
-					Void,
-					Int1Float1,
-					Int2Float1,
-					Float2Int1,
-					Float2Int2,
-					Float,
-					Float2,
-					Int,
-					Int2
-				};
 				class TimelineExecuteEvent : public TimelineEvent
 				{
 
@@ -47,7 +36,7 @@ namespace novazero
 
 				public:
 
-					TimelineExecuteEvent(NovaInstance* instance,
+					TimelineExecuteEvent(TimelineInstance* instance,
 						std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds = 1.f) :
 						TimelineEvent(instance, nextEventTrigger, timeTillNextEventSeconds)
 					{ }
