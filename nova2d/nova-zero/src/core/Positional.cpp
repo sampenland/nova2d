@@ -8,7 +8,10 @@ namespace novazero
 	{
 		using namespace graphics;
 
-		Positional::Positional() {};
+		Positional::Positional() 
+		{
+			m_ID = n2dGameGetID();
+		};
 
 		void Positional::LinkPositionalDrawable(Drawable* drawable)
 		{

@@ -555,8 +555,8 @@ Return pointer to a preloaded tiled map
 
 
 /*
-nova2d Add Color (std::string colorName, std::string colorHex, float alpha)
-Adds Color to Game's Color Manager. ex: n2dAddColor("white", "ffffff", 1)
+nova2d Add Color (std::string colorName, std::string colorHex, float alpha(0-255))
+Adds Color to Game's Color Manager. ex: n2dAddColor("white", "ffffff", 255)
 */
 #define n2dAddColor(colorName, hexCode, alpha) novazero::core::Game::s_ColorManager->AddColor(colorName, hexCode, alpha);
 

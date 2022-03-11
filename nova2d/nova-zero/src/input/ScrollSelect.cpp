@@ -84,7 +84,7 @@ namespace novazero
 
 		void ScrollSelect::Update()
 		{
-			if (!IsEnabled()) return;
+			if (!IsEnabled() || !IsVisible()) return;
 
 			if (m_Selected)
 			{

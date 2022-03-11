@@ -100,6 +100,10 @@ namespace novazero
 			{
 				return Vec2((float)s_Width / 2 - xCorrection, (float)s_Height / 2 - yCorrection);
 			}
+			static Vec2Int GetCenterScreenInt(int xCorrection = 0, int yCorrection = 0)
+			{
+				return Vec2Int((int)s_Width / 2 - xCorrection, (int)s_Height / 2 - yCorrection);
+			}
 			static novazero::maths::Rect GetGameBounds(float paddingOverride = 0.f);
 			static void SetGamePadding(float padding);
 			static void SetGamePadding(float paddingTop, float paddingBottom, float paddingLeft, float paddingRight);
