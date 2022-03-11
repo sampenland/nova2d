@@ -258,6 +258,9 @@ namespace novazero
 
 		void TiledMap::Draw(float oX, float oY)
 		{
+			m_TilemapDrawRect.x = oX;
+			m_TilemapDrawRect.y = oY;
+
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_TilemapTexture, NULL, &m_TilemapDrawRect);
 		}
 

@@ -12,6 +12,8 @@ namespace novazero
 
 		DrawLayers::DrawLayers()
 		{
+			m_MainCamera = new Camera();
+
 			for (int i = 0; i < MAX_LAYERS; i++)
 			{
 				std::vector<Drawable*> layer;
@@ -91,7 +93,8 @@ namespace novazero
 		{
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
-				m_Layers[layer][i]->Draw();
+				Vec2 camPos = m_MainCamera->GetPosition();
+				m_Layers[layer][i]->Draw(camPos.x, camPos.y);
 			}
 		}
 

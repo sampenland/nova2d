@@ -41,10 +41,7 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("kamikaze", "res/ship_04_anim.png");
 	n2dAssetsLoadAndAddTexture("pawn1-bullet", "res/bullet_04.png");
 	n2dAssetsLoadAndAddTexture("fuel-tank", "res/fuel_tank.png");
-
-	// Maps
-	n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json", 
-		"res/maps/level2/level2.png", "res/maps/level2/level2-tileset.json");
+	n2dAssetsLoadAndAddTexture("ground-player", "res/space_man_anim.png");
 
 	MainMenu* mainMenu = new MainMenu("mainMenu");
 	Play* playScene = new Play("playScene");

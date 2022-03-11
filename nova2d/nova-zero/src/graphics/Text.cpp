@@ -47,20 +47,7 @@ namespace novazero
 
 		void Text::UpdateText(const std::string& newText, Vec2Int newPosition)
 		{
-			if (newPosition.x == -1 && newPosition.y == -1)
-			{
-				newPosition.x = m_DrawRect.x;
-				newPosition.y = m_DrawRect.y;
-			}
-
-			SetPositionInt(newPosition);
 			Construct(newText, newPosition);
-		}
-
-		void Text::SetColor(const std::string& colorName)
-		{
-			m_TextColor = colorName;
-			Construct(m_DisplayText, GetPositionInt());
 		}
 
 		void Text::Construct(std::string newText, Vec2Int newPos)
@@ -76,8 +63,16 @@ namespace novazero
 
 			SDL_Surface* surface = TTF_RenderText_Solid(font, m_DisplayText.c_str(), sdlColor); // TODO: alpha enabled text
 
-			m_DrawRect.x = newPos.x;
-			m_DrawRect.y = newPos.y;
+			if (newPos.x != -1 && newPos.y != -1) 
+			{
+				m_DrawRect.x = newPos.x;
+				m_DrawRect.y = newPos.y;
+			}
+			else
+			{
+				m_DrawRect.x = m_Position.x;
+				m_DrawRect.y = m_Position.y;
+			}
 
 			if (!surface)
 			{
@@ -104,13 +99,19 @@ namespace novazero
 
 		}
 
+		void Text::SetColor(const std::string& colorName)
+		{
+			m_TextColor = colorName;
+			Construct(m_DisplayText, GetPositionInt());
+		}
+
 		void Text::Draw(float oX, float oY)
 		{
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
-			m_DrawRect.x = (int)(GetX() + oX);
-			m_DrawRect.y = (int)(GetY() + oY);
+			m_DrawRect.x = oX + GetX() + OffsetX();
+			m_DrawRect.y = oY + GetY() + OffsetY();
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
 		}

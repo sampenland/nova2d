@@ -5,21 +5,27 @@
 #include <cstring>
 #include "../logging/logging.h"
 #include "Drawable.h"
+#include "../core/Camera.h"
 
 namespace novazero
 {
 	namespace graphics
 	{
+		using namespace core;
+
 		class DrawLayers
 		{
 
 		private:
 
+			Camera* m_MainCamera = nullptr;
 			std::vector<Drawable*> m_Layers[MAX_LAYERS];
 
 		public:
 
 			DrawLayers();
+
+			Camera* GetCamera() { return m_MainCamera; }
 
 			void AddSprite(Drawable* sprite, BYTE layer);
 			void RemoveSprite(unsigned int id, BYTE layer);

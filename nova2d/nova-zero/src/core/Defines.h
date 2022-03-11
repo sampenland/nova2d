@@ -1,7 +1,16 @@
 #pragma once
 
+// ----------------------------------------------
+
 // nova2d Version	
 #define NOVA_VERSION "0.0.05"
+
+// ------------------------------
+// RAW VARIABLES
+// ------------------------------
+
+// Pointer to main (only as of now) camera
+#define CAMERA novazero::core::Game::GetCamera()
 
 // Max gamepads
 #define MAX_JOYSTICKS 4
@@ -27,6 +36,10 @@
 #define PI (float)(2*acos(0.0))
 
 #define BYTE unsigned char
+
+// -----------------------------------------------
+// Macros and extra variables and functions
+// -----------------------------------------------
 
 #define tostring(v) std::to_string(v)
 

@@ -72,6 +72,9 @@ namespace novazero
 			int OffsetX() { return m_Offset.x; }
 			int OffsetY() { return m_Offset.y; }
 
+			void SetOffsetX(int offsetX) { m_Offset.x = offsetX; }
+			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
+
 			void SetVisible(bool isVisible) { m_Visible = isVisible; }
 			bool IsVisible() const { return m_Visible; }
 			virtual void DestroySelf() = 0;

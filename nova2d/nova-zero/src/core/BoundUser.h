@@ -51,6 +51,15 @@ namespace novazero
 				
 			void SetMoveBounds(Rect bounds) { m_MoveBounds = bounds; m_UsingMoveBounds = true; }
 
+			bool IsWithinMoveBounds(float x, float y)
+			{
+				if (!m_UsingMoveBounds) return true;
+
+				return x > m_MoveBounds.x && x < m_MoveBounds.x + m_MoveBounds.w &&
+					y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
+
+			}
+
 			bool IsWithinMoveBounds(int x, int y, int spriteWidth = -1, int spriteHeight = -1)
 			{
 				if (!m_UsingMoveBounds) return true;

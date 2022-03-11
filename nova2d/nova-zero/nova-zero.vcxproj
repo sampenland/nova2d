@@ -112,6 +112,7 @@
     <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
     <ClCompile Include="src\controllers\SimpleController.cpp" />
     <ClCompile Include="src\controllers\UDRLController.cpp" />
+    <ClCompile Include="src\core\Camera.cpp" />
     <ClCompile Include="src\core\Deleteable.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="src\controllers\SimpleController.h" />
     <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\BoundUser.h" />
+    <ClInclude Include="src\core\Camera.h" />
     <ClInclude Include="src\core\Defines.h" />
     <ClInclude Include="src\core\Deleteable.h" />
     <ClInclude Include="src\core\EventListener.h" />

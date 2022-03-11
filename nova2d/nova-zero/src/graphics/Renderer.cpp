@@ -71,7 +71,7 @@ namespace novazero
 			if (s_DrawLayers)
 			{
 				s_DrawLayers->ClearSprites();
-				delete s_DrawLayers;
+				delete s_DrawLayers; // POSSIBLE BUG
 			}
 		}
 	}

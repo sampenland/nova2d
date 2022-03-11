@@ -17,6 +17,7 @@
 #include "../graphics/Color.h"
 #include <vector>
 #include "../maths/Rect.h"
+#include "../core/Camera.h"
 
 namespace novazero
 {
@@ -64,6 +65,8 @@ namespace novazero
 				const std::string& pass, bool useNovaSQLScoring);
 
 		public:
+
+			static Camera* GetCamera();
 
 			static novazero::graphics::Renderer* s_Renderer;
 			static novazero::utils::ColorManager* s_ColorManager;

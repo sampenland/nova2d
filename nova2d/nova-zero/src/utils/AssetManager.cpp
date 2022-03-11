@@ -38,9 +38,10 @@ namespace novazero
 			}
 		}
 
-		void AssetManager::LoadAndAddMap(const std::string& name, std::string mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath)
+		TiledMap* AssetManager::LoadAndAddMap(const std::string& name, std::string mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath)
 		{
 			m_Tilemaps[name] = new TiledMap(mapPath, tilesetImgPath, tilesetPath);
+			return m_Tilemaps[name];
 		}
 
 		void AssetManager::RemoveMap(const std::string& name)
