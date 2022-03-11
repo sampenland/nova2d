@@ -132,6 +132,12 @@ namespace spaceshooter
 
 	void Play::End()
 	{
+		if (m_PawnController)
+			m_PawnController->DestroySelf();
+
+		if (m_KamikazeController)
+			m_KamikazeController->DestroySelf();
+
 		n2dPauseKeyClear();
 		n2dRemoveDrawable(m_ScoreText->m_ID, 0);
 		CleanUp();

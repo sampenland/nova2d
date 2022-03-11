@@ -20,6 +20,9 @@ namespace novazero
 			if (m_Textures.end() != m_Textures.find(name))
 			{
 				std::map<std::string, SDL_Texture*>::iterator f = m_Textures.find(name);
+				
+				SDL_DestroyTexture(m_Textures.at(name));
+
 				m_Textures.erase(f);
 			}
 		}

@@ -152,7 +152,7 @@ namespace spaceshooter
 
 	void Player::Update()
 	{
-		m_StreakSprite->SetPosition(Vec2(GetX() - 32, GetY() + 48));
+		m_StreakSprite->SetPosition(Vec2(GetSprite()->GetX() - 32, GetSprite()->GetY() + 48));
 		m_StreakSprite->JumpToFrame(s_Player1Streak);
 
 		if (m_Fuel > 0.f)
@@ -247,13 +247,13 @@ namespace spaceshooter
 		}
 
 		// create and shoot bullet
-		Vec2 bulletCreatePos = Vec2(GetX(), GetY() - GetSprite()->GetHeight());
+		Vec2 bulletCreatePos = Vec2(GetSprite()->GetX(), GetSprite()->GetY() - GetSprite()->GetHeight());
 		if (downShoot)
 		{
-			bulletCreatePos = Vec2(GetX(), GetY() + GetSprite()->GetHeight());
+			bulletCreatePos = Vec2(GetSprite()->GetX(), GetSprite()->GetY() + GetSprite()->GetHeight());
 		}
 
-		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetSprite()->GetHeight()), Vec2Int((int)GetX(), shootDir), 4);
+		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetSprite()->GetX(), GetSprite()->GetY() - GetSprite()->GetHeight()), Vec2Int((int)GetSprite()->GetX(), shootDir), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", bulletCreatePos, Vec2Int(16, 16), 1);
 		bullet->GetSprite()->Scale(2.f);
@@ -297,4 +297,5 @@ namespace spaceshooter
 		bullet->ConfigureOnCollision(*collisionFunction);
 
 	}
+
 }

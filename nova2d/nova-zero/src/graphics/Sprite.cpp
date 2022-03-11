@@ -226,9 +226,6 @@ namespace novazero
 			m_Alive = 0;
 
 			n2dRemoveDrawable(m_ID, m_Layer);
-			
-			if(m_SpriteSheet)
-				SDL_DestroyTexture(m_SpriteSheet);
 
 			SetDeleted(true);
 		}

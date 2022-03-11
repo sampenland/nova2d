@@ -44,28 +44,6 @@ namespace novazero
 			m_UsingAcceleration = true;
 		}
 
-		/*void SimpleController::SetPositionInt(int x, int y)
-		{
-			m_Sprite->SetX((float)x);
-			m_Sprite->SetY((float)y);
-		}
-
-		void SimpleController::SetPosition(float x, float y)
-		{
-			m_Sprite->SetX(x);
-			m_Sprite->SetY(y);
-		}
-
-		void SimpleController::SetX(float x)
-		{
-			m_Sprite->SetX(x);
-		}
-
-		void SimpleController::SetY(float y)
-		{
-			m_Sprite->SetY(y);
-		}*/
-
 		void SimpleController::DestroySelf()
 		{
 			if (m_Sprite)

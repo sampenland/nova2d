@@ -12,8 +12,13 @@ namespace novazero
 
 		private:
 
+			unsigned int m_CleanID = 0;
+			unsigned int m_ID = 0;
+
 			float m_Zoom = 1.f;
 			Positional* m_FollowTarget = nullptr;
+
+			bool m_FreeMove = false;
 
 		public:
 
@@ -23,6 +28,14 @@ namespace novazero
 
 			void MoveX(float deltaX);
 			void MoveY(float deltaY);
+
+			void Update();
+
+			void EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
+			void FreeMove();
+
+			float GetZoom() const { return m_Zoom; }
+			void SetZoom(float zoomLevel) { m_Zoom = zoomLevel; }
 
 			void DestroySelf() override;
 

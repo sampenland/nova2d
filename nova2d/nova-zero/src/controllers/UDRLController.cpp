@@ -210,9 +210,6 @@ namespace novazero
 			SimpleController::CleanUpdaters();
 			SimpleController::DestroySelf();
 
-			if (GetSprite())
-				GetSprite()->DestroySelf();
-
 			SimpleController::SetDeleted(true);
 		}
 
