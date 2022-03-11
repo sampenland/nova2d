@@ -12,6 +12,9 @@ namespace novazero
 			: EventListener()
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
+			LinkPositionalDrawable(m_Sprite);
+			SetPosition(position);
+
 			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
 			ConfigureTimeEffected(m_Sprite);
 		}
@@ -41,7 +44,7 @@ namespace novazero
 			m_UsingAcceleration = true;
 		}
 
-		void SimpleController::SetPositionInt(int x, int y)
+		/*void SimpleController::SetPositionInt(int x, int y)
 		{
 			m_Sprite->SetX((float)x);
 			m_Sprite->SetY((float)y);
@@ -61,7 +64,7 @@ namespace novazero
 		void SimpleController::SetY(float y)
 		{
 			m_Sprite->SetY(y);
-		}
+		}*/
 
 		void SimpleController::DestroySelf()
 		{

@@ -46,7 +46,7 @@ namespace spaceshooter
 		Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer);
 		~Player();
 
-		Sprite* GetSprite() const { return m_Sprite; }
+		//Sprite* GetSprite() const { return m_Sprite; }
 
 		void OnCollision(Collision* collision) override;
 

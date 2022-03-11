@@ -5,6 +5,7 @@
 #include <functional>
 #include <map>
 #include "SDL.h"
+#include "Drawable.h"
 
 namespace novazero
 {
