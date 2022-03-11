@@ -36,7 +36,7 @@ namespace novazero
 
 			void SetVisible(bool v) { m_Visible = v; }
 
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
 			void DestroySelf();
 
 		};

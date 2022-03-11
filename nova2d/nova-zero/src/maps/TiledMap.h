@@ -122,7 +122,7 @@ namespace novazero
 			void ParseLayers(json layers);
 			void ClearLayers();
 
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
 			void DrawTileLayers();
 
 			void DestroySelf();

@@ -256,12 +256,22 @@ namespace novazero
 			SDL_SetRenderTarget(Game::s_Renderer->GetSDLRenderer(), NULL);
 		}
 
-		void TiledMap::Draw(float oX, float oY)
+		void TiledMap::Draw(float oX, float oY, float zoom)
 		{
 			m_TilemapDrawRect.x = oX;
 			m_TilemapDrawRect.y = oY;
 
+			int w = m_TilemapDrawRect.w;
+			int h = m_TilemapDrawRect.h;
+
+			m_TilemapDrawRect.w = (int)(w * zoom);
+			m_TilemapDrawRect.h = (int)(h * zoom);
+
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_TilemapTexture, NULL, &m_TilemapDrawRect);
+
+			m_TilemapDrawRect.w = w;
+			m_TilemapDrawRect.h = h;
+
 		}
 
 		void TiledMap::DrawTileLayers()

@@ -134,7 +134,7 @@ namespace novazero
 			m_Background->SetColors(fillColor, outlineColor);
 		}
 
-		void ScrollSelect::Draw(float oX, float oY)
+		void ScrollSelect::Draw(float oX, float oY, float zoom)
 		{
 
 		}

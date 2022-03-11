@@ -94,7 +94,7 @@ namespace novazero
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
 				Vec2 camPos = m_MainCamera->GetPosition();
-				m_Layers[layer][i]->Draw(camPos.x, camPos.y);
+				m_Layers[layer][i]->Draw(camPos.x, camPos.y, CAMERA_ZOOM);
 			}
 		}
 

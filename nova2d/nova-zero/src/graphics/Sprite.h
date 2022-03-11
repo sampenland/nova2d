@@ -83,7 +83,7 @@ namespace novazero
 			int OffsetX() { return GetDrawable()->OffsetX(); }
 			int OffsetY() { return GetDrawable()->OffsetY(); }
 
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
 
 			void DestroySelf() override;
 			

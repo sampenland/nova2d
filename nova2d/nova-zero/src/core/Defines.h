@@ -11,6 +11,7 @@
 
 // Pointer to main (only as of now) camera
 #define CAMERA novazero::core::Game::GetCamera()
+#define CAMERA_ZOOM novazero::core::Game::GetCamera()->GetZoom()
 
 // Max gamepads
 #define MAX_JOYSTICKS 4
@@ -59,6 +60,18 @@ nova2d Get Delta Time
 Returns time between frames
 */
 #define n2dDeltaTime novazero::core::Game::GetDeltaTime()
+
+/*
+nova2d Set camera zoom level
+Sets main internal camera Zoom Level
+*/
+#define n2dZoomCamera(zoomLevel) novazero::core::Game::GetCamera()->SetZoom(zoomLevel);
+
+/*
+nova2d Enable free move
+Basic movement; normally used for testing
+*/
+#define n2dEnableCameraFreeMove(enabled) novazero::core::Game::GetCamera()->EnableFreeWASDMove(enabled)
 
 /*
 nova2d Pause Game (bool pause)

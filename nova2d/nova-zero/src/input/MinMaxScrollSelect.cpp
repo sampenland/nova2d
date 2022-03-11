@@ -219,7 +219,7 @@ namespace novazero
 			m_Background->SetColors(fillColor, outlineColor);
 		}
 
-		void MinMaxScrollSelect::Draw(float oX, float oY)
+		void MinMaxScrollSelect::Draw(float oX, float oY, float zoom)
 		{
 
 		}

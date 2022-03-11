@@ -105,7 +105,7 @@ namespace novazero
 			Construct(m_DisplayText, GetPositionInt());
 		}
 
-		void Text::Draw(float oX, float oY)
+		void Text::Draw(float oX, float oY, float zoom)
 		{
 			if (!m_Visible) return;
 			if (!m_Constructed) return;

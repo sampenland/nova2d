@@ -280,7 +280,7 @@ namespace novazero
 			ChangeSelection(nullptr);
 		}
 
-		void Director::Draw(float oX, float oY)
+		void Director::Draw(float oX, float oY, float zoom)
 		{
 
 		}

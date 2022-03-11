@@ -55,7 +55,7 @@ namespace novazero
 			void Scale(float scale);
 
 			void Update(int v, int x, int y);
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
 
 			void DestroySelf();
 

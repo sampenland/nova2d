@@ -37,11 +37,11 @@ namespace novazero
 			}
 		}
 
-		void DrawableCollection::Draw(float oX, float oY)
+		void DrawableCollection::Draw(float oX, float oY, float zoom)
 		{
 			for (std::map<unsigned int, Drawable*>::iterator it = m_Children.begin(); it != m_Children.end(); it++)
 			{
-				it->second->Draw(Positional::GetX(), Positional::GetY());
+				it->second->Draw(Positional::GetX(), Positional::GetY(), zoom);
 			}
 		}
 
