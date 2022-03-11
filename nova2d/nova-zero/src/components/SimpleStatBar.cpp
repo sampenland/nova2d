@@ -81,18 +81,18 @@ namespace novazero
 
 		void SimpleStatBar::Draw(float oX, float oY, float zoom)
 		{
-			m_Outline->x = (int)m_Pos.x - m_OutlineThickness;
-			m_Outline->y = (int)m_Pos.y - m_OutlineThickness;
-			m_Outline->w = (int)(m_Size.x * m_Scale * zoom) + 2 * m_OutlineThickness;
-			m_Outline->h = (int)(m_Size.y * m_Scale * zoom) + 2 * m_OutlineThickness;
+			m_Outline->x = (int)m_Pos.x - m_OutlineThickness + oX;
+			m_Outline->y = (int)m_Pos.y - m_OutlineThickness + oY;
+			m_Outline->w = (int)(m_Size.x * m_Scale) + 2 * m_OutlineThickness;
+			m_Outline->h = (int)(m_Size.y * m_Scale) + 2 * m_OutlineThickness;
 
-			m_Background->x = (int)m_Pos.x;
-			m_Background->y = (int)m_Pos.y;
-			m_Background->w = (int)(m_Size.x * m_Scale * zoom);
-			m_Background->h = (int)(m_Size.y * m_Scale * zoom);
+			m_Background->x = (int)m_Pos.x + oX;
+			m_Background->y = (int)m_Pos.y + oY;
+			m_Background->w = (int)(m_Size.x * m_Scale);
+			m_Background->h = (int)(m_Size.y * m_Scale);
 
-			m_Foreground->x = (int)m_Pos.x;
-			m_Foreground->y = (int)m_Pos.y;
+			m_Foreground->x = (int)m_Pos.x + oX;
+			m_Foreground->y = (int)m_Pos.y + oY;
 
 			if (m_IsVertical)
 			{
@@ -127,8 +127,8 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = (int)(m_Value * m_Scale * zoom);
-				m_Foreground->h = (int)(m_Size.y * m_Scale * zoom);
+				m_Foreground->w = (int)(m_Value * m_Scale);
+				m_Foreground->h = (int)(m_Size.y * m_Scale);
 			}
 
 			Uint8 r, g, b, a;

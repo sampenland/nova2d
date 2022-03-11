@@ -22,7 +22,7 @@ namespace novazero
 
 			ConfigureUsingBounds(true, false);
 
-			m_CleanID = n2dAddUpdater(Camera::Update, this);
+			m_CleanID = n2dAddUpdaterPersistent(Camera::Update, this);
 
 		}
 
@@ -36,22 +36,22 @@ namespace novazero
 		{
 			if (n2dIsKeyDown(SDLK_w))
 			{
-				SetY(GetY() - 1.5f);
+				SetY(GetY() + 1.5f);
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
-				SetY(GetY() + 1.5f);
+				SetY(GetY() - 1.5f);
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
-				SetX(GetX() - 1.5f);
+				SetX(GetX() + 1.5f);
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
-				SetX(GetX() + 1.5f);
+				SetX(GetX() - 1.5f);
 			}
 		}
 
