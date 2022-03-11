@@ -41,7 +41,7 @@ namespace novazero
 
 			bool operator==(const Image& other);
 
-			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 
 			void DestroySelf() override;
 

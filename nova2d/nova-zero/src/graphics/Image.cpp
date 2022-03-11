@@ -46,7 +46,7 @@ namespace novazero
 			m_DestRect.h = (int)(m_FrameSize.y * scale);
 		}
 
-		void Image::Draw(float oX, float oY, float zoom)
+		void Image::Draw(float oX, float oY, float scale)
 		{
 			if (!IsVisible()) return;
 
@@ -59,8 +59,8 @@ namespace novazero
 			int w = m_DestRect.w;
 			int h = m_DestRect.h;
 
-			m_DestRect.w = (int)(w * zoom);
-			m_DestRect.h = (int)(h * zoom);
+			m_DestRect.w = (int)(w * scale);
+			m_DestRect.h = (int)(h * scale);
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_ImageTexture, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 

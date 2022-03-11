@@ -53,7 +53,7 @@ namespace novazero
 			void SetColors(const std::string& fillColor, const std::string& outlineColor);
 
 			void SetVisible(bool isVisible) { m_Visible = isVisible; }
-			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			void DestroySelf();
 
 		};

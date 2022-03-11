@@ -48,7 +48,7 @@ namespace novazero
 				Rect background, std::string backgroundColor, std::string scrollColor,
 				BYTE layer, bool isPersistent = false);
 
-			void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			void SetVisible(bool isVisible) override;
 			void SetEnabled(bool isEnabled) override
 			{

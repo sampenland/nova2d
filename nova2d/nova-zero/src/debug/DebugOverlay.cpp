@@ -116,7 +116,7 @@ namespace novazero
 			m_Tweens->SetVisible(m_Visible);
 		}
 		
-		void DebugOverlay::Draw(float oX, float oY, float zoom)
+		void DebugOverlay::Draw(float oX, float oY, float scale)
 		{
 			
 		}

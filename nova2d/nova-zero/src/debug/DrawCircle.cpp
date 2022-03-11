@@ -34,7 +34,7 @@ namespace novazero
 			SetDeleted(true);
 		}
 
-		void DrawCircle::Draw(float oX, float oY, float zoom)
+		void DrawCircle::Draw(float oX, float oY, float scale)
 		{
 			if (!m_Visible) return;
 

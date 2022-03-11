@@ -22,7 +22,7 @@ namespace novazero
 
 		}
 
-		void HitDisplay::Draw(float oX, float oY, float zoom)
+		void HitDisplay::Draw(float oX, float oY, float scale)
 		{
 			m_Display->Draw();
 		}

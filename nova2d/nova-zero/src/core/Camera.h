@@ -16,6 +16,7 @@ namespace novazero
 			unsigned int m_ID = 0;
 
 			float m_Zoom = 1.f;
+			float m_Scale = 1.f;
 			Positional* m_FollowTarget = nullptr;
 
 			bool m_FreeMove = false;
@@ -33,6 +34,9 @@ namespace novazero
 
 			void EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
 			void FreeMove();
+
+			float GetScale() const { return m_Scale; }
+			void SetScale(float scale) { m_Scale = scale; }
 
 			float GetZoom() const { return m_Zoom; }
 			void SetZoom(float zoomLevel) { m_Zoom = zoomLevel; }

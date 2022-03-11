@@ -79,7 +79,7 @@ namespace novazero
 			m_Scale = scale;
 		}
 
-		void SimpleStatBar::Draw(float oX, float oY, float zoom)
+		void SimpleStatBar::Draw(float oX, float oY, float scale)
 		{
 			m_Outline->x = (int)m_Pos.x - m_OutlineThickness + oX;
 			m_Outline->y = (int)m_Pos.y - m_OutlineThickness + oY;

@@ -12,6 +12,7 @@
 // Pointer to main (only as of now) camera
 #define CAMERA novazero::core::Game::GetCamera()
 #define CAMERA_ZOOM novazero::core::Game::GetCamera()->GetZoom()
+#define CAMERA_SCALE novazero::core::Game::GetCamera()->GetScale()
 
 // Max gamepads
 #define MAX_JOYSTICKS 4

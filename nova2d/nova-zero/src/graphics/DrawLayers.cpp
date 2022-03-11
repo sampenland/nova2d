@@ -94,7 +94,17 @@ namespace novazero
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
 				Vec2 camPos = m_MainCamera->GetPosition();
-				m_Layers[layer][i]->Draw(camPos.x * CAMERA_ZOOM, camPos.y * CAMERA_ZOOM, CAMERA_ZOOM);
+
+				Vec2 centerScreen = Game::GetCenterScreen();
+				Vec2 drawablePos = m_Layers[layer][i]->GetPosition();
+
+				float x = (drawablePos.x - centerScreen.x) * CAMERA_ZOOM + centerScreen.x;
+				float y = (drawablePos.y - centerScreen.y) * CAMERA_ZOOM + centerScreen.y;
+
+				x += camPos.x;
+				y += camPos.y;
+
+				m_Layers[layer][i]->Draw(x, y, CAMERA_SCALE);
 			}
 		}
 

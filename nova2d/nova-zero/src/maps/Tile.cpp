@@ -31,7 +31,7 @@ namespace novazero
 			m_DestRect.h = tileSize.y;
 		}
 
-		void Tile::Draw(float oX, float oY, float zoom)
+		void Tile::Draw(float oX, float oY, float scale)
 		{
 			if (!IsVisible()) return;
 
@@ -41,8 +41,8 @@ namespace novazero
 			int w = m_DestRect.w;
 			int h = m_DestRect.h;
 
-			m_DestRect.w = (int)(w * zoom);
-			m_DestRect.h = (int)(h * zoom);
+			m_DestRect.w = (int)(w * scale);
+			m_DestRect.h = (int)(h * scale);
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), &m_TiledMap->GetTilemapTextureRef(), &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 

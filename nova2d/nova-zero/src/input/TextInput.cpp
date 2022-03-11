@@ -80,7 +80,7 @@ namespace novazero
 			}
 		}
 
-		void TextInput::Draw(float oX, float oY, float zoom)
+		void TextInput::Draw(float oX, float oY, float scale)
 		{
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);
@@ -96,15 +96,15 @@ namespace novazero
 			int w = m_Background->w;
 			int h = m_Background->h;
 
-			m_Background->w = (int)(w * zoom);
-			m_Background->h = (int)(h * zoom);
+			m_Background->w = (int)(w * scale);
+			m_Background->h = (int)(h * scale);
 
 			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), m_Background);
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);
 
 			if (m_DisplayText)
 			{
-				m_DisplayText->Draw(oX, oY, zoom);
+				m_DisplayText->Draw(oX, oY, scale);
 			}
 
 			m_Background->x = (int)tX;

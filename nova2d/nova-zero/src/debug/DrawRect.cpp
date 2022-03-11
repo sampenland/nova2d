@@ -54,7 +54,7 @@ namespace novazero
 			SetDeleted(true);
 		}
 
-		void DrawRect::Draw(float oX, float oY, float zoom)
+		void DrawRect::Draw(float oX, float oY, float scale)
 		{
 			if (!m_Visible) return;
 
@@ -64,8 +64,8 @@ namespace novazero
 			int fillW = m_Fill->w;
 			int fillH = m_Fill->h;
 
-			m_Fill->w = (int)(fillW * zoom);
-			m_Fill->h = (int)(fillH * zoom);
+			m_Fill->w = (int)(fillW * scale);
+			m_Fill->h = (int)(fillH * scale);
 			
 			m_Outline->x = (int)(GetX() + oX);
 			m_Outline->y = (int)(GetY() + oY);
@@ -73,8 +73,8 @@ namespace novazero
 			int outlineW = m_Outline->w;
 			int outlineH = m_Outline->h;
 
-			m_Outline->w = (int)(outlineW * zoom);
-			m_Outline->h = (int)(outlineH * zoom);
+			m_Outline->w = (int)(outlineW * scale);
+			m_Outline->h = (int)(outlineH * scale);
 
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);

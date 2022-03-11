@@ -39,7 +39,7 @@ namespace novazero
 			void SetDrawableCollection(DrawableCollection* collection);
 			void ClearDrawableCollection(unsigned int id);
 
-			virtual void Draw(float oX = 0.f, float oY = 0.f, float zoom = 1.f) = 0;
+			virtual void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) = 0;
 
 			void SetDrawScale(float scale) { m_Scale = scale; }
 			float GetDrawScale() const { return m_Scale; }

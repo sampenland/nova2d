@@ -34,24 +34,31 @@ namespace novazero
 
 		void Camera::FreeMove()
 		{
+			float speed = 1.5f;
+
+			if (n2dIsKeyDown(SDLK_LSHIFT))
+			{
+				speed *= 4.f;
+			}
+
 			if (n2dIsKeyDown(SDLK_w))
 			{
-				SetY(GetY() + 1.5f);
+				SetY(GetY() + speed);
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
-				SetY(GetY() - 1.5f);
+				SetY(GetY() - speed);
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
-				SetX(GetX() + 1.5f);
+				SetX(GetX() + speed);
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
-				SetX(GetX() - 1.5f);
+				SetX(GetX() - speed);
 			}
 		}
 
