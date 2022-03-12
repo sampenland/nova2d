@@ -1,5 +1,4 @@
 #pragma once
-#include "../core/Defines.h"
 #include <cmath>
 
 namespace novazero

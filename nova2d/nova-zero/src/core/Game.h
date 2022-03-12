@@ -1,6 +1,6 @@
 #pragma once
-#include "../core/Defines.h"
 #include "SDL.h"
+#include "Defines.hpp"
 
 #include "../input/InputHandler.h"
 #include "../graphics/Window.h"

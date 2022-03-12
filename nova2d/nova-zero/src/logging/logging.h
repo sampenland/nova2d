@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include "../graphics/AnsiColor.h"
-#include "../core/Defines.h"
 
 namespace novazero
 {

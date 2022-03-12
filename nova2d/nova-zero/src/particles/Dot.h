@@ -1,6 +1,5 @@
 #pragma once
 #include "Particle.h"
-#include "../core/Defines.h"
 
 namespace novazero
 {

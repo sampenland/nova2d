@@ -1,5 +1,4 @@
 #include "DebugOverlay.h"
-#include "../core/Defines.h"
 #include "../core/Game.h"
 #include <sstream>
 #include <iomanip>

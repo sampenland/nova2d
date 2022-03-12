@@ -20,6 +20,8 @@ namespace spaceshooter
 
 	void Level2::Start()
 	{
+		Game::SetGamePadding(0, 0, 0, 0);
+
 		// Maps
 		n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json",
 			"res/maps/level2/level2.png", "res/maps/level2/level2-tileset.json");

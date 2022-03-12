@@ -13,11 +13,11 @@ namespace novazero
 
 			if (bounds.x == 0 && bounds.y == 0 && bounds.w == 0 && bounds.h == 0)
 			{
-				SetMoveBounds(Rect(0, 0, Game::s_Width, Game::s_Height));
+				ConfigureMoveBounds(Rect(0, 0, Game::s_Width, Game::s_Height));
 			}
 			else
 			{
-				SetMoveBounds(bounds);
+				ConfigureMoveBounds(bounds);
 			}
 
 			ConfigureUsingBounds(true, false);
@@ -62,9 +62,15 @@ namespace novazero
 			newX += m_FollowDistance;
 			newY -= m_FollowDistance;
 			
-			LOG(LVL_I, "x:" + tostring(newX) + ", " + tostring(bounds.x));
-
+			// limit X
 			if (newX < bounds.x) newX = bounds.x;
+			int xLimit = bounds.x + bounds.w;
+			if (newX > xLimit) newX = xLimit;
+			
+			// limit Y
+			int yLimit = (bounds.y + bounds.h) / 2;
+			if (newY > bounds.y + yLimit) newY = bounds.y + yLimit;
+			if (newY < -yLimit) newY = -yLimit;
 
 			SetPositionInt(Vec2Int(newX, newY));
 

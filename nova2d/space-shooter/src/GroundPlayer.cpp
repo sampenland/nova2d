@@ -10,6 +10,9 @@ namespace spaceshooter
 		GetSprite()->SetScale(2.f);
 
 		ConfigureMove(5.f, TweenTypes::EaseInCubic, 100.f, 100.f);
+		ConfigureMoveOffsets(Origins::Centered, GetSprite());
+		ConfigureMoveBounds(Game::GetGameBounds());
+		ConfigureUsingBounds(true, false);
 
 		Deleteable::m_CleanUpdaters.push_back(n2dAddUpdater(GroundPlayer::Update, this));
 

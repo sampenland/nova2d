@@ -1,6 +1,6 @@
 #pragma once
 
-// ----------------------------------------------
+#include "SDL.h"
 
 // nova2d Version	
 #define NOVA_VERSION "0.0.05"
@@ -40,51 +40,52 @@
 
 #define BYTE unsigned char
 
-// -----------------------------------------------
-// Macros and extra variables and functions
-// -----------------------------------------------
-
 #define tostring(v) std::to_string(v)
 
-#define n2dDebug novazero::core::Game::IsDebug()
-#define n2dDebugSet(isDebug) novazero::core::Game::SetDebug(isDebug);
-#define n2dDebugVerbose novazero::core::Game::IsDebugVerbose()
-#define n2dDebugVerboseSet(isDebug) novazero::core::Game::SetDebugVerbose(isDebug);
+namespace novazero
+{
+	/*
+	nova2d Get Unique Game ID
+	Returns a unique unsigned int ID value
+	*/
+	unsigned int n2dGameGetID();
 
-/*
-nova2d Get Unique Game ID
-Returns a unique unsigned int ID value
-*/
-#define n2dGameGetID() novazero::core::Game::GetNextID();
+	bool n2dDebug();
+	void n2dDebugSet(bool isDebug);
+	bool n2dDebugVerbose();
+	void n2dDebugVerboseSet(bool isDebug);
 
-/*
-nova2d Get Delta Time
-Returns time between frames
-*/
-#define n2dDeltaTime novazero::core::Game::GetDeltaTime()
+	/*
+	nova2d Get Delta Time
+	Returns time between frames
+	*/
+	float n2dDeltaTime();
 
-/*
-nova2d Set camera zoom level
-Sets main internal camera Zoom Level
-*/
-#define n2dZoomCamera(zoomLevel) novazero::core::Game::GetCamera()->SetZoom(zoomLevel);
+	/*
+	nova2d Set camera zoom level
+	Sets main internal camera Zoom Level
+	*/
+	void n2dZoomCamera(float zoomLevel);
 
-/*
-nova2d Enable free move
-Basic movement; normally used for testing
-*/
-#define n2dEnableCameraFreeMove(enabled) novazero::core::Game::GetCamera()->EnableFreeWASDMove(enabled)
+	/*
+	nova2d Enable free move
+	Basic movement; normally used for testing
+	*/
+	void n2dEnableCameraFreeMove(bool enabled);
 
-/*
-nova2d Pause Game (bool pause)
-*/
-#define n2dPauseGame(pause) novazero::core::Game::PauseGame(pause);
+	/*
+	nova2d Pause Game (bool pause)
+	*/
+	void n2dPauseGame(bool pause);
 
-/*
-nova2d Set Pause key (SDL_KeyCode key)
-*/
-#define n2dPauseKeySet(key) novazero::core::Game::s_PauseKey = key;
-#define n2dPauseKeyClear() novazero::core::Game::s_PauseKey = SDLK_WWW;
+	/*
+	nova2d Set Pause key (SDL_KeyCode key)
+	*/
+	void n2dPauseKeySet(SDL_KeyCode key);
+	void n2dPauseKeyClear();
+
+}
+
 
 /*
 nova2d Get Time Scale
@@ -305,7 +306,7 @@ Sets the value for when a tween hits the end and is set to loop
 #define n2dTweenSetDuration(id, durationMS) novazero::core::Game::s_SceneManager->s_TweenManager->ResetDuration(id, durationMS);
 
 /*
-nova2d Reconfigure Tween (unsigned int tweenID, float start, float end, 
+nova2d Reconfigure Tween (unsigned int tweenID, float start, float end,
 float durationMS, bool loop, bool autodelete)
 Reset/reconfigure a tween with an id
 */
@@ -657,4 +658,4 @@ Easy access globally to game score
 nova2d Global Game Score ()
 Easy access globally to game score
 */
-#define n2dScoreAdd(add) novazero::core::Game::AddScore(add);
+#define n2dScoreAdd(add) novazero

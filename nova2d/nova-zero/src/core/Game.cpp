@@ -313,12 +313,19 @@ namespace novazero
 
 		Rect Game::GetGameBounds(float paddingOverride)
 		{
-			if (paddingOverride != 0)
-			{
-				return Rect(-paddingOverride, -paddingOverride, s_Width + paddingOverride, s_Height + paddingOverride);
-			}
+			Rect bounds = Rect(
+				s_PaddingL * CAMERA_ZOOM,
+				s_PaddingT * CAMERA_ZOOM,
+				(s_Width - s_PaddingR) * CAMERA_ZOOM,
+				(s_Height - s_PaddingB) * CAMERA_ZOOM
+			);
 
-			return Rect(s_PaddingL, s_PaddingT, s_Width - s_PaddingR, s_Height - s_PaddingB);
+			bounds.x -= paddingOverride;
+			bounds.y -= paddingOverride;
+			bounds.w += paddingOverride;
+			bounds.h += paddingOverride;
+
+			return bounds;
 		}
 
 		void Game::SetGamePadding(float padding) 

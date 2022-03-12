@@ -1,5 +1,6 @@
 #include "SimpleWeakAI.h"
 #include "../logging/logging.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
