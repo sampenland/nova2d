@@ -209,8 +209,8 @@ namespace novazero
 
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)(m_Position.x + oX + OffsetX());
-			m_DestRect.y = (int)(m_Position.y + oY + OffsetY());
+			m_DestRect.x = (int)(oX + OffsetX());
+			m_DestRect.y = (int)(oY + OffsetY());
 
 			int w = m_DestRect.w;
 			int h = m_DestRect.h;

@@ -20,8 +20,8 @@ namespace spaceshooter
 		n2dPauseKeySet(SDLK_r);
 		n2dScoreSet(0);
 
-		/*n2dZoomCamera(1.25f);
-		n2dEnableCameraFreeMove(true);*/
+		/*n2dZoomCamera(1.25f);*/
+		n2dEnableCameraFreeMove(true);
 
 		Player::s_Player1Streak = 0;
 		Player::s_Player1MaxStreak = 0;

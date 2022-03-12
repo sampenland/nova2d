@@ -13,7 +13,6 @@ namespace novazero
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			LinkPositionalDrawable(m_Sprite);
-			SetPosition(position);
 
 			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
 			ConfigureTimeEffected(m_Sprite);
