@@ -32,6 +32,9 @@ namespace novazero
 
 			Text* m_Title = nullptr;
 			DrawRect* m_Background = nullptr;
+			DrawRect* m_MiddleScreen = nullptr;
+			Text* m_MiddleScreenText = nullptr;
+			Text* m_MiddleScreenTextCamera = nullptr;
 
 			Vec2 m_CameraPositionMemory = Vec2(0, 0);
 			bool m_CameraFreeMoveMemory = false;

@@ -82,8 +82,16 @@ namespace novazero
 			void OriginCenter();
 			void OriginTopLeft();
 
-			void SetVisible(bool isVisible) { m_Visible = isVisible; }
-			bool IsVisible() const { return m_Visible; }
+			void SetVisible(bool isVisible) 
+			{ 
+				m_Visible = isVisible; 
+			}
+
+			bool IsVisible() const 
+			{ 
+				return m_Visible; 
+			}
+
 			virtual void DestroySelf() = 0;
 
 		};

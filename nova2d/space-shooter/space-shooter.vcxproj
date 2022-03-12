@@ -96,6 +96,7 @@
     <ClCompile Include="src\GroundPlayer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\scenes\groundLevels\Level2.cpp" />
     <ClCompile Include="src\scenes\Play.cpp" />
     <ClCompile Include="src\specials\TimeWarp.cpp" />
   </ItemGroup>

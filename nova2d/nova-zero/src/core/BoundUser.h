@@ -51,6 +51,8 @@ namespace novazero
 				
 			void SetMoveBounds(Rect bounds) { m_MoveBounds = bounds; m_UsingMoveBounds = true; }
 
+			Rect GetMoveBounds() { return m_MoveBounds; }
+
 			bool IsWithinMoveBounds(float x, float y)
 			{
 				if (!m_UsingMoveBounds) return true;

@@ -51,6 +51,9 @@ namespace novazero
 			m_SceneManager = new SceneManager();
 			m_MainWindow = new Window(screenSize, title);
 
+			s_Width = (int)floor(screenSize.x);
+			s_Height = (int)floor(screenSize.y);
+
 			if (m_MainWindow)
 				s_Running = true;
 			else
@@ -82,9 +85,6 @@ namespace novazero
 			s_FontManager = new FontManager();
 			s_SQLManager = new SQLManager();
 			s_Director = new Director();
-
-			s_Width = (int)floor(screenSize.x);
-			s_Height = (int)floor(screenSize.y);
 
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;

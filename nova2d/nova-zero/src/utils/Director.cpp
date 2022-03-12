@@ -34,14 +34,32 @@ namespace novazero
 
 			m_Background = new DrawRect("a20-blue", "white", true,
 				Rect(x, y, m_Width, m_Height), 2, PERSISTENT_LAYER);
+
+			m_MiddleScreen = new DrawRect("white", "white", false,
+				Rect(Game::GetCenterScreenInt().x - 8, Game::GetCenterScreenInt().y - 8, 16, 16), 2, PERSISTENT_LAYER);
 			
+			m_MiddleScreenText = new Text("narrow", "", "white", 
+				Rect(
+					Game::GetCenterScreenInt().x - 128, 
+					Game::GetCenterScreenInt().y - 64, 256, 32),
+				PERSISTENT_LAYER);
+			
+			m_MiddleScreenTextCamera = new Text("narrow", "", "white",
+				Rect(
+					Game::GetCenterScreenInt().x - 128, 
+					Game::GetCenterScreenInt().y + 32, 256, 32),
+				PERSISTENT_LAYER);
+
 			int padding = 10;
- 			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 100.f, 30.f), PERSISTENT_LAYER);
+ 			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 300.f, 30.f), PERSISTENT_LAYER);
 
 			m_ScrollTime = new ScrollSelect("Time Scale", 60, "white", (float)m_Width - m_Title->GetWidth(), 20.f, 0.01f, 4.f, &Game::s_TimeScaleMemory,
 				Rect((float)x + padding, (float)y + padding + 15.f, (float)m_Width + padding, 30.f), "light-blue", "white", PERSISTENT_LAYER, true);
 
 			m_Background->SetFixedAndNonScale(true);
+			m_MiddleScreen->SetFixedAndNonScale(true);
+			m_MiddleScreenText->SetFixedAndNonScale(true);
+			m_MiddleScreenTextCamera->SetFixedAndNonScale(true);
 			m_Title->SetFixedAndNonScale(true);
 			m_ScrollTime->SetFixedAndNonScale(true);
 
@@ -64,6 +82,16 @@ namespace novazero
 			{
 				m_CameraFreeMoveMemory = CAMERA->IsFreeMoveEnabled();
 				m_CameraPositionMemory = CAMERA->GetPosition();
+			}
+			else
+			{
+				int midScreenX = -CAMERA->GetX() * 1 / CAMERA_ZOOM + Game::s_Width / 2;
+				int midScreenY = -CAMERA->GetY() * 1 / CAMERA_ZOOM + Game::s_Height / 2;
+				m_MiddleScreenText->UpdateText("[" + tostring(midScreenX) + ", " + tostring(midScreenY) + "]");
+				
+				int camPosX = -CAMERA->GetX();
+				int camPosY = -CAMERA->GetY();
+				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]");
 			}
 
 			if (!IsEnabled()) return;
@@ -239,6 +267,9 @@ namespace novazero
 			SetEnabled(m_Visible);
 
 			m_Background->SetVisible(m_Visible);
+			m_MiddleScreen->SetVisible(m_Visible);
+			m_MiddleScreenText->SetVisible(m_Visible);
+			m_MiddleScreenTextCamera->SetVisible(m_Visible);
 			m_Title->SetVisible(m_Visible);
 			m_ScrollTime->SetVisible(m_Visible);
 

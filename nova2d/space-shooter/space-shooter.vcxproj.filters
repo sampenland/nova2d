@@ -42,6 +42,9 @@
     <ClCompile Include="src\GroundPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\groundLevels\Level2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ship_01.png">

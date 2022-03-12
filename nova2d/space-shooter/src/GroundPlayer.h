@@ -25,7 +25,11 @@ namespace spaceshooter
 
 		GroundPlayer(Vec2 position, Vec2Int size, char layer);
 
+		void Update();
+
 		void OnCollision(Collision* collision) override;
+
+		void DestroySelf();
 
 	};
 }

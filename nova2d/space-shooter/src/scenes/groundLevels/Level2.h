@@ -20,56 +20,15 @@ namespace spaceshooter
 
 	public:
 
-		Level2(const std::string& sceneName)
-			: Scene(sceneName)
-		{
+		Level2(const std::string& sceneName);
 
-		};
+		void Update() override;
 
-		void Update() override
-		{
-			if (n2dIsKeyDown(SDLK_d))
-			{
-				CAMERA->MoveX(1);
-			}
+		void Start() override;
 
-			if (n2dIsKeyDown(SDLK_a))
-			{
-				CAMERA->MoveX(-1);
-			}
+		void OnEscape();
 
-			if (n2dIsKeyDown(SDLK_w))
-			{
-				CAMERA->MoveY(-1);
-			}
-
-			if (n2dIsKeyDown(SDLK_s))
-			{
-				CAMERA->MoveY(1);
-			}
-		}
-
-		void Start() override
-		{
-			// Maps
-			n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json",
-				"res/maps/level2/level2.png", "res/maps/level2/level2-tileset.json");
-
-			GroundPlayer* player = new GroundPlayer(Game::GetCenterScreen(), Vec2Int(16, 16), 0);
-
-			CAMERA->SetFollowTarget((Positional*)player);
-						
-		}
-
-		void OnEscape()
-		{
-			
-		}
-
-		void End() override
-		{
-			
-		}
+		void End() override;
 
 	};
 }
