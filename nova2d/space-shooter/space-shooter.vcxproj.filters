@@ -39,6 +39,9 @@
     <ClCompile Include="src\enemies\pawns\KamikazeController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GroundPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ship_01.png">
@@ -92,6 +95,9 @@
     <Image Include="res\maps\level2\level2.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\space_man_anim.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Player.h">
@@ -122,6 +128,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\groundLevels\Level2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GroundPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,14 +29,14 @@ namespace novazero
 
 			TextInput(const std::string& fontName, const std::string& placeholderText, const std::string& textColorName, 
 				const std::string& backgroundColorName, Rect drawRect,
-				char layer);
+				unsigned char layer);
 
 			void Configure(bool startSelected, int maxChars);
 			std::string GetText() { return m_DisplayText->GetText(); }
 
 			void Update();
 			void Select(bool isSelected, bool reset);
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			void DestroySelf();
 
 		};

@@ -13,7 +13,7 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect()), Drawable(size)
 		{
 			SetPosition(position);
@@ -184,7 +184,7 @@ namespace novazero
 
 		}
 
-		void Sprite::Scale(float scale)
+		void Sprite::SetScale(float scale)
 		{
 			if (GetDrawable())
 				GetDrawable()->SetDrawScale(scale);
@@ -193,7 +193,7 @@ namespace novazero
 			m_DestRect.h = (int)(m_FrameSize.y * scale);
 		}
 
-		void Sprite::Draw(float oX, float oY)
+		void Sprite::Draw(float oX, float oY, float scale)
 		{
 			if (!IsVisible() || !m_Alive) return;
 
@@ -209,11 +209,28 @@ namespace novazero
 
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)(m_Position.x + oX + OffsetX());
-			m_DestRect.y = (int)(m_Position.y + oY + OffsetY());
+			if (IsFixed())
+			{
+				m_DestRect.x = (int)(GetX() + OffsetX());
+				m_DestRect.y = (int)(GetY() + OffsetY());
+			}
+			else
+			{
+				m_DestRect.x = (int)(oX + OffsetX());
+				m_DestRect.y = (int)(oY + OffsetY());
+			}
+
+			int w = m_DestRect.w;
+			int h = m_DestRect.h;
+
+			m_DestRect.w = (int)(w * scale);
+			m_DestRect.h = (int)(h * scale);
 
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_SpriteSheet, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 			
+			m_DestRect.w = w;
+			m_DestRect.h = h;
+
 		}
 
 		bool Sprite::operator==(const Sprite& other)
@@ -226,9 +243,6 @@ namespace novazero
 			m_Alive = 0;
 
 			n2dRemoveDrawable(m_ID, m_Layer);
-			
-			if(m_SpriteSheet)
-				SDL_DestroyTexture(m_SpriteSheet);
 
 			SetDeleted(true);
 		}

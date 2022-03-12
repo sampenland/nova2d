@@ -8,7 +8,7 @@ namespace novazero
 	{
 		using namespace core;
 
-		DrawableCollection::DrawableCollection(Vec2 pos, char layer) : Deleteable("drawCollection_"), Drawable(Vec2Int(0,0))
+		DrawableCollection::DrawableCollection(Vec2 pos, unsigned char layer) : Deleteable("drawCollection_"), Drawable(Vec2Int(0,0))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "drawCollection_" + std::to_string(m_ID);
@@ -37,11 +37,11 @@ namespace novazero
 			}
 		}
 
-		void DrawableCollection::Draw(float oX, float oY)
+		void DrawableCollection::Draw(float oX, float oY, float scale)
 		{
 			for (std::map<unsigned int, Drawable*>::iterator it = m_Children.begin(); it != m_Children.end(); it++)
 			{
-				it->second->Draw(Positional::GetX(), Positional::GetY());
+				it->second->Draw(Positional::GetX(), Positional::GetY(), scale);
 			}
 		}
 

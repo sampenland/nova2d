@@ -33,7 +33,7 @@ namespace novazero
 		}
 
 		void TimeEffector::ConfigureTimeEffectorVisible(bool filled, const std::string& fillColor,
-			const std::string& outlineColor, char layer)
+			const std::string& outlineColor, unsigned char layer)
 		{
 			if (m_IsCircleEffect)
 			{

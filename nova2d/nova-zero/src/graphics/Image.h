@@ -25,7 +25,7 @@ namespace novazero
 			
 		public:
 
-			Image(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
+			Image(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
@@ -41,7 +41,7 @@ namespace novazero
 
 			bool operator==(const Image& other);
 
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 
 			void DestroySelf() override;
 

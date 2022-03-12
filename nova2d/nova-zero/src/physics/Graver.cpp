@@ -102,7 +102,7 @@ namespace novazero
 		}
 
 		void Graver::ConfigureGraverVisible(bool filled, std::string fillColor, std::string outlineColor,
-			int radius, char layer)
+			int radius, unsigned char layer)
 		{
 			if (m_EffectCircle)
 				m_EffectCircle->DestroySelf();

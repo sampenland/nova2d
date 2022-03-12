@@ -10,7 +10,7 @@ namespace novazero
 		using namespace utils;
 		using namespace core;
 
-		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer,
+		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
 			char controllerID)
 			: SimpleController(assetName, position, size, layer)
 		{
@@ -84,7 +84,7 @@ namespace novazero
 				m_AcceleratingY = false;
 			}
 
-			Vec2 pos = GetPosition();
+			Vec2 pos = GetSprite()->GetPosition();
 			float newX = pos.x + (timeScaleX); // fix int casting ROUND downwards to 0 speed issue
 			float newY = pos.y + (timeScaleY); // fix int casting ROUND downwards to 0 speed issue
 
@@ -92,12 +92,12 @@ namespace novazero
 			{
 				if (IsWithinMoveBounds((int)newX, (int)pos.y, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					SetX(newX);
+					GetSprite()->SetX(newX);
 				}
 
 				if (IsWithinMoveBounds((int)pos.x, (int)newY, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					SetY(newY);
+					GetSprite()->SetY(newY);
 				}
 			}
 
@@ -209,9 +209,6 @@ namespace novazero
 
 			SimpleController::CleanUpdaters();
 			SimpleController::DestroySelf();
-
-			if (m_Sprite)
-				m_Sprite->DestroySelf();
 
 			SimpleController::SetDeleted(true);
 		}

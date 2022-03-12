@@ -5,6 +5,7 @@
 #include <functional>
 #include <map>
 #include "SDL.h"
+#include "Drawable.h"
 
 namespace novazero
 {
@@ -66,11 +67,11 @@ namespace novazero
 
 		public:
 
-			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
+			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			void Update();
 			
-			void Scale(float scale);
+			void SetScale(float scale);
 			float GetScale() { return GetDrawScale(); }
 
 			int GetWidth() const { return m_DestRect.w; }
@@ -82,11 +83,11 @@ namespace novazero
 			int OffsetX() { return GetDrawable()->OffsetX(); }
 			int OffsetY() { return GetDrawable()->OffsetY(); }
 
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 
 			void DestroySelf() override;
 			
-			void ChangeLayer(char layer) { m_Layer = layer; }
+			void ChangeLayer(unsigned char layer) { m_Layer = layer; }
 
 			bool operator==(const Sprite& other);
 

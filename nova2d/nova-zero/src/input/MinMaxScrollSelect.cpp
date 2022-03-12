@@ -77,6 +77,13 @@ namespace novazero
 			m_TextMinVal->UpdateText(tostring(*m_MinRef), Vec2Int((int)minScrollPosX - 10, (int)m_Background->GetY() + 4));
 			m_TextMaxVal->UpdateText(tostring(*m_MaxRef), Vec2Int((int)maxScrollPosX - 10, (int)m_Background->GetY() + 4));
 
+			m_Label->SetFixed(true);
+			m_Background->SetFixed(true);
+			m_MinScrollRect->SetFixed(true);
+			m_MaxScrollRect->SetFixed(true);
+			m_TextMinVal->SetFixed(true);
+			m_TextMaxVal->SetFixed(true);
+
 			if (isPersistent)
 			{
 				auto cleanID = n2dAddUpdaterPersistent(MinMaxScrollSelect::Update, this);
@@ -219,7 +226,7 @@ namespace novazero
 			m_Background->SetColors(fillColor, outlineColor);
 		}
 
-		void MinMaxScrollSelect::Draw(float oX, float oY)
+		void MinMaxScrollSelect::Draw(float oX, float oY, float scale)
 		{
 
 		}

@@ -20,11 +20,11 @@ namespace spaceshooter
 	Player::Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
-		GetSprite()->Scale(2.f);
+		GetSprite()->SetScale(2.f);
 		ConfigureMoveOffsets(Origins::Centered, GetSprite());
 
 		m_StreakSprite = new Sprite("streaks", Vec2(0.f, 0.f), Vec2Int(48, 8), 0);
-		m_StreakSprite->Scale(2.f);
+		m_StreakSprite->SetScale(2.f);
 		m_StreakSprite->AddAnimation("streaks", 0, 16, 0, false, nullptr, true);
 		m_StreakSprite->StopAnimation();
 		m_StreakSprite->JumpToFrame(0);
@@ -32,7 +32,7 @@ namespace spaceshooter
 		m_FuelDisplay = new SimpleStatBar(false, 0, Game::s_Height - 40, Game::s_Width, 48, "white", "blue", "light-blue", 0);
 		m_FuelDisplayMain = new SimpleStatBar(false, 48, 0, Game::s_Width - FUEL_RIGHT_PADDING, 16, "black", "blue", "red", 0);
 		m_FuelTank = new Sprite("fuel-tank", Vec2(12, Game::s_Height - 40), Vec2Int(16, 16), 0);
-		m_FuelTank->Scale(2.f);
+		m_FuelTank->SetScale(2.f);
 
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
 		n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, Player::OnSpace, this);
@@ -46,18 +46,18 @@ namespace spaceshooter
 		char padding = 32;
 		for (int i = 0; i < m_Lives; i++)
 		{
-			Sprite* life = new Sprite("player", Vec2((float)startX + (i * padding), (float)startY), Vec2Int(16, 16), 0);
-			life->Scale(2.f);
+			Image* life = new Image("player", Vec2((float)startX + (i * padding), (float)startY), Vec2Int(16, 16), 0);
+			life->SetScale(2.f);
 			m_LifeSprites.push_back(life);
 		}
 
 		const float animationSpeed = 100.f;
-		m_Sprite->AddAnimation("up", 0, 2, animationSpeed, true, nullptr);
-		m_Sprite->AddAnimation("left", 2, 2, animationSpeed, true, nullptr, false);
-		m_Sprite->AddAnimation("right", 4, 2, animationSpeed, true, nullptr, false);
-		m_Sprite->AddAnimation("down", 6, 2, animationSpeed, true, nullptr, false);
+		GetSprite()->AddAnimation("up", 0, 2, animationSpeed, true, nullptr);
+		GetSprite()->AddAnimation("left", 2, 2, animationSpeed, true, nullptr, false);
+		GetSprite()->AddAnimation("right", 4, 2, animationSpeed, true, nullptr, false);
+		GetSprite()->AddAnimation("down", 6, 2, animationSpeed, true, nullptr, false);
 
-		ConfigureCollider(m_Sprite, 0, "player");
+		ConfigureCollider(GetSprite(), 0, "player");
 		SetTimeEffectEnabled(false);
 		
 		ConfigureMove(3.f, TweenTypes::EaseOutQuart, 100.f, 100.f);
@@ -80,7 +80,7 @@ namespace spaceshooter
 
 	void Player::DisplayHit(int score, Vec2 pos, const std::string& fontColor)
 	{
-		Rect rect = Rect(pos.x - (float)GetWidth() / 2.f, pos.y - 16.f, 24.f, 16.f);
+		Rect rect = Rect(pos.x - (float)GetSprite()->GetWidth() / 2.f, pos.y - 16.f, 24.f, 16.f);
 		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(score), "font4", fontColor, rect,
 			Vec2(pos.x, pos.y - 128), 4000, 0);
 	}
@@ -139,11 +139,11 @@ namespace spaceshooter
 	{
 		if (posIfNotPlayer.x == -100)
 		{
-			posIfNotPlayer = m_Sprite->GetPosition();
+			posIfNotPlayer = GetSprite()->GetPosition();
 		}
 
 		Sprite* explosion = new Sprite("explode", posIfNotPlayer, Vec2Int(16, 16), 0);
-		explosion->Scale(2.f);
+		explosion->SetScale(2.f);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 			});
@@ -152,12 +152,12 @@ namespace spaceshooter
 
 	void Player::Update()
 	{
-		m_StreakSprite->SetPosition(Vec2(GetX() - 32, GetY() + 48));
+		m_StreakSprite->SetPosition(Vec2(GetSprite()->GetX() - 32, GetSprite()->GetY() + 48));
 		m_StreakSprite->JumpToFrame(s_Player1Streak);
 
 		if (m_Fuel > 0.f)
 		{
-			m_Fuel -= n2dDeltaTime / 1000.f;
+			//m_Fuel -= n2dDeltaTime / 1000.f; TODO: add back in
 		}
 		else
 		{
@@ -170,22 +170,22 @@ namespace spaceshooter
 		// Display moving
 		if (n2dIsKeyDown(SDLK_UP))
 		{
-			m_Sprite->ChangeAnimation("up");
+			GetSprite()->ChangeAnimation("up");
 		}
 
 		if (n2dIsKeyDown(SDLK_DOWN))
 		{
-			m_Sprite->ChangeAnimation("down");
+			GetSprite()->ChangeAnimation("down");
 		}
 
 		if (n2dIsKeyDown(SDLK_RIGHT))
 		{
-			m_Sprite->ChangeAnimation("right");
+			GetSprite()->ChangeAnimation("right");
 		}
 
 		if (n2dIsKeyDown(SDLK_LEFT))
 		{
-			m_Sprite->ChangeAnimation("left");
+			GetSprite()->ChangeAnimation("left");
 		}
 	}
 
@@ -213,7 +213,7 @@ namespace spaceshooter
 		{
 			s_Player1Streak = 0;
 
-			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2), 0.15f,
+			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetSprite()->GetWidth() / 2, GetY() + GetSprite()->GetHeight() / 2), 0.15f,
 				maxSize, 1000, 12 * 1000); // 1/8 speed for 12 seconds
 		}
 	}
@@ -226,36 +226,37 @@ namespace spaceshooter
 			return;
 		}
 
-		Sprite* s = m_LifeSprites.at(m_Lives - 1);
-		s->DestroySelf();
+		Image* life = m_LifeSprites.at(m_Lives - 1);
+		life->DestroySelf();
 		m_LifeSprites.pop_back();
 		m_Lives--;
 
-		SetPosition((float)Game::s_Width / 2 - GetWidth() / 2, (float)Game::s_Height - 64);
+		
+		SetPosition(Vec2((float)Game::s_Width / 2 - GetSprite()->GetWidth() / 2, (float)Game::s_Height - 64));
 
 	}
 
 	void Player::Shoot()
 	{
-		int shootDir = (int)-GetHeight() - 64;
+		int shootDir = (int)-GetSprite()->GetHeight() - 64;
 		bool downShoot = false;
 		if (n2dIsKeyDown(SDLK_f) || n2dIsJoyKeyDown(0, SDL_CONTROLLER_BUTTON_X))
 		{
-			shootDir = Game::s_Height + GetHeight() + 64;
+			shootDir = Game::s_Height + GetSprite()->GetHeight() + 64;
 			downShoot = true;
 		}
 
 		// create and shoot bullet
-		Vec2 bulletCreatePos = Vec2(GetX(), GetY() - GetHeight());
+		Vec2 bulletCreatePos = Vec2(GetSprite()->GetX(), GetSprite()->GetY() - GetSprite()->GetHeight());
 		if (downShoot)
 		{
-			bulletCreatePos = Vec2(GetX(), GetY() + GetHeight());
+			bulletCreatePos = Vec2(GetSprite()->GetX(), GetSprite()->GetY() + GetSprite()->GetHeight());
 		}
 
-		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int((int)GetX(), (int)GetY() - GetHeight()), Vec2Int((int)GetX(), shootDir), 4);
+		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetSprite()->GetX(), GetSprite()->GetY() - GetSprite()->GetHeight()), Vec2Int((int)GetSprite()->GetX(), shootDir), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", bulletCreatePos, Vec2Int(16, 16), 1);
-		bullet->GetSprite()->Scale(2.f);
+		bullet->GetSprite()->SetScale(2.f);
 
 		if (downShoot)
 		{
@@ -296,4 +297,5 @@ namespace spaceshooter
 		bullet->ConfigureOnCollision(*collisionFunction);
 
 	}
+
 }

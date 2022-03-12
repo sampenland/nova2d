@@ -1,13 +1,25 @@
 #pragma once
 
+// ----------------------------------------------
+
 // nova2d Version	
 #define NOVA_VERSION "0.0.05"
+
+// ------------------------------
+// RAW VARIABLES
+// ------------------------------
+
+// Pointer to main (only as of now) camera
+#define CAMERA novazero::core::Game::GetCamera()
+#define CAMERA_ZOOM novazero::core::Game::GetCamera()->GetZoom()
+#define CAMERA_SCALE novazero::core::Game::GetCamera()->GetScale()
 
 // Max gamepads
 #define MAX_JOYSTICKS 4
 
 // Max draw layers
-#define MAX_LAYERS 256
+#define MAX_LAYERS 255
+#define PERSISTENT_LAYER 254
 
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
@@ -28,6 +40,10 @@
 
 #define BYTE unsigned char
 
+// -----------------------------------------------
+// Macros and extra variables and functions
+// -----------------------------------------------
+
 #define tostring(v) std::to_string(v)
 
 #define n2dDebug novazero::core::Game::IsDebug()
@@ -46,6 +62,18 @@ nova2d Get Delta Time
 Returns time between frames
 */
 #define n2dDeltaTime novazero::core::Game::GetDeltaTime()
+
+/*
+nova2d Set camera zoom level
+Sets main internal camera Zoom Level
+*/
+#define n2dZoomCamera(zoomLevel) novazero::core::Game::GetCamera()->SetZoom(zoomLevel);
+
+/*
+nova2d Enable free move
+Basic movement; normally used for testing
+*/
+#define n2dEnableCameraFreeMove(enabled) novazero::core::Game::GetCamera()->EnableFreeWASDMove(enabled)
 
 /*
 nova2d Pause Game (bool pause)
@@ -528,8 +556,8 @@ Return pointer to a preloaded tiled map
 
 
 /*
-nova2d Add Color (std::string colorName, std::string colorHex, float alpha)
-Adds Color to Game's Color Manager. ex: n2dAddColor("white", "ffffff", 1)
+nova2d Add Color (std::string colorName, std::string colorHex, float alpha(0-255))
+Adds Color to Game's Color Manager. ex: n2dAddColor("white", "ffffff", 255)
 */
 #define n2dAddColor(colorName, hexCode, alpha) novazero::core::Game::s_ColorManager->AddColor(colorName, hexCode, alpha);
 
@@ -571,14 +599,14 @@ Removes a Deleteable* to Game's Scene Manager's deleteable tracker
 #define n2dRemoveDeleteable(id) novazero::core::Game::s_SceneManager->RemoveDeleteable(id);
 
 /*
-nova2d Add Drawable (Drawable* drawable, char layer)
+nova2d Add Drawable (Drawable* drawable, unsigned char layer)
 Adds a graphic/drawable to Game's Draw Layers
 RETURNS: void
 */
 #define n2dAddDrawable(drawable, layer) novazero::core::Game::s_Renderer->s_DrawLayers->AddSprite(drawable, layer);
 
 /*
-nova2d Remove Drawable (Drawable* drawable, char layer)
+nova2d Remove Drawable (Drawable* drawable, unsigned char layer)
 Removes a graphic/drawable from Game's Draw Layers
 */
 #define n2dRemoveDrawable(drawableID, layer) novazero::core::Game::s_Renderer->s_DrawLayers->RemoveSprite(drawableID, layer)

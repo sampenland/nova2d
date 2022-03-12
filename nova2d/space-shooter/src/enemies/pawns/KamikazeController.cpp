@@ -40,4 +40,9 @@ namespace spaceshooter
 			m_Kamikazes.push_back(k);
 		}
 	}
+
+	void KamikazeController::DestroySelf()
+	{
+		
+	}
 }

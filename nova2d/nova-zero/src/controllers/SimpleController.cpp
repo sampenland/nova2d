@@ -8,10 +8,12 @@ namespace novazero
 		using namespace utils;
 		using namespace core;
 
-		SimpleController::SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		SimpleController::SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: EventListener()
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
+			LinkPositionalDrawable(m_Sprite);
+
 			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
 			ConfigureTimeEffected(m_Sprite);
 		}
@@ -39,28 +41,6 @@ namespace novazero
 			m_CurrentAccelerationY = 0;
 
 			m_UsingAcceleration = true;
-		}
-
-		void SimpleController::SetPositionInt(int x, int y)
-		{
-			m_Sprite->SetX((float)x);
-			m_Sprite->SetY((float)y);
-		}
-
-		void SimpleController::SetPosition(float x, float y)
-		{
-			m_Sprite->SetX(x);
-			m_Sprite->SetY(y);
-		}
-
-		void SimpleController::SetX(float x)
-		{
-			m_Sprite->SetX(x);
-		}
-
-		void SimpleController::SetY(float y)
-		{
-			m_Sprite->SetY(y);
 		}
 
 		void SimpleController::DestroySelf()

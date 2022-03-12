@@ -7,6 +7,7 @@
 #include "../physics/Graver.h"
 #include "../physics/TimeEffected.h"
 #include "../core/Meta.h"
+#include "../core/Positional.h"
 
 namespace novazero
 {
@@ -22,7 +23,8 @@ namespace novazero
 			public BoundUser,
 			public Collider,
 			public TimeEffected,
-			public Meta
+			public Meta,
+			public Positional
 		{
 
 		private:
@@ -43,8 +45,8 @@ namespace novazero
 
 			SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay);
 
-			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
-			Sprite* GetSprite() const { return m_Sprite; }
+			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
+			//Sprite* GetSprite() const { return m_Sprite; }
 
 			void Configure(float moveSpeed, Rect aliveBounds);
 			void ConfigureDestroy(std::function<void()> f) { f_OnDestroy = f; }

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "../graphics/Renderer.h"
 #include "../graphics/AnsiColor.h"
+#include "../graphics/DrawLayers.h"
 
 namespace novazero
 {
@@ -94,6 +95,11 @@ namespace novazero
 
 			LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started.");
 
+		}
+
+		Camera* Game::GetCamera()
+		{
+			return Game::s_Renderer->s_DrawLayers->GetCamera();
 		}
 
 		void Game::ConfigureFirstScene(const std::string& sceneName)

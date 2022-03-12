@@ -25,7 +25,6 @@ namespace novazero
 			SDL_Rect* m_Foreground;
 			SDL_Rect* m_Outline;
 			SDL_Rect* m_Background;
-			float m_Scale = 1.f;
 
 			std::string m_OutlineColor;
 			std::string m_BackgroundColor;
@@ -34,9 +33,6 @@ namespace novazero
 			std::string m_ForegroundColorHalf;
 			std::string m_ForegroundColorFourth;
 
-			Vec2Int m_Pos;
-			Vec2Int m_Size;
-
 			int m_Value = 0;
 
 			int m_OutlineThickness = 2;
@@ -44,7 +40,7 @@ namespace novazero
 		public:
 
 			SimpleStatBar(bool vertical, int x, int y, int w, int h, const std::string& colorOutline,
-				const std::string& colorBackground, const std::string& colorForeground, char layer);
+				const std::string& colorBackground, const std::string& colorForeground, unsigned char layer);
 
 			void ConfigureThickness(int outlineThickness);
 			void ConfigureNonForeground(int outlineThickness, const std::string& colorOutline, const std::string& colorBackground);
@@ -55,7 +51,7 @@ namespace novazero
 			void Scale(float scale);
 
 			void Update(int v, int x, int y);
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 
 			void DestroySelf();
 

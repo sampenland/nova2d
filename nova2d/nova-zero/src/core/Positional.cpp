@@ -8,7 +8,10 @@ namespace novazero
 	{
 		using namespace graphics;
 
-		Positional::Positional() {};
+		Positional::Positional() 
+		{
+			m_ID = n2dGameGetID();
+		};
 
 		void Positional::LinkPositionalDrawable(Drawable* drawable)
 		{
@@ -67,8 +70,9 @@ namespace novazero
 
 			float x = (xR * Game::s_Width) - (m_Drawable->GetWidth() / 2);
 			float y = (yR * Game::s_Height) - (m_Drawable->GetHeight() / 2);
-
-			SetPosition(Vec2(x, y));
+						
+			SetOffsetX((int)x);
+			SetOffsetY((int)y);
 		}
 	}
 }

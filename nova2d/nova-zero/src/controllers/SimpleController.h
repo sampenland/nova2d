@@ -5,6 +5,7 @@
 #include "../utils/TextureLoader.h"
 #include "../core/Game.h"
 #include "../physics/TimeEffected.h"
+#include "../core/Positional.h"
 
 namespace novazero
 {
@@ -16,33 +17,23 @@ namespace novazero
 
 		class SimpleController :
 			public EventListener,
-			public TimeEffected
+			public TimeEffected,
+			public Positional
 		{
 
 		private:
 
-		protected:
 			Sprite* m_Sprite = nullptr;
+
+		protected:
 
 		public:
 
-			SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
+			SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			void SetMoveSpeed(float mSpeed);
-
-			void SetPositionInt(int x, int y);
-			void SetPosition(float x, float y);
-			void SetX(float y);
-			void SetY(float y);
-			float GetX() const { return m_Sprite->GetX(); }
-			float GetY() const { return m_Sprite->GetY(); }
-
-			int GetWidth() const { return m_Sprite->GetWidth(); }
-			int GetHeight() const { return m_Sprite->GetHeight(); }
 			
 			inline float GetMoveSpeed() const { return m_MoveSpeed; }
-			inline Vec2Int GetPositionInt() const { return Vec2Int((int)m_Sprite->GetX(), (int)m_Sprite->GetY()); }
-			inline Vec2 GetPosition() const { return Vec2(m_Sprite->GetX(), m_Sprite->GetY()); }
 
 			void DestroySelf();
 

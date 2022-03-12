@@ -32,19 +32,19 @@ namespace novazero
 
 		public:
 
-			Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer, bool autoAddDrawable = true);
+			Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, unsigned char layer, bool autoAddDrawable = true);
 
-			void Construct(std::string newText, Vec2Int newPos);
+			void Construct(std::string newText);
 			void UpdateText(const std::string& newText, Vec2Int newPosition = Vec2Int(-1,-1));
 			void UpdateTextColor(const std::string& colorName) { m_TextColor = colorName; }
-			void ManualAddDrawable(char layer);
+			void ManualAddDrawable(unsigned char layer);
 			std::string GetText() { return m_DisplayText; }
 			void SetDynamicWithCharMax(int max) { m_CharMax = max; m_Dynamic = true; }
 
 			void SetVisible(bool v) { m_Visible = v; }
 			void SetColor(const std::string& colorName);
 
-			void Draw(float oX = 0.f, float oY = 0.f) override;
+			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			
 			void DestroySelf();
 

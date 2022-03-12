@@ -17,6 +17,7 @@
 #include "../graphics/Color.h"
 #include <vector>
 #include "../maths/Rect.h"
+#include "../core/Camera.h"
 
 namespace novazero
 {
@@ -65,6 +66,8 @@ namespace novazero
 
 		public:
 
+			static Camera* GetCamera();
+
 			static novazero::graphics::Renderer* s_Renderer;
 			static novazero::utils::ColorManager* s_ColorManager;
 			static novazero::input::InputHandler* s_InputHandler;
@@ -96,6 +99,10 @@ namespace novazero
 			static Vec2 GetCenterScreen(int xCorrection = 0, int yCorrection = 0) 
 			{
 				return Vec2((float)s_Width / 2 - xCorrection, (float)s_Height / 2 - yCorrection);
+			}
+			static Vec2Int GetCenterScreenInt(int xCorrection = 0, int yCorrection = 0)
+			{
+				return Vec2Int((int)s_Width / 2 - xCorrection, (int)s_Height / 2 - yCorrection);
 			}
 			static novazero::maths::Rect GetGameBounds(float paddingOverride = 0.f);
 			static void SetGamePadding(float padding);

@@ -20,7 +20,7 @@ namespace novazero
 
 		public:
 
-			UDRLController(const std::string& spriteSheet, Vec2 position, Vec2Int size, char layer, char controllerID = 0);
+			UDRLController(const std::string& spriteSheet, Vec2 position, Vec2Int size, unsigned char layer, char controllerID = 0);
 			
 			void ConfigureMove(float moveSpeed, TweenTypes accelerationType = TweenTypes::EaseInCubic, float accelerationMS = 0.f, float deaccelerationTimeMS = 0.f);
 			void ConfigureJoystickNumber(char num) { m_JoyStickNumber = num; }

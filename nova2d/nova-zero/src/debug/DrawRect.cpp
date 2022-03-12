@@ -10,10 +10,12 @@ namespace novazero
 		using namespace graphics;
 
 		DrawRect::DrawRect(const std::string& fillColor, const std::string& outlineColor,
-			bool filled, Rect rect, int outlineThickness, char layer)
+			bool filled, Rect rect, int outlineThickness, BYTE layer)
 			: Drawable(Vec2Int((int)rect.w, (int)rect.h)), Deleteable("rect_")
 		{
 			m_DeleteName = "rect_" + std::to_string(m_ID);
+
+			m_Layer = layer;
 
 			m_FillColor = fillColor;
 			m_OutlineColor = outlineColor;
@@ -54,15 +56,38 @@ namespace novazero
 			SetDeleted(true);
 		}
 
-		void DrawRect::Draw(float oX, float oY)
+		void DrawRect::Draw(float oX, float oY, float scale)
 		{
 			if (!m_Visible) return;
 
-			m_Fill->x = (int)(GetX() + oX + m_Thickness);
-			m_Fill->y = (int)(GetY() + oY + m_Thickness);
+			int fillW = m_Fill->w;
+			int fillH = m_Fill->h;
+
+			m_Fill->w = (int)(fillW * scale);
+			m_Fill->h = (int)(fillH * scale);
 			
-			m_Outline->x = (int)(GetX() + oX);
-			m_Outline->y = (int)(GetY() + oY);
+			if (IsFixed())
+			{
+				m_Fill->x = (int)(GetX() + m_Thickness);
+				m_Fill->y = (int)(GetY() + m_Thickness);
+
+				m_Outline->x = (int)(GetX());
+				m_Outline->y = (int)(GetY());
+			}
+			else
+			{
+				m_Fill->x = (int)(oX + m_Thickness);
+				m_Fill->y = (int)(oY + m_Thickness);
+
+				m_Outline->x = (int)(oX);
+				m_Outline->y = (int)(oY);
+			}
+
+			int outlineW = m_Outline->w;
+			int outlineH = m_Outline->h;
+
+			m_Outline->w = (int)(outlineW * scale);
+			m_Outline->h = (int)(outlineH * scale);
 
 			Uint8 r, g, b, a;
 			SDL_GetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), &r, &g, &b, &a);
@@ -93,6 +118,12 @@ namespace novazero
 			}
 
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(), r, g, b, a);
+
+			m_Fill->w = fillW;
+			m_Fill->h = fillH;
+
+			m_Outline->w = outlineW;
+			m_Outline->h = outlineH;
 		}
 	}
 }

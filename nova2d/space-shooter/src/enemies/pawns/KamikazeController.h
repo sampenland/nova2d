@@ -25,5 +25,7 @@ namespace spaceshooter
 		void CreateKamikaze(int wave, int kamikazeCount);
 		void Wave1(int kamikazeCount);
 
+		void DestroySelf();
+
 	};
 }

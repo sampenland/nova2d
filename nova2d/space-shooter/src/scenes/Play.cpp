@@ -20,6 +20,13 @@ namespace spaceshooter
 		n2dPauseKeySet(SDLK_r);
 		n2dScoreSet(0);
 
+		//---
+		//  temp debugging camera
+		n2dEnableCameraFreeMove(true);
+		DrawRect* r = new DrawRect("transparent", "white", false,
+			Rect(0, 0, Game::s_Width, Game::s_Height), 2, 0);
+		//-----
+
 		Player::s_Player1Streak = 0;
 		Player::s_Player1MaxStreak = 0;
 
@@ -132,6 +139,12 @@ namespace spaceshooter
 
 	void Play::End()
 	{
+		if (m_PawnController)
+			m_PawnController->DestroySelf();
+
+		if (m_KamikazeController)
+			m_KamikazeController->DestroySelf();
+
 		n2dPauseKeyClear();
 		n2dRemoveDrawable(m_ScoreText->m_ID, 0);
 		CleanUp();

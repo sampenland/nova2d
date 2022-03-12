@@ -27,11 +27,12 @@ namespace novazero
 			SetEnabled(true);
 		}
 
-		void SimpleBulletController::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		void SimpleBulletController::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 		{
 			m_DeleteName = assetName;
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			ConfigureTimeEffected(m_Sprite);
+			LinkPositionalDrawable(m_Sprite);
 		}
 
 		void SimpleBulletController::Configure(float moveSpeed, Rect aliveBounds)
@@ -45,7 +46,7 @@ namespace novazero
 		{			
 			if (!IsEnabled()) return;
 
-			if (OutOfBounds(m_Sprite))
+			if (OutOfBounds(GetSprite()))
 			{
 				DestroySelf();
 				return;
@@ -59,8 +60,8 @@ namespace novazero
 
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			float x = (float)m_Sprite->GetX();
-			float y = (float)m_Sprite->GetY();
+			float x = (float)GetSprite()->GetX();
+			float y = (float)GetSprite()->GetY();
 			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
 
 			float newX = x < m_End.x ? x + speed : x - speed;
@@ -72,7 +73,7 @@ namespace novazero
 			if (newX - (int)newX > 0) newX = ceil(newX);
 			if (newY - (int)newY > 0) newY = ceil(newY);
 
-			m_Sprite->SetPositionInt(Vec2Int((int)newX, (int)newY));
+			GetSprite()->SetPositionInt(Vec2Int((int)newX, (int)newY));
 
 		}
 
@@ -102,7 +103,7 @@ namespace novazero
 
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
-			
+
 			SetDeleted(true);
 		}
 	}

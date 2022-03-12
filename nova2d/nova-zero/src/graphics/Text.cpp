@@ -7,14 +7,14 @@ namespace novazero
 
 	namespace graphics
 	{
-		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer,
+		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, unsigned char layer,
 			bool autoAddDrawable) : Deleteable("text_"), Drawable(Vec2Int((int)drawRect.w, (int)drawRect.h))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "text_" + std::to_string(m_ID);
 
-			m_Position.x = (int)drawRect.x;
-			m_Position.y = (int)drawRect.y;
+			SetPosition(Vec2(drawRect.x, drawRect.y));
+
 			m_Layer = layer;
 
 			m_TextColor = colorName;
@@ -31,7 +31,7 @@ namespace novazero
 
 			m_Dynamic = false;
 			
-			Construct(m_DisplayText, Vec2Int((int)drawRect.x, (int)drawRect.y));
+			Construct(m_DisplayText);
 
 			LinkPositionalDrawable(this);
 
@@ -39,7 +39,7 @@ namespace novazero
 
 		}
 
-		void Text::ManualAddDrawable(char layer)
+		void Text::ManualAddDrawable(unsigned char layer)
 		{
 			m_Layer = layer;
 			n2dAddDrawable(this, m_Layer);
@@ -47,23 +47,15 @@ namespace novazero
 
 		void Text::UpdateText(const std::string& newText, Vec2Int newPosition)
 		{
-			if (newPosition.x == -1 && newPosition.y == -1)
+			if (newPosition.x != -1 && newPosition.y != -1)
 			{
-				newPosition.x = m_DrawRect.x;
-				newPosition.y = m_DrawRect.y;
+				SetPositionInt(newPosition);
 			}
 
-			SetPositionInt(newPosition);
-			Construct(newText, newPosition);
+			Construct(newText);
 		}
 
-		void Text::SetColor(const std::string& colorName)
-		{
-			m_TextColor = colorName;
-			Construct(m_DisplayText, GetPositionInt());
-		}
-
-		void Text::Construct(std::string newText, Vec2Int newPos)
+		void Text::Construct(std::string newText)
 		{
 			TTF_Font* font = n2dFontGet(m_FontName);
 			Color* novaColor = n2dGetColor(m_TextColor);
@@ -75,9 +67,6 @@ namespace novazero
 				m_DisplayText = newText;
 
 			SDL_Surface* surface = TTF_RenderText_Solid(font, m_DisplayText.c_str(), sdlColor); // TODO: alpha enabled text
-
-			m_DrawRect.x = newPos.x;
-			m_DrawRect.y = newPos.y;
 
 			if (!surface)
 			{
@@ -104,15 +93,39 @@ namespace novazero
 
 		}
 
-		void Text::Draw(float oX, float oY)
+		void Text::SetColor(const std::string& colorName)
+		{
+			m_TextColor = colorName;
+			Construct(m_DisplayText);
+		}
+
+		void Text::Draw(float oX, float oY, float scale)
 		{
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
-			m_DrawRect.x = (int)(GetX() + oX);
-			m_DrawRect.y = (int)(GetY() + oY);
+			if (IsFixed())
+			{
+				m_DrawRect.x = GetX() + OffsetX();
+				m_DrawRect.y = GetY() + OffsetY();
+			}
+			else
+			{
+				m_DrawRect.x = oX + OffsetX();
+				m_DrawRect.y = oY + OffsetY();
+			}	
+
+			int w = m_DrawRect.w;
+			int h = m_DrawRect.h;
+
+			m_DrawRect.w = (int)(w * scale);
+			m_DrawRect.h = (int)(h * scale);
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
+
+			m_DrawRect.w = w;
+			m_DrawRect.h = h;
+
 		}
 
 		void Text::DestroySelf()

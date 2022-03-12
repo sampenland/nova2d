@@ -8,6 +8,9 @@ namespace spaceshooter
 
 	PawnController::PawnController()
 	{
+		PawnController::s_KilledPawns = 0;
+		PawnController::s_KilledPawnsThisWave = 0;
+
 		m_PawnShootMin = ValueManager::AddValue("pawn-shoot-min", 6000.f);
 		m_PawnShootMax = ValueManager::AddValue("pawn-shoot-min", 12000.f);
 

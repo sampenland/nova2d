@@ -20,6 +20,9 @@ namespace novazero
 			if (m_Textures.end() != m_Textures.find(name))
 			{
 				std::map<std::string, SDL_Texture*>::iterator f = m_Textures.find(name);
+				
+				SDL_DestroyTexture(m_Textures.at(name));
+
 				m_Textures.erase(f);
 			}
 		}
@@ -38,9 +41,10 @@ namespace novazero
 			}
 		}
 
-		void AssetManager::LoadAndAddMap(const std::string& name, std::string mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath)
+		TiledMap* AssetManager::LoadAndAddMap(const std::string& name, std::string mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath)
 		{
 			m_Tilemaps[name] = new TiledMap(mapPath, tilesetImgPath, tilesetPath);
+			return m_Tilemaps[name];
 		}
 
 		void AssetManager::RemoveMap(const std::string& name)
