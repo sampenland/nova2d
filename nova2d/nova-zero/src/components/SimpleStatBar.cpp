@@ -29,8 +29,7 @@ namespace novazero
 			m_ForegroundColorHalf = colorForeground;
 			m_ForegroundColorFourth = colorForeground;
 
-			m_Size.x = w;
-			m_Size.y = h;
+			SetSize(Vec2Int(w, h));
 
 			m_IsVertical = vertical;
 
@@ -45,14 +44,13 @@ namespace novazero
 
 		void SimpleStatBar::SetMaxWidth(int w)
 		{
-			m_Size.x = w;
+			SetSize(Vec2Int(w, GetSize().y));
 		}
 
 		void SimpleStatBar::Update(int v, int x, int y)
 		{
 			m_Value = v;
-			m_Pos.x = x;
-			m_Pos.y = y;
+			SetPositionInt(Vec2Int(x, y));
 		}
 
 		void SimpleStatBar::ConfigureThickness(int outlineThickness)
@@ -76,31 +74,31 @@ namespace novazero
 
 		void SimpleStatBar::Scale(float scale)
 		{
-			m_Scale = scale;
+			//m_Scale = scale;
 		}
 
 		void SimpleStatBar::Draw(float oX, float oY, float scale)
 		{
-			m_Outline->x = (int)(m_Pos.x - m_OutlineThickness + oX);
-			m_Outline->y = (int)(m_Pos.y - m_OutlineThickness + oY);
-			m_Outline->w = (int)(m_Size.x * m_Scale) + 2 * m_OutlineThickness;
-			m_Outline->h = (int)(m_Size.y * m_Scale) + 2 * m_OutlineThickness;
+			m_Outline->x = (int)(oX - m_OutlineThickness);
+			m_Outline->y = (int)(oY - m_OutlineThickness);
+			m_Outline->w = (int)(GetSize().x * scale) + 2 * m_OutlineThickness;
+			m_Outline->h = (int)(GetSize().y * scale) + 2 * m_OutlineThickness;
 
-			m_Background->x = (int)(m_Pos.x + oX);
-			m_Background->y = (int)(m_Pos.y + oY);
-			m_Background->w = (int)(m_Size.x * m_Scale);
-			m_Background->h = (int)(m_Size.y * m_Scale);
+			m_Background->x = (int)(oX);
+			m_Background->y = (int)(oY);
+			m_Background->w = (int)(GetSize().x * scale);
+			m_Background->h = (int)(GetSize().y * scale);
 
-			m_Foreground->x = (int)(m_Pos.x + oX);
-			m_Foreground->y = (int)(m_Pos.y + oY);
+			m_Foreground->x = (int)(oX);
+			m_Foreground->y = (int)(oY);
 
 			if (m_IsVertical)
 			{
-				if (m_Value > m_Size.y / 2)
+				if (m_Value > GetSize().y / 2)
 				{
 					m_ForegroundColor = m_ForegroundColorAll;
 				}
-				else if (m_Value > m_Size.y / 4)
+				else if (m_Value > GetSize().y / 4)
 				{
 					m_ForegroundColor = m_ForegroundColorHalf;
 				}
@@ -109,16 +107,16 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = (int)(m_Size.x * m_Scale);
-				m_Foreground->h = (int)(m_Value * m_Scale);
+				m_Foreground->w = (int)(GetSize().x * scale);
+				m_Foreground->h = (int)(m_Value * scale);
 			}
 			else
 			{
-				if (m_Value > m_Size.x / 2)
+				if (m_Value > GetSize().x / 2)
 				{
 					m_ForegroundColor = m_ForegroundColorAll;
 				}
-				else if (m_Value > m_Size.x / 4)
+				else if (m_Value > GetSize().x / 4)
 				{
 					m_ForegroundColor = m_ForegroundColorHalf;
 				}
@@ -127,8 +125,8 @@ namespace novazero
 					m_ForegroundColor = m_ForegroundColorFourth;
 				}
 
-				m_Foreground->w = (int)(m_Value * m_Scale);
-				m_Foreground->h = (int)(m_Size.y * m_Scale);
+				m_Foreground->w = (int)(m_Value * scale);
+				m_Foreground->h = (int)(GetSize().y * scale);
 			}
 
 			Uint8 r, g, b, a;

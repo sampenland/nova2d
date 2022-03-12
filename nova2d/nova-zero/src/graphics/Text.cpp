@@ -115,7 +115,17 @@ namespace novazero
 				m_DrawRect.y = oY + OffsetY();
 			}	
 
+			int w = m_DrawRect.w;
+			int h = m_DrawRect.h;
+
+			m_DrawRect.w = (int)(w * scale);
+			m_DrawRect.h = (int)(h * scale);
+
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
+
+			m_DrawRect.w = w;
+			m_DrawRect.h = h;
+
 		}
 
 		void Text::DestroySelf()

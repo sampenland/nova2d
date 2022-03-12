@@ -16,6 +16,7 @@ namespace novazero
 			unsigned int m_ID = 0;
 
 			float m_Zoom = 1.f;
+			float m_ZoomSpeed = 0.001f;
 			float m_Scale = 1.f;
 			Positional* m_FollowTarget = nullptr;
 
@@ -37,10 +38,10 @@ namespace novazero
 			bool IsFreeMoveEnabled() const { return m_FreeMove; }
 
 			float GetScale() const { return m_Scale; }
-			void SetScale(float scale) { m_Scale = scale; }
+			void SetScale(float scale) { m_Scale = scale; m_Zoom = scale; }
 
 			float GetZoom() const { return m_Zoom; }
-			void SetZoom(float zoomLevel) { m_Zoom = zoomLevel; }
+			void SetZoom(float zoomLevel) { m_Zoom = zoomLevel; m_Scale = zoomLevel; }
 
 			void DestroySelf() override;
 

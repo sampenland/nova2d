@@ -18,10 +18,12 @@ namespace spaceshooter
 		ConfigureCollider(GetSprite(), 0, "pawn");
 		ConfigureUsingBounds(false, false);
 
+		const int healthBarWidth = 32;
+
 		m_Health = startHealth;
-		m_HealthRatio = 16 / startHealth;
+		m_HealthRatio = healthBarWidth / startHealth;
 		m_HealthBar = new SimpleStatBar(false, (int)GetX(), (int)GetY() - 2,
-			16, 4, "light-blue", "bright-blue", "white", layer);
+			healthBarWidth, 4, "light-blue", "bright-blue", "white", layer);
 		m_HealthBar->ConfigureThickness(1);
 		m_HealthBar->ConfigureForeground("white", "yellow", "red");
 		m_HealthBar->Scale(2.f);

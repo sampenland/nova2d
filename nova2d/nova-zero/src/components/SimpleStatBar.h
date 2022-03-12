@@ -25,7 +25,6 @@ namespace novazero
 			SDL_Rect* m_Foreground;
 			SDL_Rect* m_Outline;
 			SDL_Rect* m_Background;
-			float m_Scale = 1.f;
 
 			std::string m_OutlineColor;
 			std::string m_BackgroundColor;
@@ -33,9 +32,6 @@ namespace novazero
 			std::string m_ForegroundColorAll;
 			std::string m_ForegroundColorHalf;
 			std::string m_ForegroundColorFourth;
-
-			Vec2Int m_Pos;
-			Vec2Int m_Size;
 
 			int m_Value = 0;
 

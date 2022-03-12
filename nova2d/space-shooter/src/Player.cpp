@@ -157,7 +157,7 @@ namespace spaceshooter
 
 		if (m_Fuel > 0.f)
 		{
-			m_Fuel -= n2dDeltaTime / 1000.f;
+			//m_Fuel -= n2dDeltaTime / 1000.f; TODO: add back in
 		}
 		else
 		{

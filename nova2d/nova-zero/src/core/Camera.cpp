@@ -60,6 +60,26 @@ namespace novazero
 			{
 				SetX(GetX() - speed);
 			}
+
+			if (n2dIsKeyDown(SDLK_EQUALS))
+			{
+				m_Zoom += m_ZoomSpeed;
+				m_Scale += m_ZoomSpeed;
+			}
+
+			if (n2dIsKeyDown(SDLK_MINUS))
+			{
+				m_Zoom -= m_ZoomSpeed;
+				m_Scale -= m_ZoomSpeed;
+				if (m_Zoom < 0)m_Zoom = 0.00001f;
+			}
+
+			if (n2dIsKeyDown(SDLK_0))
+			{
+				m_Scale = 1.f;
+				m_Zoom = 1.f;
+				SetPosition(Vec2(0, 0));
+			}
 		}
 
 		void Camera::MoveX(float deltaX)
