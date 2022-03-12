@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 	Game game("Empty Project");
 	//game.ConfigureIcon("res/ship_01.png"); // Path to your icon (square)
 	Game::SetGamePadding(32, 64, 32, 32);
-	//game.ConfigureDebugOverlay(true);
+	game.ConfigureDebugOverlay(true);
 	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
 
 	// Background color

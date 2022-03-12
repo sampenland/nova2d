@@ -18,7 +18,8 @@
 #define MAX_JOYSTICKS 4
 
 // Max draw layers
-#define MAX_LAYERS 256
+#define MAX_LAYERS 255
+#define PERSISTENT_LAYER 254
 
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
@@ -598,14 +599,14 @@ Removes a Deleteable* to Game's Scene Manager's deleteable tracker
 #define n2dRemoveDeleteable(id) novazero::core::Game::s_SceneManager->RemoveDeleteable(id);
 
 /*
-nova2d Add Drawable (Drawable* drawable, char layer)
+nova2d Add Drawable (Drawable* drawable, unsigned char layer)
 Adds a graphic/drawable to Game's Draw Layers
 RETURNS: void
 */
 #define n2dAddDrawable(drawable, layer) novazero::core::Game::s_Renderer->s_DrawLayers->AddSprite(drawable, layer);
 
 /*
-nova2d Remove Drawable (Drawable* drawable, char layer)
+nova2d Remove Drawable (Drawable* drawable, unsigned char layer)
 Removes a graphic/drawable from Game's Draw Layers
 */
 #define n2dRemoveDrawable(drawableID, layer) novazero::core::Game::s_Renderer->s_DrawLayers->RemoveSprite(drawableID, layer)

@@ -20,11 +20,11 @@ namespace spaceshooter
 	Player::Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer)
 		: UDRLController(assetName, position, size, layer), Collider(0)
 	{
-		GetSprite()->Scale(2.f);
+		GetSprite()->SetScale(2.f);
 		ConfigureMoveOffsets(Origins::Centered, GetSprite());
 
 		m_StreakSprite = new Sprite("streaks", Vec2(0.f, 0.f), Vec2Int(48, 8), 0);
-		m_StreakSprite->Scale(2.f);
+		m_StreakSprite->SetScale(2.f);
 		m_StreakSprite->AddAnimation("streaks", 0, 16, 0, false, nullptr, true);
 		m_StreakSprite->StopAnimation();
 		m_StreakSprite->JumpToFrame(0);
@@ -32,7 +32,7 @@ namespace spaceshooter
 		m_FuelDisplay = new SimpleStatBar(false, 0, Game::s_Height - 40, Game::s_Width, 48, "white", "blue", "light-blue", 0);
 		m_FuelDisplayMain = new SimpleStatBar(false, 48, 0, Game::s_Width - FUEL_RIGHT_PADDING, 16, "black", "blue", "red", 0);
 		m_FuelTank = new Sprite("fuel-tank", Vec2(12, Game::s_Height - 40), Vec2Int(16, 16), 0);
-		m_FuelTank->Scale(2.f);
+		m_FuelTank->SetScale(2.f);
 
 		n2dAddKeyDownListener(SDLK_SPACE, Player::OnSpace, this);
 		n2dAddJoyKeyDownListener(0, SDL_CONTROLLER_BUTTON_A, Player::OnSpace, this);
@@ -46,8 +46,8 @@ namespace spaceshooter
 		char padding = 32;
 		for (int i = 0; i < m_Lives; i++)
 		{
-			Sprite* life = new Sprite("player", Vec2((float)startX + (i * padding), (float)startY), Vec2Int(16, 16), 0);
-			life->Scale(2.f);
+			Image* life = new Image("player", Vec2((float)startX + (i * padding), (float)startY), Vec2Int(16, 16), 0);
+			life->SetScale(2.f);
 			m_LifeSprites.push_back(life);
 		}
 
@@ -143,7 +143,7 @@ namespace spaceshooter
 		}
 
 		Sprite* explosion = new Sprite("explode", posIfNotPlayer, Vec2Int(16, 16), 0);
-		explosion->Scale(2.f);
+		explosion->SetScale(2.f);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 			});
@@ -226,8 +226,8 @@ namespace spaceshooter
 			return;
 		}
 
-		Sprite* s = m_LifeSprites.at(m_Lives - 1);
-		s->DestroySelf();
+		Image* life = m_LifeSprites.at(m_Lives - 1);
+		life->DestroySelf();
 		m_LifeSprites.pop_back();
 		m_Lives--;
 
@@ -256,7 +256,7 @@ namespace spaceshooter
 		SimpleBulletController* bullet = new SimpleBulletController(Vec2Int(GetSprite()->GetX(), GetSprite()->GetY() - GetSprite()->GetHeight()), Vec2Int((int)GetSprite()->GetX(), shootDir), 4);
 		bullet->Configure(14, Rect(0, 0, Game::s_Width, Game::s_Height));
 		bullet->AddSprite("player-bullet", bulletCreatePos, Vec2Int(16, 16), 1);
-		bullet->GetSprite()->Scale(2.f);
+		bullet->GetSprite()->SetScale(2.f);
 
 		if (downShoot)
 		{

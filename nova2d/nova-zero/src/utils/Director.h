@@ -33,6 +33,8 @@ namespace novazero
 			Text* m_Title = nullptr;
 			DrawRect* m_Background = nullptr;
 
+			Vec2 m_CameraPositionMemory = Vec2(0, 0);
+
 			ScrollSelect* m_ScrollTime = nullptr;
 
 			int m_Width = 1000;

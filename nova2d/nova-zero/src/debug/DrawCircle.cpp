@@ -10,7 +10,7 @@ namespace novazero
 		using namespace graphics;
 
 		DrawCircle::DrawCircle(const std::string& fillColor, const std::string& outlineColor,
-			bool filled, Vec2Int position, int radius, char layer)
+			bool filled, Vec2Int position, int radius, unsigned char layer)
 			: Drawable(Vec2Int(radius, radius)), Deleteable("circle_")
 		{
 			m_DeleteName = "circle_" + std::to_string(m_ID);

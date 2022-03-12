@@ -19,7 +19,7 @@ namespace novazero
 
 		public:
 
-			DrawableCollection(Vec2 pos, char layer);
+			DrawableCollection(Vec2 pos, unsigned char layer);
 
 			unsigned int AddChild(Drawable* child);
 			void RemoveChild(unsigned int id);

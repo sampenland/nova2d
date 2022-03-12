@@ -13,7 +13,7 @@ namespace spaceshooter
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
 
-		GetSprite()->Scale(2.f);
+		GetSprite()->SetScale(2.f);
 
 		ConfigureCollider(GetSprite(), 0, "pawn");
 		ConfigureUsingBounds(false, false);
@@ -46,11 +46,13 @@ namespace spaceshooter
 
 	void Pawn::DisplayHit(int damage)
 	{
-		Vec2 pos = GetPosition();
-		int width = GetWidth();
+		Vec2 pos = GetSprite()->GetPosition();
+		int width = GetSprite()->GetWidth();
 
-		HitDisplay* hitDisplay = new HitDisplay("+ " + std::to_string(damage), "font4", "green", Rect(pos.x - width / 2, GetY() - 16.f, 24.f, 16.f),
+		HitDisplay* hitDisplay = new HitDisplay("+ " + tostring(damage), "font4", "green", 
+			Rect(pos.x + width / 2, pos.y - 16.f, 24.f, 16.f),
 			Vec2(pos.x, pos.y - 128), 4000, 0);
+		LOGS(pos.y);
 	}
 
 	void Pawn::Hurt(int damage)
@@ -71,7 +73,7 @@ namespace spaceshooter
 	void Pawn::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", GetPosition(), Vec2Int(16, 16), 0);
-		explosion->Scale(2.f);
+		explosion->SetScale(2.f);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 		});

@@ -20,6 +20,7 @@ namespace novazero
 			Positional* m_FollowTarget = nullptr;
 
 			bool m_FreeMove = false;
+			void FreeMove();
 
 		public:
 
@@ -33,7 +34,6 @@ namespace novazero
 			void Update();
 
 			void EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
-			void FreeMove();
 
 			float GetScale() const { return m_Scale; }
 			void SetScale(float scale) { m_Scale = scale; }

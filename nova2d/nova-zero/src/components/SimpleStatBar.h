@@ -44,7 +44,7 @@ namespace novazero
 		public:
 
 			SimpleStatBar(bool vertical, int x, int y, int w, int h, const std::string& colorOutline,
-				const std::string& colorBackground, const std::string& colorForeground, char layer);
+				const std::string& colorBackground, const std::string& colorForeground, unsigned char layer);
 
 			void ConfigureThickness(int outlineThickness);
 			void ConfigureNonForeground(int outlineThickness, const std::string& colorOutline, const std::string& colorBackground);

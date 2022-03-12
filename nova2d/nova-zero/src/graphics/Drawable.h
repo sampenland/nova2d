@@ -19,6 +19,7 @@ namespace novazero
 			bool m_Visible = true;
 			Vec2Int m_Size;
 			float m_Scale = 1.f;
+			bool m_Fixed = false; // WILL NOT MOVE WITH CAMERA if fixed
 
 		protected:
 			
@@ -39,6 +40,9 @@ namespace novazero
 			void ClearDrawableCollection(unsigned int id);
 
 			virtual void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) = 0;
+
+			void SetFixed(bool f) { m_Fixed = f; }
+			bool IsFixed()const { return m_Fixed; }
 
 			void SetDrawScale(float scale) { m_Scale = scale; }
 			float GetDrawScale() const { return m_Scale; }

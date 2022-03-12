@@ -10,7 +10,7 @@ namespace novazero
 		using namespace utils;
 		using namespace core;
 
-		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, char layer,
+		UDRLController::UDRLController(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
 			char controllerID)
 			: SimpleController(assetName, position, size, layer)
 		{

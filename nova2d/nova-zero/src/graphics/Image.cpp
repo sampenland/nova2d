@@ -7,7 +7,7 @@ namespace novazero
 	{
 		using namespace core;
 
-		Image::Image(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		Image::Image(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: Deleteable("image_"), Drawable(size)
 		{
 			m_ID = n2dGameGetID();
@@ -53,15 +53,23 @@ namespace novazero
 			m_SrcRect.x = 0;
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)(m_Position.x + oX + OffsetX());
-			m_DestRect.y = (int)(m_Position.y + oY + OffsetY());
+			if (IsFixed())
+			{
+				m_DestRect.x = (int)(GetX() + OffsetX());
+				m_DestRect.y = (int)(GetY() + OffsetY());
+			}
+			else
+			{
+				m_DestRect.x = (int)(oX + OffsetX());
+				m_DestRect.y = (int)(oY + OffsetY());
+			}
 
 			int w = m_DestRect.w;
 			int h = m_DestRect.h;
 
 			m_DestRect.w = (int)(w * scale);
-			m_DestRect.h = (int)(h * scale);
-
+			m_DestRect.h = (int)(h * scale); 
+			
 			SDL_RenderCopyEx(Game::s_Renderer->GetSDLRenderer(), m_ImageTexture, &m_SrcRect, &m_DestRect, m_Angle, NULL, m_Flip);
 
 			m_DestRect.w = w;

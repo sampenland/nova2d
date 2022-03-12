@@ -7,7 +7,7 @@ namespace novazero
 
 	namespace graphics
 	{
-		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer,
+		Text::Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, unsigned char layer,
 			bool autoAddDrawable) : Deleteable("text_"), Drawable(Vec2Int((int)drawRect.w, (int)drawRect.h))
 		{
 			m_ID = n2dGameGetID();
@@ -39,7 +39,7 @@ namespace novazero
 
 		}
 
-		void Text::ManualAddDrawable(char layer)
+		void Text::ManualAddDrawable(unsigned char layer)
 		{
 			m_Layer = layer;
 			n2dAddDrawable(this, m_Layer);
@@ -104,8 +104,16 @@ namespace novazero
 			if (!m_Visible) return;
 			if (!m_Constructed) return;
 
-			m_DrawRect.x = oX + OffsetX();
-			m_DrawRect.y = oY + OffsetY();
+			if (IsFixed())
+			{
+				m_DrawRect.x = GetX() + OffsetX();
+				m_DrawRect.y = GetY() + OffsetY();
+			}
+			else
+			{
+				m_DrawRect.x = oX + OffsetX();
+				m_DrawRect.y = oY + OffsetY();
+			}	
 
 			SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Texture, NULL, &m_DrawRect);
 		}

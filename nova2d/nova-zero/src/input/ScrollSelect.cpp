@@ -29,6 +29,7 @@ namespace novazero
 
 			m_Label = new Text("narrow", labelText, textColor,
 				Rect(background.x, background.y - height, (float)labelWidth, height), layer);
+			m_Label->SetFixed(true);
 
 			float percent = *m_Ref / m_Max;
 			float scrollSize = (float)m_Width / 20;
@@ -44,6 +45,9 @@ namespace novazero
 			m_ScrollRect = new DrawRect(scrollColor, scrollColor, true,
 				Rect(scrollPosX, background.y, scrollSize, background.h), 2, layer);
 
+			m_Background->SetFixed(true);
+			m_ScrollRect->SetFixed(true);
+
 			const float labelWidths = 60.f;
 			const float labelHeights = 20.f;
 
@@ -58,6 +62,11 @@ namespace novazero
 			m_TextMax->SetX(background.x + m_Width - labelWidths);
 
 			m_TextVal->UpdateText(tostring(*m_Ref), Vec2Int((int)scrollPosX - 10, (int)m_Background->GetY() + 4));
+
+			m_TextMin->SetFixed(true);
+			m_TextVal->SetFixed(true);
+			m_TextMax->SetFixed(true);
+			m_TextVal->SetFixed(true);
 
 			if (isPersistent)
 			{

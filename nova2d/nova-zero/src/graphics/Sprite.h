@@ -67,11 +67,11 @@ namespace novazero
 
 		public:
 
-			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
+			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			void Update();
 			
-			void Scale(float scale);
+			void SetScale(float scale);
 			float GetScale() { return GetDrawScale(); }
 
 			int GetWidth() const { return m_DestRect.w; }
@@ -87,7 +87,7 @@ namespace novazero
 
 			void DestroySelf() override;
 			
-			void ChangeLayer(char layer) { m_Layer = layer; }
+			void ChangeLayer(unsigned char layer) { m_Layer = layer; }
 
 			bool operator==(const Sprite& other);
 

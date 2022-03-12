@@ -4,6 +4,7 @@
 #include "maths/Vec2Int.h"
 #include "controllers/SimpleBulletController.h"
 #include "physics/Collider.h"
+#include "graphics/Image.h"
 
 namespace spaceshooter
 {
@@ -28,7 +29,7 @@ namespace spaceshooter
 		Timer* m_ShootTimer = nullptr;
 
 		int m_Lives = 4;
-		std::vector<Sprite*> m_LifeSprites;
+		std::vector<Image*> m_LifeSprites;
 		Sprite* m_StreakSprite;
 		
 		float m_Fuel = 100.f;

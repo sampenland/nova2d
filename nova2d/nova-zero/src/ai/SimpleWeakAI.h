@@ -103,7 +103,7 @@ namespace novazero
 				Positional::GetSprite()->SetVisible(isVisible);
 			}
 
-			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
+			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			void AddPatrolPointWithFunction(Vec2* point, std::function<void()> func);
 			void AddPatrolPointWithFunction(Vec2 point, std::function<void()> func);

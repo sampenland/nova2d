@@ -43,7 +43,7 @@ namespace spaceshooter
 	void Kamikaze::SmallExplosion()
 	{
 		Sprite* explosion = new Sprite("explode", GetPosition(), Vec2Int(16, 16), 0);
-		explosion->Scale(2.f);
+		explosion->SetScale(2.f);
 		auto animEnd = new auto ([](Sprite* sprite) {
 			sprite->DestroySelf();
 		});

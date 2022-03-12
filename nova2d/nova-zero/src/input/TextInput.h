@@ -29,7 +29,7 @@ namespace novazero
 
 			TextInput(const std::string& fontName, const std::string& placeholderText, const std::string& textColorName, 
 				const std::string& backgroundColorName, Rect drawRect,
-				char layer);
+				unsigned char layer);
 
 			void Configure(bool startSelected, int maxChars);
 			std::string GetText() { return m_DisplayText->GetText(); }

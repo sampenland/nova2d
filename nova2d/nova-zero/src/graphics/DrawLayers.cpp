@@ -14,7 +14,7 @@ namespace novazero
 		{
 			m_MainCamera = new Camera();
 
-			for (int i = 0; i < MAX_LAYERS; i++)
+			for (int i = 0; i < MAX_LAYERS + 1; i++)
 			{
 				std::vector<Drawable*> layer;
 				m_Layers[i] = layer;
@@ -27,7 +27,7 @@ namespace novazero
 
 			if (sprite)
 			{
-				if (layer < MAX_LAYERS)
+				if (layer <= MAX_LAYERS)
 				{
 					if (!HasSpriteOnLayer(sprite, layer)) 
 					{
@@ -48,7 +48,7 @@ namespace novazero
 		{
 			if (sprite)
 			{
-				if (layer < MAX_LAYERS)
+				if (layer <= MAX_LAYERS)
 				{
 					return m_Layers[layer].end() != std::find(m_Layers[layer].begin(), m_Layers[layer].end(), sprite);
 				}
@@ -60,6 +60,8 @@ namespace novazero
 		// Does not remove sprites from 255 layer
 		void DrawLayers::RemoveSprite(unsigned int id, BYTE layer)
 		{
+			if (layer == PERSISTENT_LAYER) return;
+
 			if (layer < 0 || layer > MAX_LAYERS - 1) return;
 
 			int idx = -1;
@@ -84,9 +86,10 @@ namespace novazero
 		{
 			for (int layer = 0; layer < MAX_LAYERS - 1; layer++)
 			{
+				if (layer == PERSISTENT_LAYER) continue;
 				m_Layers[layer].clear();
 			}
-			s_TotalInstances = (int)m_Layers[MAX_LAYERS - 1].size();
+			s_TotalInstances = (int)m_Layers[PERSISTENT_LAYER].size();
 		}
 
 		void DrawLayers::DrawLayer(const BYTE layer) const
@@ -111,7 +114,7 @@ namespace novazero
 		void DrawLayers::DrawAllLayers() const
 		{
 			// Reverse draw
-			for (int i = 0; i < MAX_LAYERS; i++)
+			for (int i = 0; i <= MAX_LAYERS; i++)
 			{
 				DrawLayer(i);
 			}

@@ -19,7 +19,7 @@ namespace novazero
 		private:
 
 			Camera* m_MainCamera = nullptr;
-			std::vector<Drawable*> m_Layers[MAX_LAYERS];
+			std::vector<Drawable*> m_Layers[MAX_LAYERS + 1];
 
 		public:
 

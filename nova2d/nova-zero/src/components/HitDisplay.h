@@ -11,11 +11,12 @@ namespace novazero
 		using namespace graphics;
 
 		class HitDisplay : 
-			public Deleteable,
-			public Drawable
+			public Deleteable
 		{
 
 		private:
+
+			unsigned int m_ID = 0;
 
 			Text* m_Display = nullptr;
 			unsigned int m_YTweenID;
@@ -25,9 +26,8 @@ namespace novazero
 		public:
 
 			HitDisplay(const std::string& startText, const std::string& fontName, const std::string& colorName,
-				Rect drawRect, Vec2 endPos, float startToEndTimeMS, char layer);
+				Rect drawRect, Vec2 endPos, float startToEndTimeMS, unsigned char layer);
 
-			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			void DestroySelf();
 
 		};

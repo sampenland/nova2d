@@ -8,7 +8,7 @@ namespace novazero
 	{
 		using namespace core;
 
-		DrawableCollection::DrawableCollection(Vec2 pos, char layer) : Deleteable("drawCollection_"), Drawable(Vec2Int(0,0))
+		DrawableCollection::DrawableCollection(Vec2 pos, unsigned char layer) : Deleteable("drawCollection_"), Drawable(Vec2Int(0,0))
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "drawCollection_" + std::to_string(m_ID);

@@ -29,7 +29,7 @@ namespace novazero
 
 		public:
 
-			SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, char layer);
+			SimpleController(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			void SetMoveSpeed(float mSpeed);
 			

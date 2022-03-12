@@ -27,7 +27,7 @@ namespace novazero
 		public:
 
 			DrawCircle(const std::string& filleColor, const std::string& outlineColor, 
-				bool filled, Vec2Int position, int radius, char layer);
+				bool filled, Vec2Int position, int radius, unsigned char layer);
 
 			int GetDrawCircleRadius() { return m_Radius; }
 			int* GetDrawCircleRadiusRef() { return &m_Radius; }

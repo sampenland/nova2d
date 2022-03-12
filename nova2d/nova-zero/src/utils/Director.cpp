@@ -18,7 +18,7 @@ namespace novazero
 		Director::Director(Vec2Int position) : Drawable(Vec2Int(0,0)), Deleteable("director")
 		{
 			m_ID = n2dGameGetID();
-			m_Layer = 255;
+			m_Layer = PERSISTENT_LAYER;
 
 			n2dAddDrawable(this, m_Layer);
 
@@ -30,14 +30,20 @@ namespace novazero
 			int x = position.x;
 			int y = position.y + 10;
 
-			m_Background = new DrawRect("a20-blue", "white", true,
-				Rect(x, y, m_Width, m_Height), 2, m_Layer);
+			SetFixed(true);
 
+			m_Background = new DrawRect("a20-blue", "white", true,
+				Rect(x, y, m_Width, m_Height), 2, PERSISTENT_LAYER);
+			
 			int padding = 10;
- 			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 100.f, 30.f), m_Layer);
+ 			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 100.f, 30.f), PERSISTENT_LAYER);
 
 			m_ScrollTime = new ScrollSelect("Time Scale", 60, "white", (float)m_Width - m_Title->GetWidth(), 20.f, 0.01f, 4.f, &Game::s_TimeScaleMemory,
-				Rect((float)x + padding, (float)y + padding + 15.f, (float)m_Width + padding, 30.f), "light-blue", "white", m_Layer, true);
+				Rect((float)x + padding, (float)y + padding + 15.f, (float)m_Width + padding, 30.f), "light-blue", "white", PERSISTENT_LAYER, true);
+
+			m_Background->SetFixed(true);
+			m_Title->SetFixed(true);
+			m_ScrollTime->SetFixed(true);
 
 			m_ScrollTime->Select(true, "bright-blue", "white");
 			m_ScrollTime->SetValueColor("purple");
@@ -53,6 +59,12 @@ namespace novazero
 		void Director::Update()
 		{
 			if (m_Destroyed) return;
+
+			if (!m_Visible)
+			{
+				m_CameraPositionMemory = CAMERA->GetPosition();
+			}
+
 			if (!IsEnabled()) return;
 
 			if (n2dIsKeyUp(SDLK_UP) && 
@@ -222,6 +234,7 @@ namespace novazero
 		void Director::Toggle()
 		{
 			m_Visible = !m_Visible;
+
 			SetEnabled(m_Visible);
 
 			m_Background->SetVisible(m_Visible);
@@ -249,10 +262,27 @@ namespace novazero
 
 			n2dPauseGame(m_Visible);
 
+			CAMERA->EnableFreeWASDMove(m_Visible);
+			if (!m_Visible)
+			{
+				CAMERA->SetPosition(m_CameraPositionMemory);
+			}			
 		}
 
 		void Director::ClearStacksAndReset(bool left, bool right)
 		{
+			/*int x = (int)GetX();
+			int y = (int)GetY();
+			int padding = 10;
+			
+			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 100.f, 30.f), m_Layer);
+			m_Title->SetFixed(true);
+			m_Title->SetVisible(false);
+
+			m_Background = new DrawRect("a20-blue", "white", true,
+				Rect(x, y, m_Width, m_Height), 2, m_Layer);
+			m_Background->SetFixed(true);
+			m_Background->SetVisible(false);*/
 
 			for (size_t i = 0; i < s_Pages.size(); i++)
 			{

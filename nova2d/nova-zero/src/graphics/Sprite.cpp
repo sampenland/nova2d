@@ -13,7 +13,7 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, char layer)
+		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect()), Drawable(size)
 		{
 			SetPosition(position);
@@ -184,7 +184,7 @@ namespace novazero
 
 		}
 
-		void Sprite::Scale(float scale)
+		void Sprite::SetScale(float scale)
 		{
 			if (GetDrawable())
 				GetDrawable()->SetDrawScale(scale);
@@ -209,8 +209,16 @@ namespace novazero
 
 			m_SrcRect.w = m_FrameSize.x;
 
-			m_DestRect.x = (int)(oX + OffsetX());
-			m_DestRect.y = (int)(oY + OffsetY());
+			if (IsFixed())
+			{
+				m_DestRect.x = (int)(GetX() + OffsetX());
+				m_DestRect.y = (int)(GetY() + OffsetY());
+			}
+			else
+			{
+				m_DestRect.x = (int)(oX + OffsetX());
+				m_DestRect.y = (int)(oY + OffsetY());
+			}
 
 			int w = m_DestRect.w;
 			int h = m_DestRect.h;

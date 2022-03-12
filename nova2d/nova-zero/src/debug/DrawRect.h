@@ -34,7 +34,7 @@ namespace novazero
 		public:
 
 			DrawRect(const std::string& fillColor, const std::string& outlineColor,
-				bool filled, Rect rect, int outlineThickness, char layer);
+				bool filled, Rect rect, int outlineThickness, unsigned char layer);
 
 			Vec2Int GetDrawRectSize() { return Vec2Int(m_Fill->w, m_Fill->h); }
 			void SetDrawRectSize(Rect* rect) 
