@@ -126,7 +126,6 @@ namespace novazero
 
 		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
 		bool Camera::IsFreeMoveEnabled() const { return m_FreeMove; }
->>>>>>> Stashed changes
 
 		float Camera::GetScale() const { return m_Scale; }
 		void Camera::SetScale(float scale) { m_Scale = scale; m_Zoom = scale; }
@@ -138,8 +137,6 @@ namespace novazero
 			m_Scale = zoomLevel;
 		}
 
-<<<<<<< Updated upstream
-=======
 		// -------------------------
 		// Positioning
 		// -------------------------
@@ -185,7 +182,6 @@ namespace novazero
 		}
 		//-----------------------------------------------
 
->>>>>>> Stashed changes
 		void Camera::DestroySelf()
 		{
 			n2dRemoveUpdater(m_CleanID);
