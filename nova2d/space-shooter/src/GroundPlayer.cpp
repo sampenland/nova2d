@@ -9,7 +9,7 @@ namespace spaceshooter
 		SetPosition(position);
 		GetSprite()->SetScale(2.f);
 
-		ConfigureMove(10.f, TweenTypes::EaseInCubic, 100.f, 100.f);
+		ConfigureMove(5.f, TweenTypes::EaseInCubic, 100.f, 100.f);
 
 		Deleteable::m_CleanUpdaters.push_back(n2dAddUpdater(GroundPlayer::Update, this));
 

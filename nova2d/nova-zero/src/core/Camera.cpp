@@ -54,17 +54,19 @@ namespace novazero
 		void Camera::EnforceBounds(Vec2 setPos)
 		{
 			Rect bounds = GetMoveBounds();
+			bounds.x = bounds.x - Game::s_Width / 2;
 
 			int newX = -1 * (setPos.x - (Game::s_Width / 2));
 			int newY = -1 * (setPos.y - (Game::s_Height / 2));
 
 			newX += m_FollowDistance;
 			newY -= m_FollowDistance;
+			
+			LOG(LVL_I, "x:" + tostring(newX) + ", " + tostring(bounds.x));
 
-			setPos.x = newX;
-			setPos.y = newY;
+			if (newX < bounds.x) newX = bounds.x;
 
-			SetPosition(setPos);
+			SetPositionInt(Vec2Int(newX, newY));
 
 		}
 
@@ -196,7 +198,8 @@ namespace novazero
 
 		void Camera::SetPositionInt(Vec2Int position)
 		{
-			m_Position = position;
+			SetX(position.x);
+			SetY(position.y);
 		}
 		//-----------------------------------------------
 

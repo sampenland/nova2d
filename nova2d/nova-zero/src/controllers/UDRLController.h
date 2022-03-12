@@ -45,6 +45,9 @@ namespace novazero
 			void MoveRight();
 			void MoveLeft();
 
+			void SetX(float x);
+			void SetY(float y);
+
 			void DestroySelf();
 
 		};

@@ -92,12 +92,12 @@ namespace novazero
 			{
 				if (IsWithinMoveBounds((int)newX, (int)pos.y, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					GetSprite()->SetX(newX);
+					SetX(newX);
 				}
 
 				if (IsWithinMoveBounds((int)pos.x, (int)newY, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					GetSprite()->SetY(newY);
+					SetY(newY);
 				}
 			}
 
@@ -137,6 +137,18 @@ namespace novazero
 				n2dTweenEnable(m_AccelerationTweenY, true, false);
 			}
 				
+		}
+
+		void UDRLController::SetX(float x)
+		{
+			Positional::SetX(x);
+			GetSprite()->SetX(x);
+		}
+
+		void UDRLController::SetY(float y)
+		{
+			Positional::SetY(y);
+			GetSprite()->SetY(y);
 		}
 
 		void UDRLController::AccelerateX(bool left)
