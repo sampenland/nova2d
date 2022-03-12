@@ -5,11 +5,11 @@ namespace novazero
 {
 	namespace core
 	{
-		Camera::Camera(Vec2 startPos, Rect bounds)
+		Camera::Camera(Rect bounds)
 		{
 			m_ID = n2dGameGetID();
 
-			SetPosition(startPos);
+			SetPosition(Vec2(0, 0));
 
 			if (bounds.x == 0 && bounds.y == 0 && bounds.w == 0 && bounds.h == 0)
 			{
@@ -30,6 +30,8 @@ namespace novazero
 		{
 			if (m_FreeMove)
 				FreeMove();
+<<<<<<< Updated upstream
+=======
 
 			if(!Game::s_Director->IsEnabled())
 				FollowTarget();
@@ -43,29 +45,21 @@ namespace novazero
 			Vec2 targetPos = m_FollowTarget->GetPosition();
 			Vec2 camSetPos = Vec2(-(targetPos.x - Game::s_Width / 2), -(targetPos.y - Game::s_Height / 2));
 
-			// Keep within camera bounds (or screen space)
-
+			camSetPos.x = targetPos.x;// -m_FollowDistance;
+			camSetPos.y = targetPos.y;// -m_FollowDistance;
 
 			// Position camera
-			SetPosition(camSetPos);
-			EnforceBounds();
+			EnforceBounds(camSetPos);
 
 		}
 
-		void Camera::EnforceBounds()
+		void Camera::EnforceBounds(Vec2 setPos)
 		{
 			Rect bounds = GetMoveBounds();
-			Vec2 pos = GetPosition();
 
-			if (-pos.x < bounds.x)
-			{
-				float newX = pos.x - (Game::s_Width/2*CAMERA_ZOOM) - bounds.x;// +(pos.x * 1 / CAMERA_ZOOM);
-				//SetX(newX);
-			}
-			//if (-pos.x > bounds.x + bounds.w) SetX(pos.x > bounds.x + bounds.w);
-
-			//if (pos.y < bounds.y) SetY(bounds.y);
-			//if (pos.y > bounds.y + bounds.h) SetY(pos.y > bounds.y + bounds.h);
+			//if (setPos.x - (CAMERA_ZOOM * Game::s_Width/2) < bounds.x) { SetX(bounds.x); }
+			//if (setPos.y < bounds.y) { SetY(bounds.y); }
+>>>>>>> Stashed changes
 		}
 
 		void Camera::FreeMove()
@@ -79,22 +73,22 @@ namespace novazero
 
 			if (n2dIsKeyDown(SDLK_w))
 			{
-				SetY(GetY() + speed);
+				m_Position.y += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
-				SetY(GetY() - speed);
+				m_Position.y -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
-				SetX(GetX() + speed);
+				m_Position.x += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
-				SetX(GetX() - speed);
+				m_Position.x -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_EQUALS))
@@ -118,6 +112,13 @@ namespace novazero
 			}
 		}
 
+<<<<<<< Updated upstream
+		void Camera::MoveX(float deltaX)
+		{
+			if (!IsWithinMoveBounds(GetX() + deltaX, GetY())) return;
+			SetX(GetX() + deltaX);
+		}
+=======
 		void Camera::SetFollowTarget(Positional* target, float zoomLevel, float distanceBeforeFollow, 
 			TweenTypes followType) 
 		{
@@ -127,31 +128,53 @@ namespace novazero
 			SetFollowType(followType);
 		}
 
-		void Camera::MoveX(float deltaX)
+		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
+		bool Camera::IsFreeMoveEnabled() const { return m_FreeMove; }
+>>>>>>> Stashed changes
+
+		float Camera::GetScale() const { return m_Scale; }
+		void Camera::SetScale(float scale) { m_Scale = scale; m_Zoom = scale; }
+
+		float Camera::GetZoom() const { return m_Zoom; }
+		void Camera::SetZoom(float zoomLevel)
 		{
-			if (!IsWithinMoveBounds(GetX() + deltaX, GetY())) return;
-			SetX(GetX() + deltaX);
+			m_Zoom = zoomLevel;
+			m_Scale = zoomLevel;
 		}
 
-		void Camera::MoveY(float deltaY)
-		{
-			if (!IsWithinMoveBounds(GetX(), GetY() + deltaY)) return;
-			SetY(GetY() + deltaY);
-		}
-
+<<<<<<< Updated upstream
+=======
 		// -------------------------
 		// Positioning
-		Vec2Int Camera::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }
-		Vec2 Camera::GetPosition() const { return Vec2((float)m_Position.x, (float)m_Position.y); }
+		// -------------------------
+		Vec2Int Camera::GetPositionInt() const 
+		{ 
+			return Vec2Int((int)GetX(), (int)GetY());
+		}
+		
+		Vec2 Camera::GetPosition() const 
+		{ 
+			return Vec2(GetX(), GetY()); 
+		}
 
 		void Camera::SetX(float x)
 		{
-			m_Position.x = (int)x;
+			m_Position.x = (int)x - (m_Zoom * Game::s_Width / 2);
 		}
 
 		void Camera::SetY(float y)
 		{
-			m_Position.y = (int)y;
+			m_Position.y = (int)y - (m_Zoom * Game::s_Height / 2);
+		}
+
+		float Camera::GetX() const 
+		{ 
+			return (float)m_Position.x; - (m_Zoom * Game::s_Width / 2);
+		}
+
+		float Camera::GetY() const 
+		{ 
+			return (float)m_Position.y + (m_Zoom * Game::s_Height / 2);
 		}
 
 		void Camera::SetPosition(Vec2 position)
@@ -165,6 +188,8 @@ namespace novazero
 			m_Position = position;
 		}
 		//-----------------------------------------------
+
+>>>>>>> Stashed changes
 		void Camera::DestroySelf()
 		{
 			n2dRemoveUpdater(m_CleanID);
