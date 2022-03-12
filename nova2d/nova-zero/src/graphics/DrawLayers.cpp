@@ -107,7 +107,14 @@ namespace novazero
 				x += camPos.x;
 				y += camPos.y;
 
-				m_Layers[layer][i]->Draw(x, y, CAMERA_SCALE);
+				float scale = CAMERA_SCALE;
+				
+				if (m_Layers[layer][i]->IsNotScaleable())
+				{
+					scale = 1.f;
+				}
+
+				m_Layers[layer][i]->Draw(x, y, scale);
 			}
 		}
 

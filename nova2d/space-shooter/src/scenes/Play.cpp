@@ -20,12 +20,7 @@ namespace spaceshooter
 		n2dPauseKeySet(SDLK_r);
 		n2dScoreSet(0);
 
-		//---
-		//  temp debugging camera
-		n2dEnableCameraFreeMove(true);
-		DrawRect* r = new DrawRect("transparent", "white", false,
-			Rect(0, 0, Game::s_Width, Game::s_Height), 2, 0);
-		//-----
+		n2dSetBackgroundColor("purple");
 
 		Player::s_Player1Streak = 0;
 		Player::s_Player1MaxStreak = 0;

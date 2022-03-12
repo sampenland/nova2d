@@ -41,9 +41,9 @@ namespace novazero
 			m_ScrollTime = new ScrollSelect("Time Scale", 60, "white", (float)m_Width - m_Title->GetWidth(), 20.f, 0.01f, 4.f, &Game::s_TimeScaleMemory,
 				Rect((float)x + padding, (float)y + padding + 15.f, (float)m_Width + padding, 30.f), "light-blue", "white", PERSISTENT_LAYER, true);
 
-			m_Background->SetFixed(true);
-			m_Title->SetFixed(true);
-			m_ScrollTime->SetFixed(true);
+			m_Background->SetFixedAndNonScale(true);
+			m_Title->SetFixedAndNonScale(true);
+			m_ScrollTime->SetFixedAndNonScale(true);
 
 			m_ScrollTime->Select(true, "bright-blue", "white");
 			m_ScrollTime->SetValueColor("purple");

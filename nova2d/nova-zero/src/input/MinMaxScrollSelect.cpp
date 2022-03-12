@@ -77,12 +77,12 @@ namespace novazero
 			m_TextMinVal->UpdateText(tostring(*m_MinRef), Vec2Int((int)minScrollPosX - 10, (int)m_Background->GetY() + 4));
 			m_TextMaxVal->UpdateText(tostring(*m_MaxRef), Vec2Int((int)maxScrollPosX - 10, (int)m_Background->GetY() + 4));
 
-			m_Label->SetFixed(true);
-			m_Background->SetFixed(true);
-			m_MinScrollRect->SetFixed(true);
-			m_MaxScrollRect->SetFixed(true);
-			m_TextMinVal->SetFixed(true);
-			m_TextMaxVal->SetFixed(true);
+			m_Label->SetFixedAndNonScale(true);
+			m_Background->SetFixedAndNonScale(true);
+			m_MinScrollRect->SetFixedAndNonScale(true);
+			m_MaxScrollRect->SetFixedAndNonScale(true);
+			m_TextMinVal->SetFixedAndNonScale(true);
+			m_TextMaxVal->SetFixedAndNonScale(true);
 
 			if (isPersistent)
 			{

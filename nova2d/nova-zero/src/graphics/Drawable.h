@@ -19,7 +19,8 @@ namespace novazero
 			bool m_Visible = true;
 			Vec2Int m_Size;
 			float m_Scale = 1.f;
-			bool m_Fixed = false; // WILL NOT MOVE WITH CAMERA if fixed
+			bool m_Fixed = false; //     WILL NOT MOVE WITH CAMERA if fixed
+			bool m_NonScale = false; //  WILL NOT SCALE WITH CAMERA if non-scale
 
 		protected:
 			
@@ -41,8 +42,17 @@ namespace novazero
 
 			virtual void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) = 0;
 
+			void SetFixedAndNonScale(bool val)
+			{
+				m_Fixed = val;
+				m_NonScale = val;
+			}
+
 			void SetFixed(bool f) { m_Fixed = f; }
 			bool IsFixed()const { return m_Fixed; }
+
+			void SetNonScale(bool doesNotScale) { m_NonScale = doesNotScale; }
+			bool IsNotScaleable()const { return m_NonScale; }
 
 			void SetDrawScale(float scale) { m_Scale = scale; }
 			float GetDrawScale() const { return m_Scale; }
