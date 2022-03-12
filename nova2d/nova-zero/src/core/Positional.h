@@ -28,6 +28,7 @@ namespace novazero
 		protected:
 
 			Vec2Int m_Position;
+			Vec2Int m_Offset = Vec2Int(0, 0);
 			int m_Angle = 0;
 
 		public:
@@ -54,6 +55,12 @@ namespace novazero
 			void SetX(float x);
 			void SetY(float y);
 			Vec2 GetCenter();
+
+			int OffsetX() { return m_Offset.x; }
+			int OffsetY() { return m_Offset.y; }
+
+			void SetOffsetX(int offsetX) { m_Offset.x = offsetX; }
+			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
 
 			void SetPosition(Vec2 position);
 			void SetPositionInt(Vec2Int position);

@@ -24,4 +24,11 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="res\fonts\narrow.ttf" />
+    <Font Include="res\fonts\pixel1.ttf" />
+    <Font Include="res\fonts\pixel2.ttf" />
+    <Font Include="res\fonts\pixel3.ttf" />
+    <Font Include="res\fonts\pixel4.ttf" />
+  </ItemGroup>
 </Project>

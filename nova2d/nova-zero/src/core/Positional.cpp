@@ -70,8 +70,11 @@ namespace novazero
 
 			float x = (xR * Game::s_Width) - (m_Drawable->GetWidth() / 2);
 			float y = (yR * Game::s_Height) - (m_Drawable->GetHeight() / 2);
-
-			SetPosition(Vec2(x, y));
+						
+			SetOffsetX(x);
+			SetOffsetY(y);
+			
+			//SetPosition(Vec2(x, y));
 		}
 	}
 }

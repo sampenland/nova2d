@@ -34,7 +34,7 @@ namespace novazero
 
 			Text(std::string fontName, std::string text, std::string colorName, Rect drawRect, char layer, bool autoAddDrawable = true);
 
-			void Construct(std::string newText, Vec2Int newPos = Vec2Int(-1, -1));
+			void Construct(std::string newText);
 			void UpdateText(const std::string& newText, Vec2Int newPosition = Vec2Int(-1,-1));
 			void UpdateTextColor(const std::string& colorName) { m_TextColor = colorName; }
 			void ManualAddDrawable(char layer);
@@ -43,8 +43,6 @@ namespace novazero
 
 			void SetVisible(bool v) { m_Visible = v; }
 			void SetColor(const std::string& colorName);
-
-			void Update();
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			

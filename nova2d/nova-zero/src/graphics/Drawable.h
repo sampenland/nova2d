@@ -18,7 +18,6 @@ namespace novazero
 			DrawableCollection* m_DrawableCollection = nullptr;
 			bool m_Visible = true;
 			Vec2Int m_Size;
-			Vec2Int m_Offset = Vec2Int(0, 0);
 			float m_Scale = 1.f;
 
 		protected:
@@ -68,12 +67,6 @@ namespace novazero
 
 			void OriginCenter();
 			void OriginTopLeft();
-
-			int OffsetX() { return m_Offset.x; }
-			int OffsetY() { return m_Offset.y; }
-
-			void SetOffsetX(int offsetX) { m_Offset.x = offsetX; }
-			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
 
 			void SetVisible(bool isVisible) { m_Visible = isVisible; }
 			bool IsVisible() const { return m_Visible; }
