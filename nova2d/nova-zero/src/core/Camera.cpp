@@ -30,8 +30,6 @@ namespace novazero
 		{
 			if (m_FreeMove)
 				FreeMove();
-<<<<<<< Updated upstream
-=======
 
 			if(!Game::s_Director->IsEnabled())
 				FollowTarget();
@@ -59,7 +57,6 @@ namespace novazero
 
 			//if (setPos.x - (CAMERA_ZOOM * Game::s_Width/2) < bounds.x) { SetX(bounds.x); }
 			//if (setPos.y < bounds.y) { SetY(bounds.y); }
->>>>>>> Stashed changes
 		}
 
 		void Camera::FreeMove()
@@ -112,13 +109,12 @@ namespace novazero
 			}
 		}
 
-<<<<<<< Updated upstream
 		void Camera::MoveX(float deltaX)
 		{
 			if (!IsWithinMoveBounds(GetX() + deltaX, GetY())) return;
 			SetX(GetX() + deltaX);
 		}
-=======
+
 		void Camera::SetFollowTarget(Positional* target, float zoomLevel, float distanceBeforeFollow, 
 			TweenTypes followType) 
 		{

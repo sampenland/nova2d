@@ -51,12 +51,9 @@ namespace novazero
 			}
 
 			void Update();
-<<<<<<< Updated upstream
-=======
 			void FollowTarget();
 
 			void EnforceBounds(Vec2 setPos);
->>>>>>> Stashed changes
 
 			void EnableFreeWASDMove(bool enabled);
 			bool IsFreeMoveEnabled() const;
@@ -67,8 +64,6 @@ namespace novazero
 			float GetZoom() const;
 			void SetZoom(float zoomLevel);
 
-<<<<<<< Updated upstream
-=======
 			Vec2 GetPosition() const;
 			Vec2Int GetPositionInt() const;
 
@@ -87,7 +82,6 @@ namespace novazero
 			void SetPosition(Vec2 position);
 			void SetPositionInt(Vec2Int position);
 
->>>>>>> Stashed changes
 			void DestroySelf() override;
 
 		};
