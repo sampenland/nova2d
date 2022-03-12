@@ -20,8 +20,10 @@ namespace spaceshooter
 		n2dPauseKeySet(SDLK_r);
 		n2dScoreSet(0);
 
-		/*n2dZoomCamera(1.25f);*/
-		n2dEnableCameraFreeMove(true);
+		n2dZoomCamera(1.25f);
+
+		DrawRect* r = new DrawRect("transparent", "white", false,
+			Rect(0.f,0.f, Game::GetGameBounds().w * CAMERA_ZOOM, Game::GetGameBounds().h * CAMERA_ZOOM), 2, 0);
 
 		Player::s_Player1Streak = 0;
 		Player::s_Player1MaxStreak = 0;

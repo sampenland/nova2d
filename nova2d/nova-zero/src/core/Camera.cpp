@@ -13,7 +13,7 @@ namespace novazero
 
 			if (bounds.x == 0 && bounds.y == 0 && bounds.w == 0 && bounds.h == 0)
 			{
-				SetMoveBounds(Game::GetGameBounds());
+				SetMoveBounds(Rect(0, 0, Game::s_Width, Game::s_Height));
 			}
 			else
 			{

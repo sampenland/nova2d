@@ -62,6 +62,7 @@ namespace novazero
 
 			if (!m_Visible)
 			{
+				m_CameraFreeMoveMemory = CAMERA->IsFreeMoveEnabled();
 				m_CameraPositionMemory = CAMERA->GetPosition();
 			}
 
@@ -265,25 +266,13 @@ namespace novazero
 			CAMERA->EnableFreeWASDMove(m_Visible);
 			if (!m_Visible)
 			{
+				CAMERA->EnableFreeWASDMove(m_CameraFreeMoveMemory);
 				CAMERA->SetPosition(m_CameraPositionMemory);
 			}			
 		}
 
 		void Director::ClearStacksAndReset(bool left, bool right)
 		{
-			/*int x = (int)GetX();
-			int y = (int)GetY();
-			int padding = 10;
-			
-			m_Title = new Text("font1", "Director", "white", Rect((float)x + padding, (float)y + padding - 45.f, 100.f, 30.f), m_Layer);
-			m_Title->SetFixed(true);
-			m_Title->SetVisible(false);
-
-			m_Background = new DrawRect("a20-blue", "white", true,
-				Rect(x, y, m_Width, m_Height), 2, m_Layer);
-			m_Background->SetFixed(true);
-			m_Background->SetVisible(false);*/
-
 			for (size_t i = 0; i < s_Pages.size(); i++)
 			{
 				if (left)

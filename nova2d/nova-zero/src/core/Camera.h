@@ -34,6 +34,7 @@ namespace novazero
 			void Update();
 
 			void EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
+			bool IsFreeMoveEnabled() const { return m_FreeMove; }
 
 			float GetScale() const { return m_Scale; }
 			void SetScale(float scale) { m_Scale = scale; }

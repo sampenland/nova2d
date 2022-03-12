@@ -34,6 +34,7 @@ namespace novazero
 			DrawRect* m_Background = nullptr;
 
 			Vec2 m_CameraPositionMemory = Vec2(0, 0);
+			bool m_CameraFreeMoveMemory = false;
 
 			ScrollSelect* m_ScrollTime = nullptr;
 
