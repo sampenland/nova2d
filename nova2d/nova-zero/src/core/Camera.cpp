@@ -43,8 +43,8 @@ namespace novazero
 			Vec2 targetPos = m_FollowTarget->GetPosition();
 			Vec2 camSetPos = Vec2(-(targetPos.x - Game::s_Width / 2), -(targetPos.y - Game::s_Height / 2));
 
-			camSetPos.x = targetPos.x;// -m_FollowDistance;
-			camSetPos.y = targetPos.y;// -m_FollowDistance;
+			camSetPos.x = targetPos.x;
+			camSetPos.y = targetPos.y;
 
 			// Position camera
 			EnforceBounds(camSetPos);
@@ -55,8 +55,17 @@ namespace novazero
 		{
 			Rect bounds = GetMoveBounds();
 
-			//if (setPos.x - (CAMERA_ZOOM * Game::s_Width/2) < bounds.x) { SetX(bounds.x); }
-			//if (setPos.y < bounds.y) { SetY(bounds.y); }
+			int newX = -1 * (setPos.x - (Game::s_Width / 2));
+			int newY = -1 * (setPos.y - (Game::s_Height / 2));
+
+			newX += m_FollowDistance;
+			newY -= m_FollowDistance;
+
+			setPos.x = newX;
+			setPos.y = newY;
+
+			SetPosition(setPos);
+
 		}
 
 		void Camera::FreeMove()
@@ -109,12 +118,6 @@ namespace novazero
 			}
 		}
 
-		void Camera::MoveX(float deltaX)
-		{
-			if (!IsWithinMoveBounds(GetX() + deltaX, GetY())) return;
-			SetX(GetX() + deltaX);
-		}
-
 		void Camera::SetFollowTarget(Positional* target, float zoomLevel, float distanceBeforeFollow, 
 			TweenTypes followType) 
 		{
@@ -131,10 +134,15 @@ namespace novazero
 		void Camera::SetScale(float scale) { m_Scale = scale; m_Zoom = scale; }
 
 		float Camera::GetZoom() const { return m_Zoom; }
-		void Camera::SetZoom(float zoomLevel)
+		void Camera::SetZoom(float zoomLevel, bool reposition)
 		{
 			m_Zoom = zoomLevel;
 			m_Scale = zoomLevel;
+			
+			if (!reposition) return;
+
+			SetX(m_Position.x);
+			SetY(m_Position.y);
 		}
 
 		// -------------------------
@@ -150,9 +158,19 @@ namespace novazero
 			return Vec2(GetX(), GetY()); 
 		}
 
+		Vec2 Camera::GetPositionRAW() const
+		{
+			return Vec2((float)m_Position.x, (float)m_Position.y);
+		}
+
+		Vec2Int Camera::GetPositionRAWInt() const
+		{
+			return m_Position;
+		}
+
 		void Camera::SetX(float x)
 		{
-			m_Position.x = (int)x - (m_Zoom * Game::s_Width / 2);
+			m_Position.x = (int)x + (m_Zoom * Game::s_Width / 2);
 		}
 
 		void Camera::SetY(float y)
@@ -162,7 +180,7 @@ namespace novazero
 
 		float Camera::GetX() const 
 		{ 
-			return (float)m_Position.x; - (m_Zoom * Game::s_Width / 2);
+			return (float)m_Position.x - (m_Zoom * Game::s_Width / 2);
 		}
 
 		float Camera::GetY() const 

@@ -81,7 +81,7 @@ namespace novazero
 			if (!m_Visible)
 			{
 				m_CameraFreeMoveMemory = CAMERA->IsFreeMoveEnabled();
-				m_CameraPositionMemory = CAMERA->GetPosition();
+				m_CameraZoomLevelMemory = CAMERA_ZOOM;
 			}
 			else
 			{
@@ -298,7 +298,7 @@ namespace novazero
 			if (!m_Visible)
 			{
 				CAMERA->EnableFreeWASDMove(m_CameraFreeMoveMemory);
-				CAMERA->SetPosition(m_CameraPositionMemory);
+				CAMERA->SetZoom(m_CameraZoomLevelMemory);
 			}			
 		}
 

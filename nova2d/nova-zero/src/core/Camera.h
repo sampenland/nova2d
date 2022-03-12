@@ -37,9 +37,6 @@ namespace novazero
 				float distanceBeforeFollow = 100.f,
 				TweenTypes followType = TweenTypes::EaseInCubic);
 
-			void MoveX(float deltaX);
-			void MoveY(float deltaY);
-
 			void SetFollowDistance(float dist)
 			{
 				m_FollowDistance = dist;
@@ -62,9 +59,11 @@ namespace novazero
 			void SetScale(float scale);
 
 			float GetZoom() const;
-			void SetZoom(float zoomLevel);
+			void SetZoom(float zoomLevel, bool reposition = false);
 
 			Vec2 GetPosition() const;
+			Vec2 GetPositionRAW() const;
+			Vec2Int GetPositionRAWInt() const;
 			Vec2Int GetPositionInt() const;
 
 			void SetX(float x);
