@@ -1,5 +1,4 @@
 #pragma once
-#include "../core/NovaCore.h"
 #include <map>
 #include <vector>
 #include <functional>

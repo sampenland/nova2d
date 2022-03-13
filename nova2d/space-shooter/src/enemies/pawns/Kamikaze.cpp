@@ -1,3 +1,4 @@
+#include "core/NovaCore.h"
 #include "Kamikaze.h"
 #include "physics/Collider.h"
 #include "components/HitDisplay.h"

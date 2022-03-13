@@ -116,6 +116,14 @@ Returns a random integer in range with a chance of hitting MIN
 */
 #define n2dRandomIntMinChance(min, max, chanceOfMin) novazero::core::Game::RandomIntWithMaxChance(min, max, chanceOfMin);
 
+/*
+nova2d Global Game Score ()
+Easy access globally to game score
+*/
+#define n2dScore novazero::core::Game::GetScore()
+
+// ------------------------------------------------------------------------
+
 #include "SDL.h"
 #include "../utils/timeline/TimelineEvent.h"
 #include "../utils/Tweens.h"
@@ -126,243 +134,259 @@ Returns a random integer in range with a chance of hitting MIN
 
 namespace novazero
 {
-	using namespace novazero::utils;
-	using namespace novazero::utils::timeline;
+	namespace core
+	{
+		using namespace novazero::utils;
+		using namespace novazero::utils::timeline;
 
-	
-	// ----------------------------------------------------------------------------
 
-	/*
-	nova2d Get Unique Game ID
-	Returns a unique unsigned int ID value
-	*/
-	unsigned int n2dGameGetID();
+		// ----------------------------------------------------------------------------
 
-	void n2dDebugSet(bool isDebug);
-	void n2dDebugVerboseSet(bool isDebug);
+		/*
+		nova2d Get Unique Game ID
+		Returns a unique unsigned int ID value
+		*/
+		unsigned int n2dGameGetID();
 
-	/*
-	nova2d Set Time Scale (float value)
-	Sets a float value which directly effects all moving objects
-	*/
-	void n2dTimeScaleSet(float timeScale);
+		void n2dDebugSet(bool isDebug);
+		void n2dDebugVerboseSet(bool isDebug);
 
-	/*
-	nova2d Set camera zoom level
-	Sets main internal camera Zoom Level
-	*/
-	void n2dZoomCamera(float zoomLevel);
+		/*
+		nova2d Set Time Scale (float value)
+		Sets a float value which directly effects all moving objects
+		*/
+		void n2dTimeScaleSet(float timeScale);
 
-	/*
-	nova2d Enable free move
-	Basic movement; normally used for testing
-	*/
-	void n2dEnableCameraFreeMove(bool enabled);
+		/*
+		nova2d Set camera zoom level
+		Sets main internal camera Zoom Level
+		*/
+		void n2dZoomCamera(float zoomLevel);
 
-	/*
-	nova2d Pause Game (bool pause)
-	*/
-	void n2dPauseGame(bool pause);
+		/*
+		nova2d Enable free move
+		Basic movement; normally used for testing
+		*/
+		void n2dEnableCameraFreeMove(bool enabled);
 
-	/*
-	nova2d Set Pause key (SDL_KeyCode key)
-	*/
-	void n2dPauseKeySet(SDL_KeyCode key);
-	void n2dPauseKeyClear();
+		/*
+		nova2d Pause Game (bool pause)
+		*/
+		void n2dPauseGame(bool pause);
 
-	//----------------------------------------------------------------------------
-	// VALUE MANAGER
-	//----------------------------------------------------------------------------
-	
-	/*
-	nova2d Value Add (std::string, float, bool persistent)
-	Adds a global variable which can be grabbed from anywhere in your code
-	RETURNS float* to value
-	*/
-	float* n2dValueManagerAdd(std::string name, float value, bool persist);
+		/*
+		nova2d Set Pause key (SDL_KeyCode key)
+		*/
+		void n2dPauseKeySet(SDL_KeyCode key);
+		void n2dPauseKeyClear();
 
-	/*
-	nova2d Value Get
-	Gets a previously added variable
-	*/
-	float n2dValueManagerGet(std::string name);
+		//----------------------------------------------------------------------------
+		// VALUE MANAGER
+		//----------------------------------------------------------------------------
 
-	/*
-	Gets a reference to a previously added variable
-	THIS can be used for tweens, Director stackables, etc.
-	*/
-	float* n2dValueManagerGetRef(std::string name);
+		/*
+		nova2d Value Add (std::string, float, bool persistent)
+		Adds a global variable which can be grabbed from anywhere in your code
+		RETURNS float* to value
+		*/
+		float* n2dValueManagerAdd(std::string name, float value, bool persist);
 
-	//----------------------------------------------------------------------------
-	// TIMELINES
-	//----------------------------------------------------------------------------
+		/*
+		nova2d Value Get
+		Gets a previously added variable
+		*/
+		float n2dValueManagerGet(std::string name);
 
-	/*
-	nova2d Add to timeline (string timelineName, TimelineEvent event)
-	Add's a timeline event to a timeline
-	TimelineEvent is the base class of TimelineCreateEvent, TimelineExecuteEvent
-	*/
-	void n2dAddTimeline(std::string timelineName, TimelineEvent* timelineEvent);
+		/*
+		Gets a reference to a previously added variable
+		THIS can be used for tweens, Director stackables, etc.
+		*/
+		float* n2dValueManagerGetRef(std::string name);
 
-	/*
-	nova2d Starts a timeline with a certain name
-	Timeline must exists
-	*/
-	void n2dStartTimeline(std::string timelineName);
+		//----------------------------------------------------------------------------
+		// TIMELINES
+		//----------------------------------------------------------------------------
 
-	//----------------------------------------------------------------------------
-	// JOYSTICKS
-	//----------------------------------------------------------------------------
+		/*
+		nova2d Add to timeline (string timelineName, TimelineEvent event)
+		Add's a timeline event to a timeline
+		TimelineEvent is the base class of TimelineCreateEvent, TimelineExecuteEvent
+		*/
+		void n2dAddTimeline(std::string timelineName, TimelineEvent* timelineEvent);
 
-	/*
-	nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
-	Rumble the controller at power for duration milliseconds
-	*/
-	void n2dRumble(int joystickID, float power, Uint32 durationMS);
+		/*
+		nova2d Starts a timeline with a certain name
+		Timeline must exists
+		*/
+		void n2dStartTimeline(std::string timelineName);
 
-	//----------------------------------------------------------------------------
-	// DIRECTOR
-	//----------------------------------------------------------------------------
+		//----------------------------------------------------------------------------
+		// JOYSTICKS
+		//----------------------------------------------------------------------------
 
-	/*
-	n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
-	Adds a persistent ScrollSelect to Director's page Left/Right stacks
-	*/
-	void n2dDirectorAddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseby, float max, float* refVal);
+		/*
+		nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
+		Rumble the controller at power for duration milliseconds
+		*/
+		void n2dRumble(int joystickID, float power, Uint32 durationMS);
 
-	/*
-	n2d Director AddToStackMinMax(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal)
-	Adds a persistent ScrollSelect to Director's page Left/Right stacks
-	*/
-	void n2dDirectorAddToStackMinMax(bool left, BYTE page, std::string labelText,
-		int labelWidth, float inOrDecreaseby, float min, float max, float* minRefVal, float* maxRefVal);
+		//----------------------------------------------------------------------------
+		// DIRECTOR
+		//----------------------------------------------------------------------------
 
-	//----------------------------------------------------------------------------
-	// DEBUG
-	//----------------------------------------------------------------------------
+		/*
+		n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
+		Adds a persistent ScrollSelect to Director's page Left/Right stacks
+		*/
+		void n2dDirectorAddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseby, float max, float* refVal);
 
-	/*
-	nova2d Get total instances
-	Returns total drawables on screen
-	*/
-	int n2dDebugDrawableCount();
+		/*
+		n2d Director AddToStackMinMax(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal)
+		Adds a persistent ScrollSelect to Director's page Left/Right stacks
+		*/
+		void n2dDirectorAddToStackMinMax(bool left, BYTE page, std::string labelText,
+			int labelWidth, float inOrDecreaseby, float min, float max, float* minRefVal, float* maxRefVal);
 
-	/*
-	nova2d Get total updaters
-	Returns total updaters in Game processor
-	*/
-	int n2dDebugUpdaterCount();
+		//----------------------------------------------------------------------------
+		// DEBUG
+		//----------------------------------------------------------------------------
 
-	/*
-	nova2d Get total deleteables
-	Returns total deleteables (similar to drawables)
-	*/
-	int n2dDebugDeleteableCount();
+		/*
+		nova2d Get total instances
+		Returns total drawables on screen
+		*/
+		int n2dDebugDrawableCount();
 
-	/*
-	nova2d Get total time effectors
-	Returns total time effectors (similar to gravers)
-	*/
-	int n2dDebugTimeEffectorsCount();
+		/*
+		nova2d Get total updaters
+		Returns total updaters in Game processor
+		*/
+		int n2dDebugUpdaterCount();
 
-	/*
-	nova2d Get total time effecteds
-	Returns total time effected objects (similar to effectors)
-	*/
-	int n2dDebugTimeEffectedCount();
+		/*
+		nova2d Get total deleteables
+		Returns total deleteables (similar to drawables)
+		*/
+		int n2dDebugDeleteableCount();
 
-	/*
-	nova2d Get total referenced
-	Returns total referenced objs (similar to deletables)
-	*/
-	int n2dDebugReferencedCount();
+		/*
+		nova2d Get total time effectors
+		Returns total time effectors (similar to gravers)
+		*/
+		int n2dDebugTimeEffectorsCount();
 
-	/*
-	nova2d Get total gravers
-	Returns total graver objs (similar to colliders)
-	*/
-	int n2dDebugGraverCount();
+		/*
+		nova2d Get total time effecteds
+		Returns total time effected objects (similar to effectors)
+		*/
+		int n2dDebugTimeEffectedCount();
 
-	/*
-	nova2d Get total tweens
-	Returns total tweens (usually attached to positionals)
-	*/
-	int n2dDebugTweenCount();
+		/*
+		nova2d Get total referenced
+		Returns total referenced objs (similar to deletables)
+		*/
+		int n2dDebugReferencedCount();
 
-	//----------------------------------------------------------------------------
-	// GRAPHICS
-	//----------------------------------------------------------------------------
+		/*
+		nova2d Get total gravers
+		Returns total graver objs (similar to colliders)
+		*/
+		int n2dDebugGraverCount();
 
-	/*
-	nova2d Renderer Blend Modes (bool alpha)
-	Enables alpha blending if needed
-	*/
-	void n2dBlend(bool alpha);
+		/*
+		nova2d Get total tweens
+		Returns total tweens (usually attached to positionals)
+		*/
+		int n2dDebugTweenCount();
 
-	//----------------------------------------------------------------------------
-	// TWEENS
-	//----------------------------------------------------------------------------
+		//----------------------------------------------------------------------------
+		// GRAPHICS
+		//----------------------------------------------------------------------------
 
-	/*
-	nova2d Add Tween Float *ref, start, end, duration, loop, auto delete, TweenType::
-	Tweens *refFloat (referenced float) from start to end in duration milliseconds
-	RETURNS ID for clean up
-	*/
-	unsigned int n2dTweenAdd(bool isFloat, void* propertyEffected, float start,
-		float end, float durationMS, bool loop, bool autoDelete, TweenTypes type);
+		/*
+		nova2d Renderer Blend Modes (bool alpha)
+		Enables alpha blending if needed
+		*/
+		void n2dBlend(bool alpha);
 
-	/*
-	nova2d GetTween(unsigned int id)
-	Gets a created tween from game's tween manager
-	RETURNS tween reference
-	*/
-	Tween& n2dTweenGet(unsigned int id);
+		//----------------------------------------------------------------------------
+		// TWEENS
+		//----------------------------------------------------------------------------
 
-	/*
-	nova2d Remove Tween (unsigned int tweenID)
-	Remove a tween
-	*/
-	void n2dTweenRemove(unsigned int id);
+		/*
+		nova2d Add Tween Float *ref, start, end, duration, loop, auto delete, TweenType::
+		Tweens *refFloat (referenced float) from start to end in duration milliseconds
+		RETURNS ID for clean up
+		*/
+		unsigned int n2dTweenAdd(bool isFloat, void* propertyEffected, float start,
+			float end, float durationMS, bool loop, bool autoDelete, TweenTypes type);
 
-	/*
-	nova2d Restart Tween (unsigned int tweenID)
-	Restart a tween
-	*/
-	void n2dTweenReset(unsigned int id);
+		/*
+		nova2d GetTween(unsigned int id)
+		Gets a created tween from game's tween manager
+		RETURNS tween reference
+		*/
+		Tween& n2dTweenGet(unsigned int id);
 
-	/*
-	nova2d Enable/disable Tween (unsigned int tweenID)
-	Enable/disable a tween
-	*/
-	void n2dTweenEnable(unsigned int id, bool enabled, bool reset);
+		/*
+		nova2d Remove Tween (unsigned int tweenID)
+		Remove a tween
+		*/
+		void n2dTweenRemove(unsigned int id);
 
-	/*
-	nova2d Set Loop Index For Tween (unsigned int tweenID, loopIDX)
-	Sets the value for when a tween hits the end and is set to loop
-	*/
-	void n2dTweenSetLoopIndex(unsigned int tweenID, float valueBtw0And1);
+		/*
+		nova2d Restart Tween (unsigned int tweenID)
+		Restart a tween
+		*/
+		void n2dTweenReset(unsigned int id);
 
-	/*
-	nova2d Resets duration for tween (unsigned int tweenID, newDurationMS)
-	Sets the value for when a tween hits the end and is set to loop
-	*/
-	void n2dTweenSetDuration(unsigned int id, float durationMS);
+		/*
+		nova2d Enable/disable Tween (unsigned int tweenID)
+		Enable/disable a tween
+		*/
+		void n2dTweenEnable(unsigned int id, bool enabled, bool reset);
 
+		/*
+		nova2d Set Loop Index For Tween (unsigned int tweenID, loopIDX)
+		Sets the value for when a tween hits the end and is set to loop
+		*/
+		void n2dTweenSetLoopIndex(unsigned int tweenID, float valueBtw0And1);
+
+		/*
+		nova2d Resets duration for tween (unsigned int tweenID, newDurationMS)
+		Sets the value for when a tween hits the end and is set to loop
+		*/
+		void n2dTweenSetDuration(unsigned int id, float durationMS);
+
+		/*
+		nova2d Reconfigure Tween (unsigned int tweenID, float start, float end,
+		float durationMS, bool loop, bool autodelete)
+		Reset/reconfigure a tween with an id
+		*/
+		void n2dTweenReconfigure(unsigned int tweenID, float start,
+			float end, float durationMS, bool loop, bool autoDelete);
+
+		//----------------------------------------------------------------------------
+		// nova Scoring
+		//----------------------------------------------------------------------------
+
+		/*
+		nova2d Global Game Score ()
+		Easy access globally to game score
+		*/
+		void n2dScoreSet(unsigned int score);
+
+		/*
+		nova2d Global Game Score ()
+		Easy access globally to game score
+		*/
+		void n2dScoreAdd(unsigned int add);
+	}
 }
 
 
 
 
-
-
-
-/*
-nova2d Reconfigure Tween (unsigned int tweenID, float start, float end,
-float durationMS, bool loop, bool autodelete)
-Reset/reconfigure a tween with an id
-*/
-#define n2dTweenReconfigure(tweenID, start, end, durationMS, loop, autodelete) \
-	novazero::core::Game::s_SceneManager->s_TweenManager->Reconfigure(tweenID, start, end, durationMS, loop, autodelete);
 
 /*
 nova2d Is key down (SDL_Keycode key)
@@ -692,21 +716,3 @@ nova2d Get Font (std::string fontName)
 Adds font to Game's Font Manager
 */
 #define n2dFontGet(fontName) novazero::core::Game::s_FontManager->GetFont(fontName);
-
-/*
-nova2d Global Game Score ()
-Easy access globally to game score
-*/
-#define n2dScoreSet(score) novazero::core::Game::SetScore(score);
-
-/*
-nova2d Global Game Score ()
-Easy access globally to game score
-*/
-#define n2dScore novazero::core::Game::GetScore()
-
-/*
-nova2d Global Game Score ()
-Easy access globally to game score
-*/
-#define n2dScoreAdd(add) novazero
