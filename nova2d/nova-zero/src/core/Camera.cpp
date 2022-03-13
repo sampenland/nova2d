@@ -31,8 +31,10 @@ namespace novazero
 			if (m_FreeMove)
 				FreeMove();
 
-			if(!Game::s_Director->IsEnabled())
+			if (!Game::s_Director->IsEnabled())
+			{				
 				FollowTarget();
+			}
 		}
 
 		void Camera::FollowTarget()
@@ -56,19 +58,26 @@ namespace novazero
 			Rect bounds = GetMoveBounds();
 			bounds.x = bounds.x - Game::s_Width / 2;
 
-			int newX = -1 * (setPos.x - (Game::s_Width / 2));
-			int newY = -1 * (setPos.y - (Game::s_Height / 2));
+			float newX = -1 * (setPos.x - (Game::s_Width / 2));
+			float newY = -1 * (setPos.y - (Game::s_Height / 2));
 
 			if (m_FollowTarget->IsFacing() == Directions::Right)
 			{
 				newX += m_FollowDistance;
 			}
-			else
+			else if(m_FollowTarget->IsFacing() == Directions::Left)
 			{
-				newX += (Game::s_Width/2 /CAMERA_ZOOM) + m_FollowDistance;
+				newX += (Game::s_Width / 2 / CAMERA_ZOOM) + m_FollowDistance;
 			}
 
-			newY -= m_FollowDistance;
+			if (m_FollowTarget->IsFacing() == Directions::Down)
+			{
+				newY += m_FollowDistance;
+			}
+			else if (m_FollowTarget->IsFacing() == Directions::Up)
+			{
+				newY += (Game::s_Height / 2 / CAMERA_ZOOM) + m_FollowDistance;
+			}
 			
 			// limit X
 			if (newX < bounds.x) newX = bounds.x;
@@ -80,7 +89,12 @@ namespace novazero
 			if (newY > bounds.y + yLimit) newY = bounds.y + yLimit;
 			if (newY < -yLimit) newY = -yLimit;
 
-			SetPositionInt(Vec2Int(newX, newY));
+			// prep for camera move (tween to new spot)
+			float correction = (m_Zoom * Game::s_Height / 2);
+			newX = newX + correction;
+			newY = newY + correction;
+
+			SetPosition(Vec2(newX, newY));
 
 		}
 
@@ -134,13 +148,19 @@ namespace novazero
 			}
 		}
 
-		void Camera::SetFollowTarget(Positional* target, float zoomLevel, float distanceBeforeFollow, 
+		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow, 
 			TweenTypes followType) 
 		{
 			m_FollowTarget = target; 
 			SetZoom(zoomLevel);
 			SetFollowDistance(distanceBeforeFollow);
 			SetFollowType(followType);
+			SetFollowSpeed(followSpeed);
+
+			if (startOnTargetPosition)
+			{
+				//SetPosition(target->GetCenter());
+			}
 		}
 
 		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
@@ -161,9 +181,7 @@ namespace novazero
 			SetY(m_Position.y);
 		}
 
-		// -------------------------
 		// Positioning
-		// -------------------------
 		Vec2Int Camera::GetPositionInt() const 
 		{ 
 			return Vec2Int((int)GetX(), (int)GetY());
@@ -186,28 +204,52 @@ namespace novazero
 
 		void Camera::SetX(float x)
 		{
-			m_Position.x = (int)x + (m_Zoom * Game::s_Width / 2);
+			m_Position.x = x;
+			//m_Position.x = (int)x + (m_Zoom * Game::s_Width / 2);
 		}
 
 		void Camera::SetY(float y)
 		{
-			m_Position.y = (int)y - (m_Zoom * Game::s_Height / 2);
+			m_Position.y = -y;
+			//m_Position.y = (int)y - (m_Zoom * Game::s_Height / 2);
+		}
+
+		void Camera::CenterOn(Positional* target)
+		{
+			SetPosition(Vec2(
+				target->GetCenter().x + (m_Zoom * Game::s_Width/2), 
+				target->GetCenter().y - (m_Zoom * Game::s_Height/2)
+			));
+		}
+
+		void Camera::CenterOn(Vec2 position)
+		{
+			SetPosition(Vec2(
+				position.x + (m_Zoom * Game::s_Width / 2),
+				position.y - (m_Zoom * Game::s_Height / 2)
+			));
 		}
 
 		float Camera::GetX() const 
 		{ 
-			return (float)m_Position.x - (m_Zoom * Game::s_Width / 2);
+			return (float)m_Position.x;
 		}
 
 		float Camera::GetY() const 
 		{ 
-			return (float)m_Position.y + (m_Zoom * Game::s_Height / 2);
+			return (float)m_Position.y;
 		}
 
 		void Camera::SetPosition(Vec2 position)
 		{
 			SetX(position.x);
 			SetY(position.y);
+		}
+
+		void Camera::SetPosition(Positional* target)
+		{
+			SetX(target->GetX());
+			SetY(target->GetY());
 		}
 
 		void Camera::SetPositionInt(Vec2Int position)

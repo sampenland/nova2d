@@ -87,7 +87,7 @@ namespace novazero
 			{
 				int midScreenX = -CAMERA->GetX() * 1 / CAMERA_ZOOM + Game::s_Width / 2;
 				int midScreenY = -CAMERA->GetY() * 1 / CAMERA_ZOOM + Game::s_Height / 2;
-				m_MiddleScreenText->UpdateText("[" + tostring(midScreenX) + ", " + tostring(midScreenY) + "]");
+				m_MiddleScreenText->UpdateText("Cntr:[" + tostring(midScreenX) + ", " + tostring(midScreenY) + "]");
 				
 				int camPosX = -CAMERA->GetX();
 				int camPosY = -CAMERA->GetY();

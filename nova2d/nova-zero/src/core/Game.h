@@ -157,6 +157,7 @@ namespace novazero
 					return -1;
 
 				SDL_HapticClose(s_Rumbler);
+				return 0;
 			}
 
 			static bool CoinFlip()

@@ -22,9 +22,14 @@ namespace novazero
 			float m_ZoomSpeed = 0.01f;
 			float m_Scale = 1.f;
 			float m_FollowDistance = 100.f;
-			TweenTypes m_FollowType = TweenTypes::EaseInCubic;
 
 			Positional* m_FollowTarget = nullptr;
+
+			TweenTypes m_FollowType = TweenTypes::EaseInCubic;
+			Vec2 m_TweenToPosition = Vec2(0, 0);
+			float m_NewX = 0;
+			float m_NewY = 0;
+			float m_FollowSpeed = 1000.f;
 
 			bool m_FreeMove = false;
 			void FreeMove();
@@ -33,9 +38,8 @@ namespace novazero
 
 			Camera(Rect bounds = Rect(0, 0, 0, 0));
 
-			void SetFollowTarget(Positional* target, float zoomLevel = 1.f, 
-				float distanceBeforeFollow = 100.f,
-				TweenTypes followType = TweenTypes::EaseInCubic);
+			void SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow,
+				TweenTypes followType);
 
 			void SetFollowDistance(float dist)
 			{
@@ -47,8 +51,16 @@ namespace novazero
 				m_FollowType = type;
 			}
 
+			void SetFollowSpeed(float speed)
+			{
+				m_FollowSpeed = speed;
+			}
+
 			void Update();
 			void FollowTarget();
+
+			void CenterOn(Positional* target);
+			void CenterOn(Vec2 position);
 
 			void EnforceBounds(Vec2 setPos);
 
@@ -79,6 +91,7 @@ namespace novazero
 			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
 
 			void SetPosition(Vec2 position);
+			void SetPosition(Positional* target);
 			void SetPositionInt(Vec2Int position);
 
 			void DestroySelf() override;

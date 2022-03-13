@@ -266,54 +266,56 @@ namespace novazero
 		{
 			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
-				m_Tweens[tweenID]->completed = false;
-				m_Tweens[tweenID]->durationMS = durationMS;
-				m_Tweens[tweenID]->invert = end < start;
+				Tween& tween = *m_Tweens[tweenID];
 
-				if (end < 0.f)
+				tween.completed = false;
+				tween.durationMS = durationMS;
+				tween.invert = end < start;
+
+				if (end < 0.f && !tween.invert)
 				{
-					m_Tweens[tweenID]->negate = true;
+					tween.negate = true;
 					end *= -1;
 				}
-				else if (start < 0.f)
+				else if (start < 0.f && end < 0.f)
 				{
-					m_Tweens[tweenID]->negate = true;
+					tween.negate = true;
 					start *= -1;
 				}
 				else
 				{
-					m_Tweens[tweenID]->negate = false;
+					tween.negate = false;
 				}
 
-				if (m_Tweens[tweenID]->invert)
+				if (tween.invert)
 				{
-					m_Tweens[tweenID]->initStart = end;
-					m_Tweens[tweenID]->end = start;
+					tween.initStart = end;
+					tween.end = start;
 				}
 				else
 				{
-					m_Tweens[tweenID]->initStart = start;
-					m_Tweens[tweenID]->end = end;
+					tween.initStart = start;
+					tween.end = end;
 				}
 
-				m_Tweens[tweenID]->current = m_Tweens[tweenID]->initStart;
-				m_Tweens[tweenID]->xStart = 0.f;
-				m_Tweens[tweenID]->xCurrent = 0.f;
+				tween.current = m_Tweens[tweenID]->initStart;
+				tween.xStart = 0.f;
+				tween.xCurrent = 0.f;
 
-				if (m_Tweens[tweenID]->negate)
+				if (tween.negate)
 				{
-					m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->initStart - m_Tweens[tweenID]->end) / m_Tweens[tweenID]->initStart) / (durationMS / 10);
+					tween.xStep = ((m_Tweens[tweenID]->initStart - m_Tweens[tweenID]->end) / m_Tweens[tweenID]->initStart) / (durationMS / 10);
 				}
 				else
 				{
-					m_Tweens[tweenID]->xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
+					tween.xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
 				}
 				
-				m_Tweens[tweenID]->loop = loop;
-				m_Tweens[tweenID]->deleteOnComplete = autoDelete;
+				tween.loop = loop;
+				tween.deleteOnComplete = autoDelete;
 
 				if (!autoDelete && n2dDebugVerbose)
-					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); m_Tweens[tweenID]->loop = loop;
+					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); tween.loop = loop;
 			}
 		}
 
@@ -371,6 +373,15 @@ namespace novazero
 					tween.completed = true;
 					tween.xCurrent = 1.f;
 					percentToEnd = 1.f;
+				
+					if (tween.isFloat)
+					{
+						*tween.referenceF = (float)tween.end;
+					}
+					else
+					{
+						*tween.referenceI = (int)tween.end;
+					}
 				}
 			}
 
@@ -395,7 +406,8 @@ namespace novazero
 				}
 				value += tween.offset;
 			}
-
+			
+			LOGS(value);
  			if (tween.isFloat)
 			{
 				*tween.referenceF = (float)value;
