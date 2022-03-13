@@ -19,6 +19,11 @@ namespace novazero
 			m_ID = n2dGameGetID();
 		}
 
+		void Positional::SetFacing(Directions facing)
+		{
+			m_Facing = facing;
+		}
+
 		float Positional::GetX() const { return (float)m_Position.x; }
 		float Positional::GetY() const { return (float)m_Position.y; }
 		Vec2Int Positional::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }

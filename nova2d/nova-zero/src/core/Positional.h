@@ -17,6 +17,14 @@ namespace novazero
 		using namespace maths;
 		using namespace graphics;
 
+		enum class Directions
+		{
+			Up,
+			Down,
+			Right,
+			Left
+		};
+
 		class Positional
 		{
 
@@ -24,6 +32,7 @@ namespace novazero
 
 			Drawable* m_Drawable = nullptr;
 			unsigned int m_ID;
+			Directions m_Facing = Directions::Right;
 
 		protected:
 
@@ -42,6 +51,9 @@ namespace novazero
 			Text* GetText() { return (Text*)m_Drawable; }
 
 			Drawable* GetDrawable() { return m_Drawable; }
+
+			void SetFacing(Directions facing);
+			Directions IsFacing() const { return m_Facing; }
 
 			float GetX() const;
 			int* GetXRef() { return &m_Position.x; }

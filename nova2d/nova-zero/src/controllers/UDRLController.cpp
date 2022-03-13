@@ -90,6 +90,12 @@ namespace novazero
 
 			if (pos != Vec2(newX, newY))
 			{
+				
+				if (newX > pos.x) SetFacing(Directions::Right);
+				if (newX < pos.x) SetFacing(Directions::Left);
+				if (newY < pos.y) SetFacing(Directions::Up);
+				if (newY > pos.y) SetFacing(Directions::Down);
+
 				if (IsWithinMoveBounds((int)newX, (int)pos.y, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
 					SetX(newX);

@@ -8,7 +8,7 @@ namespace novazero
 		Camera::Camera(Rect bounds)
 		{
 			m_ID = n2dGameGetID();
-
+			
 			SetPosition(Vec2(0, 0));
 
 			if (bounds.x == 0 && bounds.y == 0 && bounds.w == 0 && bounds.h == 0)
@@ -43,8 +43,8 @@ namespace novazero
 			Vec2 targetPos = m_FollowTarget->GetPosition();
 			Vec2 camSetPos = Vec2(-(targetPos.x - Game::s_Width / 2), -(targetPos.y - Game::s_Height / 2));
 
-			camSetPos.x = targetPos.x;
-			camSetPos.y = targetPos.y;
+			camSetPos.x = targetPos.x * CAMERA_ZOOM;
+			camSetPos.y = targetPos.y * CAMERA_ZOOM;
 
 			// Position camera
 			EnforceBounds(camSetPos);
@@ -59,7 +59,15 @@ namespace novazero
 			int newX = -1 * (setPos.x - (Game::s_Width / 2));
 			int newY = -1 * (setPos.y - (Game::s_Height / 2));
 
-			newX += m_FollowDistance;
+			if (m_FollowTarget->IsFacing() == Directions::Right)
+			{
+				newX += m_FollowDistance;
+			}
+			else
+			{
+				newX += (Game::s_Width/2 /CAMERA_ZOOM) + m_FollowDistance;
+			}
+
 			newY -= m_FollowDistance;
 			
 			// limit X

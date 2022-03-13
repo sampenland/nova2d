@@ -46,7 +46,7 @@ namespace novazero
 					int currentY = y + spriteHeight;
 					
 					return currentX > m_MoveBounds.x && 
-						currentX < m_MoveBounds.x + m_MoveBounds.w + 100 &&
+						currentX < m_MoveBounds.x + m_MoveBounds.w &&
 						currentY > m_MoveBounds.y && 
 						currentY < m_MoveBounds.y + m_MoveBounds.h;
 
