@@ -1,6 +1,6 @@
 #pragma once
 #include "SDL.h"
-#include "Defines.hpp"
+#include "NovaCore.h"
 
 #include "../input/InputHandler.h"
 #include "../graphics/Window.h"

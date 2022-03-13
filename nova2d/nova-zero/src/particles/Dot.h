@@ -1,4 +1,5 @@
 #pragma once
+#include "../core/NovaCore.h"
 #include "Particle.h"
 
 namespace novazero

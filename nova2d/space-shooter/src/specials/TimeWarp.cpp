@@ -1,3 +1,4 @@
+#include "core/NovaCore.h"
 #include "TimeWarp.h"
 #include "core/Game.h"
 

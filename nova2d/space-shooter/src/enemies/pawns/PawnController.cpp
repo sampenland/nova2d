@@ -1,3 +1,4 @@
+#include"core/NovaCore.h"
 #include "PawnController.h"
 
 namespace spaceshooter

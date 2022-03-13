@@ -1,3 +1,4 @@
+#include "core/NovaCore.h"
 #include "Play.h"
 #include "../Player.h"
 #include "../specials/TimeWarp.h"

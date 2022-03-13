@@ -1,3 +1,4 @@
+#include "core/NovaCore.h"
 #include "Pawn.h"
 #include "../../Player.h"
 #include "PawnController.h"

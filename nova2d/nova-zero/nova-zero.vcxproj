@@ -114,7 +114,7 @@
     <ClCompile Include="src\controllers\UDRLController.cpp" />
     <ClCompile Include="src\core\BoundUser.cpp" />
     <ClCompile Include="src\core\Camera.cpp" />
-    <ClCompile Include="src\core\Defines.cpp" />
+    <ClCompile Include="src\core\NovaCore.cpp" />
     <ClCompile Include="src\core\Deleteable.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
     <ClCompile Include="src\core\Game.cpp" />
@@ -179,7 +179,7 @@
     <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\BoundUser.h" />
     <ClInclude Include="src\core\Camera.h" />
-    <ClInclude Include="src\core\Defines.hpp" />
+    <ClInclude Include="src\core\NovaCore.h" />
     <ClInclude Include="src\core\Deleteable.h" />
     <ClInclude Include="src\core\EventListener.h" />
     <ClInclude Include="src\core\Game.h" />

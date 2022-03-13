@@ -201,7 +201,7 @@
     <ClCompile Include="src\core\BoundUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Defines.cpp">
+    <ClCompile Include="src\core\NovaCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -278,7 +278,7 @@
     <ClInclude Include="src\core\BoundUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Defines.hpp">
+    <ClInclude Include="src\core\NovaCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\ReferenceManager.h">
