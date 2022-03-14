@@ -127,6 +127,30 @@ namespace novazero
 				m_Position.x -= speed;
 			}
 
+			if (n2dIsKeyDown(SDLK_1))
+			{
+				m_Zoom = 1.f;
+				m_Scale = 1.f;
+			}
+
+			if (n2dIsKeyDown(SDLK_2))
+			{
+				m_Zoom = 2.f;
+				m_Scale = 2.f;
+			}
+
+			if (n2dIsKeyDown(SDLK_3))
+			{
+				m_Zoom = 3.f;
+				m_Scale = 3.f;
+			}
+
+			if (n2dIsKeyDown(SDLK_4))
+			{
+				m_Zoom = 4.f;
+				m_Scale = 4.f;
+			}
+
 			if (n2dIsKeyDown(SDLK_EQUALS))
 			{
 				m_Zoom += m_ZoomSpeed;

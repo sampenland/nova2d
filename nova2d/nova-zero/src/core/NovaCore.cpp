@@ -188,5 +188,95 @@ namespace novazero
 		{
 			Game::AddScore(add);
 		}
+
+		bool n2dIsKeyDown(SDL_KeyCode key)
+		{
+			return Game::s_InputHandler->IsKeyDown(key);
+		}
+
+		bool n2dIsKeyUp(SDL_KeyCode key)
+		{
+			return Game::s_InputHandler->IsKeyUp(key);
+		}
+
+		bool n2dIsJoyKeyDown(BYTE controllerID, int button)
+		{
+			return Game::s_InputHandler->IsJoystickButtonDown(controllerID, button);
+		}
+
+		bool n2dIsJoyKeyUp(BYTE controllerID, int button)
+		{
+			return Game::s_InputHandler->IsJoystickButtonUp(controllerID, button);
+		}
+
+		bool n2dJoyDPadLeft(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_LEFT);
+		}
+
+		bool n2dJoyDPadRight(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_RIGHT);
+		}
+
+		bool n2dJoyDPadUp(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_UP);
+		}
+
+		bool n2dJoyDPadDown(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_DOWN);
+		}
+
+		bool n2dJoySimpleLeft(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoySimpleRight(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoySimpleUp(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoySimpleDown(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoyRSimpleLeft(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoyRSimpleRight(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoyRSimpleUp(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+		bool n2dJoyRSimpleDown(BYTE controllerID)
+		{
+			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
+		}
+
+
+
+
+
+
+
+
+
+
 	}
 }

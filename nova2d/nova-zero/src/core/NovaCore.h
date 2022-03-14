@@ -219,17 +219,7 @@ namespace novazero
 		Timeline must exists
 		*/
 		void n2dStartTimeline(std::string timelineName);
-
-		//----------------------------------------------------------------------------
-		// JOYSTICKS
-		//----------------------------------------------------------------------------
-
-		/*
-		nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
-		Rumble the controller at power for duration milliseconds
-		*/
-		void n2dRumble(int joystickID, float power, Uint32 durationMS);
-
+		
 		//----------------------------------------------------------------------------
 		// DIRECTOR
 		//----------------------------------------------------------------------------
@@ -381,6 +371,108 @@ namespace novazero
 		Easy access globally to game score
 		*/
 		void n2dScoreAdd(unsigned int add);
+
+		//----------------------------------------------------------------------------
+		// INPUT
+		//----------------------------------------------------------------------------
+		// ------- JOYSTICKS/CONTROLLERS
+		
+		/*
+		nova2d Rumble (int joystickID, float 0-1 power, Uint32 durationMS)
+		Rumble the controller at power for duration milliseconds
+		*/
+		void n2dRumble(int joystickID, float power, Uint32 durationMS);
+
+		// ------- KEYS
+		/*
+		nova2d Is key down (SDL_Keycode key)
+		Returns realtime if key is pressed down
+		*/
+		bool n2dIsKeyDown(SDL_KeyCode key);
+
+		/*
+		nova2d Is key up (SDL_Keycode key)
+		Returns realtime if key is up
+		*/
+		bool n2dIsKeyUp(SDL_KeyCode key);
+
+		/*
+		nova2d Is key down (joystickID, button)
+		Returns realtime if key is pressed down
+		*/
+		bool n2dIsJoyKeyDown(BYTE controllerID, int button);
+
+		/*
+		nova2d Is key up (joystickID, button)
+		Returns realtime if key is not pressed
+		*/
+		bool n2dIsJoyKeyUp(BYTE controllerID, int button);
+
+		/*
+		nova2d JoyDPad Left pressed down
+		*/
+		bool n2dJoyDPadLeft(BYTE controllerID);
+
+		/*
+		nova2d JoyDPad Right pressed down
+		*/
+		bool n2dJoyDPadRight(BYTE controllerID);
+
+		/*
+		nova2d JoyDPad Up pressed down
+		*/
+		bool n2dJoyDPadUp(BYTE controllerID);
+
+		/*
+		nova2d JoyDPad Down pressed down
+		*/
+		bool n2dJoyDPadDown(BYTE controllerID);
+
+		/*
+		nova2d Joy Simple Direction means joy is mostly left on axis
+		*/
+		bool n2dJoySimpleLeft(BYTE controllerID);
+
+		/*
+		nova2d Joy Simple Direction means joy is mostly right on axis
+		*/
+		bool n2dJoySimpleRight(BYTE controllerID);
+
+		/*
+		nova2d Joy Simple Direction means joy is mostly up on axis
+		USES InputHandler::s_JoyStickDeadzone
+		*/
+		bool n2dJoySimpleUp(BYTE controllerID);
+
+		/*
+		nova2d Joy Simple Direction means joy is mostly down on axis
+		*/
+		bool n2dJoySimpleDown(BYTE controllerID);
+
+		/*
+		nova2d RIGHT Joy Simple Direction means joy is mostly left on axis
+		*/
+		bool n2dJoyRSimpleLeft(BYTE controllerID);
+
+		/*
+		nova2d RIGHT Joy Simple Direction means joy is mostly right on axis
+		*/
+		bool n2dJoyRSimpleRight(BYTE controllerID);
+
+		/*
+		nova2d RIGHT Joy Simple Direction means joy is mostly up on axis
+		USES InputHandler::s_JoyStickDeadzone
+		*/
+		bool n2dJoyRSimpleUp(BYTE controllerID);
+
+		/*
+		nova2d RIGHT Joy Simple Direction means joy is mostly down on axis
+		*/
+		bool n2dJoyRSimpleDown(BYTE controllerID);
+
+
+
+
 	}
 }
 
@@ -388,91 +480,8 @@ namespace novazero
 
 
 
-/*
-nova2d Is key down (SDL_Keycode key)
-Returns realtime if key is pressed down
-*/
-#define n2dIsKeyDown(key) Game::s_InputHandler->IsKeyDown(key)
 
-/*
-nova2d Is key up (SDL_Keycode key)
-Returns realtime if key is up
-*/
-#define n2dIsKeyUp(key) Game::s_InputHandler->IsKeyUp(key)
 
-/*
-nova2d Is key down (joystickID, button)
-Returns realtime if key is pressed down
-*/
-#define n2dIsJoyKeyDown(controllerID, button) Game::s_InputHandler->IsJoystickButtonDown(controllerID, button)
-
-/*
-nova2d Is key up (joystickID, button)
-Returns realtime if key is not pressed
-*/
-#define n2dIsJoyKeyUp(controllerID, button) novazero::core::Game::s_InputHandler->IsJoystickButtonUp(controllerID, button)
-
-/*
-nova2d JoyDPad Left pressed down
-*/
-#define n2dJoyDPadLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_LEFT)
-
-/*
-nova2d JoyDPad Right pressed down
-*/
-#define n2dJoyDPadRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_RIGHT)
-
-/*
-nova2d JoyDPad Up pressed down
-*/
-#define n2dJoyDPadUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_UP)
-
-/*
-nova2d JoyDPad Down pressed down
-*/
-#define n2dJoyDPadDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_DOWN)
-
-/*
-nova2d Joy Simple Direction means joy is mostly left on axis
-*/
-#define n2dJoySimpleLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d Joy Simple Direction means joy is mostly right on axis
-*/
-#define n2dJoySimpleRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d Joy Simple Direction means joy is mostly up on axis
-USES InputHandler::s_JoyStickDeadzone
-*/
-#define n2dJoySimpleUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d Joy Simple Direction means joy is mostly down on axis
-*/
-#define n2dJoySimpleDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d RIGHT Joy Simple Direction means joy is mostly left on axis
-*/
-#define n2dJoyRSimpleLeft(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d RIGHT Joy Simple Direction means joy is mostly right on axis
-*/
-#define n2dJoyRSimpleRight(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d RIGHT Joy Simple Direction means joy is mostly up on axis
-USES InputHandler::s_JoyStickDeadzone
-*/
-#define n2dJoyRSimpleUp(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
-
-/*
-nova2d RIGHT Joy Simple Direction means joy is mostly down on axis
-*/
-#define n2dJoyRSimpleDown(controllerID) novazero::core::Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone
 
 /*
 nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)

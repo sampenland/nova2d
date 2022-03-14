@@ -272,12 +272,12 @@ namespace novazero
 				tween.durationMS = durationMS;
 				tween.invert = end < start;
 
-				if (end < 0.f && !tween.invert)
+				if (end < 0.f)
 				{
 					tween.negate = true;
 					end *= -1;
 				}
-				else if (start < 0.f && end < 0.f)
+				else if (start < 0.f)
 				{
 					tween.negate = true;
 					start *= -1;
