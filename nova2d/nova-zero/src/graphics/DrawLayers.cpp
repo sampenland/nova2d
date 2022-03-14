@@ -114,7 +114,7 @@ namespace novazero
 					scale = 1.f;
 				}
 
-				m_Layers[layer][i]->Draw(x, y, scale);
+				m_Layers[layer][i]->Draw(x, y, scale); // TODO: if off screen then DO NOT DRAW
 			}
 		}
 
