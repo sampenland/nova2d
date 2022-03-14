@@ -171,9 +171,11 @@ namespace novazero
 
 			if (n2dIsKeyDown(SDLK_MINUS))
 			{
-				m_Zoom -= m_ZoomSpeed;
-				m_Scale -= m_ZoomSpeed;
-				if (m_Zoom < 0)m_Zoom = 0.00001f;
+				if (m_Zoom - m_ZoomSpeed > 0.25f)
+				{
+					m_Zoom -= m_ZoomSpeed;
+					m_Scale -= m_ZoomSpeed;
+				}				
 			}
 
 			if (n2dIsKeyDown(SDLK_0))
@@ -250,18 +252,13 @@ namespace novazero
 
 		void Camera::CenterOn(Positional* target)
 		{
-			SetPosition(Vec2(
-				target->GetCenter().x + (m_Zoom * Game::s_Width/2), 
-				target->GetCenter().y - (m_Zoom * Game::s_Height/2)
-			));
+			CenterOn(Vec2(target->GetCenter().x, target->GetCenter().y));
 		}
 
 		void Camera::CenterOn(Vec2 position)
 		{
-			SetPosition(Vec2(
-				position.x + (m_Zoom * Game::s_Width / 2),
-				position.y - (m_Zoom * Game::s_Height / 2)
-			));
+			SetX(position.x - (m_Zoom * (Game::s_Width / 2)));
+			SetY(position.y - (m_Zoom * (Game::s_Height / 2)));
 		}
 
 		float Camera::GetX() const 

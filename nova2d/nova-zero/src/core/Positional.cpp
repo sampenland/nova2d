@@ -43,7 +43,7 @@ namespace novazero
 		{
 			if (GetDrawable())
 			{
-				return Vec2(GetX() - GetDrawable()->GetWidth() * 1.5f, GetY() + GetDrawable()->GetHeight() / 1.5f);
+				return Vec2(GetX() + GetDrawable()->GetWidth()/2, GetY() + GetDrawable()->GetHeight()/2);
 			}
 			return GetPosition();
 		}

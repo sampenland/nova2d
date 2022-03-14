@@ -91,7 +91,7 @@ namespace novazero
 				
 				int camPosX = -CAMERA->GetX();
 				int camPosY = -CAMERA->GetY();
-				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]");
+				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]\n Z:[" + tostring(CAMERA_ZOOM) + "]");
 			}
 
 			if (!IsEnabled()) return;
