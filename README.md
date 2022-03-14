@@ -2,7 +2,7 @@
 
 
 Doxygen Docs: https://n2d.dev/
-Check out the [Wiki](https://github.com/sampenland/nova2d/wiki) for a helpful CHEATSHEET and beginning work on some Docs.
+Check out the [Wiki](https://github.com/sampenland/nova2d/wiki) for a helpful CHEATSHEET and beginning work on some Docs. Also, to get involved in the development by suggesting ideas and features, check out the [Forums](https://n2d.dev/forums/) to follow DevLogs and also join the community.
 
 ---
 !!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck.
