@@ -18,7 +18,9 @@ namespace novazero
 			unsigned int m_CleanID = 0;
 			unsigned int m_ID = 0;
 
+			Rect m_DrawArea = Rect(0, 0, 0, 0);
 			float m_Zoom = 1.f;
+			float m_OldZoom = 1.f;
 			float m_ZoomSpeed = 0.01f;
 			float m_Scale = 1.f;
 			float m_FollowDistance = 100.f;

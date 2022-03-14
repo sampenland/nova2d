@@ -20,6 +20,7 @@ namespace novazero
 				ConfigureMoveBounds(bounds);
 			}
 
+			m_DrawArea = Rect(0, 0, Game::s_Width, Game::s_Height);
 			ConfigureUsingBounds(true, false);
 
 			m_CleanID = n2dAddUpdaterPersistent(Camera::Update, this);
@@ -28,6 +29,13 @@ namespace novazero
 
 		void Camera::Update()
 		{
+			if (m_Zoom != m_OldZoom)
+			{
+				m_OldZoom = m_Zoom;
+				m_DrawArea.w = Game::s_Width * m_Zoom;
+				m_DrawArea.h = Game::s_Height * m_Zoom;
+			}
+
 			if (m_FreeMove)
 				FreeMove();
 
@@ -147,8 +155,7 @@ namespace novazero
 
 			if (n2dIsKeyDown(SDLK_4))
 			{
-				m_Zoom = 4.f;
-				m_Scale = 4.f;
+				SetPosition(Vec2(100, 100));
 			}
 
 			if (n2dIsKeyDown(SDLK_EQUALS))
@@ -228,14 +235,12 @@ namespace novazero
 
 		void Camera::SetX(float x)
 		{
-			m_Position.x = x;
-			//m_Position.x = (int)x + (m_Zoom * Game::s_Width / 2);
+			m_Position.x = -x;
 		}
 
 		void Camera::SetY(float y)
 		{
 			m_Position.y = -y;
-			//m_Position.y = (int)y - (m_Zoom * Game::s_Height / 2);
 		}
 
 		void Camera::CenterOn(Positional* target)
