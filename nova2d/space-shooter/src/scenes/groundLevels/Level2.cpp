@@ -32,7 +32,6 @@ namespace spaceshooter
 
 		//CAMERA->SetFollowTarget((Positional*)player, 1000.f, true, 2.f, 400.f, TweenTypes::EaseInExpo);
 		//CAMERA->SetZoom(2.f);
-		CAMERA->CenterOn(player);
 	}
 
 	void Level2::OnEscape()

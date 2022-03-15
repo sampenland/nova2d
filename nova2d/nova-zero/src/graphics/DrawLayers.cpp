@@ -113,6 +113,9 @@ namespace novazero
 				float x = (drawablePos.x - centerScreen.x) * CAMERA_ZOOM + centerScreen.x;
 				float y = (drawablePos.y - centerScreen.y) * CAMERA_ZOOM + centerScreen.y;
 
+				x += camPos.x;
+				y += camPos.y;
+
 				float scale = CAMERA_SCALE;
 				
 				if (m_Layers[layer][i]->IsNotScaleable())
