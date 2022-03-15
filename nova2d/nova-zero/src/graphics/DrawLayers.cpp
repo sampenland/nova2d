@@ -96,7 +96,7 @@ namespace novazero
 		{
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
-				Vec2 camPos = m_MainCamera->GetPosition();
+				Vec2 camPos = CAMERA->GetPosition();
 
 				Vec2 centerScreen = Game::GetCenterScreen();
 				Vec2 drawablePos = m_Layers[layer][i]->GetPosition();
@@ -107,14 +107,11 @@ namespace novazero
 					drawablePos.y  + drawableSize.y < CAMERA_RECT.y ||
 					drawablePos.y > CAMERA_RECT.y + CAMERA_RECT.h)
 				{
-					continue; // DO NOT DRAW (outside of camera space)
+					//continue; // DO NOT DRAW (outside of camera space)
 				}
 
 				float x = (drawablePos.x - centerScreen.x) * CAMERA_ZOOM + centerScreen.x;
 				float y = (drawablePos.y - centerScreen.y) * CAMERA_ZOOM + centerScreen.y;
-
-				x += camPos.x;
-				y += camPos.y;
 
 				float scale = CAMERA_SCALE;
 				

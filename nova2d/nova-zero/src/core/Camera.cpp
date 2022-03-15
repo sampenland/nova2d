@@ -36,7 +36,7 @@ namespace novazero
 				m_DrawArea.h = Game::s_Height * m_Zoom;
 			}
 
-			m_DrawArea.x = GetX();
+			m_DrawArea.x = -GetX();
 			m_DrawArea.y = GetY();
 
 			// -----------
