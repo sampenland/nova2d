@@ -10,6 +10,7 @@
 // Pointer to main (only as of now) camera
 #define CAMERA novazero::core::Game::GetCamera()
 #define CAMERA_ZOOM novazero::core::Game::GetCamera()->GetZoom()
+#define CAMERA_RECT novazero::core::Game::GetCamera()->GetDrawArea()
 #define CAMERA_SCALE novazero::core::Game::GetCamera()->GetScale()
 
 // Max gamepads
@@ -128,6 +129,7 @@ Easy access globally to game score
 #include "../utils/timeline/TimelineEvent.h"
 #include "../utils/Tweens.h"
 #include "../utils/TweenManager.h"
+#include "../utils/SQLManager.h"
 
 #include <string>
 #include <cmath>
@@ -372,6 +374,31 @@ namespace novazero
 		*/
 		void n2dScoreAdd(unsigned int add);
 
+		/*
+		nova2d SQL Scores Create Table (int, int)
+		Creates simple nova2d highscores table
+		*/
+		void n2dSQLScoreTableCreation(int nameMaxSize, int scoreDigitCount);
+
+		/*
+		nova2d SQL Scores Add (string int)
+		Inserts new score into nova2d's simple highscore table
+		*/
+		void n2dSQLScoreAdd(const std::string& playerName, int score);
+
+		/*
+		nova2d SQL Scores Remove (string, int)
+		Removes score from nova2d's simple highscore table
+		*/
+		void n2dSQLScoreRemove(const std::string& playerName, int score);
+
+		/*
+		nova2d SQL Get Scores (count, &results, &lowestScore)
+		Grabs top N amount of scores
+		*/
+		void n2dSQLScoreTopN(int count, std::vector<HighScore>& resultsOUT, unsigned long& lowestHighscoreOUT);
+
+
 		//----------------------------------------------------------------------------
 		// INPUT
 		//----------------------------------------------------------------------------
@@ -470,7 +497,15 @@ namespace novazero
 		*/
 		bool n2dJoyRSimpleDown(BYTE controllerID);
 
+		//----------------------------------------------------------------------------
+		// nova SQL
+		//----------------------------------------------------------------------------
 
+		/*
+		nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
+		Enables SQL use
+		*/
+		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass);
 
 
 	}
@@ -483,35 +518,7 @@ namespace novazero
 
 
 
-/*
-nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
-Enables SQL use
-*/
-#define n2dSQLConfigure(connectionString, table, user, pass) novazero::core::Game::s_SQLManager->Configure(connectionString, table, user, pass);
 
-/*
-nova2d SQL Scores Create Table (int, int)
-Creates simple nova2d highscores table
-*/
-#define n2dSQLScoreTableCreation(nameCharCount, scoreDigitCount) novazero::core::Game::s_SQLManager->CreateScoreTable(nameCharCount, scoreDigitCount);
-
-/*
-nova2d SQL Scores Add (string int)
-Inserts new score into nova2d's simple highscore table
-*/
-#define n2dSQLScoreAdd(playerName, score) novazero::core::Game::s_SQLManager->AddScore(playerName, score);
-
-/*
-nova2d SQL Scores Remove (string, int)
-Removes score from nova2d's simple highscore table
-*/
-#define n2dSQLScoreRemove(playerName, score) novazero::core::Game::s_SQLManager->RemoveScore(playerName, score);
-
-/*
-nova2d SQL Get Scores (count, &results, &lowestScore)
-Grabs top N amount of scores
-*/
-#define n2dSQLScoreTopN(count, results, lowest) novazero::core::Game::s_SQLManager->GetScores(count, results, lowest);
 
 /*
 nova2d Clear Text edit buffer (limitSizeOfBuffer)

@@ -69,6 +69,8 @@ namespace novazero
 			void EnableFreeWASDMove(bool enabled);
 			bool IsFreeMoveEnabled() const;
 
+			Rect GetDrawArea() const;
+
 			float GetScale() const;
 			void SetScale(float scale);
 

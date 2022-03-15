@@ -189,6 +189,26 @@ namespace novazero
 			Game::AddScore(add);
 		}
 
+		void n2dSQLScoreTableCreation(int nameMaxSize, int scoreDigitCount)
+		{
+			novazero::core::Game::s_SQLManager->CreateScoreTable(nameMaxSize, scoreDigitCount);
+		}
+
+		void n2dSQLScoreAdd(const std::string& playerName, int score)
+		{
+			novazero::core::Game::s_SQLManager->AddScore(playerName, score);
+		}
+
+		void n2dSQLScoreRemove(const std::string& playerName, int score)
+		{
+			novazero::core::Game::s_SQLManager->RemoveScore(playerName, score);
+		}
+
+		void n2dSQLScoreTopN(int count, std::vector<HighScore>& resultsOUT, unsigned long& lowestHighscoreOUT)
+		{
+			novazero::core::Game::s_SQLManager->GetScores(count, resultsOUT, lowestHighscoreOUT);
+		}
+
 		bool n2dIsKeyDown(SDL_KeyCode key)
 		{
 			return Game::s_InputHandler->IsKeyDown(key);
@@ -269,7 +289,10 @@ namespace novazero
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-
+		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass)
+		{
+			Game::s_SQLManager->Configure(databaseName, connectionString, user, pass);
+		}
 
 
 

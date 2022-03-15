@@ -204,6 +204,11 @@ namespace novazero
 		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
 		bool Camera::IsFreeMoveEnabled() const { return m_FreeMove; }
 
+		Rect Camera::GetDrawArea() const
+		{
+			return m_DrawArea;
+		}
+
 		float Camera::GetScale() const { return m_Scale; }
 		void Camera::SetScale(float scale) { m_Scale = scale; m_Zoom = scale; }
 
