@@ -32,8 +32,13 @@ namespace novazero
 			if (m_Zoom != m_OldZoom)
 			{
 				m_OldZoom = m_Zoom;
+				
 				m_DrawArea.w = Game::s_Width * m_Zoom;
 				m_DrawArea.h = Game::s_Height * m_Zoom;
+
+				float nx = -1 * (m_Zoom * m_ZoomSpeed * m_Position.x);
+				float ny = -1 * (m_Zoom * m_ZoomSpeed * m_Position.y);
+
 			}
 
 			m_DrawArea.x = -GetX();
@@ -225,6 +230,20 @@ namespace novazero
 		}
 
 		// Positioning
+		Vec2 Camera::GetCenterScreenWorldPosition()
+		{
+			float x = -1 * (GetX() - Game::s_Width / 2);
+			float y = -1 * (GetY() - Game::s_Height / 2);
+
+			if (m_Zoom != 1.f)
+			{
+				x = x * (1 / m_Zoom);
+				y = y * (1 / m_Zoom);
+			}
+
+			return Vec2(x, y);
+		}
+
 		Vec2Int Camera::GetPositionInt() const 
 		{ 
 			return Vec2Int((int)GetX(), (int)GetY());

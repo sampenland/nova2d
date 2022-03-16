@@ -94,27 +94,25 @@ namespace novazero
 
 		void DrawLayers::DrawLayer(const BYTE layer) const
 		{
+			Vec2 camPos = CAMERA->GetPosition();
+			Rect cameraDrawArea = CAMERA_RECT;
+
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
-				Vec2 camPos = CAMERA->GetPosition();
-
-				Vec2 centerScreen = Game::GetCenterScreen();
 				Vec2 drawablePos = m_Layers[layer][i]->GetPosition();
 				Vec2Int drawableSize = m_Layers[layer][i]->GetSize();
 				
-				if (drawablePos.x + drawableSize.x < CAMERA_RECT.x ||
-					drawablePos.x > CAMERA_RECT.x + CAMERA_RECT.w ||
-					drawablePos.y  + drawableSize.y < CAMERA_RECT.y ||
-					drawablePos.y > CAMERA_RECT.y + CAMERA_RECT.h)
+				if (drawablePos.x + drawableSize.x < cameraDrawArea.x ||
+					drawablePos.x > cameraDrawArea.x + cameraDrawArea.w ||
+					drawablePos.y  + drawableSize.y < cameraDrawArea.y ||
+					drawablePos.y > cameraDrawArea.y + cameraDrawArea.h)
 				{
-					//continue; // DO NOT DRAW (outside of camera space)
+					// CULL - DO NOT DRAW (outside of camera space)
+					//continue;
 				}
 
-				float x = (drawablePos.x - centerScreen.x) * CAMERA_ZOOM + centerScreen.x;
-				float y = (drawablePos.y - centerScreen.y) * CAMERA_ZOOM + centerScreen.y;
-
-				x += camPos.x;
-				y += camPos.y;
+				float x = drawablePos.x + camPos.x;
+				float y = drawablePos.y + camPos.y;
 
 				float scale = CAMERA_SCALE;
 				

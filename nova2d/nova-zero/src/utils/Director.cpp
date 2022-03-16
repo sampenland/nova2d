@@ -85,9 +85,8 @@ namespace novazero
 			}
 			else
 			{
-				int midScreenX = -CAMERA->GetX() * 1 / CAMERA_ZOOM + Game::s_Width / 2;
-				int midScreenY = -CAMERA->GetY() * 1 / CAMERA_ZOOM + Game::s_Height / 2;
-				m_MiddleScreenText->UpdateText("Cntr:[" + tostring(midScreenX) + ", " + tostring(midScreenY) + "]");
+				Vec2Int cameraWorldCenter = Vec2Int(CAMERA->GetCenterScreenWorldPosition().x, CAMERA->GetCenterScreenWorldPosition().y);
+				m_MiddleScreenText->UpdateText("Cntr:[" + tostring(cameraWorldCenter.x) + ", " + tostring(cameraWorldCenter.y) + "]");
 				
 				int camPosX = -CAMERA->GetX();
 				int camPosY = -CAMERA->GetY();
