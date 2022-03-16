@@ -123,7 +123,6 @@ namespace novazero
 			void ClearLayers();
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
-			void DrawTileLayers();
 
 			void DestroySelf();
 

@@ -96,6 +96,7 @@ namespace novazero
 		{
 			Vec2 camPos = CAMERA->GetPosition();
 			Rect cameraDrawArea = CAMERA_RECT;
+			float zoom = CAMERA_ZOOM;
 
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
@@ -112,10 +113,13 @@ namespace novazero
 					//continue;
 				}
 
-				float x = drawablePos.x + camPos.x;
-				float y = drawablePos.y + camPos.y;
+				/*Vec2 zoomInOnPosition = CAMERA->GetCenterScreenWorldPosition();
+				Vec2 offset;
+				offset.x = zoomInOnPosition.x - zoom * (zoomInOnPosition.x - camPos.x);
+				offset.y = zoomInOnPosition.y - zoom * (zoomInOnPosition.y - camPos.y);*/
 
-				float zoom = CAMERA_ZOOM;
+				float x = drawablePos.x + camPos.x + CAMERA->OffsetX();
+				float y = drawablePos.y + camPos.y + CAMERA->OffsetY();
 				
 				if (m_Layers[layer][i]->IsNotScaleable())
 				{

@@ -92,6 +92,8 @@ namespace novazero
 			void SetOffsetX(int offsetX) { m_Offset.x = offsetX; }
 			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
 
+			void SetOffset(Vec2 offset);
+
 			void SetPosition(Vec2 position);
 			void SetPosition(Positional* target);
 			void SetPositionInt(Vec2Int position);
