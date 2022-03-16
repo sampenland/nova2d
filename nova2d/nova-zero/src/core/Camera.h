@@ -22,7 +22,6 @@ namespace novazero
 			float m_Zoom = 1.f;
 			float m_OldZoom = 1.f;
 			float m_ZoomSpeed = 0.01f;
-			float m_Scale = 1.f;
 			float m_FollowDistance = 100.f;
 
 			Positional* m_FollowTarget = nullptr;
@@ -73,11 +72,8 @@ namespace novazero
 
 			Rect GetDrawArea() const;
 
-			float GetScale() const;
-			void SetScale(float scale);
-
 			float GetZoom() const;
-			void SetZoom(float zoomLevel, bool reposition = false);
+			void SetZoom(float zoomLevel);
 
 			Vec2 GetPosition() const;
 			Vec2 GetPositionRAW() const;

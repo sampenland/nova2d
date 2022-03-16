@@ -147,46 +147,42 @@ namespace novazero
 
 			if (n2dIsKeyDown(SDLK_1))
 			{
-				m_Zoom = 1.f;
-				m_Scale = 1.f;
+				SetZoom(1.f);
 			}
 
 			if (n2dIsKeyDown(SDLK_2))
 			{
-				m_Zoom = 2.f;
-				m_Scale = 2.f;
+				SetZoom(2.f);
 			}
 
 			if (n2dIsKeyDown(SDLK_3))
 			{
-				m_Zoom = 3.f;
-				m_Scale = 3.f;
+				SetZoom(3.f);
 			}
 
 			if (n2dIsKeyDown(SDLK_4))
 			{
-				SetPosition(Vec2(100, 100));
+				SetZoom(4.f);
 			}
 
 			if (n2dIsKeyDown(SDLK_EQUALS))
 			{
-				m_Zoom += m_ZoomSpeed;
-				m_Scale += m_ZoomSpeed;
+				float z = m_Zoom + m_ZoomSpeed;
+				SetZoom(z);
 			}
 
 			if (n2dIsKeyDown(SDLK_MINUS))
 			{
 				if (m_Zoom - m_ZoomSpeed > 0.25f)
 				{
-					m_Zoom -= m_ZoomSpeed;
-					m_Scale -= m_ZoomSpeed;
+					float z = m_Zoom - m_ZoomSpeed;
+					SetZoom(z);
 				}				
 			}
 
 			if (n2dIsKeyDown(SDLK_0))
 			{
-				m_Scale = 1.f;
-				m_Zoom = 1.f;
+				SetZoom(1.f);
 				SetPosition(Vec2(0, 0));
 			}
 		}
@@ -213,20 +209,25 @@ namespace novazero
 		{
 			return m_DrawArea;
 		}
-
-		float Camera::GetScale() const { return m_Scale; }
-		void Camera::SetScale(float scale) { m_Scale = scale; m_Zoom = scale; }
-
 		float Camera::GetZoom() const { return m_Zoom; }
-		void Camera::SetZoom(float zoomLevel, bool reposition)
+		void Camera::SetZoom(float zoomLevel)
 		{
-			m_Zoom = zoomLevel;
-			m_Scale = zoomLevel;
-			
-			if (!reposition) return;
+			if (zoomLevel == m_OldZoom)
+			{
+				return;
+			}
 
-			SetX(m_Position.x);
-			SetY(m_Position.y);
+			m_OldZoom = zoomLevel;
+
+			Vec2 center = GetCenterScreenWorldPosition(); // 640, 400
+			m_Zoom = zoomLevel;
+			Vec2 newCenter = GetCenterScreenWorldPosition(); // 2x = 320, 200
+			Vec2 translation = Vec2(newCenter.x - center.x, newCenter.y - center.y);
+			Vec2 finalPos = translation;
+
+			LOGS(tostring(finalPos.x) + " , " + tostring(finalPos.y));
+			//SetPosition(finalPos);
+
 		}
 
 		// Positioning

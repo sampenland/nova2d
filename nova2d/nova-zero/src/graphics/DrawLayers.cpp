@@ -107,6 +107,7 @@ namespace novazero
 					drawablePos.y  + drawableSize.y < cameraDrawArea.y ||
 					drawablePos.y > cameraDrawArea.y + cameraDrawArea.h)
 				{
+					// TODO: if off screen then DO NOT DRAW
 					// CULL - DO NOT DRAW (outside of camera space)
 					//continue;
 				}
@@ -114,14 +115,14 @@ namespace novazero
 				float x = drawablePos.x + camPos.x;
 				float y = drawablePos.y + camPos.y;
 
-				float scale = CAMERA_SCALE;
+				float zoom = CAMERA_ZOOM;
 				
 				if (m_Layers[layer][i]->IsNotScaleable())
 				{
-					scale = 1.f;
+					zoom = 1.f;
 				}
 
-				m_Layers[layer][i]->Draw(x, y, scale); // TODO: if off screen then DO NOT DRAW
+				m_Layers[layer][i]->Draw(x, y, zoom);
 			}
 		}
 
