@@ -61,6 +61,7 @@ namespace novazero
 			void FollowTarget();
 
 			Vec2 GetCenterScreenWorldPosition();
+			Vec2 GetWorldPosition();
 
 			void CenterOn(Positional* target);
 			void CenterOn(Vec2 position);

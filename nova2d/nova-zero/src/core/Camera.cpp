@@ -208,11 +208,10 @@ namespace novazero
 		float Camera::GetZoom() const { return m_Zoom; }
 		void Camera::SetZoom(float zoomLevel)
 		{
-			Vec2 currentCenter = GetCenterScreenWorldPosition();
 			m_Zoom = zoomLevel;
-			Vec2 newCenter = GetCenterScreenWorldPosition();
 
-			int i = 0;
+			// TODO: reposition camera such that
+			// previous center is still center
 		}	
 
 		// Positioning
@@ -220,6 +219,20 @@ namespace novazero
 		{
 			float x = -1 * (GetX() - Game::s_Width / 2);
 			float y = -1 * (GetY() - Game::s_Height / 2);
+
+			if (m_Zoom != 1.f)
+			{
+				x = x * (1 / m_Zoom);
+				y = y * (1 / m_Zoom);
+			}
+
+			return Vec2(x, y);
+		}
+
+		Vec2 Camera::GetWorldPosition()
+		{
+			float x = -1 * (GetX() - Game::s_Width);
+			float y = -1 * (GetY() - Game::s_Height);
 
 			if (m_Zoom != 1.f)
 			{

@@ -105,22 +105,17 @@ namespace novazero
 				
 				if (drawablePos.x + drawableSize.x < cameraDrawArea.x ||
 					drawablePos.x > cameraDrawArea.x + cameraDrawArea.w ||
-					drawablePos.y  + drawableSize.y < cameraDrawArea.y ||
+					drawablePos.y + drawableSize.y < cameraDrawArea.y ||
 					drawablePos.y > cameraDrawArea.y + cameraDrawArea.h)
 				{
 					// TODO: if off screen then DO NOT DRAW
 					// CULL - DO NOT DRAW (outside of camera space)
 					//continue;
 				}
-
-				/*Vec2 zoomInOnPosition = CAMERA->GetCenterScreenWorldPosition();
-				Vec2 offset;
-				offset.x = zoomInOnPosition.x - zoom * (zoomInOnPosition.x - camPos.x);
-				offset.y = zoomInOnPosition.y - zoom * (zoomInOnPosition.y - camPos.y);*/
-
-				float x = drawablePos.x + camPos.x + CAMERA->OffsetX();
-				float y = drawablePos.y + camPos.y + CAMERA->OffsetY();
 				
+				float x = drawablePos.x + camPos.x;
+				float y = drawablePos.y + camPos.y;
+
 				if (m_Layers[layer][i]->IsNotScaleable())
 				{
 					zoom = 1.f;

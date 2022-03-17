@@ -26,6 +26,7 @@ namespace novazero
 
 		Vec2& Vec2::subtract(const Vec2& other)
 		{
+			// TODO: not sure if this works, along with add/mutl etc
 			x -= other.x;
 			y -= other.y;
 
