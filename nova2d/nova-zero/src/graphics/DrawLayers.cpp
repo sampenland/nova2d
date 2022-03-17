@@ -96,8 +96,7 @@ namespace novazero
 		{
 			Vec2 camPos = CAMERA->GetPosition();
 			Rect cameraDrawArea = CAMERA_RECT;
-			float zoom = CAMERA_ZOOM;
-
+			
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
 				Vec2 drawablePos = m_Layers[layer][i]->GetPosition();
@@ -111,8 +110,9 @@ namespace novazero
 					// TODO: if off screen then DO NOT DRAW
 					// CULL - DO NOT DRAW (outside of camera space)
 					//continue;
-				}
+				}				
 				
+				float zoom = CAMERA_ZOOM;
 				float x = drawablePos.x + camPos.x;
 				float y = drawablePos.y + camPos.y;
 

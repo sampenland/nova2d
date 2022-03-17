@@ -33,12 +33,12 @@ namespace novazero
 			{
 				m_OldZoom = m_Zoom;
 				
-				m_DrawArea.w = Game::s_Width * m_Zoom;
-				m_DrawArea.h = Game::s_Height * m_Zoom;
+				m_DrawArea.w = Game::s_Width / m_Zoom;
+				m_DrawArea.h = Game::s_Height / m_Zoom;
 			}
 
-			m_DrawArea.x = -GetX();
-			m_DrawArea.y = GetY();
+			//m_DrawArea.x = -GetX();
+			//m_DrawArea.y = GetY();
 
 			// -----------
 
@@ -205,13 +205,40 @@ namespace novazero
 		{
 			return m_DrawArea;
 		}
-		float Camera::GetZoom() const { return m_Zoom; }
+		
+		float Camera::GetZoom() const 
+		{ 
+			return m_Zoom; 
+		}
+
 		void Camera::SetZoom(float zoomLevel)
 		{
-			m_Zoom = zoomLevel;
+			if (m_OldZoom == zoomLevel) return;
 
-			// TODO: reposition camera such that
-			// previous center is still center
+			// Prep vars
+			Vec2 offset;
+			Vec2 center1;
+			Vec2 center2;
+
+			// Get where the camera is currently centered on
+			center1 = CAMERA->GetCenterScreenWorldPosition();
+			m_Zoom = zoomLevel;
+			center2 = GetCenterScreenWorldPosition();
+
+			// Camera center moved by
+			offset.x = center1.x - center2.x;
+			offset.y = center1.y - center2.y;
+
+			// Camera center moved by
+			if (center2.x < center1.x)
+			{
+				SetPosition(Vec2(center2.x + offset.x, center2.y + offset.y));
+			}
+			else
+			{
+				SetPosition(Vec2(center2.x + offset.x, center2.y + offset.y));
+			}
+
 		}	
 
 		// Positioning
@@ -280,6 +307,8 @@ namespace novazero
 
 		void Camera::CenterOn(Vec2 position)
 		{
+			//TODO: check this function
+			LOG(LVL_I, "is this centering working?");
 			SetX(position.x - (m_Zoom * (Game::s_Width / 2)));
 			SetY(position.y - (m_Zoom * (Game::s_Height / 2)));
 		}
