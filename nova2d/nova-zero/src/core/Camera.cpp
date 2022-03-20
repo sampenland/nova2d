@@ -161,6 +161,16 @@ namespace novazero
 				SetZoom(4.f);
 			}
 
+			if (n2dIsKeyDown(SDLK_5))
+			{
+				SetZoom(5.f);
+			}
+
+			if (n2dIsKeyDown(SDLK_6))
+			{
+				SetZoom(6.f);
+			}
+
 			if (n2dIsKeyDown(SDLK_EQUALS))
 			{
 				float z = m_Zoom + m_ZoomSpeed;
@@ -215,43 +225,41 @@ namespace novazero
 		{
 			if (m_OldZoom == zoomLevel) return;
 
-			// Prep vars
-			Vec2 offset;
-			Vec2 center1;
-			Vec2 center2;
 
-			// Get where the camera is currently centered on
-			center1 = CAMERA->GetCenterScreenWorldPosition();
 			m_Zoom = zoomLevel;
-			center2 = GetCenterScreenWorldPosition();
 
-			// Camera center moved by
-			offset.x = center1.x - center2.x;
-			offset.y = center1.y - center2.y;
+			Vec2 viewportSize = Vec2(Game::s_Width / m_Zoom, Game::s_Height / m_Zoom);
+			Vec2 center = GetCenterScreenWorldPosition();
+			Vec2 bottomRight = GetBottomRightWorldPosition();
+			Vec2 cameraPosition = GetPosition();
 
-			// Camera center moved by
-			if (center2.x < center1.x)
-			{
-				SetPosition(Vec2(center2.x + offset.x, center2.y + offset.y));
-			}
-			else
-			{
-				SetPosition(Vec2(center2.x + offset.x, center2.y + offset.y));
-			}
+			Vec2 position = Vec2(0, 0);
+			position.x = bottomRight.x - (0.5f * viewportSize.x);
+			position.y = bottomRight.y - (0.5f * viewportSize.y);
+
+			float multi = std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
+			position.multiply(Vec2(multi, multi));
+
+			LOGS(tostring(position.x) + "  ,  " + tostring(position.y));
+			SetPosition(position);
+			return;
 
 		}	
 
 		// Positioning
 		Vec2 Camera::GetCenterScreenWorldPosition()
 		{
-			float x = -1 * (GetX() - Game::s_Width / 2);
-			float y = -1 * (GetY() - Game::s_Height / 2);
+			Vec2 btmRight = GetBottomRightWorldPosition();
+			return btmRight.divide(Vec2(2, 2));
+		}
 
-			if (m_Zoom != 1.f)
-			{
-				x = x * (1 / m_Zoom);
-				y = y * (1 / m_Zoom);
-			}
+		Vec2 Camera::GetBottomRightWorldPosition(float zoom)
+		{
+			if (zoom == -1.f)
+				zoom = m_Zoom;
+
+			float x = GetX() + (Game::s_Width / zoom);
+			float y = GetY() + Game::s_Height/ zoom;
 
 			return Vec2(x, y);
 		}
