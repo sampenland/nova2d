@@ -189,7 +189,7 @@ namespace novazero
 			if (n2dIsKeyDown(SDLK_0))
 			{
 				SetZoom(1.f);
-				SetPosition(Vec2(0, 0));
+				SetPosition(Vec2(100, 100));
 			}
 		}
 
@@ -225,9 +225,14 @@ namespace novazero
 		{
 			if (m_OldZoom == zoomLevel) return;
 
+			// Store values for translation
+			Vec2 oldBottomRight = GetBottomRightWorldPosition();
+			Vec2 offset = Vec2(Game::s_Width - oldBottomRight.x, Game::s_Height - oldBottomRight.y);
 
+			// Apply zoom
 			m_Zoom = zoomLevel;
 
+			// Calculate translation
 			Vec2 viewportSize = Vec2(Game::s_Width / m_Zoom, Game::s_Height / m_Zoom);
 			Vec2 center = GetCenterScreenWorldPosition();
 			Vec2 bottomRight = GetBottomRightWorldPosition();
@@ -237,10 +242,22 @@ namespace novazero
 			position.x = bottomRight.x - (0.5f * viewportSize.x);
 			position.y = bottomRight.y - (0.5f * viewportSize.y);
 
+			// Factor for how much to scale zoom
 			float multi = std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
 			position.multiply(Vec2(multi, multi));
 
-			LOGS(tostring(position.x) + "  ,  " + tostring(position.y));
+			// Apply back old offset
+			float offsetMulti = std::pow(m_Zoom, 2);
+			offset.x *= offsetMulti;
+			offset.y *= offsetMulti;
+
+			position.x += offset.x;
+			position.y += offset.y;
+
+			LOGS("OFFSET: " + tostring(offset.x) + "  ,  " + tostring(offset.y))
+			LOGS("NP: " + tostring(position.x) + "  ,  " + tostring(position.y));
+
+			// Translate
 			SetPosition(position);
 			return;
 
