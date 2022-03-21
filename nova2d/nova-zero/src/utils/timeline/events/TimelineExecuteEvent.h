@@ -15,7 +15,7 @@ namespace novazero
 
 				private:
 
-					FuncType f_EventType = FuncType::Float;
+					FuncType f_EventType = FuncType::Undefined;
 					std::function<void()> f_EventFuncVoid;
 
 					std::function<void(int, float)> f_EventFuncInt1Float1;
@@ -147,6 +147,8 @@ namespace novazero
 					{
 						switch (f_EventType)
 						{
+						case FuncType::Undefined:
+							return;
 						case FuncType::Void:
 							f_EventFuncVoid();
 							break;

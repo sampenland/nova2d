@@ -18,6 +18,9 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\scenes\TimelinesExample.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\narrow.ttf" />
@@ -27,10 +30,10 @@
     <Font Include="res\fonts\pixel4.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\scenes\MainMenu.h">
+    <ClInclude Include="src\scenes\TimelinesExample.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes\Level1.h">
+    <ClInclude Include="src\Executor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

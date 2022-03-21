@@ -3,22 +3,25 @@
 
 namespace novazero
 {
-	namespace core
+	namespace utils
 	{
-		class TimelineInstance
+		namespace timeline
 		{
-
-		protected:
-			
-			TimelineInstance() {};
-
-		public:
-
-			void ExecuteNovaEvent(std::function<void()> func)
+			class TimelineInstance
 			{
-				func();
-			}
 
-		};
+			protected:
+
+				TimelineInstance() {};
+
+			public:
+
+				void ExecuteNovaEvent(std::function<void()> func)
+				{
+					func();
+				}
+
+			};
+		}		
 	}
 }

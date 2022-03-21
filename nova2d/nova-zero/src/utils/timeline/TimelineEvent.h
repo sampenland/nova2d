@@ -14,6 +14,7 @@ namespace novazero
 
 			enum class FuncType
 			{
+				Undefined,
 				Void,
 				Int1Float1,
 				Int2Float1,

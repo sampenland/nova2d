@@ -37,7 +37,7 @@ namespace novazero
 
 				void TimelineTrggerEvent::Tick()
 				{
-					if (!f_OnFunc || f_OnOffFunc)
+					if (!f_OnFunc || !f_OnOffFunc)
 					{
 						LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
 						return;
@@ -76,7 +76,7 @@ namespace novazero
 
 				void TimelineTrggerEvent::Trigger(bool isTriggered)
 				{
-					if (!f_OnFunc || f_OnOffFunc)
+					if (!f_OnFunc || !f_OnOffFunc)
 					{
 						LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
 						return;

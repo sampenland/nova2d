@@ -1,6 +1,5 @@
 #include "core/Game.h"
-#include "scenes/MainMenu.h"
-#include "scenes/Level1.h"
+#include "scenes/TimelinesExample.h"
 
 int main(int argc, char* argv[])
 {
@@ -11,13 +10,10 @@ int main(int argc, char* argv[])
 	// Game Config
 	Game game("Empty Project");
 
-	MainMenu* mainMenu = new MainMenu("mainMenu");
-	Level1* level1 = new Level1("level1");
+	TimelinesExample* scene = new TimelinesExample("scene");
 
-	n2dGameAddScene(mainMenu);
-	n2dGameAddScene(level1);
-
-	n2dGameConfigFirstScene(mainMenu);
+	n2dGameAddScene(scene);
+	n2dGameConfigFirstScene(scene);
 	
 	while (Game::IsRunning())
 	{
