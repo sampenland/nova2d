@@ -161,6 +161,16 @@ namespace novazero
 				it++;
 			}
 
+			if (m_CurrentScene == nullptr && Game::s_Running)
+			{
+				LOG(LVL_FATAL_ERROR, "NO Scene loaded. Exiting.");
+				Game::EndGame(ERR_NO_SCENE);
+				return;
+			}
+			else if (!Game::s_Running)
+			{
+				return;
+			}
 			m_CurrentScene->Update();
 
 			ProcessPersistentUpdaters();

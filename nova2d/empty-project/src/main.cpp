@@ -1,5 +1,6 @@
 #include "core/Game.h"
-#include "scenes/SampleScene.h"
+#include "scenes/MainMenu.h"
+#include "scenes/Level1.h"
 
 int main(int argc, char* argv[])
 {
@@ -9,21 +10,15 @@ int main(int argc, char* argv[])
 
 	// Game Config
 	Game game("Empty Project");
-	//game.ConfigureIcon("res/ship_01.png"); // Path to your icon (square)
-	Game::SetGamePadding(32, 64, 32, 32);
-	game.ConfigureDebugOverlay(true);
-	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
 
-	// Background color
-	n2dAddColor("novablue", "3f7178", 255);
-	n2dSetBackgroundColor("novablue");
+	MainMenu* mainMenu = new MainMenu("mainMenu");
+	Level1* level1 = new Level1("level1");
 
-	// Textures
-	SampleScene* sampleScene = new SampleScene("sampleScene");
-	n2dGameAddScene(sampleScene);
+	n2dGameAddScene(mainMenu);
+	n2dGameAddScene(level1);
 
-	n2dGameConfigFirstScene(sampleScene);
-
+	n2dGameConfigFirstScene(mainMenu);
+	
 	while (Game::IsRunning())
 	{
 		game.Tick();

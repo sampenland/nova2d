@@ -41,6 +41,9 @@
 
 #define tostring(v) std::to_string(v)
 
+// Error codes
+#define ERR_NO_SCENE 1001
+
 // ---------------------
 // Quick Acess
 // ---------------------
