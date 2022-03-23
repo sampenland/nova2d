@@ -126,6 +126,97 @@ Easy access globally to game score
 */
 #define n2dScore novazero::core::Game::GetScore()
 
+//----------------------------------------------------------------------------
+// EventListeners
+//----------------------------------------------------------------------------
+
+/*
+nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
+Calls function on SDL_KeyCode key down
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddKeyDownListener(key, func, context) AddKeysEventListener(key, &InputHandler::IsKeyDown, std::bind(&func, context));
+
+/*
+nova2d Add Joystick Key Down Listener (int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
+Calls function on SDL_CONTOLLER_BUTTON key down
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddJoyKeyDownListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonDown, std::bind(&func, context))
+
+/*
+nova2d Add Key Up Listener (SDL_CONTROLLER_BUTTON button, void() function, context)
+Calls function on SDL_KeyCode key up
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddJoyKeyUpListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonUp, std::bind(&func, context))
+
+/*
+nova2d Add Key Up Listener (SDL_KeyCode key, void() function, context)
+Calls function on SDL_KeyCode key up
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dAddKeyUpListener(key, func, context) AddKeysEventListener1(key, &InputHandler::IsKeyUp, std::bind(&func, context));
+
+/*
+nova2d Remove Key Down Listener (SDL_KeyCode key)
+Removes previously added key down listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveKeyDownListener(key) RemoveEventListener(key);
+
+/*
+nova2d Remove Key Down Listener (int joystickID, int button)
+Removes previously added key down listener attached to SDL_CONTROLLER BUTTON
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveJoyKeyDownListener(joystickID, button) RemoveJoyEventListener(joystickID, button)
+
+/*
+nova2d Remove Key Up Listener (SDL_KeyCode key)
+Removes previously added key up listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveJoyUpListener(joystickID, button) RemoveJoyEventListener1(joystickID, button);
+
+/*
+nova2d Remove Key Up Listener (SDL_KeyCode key)
+Removes previously added key up listener attached to SLD_KeyCode key
+Must be called on in a class that inherits from EventListener
+*/
+#define n2dRemoveKeyUpListener(key) RemoveEventListener1(key);
+
+// -----------------------------------------------------------------------
+//  Updaters
+// -----------------------------------------------------------------------
+/*
+nova2d Add Updater(void(*f) funcToCall, context)
+Updaters are called each frame; this adds a new funcToCall as an Updater
+REQUIRES: sceneManager include
+RETURNS unsigned int CleanID
+*/
+#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context))
+
+/*
+nova2d Add a Persistent Updater(void(*f) funcToCall, context)
+Updaters are called each frame; this adds a new funcToCall as an Updater
+(PERSISTENT MEANS this will remain in game until removed manually)
+RETURNS unsigned int CleanID
+*/
+#define n2dAddUpdaterPersistent(funcToCall, context) novazero::core::SceneManager::AddPersistentUpdater(std::bind(&funcToCall, context));
+
+/*
+nova2d Remove Updater(unsigned int id)
+Updaters are called each frame; this removes a current updater function from updaters vector<void()>
+*/
+#define n2dRemoveUpdater(id) novazero::core::SceneManager::RemoveUpdater(id);
+
+/*
+nova2d Remove Persistent Updater(unsigned int id)
+Updaters are called each frame; this removes a current updater function from updaters vector<void()>
+*/
+#define n2dRemovePersistentUpdater(id) novazero::core::SceneManager::RemovePersistentUpdater(id);
+
 // ------------------------------------------------------------------------
 
 #include "SDL.h"
@@ -133,6 +224,8 @@ Easy access globally to game score
 #include "../utils/Tweens.h"
 #include "../utils/TweenManager.h"
 #include "../utils/SQLManager.h"
+#include "../maps/TiledMap.h"
+#include "../core/Scene.h"
 
 #include <string>
 #include <cmath>
@@ -143,7 +236,7 @@ namespace novazero
 	{
 		using namespace novazero::utils;
 		using namespace novazero::utils::timeline;
-
+		using namespace novazero::maps;
 
 		// ----------------------------------------------------------------------------
 
@@ -510,6 +603,65 @@ namespace novazero
 		*/
 		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass);
 
+		//----------------------------------------------------------------------------
+		// Input Handler
+		//----------------------------------------------------------------------------
+
+		/*
+		nova2d Clear Text edit buffer (limitSizeOfBuffer)
+		Clears textbox input buffer
+		*/
+		void n2dTextInputClearBuffer(int newCharBufferMax);
+
+		/*
+		nova2d Set Text edit buffer (limitSizeOfBuffer)
+		Sets text in input buffer
+		*/
+		void n2dTextInputSetBuffer(std::string fillText, int maxChars);
+
+		//----------------------------------------------------------------------------
+		// Asset manager
+		//----------------------------------------------------------------------------
+
+		/*
+		nova2d Load and Add Texture (std::string assetName, std::string resourcePath)
+		Loads asset into Game's Asset Manager
+		*/
+		SDL_Texture* n2dAssetsLoadAndAddTexture(const std::string& name, std::string path);
+
+		/*
+		nova2d Get Texture by name (std::string textureName)
+		Return pointer to a preloaded texture
+		*/
+		SDL_Texture* n2dAssetsGetTexture(std::string name);
+
+		/*
+		nova2d Load Tilemap (std::string& name, std::string mapPath, std::string& tilesetImgPath, std::string& tilesetPath)
+		Loads map into Game's asset manager
+		*/
+		TiledMap* n2dAssetsLoadAndAddMap(const char* name, const char* mapPath, const char* tilesetImgPath, const char* tilesetPath);
+
+		/*
+		nova2d Get Tilemap by name (std::string mapName)
+		Return pointer to a preloaded tiled map
+		*/
+		TiledMap* n2dAssetsGetMap(std::string name);
+
+		//----------------------------------------------------------------------------
+		// Scenes
+		//----------------------------------------------------------------------------
+
+		/*
+		nova2d Add Scene (std::string sceneName, Scene* scene)
+		Scenes are levels, menus, etc; this adds a scene to Game's Scene Manager
+		*/
+		void n2dGameAddScene(Scene* scene);
+
+		/*
+		nova2d Configure first game scene to start with (std::string sceneName)
+		Scenes are levels, menus, etc; this adds a scene to Game's Scene Manager
+		*/
+		void n2dGameConfigFirstScene(Scene* scene);
 
 	}
 }
@@ -522,132 +674,6 @@ namespace novazero
 
 
 
-
-/*
-nova2d Clear Text edit buffer (limitSizeOfBuffer)
-Clears textbox input buffer
-*/
-#define n2dTextInputClearBuffer(newBufferMax) novazero::core::Game::s_InputHandler->CleanTextBuffer(newBufferMax);
-
-/*
-nova2d Set Text edit buffer (limitSizeOfBuffer)
-Sets text in input buffer
-*/
-#define n2dTextInputSetBuffer(fillText, maxChars) novazero::core::Game::s_InputHandler->SetTextBuffer(fillText, maxChars);
-
-/*
-nova2d Add Key Down Listener (SDL_KeyCode key, void() function, context)
-Calls function on SDL_KeyCode key down
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dAddKeyDownListener(key, func, context) AddKeysEventListener(key, &InputHandler::IsKeyDown, std::bind(&func, context));
-
-/*
-nova2d Remove Key Down Listener (SDL_KeyCode key)
-Removes previously added key down listener attached to SLD_KeyCode key
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dRemoveKeyDownListener(key) RemoveEventListener(key);
-
-/*
-nova2d Add Joystick Key Down Listener (int joystickID, int button, f_JoyStickConditionalFunction conditionalFunction, f_VoidFunction executeFunction)
-Calls function on SDL_CONTOLLER_BUTTON key down
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dAddJoyKeyDownListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonDown, std::bind(&func, context))
-
-/*
-nova2d Remove Key Down Listener (int joystickID, int button)
-Removes previously added key down listener attached to SDL_CONTROLLER BUTTON
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dRemoveJoyKeyDownListener(joystickID, button) RemoveJoyEventListener(joystickID, button)
-
-/*
-nova2d Add Key Up Listener (SDL_CONTROLLER_BUTTON button, void() function, context)
-Calls function on SDL_KeyCode key up
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dAddJoyKeyUpListener(joystickID, button, func, context) AddJoyEventListener(joystickID, button, &InputHandler::IsJoystickButtonUp, std::bind(&func, context))
-
-/*
-nova2d Remove Key Up Listener (SDL_KeyCode key)
-Removes previously added key up listener attached to SLD_KeyCode key
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dRemoveJoyUpListener(joystickID, button) RemoveJoyEventListener1(joystickID, button);
-
-/*
-nova2d Add Key Up Listener (SDL_KeyCode key, void() function, context)
-Calls function on SDL_KeyCode key up
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dAddKeyUpListener(key, func, context) AddKeysEventListener1(key, &InputHandler::IsKeyUp, std::bind(&func, context));
-
-/*
-nova2d Remove Key Up Listener (SDL_KeyCode key)
-Removes previously added key up listener attached to SLD_KeyCode key
-Must be called on in a class that inherits from EventListener
-*/
-#define n2dRemoveKeyUpListener(key) RemoveEventListener1(key);
-
-/*
-nova2d Add Updater(void(*f) funcToCall, context)
-Updaters are called each frame; this adds a new funcToCall as an Updater
-REQUIRES: sceneManager include
-RETURNS unsigned int CleanID
-*/
-#define n2dAddUpdater(funcToCall, context) novazero::core::SceneManager::AddUpdater(std::bind(&funcToCall, context))
-
-/*
-nova2d Add a Persistent Updater(void(*f) funcToCall, context)
-Updaters are called each frame; this adds a new funcToCall as an Updater
-(PERSISTENT MEANS this will remain in game until removed manually)
-RETURNS unsigned int CleanID
-*/
-#define n2dAddUpdaterPersistent(funcToCall, context) novazero::core::SceneManager::AddPersistentUpdater(std::bind(&funcToCall, context));
-
-/*
-nova2d Remove Updater(void(*f) funcToRemove)
-Updaters are called each frame; this removes a current updater function from updaters vector<void()>
-*/
-#define n2dRemoveUpdater(id) novazero::core::SceneManager::RemoveUpdater(id);
-
-/*
-nova2d Add Scene (std::string sceneName, Scene* scene)
-Scenes are levels, menus, etc; this adds a scene to Game's Scene Manager
-*/
-#define n2dGameAddScene(scene) novazero::core::Game::s_SceneManager->AddScene(scene->m_SceneName, scene);
-
-/*
-nova2d Configure first game scene to start with (std::string sceneName)
-Scenes are levels, menus, etc; this adds a scene to Game's Scene Manager
-*/
-#define n2dGameConfigFirstScene(scene) novazero::core::Game::s_SceneManager->ConfigureFirstScene(scene->m_SceneName);
-
-/*
-nova2d Load and Add Texture (std::string assetName, std::string resourcePath)
-Loads asset into Game's Asset Manager
-*/
-#define n2dAssetsLoadAndAddTexture(assetName, assetPath) novazero::core::Game::s_AssetManager->LoadAndAddTexture(assetName, assetPath);
-
-/*
-nova2d Get Texture by name (std::string textureName)
-Return pointer to a preloaded texture
-*/
-#define n2dAssetsGetTexture(textureName) novazero::core::Game::s_AssetManager->GetTexture(textureName);
-
-/*
-nova2d Load Tilemap (std::string& name, std::string mapPath, std::string& tilesetImgPath, std::string& tilesetPath)
-Loads map into Game's asset manager
-*/
-#define n2dAssetsLoadAndAddMap(mapName, mapPath, tilesetImgPath, tilesetPath)  novazero::core::Game::s_AssetManager->LoadAndAddMap(mapName, mapPath, tilesetImgPath, tilesetPath);
-
-/*
-nova2d Get Tilemap by name (std::string mapName)
-Return pointer to a preloaded tiled map
-*/
-#define n2dAssetsGetMap(mapName) novazero::core::Game::s_AssetManager->GetMap(mapName);
 
 
 /*

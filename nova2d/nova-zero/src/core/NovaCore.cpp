@@ -1,6 +1,7 @@
 #include "NovaCore.h"
 #include "Game.h"
 #include "../utils/ValueManager.h"
+#include <functional>
 
 namespace novazero
 {
@@ -294,9 +295,45 @@ namespace novazero
 			Game::s_SQLManager->Configure(databaseName, connectionString, user, pass);
 		}
 
+		void n2dTextInputClearBuffer(int newCharBufferMax)
+		{
+			novazero::core::Game::s_InputHandler->CleanTextBuffer(newCharBufferMax);
+		}
 
+		void n2dTextInputSetBuffer(std::string fillText, int maxChars)
+		{
+			novazero::core::Game::s_InputHandler->SetTextBuffer(fillText, maxChars);
+		}
 
+		SDL_Texture* n2dAssetsLoadAndAddTexture(const std::string& name, std::string path)
+		{
+			return Game::s_AssetManager->LoadAndAddTexture(name, path);
+		}
 
+		SDL_Texture* n2dAssetsGetTexture(std::string name)
+		{
+			return Game::s_AssetManager->GetTexture(name);
+		}
+
+		TiledMap* n2dAssetsLoadAndAddMap(const char* name, const char* mapPath, const char* tilesetImgPath, const char* tilesetPath)
+		{
+			return Game::s_AssetManager->LoadAndAddMap(name, mapPath, tilesetImgPath, tilesetPath);
+		}
+
+		TiledMap* n2dAssetsGetMap(std::string name)
+		{
+			return Game::s_AssetManager->GetMap(name);
+		}
+
+		void n2dGameAddScene(Scene* scene)
+		{
+			Game::s_SceneManager->AddScene(scene->m_SceneName, scene);
+		}
+
+		void n2dGameConfigFirstScene(Scene* scene)
+		{
+			Game::s_SceneManager->ConfigureFirstScene(scene->m_SceneName);
+		}
 
 
 
