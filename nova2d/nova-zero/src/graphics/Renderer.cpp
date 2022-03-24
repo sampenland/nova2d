@@ -33,12 +33,12 @@ namespace novazero
 			SDL_RenderClear(m_Renderer);
 		}
 
-		void Renderer::SetBackgroundColor(const std::string& colorName)
+		void Renderer::SetBackgroundColor(const char* colorName)
 		{
 			m_BackgroundColor = n2dGetColor(colorName);
 		}
 
-		void Renderer::SetDrawColor(const std::string& colorName, Uint8 alphaOverride)
+		void Renderer::SetDrawColor(const char* colorName, Uint8 alphaOverride)
 		{
 			Color* c = n2dGetColor(colorName);
 			if (alphaOverride != 255) c->a = alphaOverride;

@@ -236,6 +236,7 @@ Updaters are called each frame; this removes a current updater function from upd
 #include "../utils/SQLManager.h"
 #include "../maps/TiledMap.h"
 #include "../core/Scene.h"
+#include "../graphics/Color.h"
 
 #include <string>
 #include <cmath>
@@ -247,6 +248,7 @@ namespace novazero
 		using namespace novazero::utils;
 		using namespace novazero::utils::timeline;
 		using namespace novazero::maps;
+		using namespace novazero::graphics;
 
 		// ----------------------------------------------------------------------------
 
@@ -673,6 +675,37 @@ namespace novazero
 		*/
 		void n2dGameConfigFirstScene(Scene* scene);
 
+		//----------------------------------------------------------------------------
+		// Colors
+		//----------------------------------------------------------------------------
+		
+		/*
+		nova2d Add Color (std::string colorName, std::string colorHex, float alpha(0-255))
+		Adds Color to Game's Color Manager. ex: n2dAddColor("white", "ffffff", 255)
+		*/
+		Color* n2dAddColor(const char* colorName, std::string& hexCode, const Uint8 alpha);
+		Color* n2dAddColor(const char* colorName, const char* hexCode, const Uint8 alpha);
+
+		/*
+		nova2d Get Color (std::string colorName)
+		Gets Color from Game's Color Manager
+		*/
+		Color* n2dGetColor(const char* colorName);
+		Color* n2dGetColor(const std::string& colorName);
+
+		/*
+		nova2d SetBackgroundColor(std::string colorName)
+		Sets default background to a color already loaded in Game's Color Manager
+		*/
+		void n2dSetBackgroundColor(const char* colorName);
+
+		/*
+		nova2d Set draw color (std::string colorName)
+		Updates SDL renderer's draw color from preloaded Game's Color Manager's color
+		*/
+		void n2dRenderDrawColor(const char* colorName);
+		void n2dRenderDrawColor(const std::string& colorName);
+
 	}
 }
 
@@ -686,35 +719,13 @@ namespace novazero
 
 
 
-/*
-nova2d Add Color (std::string colorName, std::string colorHex, float alpha(0-255))
-Adds Color to Game's Color Manager. ex: n2dAddColor("white", "ffffff", 255)
-*/
-#define n2dAddColor(colorName, hexCode, alpha) novazero::core::Game::s_ColorManager->AddColor(colorName, hexCode, alpha);
 
-/*
-nova2d Get Color (std::string colorName)
-Gets Color from Game's Color Manager
-*/
-#define n2dGetColor(colorName) novazero::core::Game::s_ColorManager->GetColor(colorName);
-
-/*
-nova2d SetBackgroundColor(std::string colorName)
-Sets default background to a color already loaded in Game's Color Manager
-*/
-#define n2dSetBackgroundColor(colorName) novazero::core::Game::s_Renderer->SetBackgroundColor(colorName);
 
 /*
 nova2d Change Scene(std::string sceneName)
 Changes to Game's Scene Manager preloaded scene
 */
 #define n2dSceneChange(sceneName) novazero::core::Game::s_SceneManager->ChangeScene(sceneName);
-
-/*
-nova2d Set draw color (std::string colorName)
-Updates SDL renderer's draw color from preloaded Game's Color Manager's color
-*/
-#define n2dRenderDrawColor(colorName) novazero::core::Game::s_Renderer->SetDrawColor(colorName);
 
 /*
 nova2d Add deleteable

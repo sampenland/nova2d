@@ -7,6 +7,8 @@ namespace novazero
 {
 	namespace core
 	{
+		using namespace novazero::graphics;
+
 		unsigned int n2dGameGetID()
 		{
 			return Game::GetNextID();
@@ -335,8 +337,39 @@ namespace novazero
 			Game::s_SceneManager->ConfigureFirstScene(scene->m_SceneName);
 		}
 
+		Color* n2dAddColor(const char* colorName, std::string& hexCode, const Uint8 alpha)
+		{
+			return Game::s_ColorManager->AddColor(colorName, hexCode, alpha);
+		}
 
+		Color* n2dAddColor(const char* colorName, const char* hexCode, const Uint8 alpha)
+		{
+			return Game::s_ColorManager->AddColor(colorName, hexCode, alpha);
+		}
 
+		Color* n2dGetColor(const char* colorName)
+		{
+			return Game::s_ColorManager->GetColor(colorName);
+		}
 
+		Color* n2dGetColor(const std::string& colorName)
+		{
+			return Game::s_ColorManager->GetColor(colorName);
+		}
+
+		void n2dSetBackgroundColor(const char* colorName)
+		{
+			Game::s_Renderer->SetBackgroundColor(colorName);
+		}
+
+		void n2dRenderDrawColor(const char* colorName)
+		{
+			Game::s_Renderer->SetDrawColor(colorName);
+		}
+
+		void n2dRenderDrawColor(const std::string& colorName)
+		{
+			Game::s_Renderer->SetDrawColor(colorName.c_str());
+		}
 	}
 }
