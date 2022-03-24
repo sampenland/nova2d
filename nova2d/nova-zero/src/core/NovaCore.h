@@ -645,7 +645,7 @@ namespace novazero
 		nova2d Get Texture by name (std::string textureName)
 		Return pointer to a preloaded texture
 		*/
-		SDL_Texture* n2dAssetsGetTexture(std::string name);
+		SDL_Texture* n2dAssetsGetTexture(const std::string& name);
 
 		/*
 		nova2d Load Tilemap (std::string& name, std::string mapPath, std::string& tilesetImgPath, std::string& tilesetPath)

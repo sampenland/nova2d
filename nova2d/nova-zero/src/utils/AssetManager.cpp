@@ -8,7 +8,7 @@ namespace novazero
 	{
 		AssetManager::AssetManager() { }
 
-		SDL_Texture* AssetManager::LoadAndAddTexture(const std::string& name, std::string path)
+		SDL_Texture* AssetManager::LoadAndAddTexture(const std::string& name, const std::string& path)
 		{
 			SDL_Texture* texture = TextureLoader::Load(path);
 			m_Textures[name] = texture;
@@ -27,7 +27,7 @@ namespace novazero
 			}
 		}
 
-		SDL_Texture* AssetManager::GetTexture(std::string name)
+		SDL_Texture* AssetManager::GetTexture(const std::string& name)
 		{
 			try
 			{
@@ -41,7 +41,7 @@ namespace novazero
 			}
 		}
 
-		TiledMap* AssetManager::LoadAndAddMap(const std::string& name, std::string mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath)
+		TiledMap* AssetManager::LoadAndAddMap(const std::string& name, const std::string& mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath)
 		{
 			m_Tilemaps[name] = new TiledMap(mapPath, tilesetImgPath, tilesetPath);
 			return m_Tilemaps[name];
@@ -57,7 +57,7 @@ namespace novazero
 			}
 		}
 
-		TiledMap* AssetManager::GetMap(const std::string name)
+		TiledMap* AssetManager::GetMap(const std::string& name)
 		{
 			try
 			{

@@ -12,7 +12,7 @@ namespace novazero
 	{
 		using namespace logging;
 
-		TiledMap::TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetImgPath, std::string tilesetPath)
+		TiledMap::TiledMap(const std::string& tiledJSONexportFilePath, const std::string& tilesetImgPath, const std::string& tilesetPath)
 			: Deleteable("tilemap_"), Drawable(Vec2Int(0,0))
 		{
 			m_ID = n2dGameGetID();
@@ -27,7 +27,7 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		void TiledMap::LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath)
+		void TiledMap::LoadMap(const std::string& tiledJSONexportFilePath, const std::string& tilesetJSONexportFilePath)
 		{
 			std::ifstream file(tiledJSONexportFilePath);
 
@@ -50,7 +50,7 @@ namespace novazero
 			}
 		}
 
-		void TiledMap::LoadTileset(std::string& tilesetJSONexportFilePath, json tileset)
+		void TiledMap::LoadTileset(const std::string& tilesetJSONexportFilePath, json tileset)
 		{
 			std::ifstream file(tilesetJSONexportFilePath);
 
@@ -72,7 +72,7 @@ namespace novazero
 			}
 		}
 
-		void TiledMap::ParseMap(std::string& tilesetJSONPath)
+		void TiledMap::ParseMap(const std::string& tilesetJSONPath)
 		{
 			m_BackgroundColor = m_TileMap["backgroundcolor"];
 			m_BackgroundColor.erase(std::remove(m_BackgroundColor.begin(), m_BackgroundColor.end(), '#'), m_BackgroundColor.end());

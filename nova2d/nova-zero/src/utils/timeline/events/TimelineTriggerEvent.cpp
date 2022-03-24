@@ -39,13 +39,19 @@ namespace novazero
 				{
 					if (!f_OnFunc || !f_OnOffFunc)
 					{
-						LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
+						if (n2dDebugVerbose)
+						{
+							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
+						}
 						return;
 					}
 
 					if (!f_ConditionToWatch)
 					{
-						LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr conditional function");
+						if (n2dDebugVerbose)
+						{
+							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr conditional function");
+						}
 						return;
 					}
 
@@ -78,7 +84,10 @@ namespace novazero
 				{
 					if (!f_OnFunc || !f_OnOffFunc)
 					{
-						LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
+						if (n2dDebugVerbose)
+						{
+							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
+						}
 						return;
 					}
 

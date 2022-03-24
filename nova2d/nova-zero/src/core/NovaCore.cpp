@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "../utils/ValueManager.h"
 #include <functional>
+#include "SDL.h"
 
 namespace novazero
 {
@@ -312,7 +313,7 @@ namespace novazero
 			return Game::s_AssetManager->LoadAndAddTexture(name, path);
 		}
 
-		SDL_Texture* n2dAssetsGetTexture(std::string name)
+		SDL_Texture* n2dAssetsGetTexture(const std::string& name)
 		{
 			return Game::s_AssetManager->GetTexture(name);
 		}

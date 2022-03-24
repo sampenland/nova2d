@@ -24,13 +24,13 @@ namespace novazero
 
 			AssetManager();
 
-			SDL_Texture* LoadAndAddTexture(const std::string& name, std::string path);
+			SDL_Texture* LoadAndAddTexture(const std::string& name, const std::string& path);
 			void RemoveTexture(const std::string& name);
-			SDL_Texture* GetTexture(std::string name);
+			SDL_Texture* GetTexture(const std::string& name);
 
-			TiledMap* LoadAndAddMap(const std::string& name, std::string mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath);
+			TiledMap* LoadAndAddMap(const std::string& name, const std::string& mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath);
 			void RemoveMap(const std::string& name);
-			TiledMap* GetMap(const std::string name);
+			TiledMap* GetMap(const std::string& name);
 			
 			void DestroySelf();
 

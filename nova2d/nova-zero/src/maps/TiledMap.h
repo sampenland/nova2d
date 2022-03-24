@@ -105,17 +105,17 @@ namespace novazero
 
 		public:
 		
-			TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetImgPath, std::string tilesetPath);
+			TiledMap(const std::string& tiledJSONexportFilePath, const std::string& tilesetImgPath, const std::string& tilesetPath);
 
 			SDL_Texture& GetTilemapTextureRef()
 			{
 				return *m_TilesetTexture;
 			}
 
-			void LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath);
-			void LoadTileset(std::string& tilesetJSONexportFilePath, json tileset);
+			void LoadMap(const std::string& tiledJSONexportFilePath, const std::string& tilesetJSONexportFilePath);
+			void LoadTileset(const std::string& tilesetJSONexportFilePath, json tileset);
 			void CreateLayerTiles(unsigned int layer);
-			void ParseMap(std::string& tilesetJSONPath);
+			void ParseMap(const std::string& tilesetJSONPath);
 
 			void CreateTilemapTexture();
 
