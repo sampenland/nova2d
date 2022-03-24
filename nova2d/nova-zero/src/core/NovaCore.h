@@ -13,6 +13,16 @@
 #define CAMERA_RECT novazero::core::Game::GetCamera()->GetDrawArea()
 #define CAMERA_SCALE novazero::core::Game::GetCamera()->GetScale()
 
+// Common colors
+#define COLOR_WHITE novazero::core::Game::s_ColorManager->GetColor("white");
+#define COLOR_BLACK novazero::core::Game::s_ColorManager->GetColor("black");
+#define COLOR_RED novazero::core::Game::s_ColorManager->GetColor("red");
+#define COLOR_GREEN novazero::core::Game::s_ColorManager->GetColor("green");
+#define COLOR_YELLOW novazero::core::Game::s_ColorManager->GetColor("yellow");
+#define COLOR_PURPLE novazero::core::Game::s_ColorManager->GetColor("purple");
+#define COLOR_BLUE novazero::core::Game::s_ColorManager->GetColor("blue");
+#define COLOR_TRANSPARENT novazero::core::Game::s_ColorManager->GetColor("transparent");
+
 // Max gamepads
 #define MAX_JOYSTICKS 4
 
