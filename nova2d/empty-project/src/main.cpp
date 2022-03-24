@@ -1,5 +1,5 @@
 #include "core/Game.h"
-#include "scenes/TimelinesExample.h"
+#include "scenes/SampleScene.h"
 
 int main(int argc, char* argv[])
 {
@@ -8,12 +8,14 @@ int main(int argc, char* argv[])
 	using namespace core;
 
 	// Game Config
-	Game game("Empty Project");
+	Game game("nova2d Project");
 
-	TimelinesExample* scene = new TimelinesExample("scene");
+	SampleScene scene = SampleScene("sampleScene");
 
-	n2dGameAddScene(scene);
-	n2dGameConfigFirstScene(scene);
+	n2dSetBackgroundColor("purple");
+
+	n2dGameAddScene(&scene);
+	n2dGameConfigFirstScene(&scene);
 	
 	while (Game::IsRunning())
 	{

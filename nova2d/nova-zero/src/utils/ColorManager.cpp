@@ -13,8 +13,8 @@ namespace novazero
 
 		Color* ColorManager::AddColor(const std::string& name, Color* c)
 		{
-			m_ColorMap.insert(std::pair<std::string, Color*>(name, c));
-			return GetColor(name);
+			m_ColorMap[name] = c;
+			return m_ColorMap[name];
 		}
 
 		Color* ColorManager::AddColor(const std::string& name, std::string& hexCode, const Uint8 alpha)

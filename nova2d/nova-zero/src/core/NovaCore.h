@@ -53,6 +53,7 @@
 
 // Error codes
 #define ERR_NO_SCENE 1001
+#define ERR_NO_SCENE_MNGR 1002
 
 // ---------------------
 // Quick Acess

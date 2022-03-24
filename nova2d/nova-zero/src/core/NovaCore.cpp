@@ -330,6 +330,13 @@ namespace novazero
 
 		void n2dGameAddScene(Scene* scene)
 		{
+			if (!Game::s_SceneManager)
+			{
+				LOG(LVL_FATAL_ERROR, "No Scene Manager. Are you adding a scene before creating your Game object?");
+				Game::EndGame(ERR_NO_SCENE_MNGR);
+				return;
+			}
+
 			Game::s_SceneManager->AddScene(scene->m_SceneName, scene);
 		}
 
