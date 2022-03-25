@@ -1,5 +1,6 @@
 ![nova2d-logo](https://user-images.githubusercontent.com/49030884/157763854-97bc29ea-1284-43d3-b474-6535abd98ee3.svg)
 
+IMPORTANT! If you clone/download this repo, you will need to follow a few steps to get your MSVS Solution working. Here's the [Getting Started Page](https://github.com/sampenland/nova2d/wiki/Getting-Started) which describes those steps.
 
 For full API overview, check out the [Doxygen Docs](https://n2d.dev/). For an intro to nova2d, check out the [Wiki](https://github.com/sampenland/nova2d/wiki) for a helpful CHEATSHEET and beginning work on some Docs. 
 
