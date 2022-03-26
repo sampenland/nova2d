@@ -127,22 +127,22 @@ namespace novazero
 
 			if (n2dIsKeyDown(SDLK_w))
 			{
-				m_DrawArea.y += speed;
+				m_DrawArea.y -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
-				m_DrawArea.y -= speed;
+				m_DrawArea.y += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
-				m_DrawArea.x += speed;
+				m_DrawArea.x -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
-				m_DrawArea.x -= speed;
+				m_DrawArea.x += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_1))
@@ -273,24 +273,11 @@ namespace novazero
 			// Factor for how much to scale zoom
 			float multi = std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
 			position.multiply(Vec2(multi, multi));
-
-			// Apply back old offset
-			/*
-			float offsetMulti = std::pow(m_Zoom, 2);
-			offset.x *= offsetMulti;
-			offset.y *= offsetMulti;
-			*/
-			Vec2 oldOffset = GetOffset();
-			std::cout << "Old Offset: [ " << oldOffset << " ]" << std::endl;
-			SetOffset(offset);
-			position.x += offset.x;
-			position.y += offset.y;
 			
 			// Translate
 			SetDrawRectPosition(position);
 			
 			std::cout << "New Offset [ " << offset << " ]" << std::endl;
-			std::cout << "Offset Difference[ " << offset.subtract(oldOffset) << " ]" << std::endl;
 			std::cout << "DrawRect [ " << m_DrawArea << " ]" << std::endl;
 			LOGS("--------");
 			
