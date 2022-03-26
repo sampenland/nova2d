@@ -24,7 +24,7 @@ namespace novazero
 			float m_Zoom = 1.f;
 			float m_OldZoom = 1.f;
 			float m_ZoomSpeed = 0.01f;
-			float m_FollowDistance = 100.f;
+			float m_MovePadding = 100.f;
 
 			Positional* m_FollowTarget = nullptr;
 
@@ -44,9 +44,14 @@ namespace novazero
 			void SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow,
 				TweenTypes followType);
 
-			void SetFollowDistance(float dist)
+			void SetMovePadding(float padding)
 			{
-				m_FollowDistance = dist;
+				m_MovePadding = padding;
+			}
+
+			float GetMovePadding() const
+			{
+				return m_MovePadding;
 			}
 
 			void SetFollowType(TweenTypes type)
@@ -68,8 +73,6 @@ namespace novazero
 
 			void CenterOn(Positional* target, float zoom = -1.f);
 			void CenterOn(Vec2 position, float zoom = -1.f);
-
-			void EnforceBounds(Vec2 setPos);
 
 			void EnableFreeWASDMove(bool enabled);
 			bool IsFreeMoveEnabled() const;
