@@ -250,10 +250,6 @@ namespace novazero
 		{
 			if (m_OldZoom == zoomLevel) return;
 
-			// Store values for translation
-			Vec2 oldBottomRight = GetBottomRightWorldPosition();
-			Vec2 offset = Vec2(Game::s_Width - oldBottomRight.x, Game::s_Height - oldBottomRight.y);
-
 			// Apply zoom
 			m_Zoom = zoomLevel;
 			
@@ -262,7 +258,6 @@ namespace novazero
 
 			// Calculate translation
 			Vec2 viewportSize = Vec2(Game::s_Width / m_Zoom, Game::s_Height / m_Zoom);
-			Vec2 center = GetCenterScreenWorldPosition();
 			Vec2 bottomRight = GetBottomRightWorldPosition();
 			Vec2 cameraPosition = GetPosition();
 
@@ -277,7 +272,6 @@ namespace novazero
 			// Translate
 			SetDrawRectPosition(position);
 			
-			std::cout << "New Offset [ " << offset << " ]" << std::endl;
 			std::cout << "DrawRect [ " << m_DrawArea << " ]" << std::endl;
 			LOGS("--------");
 			
