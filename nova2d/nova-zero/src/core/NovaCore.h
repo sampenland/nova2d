@@ -10,7 +10,7 @@
 // Pointer to main (only as of now) camera
 #define CAMERA novazero::core::Game::GetCamera()
 #define CAMERA_ZOOM novazero::core::Game::GetCamera()->GetZoom()
-#define CAMERA_RECT novazero::core::Game::GetCamera()->GetDrawArea()
+#define CAMERA_RECT novazero::core::Game::GetCamera()->GetDrawRect()
 #define CAMERA_SCALE novazero::core::Game::GetCamera()->GetScale()
 
 // Common colors

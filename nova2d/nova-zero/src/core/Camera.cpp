@@ -32,13 +32,17 @@ namespace novazero
 			if (m_Zoom != m_OldZoom)
 			{
 				m_OldZoom = m_Zoom;
+			}
+			/*if (m_Zoom != m_OldZoom)
+			{
+				m_OldZoom = m_Zoom;
 				
 				m_DrawArea.w = Game::s_Width / m_Zoom;
 				m_DrawArea.h = Game::s_Height / m_Zoom;
 			}
 
-			//m_DrawArea.x = -GetX();
-			//m_DrawArea.y = GetY();
+			m_DrawArea.x = -GetX();
+			m_DrawArea.y = GetY();*/
 
 			// -----------
 
@@ -95,11 +99,11 @@ namespace novazero
 			
 			// limit X
 			if (newX < bounds.x) newX = bounds.x;
-			int xLimit = bounds.x + bounds.w;
+			float xLimit = bounds.x + bounds.w;
 			if (newX > xLimit) newX = xLimit;
 			
 			// limit Y
-			int yLimit = (bounds.y + bounds.h) / 2;
+			float yLimit = (bounds.y + bounds.h) / 2;
 			if (newY > bounds.y + yLimit) newY = bounds.y + yLimit;
 			if (newY < -yLimit) newY = -yLimit;
 
@@ -114,31 +118,31 @@ namespace novazero
 
 		void Camera::FreeMove()
 		{
-			float speed = 1.5f;
+			int speed = 2;
 
 			if (n2dIsKeyDown(SDLK_LSHIFT))
 			{
-				speed *= 4.f;
+				speed *= 4;
 			}
 
 			if (n2dIsKeyDown(SDLK_w))
 			{
-				m_Position.y += speed;
+				m_DrawArea.y += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
-				m_Position.y -= speed;
+				m_DrawArea.y -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
-				m_Position.x += speed;
+				m_DrawArea.x += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
-				m_Position.x -= speed;
+				m_DrawArea.x -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_1))
@@ -189,7 +193,7 @@ namespace novazero
 			if (n2dIsKeyDown(SDLK_0))
 			{
 				SetZoom(1.f);
-				SetPosition(Vec2(0, 0));
+				SetDrawRectPosition(Vec2(0, 0));
 			}
 		}
 
@@ -211,9 +215,30 @@ namespace novazero
 		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
 		bool Camera::IsFreeMoveEnabled() const { return m_FreeMove; }
 
-		Rect Camera::GetDrawArea() const
+		void Camera::SetDrawRect(Rect drawRect)
+		{
+			m_DrawArea = drawRect;
+		}
+
+		void Camera::SetDrawRectPosition(Vec2 pos)
+		{
+			m_DrawArea.x = pos.x;
+			m_DrawArea.y = pos.y;
+		}
+
+		Rect Camera::GetDrawRect() const
 		{
 			return m_DrawArea;
+		}
+
+		Vec2 Camera::GetDrawRectPosition() const
+		{
+			return Vec2(m_DrawArea.x, m_DrawArea.y);
+		}
+
+		Vec2 Camera::GetDrawRectSize() const
+		{
+			return Vec2(m_DrawArea.w, m_DrawArea.h);
 		}
 		
 		float Camera::GetZoom() const 
@@ -233,6 +258,7 @@ namespace novazero
 			m_Zoom = zoomLevel;
 			
 			LOGS("--------");
+			LOGS("ZOOM [ " + tostring(m_Zoom) + " ]");
 
 			// Calculate translation
 			Vec2 viewportSize = Vec2(Game::s_Width / m_Zoom, Game::s_Height / m_Zoom);
@@ -246,28 +272,28 @@ namespace novazero
 
 			// Factor for how much to scale zoom
 			float multi = std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
-			LOGS("position multi: " + tostring(multi));
-			LOGS("position: " + tostring(position.x) + "  ,  " + tostring(position.y));
 			position.multiply(Vec2(multi, multi));
-			LOGS("New position: " + tostring(position.x) + "  ,  " + tostring(position.y));
 
 			// Apply back old offset
+			/*
 			float offsetMulti = std::pow(m_Zoom, 2);
-			/*offset.x *= offsetMulti;
-			offset.y *= offsetMulti;*/
-
+			offset.x *= offsetMulti;
+			offset.y *= offsetMulti;
+			*/
+			Vec2 oldOffset = GetOffset();
+			std::cout << "Old Offset: [ " << oldOffset << " ]" << std::endl;
+			SetOffset(offset);
 			position.x += offset.x;
 			position.y += offset.y;
-
 			
-			
-			LOGS("offset multi" + tostring(offsetMulti));
-			LOGS("OFFSET: " + tostring(offset.x) + "  ,  " + tostring(offset.y))
-			
-			LOGS("--------");
-
 			// Translate
-			SetPosition(position);
+			SetDrawRectPosition(position);
+			
+			std::cout << "New Offset [ " << offset << " ]" << std::endl;
+			std::cout << "Offset Difference[ " << offset.subtract(oldOffset) << " ]" << std::endl;
+			std::cout << "DrawRect [ " << m_DrawArea << " ]" << std::endl;
+			LOGS("--------");
+			
 			return;
 
 		}	
@@ -284,9 +310,10 @@ namespace novazero
 			if (zoom == -1.f)
 				zoom = m_Zoom;
 
-			float x = (Game::s_Width / zoom) + GetX();
-			float y = (Game::s_Height / zoom) + GetY();
+			float x = (Game::s_Width / zoom); // TODO: add back cam position
+			float y = (Game::s_Height / zoom);
 
+			//LOGS(tostring(x) + " , " + tostring(y));
 			return Vec2(x, y);
 		}
 
@@ -363,6 +390,11 @@ namespace novazero
 			SetY(position.y);
 		}
 
+		Vec2 Camera::GetOffset() const
+		{
+			return m_Offset;
+		}
+
 		void Camera::SetOffset(Vec2 offset)
 		{
 			SetOffsetX(offset.x);
@@ -377,8 +409,8 @@ namespace novazero
 
 		void Camera::SetPositionInt(Vec2Int position)
 		{
-			SetX(position.x);
-			SetY(position.y);
+			SetX((float)position.x);
+			SetY((float)position.y);
 		}
 		//-----------------------------------------------
 

@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 	n2dGameAddScene(level2);
 	n2dGameAddScene(gameOver);
 	
-	n2dGameConfigFirstScene(mainMenu);
+	n2dGameConfigFirstScene(level2);
 
 	while (Game::IsRunning())
 	{

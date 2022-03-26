@@ -94,7 +94,6 @@ namespace novazero
 
 		void DrawLayers::DrawLayer(const BYTE layer) const
 		{
-			Vec2 camPos = CAMERA->GetPosition();
 			Rect cameraDrawArea = CAMERA_RECT;
 			
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
@@ -113,8 +112,8 @@ namespace novazero
 				}				
 				
 				float zoom = CAMERA_ZOOM;
-				float x = drawablePos.x + camPos.x;
-				float y = drawablePos.y + camPos.y;
+				float x = drawablePos.x - cameraDrawArea.x;
+				float y = drawablePos.y - cameraDrawArea.y;
 
 				if (m_Layers[layer][i]->IsNotScaleable())
 				{

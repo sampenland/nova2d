@@ -139,6 +139,7 @@
     <ClCompile Include="src\input\TextInput.cpp" />
     <ClCompile Include="src\maps\Tile.cpp" />
     <ClCompile Include="src\maps\TiledMap.cpp" />
+    <ClCompile Include="src\maths\Rect.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\particles\Dot.cpp" />
     <ClCompile Include="src\particles\Particle.cpp" />

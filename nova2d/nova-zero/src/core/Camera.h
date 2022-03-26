@@ -72,8 +72,6 @@ namespace novazero
 			void EnableFreeWASDMove(bool enabled);
 			bool IsFreeMoveEnabled() const;
 
-			Rect GetDrawArea() const;
-
 			float GetZoom() const;
 			void SetZoom(float zoomLevel);
 
@@ -88,17 +86,31 @@ namespace novazero
 			float GetX() const;
 			float GetY() const;
 
-			int OffsetX() { return m_Offset.x; }
-			int OffsetY() { return m_Offset.y; }
+			float OffsetX() 
+			{ 
+				return m_Offset.x; 
+			}
 
-			void SetOffsetX(int offsetX) { m_Offset.x = offsetX; }
-			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
+			float OffsetY() 
+			{ 
+				return m_Offset.y; 
+			}
+
+			void SetOffsetX(float offsetX) { m_Offset.x = offsetX; }
+			void SetOffsetY(float offsetY) { m_Offset.y = offsetY; }
 
 			void SetOffset(Vec2 offset);
+			Vec2 GetOffset() const;
 
 			void SetPosition(Vec2 position);
 			void SetPosition(Positional* target);
 			void SetPositionInt(Vec2Int position);
+
+			void SetDrawRect(Rect drawRect);
+			void SetDrawRectPosition(Vec2 pos);
+			Rect GetDrawRect() const;
+			Vec2 GetDrawRectPosition() const;
+			Vec2 GetDrawRectSize() const;
 
 			void DestroySelf() override;
 

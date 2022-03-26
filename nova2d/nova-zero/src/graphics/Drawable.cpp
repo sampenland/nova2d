@@ -28,12 +28,12 @@ namespace novazero
 
 		void Drawable::OriginCenter()
 		{
-			m_Offset = Vec2Int(-GetWidth() / 2, -GetHeight() / 2);
+			m_Offset = Vec2(-GetWidth() / 2, -GetHeight() / 2);
 		}
 
 		void Drawable::OriginTopLeft()
 		{
-			m_Offset = Vec2Int(0, 0);
+			m_Offset = Vec2(0, 0);
 		}
 	}
 }

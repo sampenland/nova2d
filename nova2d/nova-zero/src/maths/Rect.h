@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 namespace novazero
 {
@@ -8,26 +9,10 @@ namespace novazero
 		{
 			float x, y, w, h;
 
-			Rect(float x, float y, float w, float h)
-			{
-				this->x = x;
-				this->y = y;
-				this->w = w;
-				this->h = h;
-			}
-
-			Rect(int x, int y, int w, int h)
-			{
-				this->x = (float)x;
-				this->y = (float)y;
-				this->w = (float)w;
-				this->h = (float)h;
-			}
-
-			bool operator==(const Rect& other)
-			{
-				return x == other.x && y == other.y && w == other.w && h == other.h;
-			}
+			Rect(float x, float y, float w, float h);
+			Rect(int x, int y, int w, int h);
+			bool operator==(const Rect& other);
+			friend std::ostream& operator<<(std::ostream& stream, const Rect& toPrint);
 
 		};
 	}
