@@ -85,12 +85,13 @@ namespace novazero
 			}
 			else
 			{
-				Vec2Int cameraWorldCenter = Vec2Int(CAMERA->GetCenterScreenWorldPosition().x, CAMERA->GetCenterScreenWorldPosition().y);
+				/*Vec2Int cameraWorldCenter = Vec2Int(CAMERA->GetCenterScreenWorldPosition().x, CAMERA->GetCenterScreenWorldPosition().y);
 				m_MiddleScreenText->UpdateText("Cntr:[" + tostring(cameraWorldCenter.x) + ", " + tostring(cameraWorldCenter.y) + "]");
 				
 				int camPosX = -CAMERA->GetX();
 				int camPosY = -CAMERA->GetY();
 				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]\n Z:[" + tostring(CAMERA_ZOOM) + "]");
+			*/
 			}
 
 			if (!IsEnabled()) return;

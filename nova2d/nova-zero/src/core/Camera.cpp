@@ -8,8 +8,6 @@ namespace novazero
 		Camera::Camera(Rect bounds)
 		{
 			m_ID = n2dGameGetID();
-			
-			SetPosition(Vec2(0, 0));
 
 			if (bounds.x == 0 && bounds.y == 0 && bounds.w == 0 && bounds.h == 0)
 			{
@@ -33,18 +31,6 @@ namespace novazero
 			{
 				m_OldZoom = m_Zoom;
 			}
-			/*if (m_Zoom != m_OldZoom)
-			{
-				m_OldZoom = m_Zoom;
-				
-				m_DrawArea.w = Game::s_Width / m_Zoom;
-				m_DrawArea.h = Game::s_Height / m_Zoom;
-			}
-
-			m_DrawArea.x = -GetX();
-			m_DrawArea.y = GetY();*/
-
-			// -----------
 
 			if (m_FreeMove)
 				FreeMove();
@@ -111,8 +97,6 @@ namespace novazero
 			float correction = (m_Zoom * Game::s_Height / 2);
 			newX = newX + correction;
 			newY = newY + correction;
-
-			SetPosition(Vec2(newX, newY));
 
 		}
 
@@ -205,15 +189,14 @@ namespace novazero
 		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow, 
 			TweenTypes followType) 
 		{
-			m_FollowTarget = target; 
-			SetZoom(zoomLevel);
+			m_FollowTarget = target;
 			SetFollowDistance(distanceBeforeFollow);
 			SetFollowType(followType);
 			SetFollowSpeed(followSpeed);
 
 			if (startOnTargetPosition)
 			{
-				//SetPosition(target->GetCenter());
+				CenterOn(target, zoomLevel);
 			}
 		}
 
@@ -261,15 +244,13 @@ namespace novazero
 			// Calculate translation
 			Vec2 zoomCenter = m_Offset;
 			Vec2 viewportSize = Vec2(Game::s_Width / m_Zoom, Game::s_Height / m_Zoom);
-			Vec2 bottomRight = GetBottomRightWorldPosition();
-			Vec2 cameraPosition = GetPosition();
-
+			
 			Vec2 position = Vec2(0, 0);
-			position.x = bottomRight.x - (0.5f * viewportSize.x);
-			position.y = bottomRight.y - (0.5f * viewportSize.y);
+			position.x = (Game::s_Width / m_Zoom) - (0.5f * viewportSize.x);
+			position.y = (Game::s_Height / m_Zoom) - (0.5f * viewportSize.y);
 
 			// Factor for how much to scale zoom
-			float multi = std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
+			float multi = (float)std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
 			position.multiply(Vec2(multi, multi));
 
 			position.x += zoomCenter.x * m_Zoom;
@@ -282,121 +263,34 @@ namespace novazero
 
 		}	
 
-		// Positioning
-		Vec2 Camera::GetCenterScreenWorldPosition()
+		Vec2 Camera::GetWorldPosition() const
 		{
-			Vec2 btmRight = GetBottomRightWorldPosition();
-			return btmRight.divide(Vec2(2, 2));
+			return Vec2(m_DrawArea.x, m_DrawArea.y);
 		}
 
-		Vec2 Camera::GetBottomRightWorldPosition(float zoom)
+		void Camera::CenterOn(Positional* target, float zoom)
 		{
 			if (zoom == -1.f)
 				zoom = m_Zoom;
 
-			float x = (Game::s_Width / zoom); // TODO: add back cam position
-			float y = (Game::s_Height / zoom);
-
-			//LOGS(tostring(x) + " , " + tostring(y));
-			return Vec2(x, y);
+			CenterOn(Vec2(target->GetCenter().x, target->GetCenter().y), zoom);
 		}
 
-		Vec2 Camera::GetWorldPosition()
+		void Camera::CenterOn(Vec2 position, float zoom)
 		{
-			float x = -1 * (GetX() - Game::s_Width);
-			float y = -1 * (GetY() - Game::s_Height);
+			// Reposition draw area
+			m_Offset.x = position.x - m_DrawArea.w / 2;
+			m_Offset.y = position.y - m_DrawArea.h / 2;
 
-			if (m_Zoom != 1.f)
-			{
-				x = x * (1 / m_Zoom);
-				y = y * (1 / m_Zoom);
-			}
-
-			return Vec2(x, y);
+			// Apply changes (with zoom, if required)
+			SetZoom(zoom);
 		}
 
-		Vec2Int Camera::GetPositionInt() const 
-		{ 
-			return Vec2Int((int)GetX(), (int)GetY());
-		}
-		
-		Vec2 Camera::GetPosition() const 
-		{ 
-			return Vec2(GetX(), GetY()); 
-		}
-
-		Vec2 Camera::GetPositionRAW() const
+		void Camera::Reset()
 		{
-			return Vec2((float)m_Position.x, (float)m_Position.y);
+			m_DrawArea = Rect(0, 0, Game::s_Width, Game::s_Height);
+			SetZoom(1.f);
 		}
-
-		Vec2Int Camera::GetPositionRAWInt() const
-		{
-			return m_Position;
-		}
-
-		void Camera::SetX(float x)
-		{
-			m_Position.x = -x;
-		}
-
-		void Camera::SetY(float y)
-		{
-			m_Position.y = -y;
-		}
-
-		void Camera::CenterOn(Positional* target)
-		{
-			CenterOn(Vec2(target->GetCenter().x, target->GetCenter().y));
-		}
-
-		void Camera::CenterOn(Vec2 position)
-		{
-			//TODO: check this function
-			LOG(LVL_I, "is this centering working?");
-			SetX(position.x - (m_Zoom * (Game::s_Width / 2)));
-			SetY(position.y - (m_Zoom * (Game::s_Height / 2)));
-		}
-
-		float Camera::GetX() const 
-		{ 
-			return (float)m_Position.x;
-		}
-
-		float Camera::GetY() const 
-		{ 
-			return (float)m_Position.y;
-		}
-
-		void Camera::SetPosition(Vec2 position)
-		{
-			SetX(position.x);
-			SetY(position.y);
-		}
-
-		Vec2 Camera::GetOffset() const
-		{
-			return m_Offset;
-		}
-
-		void Camera::SetOffset(Vec2 offset)
-		{
-			SetOffsetX(offset.x);
-			SetOffsetY(offset.y);
-		}
-
-		void Camera::SetPosition(Positional* target)
-		{
-			SetX(target->GetX());
-			SetY(target->GetY());
-		}
-
-		void Camera::SetPositionInt(Vec2Int position)
-		{
-			SetX((float)position.x);
-			SetY((float)position.y);
-		}
-		//-----------------------------------------------
 
 		void Camera::DestroySelf()
 		{

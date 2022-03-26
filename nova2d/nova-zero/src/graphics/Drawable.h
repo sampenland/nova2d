@@ -48,14 +48,35 @@ namespace novazero
 				m_NonScale = val;
 			}
 
-			void SetFixed(bool f) { m_Fixed = f; }
-			bool IsFixed()const { return m_Fixed; }
+			void SetFixed(bool f) 
+			{ 
+				m_Fixed = f; 
+			}
 
-			void SetNonScale(bool doesNotScale) { m_NonScale = doesNotScale; }
-			bool IsNotScaleable()const { return m_NonScale; }
+			bool IsFixed()const
+			{ 
+				return 
+					m_Fixed; 
+			}
 
-			void SetDrawScale(float scale) { m_Scale = scale; }
-			float GetDrawScale() const { return m_Scale; }
+			void SetNonScale(bool doesNotScale) 
+			{ 
+				m_NonScale = doesNotScale; 
+			}
+
+			bool IsNotScaleable()const 
+			{ 
+				return m_NonScale; 
+			}
+
+			void SetDrawScale(float scale) 
+			{ 
+				m_Scale = scale; 
+			}
+			float GetDrawScale() const 
+			{ 
+				return m_Scale; 
+			}
 
 			int GetWidth() const 
 			{
@@ -67,8 +88,15 @@ namespace novazero
 				return (int)(m_Size.y * m_Scale);
 			}
 
-			void SetWidth(int w) { m_Size.x = w; }
-			void SetHeight(int h) { m_Size.y = h; }
+			void SetWidth(int w) 
+			{ 
+				m_Size.x = w; 
+			}
+
+			void SetHeight(int h) 
+			{ 
+				m_Size.y = h; 
+			}
 
 			void SetSize(Vec2Int size) { m_Size = size; }
 			Vec2Int GetSize() const { return m_Size; }

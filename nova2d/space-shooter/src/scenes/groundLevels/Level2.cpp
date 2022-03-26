@@ -26,8 +26,9 @@ namespace spaceshooter
 		n2dAssetsLoadAndAddMap("level2", "res/maps/level2/level2.json",
 			"res/maps/level2/level2.png", "res/maps/level2/level2-tileset.json");
 
-		//CAMERA->SetFollowTarget((Positional*)player, 1000.f, true, 2.f, 400.f, TweenTypes::EaseInExpo);
-		//CAMERA->SetZoom(2.f);
+		GroundPlayer* player = new GroundPlayer(Vec2(16, Game::s_Height - 64), Vec2Int(16, 16), 0);
+
+		CAMERA->SetFollowTarget((Positional*)player, 1000.f, true, 2.f, 400.f, TweenTypes::EaseInExpo);
 	}
 
 	void Level2::OnEscape()

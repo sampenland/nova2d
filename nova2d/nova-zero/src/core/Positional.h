@@ -32,6 +32,7 @@ namespace novazero
 
 			Drawable* m_Drawable = nullptr;
 			unsigned int m_ID;
+			unsigned int m_CleanID = 0;
 			Directions m_Facing = Directions::Right;
 
 		protected:
@@ -39,10 +40,13 @@ namespace novazero
 			Vec2Int m_Position;
 			Vec2 m_Offset = Vec2(0, 0);
 			int m_Angle = 0;
+			float m_OldZoom = 1.f;
 
 		public:
 
 			Positional();
+
+			void Update();
 
 			void LinkPositionalDrawable(Drawable* drawable);
 

@@ -112,13 +112,15 @@ namespace novazero
 				}				
 				
 				float zoom = CAMERA_ZOOM;
-				float x = drawablePos.x - cameraDrawArea.x;
-				float y = drawablePos.y - cameraDrawArea.y;
 
 				if (m_Layers[layer][i]->IsNotScaleable())
 				{
 					zoom = 1.f;
 				}
+
+				float x = (drawablePos.x * zoom) - cameraDrawArea.x;
+				float y = (drawablePos.y * zoom) - cameraDrawArea.y;
+
 
 				m_Layers[layer][i]->Draw(x, y, zoom);
 			}

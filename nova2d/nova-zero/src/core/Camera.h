@@ -10,7 +10,8 @@ namespace novazero
 	{
 		using namespace utils;
 
-		class Camera : public Positional, public BoundUser
+		class Camera : 
+			public BoundUser
 		{
 
 		private:
@@ -58,15 +59,15 @@ namespace novazero
 				m_FollowSpeed = speed;
 			}
 
+			void Reset();
+
 			void Update();
 			void FollowTarget();
 
-			Vec2 GetCenterScreenWorldPosition();
-			Vec2 GetBottomRightWorldPosition(float zoom = -1.f);
-			Vec2 GetWorldPosition();
+			Vec2 GetWorldPosition() const;
 
-			void CenterOn(Positional* target);
-			void CenterOn(Vec2 position);
+			void CenterOn(Positional* target, float zoom = -1.f);
+			void CenterOn(Vec2 position, float zoom = -1.f);
 
 			void EnforceBounds(Vec2 setPos);
 
@@ -75,37 +76,6 @@ namespace novazero
 
 			float GetZoom() const;
 			void SetZoom(float zoomLevel);
-
-			Vec2 GetPosition() const;
-			Vec2 GetPositionRAW() const;
-			Vec2Int GetPositionRAWInt() const;
-			Vec2Int GetPositionInt() const;
-
-			void SetX(float x);
-			void SetY(float y);
-
-			float GetX() const;
-			float GetY() const;
-
-			float OffsetX() 
-			{ 
-				return m_Offset.x; 
-			}
-
-			float OffsetY() 
-			{ 
-				return m_Offset.y; 
-			}
-
-			void SetOffsetX(float offsetX) { m_Offset.x = offsetX; }
-			void SetOffsetY(float offsetY) { m_Offset.y = offsetY; }
-
-			void SetOffset(Vec2 offset);
-			Vec2 GetOffset() const;
-
-			void SetPosition(Vec2 position);
-			void SetPosition(Positional* target);
-			void SetPositionInt(Vec2Int position);
 
 			void SetDrawRect(Rect drawRect);
 			void SetDrawRectPosition(Vec2 pos);

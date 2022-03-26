@@ -31,12 +31,12 @@ namespace novazero
 
 		void Positional::SetX(float x)
 		{
-			m_Position.x = (int)x;
+			m_Position.x = (int)x * CAMERA_ZOOM;
 		}
 
 		void Positional::SetY(float y)
 		{
-			m_Position.y = (int)y;
+			m_Position.y = (int)y * CAMERA_ZOOM;
 		}
 
 		Vec2 Positional::GetCenter()
@@ -65,7 +65,8 @@ namespace novazero
 
 		void Positional::SetPositionInt(Vec2Int position)
 		{
-			m_Position = position;
+			SetX((float)position.x);
+			SetY((float)position.y);
 		}
 
 		void Positional::SetAngle(int a)

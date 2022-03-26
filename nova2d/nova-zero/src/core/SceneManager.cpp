@@ -93,8 +93,7 @@ namespace novazero
 			s_TimeEffectorManager->ClearEffectors();
 			s_TimeEffectorManager->ClearEffected();
 			Game::s_Director->ClearStacksAndReset(true, true);
-			CAMERA->SetPosition(Vec2(0, 0));
-			CAMERA->SetZoom(1.f);
+			CAMERA->Reset();
 
 			m_CurrentScene = loadScene;
 			
