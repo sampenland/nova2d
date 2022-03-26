@@ -19,6 +19,7 @@ namespace novazero
 			unsigned int m_ID = 0;
 
 			Rect m_DrawArea = Rect(0, 0, 0, 0);
+			Vec2 m_Offset = Vec2(0, 0);
 			float m_Zoom = 1.f;
 			float m_OldZoom = 1.f;
 			float m_ZoomSpeed = 0.01f;

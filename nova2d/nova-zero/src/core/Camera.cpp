@@ -128,21 +128,25 @@ namespace novazero
 			if (n2dIsKeyDown(SDLK_w))
 			{
 				m_DrawArea.y -= speed;
+				m_Offset.y -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
 				m_DrawArea.y += speed;
+				m_Offset.y += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
 				m_DrawArea.x -= speed;
+				m_Offset.x -= speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
 				m_DrawArea.x += speed;
+				m_Offset.x += speed;
 			}
 
 			if (n2dIsKeyDown(SDLK_1))
@@ -194,6 +198,7 @@ namespace novazero
 			{
 				SetZoom(1.f);
 				SetDrawRectPosition(Vec2(0, 0));
+				m_Offset = Vec2(0, 0);
 			}
 		}
 
@@ -252,11 +257,9 @@ namespace novazero
 
 			// Apply zoom
 			m_Zoom = zoomLevel;
-			
-			LOGS("--------");
-			LOGS("ZOOM [ " + tostring(m_Zoom) + " ]");
 
 			// Calculate translation
+			Vec2 zoomCenter = m_Offset;
 			Vec2 viewportSize = Vec2(Game::s_Width / m_Zoom, Game::s_Height / m_Zoom);
 			Vec2 bottomRight = GetBottomRightWorldPosition();
 			Vec2 cameraPosition = GetPosition();
@@ -268,12 +271,12 @@ namespace novazero
 			// Factor for how much to scale zoom
 			float multi = std::pow(m_Zoom - 1, 2) + m_Zoom - 1;
 			position.multiply(Vec2(multi, multi));
-			
+
+			position.x += zoomCenter.x * m_Zoom;
+			position.y += zoomCenter.y * m_Zoom;
+
 			// Translate
 			SetDrawRectPosition(position);
-			
-			std::cout << "DrawRect [ " << m_DrawArea << " ]" << std::endl;
-			LOGS("--------");
 			
 			return;
 
