@@ -44,60 +44,6 @@ namespace novazero
 		void Camera::FollowTarget()
 		{
 			if (!m_FollowTarget) return;
-
-			// Get positions
-			Vec2 targetPos = m_FollowTarget->GetPosition();
-			Vec2 camSetPos = Vec2(-(targetPos.x - Game::s_Width / 2), -(targetPos.y - Game::s_Height / 2));
-
-			camSetPos.x = targetPos.x * CAMERA_ZOOM;
-			camSetPos.y = targetPos.y * CAMERA_ZOOM;
-
-			// Position camera
-			EnforceBounds(camSetPos);
-
-		}
-
-		void Camera::EnforceBounds(Vec2 setPos)
-		{
-			Rect bounds = GetMoveBounds();
-			bounds.x = bounds.x - Game::s_Width / 2;
-
-			float newX = -1 * (setPos.x - (Game::s_Width / 2));
-			float newY = -1 * (setPos.y - (Game::s_Height / 2));
-
-			if (m_FollowTarget->IsFacing() == Directions::Right)
-			{
-				newX += m_FollowDistance;
-			}
-			else if(m_FollowTarget->IsFacing() == Directions::Left)
-			{
-				newX += (Game::s_Width / 2 / CAMERA_ZOOM) + m_FollowDistance;
-			}
-
-			if (m_FollowTarget->IsFacing() == Directions::Down)
-			{
-				newY += m_FollowDistance;
-			}
-			else if (m_FollowTarget->IsFacing() == Directions::Up)
-			{
-				newY += (Game::s_Height / 2 / CAMERA_ZOOM) + m_FollowDistance;
-			}
-			
-			// limit X
-			if (newX < bounds.x) newX = bounds.x;
-			float xLimit = bounds.x + bounds.w;
-			if (newX > xLimit) newX = xLimit;
-			
-			// limit Y
-			float yLimit = (bounds.y + bounds.h) / 2;
-			if (newY > bounds.y + yLimit) newY = bounds.y + yLimit;
-			if (newY < -yLimit) newY = -yLimit;
-
-			// prep for camera move (tween to new spot)
-			float correction = (m_Zoom * Game::s_Height / 2);
-			newX = newX + correction;
-			newY = newY + correction;
-
 		}
 
 		void Camera::FreeMove()
@@ -112,25 +58,25 @@ namespace novazero
 			if (n2dIsKeyDown(SDLK_w))
 			{
 				m_DrawArea.y -= speed;
-				m_Offset.y -= speed;
+				m_Offset.y -= speed / m_Zoom;
 			}
 
 			if (n2dIsKeyDown(SDLK_s))
 			{
 				m_DrawArea.y += speed;
-				m_Offset.y += speed;
+				m_Offset.y += speed / m_Zoom;
 			}
 
 			if (n2dIsKeyDown(SDLK_a))
 			{
 				m_DrawArea.x -= speed;
-				m_Offset.x -= speed;
+				m_Offset.x -= speed / m_Zoom;
 			}
 
 			if (n2dIsKeyDown(SDLK_d))
 			{
 				m_DrawArea.x += speed;
-				m_Offset.x += speed;
+				m_Offset.x += speed / m_Zoom;
 			}
 
 			if (n2dIsKeyDown(SDLK_1))
@@ -186,17 +132,17 @@ namespace novazero
 			}
 		}
 
-		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow, 
-			TweenTypes followType) 
+		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, 
+			float camPadding, TweenTypes followType) 
 		{
 			m_FollowTarget = target;
-			SetFollowDistance(distanceBeforeFollow);
 			SetFollowType(followType);
+			SetCameraPadding(camPadding);
 			SetFollowSpeed(followSpeed);
 
 			if (startOnTargetPosition)
 			{
-				CenterOn(target, zoomLevel);
+				//CenterOn(target, zoomLevel);
 			}
 		}
 
@@ -258,8 +204,6 @@ namespace novazero
 
 			// Translate
 			SetDrawRectPosition(position);
-			
-			return;
 
 		}	
 
@@ -279,8 +223,8 @@ namespace novazero
 		void Camera::CenterOn(Vec2 position, float zoom)
 		{
 			// Reposition draw area
-			m_Offset.x = position.x - m_DrawArea.w / 2;
-			m_Offset.y = position.y - m_DrawArea.h / 2;
+			m_Offset.x = position.x;
+			m_Offset.y = position.y;
 
 			// Apply changes (with zoom, if required)
 			SetZoom(zoom);

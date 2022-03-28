@@ -24,7 +24,7 @@ namespace novazero
 			float m_Zoom = 1.f;
 			float m_OldZoom = 1.f;
 			float m_ZoomSpeed = 0.01f;
-			float m_FollowDistance = 100.f;
+			float m_CameraPadding = 64.f;
 
 			Positional* m_FollowTarget = nullptr;
 
@@ -44,9 +44,9 @@ namespace novazero
 			void SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow,
 				TweenTypes followType);
 
-			void SetFollowDistance(float dist)
+			void SetCameraPadding(float padding)
 			{
-				m_FollowDistance = dist;
+				m_CameraPadding = padding;
 			}
 
 			void SetFollowType(TweenTypes type)
