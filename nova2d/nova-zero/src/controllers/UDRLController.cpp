@@ -98,12 +98,12 @@ namespace novazero
 
 				if (IsWithinMoveBounds((int)newX, (int)pos.y, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					SetX(newX);
+					SetX(newX / CAMERA_ZOOM);
 				}
 
 				if (IsWithinMoveBounds((int)pos.x, (int)newY, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					SetY(newY);
+					SetY(newY / CAMERA_ZOOM);
 				}
 			}
 

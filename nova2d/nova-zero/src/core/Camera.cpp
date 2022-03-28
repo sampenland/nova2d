@@ -228,8 +228,8 @@ namespace novazero
 		void Camera::CenterOn(Vec2 position, float zoom)
 		{
 			// Reposition draw area
-			m_Offset.x = position.x;
-			m_Offset.y = position.y;
+			m_Offset.x = position.x - m_DrawArea.w / 2;
+			m_Offset.y = position.y - m_DrawArea.h / 2;
 
 			// Apply changes (with zoom, if required)
 			SetZoom(zoom);
@@ -252,7 +252,7 @@ namespace novazero
 
 		float Camera::GetY() const
 		{
-			return m_Offset.y;
+			return m_Offset.y + Game::s_Height - m_DrawArea.h;
 		}
 
 		void Camera::Reset()
