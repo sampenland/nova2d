@@ -106,8 +106,8 @@ namespace novazero
 
 			if (IsFixed())
 			{
-				m_DrawRect.x = GetX() + OffsetX();
-				m_DrawRect.y = GetY() + OffsetY();
+				m_DrawRect.x = (int)(GetX() + OffsetX());
+				m_DrawRect.y = (int)(GetY() + OffsetY());
 			}
 			else
 			{

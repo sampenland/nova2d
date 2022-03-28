@@ -69,7 +69,10 @@ namespace novazero
 			void CenterOn(Positional* target, float zoom = -1.f);
 			void CenterOn(Vec2 position, float zoom = -1.f);
 
-			void EnforceBounds(Vec2 setPos);
+			Vec2 GetPosition() const;
+			Vec2Int GetPositionInt() const;
+			float GetX() const;
+			float GetY() const;
 
 			void EnableFreeWASDMove(bool enabled);
 			bool IsFreeMoveEnabled() const;
@@ -77,6 +80,7 @@ namespace novazero
 			float GetZoom() const;
 			void SetZoom(float zoomLevel);
 
+			Vec2 GetDrawRectCenter() const;
 			void SetDrawRect(Rect drawRect);
 			void SetDrawRectPosition(Vec2 pos);
 			Rect GetDrawRect() const;

@@ -142,7 +142,7 @@ namespace novazero
 
 			if (startOnTargetPosition)
 			{
-				//CenterOn(target, zoomLevel);
+				CenterOn(target, zoomLevel);
 			}
 		}
 
@@ -163,6 +163,11 @@ namespace novazero
 		Rect Camera::GetDrawRect() const
 		{
 			return m_DrawArea;
+		}
+
+		Vec2 Camera::GetDrawRectCenter() const
+		{
+			return Vec2((m_DrawArea.x + m_DrawArea.w / 2) / m_Zoom, (m_DrawArea.y + m_DrawArea.h / 2) / m_Zoom);
 		}
 
 		Vec2 Camera::GetDrawRectPosition() const
@@ -228,6 +233,26 @@ namespace novazero
 
 			// Apply changes (with zoom, if required)
 			SetZoom(zoom);
+		}
+
+		Vec2 Camera::GetPosition() const
+		{
+			return Vec2(GetX(), GetY());
+		}
+
+		Vec2Int Camera::GetPositionInt() const
+		{
+			return Vec2Int((int)GetX(), (int)GetY());
+		}
+
+		float Camera::GetX() const
+		{
+			return m_Offset.x + Game::s_Width - m_DrawArea.w;
+		}
+
+		float Camera::GetY() const
+		{
+			return m_Offset.y;
 		}
 
 		void Camera::Reset()
