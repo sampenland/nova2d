@@ -47,17 +47,57 @@ namespace novazero
 
 			// Get positions
 			Vec2 targetPos = m_FollowTarget->GetPosition();
+			Vec2 camSetPos = Vec2(-(targetPos.x - Game::s_Width / 2), -(targetPos.y - Game::s_Height / 2));
 
-			// Get bounds
+			camSetPos.x = targetPos.x * CAMERA_ZOOM;
+			camSetPos.y = targetPos.y * CAMERA_ZOOM;
+
+			// Position camera
+			EnforceBounds(camSetPos);
+
+		}
+
+		void Camera::EnforceBounds(Vec2 setPos)
+		{
 			Rect bounds = GetMoveBounds();
+			bounds.x = bounds.x - Game::s_Width / 2;
 
-			// Determine camera move padding
-			float viewportPaddingX = m_DrawArea.w / 2;
-			float viewportPaddingY = m_DrawArea.h / 2;
+			float newX = -1 * (setPos.x - (Game::s_Width / 2));
+			float newY = -1 * (setPos.y - (Game::s_Height / 2));
 
-			LOGS(m_DrawArea);
-			LOGS(targetPos);
-			CenterOn(targetPos);
+			if (m_FollowTarget->IsFacing() == Directions::Right)
+			{
+				newX += m_FollowDistance;
+			}
+			else if(m_FollowTarget->IsFacing() == Directions::Left)
+			{
+				newX += (Game::s_Width / 2 / CAMERA_ZOOM) + m_FollowDistance;
+			}
+
+			if (m_FollowTarget->IsFacing() == Directions::Down)
+			{
+				newY += m_FollowDistance;
+			}
+			else if (m_FollowTarget->IsFacing() == Directions::Up)
+			{
+				newY += (Game::s_Height / 2 / CAMERA_ZOOM) + m_FollowDistance;
+			}
+			
+			// limit X
+			if (newX < bounds.x) newX = bounds.x;
+			float xLimit = bounds.x + bounds.w;
+			if (newX > xLimit) newX = xLimit;
+			
+			// limit Y
+			float yLimit = (bounds.y + bounds.h) / 2;
+			if (newY > bounds.y + yLimit) newY = bounds.y + yLimit;
+			if (newY < -yLimit) newY = -yLimit;
+
+			// prep for camera move (tween to new spot)
+			float correction = (m_Zoom * Game::s_Height / 2);
+			newX = newX + correction;
+			newY = newY + correction;
+
 		}
 
 		void Camera::FreeMove()
@@ -146,11 +186,11 @@ namespace novazero
 			}
 		}
 
-		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float cameraMovePadding, 
+		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow, 
 			TweenTypes followType) 
 		{
 			m_FollowTarget = target;
-			SetMovePadding(cameraMovePadding);
+			SetFollowDistance(distanceBeforeFollow);
 			SetFollowType(followType);
 			SetFollowSpeed(followSpeed);
 
@@ -218,6 +258,8 @@ namespace novazero
 
 			// Translate
 			SetDrawRectPosition(position);
+			
+			return;
 
 		}	
 
@@ -231,14 +273,12 @@ namespace novazero
 			if (zoom == -1.f)
 				zoom = m_Zoom;
 
-			Vec2 targetPos = target->GetCenter();
-			CenterOn(targetPos.multiply(Vec2(zoom, zoom)), zoom);
+			CenterOn(Vec2(target->GetCenter().x, target->GetCenter().y), zoom);
 		}
 
 		void Camera::CenterOn(Vec2 position, float zoom)
 		{
-			// Reposition draw area 
-			// TODO: not centering properly on follow target
+			// Reposition draw area
 			m_Offset.x = position.x - m_DrawArea.w / 2;
 			m_Offset.y = position.y - m_DrawArea.h / 2;
 

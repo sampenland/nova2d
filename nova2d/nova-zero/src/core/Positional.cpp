@@ -24,16 +24,8 @@ namespace novazero
 			m_Facing = facing;
 		}
 
-		float Positional::GetX() const 
-		{
-			return (float)m_Position.x / CAMERA_ZOOM;
-		}
-
-		float Positional::GetY() const 
-		{ 
-			return (float)m_Position.y / CAMERA_ZOOM; 
-		}
-
+		float Positional::GetX() const { return (float)m_Position.x; }
+		float Positional::GetY() const { return (float)m_Position.y; }
 		Vec2Int Positional::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }
 		Vec2 Positional::GetPosition() const { return Vec2(GetX(), GetY()); }
 
