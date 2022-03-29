@@ -45,7 +45,36 @@ namespace novazero
 		{
 			if (!m_FollowTarget) return;
 
-			CenterOn(m_FollowTarget);
+			Tween& xTween = n2dTweenGet(m_XTween);
+			Tween& yTween = n2dTweenGet(m_YTween);
+
+			if (xTween.enabled && yTween.enabled && (!xTween.completed || !yTween.completed))
+			{
+				// Move camera and wait until it's at end position
+				CenterOn(Vec2(m_NewX, m_NewY));
+				return;
+			}
+
+			// Calculate position for camera to be at
+			m_TweenToPosition = m_FollowTarget->GetPosition();
+
+			Vec2 futureCamPositon;
+			futureCamPositon.x = m_TweenToPosition.x - m_DrawArea.w / 2;
+			futureCamPositon.y = m_TweenToPosition.y - m_DrawArea.h / 2;
+
+			if (futureCamPositon == m_TweenToPosition)
+			{
+				// Camera not moving and needs no repositioning
+				return;
+			}
+
+			// Config cam to move
+			n2dTweenReconfigure(m_XTween, m_Offset.x, m_TweenToPosition.x, m_FollowSpeed, false, false);
+			n2dTweenEnable(m_XTween, true, false);
+
+			n2dTweenReconfigure(m_YTween, m_Offset.y, m_TweenToPosition.y, m_FollowSpeed, false, false);
+			n2dTweenEnable(m_YTween, true, false);
+
 		}
 
 		void Camera::FreeMove()
@@ -137,6 +166,12 @@ namespace novazero
 		void Camera::SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, 
 			float camPadding, TweenTypes followType) 
 		{
+			if (target == nullptr)
+			{
+				LOG(LVL_NON_FATAL_ERROR, "Cannot have camera follow nullptr target.");
+				return;
+			}
+
 			m_FollowTarget = target;
 			SetFollowType(followType);
 			SetCameraPadding(camPadding);
@@ -146,6 +181,12 @@ namespace novazero
 			{
 				CenterOn(target, zoomLevel);
 			}
+
+			m_XTween = n2dTweenAdd(true, &m_NewX, m_Offset.x, m_Offset.x, m_FollowSpeed, false, false, followType);
+			m_YTween = n2dTweenAdd(true, &m_NewY, m_Offset.y, m_Offset.y, m_FollowSpeed, false, false, followType);
+			n2dTweenEnable(m_XTween, false, false);
+			n2dTweenEnable(m_YTween, false, false);
+
 		}
 
 		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
@@ -265,6 +306,9 @@ namespace novazero
 
 		void Camera::DestroySelf()
 		{
+			n2dTweenRemove(m_XTween);
+			n2dTweenRemove(m_YTween);
+
 			n2dRemoveUpdater(m_CleanID);
 		}
 	}

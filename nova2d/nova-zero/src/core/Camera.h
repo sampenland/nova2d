@@ -30,6 +30,8 @@ namespace novazero
 
 			TweenTypes m_FollowType = TweenTypes::EaseInCubic;
 			Vec2 m_TweenToPosition = Vec2(0, 0);
+			unsigned int m_XTween = 0;
+			unsigned int m_YTween = 0;
 			float m_NewX = 0;
 			float m_NewY = 0;
 			float m_FollowSpeed = 1000.f;

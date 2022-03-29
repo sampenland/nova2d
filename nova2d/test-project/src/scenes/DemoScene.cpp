@@ -1,5 +1,6 @@
 #include "DemoScene.h"
 #include "logging/logging.h"
+#include "core/Game.h"
 
 namespace testproject
 {
@@ -11,7 +12,7 @@ namespace testproject
 
 	void DemoScene::Start()
 	{
-		
+
 	}
 
 	void DemoScene::Update()

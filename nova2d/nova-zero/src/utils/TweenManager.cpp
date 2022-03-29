@@ -125,68 +125,89 @@ namespace novazero
 			unsigned int id = n2dGameGetID();
 
 			Tween* t = new Tween();
-
 			SetTweenType(*t, type);
 			
-			t->durationMS = durationMS;
-			t->invert = end < start;
-
-			if (end < 0.f)
-			{
-				t->negate = true;
-				end *= -1;
-			}
-			else
-			{
-				t->negate = false;
-			}
-
-			if (t->invert)
-			{
-				t->initStart = end;
-				t->end = start;
-				t->offset = end;
-			}
-			else
-			{
-				t->initStart = start;			
-				t->end = end;
-				t->offset = start;
-			}
-
-			t->current = t->initStart;
-			t->xStart = 0.f;
-			t->xCurrent = 0.f;
-
-			if (t->negate)
-			{
-				t->xStep = ((t->initStart - t->end) / t->initStart) / (durationMS / 10);
-			}
-			else
-			{
-				t->xStep = ((t->end - t->initStart) / t->end) / (durationMS / 10);
-			}
-
 			if (isFloat)
 			{
-				t->isFloat = true;
 				t->referenceF = (float*)propertyEffected;
 			}
 			else
 			{
-				t->isFloat = false;
 				t->referenceI = (int*)propertyEffected;
 			}
 
-			t->loop = loop;
-			t->deleteOnComplete = autoDelete;
-
-			if (!autoDelete && n2dDebugVerbose)
-				LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(id));
-
 			m_Tweens[id] = t;
+
+			Reconfigure(id, start, end, durationMS, loop, autoDelete);
+
 			return id;
 		}
+
+		void TweenManager::Reconfigure(unsigned int tweenID, float start,
+			float end, float durationMS, bool loop, bool autoDelete)
+		{
+			if (m_Tweens.find(tweenID) != m_Tweens.end())
+			{
+				Tween& tween = *m_Tweens[tweenID];
+
+				tween.completed = false;
+				tween.durationMS = durationMS;
+				tween.invert = end < start;
+
+				if (start < 0.f && end < 0.f)
+				{
+
+				}
+				else if (start < 0.f)
+				{
+					tween.offset = start;
+				}
+				else if (end < 0.f)
+				{
+					tween.offset = end;
+				}
+
+				if (tween.invert)
+				{
+					tween.initStart = end - start;
+					tween.end = start;
+				}
+				else
+				{
+					tween.initStart = start;
+					tween.end = end;
+				}
+
+				tween.current = m_Tweens[tweenID]->initStart;
+				tween.xStart = 0.f;
+				tween.xCurrent = 0.f;
+
+				if (tween.negate)
+				{
+					tween.xStep = ((tween.initStart - tween.end) / tween.initStart) / (durationMS / 10);
+				}
+				else
+				{
+					if (tween.invert)
+					{
+						tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
+						tween.end = -tween.initStart;
+					}
+					else
+					{
+						tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
+						tween.end = tween.end - tween.initStart;
+					}
+				}
+
+				tween.loop = loop;
+				tween.deleteOnComplete = autoDelete;
+
+				if (!autoDelete && n2dDebugVerbose)
+					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); tween.loop = loop;
+			}
+		}
+
 
 		Tween& TweenManager::GetTween(unsigned int tweenID)
 		{
@@ -258,64 +279,6 @@ namespace novazero
 			if (m_Tweens.find(tweenID) != m_Tweens.end())
 			{
 				m_Tweens[tweenID]->xCurrent = 0;
-			}
-		}
-
-		void TweenManager::Reconfigure(unsigned int tweenID, float start,
-			float end, float durationMS, bool loop, bool autoDelete)
-		{
-			if (m_Tweens.find(tweenID) != m_Tweens.end())
-			{
-				Tween& tween = *m_Tweens[tweenID];
-
-				tween.completed = false;
-				tween.durationMS = durationMS;
-				tween.invert = end < start;
-
-				if (end < 0.f)
-				{
-					tween.negate = true;
-					end *= -1;
-				}
-				else if (start < 0.f)
-				{
-					tween.negate = true;
-					start *= -1;
-				}
-				else
-				{
-					tween.negate = false;
-				}
-
-				if (tween.invert)
-				{
-					tween.initStart = end;
-					tween.end = start;
-				}
-				else
-				{
-					tween.initStart = start;
-					tween.end = end;
-				}
-
-				tween.current = m_Tweens[tweenID]->initStart;
-				tween.xStart = 0.f;
-				tween.xCurrent = 0.f;
-
-				if (tween.negate)
-				{
-					tween.xStep = ((m_Tweens[tweenID]->initStart - m_Tweens[tweenID]->end) / m_Tweens[tweenID]->initStart) / (durationMS / 10);
-				}
-				else
-				{
-					tween.xStep = ((m_Tweens[tweenID]->end - m_Tweens[tweenID]->initStart) / m_Tweens[tweenID]->end) / (durationMS / 10);
-				}
-				
-				tween.loop = loop;
-				tween.deleteOnComplete = autoDelete;
-
-				if (!autoDelete && n2dDebugVerbose)
-					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); tween.loop = loop;
 			}
 		}
 
@@ -407,6 +370,7 @@ namespace novazero
 				value += tween.offset;
 			}
 			
+			LOGS(value);
  			if (tween.isFloat)
 			{
 				*tween.referenceF = (float)value;
