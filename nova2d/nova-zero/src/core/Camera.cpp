@@ -44,6 +44,8 @@ namespace novazero
 		void Camera::FollowTarget()
 		{
 			if (!m_FollowTarget) return;
+
+			CenterOn(m_FollowTarget);
 		}
 
 		void Camera::FreeMove()
@@ -185,9 +187,9 @@ namespace novazero
 			return m_Zoom; 
 		}
 
-		void Camera::SetZoom(float zoomLevel)
+		void Camera::SetZoom(float zoomLevel, bool force)
 		{
-			if (m_OldZoom == zoomLevel) return;
+			if (m_OldZoom == zoomLevel && !force) return;
 
 			// Apply zoom
 			m_Zoom = zoomLevel;
@@ -231,8 +233,8 @@ namespace novazero
 			m_Offset.x = position.x - m_DrawArea.w / 2;
 			m_Offset.y = position.y - m_DrawArea.h / 2;
 
-			// Apply changes (with zoom, if required)
-			SetZoom(zoom);
+			// Apply changes (with force = true)
+			SetZoom(zoom, true);
 		}
 
 		Vec2 Camera::GetPosition() const

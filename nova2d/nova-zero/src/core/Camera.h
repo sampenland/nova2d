@@ -78,7 +78,7 @@ namespace novazero
 			bool IsFreeMoveEnabled() const;
 
 			float GetZoom() const;
-			void SetZoom(float zoomLevel);
+			void SetZoom(float zoomLevel, bool force = false);
 
 			Vec2 GetDrawRectCenter() const;
 			void SetDrawRect(Rect drawRect);
