@@ -13,9 +13,18 @@ namespace testproject
 	void DemoScene::Start()
 	{
 		float* x = new float;
-		(*x) = -608;
-		n2dTweenAdd(true, x, -608.f, -508.f, 1000, false, false, TweenTypes::EaseInExpo);
-
+		(*x) = 0;
+		
+		// works
+		// n2dTweenAdd(true, x, -20, -10.f, 1000, false, false, TweenTypes::EaseInSine);
+		// works
+		// n2dTweenAdd(true, x, -10, -20.f, 1000, false, false, TweenTypes::EaseInSine);
+		// works
+		// n2dTweenAdd(true, x, -10, 10.f, 1000, false, false, TweenTypes::EaseInSine);
+		// works
+		// n2dTweenAdd(true, x, 10, -20.f, 1000, false, false, TweenTypes::EaseInSine);
+		// works
+		n2dTweenAdd(true, x, -20, 10.f, 1000, false, false, TweenTypes::EaseInSine);
 	}
 
 	void DemoScene::Update()

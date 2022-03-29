@@ -156,57 +156,141 @@ namespace novazero
 
 				if (start < 0.f && end < 0.f)
 				{
+					// Works
 					tween.negate = true;
-					tween.offset = -end;
+
+					if (start < end)
+					{
+						tween.offset = -end;
+					}
+					else
+					{
+						tween.offset = -start;
+					}
+
+					if (tween.invert)
+					{
+						tween.initStart = start;
+						tween.end = end;
+					}
+					else
+					{
+						tween.initStart = start;
+						tween.end = end;
+					}
+
+					if (tween.negate)
+					{
+						if (tween.initStart > tween.end)
+						{
+							tween.xStep = ((tween.initStart - tween.end) / -tween.initStart) / (durationMS / 10);
+						}
+						else
+						{
+							tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
+						}
+					}
+					else
+					{
+						if (tween.invert)
+						{
+							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
+							tween.end = -tween.initStart;
+						}
+						else
+						{
+							tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
+							tween.end = tween.end - tween.initStart;
+						}
+					}
 				}
 				else if (start < 0.f)
 				{
 					tween.offset = start;
+
+					if (tween.invert)
+					{
+						tween.initStart = start;
+						tween.end = end;
+					}
+					else
+					{
+						tween.initStart = start;
+						tween.end = end;
+					}
+
+					if (tween.negate)
+					{
+						if (tween.initStart > tween.end)
+						{
+							tween.xStep = ((tween.initStart - tween.end) / -tween.initStart) / (durationMS / 10);
+						}
+						else
+						{
+							tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
+						}
+					}
+					else
+					{
+						if (tween.invert)
+						{
+							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
+							tween.end = -tween.initStart;
+						}
+						else
+						{
+							tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
+							tween.end = tween.end - tween.initStart;
+						}
+					}
+
 				}
 				else if (end < 0.f)
 				{
-					tween.offset = end;
-				}
+					tween.offset = -start;
+					tween.negate = end < start;
 
-				if (tween.invert)
-				{
-					tween.initStart = start;
-					tween.end = end - start;
-				}
-				else
-				{
-					tween.initStart = start;
-					tween.end = end;
+					if (tween.invert)
+					{
+						tween.initStart = end + -start;
+						tween.end = 0;
+					}
+					else
+					{
+						tween.initStart = start;
+						tween.end = end;
+					}
+
+					if (tween.negate)
+					{
+						if (tween.initStart > tween.end)
+						{
+							tween.xStep = (tween.initStart/ (tween.initStart - tween.end)) / (durationMS / 10);
+						}
+						else
+						{
+							tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
+						}
+					}
+					else
+					{
+						if (tween.invert)
+						{
+							//not
+							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
+							tween.end = -tween.initStart;
+						}
+						else
+						{
+							tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
+							tween.end = tween.end - tween.initStart;
+						}
+					}
 				}
 
 				tween.current = tween.initStart;
 				tween.xStart = 0.f;
 				tween.xCurrent = 0.f;
-
-				if (tween.negate)
-				{
-					if (tween.initStart > tween.end)
-					{
-						tween.xStep = ((tween.initStart - tween.end) / tween.initStart) / (durationMS / 10);
-					}
-					else
-					{
-						tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
-					}
-				}
-				else
-				{
-					if (tween.invert)
-					{
-						tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
-						tween.end = -tween.initStart;
-					}
-					else
-					{
-						tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
-						tween.end = tween.end - tween.initStart;
-					}
-				}
 
 				tween.loop = loop;
 				tween.deleteOnComplete = autoDelete;
@@ -369,7 +453,14 @@ namespace novazero
 				}
 				else
 				{
-					value = percentToEnd * tween.initStart;
+					if (tween.end < tween.initStart)
+					{
+						value = percentToEnd * tween.end;
+					}
+					else
+					{
+						value = percentToEnd * tween.initStart;
+					}
 				}
 				value -= tween.offset;
 			}
