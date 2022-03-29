@@ -56,7 +56,7 @@ namespace novazero
 			}
 
 			// Calculate position for camera to be at
-			m_TweenToPosition = m_FollowTarget->GetPosition();
+			m_TweenToPosition = m_FollowTarget->GetCenter();
 
 			Vec2 futureCamPositon;
 			futureCamPositon.x = m_TweenToPosition.x - m_DrawArea.w / 2;
@@ -69,10 +69,10 @@ namespace novazero
 			}
 
 			// Config cam to move
-			n2dTweenReconfigure(m_XTween, m_Offset.x, m_TweenToPosition.x, m_FollowSpeed, false, false);
+			n2dTweenReconfigure(m_XTween, m_Offset.x, futureCamPositon.x, m_FollowSpeed, false, false);
 			n2dTweenEnable(m_XTween, true, false);
 
-			n2dTweenReconfigure(m_YTween, m_Offset.y, m_TweenToPosition.y, m_FollowSpeed, false, false);
+			n2dTweenReconfigure(m_YTween, m_Offset.y, futureCamPositon.y, m_FollowSpeed, false, false);
 			n2dTweenEnable(m_YTween, true, false);
 
 		}
@@ -232,6 +232,9 @@ namespace novazero
 		{
 			if (m_OldZoom == zoomLevel && !force) return;
 
+			if (zoomLevel == -1.f)
+				zoomLevel = m_Zoom;
+
 			// Apply zoom
 			m_Zoom = zoomLevel;
 
@@ -262,9 +265,6 @@ namespace novazero
 
 		void Camera::CenterOn(Positional* target, float zoom)
 		{
-			if (zoom == -1.f)
-				zoom = m_Zoom;
-
 			CenterOn(Vec2(target->GetCenter().x, target->GetCenter().y), zoom);
 		}
 
