@@ -156,7 +156,6 @@ namespace novazero
 
 				if (start < 0.f && end < 0.f)
 				{
-					// Works
 					tween.negate = true;
 
 					if (start < end)
@@ -183,6 +182,7 @@ namespace novazero
 					{
 						if (tween.initStart > tween.end)
 						{
+							// FAIL
 							tween.xStep = ((tween.initStart - tween.end) / -tween.initStart) / (durationMS / 10);
 						}
 						else
@@ -276,7 +276,6 @@ namespace novazero
 					{
 						if (tween.invert)
 						{
-							//not
 							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
 							tween.end = -tween.initStart;
 						}
@@ -286,6 +285,29 @@ namespace novazero
 							tween.end = tween.end - tween.initStart;
 						}
 					}
+				}
+				else if(end == 0.f)
+				{
+					
+					tween.offset = 0;
+					tween.negate = true;
+					tween.invert = false;
+
+					tween.initStart = start;
+					tween.end = 0;
+
+					tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
+
+				}
+				else if (start == 0)
+				{
+					tween.offset = 0;
+					tween.negate = false;
+
+					tween.initStart = start;
+					tween.end = end;
+
+					tween.xStep = end / 10 / (durationMS / 10);
 				}
 
 				tween.current = tween.initStart;
@@ -453,7 +475,11 @@ namespace novazero
 				}
 				else
 				{
-					if (tween.end < tween.initStart)
+					if (tween.end < tween.initStart && tween.end == 0)
+					{
+						value = percentToEnd * tween.initStart;
+					}
+					else if (tween.end < tween.initStart)
 					{
 						value = percentToEnd * tween.end;
 					}
