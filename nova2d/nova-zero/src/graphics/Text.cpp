@@ -111,8 +111,8 @@ namespace novazero
 			}
 			else
 			{
-				m_DrawRect.x = oX + OffsetX();
-				m_DrawRect.y = oY + OffsetY();
+				m_DrawRect.x = (int)(oX + OffsetX());
+				m_DrawRect.y = (int)(oY + OffsetY());
 			}	
 
 			int w = m_DrawRect.w;

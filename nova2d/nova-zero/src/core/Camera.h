@@ -32,8 +32,8 @@ namespace novazero
 			Vec2 m_TweenToPosition = Vec2(0, 0);
 			unsigned int m_XTween = 0;
 			unsigned int m_YTween = 0;
-			float m_NewX = 0;
-			float m_NewY = 0;
+			float* m_NewX = nullptr;
+			float* m_NewY = nullptr;
 			float m_FollowSpeed = 1000.f;
 
 			bool m_FreeMove = false;
@@ -70,6 +70,7 @@ namespace novazero
 
 			void CenterOn(Positional* target, float zoom = -1.f);
 			void CenterOn(Vec2 position, float zoom = -1.f);
+			Vec2 ReverseCenterOn(Vec2 position);
 
 			Vec2 GetPosition() const;
 			Vec2Int GetPositionInt() const;

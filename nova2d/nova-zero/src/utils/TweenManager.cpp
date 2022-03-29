@@ -156,7 +156,8 @@ namespace novazero
 
 				if (start < 0.f && end < 0.f)
 				{
-
+					tween.negate = true;
+					tween.offset = -end;
 				}
 				else if (start < 0.f)
 				{
@@ -169,8 +170,8 @@ namespace novazero
 
 				if (tween.invert)
 				{
-					tween.initStart = end - start;
-					tween.end = start;
+					tween.initStart = start;
+					tween.end = end - start;
 				}
 				else
 				{
@@ -178,13 +179,20 @@ namespace novazero
 					tween.end = end;
 				}
 
-				tween.current = m_Tweens[tweenID]->initStart;
+				tween.current = tween.initStart;
 				tween.xStart = 0.f;
 				tween.xCurrent = 0.f;
 
 				if (tween.negate)
 				{
-					tween.xStep = ((tween.initStart - tween.end) / tween.initStart) / (durationMS / 10);
+					if (tween.initStart > tween.end)
+					{
+						tween.xStep = ((tween.initStart - tween.end) / tween.initStart) / (durationMS / 10);
+					}
+					else
+					{
+						tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
+					}
 				}
 				else
 				{
@@ -202,6 +210,11 @@ namespace novazero
 
 				tween.loop = loop;
 				tween.deleteOnComplete = autoDelete;
+
+				if (tween.xStep == 0.0f)
+				{
+					tween.completed = true;
+				}
 
 				if (!autoDelete && n2dDebugVerbose)
 					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); tween.loop = loop;
@@ -352,14 +365,13 @@ namespace novazero
 			{
 				if (!tween.invert)
 				{
-					value = (1.f - percentToEnd) * tween.initStart;
+					value = (1.f - percentToEnd) * (tween.initStart - tween.end);
 				}
 				else
 				{
 					value = percentToEnd * tween.initStart;
 				}
-				value *= -1;
-				value -= tween.offset; // offset to starting value
+				value -= tween.offset;
 			}
 			else
 			{
