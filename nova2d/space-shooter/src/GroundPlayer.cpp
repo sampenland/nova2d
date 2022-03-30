@@ -14,6 +14,8 @@ namespace spaceshooter
 		ConfigureMoveBounds(Game::GetGameBounds());
 		ConfigureUsingBounds(true, false);
 
+		ConfigureCollider(GetSprite(), 0, "ground-player", (Positional*)this);
+
 		Deleteable::m_CleanUpdaters.push_back(n2dAddUpdater(GroundPlayer::Update, this));
 
 	}

@@ -10,6 +10,11 @@ namespace novazero
 			
 		}
 
+		void Scene::SetGravity(float x, float y)
+		{
+			m_Gravity = Vec2(x, y);
+		}
+
 		void Scene::Restart()
 		{
 			StartEventListener();

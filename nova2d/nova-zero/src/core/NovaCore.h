@@ -137,6 +137,12 @@ Easy access globally to game score
 */
 #define n2dScore novazero::core::Game::GetScore()
 
+/*
+nova2d Current Scene's Gravity ()
+Get current scene's gravity
+*/
+#define n2dGravity novazero::core::Game::s_SceneManager->GetCurrentSceneGravity()
+
 //----------------------------------------------------------------------------
 // EventListeners
 //----------------------------------------------------------------------------

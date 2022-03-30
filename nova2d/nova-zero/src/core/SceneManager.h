@@ -43,6 +43,9 @@ namespace novazero
 			SceneManager();
 
 			void ConfigureFirstScene(const std::string& sceneName);
+
+			void SetGravity(float x, float y);
+			Vec2 GetCurrentSceneGravity() const;
 			
 			void AddScene(const std::string& sceneName, Scene* scene);
 			void RemoveScene(const std::string& sceneName);
