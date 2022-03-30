@@ -238,6 +238,11 @@ namespace novazero
 			// -----------------
 		}
 
+		float Game::GetDeltaTime() 
+		{ 
+			return (float)s_DeltaTime / 100; 
+		}
+
 		void Game::Render()
 		{
 			s_Renderer->PreDraw();

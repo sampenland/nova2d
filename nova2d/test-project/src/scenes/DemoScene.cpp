@@ -17,7 +17,7 @@ namespace testproject
 
 
 		// neg to neg works
-		//n2dTweenAdd(true, x, -50, -20.f, 1000, false, false, TweenTypes::EaseInSine);
+		n2dTweenAdd(true, x, -50, -20.f, 1000, false, false, TweenTypes::EaseInSine);
 		//n2dTweenAdd(true, x, -20, -50.f, 1000, false, false, TweenTypes::EaseInSine);
 
 		// zero to pos works

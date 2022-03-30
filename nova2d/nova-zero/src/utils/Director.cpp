@@ -88,8 +88,8 @@ namespace novazero
 				Vec2 cameraWorldCenter = CAMERA->GetDrawRectCenter();
 				m_MiddleScreenText->UpdateText("Cntr:[" + tostring((int)cameraWorldCenter.x) + ", " + tostring((int)cameraWorldCenter.y) + "]");
 				
-				int camPosX = CAMERA->GetX();
-				int camPosY = CAMERA->GetY();
+				int camPosX = (int)CAMERA->GetX();
+				int camPosY = (int)CAMERA->GetY();
 				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]\n Z:[" + tostring(CAMERA_ZOOM) + "]");
 			}
 

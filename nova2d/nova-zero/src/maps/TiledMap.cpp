@@ -258,8 +258,8 @@ namespace novazero
 
 		void TiledMap::Draw(float oX, float oY, float scale)
 		{
-			m_TilemapDrawRect.x = oX;
-			m_TilemapDrawRect.y = oY;
+			m_TilemapDrawRect.x = (int)oX;
+			m_TilemapDrawRect.y = (int)oY;
 
 			int w = m_TilemapDrawRect.w;
 			int h = m_TilemapDrawRect.h;

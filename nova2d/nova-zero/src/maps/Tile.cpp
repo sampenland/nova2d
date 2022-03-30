@@ -35,8 +35,8 @@ namespace novazero
 		{
 			if (!IsVisible()) return;
 
-			m_DestRect.x = oX;
-			m_DestRect.y = oY;
+			m_DestRect.x = (int)oX;
+			m_DestRect.y = (int)oY;
 
 			int w = m_DestRect.w;
 			int h = m_DestRect.h;

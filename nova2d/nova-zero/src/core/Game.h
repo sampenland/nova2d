@@ -86,7 +86,7 @@ namespace novazero
 			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
 
 			static double s_DeltaTime;
-			static float GetDeltaTime() { return (float)s_DeltaTime; }
+			static float GetDeltaTime();
 			static double s_FPS;
 
 			static int s_Width;

@@ -452,7 +452,7 @@ namespace novazero
 			
 			if (tween.xCurrent < 1.0f)
 			{
-				tween.xCurrent += tween.xStep * n2dTimeScale;
+				tween.xCurrent += tween.xStep * n2dTimeScale * n2dDeltaTime;
 			}
 			else
 			{
