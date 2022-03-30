@@ -156,158 +156,50 @@ namespace novazero
 
 				if (start < 0.f && end < 0.f)
 				{
-					tween.negate = true;
-
 					if (start < end)
 					{
-						tween.offset = -end;
+						CreateTweenNegToNegInc(tween, start, end, durationMS);
 					}
 					else
 					{
-						tween.offset = -start;
-					}
-
-					if (tween.invert)
-					{
-						tween.initStart = start;
-						tween.end = end;
-					}
-					else
-					{
-						tween.initStart = start;
-						tween.end = end;
-					}
-
-					if (tween.negate)
-					{
-						if (tween.initStart > tween.end)
-						{
-							// FAIL
-							tween.xStep = ((tween.initStart - tween.end) / -tween.initStart) / (durationMS / 10);
-						}
-						else
-						{
-							tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
-						}
-					}
-					else
-					{
-						if (tween.invert)
-						{
-							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
-							tween.end = -tween.initStart;
-						}
-						else
-						{
-							tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
-							tween.end = tween.end - tween.initStart;
-						}
+						CreateTweenNegToNegDec(tween, start, end, durationMS);
 					}
 				}
-				else if (start < 0.f)
+				else if (start < 0.f && end != 0.f)
 				{
-					tween.offset = start;
-
-					if (tween.invert)
-					{
-						tween.initStart = start;
-						tween.end = end;
-					}
-					else
-					{
-						tween.initStart = start;
-						tween.end = end;
-					}
-
-					if (tween.negate)
-					{
-						if (tween.initStart > tween.end)
-						{
-							tween.xStep = ((tween.initStart - tween.end) / -tween.initStart) / (durationMS / 10);
-						}
-						else
-						{
-							tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
-						}
-					}
-					else
-					{
-						if (tween.invert)
-						{
-							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
-							tween.end = -tween.initStart;
-						}
-						else
-						{
-							tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
-							tween.end = tween.end - tween.initStart;
-						}
-					}
+					CreateTweenNegToPos(tween, start, end, durationMS);
+				}
+				else if (start < 0.f && end == 0.f)
+				{
+					CreateTweenNegToZero(tween, start, end, durationMS);
 
 				}
-				else if (end < 0.f)
+				else if (start > 0.f && end > 0.f)
 				{
-					tween.offset = -start;
-					tween.negate = end < start;
-
-					if (tween.invert)
+					if (start > end)
 					{
-						tween.initStart = end + -start;
-						tween.end = 0;
+						CreateTweenPosToPosDec(tween, start, end, durationMS);
 					}
 					else
 					{
-						tween.initStart = start;
-						tween.end = end;
-					}
-
-					if (tween.negate)
-					{
-						if (tween.initStart > tween.end)
-						{
-							tween.xStep = (tween.initStart/ (tween.initStart - tween.end)) / (durationMS / 10);
-						}
-						else
-						{
-							tween.xStep = (10 / (-tween.initStart + tween.end)) / (durationMS / 10);
-						}
-					}
-					else
-					{
-						if (tween.invert)
-						{
-							tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
-							tween.end = -tween.initStart;
-						}
-						else
-						{
-							tween.xStep = ((tween.end - tween.initStart) / tween.end) / (durationMS / 10);
-							tween.end = tween.end - tween.initStart;
-						}
+						CreateTweenPosToPosInc(tween, start, end, durationMS);
 					}
 				}
-				else if(end == 0.f)
+				else if (end < 0.f && start == 0.f)
 				{
-					
-					tween.offset = 0;
-					tween.negate = true;
-					tween.invert = false;
-
-					tween.initStart = start;
-					tween.end = 0;
-
-					tween.xStep = (-tween.initStart / (tween.end - tween.initStart)) / (durationMS / 10);
-
+					CreateTweenZeroToNeg(tween, start, end, durationMS);
 				}
-				else if (start == 0)
+				else if(end == 0.f && start > 0.f)
 				{
-					tween.offset = 0;
-					tween.negate = false;
-
-					tween.initStart = start;
-					tween.end = end;
-
-					tween.xStep = end / 10 / (durationMS / 10);
+					CreateTweenPosToZero(tween, start, end, durationMS);
+				}
+				else if (start == 0 && end > 0.f)
+				{
+					CreateTweenZeroToPos(tween, start, end, durationMS);
+				}
+				else if (start > 0.f && end < 0.f)
+				{
+					CreateTweenPosToNeg(tween, start, end, durationMS);
 				}
 
 				tween.current = tween.initStart;
@@ -327,6 +219,125 @@ namespace novazero
 			}
 		}
 
+		// ----------------------------------------------------------------------
+
+		void TweenManager::CreateTweenNegToNegDec(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.negate = true;
+
+			tween.offset = -start;
+
+			tween.initStart = -start;
+			tween.end = end - start;
+			tween.xStep = (std::abs(end - start) / (durationMS));
+		}
+
+		void TweenManager::CreateTweenNegToNegInc(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.negate = true;
+
+			tween.offset = -end;
+
+			tween.initStart = start;
+			tween.end = end;
+			tween.xStep = std::abs(end - start) / (durationMS);
+		}
+
+		void TweenManager::CreateTweenNegToPos(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.negate = false;
+			tween.invert = false;
+
+			tween.offset = start;
+
+			tween.initStart = start;
+			tween.end = end;
+			tween.xStep = std::abs(end - start) / (durationMS);
+		}
+
+		void TweenManager::CreateTweenPosToNeg(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.negate = false;
+			tween.invert = true;
+
+			tween.offset = end;
+
+			tween.initStart = end;
+			tween.end = start;
+			tween.xStep = std::abs(end - start) / (durationMS);
+		}
+
+		void TweenManager::CreateTweenPosToPosDec(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.negate = false;
+			tween.invert = true;
+
+			tween.offset = end;
+
+			tween.initStart = start - end;
+			tween.end = end;
+			tween.xStep = std::abs(end - start) / (durationMS);
+		}
+
+		void TweenManager::CreateTweenPosToPosInc(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.negate = false;
+			tween.invert = false;
+
+			tween.offset = start;
+
+			tween.initStart = start;
+			tween.end = end;
+			tween.xStep = std::abs(end - start) / (durationMS);
+		}
+
+		void TweenManager::CreateTweenZeroToPos(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.offset = 0;
+			tween.negate = false;
+
+			tween.initStart = start;
+			tween.end = end;
+
+			tween.xStep = end / (durationMS);
+		}
+
+		void TweenManager::CreateTweenZeroToNeg(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.offset = 0;
+			tween.negate = true;
+
+			tween.initStart = end + -start;
+			tween.end = 0;
+
+			tween.xStep = std::abs(end) / (durationMS);
+		}
+
+		void TweenManager::CreateTweenNegToZero(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.offset = 0;
+			tween.negate = false;
+			tween.invert = true;
+
+			tween.initStart = start;
+			tween.end = end;
+
+			tween.xStep = -start / (durationMS);
+		}
+
+		void TweenManager::CreateTweenPosToZero(Tween& tween, float start, float end, float durationMS)
+		{
+			tween.offset = 0;
+			tween.negate = false;
+			tween.invert = true;
+
+			tween.initStart = start;
+			tween.end = end;
+
+			tween.xStep = start / (durationMS);
+		}
+
+		// ----------------------------------------------------------------------
 
 		Tween& TweenManager::GetTween(unsigned int tweenID)
 		{
@@ -492,9 +503,28 @@ namespace novazero
 			}
 			else
 			{
-				if (tween.invert)
+				if (tween.invert && tween.end == 0)
 				{
-					value = (1.f - percentToEnd) * tween.end;
+					value = (1.f - percentToEnd) * tween.initStart;
+				}
+				else if (tween.invert)
+				{
+					if (tween.initStart < tween.end)
+					{
+						value = (1.f - percentToEnd) * (tween.end - tween.initStart);
+					}
+					else
+					{
+						value = (1.f - percentToEnd) * tween.initStart;
+					}
+				}
+				else if (tween.end > tween.initStart)
+				{
+					value = percentToEnd * (tween.end - tween.initStart);
+				}
+				else
+				{
+					value = percentToEnd * tween.initStart;
 				}
 				value += tween.offset;
 			}
