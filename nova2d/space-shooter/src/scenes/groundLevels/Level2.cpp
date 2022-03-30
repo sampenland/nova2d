@@ -28,7 +28,8 @@ namespace spaceshooter
 
 		GroundPlayer* player = new GroundPlayer(Vec2(16, Game::s_Height - 64), Vec2Int(16, 16), 0);
 
-		CAMERA->SetFollowTarget((Positional*)player, 10.f, true, 2.f, 400.f, TweenTypes::EaseInExpo);
+		CAMERA->SetFollowTarget((Positional*)player, 2.f, true, 2.f, 400.f, TweenTypes::EaseInExpo);
+		//CAMERA->ConfigureMoveBounds(Rect(0.f, 0.f, (float)Game::s_Width, (float)Game::s_Height - CAMERA_RECT.h / 2));
 	}
 
 	void Level2::OnEscape()

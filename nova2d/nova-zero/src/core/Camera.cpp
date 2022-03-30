@@ -21,11 +21,6 @@ namespace novazero
 			m_DrawArea = Rect(0, 0, Game::s_Width, Game::s_Height);
 			ConfigureUsingBounds(true, false);
 
-			m_NewX = new float;
-			(*m_NewX) = 0;
-			m_NewY = new float;
-			(*m_NewY) = 0;
-
 			m_CleanID = n2dAddUpdaterPersistent(Camera::Update, this);
 
 		}
@@ -35,6 +30,8 @@ namespace novazero
 			if (m_Zoom != m_OldZoom)
 			{
 				m_OldZoom = m_Zoom;
+				m_DrawArea.w = Game::s_Width / m_Zoom;
+				m_DrawArea.h = Game::s_Height / m_Zoom;
 			}
 
 			if (m_FreeMove)
@@ -50,29 +47,50 @@ namespace novazero
 		{
 			if (!m_FollowTarget) return;
 
-			Tween& xTween = n2dTweenGet(m_XTween);
-			Tween& yTween = n2dTweenGet(m_YTween);
+			Vec2 centerOn = m_FollowTarget->GetCenter();
+			Rect bounds = GetMoveBounds();
 
-			if (xTween.enabled && yTween.enabled && (!xTween.completed || !yTween.completed))
+			if (!(
+				centerOn.x - m_DrawArea.w / 2 < bounds.x ||
+				centerOn.x + m_DrawArea.w / 2 > bounds.x + bounds.w
+				))
 			{
-				// Move camera and wait until it's at end position
-				CenterOn(Vec2(*m_NewX, *m_NewY));
-				return;
+				// Within bounds
+				centerOn.x = m_FollowTarget->GetCenter().x;				
+			}
+			else
+			{
+				if (centerOn.x - m_DrawArea.w / 2 < bounds.x)
+				{
+					centerOn.x = bounds.x + m_DrawArea.w / 2;
+				}
+				else if (centerOn.x + m_DrawArea.w / 2 > bounds.x + bounds.w)
+				{
+					centerOn.x = bounds.x + bounds.w - m_DrawArea.w / 2;
+				}
 			}
 
-			// Calculate position for camera to be at
-			m_TweenToPosition = m_FollowTarget->GetCenter();
-			Vec2 newCamPosition = ReverseCenterOn(m_TweenToPosition);
-			Vec2 camPosition = GetPosition();
+			if (!(
+				centerOn.y - m_DrawArea.h / 2 < bounds.y ||
+				centerOn.y + m_DrawArea.h / 2 > bounds.y + bounds.h
+				))
+			{
+				// Within bounds
+				centerOn.y = m_FollowTarget->GetCenter().y;
+			}
+			else
+			{
+				if (centerOn.y - m_DrawArea.h / 2 < bounds.y)
+				{
+					centerOn.y = bounds.y + m_DrawArea.h / 2;
+				}
+				else if (centerOn.y + m_DrawArea.h / 2 > bounds.y + bounds.h)
+				{
+					centerOn.y = bounds.y + bounds.h - m_DrawArea.h / 2;
+				}
+			}
 
-			if (camPosition == newCamPosition) return;
-			
-			// Config cam to move
-			n2dTweenReconfigure(m_XTween, camPosition.x, newCamPosition.x, m_FollowSpeed, false, false);
-			n2dTweenEnable(m_XTween, true, false);
-
-			n2dTweenReconfigure(m_YTween, camPosition.y, newCamPosition.y, m_FollowSpeed, false, false);
-			n2dTweenEnable(m_YTween, true, false);
+			CenterOn(centerOn);
 
 		}
 
@@ -180,12 +198,6 @@ namespace novazero
 			{
 				CenterOn(target, zoomLevel);
 			}
-
-			m_XTween = n2dTweenAdd(true, m_NewX, m_Offset.x, m_Offset.x, m_FollowSpeed, false, false, followType);
-			m_YTween = n2dTweenAdd(true, m_NewY, m_Offset.y, m_Offset.y, m_FollowSpeed, false, false, followType);
-			n2dTweenEnable(m_XTween, false, false);
-			n2dTweenEnable(m_YTween, false, false);
-
 		}
 
 		void Camera::EnableFreeWASDMove(bool enabled) { m_FreeMove = enabled; }
@@ -270,8 +282,8 @@ namespace novazero
 		void Camera::CenterOn(Vec2 position, float zoom)
 		{
 			// Reposition draw area
-			m_Offset.x = position.x - m_DrawArea.w / 2;
-			m_Offset.y = position.y - m_DrawArea.h / 2;
+			m_Offset.x = position.x - m_DrawArea.w;
+			m_Offset.y = position.y - m_DrawArea.h;
 
 			// Apply changes (with force = true)
 			SetZoom(zoom, true);
@@ -310,9 +322,6 @@ namespace novazero
 
 		void Camera::DestroySelf()
 		{
-			n2dTweenRemove(m_XTween);
-			n2dTweenRemove(m_YTween);
-
 			n2dRemoveUpdater(m_CleanID);
 		}
 	}

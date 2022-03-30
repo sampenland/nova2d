@@ -1,7 +1,7 @@
 #pragma once
 
 // nova2d Version	
-#define NOVA_VERSION "0.0.05"
+#define NOVA_VERSION "0.0.06"
 
 // ------------------------------
 // RAW VARIABLES

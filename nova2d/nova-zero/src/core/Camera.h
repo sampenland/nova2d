@@ -29,11 +29,6 @@ namespace novazero
 			Positional* m_FollowTarget = nullptr;
 
 			TweenTypes m_FollowType = TweenTypes::EaseInCubic;
-			Vec2 m_TweenToPosition = Vec2(0, 0);
-			unsigned int m_XTween = 0;
-			unsigned int m_YTween = 0;
-			float* m_NewX = nullptr;
-			float* m_NewY = nullptr;
 			float m_FollowSpeed = 1000.f;
 
 			bool m_FreeMove = false;
