@@ -61,7 +61,7 @@ namespace spaceshooter
 		SetTimeEffectEnabled(false);
 		
 		ConfigureMove(3.f, TweenTypes::EaseOutQuart, 100.f, 100.f);
-		SetMoveBounds(Game::GetGameBounds());
+		ConfigureMoveBounds(Game::GetGameBounds());
 
 		m_ShootTimer = new Timer(SHOOT_TIME, true, std::bind(&Player::Shoot, this));
 

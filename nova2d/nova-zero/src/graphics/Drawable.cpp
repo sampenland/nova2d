@@ -7,7 +7,7 @@ namespace novazero
 	namespace graphics
 	{
 
-		Drawable::Drawable(Vec2Int size) : m_Layer(0), Positional()
+		Drawable::Drawable(Vec2Int size) : m_NonScale(false), m_Layer(0), Positional()
 		{
 			m_ID = n2dGameGetID();
 			m_Size = size;
@@ -28,12 +28,12 @@ namespace novazero
 
 		void Drawable::OriginCenter()
 		{
-			m_Offset = Vec2Int(-GetWidth() / 2, -GetHeight() / 2);
+			m_Offset = Vec2((float)-GetWidth() / 2, (float)-GetHeight() / 2);
 		}
 
 		void Drawable::OriginTopLeft()
 		{
-			m_Offset = Vec2Int(0, 0);
+			m_Offset = Vec2(0, 0);
 		}
 	}
 }

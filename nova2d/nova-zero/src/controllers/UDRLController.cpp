@@ -90,14 +90,20 @@ namespace novazero
 
 			if (pos != Vec2(newX, newY))
 			{
+				
+				if (newX > pos.x) SetFacing(Directions::Right);
+				if (newX < pos.x) SetFacing(Directions::Left);
+				if (newY < pos.y) SetFacing(Directions::Up);
+				if (newY > pos.y) SetFacing(Directions::Down);
+
 				if (IsWithinMoveBounds((int)newX, (int)pos.y, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					GetSprite()->SetX(newX);
+					SetX(newX / CAMERA_ZOOM);
 				}
 
 				if (IsWithinMoveBounds((int)pos.x, (int)newY, m_MoveOffsets.x, m_MoveOffsets.y))
 				{
-					GetSprite()->SetY(newY);
+					SetY(newY / CAMERA_ZOOM);
 				}
 			}
 
@@ -137,6 +143,18 @@ namespace novazero
 				n2dTweenEnable(m_AccelerationTweenY, true, false);
 			}
 				
+		}
+
+		void UDRLController::SetX(float x)
+		{
+			Positional::SetX(x);
+			GetSprite()->SetX(x);
+		}
+
+		void UDRLController::SetY(float y)
+		{
+			Positional::SetY(y);
+			GetSprite()->SetY(y);
 		}
 
 		void UDRLController::AccelerateX(bool left)

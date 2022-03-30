@@ -80,8 +80,8 @@ namespace novazero
 			void OriginCenter() { GetDrawable()->OriginCenter(); }
 			void OriginTopLeft() { GetDrawable()->OriginTopLeft(); }
 
-			int OffsetX() { return GetDrawable()->OffsetX(); }
-			int OffsetY() { return GetDrawable()->OffsetY(); }
+			float OffsetX() { return GetDrawable()->OffsetX(); }
+			float OffsetY() { return GetDrawable()->OffsetY(); }
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 

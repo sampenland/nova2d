@@ -32,7 +32,7 @@ namespace novazero
 			void ConfigureMoveOffsets(Origins origin, Sprite* sprite)
 			{
 				ConfigureOrigin(origin);
-				m_MoveOffsets = Vec2Int((int)(sprite->GetWidth() / 2 * sprite->GetScale()), (int)(sprite->GetHeight() / 2 * sprite->GetScale()));
+				m_MoveOffsets = Vec2Int((int)(sprite->GetWidth() / 2), (int)(sprite->GetHeight() / 2));
 			}
 
 			void UpdateController();
@@ -44,6 +44,9 @@ namespace novazero
 			void MoveDown();
 			void MoveRight();
 			void MoveLeft();
+
+			void SetX(float x);
+			void SetY(float y);
 
 			void DestroySelf();
 

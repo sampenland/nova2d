@@ -1,5 +1,4 @@
 #pragma once
-#include "Tweens.h"
 #include <map>
 #include <vector>
 #include <functional>
@@ -25,8 +24,8 @@ namespace novazero
 			float current = 0.f;
 			float offset = 0.f;
 
-			bool invert = false;
-			bool negate = false;
+			bool invert = false; // invert means to decrement instead of increment
+			bool negate = false; // negate means to handle negative numbers
 
 			float* referenceF = nullptr;
 			int* referenceI = nullptr;
@@ -39,6 +38,52 @@ namespace novazero
 			bool enabled = true;
 		};
 
+		// easings.net //
+		// Tween-easing functions
+		enum class TweenTypes
+		{
+			EaseInSine,
+			EaseOutSine,
+			EaseInOutSine,
+
+			EaseInQuad,
+			EaseOutQuad,
+			EaseInOutQuad,
+
+			EaseInCubic,
+			EaseOutCubic,
+			EaseInOutCubic,
+
+			EaseInQuart,
+			EaseOutQuart,
+			EaseInOutQuart,
+
+			EaseInQuint,
+			EaseOutQuint,
+			EaseInOutQuint,
+
+			EaseInExpo,
+			EaseOutExpo,
+			EaseInOutExpo,
+
+			EaseInCirc,
+			EaseOutCirc,
+			EaseInOutCirc,
+
+			EaseInBack,
+			EaseOutBack,
+			EaseInOutBack,
+
+			EaseInElastic,
+			EaseOutElastic,
+			EaseInOutElastic,
+
+			EaseInBounce,
+			EaseOutBounce,
+			EaseInOutBounce
+
+		};
+
 		class TweenManager
 		{
 
@@ -46,6 +91,19 @@ namespace novazero
 
 			std::map<unsigned int, Tween*> m_Tweens;
 			unsigned int m_CleanID = 0;
+
+		private:
+
+			void CreateTweenNegToNegDec(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenNegToNegInc(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenNegToPos(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenPosToNeg(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenPosToPosDec(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenPosToPosInc(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenZeroToPos(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenZeroToNeg(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenNegToZero(Tween& tween, float start, float end, float durationMS);
+			void CreateTweenPosToZero(Tween& tween, float start, float end, float durationMS);
 
 		public:
 

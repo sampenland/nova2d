@@ -12,7 +12,7 @@ namespace novazero
 	{
 		using namespace logging;
 
-		TiledMap::TiledMap(std::string& tiledJSONexportFilePath, std::string tilesetImgPath, std::string tilesetPath)
+		TiledMap::TiledMap(const std::string& tiledJSONexportFilePath, const std::string& tilesetImgPath, const std::string& tilesetPath)
 			: Deleteable("tilemap_"), Drawable(Vec2Int(0,0))
 		{
 			m_ID = n2dGameGetID();
@@ -27,7 +27,7 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
-		void TiledMap::LoadMap(std::string& tiledJSONexportFilePath, std::string& tilesetJSONexportFilePath)
+		void TiledMap::LoadMap(const std::string& tiledJSONexportFilePath, const std::string& tilesetJSONexportFilePath)
 		{
 			std::ifstream file(tiledJSONexportFilePath);
 
@@ -50,7 +50,7 @@ namespace novazero
 			}
 		}
 
-		void TiledMap::LoadTileset(std::string& tilesetJSONexportFilePath, json tileset)
+		void TiledMap::LoadTileset(const std::string& tilesetJSONexportFilePath, json tileset)
 		{
 			std::ifstream file(tilesetJSONexportFilePath);
 
@@ -72,7 +72,7 @@ namespace novazero
 			}
 		}
 
-		void TiledMap::ParseMap(std::string& tilesetJSONPath)
+		void TiledMap::ParseMap(const std::string& tilesetJSONPath)
 		{
 			m_BackgroundColor = m_TileMap["backgroundcolor"];
 			m_BackgroundColor.erase(std::remove(m_BackgroundColor.begin(), m_BackgroundColor.end(), '#'), m_BackgroundColor.end());
@@ -258,8 +258,8 @@ namespace novazero
 
 		void TiledMap::Draw(float oX, float oY, float scale)
 		{
-			m_TilemapDrawRect.x = oX;
-			m_TilemapDrawRect.y = oY;
+			m_TilemapDrawRect.x = (int)oX;
+			m_TilemapDrawRect.y = (int)oY;
 
 			int w = m_TilemapDrawRect.w;
 			int h = m_TilemapDrawRect.h;
@@ -272,46 +272,6 @@ namespace novazero
 			m_TilemapDrawRect.w = w;
 			m_TilemapDrawRect.h = h;
 
-		}
-
-		void TiledMap::DrawTileLayers()
-		{
-			return;
-			bool failed = false;
-			std::vector<TiledMapLayer*>::iterator it = m_Layers.begin();
-			while (it != m_Layers.end() && !failed)
-			{
-				TiledMapLayer& layer = *(*it);
-				std::vector<std::string>& data = (*it)->m_Data;
-				
-				// LAYER DRAW
-				for (size_t i = 0; i < data.size(); i++)
-				{
-					int tileID = std::stoi(data.at(i));
-
-					unsigned int tileGID = tileID;
-					if (m_Tileset->m_FirstGID <= tileID)
-					{
-						tileGID = tileID - m_Tileset->m_FirstGID + 1;
-					}
-
-					if (tileGID == 0) continue; // SKIP Transparents
-
-					int x = (i % m_WidthInTiles) * m_Tileset->m_TileSize.x;
-					int y = (i / m_WidthInTiles) * m_Tileset->m_TileSize.y;
-
-					if (m_Tiles.find(tileGID) == m_Tiles.end())
-					{
-						LOG(LVL_NFE, "Tile map draw failed");
-						failed = true;
-						break;
-					}
-
-					m_Tiles[tileGID]->Draw(x, y);
-				}
-
-				it++;
-			}
 		}
 
 		void TiledMap::ParseLayers(json layers)

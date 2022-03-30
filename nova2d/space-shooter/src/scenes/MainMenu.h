@@ -1,4 +1,5 @@
 #pragma once
+#include "core/NovaCore.h"
 #include "core/Scene.h"
 #include "maths/Vec2Int.h"
 #include "core/EventListener.h"

@@ -36,8 +36,8 @@ namespace novazero
 			Text* m_MiddleScreenText = nullptr;
 			Text* m_MiddleScreenTextCamera = nullptr;
 
-			Vec2 m_CameraPositionMemory = Vec2(0, 0);
 			bool m_CameraFreeMoveMemory = false;
+			float m_CameraZoomLevelMemory = 1.f;
 
 			ScrollSelect* m_ScrollTime = nullptr;
 

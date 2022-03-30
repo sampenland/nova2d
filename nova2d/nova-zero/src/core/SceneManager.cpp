@@ -93,8 +93,7 @@ namespace novazero
 			s_TimeEffectorManager->ClearEffectors();
 			s_TimeEffectorManager->ClearEffected();
 			Game::s_Director->ClearStacksAndReset(true, true);
-			CAMERA->SetPosition(Vec2(0, 0));
-			CAMERA->SetZoom(1.f);
+			CAMERA->Reset();
 
 			m_CurrentScene = loadScene;
 			
@@ -161,6 +160,16 @@ namespace novazero
 				it++;
 			}
 
+			if (m_CurrentScene == nullptr && Game::s_Running)
+			{
+				LOG(LVL_FATAL_ERROR, "NO Scene loaded. Exiting.");
+				Game::EndGame(ERR_NO_SCENE);
+				return;
+			}
+			else if (!Game::s_Running)
+			{
+				return;
+			}
 			m_CurrentScene->Update();
 
 			ProcessPersistentUpdaters();

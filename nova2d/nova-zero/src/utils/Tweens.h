@@ -1,57 +1,11 @@
 #pragma once
-#include "../core/Defines.h"
+#include "../core/NovaCore.h"
 #include <cmath>
 
 namespace novazero
 {
 	namespace utils
 	{
-		// easings.net //
-		// Tween-easing functions
-		enum class TweenTypes
-		{
-			EaseInSine,
-			EaseOutSine,
-			EaseInOutSine,
-
-			EaseInQuad,
-			EaseOutQuad,
-			EaseInOutQuad,
-
-			EaseInCubic,
-			EaseOutCubic,
-			EaseInOutCubic,
-
-			EaseInQuart,
-			EaseOutQuart,
-			EaseInOutQuart,
-
-			EaseInQuint,
-			EaseOutQuint,
-			EaseInOutQuint,
-
-			EaseInExpo,
-			EaseOutExpo,
-			EaseInOutExpo,
-
-			EaseInCirc,
-			EaseOutCirc,
-			EaseInOutCirc,
-
-			EaseInBack,
-			EaseOutBack,
-			EaseInOutBack,
-
-			EaseInElastic,
-			EaseOutElastic,
-			EaseInOutElastic,
-
-			EaseInBounce,
-			EaseOutBounce,
-			EaseInOutBounce
-
-		};
-
 		class Tweens
 		{
 		private:

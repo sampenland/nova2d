@@ -1,3 +1,4 @@
+#include "core/NovaCore.h"
 #include "KamikazeController.h"
 #include "utils/ValueManager.h"
 

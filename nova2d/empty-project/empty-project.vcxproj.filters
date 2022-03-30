@@ -18,11 +18,9 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\scenes\SampleScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="src\scenes\SampleScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\narrow.ttf" />
@@ -30,5 +28,10 @@
     <Font Include="res\fonts\pixel2.ttf" />
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\scenes\SampleScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

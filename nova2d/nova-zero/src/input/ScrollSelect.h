@@ -1,9 +1,9 @@
 #pragma once
+#include "../core/NovaCore.h"
 #include "../graphics/Drawable.h"
 #include "../core/Deleteable.h"
 #include "../debug/DrawRect.h"
 #include "../graphics/Text.h"
-#include "../core/Defines.h"
 #include "../input/DirectorStackable.h"
 
 namespace novazero

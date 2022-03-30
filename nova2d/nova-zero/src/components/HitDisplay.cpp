@@ -1,3 +1,4 @@
+#include "../core/NovaCore.h"
 #include "HitDisplay.h"
 #include "../core/Game.h"
 

@@ -37,75 +37,20 @@ namespace novazero
 			bool m_Alive = true;
 			bool m_Destroyed = false;
 
-			void ConfigureUsingBounds(bool usesMoveBounds, bool usesAliveBounds) 
-			{	
-				m_UsingMoveBounds = usesMoveBounds;
-				m_UsingAliveBounds = usesAliveBounds;
-			}
+			void ConfigureUsingBounds(bool usesMoveBounds, bool usesAliveBounds);
 
-			void ConfigureAliveBounds(Rect bounds) { m_AliveBounds = bounds; m_UsingAliveBounds = true; }
-			void ConfigureOrigin(Origins origin)
-			{
-				m_Origin = origin;
-			}
+			void ConfigureAliveBounds(Rect bounds);
+			void ConfigureOrigin(Origins origin);
 				
-			void SetMoveBounds(Rect bounds) { m_MoveBounds = bounds; m_UsingMoveBounds = true; }
+			void ConfigureMoveBounds(Rect bounds);
 
-			Rect GetMoveBounds() { return m_MoveBounds; }
+			Rect GetMoveBounds();
 
-			bool IsWithinMoveBounds(float x, float y)
-			{
-				if (!m_UsingMoveBounds) return true;
+			bool IsWithinMoveBounds(float x, float y);
 
-				return x > m_MoveBounds.x && x < m_MoveBounds.x + m_MoveBounds.w &&
-					y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
+			bool IsWithinMoveBounds(int x, int y, int spriteWidth = -1, int spriteHeight = -1);
 
-			}
-
-			bool IsWithinMoveBounds(int x, int y, int spriteWidth = -1, int spriteHeight = -1)
-			{
-				if (!m_UsingMoveBounds) return true;
-
-				if (spriteWidth != -1 && spriteHeight != -1 && m_Origin != Origins::TopLeft)
-				{
-					switch (m_Origin)
-					{
-					case Origins::Centered:
-
-						return x + spriteWidth > m_MoveBounds.x && x + spriteWidth < m_MoveBounds.x + m_MoveBounds.w &&
-							y + spriteHeight > m_MoveBounds.y && y + spriteHeight < m_MoveBounds.y + m_MoveBounds.h;
-
-						break;
-					}
-				}
-
-				// Top left
-				return x > m_MoveBounds.x && x < m_MoveBounds.x + m_MoveBounds.w &&
-					y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
-			}
-
-			bool OutOfBounds(Drawable* drawable)
-			{
-				if (!m_UsingAliveBounds) return false;
-
-				bool outOfBounds = false;
-				if (drawable)
-				{
-					float x = drawable->GetX();
-					float y = drawable->GetY();
-					int w = drawable->GetWidth();
-					int h = drawable->GetHeight();
-
-					float bx = m_AliveBounds.x;
-					float by = m_AliveBounds.y;
-					float bw = m_AliveBounds.w;
-					float bh = m_AliveBounds.h;
-
-					return !(x > bx && x < bx + bw - w && y > by && y < by + bh - h);
-				}
-
-				return true;
-			}
+			bool OutOfBounds(Drawable* drawable);
 
 			virtual void DestroySelf() = 0;
 

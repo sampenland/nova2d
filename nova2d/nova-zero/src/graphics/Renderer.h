@@ -30,8 +30,8 @@ namespace novazero
 
 			void SetBlendMode(bool enableAlpha);
 			
-			void SetBackgroundColor(const std::string& colorName);
-			void SetDrawColor(const std::string& colorName, Uint8 alphaOverride = 255);
+			void SetBackgroundColor(const char* colorName);
+			void SetDrawColor(const char* colorName, Uint8 alphaOverride = 255);
 
 			void PreDraw() const;
 			void PostDraw() const;

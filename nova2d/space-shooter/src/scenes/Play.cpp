@@ -1,3 +1,4 @@
+#include "core/NovaCore.h"
 #include "Play.h"
 #include "../Player.h"
 #include "../specials/TimeWarp.h"
@@ -17,6 +18,8 @@ namespace spaceshooter
 
 	void Play::Start()
 	{
+		Game::SetGamePadding(32, 64, 32, 32);
+
 		n2dPauseKeySet(SDLK_r);
 		n2dScoreSet(0);
 

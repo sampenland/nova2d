@@ -94,27 +94,35 @@ namespace novazero
 
 		void DrawLayers::DrawLayer(const BYTE layer) const
 		{
+			Rect cameraDrawArea = CAMERA_RECT;
+			
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
-				Vec2 camPos = m_MainCamera->GetPosition();
-
-				Vec2 centerScreen = Game::GetCenterScreen();
 				Vec2 drawablePos = m_Layers[layer][i]->GetPosition();
-
-				float x = (drawablePos.x - centerScreen.x) * CAMERA_ZOOM + centerScreen.x;
-				float y = (drawablePos.y - centerScreen.y) * CAMERA_ZOOM + centerScreen.y;
-
-				x += camPos.x;
-				y += camPos.y;
-
-				float scale = CAMERA_SCALE;
+				Vec2Int drawableSize = m_Layers[layer][i]->GetSize();
 				
+				if (drawablePos.x + drawableSize.x < cameraDrawArea.x ||
+					drawablePos.x > cameraDrawArea.x + cameraDrawArea.w ||
+					drawablePos.y + drawableSize.y < cameraDrawArea.y ||
+					drawablePos.y > cameraDrawArea.y + cameraDrawArea.h)
+				{
+					// TODO: if off screen then DO NOT DRAW
+					// CULL - DO NOT DRAW (outside of camera space)
+					//continue;
+				}				
+				
+				float zoom = CAMERA_ZOOM;
+
 				if (m_Layers[layer][i]->IsNotScaleable())
 				{
-					scale = 1.f;
+					zoom = 1.f;
 				}
 
-				m_Layers[layer][i]->Draw(x, y, scale);
+				float x = (drawablePos.x * zoom) - cameraDrawArea.x;
+				float y = (drawablePos.y * zoom) - cameraDrawArea.y;
+
+
+				m_Layers[layer][i]->Draw(x, y, zoom);
 			}
 		}
 

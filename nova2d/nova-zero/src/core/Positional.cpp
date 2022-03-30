@@ -19,22 +19,43 @@ namespace novazero
 			m_ID = n2dGameGetID();
 		}
 
+		void Positional::SetFacing(Directions facing)
+		{
+			m_Facing = facing;
+		}
+
 		float Positional::GetX() const { return (float)m_Position.x; }
 		float Positional::GetY() const { return (float)m_Position.y; }
 		Vec2Int Positional::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }
-		Vec2 Positional::GetPosition() const { return Vec2((float)m_Position.x, (float)m_Position.y); }
+		Vec2 Positional::GetPosition() const { return Vec2(GetX(), GetY()); }
 
 		void Positional::SetX(float x)
 		{
-			m_Position.x = (int)x;
+			m_Position.x = (int)(x * CAMERA_ZOOM);
 		}
 
 		void Positional::SetY(float y)
 		{
-			m_Position.y = (int)y;
+			m_Position.y = (int)(y * CAMERA_ZOOM);
 		}
 
-		Vec2 Positional::GetCenter() { return m_Drawable->GetCenter(); }
+		Vec2 Positional::GetCenter()
+		{
+			if (GetDrawable())
+			{
+				return Vec2(GetX() + GetDrawable()->GetWidth()/2, GetY() + GetDrawable()->GetHeight()/2);
+			}
+			return GetPosition();
+		}
+
+		Vec2 Positional::GetBottomRight()
+		{
+			if (GetDrawable())
+			{
+				return Vec2(GetX() + GetDrawable()->GetWidth(), GetY() + GetDrawable()->GetHeight());
+			}
+			return GetPosition();
+		}
 
 		void Positional::SetPosition(Vec2 position)
 		{
@@ -44,7 +65,8 @@ namespace novazero
 
 		void Positional::SetPositionInt(Vec2Int position)
 		{
-			m_Position = position;
+			SetX((float)position.x);
+			SetY((float)position.y);
 		}
 
 		void Positional::SetAngle(int a)
@@ -71,8 +93,8 @@ namespace novazero
 			float x = (xR * Game::s_Width) - (m_Drawable->GetWidth() / 2);
 			float y = (yR * Game::s_Height) - (m_Drawable->GetHeight() / 2);
 						
-			SetOffsetX((int)x);
-			SetOffsetY((int)y);
+			SetOffsetX(x);
+			SetOffsetY(y);
 		}
 	}
 }

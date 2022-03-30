@@ -1,3 +1,4 @@
+#include "../core/NovaCore.h"
 #include "InputHandler.h"
 #include <string>
 

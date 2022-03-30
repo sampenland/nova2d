@@ -10,7 +10,8 @@ namespace novazero
 	{
 		using namespace utils;
 
-		class Camera : public Positional, public BoundUser
+		class Camera : 
+			public BoundUser
 		{
 
 		private:
@@ -18,13 +19,17 @@ namespace novazero
 			unsigned int m_CleanID = 0;
 			unsigned int m_ID = 0;
 
+			Rect m_DrawArea = Rect(0, 0, 0, 0);
+			Vec2 m_Offset = Vec2(0, 0);
 			float m_Zoom = 1.f;
-			float m_ZoomSpeed = 0.001f;
-			float m_Scale = 1.f;
-			float m_FollowDistance = 100.f;
-			TweenTypes m_FollowType = TweenTypes::EaseInCubic;
+			float m_OldZoom = 1.f;
+			float m_ZoomSpeed = 0.01f;
+			float m_CameraPadding = 64.f;
 
 			Positional* m_FollowTarget = nullptr;
+
+			TweenTypes m_FollowType = TweenTypes::EaseInCubic;
+			float m_FollowSpeed = 1000.f;
 
 			bool m_FreeMove = false;
 			void FreeMove();
@@ -33,16 +38,12 @@ namespace novazero
 
 			Camera(Rect bounds = Rect(0, 0, 0, 0));
 
-			void SetFollowTarget(Positional* target, float zoomLevel = 1.f, 
-				float distanceBeforeFollow = 100.f,
-				TweenTypes followType = TweenTypes::EaseInCubic);
+			void SetFollowTarget(Positional* target, float followSpeed, bool startOnTargetPosition, float zoomLevel, float distanceBeforeFollow,
+				TweenTypes followType);
 
-			void MoveX(float deltaX);
-			void MoveY(float deltaY);
-
-			void SetFollowDistance(float dist)
+			void SetCameraPadding(float padding)
 			{
-				m_FollowDistance = dist;
+				m_CameraPadding = padding;
 			}
 
 			void SetFollowType(TweenTypes type)
@@ -50,37 +51,39 @@ namespace novazero
 				m_FollowType = type;
 			}
 
+			void SetFollowSpeed(float speed)
+			{
+				m_FollowSpeed = speed;
+			}
+
+			void Reset();
+
 			void Update();
 			void FollowTarget();
 
-			void EnforceBounds(Vec2 setPos);
+			Vec2 GetWorldPosition() const;
+
+			void CenterOn(Positional* target, float zoom = -1.f);
+			void CenterOn(Vec2 position, float zoom = -1.f);
+			Vec2 ReverseCenterOn(Vec2 position);
+
+			Vec2 GetPosition() const;
+			Vec2Int GetPositionInt() const;
+			float GetX() const;
+			float GetY() const;
 
 			void EnableFreeWASDMove(bool enabled);
 			bool IsFreeMoveEnabled() const;
 
-			float GetScale() const;
-			void SetScale(float scale);
-
 			float GetZoom() const;
-			void SetZoom(float zoomLevel);
+			void SetZoom(float zoomLevel, bool force = false);
 
-			Vec2 GetPosition() const;
-			Vec2Int GetPositionInt() const;
-
-			void SetX(float x);
-			void SetY(float y);
-
-			float GetX() const;
-			float GetY() const;
-
-			int OffsetX() { return m_Offset.x; }
-			int OffsetY() { return m_Offset.y; }
-
-			void SetOffsetX(int offsetX) { m_Offset.x = offsetX; }
-			void SetOffsetY(int offsetY) { m_Offset.y = offsetY; }
-
-			void SetPosition(Vec2 position);
-			void SetPositionInt(Vec2Int position);
+			Vec2 GetDrawRectCenter() const;
+			void SetDrawRect(Rect drawRect);
+			void SetDrawRectPosition(Vec2 pos);
+			Rect GetDrawRect() const;
+			Vec2 GetDrawRectPosition() const;
+			Vec2 GetDrawRectSize() const;
 
 			void DestroySelf() override;
 

@@ -7,6 +7,7 @@
 namespace spaceshooter
 {
 	using namespace novazero::core;
+	using namespace novazero::utils::timeline;
 
 	class PawnController : public TimelineInstance
 	{

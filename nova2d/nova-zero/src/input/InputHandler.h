@@ -2,7 +2,6 @@
 #include "../logging/logging.h"
 #include <vector>
 #include "SDL.h"
-#include "../core/Defines.h"
 #include "Inputable.h"
 #include <map>
 

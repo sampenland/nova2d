@@ -91,9 +91,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\scenes\SampleScene.h" />
+    <ClCompile Include="src\scenes\SampleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\narrow.ttf" />
@@ -101,6 +99,9 @@
     <Font Include="res\fonts\pixel2.ttf" />
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\scenes\SampleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -81,17 +81,16 @@ namespace novazero
 			if (!m_Visible)
 			{
 				m_CameraFreeMoveMemory = CAMERA->IsFreeMoveEnabled();
-				m_CameraPositionMemory = CAMERA->GetPosition();
+				m_CameraZoomLevelMemory = CAMERA_ZOOM;
 			}
 			else
 			{
-				int midScreenX = -CAMERA->GetX() * 1 / CAMERA_ZOOM + Game::s_Width / 2;
-				int midScreenY = -CAMERA->GetY() * 1 / CAMERA_ZOOM + Game::s_Height / 2;
-				m_MiddleScreenText->UpdateText("[" + tostring(midScreenX) + ", " + tostring(midScreenY) + "]");
+				Vec2 cameraWorldCenter = CAMERA->GetDrawRectCenter();
+				m_MiddleScreenText->UpdateText("Cntr:[" + tostring((int)cameraWorldCenter.x) + ", " + tostring((int)cameraWorldCenter.y) + "]");
 				
-				int camPosX = -CAMERA->GetX();
-				int camPosY = -CAMERA->GetY();
-				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]");
+				int camPosX = (int)CAMERA->GetX();
+				int camPosY = (int)CAMERA->GetY();
+				m_MiddleScreenTextCamera->UpdateText("Cam:[" + tostring(camPosX) + ", " + tostring(camPosY) + "]\n Z:[" + tostring(CAMERA_ZOOM) + "]");
 			}
 
 			if (!IsEnabled()) return;
@@ -298,7 +297,7 @@ namespace novazero
 			if (!m_Visible)
 			{
 				CAMERA->EnableFreeWASDMove(m_CameraFreeMoveMemory);
-				CAMERA->SetPosition(m_CameraPositionMemory);
+				CAMERA->SetZoom(m_CameraZoomLevelMemory);
 			}			
 		}
 
