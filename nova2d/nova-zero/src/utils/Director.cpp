@@ -30,7 +30,7 @@ namespace novazero
 			int x = position.x;
 			int y = position.y + 10;
 
-			SetFixed(true);
+			SetFixedAndNonScale(true);
 
 			m_Background = new DrawRect("a20-blue", "white", true,
 				Rect(x, y, m_Width, m_Height), 2, PERSISTENT_LAYER);

@@ -98,22 +98,39 @@ namespace novazero
 			
 			for (size_t i = 0; i < (int)m_Layers[layer].size(); i++)
 			{
-				Vec2 drawablePos = m_Layers[layer][i]->GetPosition();
-				Vec2Int drawableSize = m_Layers[layer][i]->GetSize();
+				Drawable& drawable = *m_Layers[layer][i];
+
+				Vec2 drawablePos = drawable.GetPosition();
+				Vec2Int drawableSize = drawable.GetSize();
 				
-				if (drawablePos.x + drawableSize.x < cameraDrawArea.x ||
-					drawablePos.x > cameraDrawArea.x + cameraDrawArea.w ||
-					drawablePos.y + drawableSize.y < cameraDrawArea.y ||
-					drawablePos.y > cameraDrawArea.y + cameraDrawArea.h)
+				// CULL:: DO NOT DRAW (outside of camera space) if needed
+				if (
+
+					// left culling
+					drawablePos.x + drawableSize.x < -cameraDrawArea.x || 
+
+					// right culling
+					(cameraDrawArea.x < cameraDrawArea.w ? (drawablePos.x > cameraDrawArea.x + cameraDrawArea.w) :
+						drawablePos.x > cameraDrawArea.x) ||
+
+					// top culling
+					drawablePos.y + drawableSize.y < -cameraDrawArea.y ||
+
+					// bottom culling
+					(cameraDrawArea.y < cameraDrawArea.h ? (drawablePos.y > cameraDrawArea.y + cameraDrawArea.h) :
+						drawablePos.y > cameraDrawArea.y)
+
+					)
 				{
-					// TODO: if off screen then DO NOT DRAW
-					// CULL - DO NOT DRAW (outside of camera space)
-					//continue;
+					if (!drawable.IsNotScaleable())
+					{
+						continue;
+					}
 				}				
 				
 				float zoom = CAMERA_ZOOM;
 
-				if (m_Layers[layer][i]->IsNotScaleable())
+				if (drawable.IsNotScaleable())
 				{
 					zoom = 1.f;
 				}
@@ -121,8 +138,7 @@ namespace novazero
 				float x = (drawablePos.x * zoom) - cameraDrawArea.x;
 				float y = (drawablePos.y * zoom) - cameraDrawArea.y;
 
-
-				m_Layers[layer][i]->Draw(x, y, zoom);
+				drawable.Draw(x, y, zoom);
 			}
 		}
 
