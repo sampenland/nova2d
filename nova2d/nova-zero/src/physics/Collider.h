@@ -17,13 +17,6 @@ namespace novazero
 			
 			unsigned int m_CleanID = 0;
 
-			Positional* m_AttachedPositional = nullptr;
-			Vec2 m_Velocity = Vec2(0, 0);
-			float m_Friction = 0.01f;
-
-		protected:
-
-
 		public:
 
 			Collider(int collisionLayer);
@@ -41,18 +34,7 @@ namespace novazero
 			void ConfigureCollider(Sprite* sprite, int collisionLayer, const std::string& colliderName);
 			void ConfigureCollider(Sprite* sprite, int collisionLayer, const std::string& colliderName, Positional* positional);
 			void ConfigureOnCollision(std::function<void(Collision*)> onCollision) { f_OnCollision = onCollision; }
-			
-			void ConfigurePhysicsPositional(Positional* positional);
-			void Update();
-			void HandleFriction();
-
-			void SetFriction(float friction);
-			float GetFriction() const { return m_Friction; }
-
-			void SetVelocity(Vec2 vel);
-			void AddVelocity(Vec2 vel);
-			Vec2 GetVelocity() const { return m_Velocity; }
-			
+						
 			virtual void OnCollision(Collision* collision) = 0;
 
 		};
