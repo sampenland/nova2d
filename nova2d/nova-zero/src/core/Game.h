@@ -1,6 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "NovaCore.h"
+#include "box2d/box2d.h"
 
 #include "../input/InputHandler.h"
 #include "../graphics/Window.h"
