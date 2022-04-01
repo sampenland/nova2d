@@ -2,6 +2,8 @@
 #include <string>
 #include "../maths/Vec2Int.h"
 #include "../thirdparty/jsonparser/json.hpp"
+#include "TileCollider.h"
+#include "../logging/logging.h"
 
 namespace novazero
 {
@@ -9,6 +11,7 @@ namespace novazero
 	{
 		using namespace nlohmann;
 		using namespace maths;
+		using namespace logging;
 
 		class Tileset
 		{
@@ -28,21 +31,12 @@ namespace novazero
 			std::string m_Version = "";
 			const std::string m_Type = "tileset";
 
-			Tileset(json tileset, unsigned int firstGID)
-			{
-				m_FirstGID = firstGID;
+			std::vector<TileCollider*> m_Tiles;
 
-				m_Columns = tileset["columns"];
-				m_Image = tileset["image"];
-				m_ImageSize = Vec2Int(tileset["imagewidth"], tileset["imageheight"]);
-				m_Margin = tileset["margin"];
-				m_Spacing = tileset["spacing"];
-				m_Name = tileset["name"];
-				m_TileCount = tileset["tilecount"];
-				m_TileSize = Vec2Int(tileset["tilewidth"], tileset["tileheight"]);
-				m_TiledVersion = tileset["tiledversion"];
-				m_Version = tileset["version"];
-			}
+			Tileset(json tileset, unsigned int firstGID);
+
+			void LoadTileArray(json tiles);
+
 		};
 	}
 }

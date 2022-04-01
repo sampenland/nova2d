@@ -5,10 +5,6 @@ namespace novazero
 {
 	namespace maps
 	{
-		using namespace core;
-		using namespace graphics;
-		using namespace maths;
-
 		Tile::Tile(TiledMap* tilemap, Vec2Int tileSize, Vec2Int tilemapPosition, unsigned int tileGID, unsigned char layer)
 			: Deleteable("tile_"), Drawable(tileSize)
 		{
@@ -16,6 +12,7 @@ namespace novazero
 
 			m_Layer = layer;
 			m_ID = n2dGameGetID();
+
 			m_DeleteName = "tile_" + tostring(m_ID);
 
 			m_TiledMap = tilemap;

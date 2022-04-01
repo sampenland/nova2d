@@ -16,6 +16,7 @@ namespace novazero
 		private:
 			
 			unsigned int m_CleanID = 0;
+			bool m_Enabled = true;
 
 			Positional* m_AttachedPositional = nullptr;
 			Vec2 m_Velocity = Vec2(0, 0);
@@ -42,6 +43,12 @@ namespace novazero
 			void ConfigureCollider(Sprite* sprite, int collisionLayer, const std::string& colliderName, Positional* positional);
 			void ConfigureOnCollision(std::function<void(Collision*)> onCollision) { f_OnCollision = onCollision; }
 			
+			void SetColliderEnabled(bool isEnabled) { m_Enabled = isEnabled; }
+			bool IsColliderEnabled() const
+			{
+				return m_Enabled;
+			}
+
 			void ConfigurePhysicsPositional(Positional* positional);
 			void Update();
 			void HandleFriction();

@@ -29,4 +29,14 @@
    <object id="1" x="0" y="0" width="16" height="16"/>
   </objectgroup>
  </tile>
+ <tile id="16">
+  <objectgroup draworder="index" id="3">
+   <object id="9" name="boxy" x="10.125" y="2.9375">
+    <polygon points="0,0 0.1875,10.5625 5.75,10.0625 5.625,-0.8125"/>
+   </object>
+   <object id="10" name="slope" x="10.375" y="3.625">
+    <polygon points="0,0 -6.875,3.8125 -6.375,7.3125 -3.5625,9.6875 0.25,9.625"/>
+   </object>
+  </objectgroup>
+ </tile>
 </tileset>
