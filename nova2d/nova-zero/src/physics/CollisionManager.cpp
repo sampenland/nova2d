@@ -35,12 +35,9 @@ namespace novazero
 					Collider* a = m_Colliders.at(left);
 					Collider* b = m_Colliders.at(i);
 
-					// Skip if any of these
-					if (!a->IsColliderEnabled() || !b->IsColliderEnabled()) continue;
-					if (!a->m_UsingCollider || !b->m_UsingCollider) continue;
+					if (!a->m_UsingCollider || !b->m_UsingCollider)continue;
 					if (a->m_ID == b->m_ID) continue;
 					if (a->m_CollisionLayer != b->m_CollisionLayer) continue;
-					// -------------------
 
 					if (a->m_ColliderSprite->GetX() < b->m_ColliderSprite->GetX() + b->m_ColliderSprite->GetWidth() &&
 						a->m_ColliderSprite->GetX() + a->m_ColliderSprite->GetWidth() > b->m_ColliderSprite->GetX() &&

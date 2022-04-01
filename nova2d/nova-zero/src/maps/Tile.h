@@ -4,7 +4,6 @@
 #include "SDL.h"
 #include "TiledMap.h"
 #include "../graphics/Text.h"
-#include "../physics/Collider.h"
 
 namespace novazero
 {
@@ -12,14 +11,11 @@ namespace novazero
 	{
 		using namespace core;
 		using namespace graphics;
-		using namespace physics;
 
 		/*
 			nova2d Tile
 			Basic low cost drawable
 			Does not draw itself, needs a TiledMap to draw
-			----
-			can have higher cost if collider is attached (from Tiled import)
 		*/
 		class Tile : 
 			public Deleteable,
@@ -34,8 +30,6 @@ namespace novazero
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 			Vec2Int m_TileSize;
-
-			Collider* m_Collider = nullptr;
 
 		public:
 
