@@ -313,6 +313,11 @@ namespace novazero
 			return Game::s_AssetManager->LoadAndAddTexture(name, path);
 		}
 
+		void n2dAssetsRemoveTexture(const std::string& name)
+		{
+			Game::s_AssetManager->RemoveTexture(name);
+		}
+
 		SDL_Texture* n2dAssetsGetTexture(const std::string& name)
 		{
 			return Game::s_AssetManager->GetTexture(name);

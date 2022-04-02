@@ -37,6 +37,8 @@ namespace novazero
 
 			void UpdateController();
 
+			virtual void Update() = 0;
+
 			void AccelerateX(bool left);
 			void AccelerateY(bool up);
 

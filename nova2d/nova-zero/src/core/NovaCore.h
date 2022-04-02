@@ -649,6 +649,12 @@ namespace novazero
 		SDL_Texture* n2dAssetsLoadAndAddTexture(const std::string& name, std::string path);
 
 		/*
+		nova2d Remove Texture
+		Destroys and removes texture from the game
+		*/
+		void n2dAssetsRemoveTexture(const std::string& name);
+
+		/*
 		nova2d Get Texture by name (std::string textureName)
 		Return pointer to a preloaded texture
 		*/

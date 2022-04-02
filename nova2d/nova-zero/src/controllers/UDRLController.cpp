@@ -33,6 +33,8 @@ namespace novazero
 
 		void UDRLController::UpdateController()
 		{
+			Update();
+
 			bool pX = n2dIsKeyDown(SDLK_RIGHT) || n2dJoySimpleRight(m_JoyStickNumber);
 			bool nX = n2dIsKeyDown(SDLK_LEFT) || n2dJoySimpleLeft(m_JoyStickNumber);
 

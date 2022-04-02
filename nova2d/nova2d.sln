@@ -23,6 +23,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test-project", "test-projec
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "box2d", "box2d\box2d.vcxproj", "{FA7EBD09-BAD4-436D-A353-2C110745959C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "the-last-forest", "the-last-forest\the-last-forest.vcxproj", "{54912CE8-FC61-4B99-B0CC-BAFC71CA9291}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7EB2F3E-4380-4D3F-9968-060848ADBD07} = {B7EB2F3E-4380-4D3F-9968-060848ADBD07}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -49,6 +54,10 @@ Global
 		{FA7EBD09-BAD4-436D-A353-2C110745959C}.Debug|x86.Build.0 = Debug|Win32
 		{FA7EBD09-BAD4-436D-A353-2C110745959C}.Release|x86.ActiveCfg = Release|Win32
 		{FA7EBD09-BAD4-436D-A353-2C110745959C}.Release|x86.Build.0 = Release|Win32
+		{54912CE8-FC61-4B99-B0CC-BAFC71CA9291}.Debug|x86.ActiveCfg = Debug|Win32
+		{54912CE8-FC61-4B99-B0CC-BAFC71CA9291}.Debug|x86.Build.0 = Debug|Win32
+		{54912CE8-FC61-4B99-B0CC-BAFC71CA9291}.Release|x86.ActiveCfg = Release|Win32
+		{54912CE8-FC61-4B99-B0CC-BAFC71CA9291}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

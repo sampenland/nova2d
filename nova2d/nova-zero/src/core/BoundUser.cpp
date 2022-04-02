@@ -55,8 +55,11 @@ namespace novazero
 			}
 
 			// Top left
-			return x > m_MoveBounds.x && x < m_MoveBounds.x + m_MoveBounds.w &&
-				y > m_MoveBounds.y && y < m_MoveBounds.y + m_MoveBounds.h;
+			return (
+					(x > m_MoveBounds.x) &&
+					(x < m_MoveBounds.x + m_MoveBounds.w) &&
+					(y > m_MoveBounds.y) && 
+					(y < m_MoveBounds.y + m_MoveBounds.h));
 		}
 
 		bool BoundUser::OutOfBounds(Drawable* drawable)
