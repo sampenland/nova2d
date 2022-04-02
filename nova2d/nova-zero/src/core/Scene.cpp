@@ -10,9 +10,28 @@ namespace novazero
 			
 		}
 
-		void Scene::SetGravity(float x, float y)
+		void Scene::EnablePhysics(bool enabled, Vec2 gravity)
 		{
-			m_Gravity = Vec2(x, y);
+			m_PhysicsEnabled = enabled;
+			m_Gravity = new b2Vec2(gravity.x, gravity.y);
+			m_World = new b2World(*m_Gravity);
+		}
+
+		void Scene::PhysicsStep()
+		{
+			if (m_PhysicsEnabled)
+			{
+				if (m_World)
+				{
+					// Step world
+					m_World->Step(m_TimeStep, 8, 3);
+				}
+			}
+		}
+
+		b2World* Scene::GetWorld() const
+		{
+			return m_World;
 		}
 
 		void Scene::Restart()

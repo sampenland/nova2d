@@ -4,6 +4,7 @@
 #include <functional>
 #include <vector>
 #include <string>
+#include "box2d/box2d.h"
 
 namespace novazero
 {
@@ -17,7 +18,14 @@ namespace novazero
 		private:
 
 			std::vector<void*> m_CleanUpObjects;
-			Vec2 m_Gravity = Vec2(0, 0);
+			
+		private:
+
+			// Physics
+			float m_TimeStep = 1.f / 60.f;
+			b2World* m_World = nullptr;
+			bool m_PhysicsEnabled = false;
+			b2Vec2* m_Gravity = nullptr;
 
 		public:
 
@@ -26,8 +34,9 @@ namespace novazero
 			bool m_Started = false;
 			std::string m_SceneName = "";
 
-			void SetGravity(float x, float y);
-			Vec2 GetGravity() const { return m_Gravity; }
+			void EnablePhysics(bool enabled, Vec2 gravity);
+			b2World* GetWorld() const;
+			void PhysicsStep();
 
 			virtual void Start() = 0;
 			void Restart();

@@ -52,20 +52,6 @@ namespace novazero
 			m_CurrentScene->Start();
 		}
 
-		void SceneManager::SetGravity(float x, float y)
-		{
-			if (m_CurrentScene)
-				m_CurrentScene->SetGravity(x, y);
-		}
-
-		Vec2 SceneManager::GetCurrentSceneGravity() const
-		{
-			if (m_CurrentScene)
-				return m_CurrentScene->GetGravity().multiply(Vec2(n2dDeltaTime, n2dDeltaTime));
-
-			return Vec2(0, 0);
-		}
-
 		void SceneManager::AddScene(const std::string& sceneName, Scene* scene)
 		{
 			m_Scenes[sceneName] = scene;
@@ -184,6 +170,8 @@ namespace novazero
 			{
 				return;
 			}
+
+			m_CurrentScene->PhysicsStep(); // first physics
 			m_CurrentScene->Update();
 
 			ProcessPersistentUpdaters();

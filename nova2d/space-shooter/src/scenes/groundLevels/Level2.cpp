@@ -20,8 +20,6 @@ namespace spaceshooter
 
 	void Level2::Start()
 	{
-		SetGravity(0, 9.8f);
-
 		Game::SetGamePadding(0, 0, 0, 0);
 
 		// Maps
