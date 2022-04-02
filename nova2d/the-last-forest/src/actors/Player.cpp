@@ -7,6 +7,9 @@ namespace thelastforest
 	{
 		using namespace scenes;
 
+		unsigned int Player::s_HighlightedGridPos = 0;
+		GridTypes Player::s_HoldingItem = GridTypes::Free;
+
 		Player::Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: UDRLController(assetName, position, size, layer)
 		{
@@ -16,16 +19,20 @@ namespace thelastforest
 			m_Highlight = new Image("highlight", Vec2(0, 0), Vec2Int(142, 88), 11);
 			Highlight();
 
+			s_HoldingItem = GridTypes::Free;
+			m_HoldingItem = new Image("highlight", Vec2(0, 0), Vec2Int(71, 70), 10);
+			m_HoldingItem->SetVisible(false);
+
 		}
 
 		void Player::Update()
 		{
 			Highlight();
+			HoldItem();
 		}
 
 		void Player::Highlight()
 		{
-
 			if (n2dIsKeyDown(SDLK_w))
 				m_Hightlighter = HighlighterPosition::Up;
 
@@ -60,7 +67,38 @@ namespace thelastforest
 				break;
 			}
 
+			s_HighlightedGridPos = AllScenes::GetTileFromPosition(
+				highlightPos, 142, 88, 9, 9);
+
 			m_Highlight->SetPosition(highlightPos);
+			
+			if(m_HoldingItem) 
+				m_HoldingItem->SetPosition(Vec2(highlightPos.x + 35.5f, highlightPos.y));
+		}
+
+		void Player::HoldItem()
+		{
+			if (s_HoldingItem != GridTypes::Free)
+			{
+				m_HoldingItem->SetVisible(true);
+				m_HoldingItem->SetEnabled(true);
+
+				switch (s_HoldingItem)
+				{
+				case GridTypes::Water:
+					m_HoldingItem->SwapTexture("water");
+					break;
+				case GridTypes::Tree:
+					m_HoldingItem->SwapTexture("tree");
+					break;
+				}
+
+			}
+			else
+			{
+				m_HoldingItem->SetVisible(false);
+				m_HoldingItem->SetEnabled(false);
+			}
 		}
 	}
 }

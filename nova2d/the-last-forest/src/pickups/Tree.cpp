@@ -1,4 +1,4 @@
-#include "Water.h"
+#include "Tree.h"
 #include "../actors/Player.h"
 #include "../scenes/AllScenes.h"
 
@@ -9,15 +9,15 @@ namespace thelastforest
 		using namespace actors;
 		using namespace scenes;
 
-		Water::Water(int row)
+		Tree::Tree(int row)
 			: m_Row(row)
 		{
-			float x = 35.5f;
+			float x = Game::s_Width - 142.f;
 			float y = 4 + (row * 88);
-			AddSprite("water", Vec2(-142, y), Vec2Int(71, 70), 0);
+			AddSprite("tree", Vec2(Game::s_Width, y), Vec2Int(71, 70), 0);
 
 			m_GridPos = AllScenes::GetTileFromPosition(
-				Vec2(GetX() + 142 + 35.5f, GetY()), 142, 88, 9, 9) - 1;
+				Vec2(GetX() - 142, GetY()), 142, 88, 9, 9);
 
 			ClearPatrol();
 
@@ -25,19 +25,19 @@ namespace thelastforest
 			AddPatrolPointWithFunction(Vec2(x, y), GetLinearPatrolMove());
 			EnableAI(true);
 
-			ConfigureOnPatrolComplete(n2dMakeFunc(Water::StartWait, this));
+			ConfigureOnPatrolComplete(n2dMakeFunc(Tree::StartWait, this));
 
-			auto cleanID = n2dAddUpdater(Water::Update, this);
+			auto cleanID = n2dAddUpdater(Tree::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 
 		}
 
-		void Water::StartWait()
+		void Tree::StartWait()
 		{
-			//Timer* delay = new Timer(5000, false, n2dMakeFunc(Water::DestroySelf, this));
+			//Timer* delay = new Timer(5000, false, n2dMakeFunc(Tree::DestroySelf, this));
 		}
 
-		void Water::Update()
+		void Tree::Update()
 		{
 			if (n2dIsKeyDown(SDLK_SPACE))
 			{
@@ -45,14 +45,14 @@ namespace thelastforest
 				{
 					if (Player::s_HighlightedGridPos == m_GridPos)
 					{
-						Player::s_HoldingItem = GridTypes::Water;
+						Player::s_HoldingItem = GridTypes::Tree;
 						DestroySelf();
 					}
 				}
 			}
 		}
 
-		void Water::DestroySelf()
+		void Tree::DestroySelf()
 		{
 			CleanUpdaters();
 

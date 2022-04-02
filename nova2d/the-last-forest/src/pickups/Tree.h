@@ -7,7 +7,7 @@ namespace thelastforest
 	{
 		using namespace novazero::ai;
 
-		class Water
+		class Tree
 			: public SimpleWeakAI
 		{
 
@@ -18,7 +18,7 @@ namespace thelastforest
 
 		public:
 
-			Water(int row);
+			Tree(int row);
 
 			void StartWait();
 			void DestroySelf() override;

@@ -27,6 +27,8 @@ namespace novazero
 
 			Image(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
+			void SwapTexture(const std::string& assetName);
+
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }
 

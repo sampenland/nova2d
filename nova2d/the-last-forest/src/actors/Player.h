@@ -1,12 +1,14 @@
 #pragma once
 #include "controllers/UDRLController.h"
 #include "graphics/Image.h"
+#include "../scenes/AllScenes.h"
 
 namespace thelastforest
 {
 	namespace actors
 	{
 		using namespace novazero::controllers;
+		using namespace scenes;
 
 		enum class HighlighterPosition
 		{
@@ -21,6 +23,7 @@ namespace thelastforest
 
 			HighlighterPosition m_Hightlighter = HighlighterPosition::Up;
 			Image* m_Highlight = nullptr;
+			Image* m_HoldingItem = nullptr;
 
 		public:
 
@@ -29,6 +32,12 @@ namespace thelastforest
 			void Update() override;
 			void Highlight();
 
+			void HoldItem();
+
+		public:
+
+			static unsigned int s_HighlightedGridPos;
+			static GridTypes s_HoldingItem;
 		};
 	}
 }

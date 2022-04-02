@@ -2,6 +2,7 @@
 #include "core/Game.h"
 #include "utils/timeline/events/TimelineExecuteEvent.h"
 #include "../../pickups/Water.h"
+#include "../../pickups/Tree.h"
 
 namespace thelastforest
 {
@@ -18,9 +19,9 @@ namespace thelastforest
 
 		void LevelOne::LoadResources()
 		{
-			n2dAssetsLoadAndAddTexture("grassTile", "res/grassTile.png");
-			n2dAssetsLoadAndAddTexture("treesTile", "res/treesTile.png");
-			n2dAssetsLoadAndAddTexture("treeTile", "res/treeTile.png");
+			n2dAssetsLoadAndAddTexture("grass", "res/grassTile.png");
+			n2dAssetsLoadAndAddTexture("trees", "res/treesTile.png");
+			n2dAssetsLoadAndAddTexture("tree", "res/treeTile.png");
 			n2dAssetsLoadAndAddTexture("player", "res/player.png");
 			n2dAssetsLoadAndAddTexture("human", "res/human.png");
 			n2dAssetsLoadAndAddTexture("water", "res/water.png");
@@ -28,19 +29,20 @@ namespace thelastforest
 
 			using namespace pickups;
 			Water* w = new Water(3);
+			Tree* t = new Tree(3);
 		}
 
 		void LevelOne::CreateWorld()
 		{
 			m_Background = new TileMap(Vec2Int(1280, 800), 9, 9);
-			m_Background->CreateTextureFromOneTile("grassTile", Vec2Int(142, 88));
+			m_Background->CreateTextureFromOneTile("grass", Vec2Int(142, 88));
 
 			const int treesY = Game::s_Height - 88;
 			int treesX = 0;
 			for (int i = 1; i < 8; i++)
 			{
 				treesX = 1 + (142 * i);
-				Trees* tree = new Trees("treesTile", Vec2(treesX, treesY), Vec2Int(142, 88), 10);				
+				Trees* tree = new Trees("trees", Vec2(treesX, treesY), Vec2Int(142, 88), 10);				
 
 				if (AllScenes::s_Trees[i - 1])
 				{

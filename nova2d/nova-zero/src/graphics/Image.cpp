@@ -37,6 +37,21 @@ namespace novazero
 			n2dAddDrawable(this, layer);
 		}
 
+		void Image::SwapTexture(const std::string& assetName)
+		{
+			if (m_ImageTexture)
+			{
+				if (m_AssetName == assetName) return;
+				m_ImageTexture = n2dAssetsGetTexture(assetName);
+			}
+			else
+			{
+				m_ImageTexture = n2dAssetsGetTexture(assetName);
+			}
+
+			m_AssetName = assetName;
+		}
+
 		void Image::SetScale(float scale)
 		{
 			if (GetDrawable())

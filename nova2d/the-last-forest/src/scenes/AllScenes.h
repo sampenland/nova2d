@@ -13,7 +13,9 @@ namespace thelastforest
 			PTree, // persistent tree
 			DeadPTree, // dead persistent tree
 			Tree,
-			Grass
+			Grass,
+			Water,
+			Sun
 
 		};
 
