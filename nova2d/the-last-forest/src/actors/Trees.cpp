@@ -12,7 +12,7 @@ namespace thelastforest
 		{
 			
 			AddSprite(assetName, position, size, layer);
-			ConfigureCollider(GetSprite(), 0, "trees");			
+			ConfigureCollider(GetSprite(), 0, "ptree");			
 		}
 
 		void Trees::DestroySelf()

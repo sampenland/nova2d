@@ -34,6 +34,8 @@ namespace novazero
 
 			Timer(float* loopRndMin, float* loopRndMax, std::function<void()> endDelayFunc);
 
+			void ResetAndEnable(float delayMS);
+
 			float* GetRefRndMin() { return &m_RandomMin; } // for tweens and Director ref-ing
 			float* GetRefRndMax() { return &m_RandomMax; } // for tweens and Director ref-ing
 

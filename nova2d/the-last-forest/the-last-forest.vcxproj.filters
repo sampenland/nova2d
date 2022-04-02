@@ -36,6 +36,9 @@
     <ClCompile Include="src\actors\Trees.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\pickups\Water.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\level1\LevelOne.h">
@@ -56,5 +59,37 @@
     <ClInclude Include="src\actors\Trees.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\pickups\Water.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\grassTile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\highlightTile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\human.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\sun.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\treesTile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\treeTile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\water.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\player.aseprite" />
   </ItemGroup>
 </Project>

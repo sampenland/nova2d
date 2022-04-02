@@ -1,6 +1,7 @@
 #include "LevelOne.h"
 #include "core/Game.h"
 #include "utils/timeline/events/TimelineExecuteEvent.h"
+#include "../../pickups/Water.h"
 
 namespace thelastforest
 {
@@ -19,8 +20,14 @@ namespace thelastforest
 		{
 			n2dAssetsLoadAndAddTexture("grassTile", "res/grassTile.png");
 			n2dAssetsLoadAndAddTexture("treesTile", "res/treesTile.png");
+			n2dAssetsLoadAndAddTexture("treeTile", "res/treeTile.png");
 			n2dAssetsLoadAndAddTexture("player", "res/player.png");
 			n2dAssetsLoadAndAddTexture("human", "res/human.png");
+			n2dAssetsLoadAndAddTexture("water", "res/water.png");
+			n2dAssetsLoadAndAddTexture("highlight", "res/highlightTile.png");
+
+			using namespace pickups;
+			Water* w = new Water(3);
 		}
 
 		void LevelOne::CreateWorld()

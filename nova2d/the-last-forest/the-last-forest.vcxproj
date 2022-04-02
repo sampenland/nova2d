@@ -92,6 +92,7 @@
     <ClCompile Include="src\actors\Player.cpp" />
     <ClCompile Include="src\actors\Trees.cpp" />
     <ClCompile Include="src\controllers\HumanController.cpp" />
+    <ClCompile Include="src\pickups\Water.cpp" />
     <ClCompile Include="src\scenes\AllScenes.cpp" />
     <ClCompile Include="src\scenes\level1\LevelOne.cpp" />
     <ClCompile Include="src\TheLastForest.cpp" />
@@ -101,8 +102,22 @@
     <ClInclude Include="src\actors\Human.h" />
     <ClInclude Include="src\actors\Trees.h" />
     <ClInclude Include="src\controllers\HumanController.h" />
+    <ClInclude Include="src\pickups\Water.h" />
     <ClInclude Include="src\scenes\AllScenes.h" />
     <ClInclude Include="src\scenes\level1\LevelOne.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\grassTile.png" />
+    <Image Include="res\highlightTile.png" />
+    <Image Include="res\human.png" />
+    <Image Include="res\player.png" />
+    <Image Include="res\sun.png" />
+    <Image Include="res\treesTile.png" />
+    <Image Include="res\treeTile.png" />
+    <Image Include="res\water.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\player.aseprite" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

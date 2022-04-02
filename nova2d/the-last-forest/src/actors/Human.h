@@ -1,10 +1,12 @@
 #pragma once
 #include "ai/SimpleWeakAI.h"
+#include "core/Timer.h"
 
 namespace thelastforest
 {
 	namespace actors
 	{
+		using namespace novazero::core;
 		using namespace novazero::ai;
 		using namespace novazero::physics;
 
@@ -14,12 +16,24 @@ namespace thelastforest
 
 		private:
 
+			Timer* m_ThinkTimer = nullptr;
+			float m_ThinkSpeed = 1000.f;
+
+			bool m_HandlingCollision = false;
+
+			bool m_StepDown = true;
+			const unsigned int m_Step = 88;
 
 		public:
 
 			Human(Vec2 position, Vec2Int size, unsigned char layer);
 
+			void ThinkNextMove();
+
 			void OnCollision(Collision* collision);
+			void HandleCollision(Collider* other);
+
+			void DestroySelf();
  
 		};
 	}

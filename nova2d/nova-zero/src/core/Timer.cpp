@@ -62,6 +62,12 @@ namespace novazero
 			SetDeleted(true);
 		}
 
+		void Timer::ResetAndEnable(float delayMS)
+		{
+			m_Delay = delayMS;
+			SetEnabled(true);
+		}
+
 		void Timer::Tick()
 		{
 			if (!IsEnabled()) return;

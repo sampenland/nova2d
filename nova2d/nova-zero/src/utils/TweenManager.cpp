@@ -529,6 +529,7 @@ namespace novazero
 				value += tween.offset;
 			}
 			
+			LOGS(value);
  			if (tween.isFloat)
 			{
 				*tween.referenceF = (float)value;

@@ -1,5 +1,6 @@
 #pragma once
 #include "controllers/UDRLController.h"
+#include "graphics/Image.h"
 
 namespace thelastforest
 {
@@ -7,17 +8,26 @@ namespace thelastforest
 	{
 		using namespace novazero::controllers;
 
+		enum class HighlighterPosition
+		{
+			Up, Right, Down, Left
+		};
+
 		class Player 
 			: public UDRLController
 		{
 
 		private:
 
+			HighlighterPosition m_Hightlighter = HighlighterPosition::Up;
+			Image* m_Highlight = nullptr;
+
 		public:
 
 			Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
 			void Update() override;
+			void Highlight();
 
 		};
 	}
