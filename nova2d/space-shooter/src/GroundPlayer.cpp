@@ -9,7 +9,7 @@ namespace spaceshooter
 		SetPosition(position);
 		GetSprite()->SetScale(2.f);
 
-		ConfigureMove(2.f, TweenTypes::EaseInCubic, 5.f, 2.f);
+		ConfigureMove(2.f);
 		ConfigureMoveOffsets(Origins::Centered, GetSprite());
 		ConfigureMoveBounds(Game::GetGameBounds());
 		ConfigureUsingBounds(true, false);

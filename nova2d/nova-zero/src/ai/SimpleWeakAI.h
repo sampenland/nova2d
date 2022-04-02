@@ -43,7 +43,7 @@ namespace novazero
 			int m_LoopStartIndex = 0;
 			std::function<void()> f_OnPatrolComplete = nullptr;
 			float m_DelayMS = 1000;
-			int m_DelayMaxMS = 1000;
+			float m_DelayMaxMS = 1000;
 
 			Vec2 m_MemoryMovement;
 			bool m_ContinueAfterPatrolComplete = false;
@@ -59,7 +59,8 @@ namespace novazero
 
 			void Configure(int patrolDelayMS, bool loop) 
 			{ 
-				m_DelayMaxMS = patrolDelayMS;
+				m_DelayMaxMS = patrolDelayMS / 1000;
+				m_DelayMS = m_DelayMaxMS;
 				m_LoopMoving = true;
 				m_UsingPatrolSpeedOverride = false;
 			}

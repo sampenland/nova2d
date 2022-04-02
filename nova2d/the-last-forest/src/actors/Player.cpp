@@ -7,7 +7,7 @@ namespace thelastforest
 		Player::Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: UDRLController(assetName, position, size, layer)
 		{
-			ConfigureMove(5.f, TweenTypes::EaseInExpo, 100.f, 100.f);
+			ConfigureMove(5.f);
 			ConfigureMoveBounds(Rect(142, 0, Game::s_Width - (2 * 142) - size.x, Game::s_Height - 2 * 88));
 		}
 

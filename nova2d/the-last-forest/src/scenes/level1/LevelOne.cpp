@@ -1,11 +1,13 @@
 #include "LevelOne.h"
 #include "core/Game.h"
+#include "utils/timeline/events/TimelineExecuteEvent.h"
 
 namespace thelastforest
 {
 	namespace scenes
 	{
 		using namespace novazero::maps;
+		using namespace novazero::utils::timeline::events;
 
 		LevelOne::LevelOne(const std::string& sceneName)
 			: Scene(sceneName)
@@ -16,7 +18,9 @@ namespace thelastforest
 		void LevelOne::LoadResources()
 		{
 			n2dAssetsLoadAndAddTexture("grassTile", "res/grassTile.png");
+			n2dAssetsLoadAndAddTexture("treesTile", "res/treesTile.png");
 			n2dAssetsLoadAndAddTexture("player", "res/player.png");
+			n2dAssetsLoadAndAddTexture("human", "res/human.png");
 		}
 
 		void LevelOne::CreateWorld()
@@ -24,14 +28,53 @@ namespace thelastforest
 			m_Background = new TileMap(Vec2Int(1280, 800), 9, 9);
 			m_Background->CreateTextureFromOneTile("grassTile", Vec2Int(142, 88));
 
+			const int treesY = Game::s_Height - 88;
+			int treesX = 0;
+			for (int i = 1; i < 8; i++)
+			{
+				treesX = 1 + (142 * i);
+				Trees* tree = new Trees("treesTile", Vec2(treesX, treesY), Vec2Int(142, 88), 10);				
+
+				if (AllScenes::s_Trees[i - 1])
+				{
+					AllScenes::s_Trees[i - 1]->DestroySelf();
+				}
+				AllScenes::s_Trees[i - 1] = tree;
+			}
+
 			m_Player = new Player("player", Vec2(Game::s_Width/2 - 71/2, Game::s_Height - 88*2), 
 				Vec2Int(71, 70), 0);
+		}
+
+		void LevelOne::SetupLevel()
+		{
+			m_HumanController = new HumanController();
+
+			// Create a list of events, creating the level
+			TimelineExecuteEvent* h1 = new TimelineExecuteEvent(
+				m_HumanController, nullptr, 1.f);
+
+			std::function<void(int)> createFunc = n2dMakeFuncArgs1(HumanController::CreateHuman, 
+				m_HumanController);
+
+			h1->SetFunction(createFunc, 2);
+
+			n2dAddTimeline("humans", h1);
+
+		}
+
+		void LevelOne::StartLevel()
+		{
+			// Start level
+			n2dStartTimeline("humans");
 		}
 
 		void LevelOne::Start()
 		{
 			LoadResources();
 			CreateWorld();
+			SetupLevel();
+			StartLevel();
 		}
 
 		void LevelOne::Update()

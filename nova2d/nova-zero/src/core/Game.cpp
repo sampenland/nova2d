@@ -240,7 +240,7 @@ namespace novazero
 
 		float Game::GetDeltaTime() 
 		{ 
-			return (float)s_DeltaTime / 100; 
+			return (float)s_DeltaTime / 100.f; 
 		}
 
 		void Game::Render()

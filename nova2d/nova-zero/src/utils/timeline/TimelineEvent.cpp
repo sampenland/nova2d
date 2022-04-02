@@ -37,7 +37,7 @@ namespace novazero
 				}
 				else if (m_TimeTillNextEventSeconds > 0)
 				{
-					m_TimeTillNextEventSeconds -= n2dDeltaTime;
+					m_TimeTillNextEventSeconds -= n2dDeltaTime * 100;
 					return false; // stay on this event
 				}
 				else

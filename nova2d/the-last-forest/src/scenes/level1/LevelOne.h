@@ -2,6 +2,8 @@
 #include "core/Scene.h"
 #include "maps/TileMap.h"
 #include "../../actors/Player.h"
+#include "../AllScenes.h"
+#include "../../controllers/HumanController.h"
 
 namespace thelastforest
 {
@@ -10,6 +12,7 @@ namespace thelastforest
 		using namespace novazero::core;
 		using namespace novazero::maps;
 		using namespace actors;
+		using namespace controllers;
 
 		class LevelOne :
 			public Scene
@@ -18,7 +21,7 @@ namespace thelastforest
 		private:
 
 			TileMap* m_Background = nullptr;
-			
+			HumanController* m_HumanController = nullptr;
 			Player* m_Player = nullptr;
 
 		public:
@@ -27,6 +30,8 @@ namespace thelastforest
 
 			void LoadResources();
 			void CreateWorld();
+			void SetupLevel();
+			void StartLevel();
 
 			void Start() override;
 			void Update() override;
