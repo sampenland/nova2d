@@ -95,6 +95,7 @@
     <ClCompile Include="src\pickups\Pickup.cpp" />
     <ClCompile Include="src\pickups\Tree.cpp" />
     <ClCompile Include="src\pickups\Water.cpp" />
+    <ClCompile Include="src\placements\Placement.cpp" />
     <ClCompile Include="src\scenes\AllScenes.cpp" />
     <ClCompile Include="src\scenes\level1\LevelOne.cpp" />
     <ClCompile Include="src\TheLastForest.cpp" />
@@ -107,8 +108,10 @@
     <ClInclude Include="src\pickups\Pickup.h" />
     <ClInclude Include="src\pickups\Tree.h" />
     <ClInclude Include="src\pickups\Water.h" />
+    <ClInclude Include="src\placements\Placement.h" />
     <ClInclude Include="src\scenes\AllScenes.h" />
     <ClInclude Include="src\scenes\level1\LevelOne.h" />
+    <ClInclude Include="src\scenes\Scenes.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\grassTile.png" />

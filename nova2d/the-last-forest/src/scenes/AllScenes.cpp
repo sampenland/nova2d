@@ -1,11 +1,14 @@
-#include "../scenes/AllScenes.h"
+#include "AllScenes.h"
 
 namespace thelastforest
 {
 	namespace scenes
 	{
+		using namespace placements;
+
 		Trees* AllScenes::s_Trees[7];
 		GridTypes AllScenes::s_Grid[81];
+		Placement* AllScenes::s_Placements[81];
 
 		void AllScenes::NewGame()
 		{
@@ -22,10 +25,10 @@ namespace thelastforest
 			unsigned int tileWidth, unsigned int tileHeight,
 			unsigned int columns, unsigned int rows)
 		{
-			float column = (position.x + 1) / tileWidth; // 1 and 4 are padding
-			float row = (position.y + 4) / tileHeight;
-
-			return row * columns - (columns - column);
+			float column = (int)(position.x + 1) / tileWidth; // 1 and 4 are padding
+			float row = (int)(position.y + 4) / tileHeight;
+		
+			return column + (row * columns);
 		}
 
 		Vec2 AllScenes::GetTopLeftOfGridCell(
@@ -33,6 +36,15 @@ namespace thelastforest
 			unsigned int columns, unsigned int rows)
 		{
 			return Vec2(4 + tileWidth * columns, 1 + tileHeight * rows); // 1 and 4 are padding
+		}
+
+		Vec2 AllScenes::GetPositionFromTile(unsigned int gridPosition, unsigned int columns)
+		{
+			unsigned int col = gridPosition % columns;
+			unsigned int row = gridPosition / columns;
+
+			return Vec2(col * 142, row * 88);
+
 		}
 
 		Vec2 AllScenes::SnapToGrid(Vec2 position,
@@ -43,6 +55,19 @@ namespace thelastforest
 			int row = (int)(position.y + 4) / tileHeight;
 
 			return Vec2(column * tileWidth + 1, row * tileHeight + 4);
+		}
+
+		void AllScenes::SetGridPosition(unsigned int gridPosition, GridTypes type)
+		{
+			if (s_Grid[gridPosition] == GridTypes::Free)
+			{
+				s_Grid[gridPosition] = type;
+			}
+		}
+
+		GridTypes AllScenes::GetGridPositionType(unsigned int gridPosition)
+		{
+			return s_Grid[gridPosition];
 		}
 
 	}

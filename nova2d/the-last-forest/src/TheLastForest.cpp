@@ -1,4 +1,5 @@
 #include "core/Game.h"
+#include "scenes/AllScenes.h"
 #include "scenes/level1/LevelOne.h"
 
 int main(int argc, char* argv[])
@@ -11,6 +12,7 @@ int main(int argc, char* argv[])
 	game.ConfigureDebugOverlay(true);
 	n2dSetBackgroundColor("purple");
 
+	AllScenes::NewGame();
 	LevelOne* level1 = new LevelOne("LevelOne");
 
 	n2dGameAddScene(level1);

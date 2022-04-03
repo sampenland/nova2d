@@ -1,5 +1,6 @@
 #pragma once
 #include "ai/SimpleWeakAI.h"
+#include "Pickup.h"
 
 namespace thelastforest
 {
@@ -7,8 +8,9 @@ namespace thelastforest
 	{
 		using namespace novazero::ai;
 
-		class Tree
-			: public SimpleWeakAI
+		class Tree :
+			public Pickup,
+			public SimpleWeakAI
 		{
 
 		private:

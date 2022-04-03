@@ -23,6 +23,8 @@ namespace thelastforest
 
 			Pickup(float delayTime);
 			
+			void Colorize(const std::string& background, const std::string& forground);
+
 			void Update(Vec2 position);
 			void SetVisible(bool isVisible);
 

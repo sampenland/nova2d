@@ -33,11 +33,18 @@ namespace thelastforest
 			void Highlight();
 
 			void HoldItem();
+			void PlaceItem();
 
 		public:
 
 			static unsigned int s_HighlightedGridPos;
 			static GridTypes s_HoldingItem;
+			
+			static void PickupItem(GridTypes type);
+
+		private:
+
+			static bool s_ReadyToPlace;
 		};
 	}
 }

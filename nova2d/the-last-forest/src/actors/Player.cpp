@@ -1,14 +1,17 @@
 #include "Player.h"
 #include "../scenes/AllScenes.h"
+#include "../placements/Placement.h"
 
 namespace thelastforest
 {
 	namespace actors
 	{
 		using namespace scenes;
+		using namespace placements;
 
 		unsigned int Player::s_HighlightedGridPos = 0;
 		GridTypes Player::s_HoldingItem = GridTypes::Free;
+		bool Player::s_ReadyToPlace = false;
 
 		Player::Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: UDRLController(assetName, position, size, layer)
@@ -31,6 +34,7 @@ namespace thelastforest
 		{
 			Highlight();
 			HoldItem();
+			PlaceItem();
 		}
 
 		void Player::Highlight()
@@ -103,6 +107,41 @@ namespace thelastforest
 				m_HoldingItem->SetVisible(false);
 				m_HoldingItem->SetEnabled(false);
 			}
+		}
+
+		void Player::PlaceItem()
+		{
+			if (s_HoldingItem != GridTypes::Free && s_ReadyToPlace)
+			{
+				if (n2dIsKeyDown(SDLK_SPACE))
+				{
+					switch (s_HoldingItem)
+					{
+					case GridTypes::Tree:
+
+						if (AllScenes::GetGridPositionType(s_HighlightedGridPos) == GridTypes::Free)
+						{
+							Placement* placement = new Placement(GridTypes::Tree,
+								2, s_HighlightedGridPos, Vec2Int(71, 70), 2);
+
+							AllScenes::s_Placements[s_HighlightedGridPos] = placement;
+							s_HoldingItem = GridTypes::Free;
+						}
+
+						break;
+					}
+				}
+			}
+		}
+
+		void Player::PickupItem(GridTypes type)
+		{
+			s_ReadyToPlace = false;
+			s_HoldingItem = type;
+
+			Timer* readyToPlace = new Timer(1000, false, [=]() {
+				s_ReadyToPlace = true;
+			});
 		}
 	}
 }

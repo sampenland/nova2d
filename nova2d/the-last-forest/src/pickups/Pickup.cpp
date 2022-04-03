@@ -22,6 +22,12 @@ namespace thelastforest
 			m_DelayDisplay->SetVisible(isVisible);
 		}
 
+		void Pickup::Colorize(const std::string& background, const std::string& foreground)
+		{
+			m_DelayDisplay->ConfigureForeground(foreground, foreground, foreground);
+			m_DelayDisplay->ConfigureNonForeground(2, background, background);
+		}
+
 		void Pickup::Update(Vec2 position)
 		{
 			if (m_DelayTimer)
