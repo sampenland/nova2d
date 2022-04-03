@@ -12,6 +12,8 @@ int main(int argc, char* argv[])
 	game.ConfigureDebugOverlay(true);
 	n2dSetBackgroundColor("purple");
 
+	n2dAddColor("highlight", "ffffff", 50);
+
 	AllScenes::NewGame();
 	LevelOne* level1 = new LevelOne("LevelOne");
 

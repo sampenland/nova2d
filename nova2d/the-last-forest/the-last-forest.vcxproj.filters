@@ -80,7 +80,7 @@
     <ClInclude Include="src\placements\Placement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scenes\Scenes.h">
+    <ClInclude Include="src\Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

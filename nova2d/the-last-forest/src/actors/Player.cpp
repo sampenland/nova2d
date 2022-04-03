@@ -124,7 +124,7 @@ namespace thelastforest
 							Placement* placement = new Placement(GridTypes::Tree,
 								2, s_HighlightedGridPos, Vec2Int(71, 70), 2);
 
-							AllScenes::s_Placements[s_HighlightedGridPos] = placement;
+							AllScenes::SetPlacementAt(placement, s_HighlightedGridPos);
 							s_HoldingItem = GridTypes::Free;
 						}
 

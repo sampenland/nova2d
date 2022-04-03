@@ -111,7 +111,7 @@
     <ClInclude Include="src\placements\Placement.h" />
     <ClInclude Include="src\scenes\AllScenes.h" />
     <ClInclude Include="src\scenes\level1\LevelOne.h" />
-    <ClInclude Include="src\scenes\Scenes.h" />
+    <ClInclude Include="src\Enums.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\grassTile.png" />

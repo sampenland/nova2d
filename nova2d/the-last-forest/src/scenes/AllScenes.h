@@ -1,6 +1,6 @@
 #pragma once
 #include "../actors/Trees.h"
-#include "../scenes/Scenes.h"
+#include "../Enums.h"
 #include "../placements/Placement.h"
 
 namespace thelastforest
@@ -21,7 +21,10 @@ namespace thelastforest
 
 			static void NewGame();
 
-			static unsigned int GetTileFromPosition(Vec2 position,
+			static void SetPlacementAt(Placement* placement, unsigned int gridPosition);
+			static Placement* GetPlacementAt(unsigned int gridPosition);
+
+			static int GetTileFromPosition(Vec2 position,
 				unsigned int tileWidth, unsigned int tileHeight,
 				unsigned int columns, unsigned int rows);
 
@@ -35,8 +38,11 @@ namespace thelastforest
 				unsigned int tileWidth, unsigned int tileHeight,
 				unsigned int columns, unsigned int rows);
 
-			static void SetGridPosition(unsigned int gridPosition, GridTypes type);
+			static void SetGridPositionType(unsigned int gridPosition, GridTypes type);
 			static GridTypes GetGridPositionType(unsigned int gridPosition);
+
+			static GridTypes GetGridTypeFromStep(unsigned int gridPosition, Facing step);
+			static int GetGridPositionFromStep(unsigned int gridPosition, Facing step);
 		};
 	}
 }

@@ -1,7 +1,8 @@
 #pragma once
 #include "graphics/Image.h"
-#include "../scenes/Scenes.h"
+#include "../Enums.h"
 #include "ai/SimpleWeakAI.h"
+#include "components/SimpleStatBar.h"
 
 namespace thelastforest
 {
@@ -9,7 +10,7 @@ namespace thelastforest
 	{
 		using namespace novazero::graphics;
 		using namespace novazero::ai;
-		using namespace scenes;
+		using namespace novazero::components;
 
 		class Placement :
 			public SimpleWeakAI
@@ -17,13 +18,33 @@ namespace thelastforest
 
 		private:
 
+			GridTypes m_Type;
+
 			unsigned int m_HumanDelay = 0;
+			unsigned int m_HumanDelayMax = 0;
+
+			SimpleStatBar* m_SunDisplay = nullptr;
+			SimpleStatBar* m_WaterDisplay = nullptr;
+			SimpleStatBar* m_DelayDisplay = nullptr;
+
+			float m_Sunlight = 100.f;
+			float m_Water = 100.f;
+
+			bool m_Destroyed = false;
 
 		public:
 
 			Placement() {};
 			Placement(GridTypes type, unsigned int humanDelay,
 				unsigned int gridPos, Vec2Int size, unsigned char layer);
+
+			GridTypes GetType() const;
+
+			void Update();
+
+			bool UseDelay(int delay);
+
+			void DestroySelf();
 
 		};
 	}

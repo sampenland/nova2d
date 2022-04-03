@@ -1,6 +1,7 @@
 #pragma once
 #include "ai/SimpleWeakAI.h"
 #include "core/Timer.h"
+#include "../Enums.h"
 
 namespace thelastforest
 {
@@ -18,11 +19,14 @@ namespace thelastforest
 
 			Timer* m_ThinkTimer = nullptr;
 			float m_ThinkSpeed = 1000.f;
+			bool m_Waiting = false;
 
 			bool m_HandlingCollision = false;
 
 			bool m_StepDown = true;
 			const unsigned int m_Step = 88;
+
+			unsigned int m_AttackStrength = 1;
 
 		public:
 
@@ -32,6 +36,8 @@ namespace thelastforest
 
 			void OnCollision(Collision* collision);
 			void HandleCollision(Collider* other);
+
+			void HandleStepTo(unsigned int gridPos, GridTypes type);
 
 			void DestroySelf();
  
