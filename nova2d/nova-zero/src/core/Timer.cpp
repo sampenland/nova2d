@@ -68,6 +68,11 @@ namespace novazero
 			SetEnabled(true);
 		}
 
+		float Timer::GetTimeLeft() const
+		{
+			return m_Delay / 2.f;
+		}
+
 		void Timer::Tick()
 		{
 			if (!IsEnabled()) return;

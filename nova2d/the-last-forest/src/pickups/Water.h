@@ -1,14 +1,18 @@
 #pragma once
+#include "Pickup.h"
 #include "ai/SimpleWeakAI.h"
+#include "components/SimpleStatBar.h"
 
 namespace thelastforest
 {
 	namespace pickups
 	{
 		using namespace novazero::ai;
+		using namespace novazero::components;
 
-		class Water
-			: public SimpleWeakAI
+		class Water :
+			public Pickup,
+			public SimpleWeakAI
 		{
 
 		private:

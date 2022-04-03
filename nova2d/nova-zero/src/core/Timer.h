@@ -39,6 +39,8 @@ namespace novazero
 			float* GetRefRndMin() { return &m_RandomMin; } // for tweens and Director ref-ing
 			float* GetRefRndMax() { return &m_RandomMax; } // for tweens and Director ref-ing
 
+			float GetTimeLeft() const;
+
 			void DestroySelf();
 			
 			void Tick();

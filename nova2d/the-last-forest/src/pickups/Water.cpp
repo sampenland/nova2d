@@ -10,7 +10,7 @@ namespace thelastforest
 		using namespace scenes;
 
 		Water::Water(int row)
-			: m_Row(row)
+			: Pickup(5000.f), m_Row(row)
 		{
 			float x = 35.5f;
 			float y = 4 + (row * 88);
@@ -34,11 +34,17 @@ namespace thelastforest
 
 		void Water::StartWait()
 		{
-			//Timer* delay = new Timer(5000, false, n2dMakeFunc(Water::DestroySelf, this));
+			Pickup::SetVisible(true);
+
+			ClearPatrol();
+			EnableAI(false);
+			m_DelayTimer = new Timer(m_DelayTime, false, n2dMakeFunc(Water::DestroySelf, this));
 		}
 
 		void Water::Update()
 		{
+			Pickup::Update(GetPosition());
+
 			if (n2dIsKeyDown(SDLK_SPACE))
 			{
 				if (Player::s_HoldingItem == GridTypes::Free)
@@ -56,6 +62,7 @@ namespace thelastforest
 		{
 			CleanUpdaters();
 
+			Pickup::DestroySelf();
 			SimpleWeakAI::DestroySelf();
 			SetDeleted(true);
 		}

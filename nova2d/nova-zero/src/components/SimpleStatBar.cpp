@@ -79,6 +79,8 @@ namespace novazero
 
 		void SimpleStatBar::Draw(float oX, float oY, float scale)
 		{
+			if (!IsVisible()) return;
+
 			m_Outline->x = (int)(oX - m_OutlineThickness);
 			m_Outline->y = (int)(oY - m_OutlineThickness);
 			m_Outline->w = (int)(GetSize().x * scale) + 2 * m_OutlineThickness;

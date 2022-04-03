@@ -12,7 +12,7 @@ namespace thelastforest
 		Tree::Tree(int row)
 			: m_Row(row)
 		{
-			float x = Game::s_Width - 142.f;
+			float x = Game::s_Width - 142.f + 35.5f;
 			float y = 4 + (row * 88);
 			AddSprite("tree", Vec2(Game::s_Width, y), Vec2Int(71, 70), 0);
 

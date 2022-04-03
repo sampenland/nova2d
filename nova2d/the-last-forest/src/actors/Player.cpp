@@ -13,6 +13,8 @@ namespace thelastforest
 		Player::Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 			: UDRLController(assetName, position, size, layer)
 		{
+			SetPosition(position);
+
 			ConfigureMove(5.f);
 			ConfigureMoveBounds(Rect(142, 0, Game::s_Width - (2 * 142) - size.x, Game::s_Height - 2 * 88));
 
@@ -45,7 +47,9 @@ namespace thelastforest
 			if (n2dIsKeyDown(SDLK_a))
 				m_Hightlighter = HighlighterPosition::Left;
 
-			Vec2 highlightPos = Vec2(100, 100);
+			Vec2 highlightPos;
+			highlightPos.x = 0;
+			highlightPos.y = 0;
 
 			switch (m_Hightlighter)
 			{
