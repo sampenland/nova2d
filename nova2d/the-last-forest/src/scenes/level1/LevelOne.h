@@ -28,7 +28,6 @@ namespace thelastforest
 
 			LevelOne(const std::string& sceneName);
 
-			void LoadResources();
 			void CreateWorld();
 			void SetupLevel();
 			void StartLevel();

@@ -33,9 +33,6 @@
     <ClCompile Include="src\controllers\HumanController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\actors\Trees.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\pickups\Water.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,6 +43,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\placements\Placement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\MainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,9 +65,6 @@
     <ClInclude Include="src\controllers\HumanController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\actors\Trees.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\pickups\Water.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,6 +78,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

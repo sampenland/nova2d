@@ -18,7 +18,7 @@ namespace thelastforest
 
 		private:
 
-			GridTypes m_Type;
+			GridTypes m_Type = GridTypes::Free;
 
 			unsigned int m_HumanDelay = 0;
 			unsigned int m_HumanDelayMax = 0;
@@ -30,6 +30,9 @@ namespace thelastforest
 			float m_Sunlight = 100.f;
 			float m_Water = 100.f;
 
+			bool m_UseWater = true;
+			bool m_UseSun = true;
+
 			bool m_Destroyed = false;
 
 		public:
@@ -39,6 +42,9 @@ namespace thelastforest
 				unsigned int gridPos, Vec2Int size, unsigned char layer);
 
 			GridTypes GetType() const;
+
+			void SetVisibleStats(bool sun, bool water, bool delay);
+			void SetEnableStats(bool sun, bool water);
 
 			void Update();
 

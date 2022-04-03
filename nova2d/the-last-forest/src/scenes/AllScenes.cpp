@@ -6,19 +6,13 @@ namespace thelastforest
 	{
 		using namespace placements;
 
-		Trees* AllScenes::s_Trees[7];
-		GridTypes AllScenes::s_Grid[81];
 		Placement* AllScenes::s_Placements[81];
 
 		void AllScenes::NewGame()
 		{
 			// make everything free
 			for (int i = 0; i < 81; i++)
-				s_Grid[i] = GridTypes::Free;
-
-			// bottom row are trees
-			for (int i = 79; i > 72; i--)
-				s_Grid[i] = GridTypes::PTree;
+				s_Placements[i] = nullptr;
 		}
 
 		void AllScenes::SetPlacementAt(Placement* placement, unsigned int gridPosition)
@@ -28,7 +22,6 @@ namespace thelastforest
 				s_Placements[gridPosition]->DestroySelf();
 
 			s_Placements[gridPosition] = placement;
-			SetGridPositionType(gridPosition, placement->GetType());
 		}
 
 		Placement* AllScenes::GetPlacementAt(unsigned int gridPosition)
@@ -81,18 +74,6 @@ namespace thelastforest
 			return Vec2((float)column * tileWidth + 1, (float)row * tileHeight + 4);
 		}
 
-		void AllScenes::SetGridPositionType(unsigned int gridPosition, GridTypes type)
-		{
-			if (gridPosition < 0 || gridPosition > 80) return;
-			s_Grid[gridPosition] = type;
-		}
-
-		GridTypes AllScenes::GetGridPositionType(unsigned int gridPosition)
-		{
-			if (gridPosition < 0 || gridPosition > 80) return GridTypes::Blocked;
-			return s_Grid[gridPosition];
-		}
-
 		GridTypes AllScenes::GetGridTypeFromStep(unsigned int gridPosition, Facing step)
 		{
 			int gridPos = GetGridPositionFromStep(gridPosition, step);
@@ -139,5 +120,11 @@ namespace thelastforest
 			return stepToPos;
 		}
 
+		GridTypes AllScenes::GetGridPositionType(unsigned int gridPosition)
+		{
+			if (gridPosition < 0 || gridPosition > 80) return GridTypes::Blocked;
+			if (!s_Placements[gridPosition]) return GridTypes::Free;
+			return s_Placements[gridPosition]->GetType();
+		}
 	}
 }

@@ -1,7 +1,6 @@
 #include "Human.h"
 #include "physics/Collision.h"
 #include "physics/Collider.h"
-#include "Trees.h"
 #include "../scenes/AllScenes.h"
 
 namespace thelastforest
@@ -10,6 +9,7 @@ namespace thelastforest
 	{
 		using namespace novazero::physics;
 		using namespace scenes;
+		using namespace placements;
 
 		Human::Human(Vec2 position, Vec2Int size, unsigned char layer)
 		{			
@@ -95,16 +95,7 @@ namespace thelastforest
 			
 			Placement* placement = AllScenes::GetPlacementAt(gridPos);
 
-			if (!placement)
-			{
-				GridTypes gType = AllScenes::GetGridPositionType(gridPos);
-
-				if (gType == GridTypes::PTree)
-				{
-
-				}
-
-			}
+			if (!placement) return;
 
  			switch (type)
 			{
@@ -141,38 +132,9 @@ namespace thelastforest
 			}
 		}
 
-		void Human::HandleCollision(Collider* other)
-		{
-			m_HandlingCollision = true;
-
-			if (other->m_ColliderName == "ptree")
-			{
-				m_StepDown = false;
-				m_ThinkTimer->ResetAndEnable(1000.f);
-				
-				auto treeChop = new auto ([=]() {
-					((Trees*)other)->DestroySelf();
-				});
-				Timer* t = new Timer(600.f, false, *treeChop);
-			}
-		}
-
 		void Human::OnCollision(Collision* collision)
 		{
-			if (m_HandlingCollision) return;
-
-			// Pause thinking
-			m_ThinkTimer->SetEnabled(false);
-
-			if (collision->m_ColliderA->m_ColliderName == "human")
-			{
-				HandleCollision(collision->m_ColliderB);
-			}
-			else if (collision->m_ColliderB->m_ColliderName == "human")
-			{
-				HandleCollision(collision->m_ColliderA);
-			}
-
+			
 		}
 
 		void Human::DestroySelf()

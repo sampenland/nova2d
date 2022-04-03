@@ -17,6 +17,9 @@ namespace thelastforest
 
 			m_Type = type;
 
+			float ox = 0.f;
+			float oy = 0.f;
+
 			std::string assetName = "";
 			switch (type)
 			{
@@ -24,6 +27,8 @@ namespace thelastforest
 				assetName = "error";
 				break;
 			case GridTypes::PTree:
+				assetName = "trees";
+				ox = -71.f;
 				break;
 			case GridTypes::DeadPTree:
 				break;
@@ -39,26 +44,42 @@ namespace thelastforest
 			}
 
 			Vec2 position = AllScenes::GetPositionFromTile(gridPos, 9);
-			position.x += 35.5f;
-			position.y += 4.f;
+			position.x += 35.5f + ox;
+			position.y += 4.f + oy;
 
-			AddSprite(assetName, position, size, layer);
+			AddSprite(assetName, Vec2(position.x + 35.5f, position.y), size, layer);
 			ConfigureCollider(GetSprite(), 0, "tree");
 
-			AllScenes::SetGridPosition(gridPos, type);
-
 			m_SunDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y,
-				140, 10, "purple", "purple", "yellow", 2);
+				140, 10, "purple", "purple", "yellow", 12);
 
 			m_WaterDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y + 78,
-				140, 10, "purple", "purple", "dark-blue", 2);
+				140, 10, "purple", "purple", "dark-blue", 12);
 
-			m_DelayDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y + 10,
-				140, 68, "transparent", "transparent", "highlight", 2);
+			m_DelayDisplay = new SimpleStatBar(false, position.x - 33.5f - ox, position.y + 10,
+				140, 68, "transparent", "transparent", "highlight", 12);
 
 			auto cleanID = n2dAddUpdater(Placement::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 
+		}
+
+		void Placement::SetVisibleStats(bool sun, bool water, bool delay)
+		{
+			if(m_SunDisplay)
+				m_SunDisplay->SetVisible(sun);
+			
+			if(m_WaterDisplay)
+				m_WaterDisplay->SetVisible(water);
+			
+			if(m_DelayDisplay)
+				m_DelayDisplay->SetVisible(delay);
+		}
+
+		void Placement::SetEnableStats(bool sun, bool water)
+		{
+			m_UseSun = sun;
+			m_UseWater = water;
 		}
 
 		GridTypes Placement::GetType() const
@@ -77,8 +98,11 @@ namespace thelastforest
 				return;
 			}
 
-			m_Sunlight -= n2dDeltaTime / 30;
-			m_Water -= n2dDeltaTime / 10;
+			if(m_UseSun)
+				m_Sunlight -= n2dDeltaTime / 30;
+			
+			if(m_UseWater)
+				m_Water -= n2dDeltaTime / 10;
 
 			SimpleWeakAI::Update();
 

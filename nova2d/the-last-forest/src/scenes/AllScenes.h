@@ -1,5 +1,4 @@
 #pragma once
-#include "../actors/Trees.h"
 #include "../Enums.h"
 #include "../placements/Placement.h"
 
@@ -7,7 +6,6 @@ namespace thelastforest
 {
 	namespace scenes
 	{
-		using namespace actors;
 		using namespace placements;
 
 		class AllScenes
@@ -15,8 +13,6 @@ namespace thelastforest
 
 		public:
 
-			static Trees* s_Trees[7];
-			static GridTypes s_Grid[81];
 			static Placement* s_Placements[81];
 
 			static void NewGame();
@@ -38,11 +34,10 @@ namespace thelastforest
 				unsigned int tileWidth, unsigned int tileHeight,
 				unsigned int columns, unsigned int rows);
 
-			static void SetGridPositionType(unsigned int gridPosition, GridTypes type);
-			static GridTypes GetGridPositionType(unsigned int gridPosition);
-
 			static GridTypes GetGridTypeFromStep(unsigned int gridPosition, Facing step);
 			static int GetGridPositionFromStep(unsigned int gridPosition, Facing step);
+
+			static GridTypes GetGridPositionType(unsigned int gridPosition);
 		};
 	}
 }

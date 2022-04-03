@@ -111,7 +111,12 @@ namespace novazero
 		{
 			if (!m_Alive) return;
 
-			GetSprite()->SetPosition(GetPosition());
+			Sprite* sprite = GetSprite();
+
+			if (sprite)
+			{
+				sprite->SetPosition(GetPosition());
+			}
 
 			if (m_DelayMS > 0)
 			{

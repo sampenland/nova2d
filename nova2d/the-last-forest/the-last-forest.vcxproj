@@ -90,7 +90,6 @@
   <ItemGroup>
     <ClCompile Include="src\actors\Human.cpp" />
     <ClCompile Include="src\actors\Player.cpp" />
-    <ClCompile Include="src\actors\Trees.cpp" />
     <ClCompile Include="src\controllers\HumanController.cpp" />
     <ClCompile Include="src\pickups\Pickup.cpp" />
     <ClCompile Include="src\pickups\Tree.cpp" />
@@ -98,12 +97,12 @@
     <ClCompile Include="src\placements\Placement.cpp" />
     <ClCompile Include="src\scenes\AllScenes.cpp" />
     <ClCompile Include="src\scenes\level1\LevelOne.cpp" />
+    <ClCompile Include="src\scenes\MainMenu.cpp" />
     <ClCompile Include="src\TheLastForest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actors\Player.h" />
     <ClInclude Include="src\actors\Human.h" />
-    <ClInclude Include="src\actors\Trees.h" />
     <ClInclude Include="src\controllers\HumanController.h" />
     <ClInclude Include="src\pickups\Pickup.h" />
     <ClInclude Include="src\pickups\Tree.h" />
@@ -112,6 +111,7 @@
     <ClInclude Include="src\scenes\AllScenes.h" />
     <ClInclude Include="src\scenes\level1\LevelOne.h" />
     <ClInclude Include="src\Enums.h" />
+    <ClInclude Include="src\scenes\MainMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\grassTile.png" />
