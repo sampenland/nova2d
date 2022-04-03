@@ -40,6 +40,7 @@ namespace novazero
 
 			public:
 				
+				TimelineEvent() : Deleteable("timelineEvent_") {};
 				TimelineEvent(TimelineInstance* instanceController, std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds = -1.f);
 
 				TimelineInstance* m_InstanceController = nullptr;

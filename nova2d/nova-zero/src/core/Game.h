@@ -186,7 +186,7 @@ namespace novazero
 			static int RandomInt(int min, int max)
 			{
 				// Random int between min-max
-				return (int)(rand() % min + max);
+				return (int)(rand() % max + min);
 			}
 			static int RandomIntWithMaxChance(int min, int max, float chanceOfMax)
 			{

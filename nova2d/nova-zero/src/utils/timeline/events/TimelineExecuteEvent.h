@@ -15,6 +15,8 @@ namespace novazero
 
 				private:
 
+					unsigned int m_ID = 0;
+
 					FuncType f_EventType = FuncType::Undefined;
 					std::function<void()> f_EventFuncVoid;
 
@@ -36,10 +38,13 @@ namespace novazero
 
 				public:
 
+					TimelineExecuteEvent() {};
 					TimelineExecuteEvent(TimelineInstance* instance,
 						std::function<bool()> nextEventTrigger, float timeTillNextEventSeconds = 1.f) :
 						TimelineEvent(instance, nextEventTrigger, timeTillNextEventSeconds)
-					{ }
+					{ 
+						m_ID = n2dAddDeleteable(this);
+					}
 
 					void SetFunction(std::function<void()> func)
 					{
@@ -177,7 +182,20 @@ namespace novazero
 							f_EventFuncInt1Float1(m_I1, m_F1);
 							break;
 						}
-					}				
+
+						DestroySelf();
+					}	
+
+					void DestroySelf()
+					{
+						n2dRemoveDeleteable(m_ID);
+
+						CleanUpdaters();
+
+						TimelineEvent::DestroySelf();
+
+						SetDeleted(true);
+					}
 
 				};
 			}

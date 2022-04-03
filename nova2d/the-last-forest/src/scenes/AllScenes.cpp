@@ -7,12 +7,26 @@ namespace thelastforest
 		using namespace placements;
 
 		Placement* AllScenes::s_Placements[81];
+		bool AllScenes::s_HumanOnColumn[8];
 
 		void AllScenes::NewGame()
 		{
 			// make everything free
 			for (int i = 0; i < 81; i++)
 				s_Placements[i] = nullptr;
+
+			for (int i = 0; i < 8; i++)
+				s_HumanOnColumn[i] = false;
+		}
+
+		bool AllScenes::HumanOnColumn(int col)
+		{
+			return s_HumanOnColumn[col];
+		}
+
+		void AllScenes::SetHumanOnColumn(int col, bool val)
+		{
+			s_HumanOnColumn[col] = val;
 		}
 
 		void AllScenes::SetPlacementAt(Placement* placement, unsigned int gridPosition)

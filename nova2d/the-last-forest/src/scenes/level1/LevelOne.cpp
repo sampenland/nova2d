@@ -3,6 +3,7 @@
 #include "utils/timeline/events/TimelineExecuteEvent.h"
 #include "../../pickups/Water.h"
 #include "../../pickups/Tree.h"
+#include "../../GameDesigner.h"
 
 namespace thelastforest
 {
@@ -42,17 +43,26 @@ namespace thelastforest
 		{
 			m_HumanController = new HumanController();
 
-			// Create a list of events, creating the level
-			TimelineExecuteEvent* h1 = new TimelineExecuteEvent(
-				m_HumanController, nullptr, 1.f);
+			const int totalHumans = 20;
 
-			std::function<void(int)> createFunc = n2dMakeFuncArgs1(HumanController::CreateHuman, 
-				m_HumanController);
+			TimelineExecuteEvent* execEvents = new TimelineExecuteEvent[totalHumans];
 
-			h1->SetFunction(createFunc, 2);
+			for (int i = 0; i < totalHumans; i++)
+			{
+				// Create a list of events, creating the level
+			
+				float intervalTime = n2dRandomFloat(g_MinHumanTime, g_MaxHumanTime);
 
-			n2dAddTimeline("humans", h1);
+				TimelineExecuteEvent* tEvent = new TimelineExecuteEvent(
+					m_HumanController, nullptr, intervalTime);
 
+				std::function<void(int)> createFunc = n2dMakeFuncArgs1(HumanController::CreateHuman,
+					m_HumanController);
+
+				tEvent->SetFunction(createFunc, i);
+
+				n2dAddTimeline("humans", tEvent);
+			}
 		}
 
 		void LevelOne::StartLevel()
