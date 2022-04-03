@@ -40,6 +40,8 @@ namespace novazero
 
 		public:
 
+			void SwapTexture(const std::string& assetName);
+
 			void AddAnimation(const std::string& animName, unsigned short startFrame, unsigned short totalFrames,
 				float timeBetweenFramesMS, bool loop, std::function<void(Sprite* sprite)> onComplete, bool makeActiveAnim = true);
 

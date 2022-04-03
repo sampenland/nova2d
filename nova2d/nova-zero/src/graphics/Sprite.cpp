@@ -45,6 +45,21 @@ namespace novazero
 			n2dAddDrawable(this, m_Layer);
 		}
 
+		void Sprite::SwapTexture(const std::string& assetName)
+		{
+			if (m_SpriteSheet)
+			{
+				if (m_AssetName == assetName) return;
+				m_SpriteSheet = n2dAssetsGetTexture(assetName);
+			}
+			else
+			{
+				m_SpriteSheet = n2dAssetsGetTexture(assetName);
+			}
+
+			m_AssetName = assetName;
+		}
+
 		// Animations -------------------------------
 
 		void Sprite::AddAnimation(const std::string& animName, unsigned short startFrame, unsigned short totalFrames,

@@ -32,6 +32,7 @@ namespace thelastforest
 				int gridPos = 72 + i;
 				Placement* tree = new Placement(GridTypes::PTree, 4, gridPos, Vec2Int(142, 88), 10);
 				tree->SetVisibleStats(false, false, true);
+				tree->SetEnableStats(false, false);
 				AllScenes::SetPlacementAt(tree, gridPos);
 			}
 
@@ -43,11 +44,9 @@ namespace thelastforest
 		{
 			m_HumanController = new HumanController();
 
-			const int totalHumans = 20;
+			TimelineExecuteEvent* execEvents = new TimelineExecuteEvent[g_LevelOneHumans];
 
-			TimelineExecuteEvent* execEvents = new TimelineExecuteEvent[totalHumans];
-
-			for (int i = 0; i < totalHumans; i++)
+			for (int i = 0; i < g_LevelOneHumans; i++)
 			{
 				// Create a list of events, creating the level
 			

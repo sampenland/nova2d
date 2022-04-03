@@ -56,8 +56,16 @@ namespace thelastforest
 			m_WaterDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y + 78,
 				140, 10, "purple", "purple", "dark-blue", 12);
 
-			m_DelayDisplay = new SimpleStatBar(false, position.x - 33.5f - ox, position.y + 10,
-				140, 68, "transparent", "transparent", "highlight", 12);
+			if (type == GridTypes::PTree)
+			{
+				m_DelayDisplay = new SimpleStatBar(false, position.x - 33.5f - ox, position.y + 78,
+					140, 10, "purple", "purple", "green", 12);
+			}
+			else
+			{
+				m_DelayDisplay = new SimpleStatBar(false, position.x - 33.5f - ox, position.y + 10,
+					140, 68, "transparent", "transparent", "highlight", 12);
+			}
 
 			auto cleanID = n2dAddUpdater(Placement::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
@@ -90,6 +98,21 @@ namespace thelastforest
 		void Placement::Update()
 		{
 			if (m_Destroyed) return;
+
+			if (m_Type == GridTypes::DeadPTree)
+			{
+				return;
+			}
+
+			if (m_Type == GridTypes::PTree && m_HumanDelay <= 0)
+			{
+				m_Type = GridTypes::DeadPTree;
+
+				if(GetSprite())
+					GetSprite()->SwapTexture("deadtrees");
+				
+				return;
+			}
 
 			if (m_Sunlight < 0 || m_Water < 0 || m_HumanDelay <= 0)
 			{

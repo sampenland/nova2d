@@ -23,6 +23,7 @@ namespace thelastforest
 			n2dAssetsLoadAndAddTexture("human", "res/human.png");
 			n2dAssetsLoadAndAddTexture("water", "res/water.png");
 			n2dAssetsLoadAndAddTexture("highlight", "res/highlightTile.png");
+			n2dAssetsLoadAndAddTexture("deadtrees", "res/deadTrees.png");
 
 		}
 

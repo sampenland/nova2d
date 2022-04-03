@@ -55,23 +55,24 @@ namespace thelastforest
 			highlightPos.x = 0;
 			highlightPos.y = 0;
 
+			Vec2 pos = GetCenter();
 			switch (m_Hightlighter)
 			{
 			case HighlighterPosition::Up:
 				highlightPos = AllScenes::SnapToGrid(
-					Vec2(GetX(), GetY() - 88), 142, 88, 9, 9);
+					Vec2(pos.x, pos.y - 88), 142, 88, 9, 9);
 				break;
 			case HighlighterPosition::Down:
 				highlightPos = AllScenes::SnapToGrid(
-					Vec2(GetX(), GetY() + 88), 142, 88, 9, 9);
+					Vec2(pos.x, pos.y + 88), 142, 88, 9, 9);
 				break;
 			case HighlighterPosition::Right:
 				highlightPos = AllScenes::SnapToGrid(
-					Vec2(GetX() + 142, GetY()), 142, 88, 9, 9);
+					Vec2(pos.x + 142, pos.y), 142, 88, 9, 9);
 				break;
 			case HighlighterPosition::Left:
 				highlightPos = AllScenes::SnapToGrid(
-					Vec2(GetX() - 142, GetY()), 142, 88, 9, 9);
+					Vec2(pos.x - 142, pos.y), 142, 88, 9, 9);
 				break;
 			}
 

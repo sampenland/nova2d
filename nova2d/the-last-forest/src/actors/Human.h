@@ -27,6 +27,8 @@ namespace thelastforest
 			const unsigned int m_Step = 88;
 
 			unsigned int m_AttackStrength = 1;
+			unsigned int m_MaxAttacks = 1;
+			unsigned int m_Attacks = 1;
 
 		public:
 
@@ -37,6 +39,8 @@ namespace thelastforest
 			void OnCollision(Collision* collision);
 
 			void HandleStepTo(unsigned int gridPos, GridTypes type);
+
+			void PowerUp();
 
 			void DestroySelf();
  
