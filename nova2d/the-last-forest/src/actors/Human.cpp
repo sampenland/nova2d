@@ -14,7 +14,7 @@ namespace thelastforest
 
 		Human::Human(Vec2 position, Vec2Int size, unsigned char layer)
 		{			
-			AddSprite("human", position, size, layer);
+			AddSprite("human", position, size, layer, true);
 
 			GetSprite()->AddAnimation("walk", 0, 2, 8, true, nullptr);
 			GetSprite()->AddAnimation("chop", 2, 2, 5, true, nullptr);
@@ -98,6 +98,27 @@ namespace thelastforest
 		{
 			m_MaxAttacks++;
 			m_Attacks = m_MaxAttacks;
+
+			if (!GetSprite())
+			{
+				LOG(LVL_NFE, "No Sprite on human, power up.");
+				return;
+			}
+
+			switch (m_MaxAttacks)
+			{
+			case 1:
+				GetSprite()->ClearTint();
+			case 2:
+				GetSprite()->Tint("human-yellow");
+				break;
+			case 3:
+				GetSprite()->Tint("human-blue");
+				break;
+			default:
+				GetSprite()->Tint("human-red");
+				break;
+			}
 
 			m_Waiting = true;
 			GetSprite()->ChangeAnimation("powerup");

@@ -64,6 +64,8 @@ namespace thelastforest
 
 		void Tree::DestroySelf()
 		{
+			AllScenes::SetTreeOnRow(m_Row, false);
+
 			CleanUpdaters();
 			Pickup::DestroySelf();
 			SimpleWeakAI::DestroySelf();

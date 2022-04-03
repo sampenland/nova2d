@@ -27,6 +27,7 @@ namespace novazero
 			SDL_Texture* LoadAndAddTexture(const std::string& name, const std::string& path);
 			void RemoveTexture(const std::string& name);
 			SDL_Texture* GetTexture(const std::string& name);
+			SDL_Texture* GetTextureCopy(const std::string& name);
 
 			TiledMap* LoadAndAddMap(const std::string& name, const std::string& mapPath, const std::string& tilesetImgPath, const std::string& tilesetPath);
 			void RemoveMap(const std::string& name);

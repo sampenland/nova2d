@@ -42,6 +42,9 @@ namespace novazero
 
 			void SwapTexture(const std::string& assetName);
 
+			void Tint(const std::string& colorName);
+			void ClearTint();
+
 			void AddAnimation(const std::string& animName, unsigned short startFrame, unsigned short totalFrames,
 				float timeBetweenFramesMS, bool loop, std::function<void(Sprite* sprite)> onComplete, bool makeActiveAnim = true);
 
@@ -69,7 +72,8 @@ namespace novazero
 
 		public:
 
-			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
+			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
+				bool makeCopy = false);
 
 			void Update();
 			

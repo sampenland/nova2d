@@ -30,7 +30,7 @@ namespace thelastforest
 				treesX = 1 + (142 * i);
 
 				int gridPos = 72 + i;
-				Placement* tree = new Placement(GridTypes::PTree, 4, gridPos, Vec2Int(142, 88), 10);
+				Placement* tree = new Placement(GridTypes::PTree, 8, gridPos, Vec2Int(142, 88), 10);
 				tree->SetVisibleStats(false, false, true);
 				tree->SetEnableStats(false, false);
 				AllScenes::SetPlacementAt(tree, gridPos);
@@ -42,6 +42,12 @@ namespace thelastforest
 
 		void LevelOne::SetupLevel()
 		{
+			SetupHumans();
+			SetupTrees();
+		}
+
+		void LevelOne::SetupHumans()
+		{
 			m_HumanController = new HumanController();
 
 			TimelineExecuteEvent* execEvents = new TimelineExecuteEvent[g_LevelOneHumans];
@@ -49,7 +55,7 @@ namespace thelastforest
 			for (int i = 0; i < g_LevelOneHumans; i++)
 			{
 				// Create a list of events, creating the level
-			
+
 				float intervalTime = n2dRandomFloat(g_MinHumanTime, g_MaxHumanTime);
 
 				TimelineExecuteEvent* tEvent = new TimelineExecuteEvent(
@@ -64,10 +70,35 @@ namespace thelastforest
 			}
 		}
 
+		void LevelOne::SetupTrees()
+		{
+			m_TreeController = new TreeController();
+
+			TimelineExecuteEvent* execEvents = new TimelineExecuteEvent[g_LevelOneHumans];
+
+			for (int i = 0; i < g_LevelOneTrees; i++)
+			{
+				// Create a list of events, creating the level
+
+				float intervalTime = n2dRandomFloat(g_MinTreeTime, g_MaxTreeTime);
+
+				TimelineExecuteEvent* tEvent = new TimelineExecuteEvent(
+					m_TreeController, nullptr, intervalTime);
+
+				std::function<void(int)> createFunc = n2dMakeFuncArgs1(TreeController::CreateTree,
+					m_TreeController);
+
+				tEvent->SetFunction(createFunc, i);
+
+				n2dAddTimeline("trees", tEvent);
+			}
+		}
+
 		void LevelOne::StartLevel()
 		{
 			// Start level
 			n2dStartTimeline("humans");
+			n2dStartTimeline("trees");
 		}
 
 		void LevelOne::Start()

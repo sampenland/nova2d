@@ -25,6 +25,15 @@ namespace thelastforest
 			n2dAssetsLoadAndAddTexture("highlight", "res/highlightTile.png");
 			n2dAssetsLoadAndAddTexture("deadtrees", "res/deadTrees.png");
 
+			m_Instruction = new Text("font1", "space to start", "light-blue",
+				Rect(Game::s_Width / 2 - 75, Game::s_Height / 2 + 100 - 25, 150, 25), 0);
+
+			auto f = new auto ([=]() {
+				m_Instruction->ToggleVisible();
+			});
+
+			m_Blinker = new Timer(1000, true, *f);
+
 		}
 
 		void MainMenu::Update()
@@ -32,12 +41,13 @@ namespace thelastforest
 			if (n2dIsKeyDown(SDLK_SPACE))
 			{
 				n2dSceneChange("LevelOne");
+				m_Blinker->DestroySelf();
 			}
 		}
 
 		void MainMenu::End()
 		{
-
+			
 		}
 
 		void MainMenu::DestroySelf()

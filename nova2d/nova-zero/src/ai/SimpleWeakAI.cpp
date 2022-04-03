@@ -29,10 +29,10 @@ namespace novazero
 			m_PatrolIndex = m_LoopStartIndex;
 		}
 
-		void SimpleWeakAI::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
+		void SimpleWeakAI::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, bool makeCopy)
 		{
 			SetPosition(position);
-			Positional::LinkPositionalDrawable(new Sprite(assetName, position, size, layer));
+			Positional::LinkPositionalDrawable(new Sprite(assetName, position, size, layer, makeCopy));
 			m_DeleteName = assetName;
 		}
 

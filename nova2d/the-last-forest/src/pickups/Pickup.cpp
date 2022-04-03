@@ -33,7 +33,7 @@ namespace thelastforest
 			if (m_DelayTimer)
 			{
 				m_DelayDisplay->Update((m_DelayTimer->GetTimeLeft() / m_DelayTime) * 142, 
-					position.x - 35.5f, position.y + 78);
+					position.x - 38.5f, position.y + 78);
 			}
 		}
 

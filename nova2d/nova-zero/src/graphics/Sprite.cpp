@@ -4,6 +4,7 @@
 #include "../logging/Logging.h"
 #include "SDL_image.h"
 #include "../core/Game.h"
+#include "../graphics/Color.h"
 
 namespace novazero
 {
@@ -13,7 +14,8 @@ namespace novazero
 		using namespace utils;
 		using namespace logging;
 
-		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
+		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, 
+			unsigned char layer, bool makeCopy)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect()), Drawable(size)
 		{
 			SetPosition(position);
@@ -23,7 +25,16 @@ namespace novazero
 			m_Layer = layer;
 			
 			m_AssetName = assetName;
-			m_SpriteSheet = Game::s_AssetManager->GetTexture(assetName);
+	
+			if (makeCopy)
+			{
+				m_SpriteSheet = Game::s_AssetManager->GetTextureCopy(assetName);
+			}
+			else
+			{
+				m_SpriteSheet = Game::s_AssetManager->GetTexture(assetName);
+			}
+
 			m_FrameSize = size;
 
 			// Draw setup
@@ -193,6 +204,17 @@ namespace novazero
 		}
 
 		// ------------------------------------------
+
+		void Sprite::Tint(const std::string& colorName)
+		{
+			Color* c = n2dGetColor(colorName);
+			SDL_SetTextureColorMod(m_SpriteSheet, c->r, c->g, c->b);
+		}
+
+		void Sprite::ClearTint()
+		{
+			SDL_SetTextureColorMod(m_SpriteSheet, 255, 255, 255);
+		}
 
 		void Sprite::Update()
 		{

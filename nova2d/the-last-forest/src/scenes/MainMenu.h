@@ -1,6 +1,7 @@
 #pragma once
 #include "core/Scene.h"
 #include "graphics/Text.h"
+#include "core/Timer.h"
 
 namespace thelastforest
 {
@@ -14,6 +15,8 @@ namespace thelastforest
 		private:
 
 			Text* m_Title = nullptr;
+			Text* m_Instruction = nullptr;
+			Timer* m_Blinker = nullptr;
 
 		public:
 

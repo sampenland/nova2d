@@ -15,6 +15,10 @@ int main(int argc, char* argv[])
 
 	n2dAddColor("highlight", "ffffff", 50);
 
+	n2dAddColor("human-blue", "3da8eb", 50);
+	n2dAddColor("human-yellow", "e8eb3d", 50);
+	n2dAddColor("human-red", "eb3d3d", 50);
+
 	AllScenes::NewGame();
 
 	MainMenu* mainmenu = new MainMenu("MainMenu");

@@ -19,6 +19,7 @@ namespace thelastforest
 		private:
 
 			GridTypes m_Type = GridTypes::Free;
+			unsigned int m_GridPos = 0;
 
 			unsigned int m_HumanDelay = 0;
 			unsigned int m_HumanDelayMax = 0;

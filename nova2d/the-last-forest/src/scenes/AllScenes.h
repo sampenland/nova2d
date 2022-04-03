@@ -15,9 +15,13 @@ namespace thelastforest
 
 			static Placement* s_Placements[81];
 			static bool s_HumanOnColumn[8];
+			static bool s_TreeOnRow[8];
 
 			static bool HumanOnColumn(int col);
 			static void SetHumanOnColumn(int col, bool val);
+
+			static bool TreeOnRow(int row);
+			static void SetTreeOnRow(int row, bool val);
 
 			static void NewGame();
 

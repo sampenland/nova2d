@@ -42,6 +42,7 @@ namespace novazero
 			void SetDynamicWithCharMax(int max) { m_CharMax = max; m_Dynamic = true; }
 
 			void SetVisible(bool v) { m_Visible = v; }
+			void ToggleVisible() { m_Visible = !m_Visible; }
 			void SetColor(const std::string& colorName);
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;

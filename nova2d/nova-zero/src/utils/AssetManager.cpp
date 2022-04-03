@@ -1,6 +1,7 @@
 #include "AssetManager.h"
 #include "../logging/logging.h"
 #include "../utils/TextureLoader.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -32,6 +33,43 @@ namespace novazero
 			try
 			{
 				return m_Textures.at(name);
+			}
+			catch (const std::out_of_range& oor)
+			{
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find texture: " + name);
+				LOG(LVL_NON_FATAL_ERROR, oor.what());
+				return nullptr;
+			}
+		}
+
+		SDL_Texture* AssetManager::GetTextureCopy(const std::string& name)
+		{
+			
+			try
+			{
+				SDL_Point size;
+				SDL_QueryTexture(m_Textures.at(name), NULL, NULL, &size.x, &size.y);
+								
+				SDL_Texture* copy = SDL_CreateTexture(Game::s_Renderer->GetSDLRenderer(),
+					SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, size.x, size.y);
+
+				SDL_SetTextureBlendMode(copy, SDL_BLENDMODE_BLEND);
+				SDL_SetRenderTarget(Game::s_Renderer->GetSDLRenderer(), copy);
+
+				SDL_Rect tileDestRect;
+				tileDestRect.x = 0;
+				tileDestRect.y = 0;
+				tileDestRect.w = size.x;
+				tileDestRect.h = size.y;
+
+				SDL_RenderCopy(Game::s_Renderer->GetSDLRenderer(), m_Textures.at(name),
+					NULL, &tileDestRect);
+
+				// Reset renderer
+				SDL_SetRenderTarget(Game::s_Renderer->GetSDLRenderer(), NULL);
+
+				return copy;
+				
 			}
 			catch (const std::out_of_range& oor)
 			{

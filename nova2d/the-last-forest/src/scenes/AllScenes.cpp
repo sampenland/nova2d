@@ -8,6 +8,7 @@ namespace thelastforest
 
 		Placement* AllScenes::s_Placements[81];
 		bool AllScenes::s_HumanOnColumn[8];
+		bool AllScenes::s_TreeOnRow[8];
 
 		void AllScenes::NewGame()
 		{
@@ -27,6 +28,16 @@ namespace thelastforest
 		void AllScenes::SetHumanOnColumn(int col, bool val)
 		{
 			s_HumanOnColumn[col] = val;
+		}
+
+		bool AllScenes::TreeOnRow(int row)
+		{
+			return s_TreeOnRow[row];
+		}
+
+		void AllScenes::SetTreeOnRow(int row, bool val)
+		{
+			s_TreeOnRow[row] = val;
 		}
 
 		void AllScenes::SetPlacementAt(Placement* placement, unsigned int gridPosition)

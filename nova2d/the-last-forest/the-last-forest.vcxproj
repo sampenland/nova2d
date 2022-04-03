@@ -91,6 +91,7 @@
     <ClCompile Include="src\actors\Human.cpp" />
     <ClCompile Include="src\actors\Player.cpp" />
     <ClCompile Include="src\controllers\HumanController.cpp" />
+    <ClCompile Include="src\controllers\TreeController.cpp" />
     <ClCompile Include="src\pickups\Pickup.cpp" />
     <ClCompile Include="src\pickups\Tree.cpp" />
     <ClCompile Include="src\pickups\Water.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="src\actors\Player.h" />
     <ClInclude Include="src\actors\Human.h" />
     <ClInclude Include="src\controllers\HumanController.h" />
+    <ClInclude Include="src\controllers\TreeController.h" />
     <ClInclude Include="src\GameDesigner.h" />
     <ClInclude Include="src\pickups\Pickup.h" />
     <ClInclude Include="src\pickups\Tree.h" />

@@ -16,6 +16,7 @@ namespace thelastforest
 			m_HumanDelayMax = humanDelay;
 
 			m_Type = type;
+			m_GridPos = gridPos;
 
 			float ox = 0.f;
 			float oy = 0.f;
@@ -47,7 +48,7 @@ namespace thelastforest
 			position.x += 35.5f + ox;
 			position.y += 4.f + oy;
 
-			AddSprite(assetName, Vec2(position.x + 35.5f, position.y), size, layer);
+			AddSprite(assetName, Vec2(position.x, position.y + 4), size, layer);
 			ConfigureCollider(GetSprite(), 0, "tree");
 
 			m_SunDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y,
@@ -149,6 +150,8 @@ namespace thelastforest
 
 		void Placement::DestroySelf()
 		{
+			m_Type = GridTypes::Free;
+
 			if (m_SunDisplay)
 				m_SunDisplay->DestroySelf();
 

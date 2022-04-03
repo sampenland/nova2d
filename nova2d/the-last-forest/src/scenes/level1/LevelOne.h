@@ -4,6 +4,7 @@
 #include "../../actors/Player.h"
 #include "../AllScenes.h"
 #include "../../controllers/HumanController.h"
+#include "../../controllers/TreeController.h"
 
 namespace thelastforest
 {
@@ -22,6 +23,7 @@ namespace thelastforest
 
 			TileMap* m_Background = nullptr;
 			HumanController* m_HumanController = nullptr;
+			TreeController* m_TreeController = nullptr;
 			Player* m_Player = nullptr;
 
 		public:
@@ -31,6 +33,10 @@ namespace thelastforest
 			void CreateWorld();
 			void SetupLevel();
 			void StartLevel();
+
+			void SetupHumans();
+			void SetupTrees();
+			void SetupResources();
 
 			void Start() override;
 			void Update() override;
