@@ -47,6 +47,8 @@ namespace thelastforest
 			void SetVisibleStats(bool sun, bool water, bool delay);
 			void SetEnableStats(bool sun, bool water);
 
+			void AddResource(bool trueSunFalseWater, float val);
+
 			void Update();
 
 			bool UseDelay(int delay);

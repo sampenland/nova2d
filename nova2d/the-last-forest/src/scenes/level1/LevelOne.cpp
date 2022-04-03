@@ -44,6 +44,7 @@ namespace thelastforest
 		{
 			SetupHumans();
 			SetupTrees();
+			SetupResources();
 		}
 
 		void LevelOne::SetupHumans()
@@ -80,7 +81,12 @@ namespace thelastforest
 			{
 				// Create a list of events, creating the level
 
-				float intervalTime = n2dRandomFloat(g_MinTreeTime, g_MaxTreeTime);
+				float intervalTime = 1.f;
+
+				if (i > 2)
+				{
+					intervalTime = n2dRandomFloat(g_MinTreeTime, g_MaxTreeTime);
+				}
 
 				TimelineExecuteEvent* tEvent = new TimelineExecuteEvent(
 					m_TreeController, nullptr, intervalTime);
@@ -94,11 +100,36 @@ namespace thelastforest
 			}
 		}
 
+		void LevelOne::SetupResources()
+		{
+			m_ResourceController = new ResourceController();
+
+			TimelineExecuteEvent* execEvents = new TimelineExecuteEvent[g_LevelOneHumans];
+
+			for (int i = 0; i < g_LevelOneResources; i++)
+			{
+				// Create a list of events, creating the level
+
+				float intervalTime = n2dRandomFloat(g_MinResourceTime, g_MaxResourceTime);
+
+				TimelineExecuteEvent* tEvent = new TimelineExecuteEvent(
+					m_TreeController, nullptr, intervalTime);
+
+				std::function<void(int)> createFunc = n2dMakeFuncArgs1(ResourceController::CreateResource,
+					m_ResourceController);
+
+				tEvent->SetFunction(createFunc, i);
+
+				n2dAddTimeline("resources", tEvent);
+			}
+		}
+
 		void LevelOne::StartLevel()
 		{
 			// Start level
 			n2dStartTimeline("humans");
 			n2dStartTimeline("trees");
+			n2dStartTimeline("resources");
 		}
 
 		void LevelOne::Start()
@@ -110,7 +141,11 @@ namespace thelastforest
 
 		void LevelOne::Update()
 		{
-
+			if (n2dIsKeyDown(SDLK_ESCAPE))
+			{
+				n2dSceneChange("MainMenu");
+				return;
+			}
 		}
 
 		void LevelOne::End()

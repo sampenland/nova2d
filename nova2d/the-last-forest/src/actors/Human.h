@@ -41,6 +41,7 @@ namespace thelastforest
 			void HandleStepTo(unsigned int gridPos, GridTypes type);
 
 			void PowerUp();
+			void Die();
 
 			void DestroySelf();
  

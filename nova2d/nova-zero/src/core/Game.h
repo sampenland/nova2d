@@ -163,7 +163,7 @@ namespace novazero
 
 			static bool CoinFlip()
 			{
-				auto r = n2dRandomFloat(1, 10);
+				int r = n2dRandomInt(1, 10);
 				return r > 5;
 			}
 

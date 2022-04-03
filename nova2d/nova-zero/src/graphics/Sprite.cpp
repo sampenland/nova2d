@@ -131,6 +131,18 @@ namespace novazero
 						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames");
 					}
 				}
+				else
+				{
+					if (m_Animations[animName].StartFrame <= m_Animations[animName].EndFrame)
+					{
+						m_Animations[animName].CurrentFrame = m_Animations[animName].StartFrame + frameOffset;
+						m_Animations[animName].CurrentFrameTime = m_Animations[animName].TimeBetweenFramesMS;
+					}
+					else
+					{
+						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames");
+					}
+				}
 			}
 		}
 
@@ -152,7 +164,7 @@ namespace novazero
 		void Sprite::JumpToFrame(unsigned short frame)
 		{
 			unsigned short animationFrame = m_Animations[m_CurrentAnimation].StartFrame + frame;
-			if (animationFrame < m_Animations[m_CurrentAnimation].EndFrame)
+			if (animationFrame <= m_Animations[m_CurrentAnimation].EndFrame)
 			{
 				m_Animations[m_CurrentAnimation].CurrentFrame = animationFrame;
 				m_Animations[m_CurrentAnimation].CurrentFrameTime = m_Animations[m_CurrentAnimation].TimeBetweenFramesMS;

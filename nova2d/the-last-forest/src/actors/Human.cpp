@@ -19,6 +19,7 @@ namespace thelastforest
 			GetSprite()->AddAnimation("walk", 0, 2, 8, true, nullptr);
 			GetSprite()->AddAnimation("chop", 2, 2, 5, true, nullptr);
 			GetSprite()->AddAnimation("powerup", 4, 2, 2, true, nullptr);
+			GetSprite()->AddAnimation("dead", 6, 1, 5, false, nullptr);
 
 			GetSprite()->ChangeAnimation("walk");
 			GetSprite()->StartAnimation();
@@ -40,7 +41,7 @@ namespace thelastforest
 
 		void Human::ThinkNextMove()
 		{
-			if (m_Waiting) return;
+			if (m_Waiting || !IsEnabled()) return;
 
 			ClearPatrol();
 			
@@ -115,7 +116,7 @@ namespace thelastforest
 			case 3:
 				GetSprite()->Tint("human-blue");
 				break;
-			default:
+			case 4:
 				GetSprite()->Tint("human-red");
 				break;
 			}
@@ -133,8 +134,26 @@ namespace thelastforest
 			m_StepDown = true;
 		}
 
+		void Human::Die()
+		{
+			if (GetSprite())
+			{
+				GetSprite()->StopAnimation();
+				GetSprite()->ChangeAnimation("dead");
+				SetEnabled(false);
+
+				Timer* t = new Timer(5000, false, n2dMakeFunc(Human::DestroySelf, this));
+			}
+		}
+
 		void Human::HandleStepTo(unsigned int gridPos, GridTypes type)
 		{
+			if (m_MaxAttacks >= 2)
+			{
+				Die();
+				return;
+			}
+
 			if (m_Attacks <= 0)
 			{
 				m_StepDown = false;

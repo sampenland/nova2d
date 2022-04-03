@@ -9,6 +9,7 @@ namespace thelastforest
 		Placement* AllScenes::s_Placements[81];
 		bool AllScenes::s_HumanOnColumn[8];
 		bool AllScenes::s_TreeOnRow[8];
+		bool AllScenes::s_ResourceOnRow[8];
 
 		void AllScenes::NewGame()
 		{
@@ -40,12 +41,19 @@ namespace thelastforest
 			s_TreeOnRow[row] = val;
 		}
 
+		bool AllScenes::ResourceOnRow(int row)
+		{
+			return s_ResourceOnRow[row];
+		}
+
+		void AllScenes::SetResourceOnRow(int row, bool val)
+		{
+			s_ResourceOnRow[row] = val;
+		}
+
 		void AllScenes::SetPlacementAt(Placement* placement, unsigned int gridPosition)
 		{
 			if (gridPosition < 0 || gridPosition > 80) return;
-			if (s_Placements[gridPosition])
-				s_Placements[gridPosition]->DestroySelf();
-
 			s_Placements[gridPosition] = placement;
 		}
 

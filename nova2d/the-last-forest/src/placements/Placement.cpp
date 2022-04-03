@@ -1,5 +1,6 @@
 #include "Placement.h"
 #include "../scenes/AllScenes.h"
+#include "../GameDesigner.h"
 
 namespace thelastforest
 {
@@ -29,7 +30,7 @@ namespace thelastforest
 				break;
 			case GridTypes::PTree:
 				assetName = "trees";
-				ox = -71.f;
+				ox = -35.5f;
 				break;
 			case GridTypes::DeadPTree:
 				break;
@@ -71,6 +72,20 @@ namespace thelastforest
 			auto cleanID = n2dAddUpdater(Placement::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 
+		}
+
+		void Placement::AddResource(bool trueSunFalseWater, float val)
+		{
+			if (trueSunFalseWater)
+			{
+				m_Sunlight += val;
+				if (m_Sunlight > 100.f) m_Sunlight = 100.f;
+			}
+			else
+			{
+				m_Water += val;
+				if (m_Water > 100.f) m_Water = 100.f;
+			}
 		}
 
 		void Placement::SetVisibleStats(bool sun, bool water, bool delay)
@@ -123,10 +138,10 @@ namespace thelastforest
 			}
 
 			if(m_UseSun)
-				m_Sunlight -= n2dDeltaTime / 30;
+				m_Sunlight -= n2dDeltaTime / g_SunDrainTime;
 			
 			if(m_UseWater)
-				m_Water -= n2dDeltaTime / 10;
+				m_Water -= n2dDeltaTime / g_WaterDrainTime;
 
 			SimpleWeakAI::Update();
 

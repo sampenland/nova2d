@@ -19,7 +19,15 @@ int main(int argc, char* argv[])
 	n2dAddColor("human-yellow", "e8eb3d", 50);
 	n2dAddColor("human-red", "eb3d3d", 50);
 
-	AllScenes::NewGame();
+	n2dAssetsLoadAndAddTexture("grass", "res/grassTile.png");
+	n2dAssetsLoadAndAddTexture("trees", "res/treesTile.png");
+	n2dAssetsLoadAndAddTexture("tree", "res/treeTile.png");
+	n2dAssetsLoadAndAddTexture("sun", "res/sun.png");
+	n2dAssetsLoadAndAddTexture("player", "res/player.png");
+	n2dAssetsLoadAndAddTexture("human", "res/human.png");
+	n2dAssetsLoadAndAddTexture("water", "res/water.png");
+	n2dAssetsLoadAndAddTexture("highlight", "res/highlightTile.png");
+	n2dAssetsLoadAndAddTexture("deadtrees", "res/deadTrees.png");
 
 	MainMenu* mainmenu = new MainMenu("MainMenu");
 	LevelOne* level1 = new LevelOne("LevelOne");

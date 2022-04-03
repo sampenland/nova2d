@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "../scenes/AllScenes.h"
 #include "../placements/Placement.h"
+#include "../GameDesigner.h"
 
 namespace thelastforest
 {
@@ -97,6 +98,9 @@ namespace thelastforest
 				case GridTypes::Water:
 					m_HoldingItem->SwapTexture("water");
 					break;
+				case GridTypes::Sun:
+					m_HoldingItem->SwapTexture("sun");
+					break;
 				case GridTypes::Tree:
 					m_HoldingItem->SwapTexture("tree");
 					break;
@@ -116,18 +120,44 @@ namespace thelastforest
 			{
 				if (n2dIsKeyDown(SDLK_SPACE))
 				{
+					Placement* placement = nullptr;
+
 					switch (s_HoldingItem)
 					{
 					case GridTypes::Tree:
 
 						if (AllScenes::GetGridPositionType(s_HighlightedGridPos) == GridTypes::Free)
 						{
-							Placement* placement = new Placement(GridTypes::Tree,
+							placement = new Placement(GridTypes::Tree,
 								2, s_HighlightedGridPos, Vec2Int(71, 70), 2);
 
 							AllScenes::SetPlacementAt(placement, s_HighlightedGridPos);
 							s_HoldingItem = GridTypes::Free;
 						}
+
+						break;
+
+					case GridTypes::Sun:
+
+						placement = AllScenes::GetPlacementAt(s_HighlightedGridPos);
+						if (placement)
+						{
+							placement->AddResource(true, g_AddSunLightVal);
+						}
+
+						s_HoldingItem = GridTypes::Free;
+
+						break;
+
+					case GridTypes::Water:
+						
+						placement = AllScenes::GetPlacementAt(s_HighlightedGridPos);
+						if (placement)
+						{
+							placement->AddResource(false, g_AddWaterVal);
+						}
+
+						s_HoldingItem = GridTypes::Free;
 
 						break;
 					}

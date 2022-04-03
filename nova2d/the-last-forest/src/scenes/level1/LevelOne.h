@@ -5,6 +5,7 @@
 #include "../AllScenes.h"
 #include "../../controllers/HumanController.h"
 #include "../../controllers/TreeController.h"
+#include "../../controllers/ResourceController.h"
 
 namespace thelastforest
 {
@@ -24,6 +25,7 @@ namespace thelastforest
 			TileMap* m_Background = nullptr;
 			HumanController* m_HumanController = nullptr;
 			TreeController* m_TreeController = nullptr;
+			ResourceController* m_ResourceController = nullptr;
 			Player* m_Player = nullptr;
 
 		public:

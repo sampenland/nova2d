@@ -1,4 +1,4 @@
-#include "Water.h"
+#include "Sun.h"
 #include "../actors/Player.h"
 #include "../scenes/AllScenes.h"
 
@@ -9,12 +9,12 @@ namespace thelastforest
 		using namespace actors;
 		using namespace scenes;
 
-		Water::Water(int row)
+		Sun::Sun(int row)
 			: Pickup(5000.f), m_Row(row)
 		{
 			float x = 35.5f;
 			float y = 4 + (row * 88);
-			AddSprite("water", Vec2(-142, y), Vec2Int(71, 70), 0);
+			AddSprite("sun", Vec2(-142, y), Vec2Int(71, 70), 0);
 
 			m_GridPos = AllScenes::GetTileFromPosition(
 				Vec2(GetX() + 142 + 35.5f, GetY()), 142, 88, 9, 9);
@@ -25,23 +25,23 @@ namespace thelastforest
 			AddPatrolPointWithFunction(Vec2(x, y), GetLinearPatrolMove());
 			EnableAI(true);
 
-			ConfigureOnPatrolComplete(n2dMakeFunc(Water::StartWait, this));
+			ConfigureOnPatrolComplete(n2dMakeFunc(Sun::StartWait, this));
 
-			auto cleanID = n2dAddUpdater(Water::Update, this);
+			auto cleanID = n2dAddUpdater(Sun::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 
 		}
 
-		void Water::StartWait()
+		void Sun::StartWait()
 		{
 			Pickup::SetVisible(true);
 
 			ClearPatrol();
 			EnableAI(false);
-			m_DelayTimer = new Timer(m_DelayTime, false, n2dMakeFunc(Water::DestroySelf, this));
+			m_DelayTimer = new Timer(m_DelayTime, false, n2dMakeFunc(Sun::DestroySelf, this));
 		}
 
-		void Water::Update()
+		void Sun::Update()
 		{
 			Pickup::Update(GetPosition());
 
@@ -51,14 +51,14 @@ namespace thelastforest
 				{
 					if (Player::s_HighlightedGridPos == m_GridPos)
 					{
-						Player::PickupItem(GridTypes::Water);
+						Player::PickupItem(GridTypes::Sun);
 						DestroySelf();
 					}
 				}
 			}
 		}
 
-		void Water::DestroySelf()
+		void Sun::DestroySelf()
 		{
 			CleanUpdaters();
 
