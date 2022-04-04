@@ -224,7 +224,7 @@ namespace novazero
 				// LAYER DRAW
 				for (size_t i = 0; i < data.size(); i++)
 				{
-					int tileID = std::stoi(data.at(i));
+					unsigned int tileID = std::stoi(data.at(i));
 
 					unsigned int tileGID = tileID;
 					if (m_Tileset->m_FirstGID <= tileID)

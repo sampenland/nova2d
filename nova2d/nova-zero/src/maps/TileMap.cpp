@@ -51,9 +51,9 @@ namespace novazero
 			const int xPadding = 1;
 			const int yPadding = 4;
 
-			for (int row = 0; row < m_TileRows; row++)
+			for (unsigned int row = 0; row < m_TileRows; row++)
 			{
-				for (int col = 0; col < m_TileColumns; col++)
+				for (unsigned int col = 0; col < m_TileColumns; col++)
 				{
 					tileDestRect.x = xPadding + (col * tileSize.x);
 					tileDestRect.y = yPadding + (row * tileSize.y);
@@ -76,8 +76,8 @@ namespace novazero
 
 			if (m_BackgroundTexture)
 			{
-				m_BackgroundRect.x = oX;
-				m_BackgroundRect.y = oY;
+				m_BackgroundRect.x = (int)oX;
+				m_BackgroundRect.y = (int)oY;
 
 				int w = m_BackgroundRect.w;
 				int h = m_BackgroundRect.h;

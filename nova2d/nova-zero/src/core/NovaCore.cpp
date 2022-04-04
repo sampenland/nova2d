@@ -385,9 +385,47 @@ namespace novazero
 			Game::s_Renderer->SetDrawColor(colorName.c_str());
 		}
 
+		Music* n2dLoadAndAddMusic(const std::string& assetName, const std::string& assetPath)
+		{
+			return Game::s_AudioManager->LoadAndAddMusic(assetName, assetPath);
+		}
+
+		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath)
+		{
+			return Game::s_AudioManager->LoadAndAddSoundEffect(assetName, assetPath);
+		}
+
+		void n2dAudioPlayOnce(bool isMusic, const std::string& assetName)
+		{
+			Game::s_AudioManager->PlayOnce(isMusic, assetName);
+		}
+
+		void n2dAudioLoop(bool isMusic, const std::string& assetName, bool restart)
+		{
+			if (restart)
+			{
+				Game::s_AudioManager->Restart(isMusic, assetName, true);
+			}
+			else
+			{
+				Game::s_AudioManager->Loop(isMusic, assetName);
+			}
+		}
+
+		void n2dAudioStop(bool isMusic, const std::string& assetName)
+		{
+			Game::s_AudioManager->Stop(isMusic, assetName);
+		}
+
+		void n2dAudioRestart(bool isMusic, const std::string& assetName)
+		{
+			Game::s_AudioManager->Restart(isMusic, assetName);
+		}
+
 		b2World* n2dCurrentPhyWorld()
 		{
 			return Game::s_SceneManager->GetCurrentWorld();
 		}
+
 	}
 }

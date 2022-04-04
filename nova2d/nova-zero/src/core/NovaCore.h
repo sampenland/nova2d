@@ -1,7 +1,7 @@
 #pragma once
 
 // nova2d Version	
-#define NOVA_VERSION "0.0.06"
+#define NOVA_VERSION "0.0.07"
 
 // ------------------------------
 // RAW VARIABLES
@@ -244,6 +244,7 @@ Updaters are called each frame; this removes a current updater function from upd
 #include "../maps/TiledMap.h"
 #include "../core/Scene.h"
 #include "../graphics/Color.h"
+#include "../audio/Audio.h"
 
 #include <string>
 #include <cmath>
@@ -256,6 +257,7 @@ namespace novazero
 		using namespace novazero::utils::timeline;
 		using namespace novazero::maps;
 		using namespace novazero::graphics;
+		using namespace novazero::audio;
 
 		// ----------------------------------------------------------------------------
 
@@ -730,9 +732,16 @@ namespace novazero
 		b2World* n2dCurrentPhyWorld();
 
 		//----------------------------------------------------------------------------
-		// 
+		// Audio
 		//----------------------------------------------------------------------------
-	
+		Music* n2dLoadAndAddMusic(const std::string& assetName, const std::string& assetPath);
+		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath);
+
+		void n2dAudioPlayOnce(bool isMusic, const std::string& assetName);
+		void n2dAudioLoop(bool isMusic, const std::string& assetName, bool restart = true);
+		void n2dAudioStop(bool isMusic, const std::string& assetName);
+		void n2dAudioRestart(bool isMusic, const std::string& assetName);
+
 	}
 
 }
