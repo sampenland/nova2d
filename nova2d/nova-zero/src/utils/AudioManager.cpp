@@ -10,10 +10,10 @@ namespace novazero
 		using namespace logging;
 		using namespace core;
 
-		AudioManager::AudioManager()
+		AudioManager::AudioManager(unsigned int maxChannels)
 		{
-			// load support for the OGG and MOD sample/music formats
-			int flags = MIX_INIT_MP3 | MIX_INIT_OGG;
+			// Support only OGG files
+			int flags = MIX_INIT_OGG | MIX_INIT_MP3 | MIX_INIT_MID;
 			int initted = Mix_Init(flags);
 			if ((initted & flags) != flags) {
 
@@ -21,13 +21,7 @@ namespace novazero
 				LOG(LVL_FATAL_ERROR, "Audio engine failed to start. Error: " + err);
 				return;
 			}
-			else
-			{
-				LOG(LVL_CONFIRMATION, "Audio engine started.");
-			}
 
-			// open 44.1KHz, signed 16bit, system byte order,
-			//      stereo audio, using 1024 byte chunks
 			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) 
 			{
 				std::string err = Mix_GetError();
@@ -35,12 +29,25 @@ namespace novazero
 				return;
 			}
 
+			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: ogg, mp3, midi");
+			Mix_AllocateChannels((int)maxChannels);
 			m_Started = true;
 
 		}
 
 		Music* AudioManager::LoadAndAddMusic(const std::string& assetName, const std::string& assetPath)
 		{
+			if (
+				assetPath.find(".wav") == std::string::npos &&
+				assetPath.find(".ogg") == std::string::npos &&
+				assetPath.find(".mp3") == std::string::npos &&
+				assetPath.find(".midi") == std::string::npos
+				)
+			{
+				LOG(LVL_NFE, assetPath + " <- incorect file type. Supported: wav, ogg, mp3, midi");
+				return nullptr;
+			}
+
 			Music* m = new Music(assetName, assetPath);
 
 			if (!m->IsValid())
@@ -57,6 +64,15 @@ namespace novazero
 
 		SoundEffect* AudioManager::LoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath)
 		{
+			if (
+				assetPath.find(".wav") == std::string::npos &&
+				assetPath.find(".ogg") == std::string::npos
+				)
+			{
+				LOG(LVL_NFE, assetPath + " <- incorect file type. Supported: wav, ogg");
+				return nullptr;
+			}
+
 			SoundEffect* se = new SoundEffect(assetName, assetPath);
 
 			if (!se->IsValid())
@@ -138,20 +154,6 @@ namespace novazero
 			else
 			{
 				m_SoundEffects[assetName]->Stop();
-			}
-		}
-
-		void AudioManager::Restart(bool isMusic, const std::string& assetName, bool loop)
-		{
-			if (!AudioExists(isMusic, assetName)) return;
-
-			if (isMusic)
-			{
-				m_Musics[assetName]->Restart();
-			}
-			else
-			{
-				m_SoundEffects[assetName]->Restart();
 			}
 		}
 

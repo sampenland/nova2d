@@ -69,6 +69,8 @@ namespace thelastforest
 
 		void LevelOne::Start()
 		{
+			n2dAudioLoop(true, "music");
+
 			CreateWorld();
 			SetupLevel();
 		}

@@ -144,4 +144,10 @@
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\audio\novaStart.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\audio\roundAndRound.mp3" />
+  </ItemGroup>
 </Project>

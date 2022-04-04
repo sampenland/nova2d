@@ -734,13 +734,19 @@ namespace novazero
 		//----------------------------------------------------------------------------
 		// Audio
 		//----------------------------------------------------------------------------
+		/*
+		Load music files (WAV, MP3, OGG, MIDI)
+		*/
 		Music* n2dLoadAndAddMusic(const std::string& assetName, const std::string& assetPath);
+
+		/*
+		Load sound effect files (WAV, OGG)
+		*/
 		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath);
 
 		void n2dAudioPlayOnce(bool isMusic, const std::string& assetName);
-		void n2dAudioLoop(bool isMusic, const std::string& assetName, bool restart = true);
+		void n2dAudioLoop(bool isMusic, const std::string& assetName);
 		void n2dAudioStop(bool isMusic, const std::string& assetName);
-		void n2dAudioRestart(bool isMusic, const std::string& assetName);
 
 	}
 

@@ -15,6 +15,7 @@ namespace thelastforest
 		void MainMenu::Start()
 		{
 			AllScenes::NewGame();
+			n2dAudioPlayOnce(false, "start");
 
 			m_Title = new Text("font3", "The Last Forest stands strong but cannot survive........ us.", "white",
 				Rect(0, 0, 800, 100), 0);

@@ -29,6 +29,9 @@ int main(int argc, char* argv[])
 	n2dAssetsLoadAndAddTexture("highlight", "res/highlightTile.png");
 	n2dAssetsLoadAndAddTexture("deadtrees", "res/deadTrees.png");
 
+	n2dLoadAndAddMusic("music", "res/audio/roundAndRound.mp3");
+	n2dLoadAndAddSoundEffect("start", "res/audio/novaStart.wav");
+
 	MainMenu* mainmenu = new MainMenu("MainMenu");
 	LevelOne* level1 = new LevelOne("LevelOne");
 

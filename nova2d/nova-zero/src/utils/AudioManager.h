@@ -22,7 +22,7 @@ namespace novazero
 
 		public:
 
-			AudioManager();
+			AudioManager(unsigned int maxChannels = 20);
 
 			Music* LoadAndAddMusic(const std::string& assetName, const std::string& assetPath);
 			SoundEffect* LoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath);

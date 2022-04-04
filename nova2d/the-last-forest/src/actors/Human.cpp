@@ -111,14 +111,23 @@ namespace thelastforest
 
 		void Human::PowerUp()
 		{
-			m_MaxAttacks++;
-			m_Attacks = m_MaxAttacks;
-
 			if (!GetSprite())
 			{
 				LOG(LVL_NFE, "No Sprite on human, power up.");
 				return;
 			}
+
+			if (m_MaxAttacks >= 4)
+			{
+				m_StepDown = true;
+				GetSprite()->ChangeAnimation("walk");
+				return;
+			}
+
+			m_MaxAttacks++;
+			m_Attacks = m_MaxAttacks;
+
+			
 
 			switch (m_MaxAttacks)
 			{

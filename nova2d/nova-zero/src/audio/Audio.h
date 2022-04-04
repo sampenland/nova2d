@@ -9,6 +9,10 @@ namespace novazero
 		class Audio
 		{
 
+		private:
+
+			int m_Volumn = 100;
+
 		public:
 
 			Audio() { };
@@ -16,7 +20,16 @@ namespace novazero
 			virtual void PlayOnce() = 0;
 			virtual void Loop() = 0;
 			virtual void Stop() = 0;
-			virtual void Restart() = 0;
+
+			void SetVolume(int volume)
+			{
+				m_Volumn = volume;
+			}
+
+			int GetVolume() const
+			{
+				return m_Volumn;
+			}
 
 			virtual bool IsValid() = 0;
 
@@ -45,7 +58,6 @@ namespace novazero
 			void PlayOnce() override;
 			void Loop() override;
 			void Stop() override;
-			void Restart() override;
 
 			bool IsValid() override;
 
@@ -61,6 +73,7 @@ namespace novazero
 		private:
 
 			Mix_Chunk* m_SoundEffect = NULL;
+			int m_Channel = -1;
 
 		public:
 
@@ -69,11 +82,16 @@ namespace novazero
 			void PlayOnce() override;
 			void Loop() override;
 			void Stop() override;
-			void Restart() override;
+			void Resume();
+			void Pause();
 
 			bool IsValid() override;
 
 			void DestroySelf() override;
+
+		public:
+
+			static void StopAllSoundEffects();
 
 		};
 	}

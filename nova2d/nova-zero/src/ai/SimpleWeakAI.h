@@ -59,7 +59,7 @@ namespace novazero
 
 			void Configure(int patrolDelayMS, bool loop) 
 			{ 
-				m_DelayMaxMS = (int)(patrolDelayMS / 1000);
+				m_DelayMaxMS = (float)(patrolDelayMS / 1000);
 				m_DelayMS = m_DelayMaxMS;
 				m_LoopMoving = true;
 				m_UsingPatrolSpeedOverride = false;

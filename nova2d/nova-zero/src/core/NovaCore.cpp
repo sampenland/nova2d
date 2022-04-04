@@ -400,26 +400,14 @@ namespace novazero
 			Game::s_AudioManager->PlayOnce(isMusic, assetName);
 		}
 
-		void n2dAudioLoop(bool isMusic, const std::string& assetName, bool restart)
+		void n2dAudioLoop(bool isMusic, const std::string& assetName)
 		{
-			if (restart)
-			{
-				Game::s_AudioManager->Restart(isMusic, assetName, true);
-			}
-			else
-			{
-				Game::s_AudioManager->Loop(isMusic, assetName);
-			}
+			Game::s_AudioManager->Loop(isMusic, assetName);
 		}
 
 		void n2dAudioStop(bool isMusic, const std::string& assetName)
 		{
 			Game::s_AudioManager->Stop(isMusic, assetName);
-		}
-
-		void n2dAudioRestart(bool isMusic, const std::string& assetName)
-		{
-			Game::s_AudioManager->Restart(isMusic, assetName);
 		}
 
 		b2World* n2dCurrentPhyWorld()
