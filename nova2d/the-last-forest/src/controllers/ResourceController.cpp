@@ -12,7 +12,7 @@ namespace thelastforest
 		{
 		}
 
-		void ResourceController::CreateResource(int count)
+		void ResourceController::CreateResource()
 		{
 
 			int row = n2dRandomInt(1, 7);
@@ -45,12 +45,10 @@ namespace thelastforest
 			if (isSun)
 			{
 				Sun* sun = new Sun(row);
-				m_Suns.push_back(sun);
 			}
 			else
 			{
 				Water* water = new Water(row);
-				m_Waters.push_back(water);
 			}
 		}
 	}

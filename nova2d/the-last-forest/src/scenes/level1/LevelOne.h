@@ -23,10 +23,13 @@ namespace thelastforest
 		private:
 
 			TileMap* m_Background = nullptr;
-			HumanController* m_HumanController = nullptr;
-			TreeController* m_TreeController = nullptr;
 			ResourceController* m_ResourceController = nullptr;
 			Player* m_Player = nullptr;
+
+		public:
+
+			HumanController* m_HumanController = nullptr;
+			TreeController* m_TreeController = nullptr;
 
 		public:
 
@@ -34,7 +37,7 @@ namespace thelastforest
 
 			void CreateWorld();
 			void SetupLevel();
-			void StartLevel();
+			void CheckGameOver();
 
 			void SetupHumans();
 			void SetupTrees();

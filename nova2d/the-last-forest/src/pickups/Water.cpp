@@ -60,6 +60,8 @@ namespace thelastforest
 
 		void Water::DestroySelf()
 		{
+			AllScenes::SetResourceOnRow(m_Row, false);
+
 			CleanUpdaters();
 
 			Pickup::DestroySelf();

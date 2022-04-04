@@ -16,13 +16,11 @@ namespace thelastforest
 
 		private:
 
-			std::vector<Tree*> m_Trees;
-
 		public:
 
 			TreeController();
 
-			void CreateTree(int count);
+			void CreateTree();
 		};
 	}
 }

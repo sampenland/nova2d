@@ -22,7 +22,7 @@ namespace thelastforest
 
 			HumanController();
 
-			void CreateHuman(int count);
+			void CreateHuman();
 		};
 	}
 }

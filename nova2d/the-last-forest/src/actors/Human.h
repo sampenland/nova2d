@@ -30,9 +30,11 @@ namespace thelastforest
 			unsigned int m_MaxAttacks = 1;
 			unsigned int m_Attacks = 1;
 
+			unsigned int m_Column = 0;
+
 		public:
 
-			Human(Vec2 position, Vec2Int size, unsigned char layer);
+			Human(Vec2 position, unsigned int column, Vec2Int size, unsigned char layer);
 
 			void ThinkNextMove();
 

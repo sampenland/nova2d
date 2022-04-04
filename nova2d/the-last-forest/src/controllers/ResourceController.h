@@ -17,14 +17,11 @@ namespace thelastforest
 
 		private:
 
-			std::vector<Sun*> m_Suns;
-			std::vector<Water*> m_Waters;
-
 		public:
 
 			ResourceController();
 
-			void CreateResource(int count);
+			void CreateResource();
 		};
 	}
 }

@@ -11,7 +11,7 @@ namespace thelastforest
 		{
 		}
 
-		void HumanController::CreateHuman(int count)
+		void HumanController::CreateHuman()
 		{
 
 			int col = n2dRandomInt(1, 7);
@@ -41,9 +41,7 @@ namespace thelastforest
 			float humanY = -80;
 
 			AllScenes::SetHumanOnColumn(col, true);
-			Human* human = new Human(Vec2(humanX, humanY), Vec2Int(71, 70), 0);
-
-			m_Humans.push_back(human);
+			Human* human = new Human(Vec2(humanX, humanY), col, Vec2Int(71, 70), 0);
 
 		}
 	}

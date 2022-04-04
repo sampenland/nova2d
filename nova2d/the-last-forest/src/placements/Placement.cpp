@@ -127,6 +127,8 @@ namespace thelastforest
 				if(GetSprite())
 					GetSprite()->SwapTexture("deadtrees");
 				
+				m_DelayDisplay->SetVisible(false);
+
 				return;
 			}
 

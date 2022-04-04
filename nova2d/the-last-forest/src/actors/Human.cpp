@@ -3,6 +3,7 @@
 #include "physics/Collider.h"
 #include "../scenes/AllScenes.h"
 #include "../GameDesigner.h"
+#include "utils/timeline/events/TimelineExecuteEvent.h"
 
 namespace thelastforest
 {
@@ -11,9 +12,12 @@ namespace thelastforest
 		using namespace novazero::physics;
 		using namespace scenes;
 		using namespace placements;
+		using namespace novazero::utils::events;
 
-		Human::Human(Vec2 position, Vec2Int size, unsigned char layer)
+		Human::Human(Vec2 position, unsigned int column, Vec2Int size, unsigned char layer)
 		{			
+			m_Column = column;
+
 			AddSprite("human", position, size, layer, true);
 
 			GetSprite()->AddAnimation("walk", 0, 2, 8, true, nullptr);
@@ -51,6 +55,8 @@ namespace thelastforest
 			int gridPosition = AllScenes::GetTileFromPosition(
 				Vec2(nX, nY), 142, 88, 9, 9);
 
+			GridTypes currentGridType = AllScenes::GetGridPositionType(gridPosition);
+
 			if (m_StepDown)
 				nY += m_Step;
 			else
@@ -71,7 +77,15 @@ namespace thelastforest
 					steppingTo = AllScenes::GetGridPositionFromStep(gridPosition, Facing::Up);
 				}
 
-				if (stepToType != GridTypes::Free && steppingTo >= 0)
+				if (!m_StepDown && currentGridType == GridTypes::Tree)
+				{
+					if (m_Attacks <= 0) 
+					{
+						Die();
+						return;
+					}
+				}
+				else if (stepToType != GridTypes::Free && steppingTo >= 0)
 				{
 					HandleStepTo(steppingTo, stepToType);
 					return;
@@ -148,7 +162,7 @@ namespace thelastforest
 
 		void Human::HandleStepTo(unsigned int gridPos, GridTypes type)
 		{
-			if (m_MaxAttacks >= 2)
+			if (m_MaxAttacks >= 1)
 			{
 				Die();
 				return;
@@ -157,6 +171,13 @@ namespace thelastforest
 			if (m_Attacks <= 0)
 			{
 				m_StepDown = false;
+
+				float nX = GetX();
+				float nY = GetY() - m_Step;
+
+				AddPatrolPointWithFunction(
+					Vec2(nX, nY), GetLinearPatrolMove());
+
 				return;
 			}
 
@@ -228,6 +249,7 @@ namespace thelastforest
 
 		void Human::DestroySelf()
 		{
+			AllScenes::SetHumanOnColumn(m_Column, false);
 			CleanUpdaters();
 			SimpleWeakAI::DestroySelf();
 		}

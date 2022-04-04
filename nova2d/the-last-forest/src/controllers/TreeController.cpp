@@ -13,7 +13,7 @@ namespace thelastforest
 		{
 		}
 
-		void TreeController::CreateTree(int count)
+		void TreeController::CreateTree()
 		{
 
 			int row = n2dRandomInt(1, 7);
@@ -41,8 +41,6 @@ namespace thelastforest
 
 			AllScenes::SetTreeOnRow(row, true);
 			Tree* tree = new Tree(row);
-
-			m_Trees.push_back(tree);
 
 		}
 	}
