@@ -124,6 +124,13 @@ namespace novazero
 			}
 		}
 
+		b2World* SceneManager::GetCurrentWorld() const
+		{
+			if(m_CurrentScene)
+				return m_CurrentScene->GetWorld();
+			return nullptr;
+		}
+
 		void SceneManager::Clean()
 		{
 			std::map<unsigned int, Deleteable*>::iterator it = s_Deleteables.begin();

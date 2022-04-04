@@ -384,5 +384,10 @@ namespace novazero
 		{
 			Game::s_Renderer->SetDrawColor(colorName.c_str());
 		}
+
+		b2World* n2dCurrentPhyWorld()
+		{
+			return Game::s_SceneManager->GetCurrentWorld();
+		}
 	}
 }

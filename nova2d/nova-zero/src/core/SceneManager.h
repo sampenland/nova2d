@@ -43,10 +43,7 @@ namespace novazero
 			SceneManager();
 
 			void ConfigureFirstScene(const std::string& sceneName);
-
-			void SetGravity(float x, float y);
-			Vec2 GetCurrentSceneGravity() const;
-			
+						
 			void AddScene(const std::string& sceneName, Scene* scene);
 			void RemoveScene(const std::string& sceneName);
 			Scene* GetScene(const std::string& sceneName);
@@ -57,6 +54,8 @@ namespace novazero
 			void ProcessPersistentUpdaters();
 			void CleanUpdaters();
 			void Clean();
+
+			b2World* GetCurrentWorld() const;
 
 			static void AddTimelineEvent(const std::string& timelineName, TimelineEvent* timelineEvent);
 			static void StartAndResetTimeline(const std::string& timelineName);

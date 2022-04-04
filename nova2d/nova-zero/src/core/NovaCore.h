@@ -719,7 +719,22 @@ namespace novazero
 		void n2dRenderDrawColor(const char* colorName);
 		void n2dRenderDrawColor(const std::string& colorName);
 
+		//----------------------------------------------------------------------------
+		// Physics
+		//----------------------------------------------------------------------------
+		
+		/*
+		Gets the current scene's physics world
+		RETURNS nullptr if non-exists
+		*/
+		b2World* n2dCurrentPhyWorld();
+
+		//----------------------------------------------------------------------------
+		// 
+		//----------------------------------------------------------------------------
+	
 	}
+
 }
 
 
