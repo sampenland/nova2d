@@ -1,5 +1,6 @@
 #include "HumanController.h"
 #include "../scenes/AllScenes.h"
+#include "../GameDesigner.h"
 
 namespace thelastforest
 {
@@ -13,6 +14,8 @@ namespace thelastforest
 
 		void HumanController::CreateHuman()
 		{
+			if (m_Humans >= g_LevelOneHumans) return;
+			m_Humans++;
 
 			int col = n2dRandomInt(1, 7);
 			std::vector<int> searched;
@@ -41,7 +44,7 @@ namespace thelastforest
 			float humanY = -80;
 
 			AllScenes::SetHumanOnColumn(col, true);
-			Human* human = new Human(Vec2(humanX, humanY), col, Vec2Int(71, 70), 0);
+			Human* human = new Human(Vec2(humanX, humanY), col, Vec2Int(71, 70), 1);
 
 		}
 	}

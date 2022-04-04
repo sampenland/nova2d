@@ -1,5 +1,6 @@
 #include "TreeController.h"
 #include "../scenes/AllScenes.h"
+#include "../GameDesigner.h"
 
 namespace thelastforest
 {
@@ -15,6 +16,8 @@ namespace thelastforest
 
 		void TreeController::CreateTree()
 		{
+			if (m_Trees >= g_LevelOneTrees) return;
+			m_Trees++;
 
 			int row = n2dRandomInt(1, 7);
 			std::vector<int> searched;

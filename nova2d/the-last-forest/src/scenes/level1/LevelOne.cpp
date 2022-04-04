@@ -28,7 +28,7 @@ namespace thelastforest
 				treesX = 1 + (142 * i);
 
 				int gridPos = 72 + i;
-				Placement* tree = new Placement(GridTypes::PTree, 4, gridPos, Vec2Int(142, 88), 10);
+				Placement* tree = new Placement(GridTypes::PTree, g_PTreeHealth, gridPos, Vec2Int(142, 88), 10);
 				tree->SetVisibleStats(false, false, true);
 				tree->SetEnableStats(false, false);
 				AllScenes::SetPlacementAt(tree, gridPos);
@@ -36,6 +36,10 @@ namespace thelastforest
 
 			m_Player = new Player("player", Vec2(Game::s_Width/2 - 71/2, Game::s_Height - 88*2), 
 				Vec2Int(71, 70), 0);
+
+			m_HumanController = new HumanController();
+			m_TreeController = new TreeController();
+			m_ResourceController = new ResourceController();
 		}
 
 		void LevelOne::SetupLevel()

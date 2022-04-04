@@ -17,6 +17,8 @@ namespace thelastforest
 
 		private:
 
+			unsigned int m_Resources = 0;
+
 		public:
 
 			ResourceController();

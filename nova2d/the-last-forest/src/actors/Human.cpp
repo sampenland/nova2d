@@ -162,7 +162,7 @@ namespace thelastforest
 
 		void Human::HandleStepTo(unsigned int gridPos, GridTypes type)
 		{
-			if (m_MaxAttacks >= 1)
+			if (m_MaxAttacks >= 4 && m_Attacks <= 0)
 			{
 				Die();
 				return;

@@ -16,6 +16,8 @@ namespace thelastforest
 
 		private:
 
+			unsigned int m_Trees = 0;
+
 		public:
 
 			TreeController();

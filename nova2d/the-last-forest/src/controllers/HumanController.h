@@ -16,7 +16,7 @@ namespace thelastforest
 
 		private:
 
-			std::vector<Human*> m_Humans;
+			unsigned int m_Humans = 0;
 
 		public:
 

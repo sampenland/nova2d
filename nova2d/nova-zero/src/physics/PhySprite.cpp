@@ -9,7 +9,7 @@ namespace novazero
 		using namespace core;
 
 		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
-			bool makeCopy = false)
+			bool makeCopy)
 			: Sprite(assetName, position, size, layer, makeCopy)
 		{
 
@@ -43,7 +43,7 @@ namespace novazero
 
 		}
 
-		void PhySprite::ConfigurePhysicsCircle(bool staticBody, Vec2 position, float radius, float density = 0.f)
+		void PhySprite::ConfigurePhysicsCircle(bool staticBody, Vec2 position, float radius, float density)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 

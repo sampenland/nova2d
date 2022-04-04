@@ -53,10 +53,10 @@ namespace thelastforest
 			ConfigureCollider(GetSprite(), 0, "tree");
 
 			m_SunDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y,
-				140, 10, "purple", "purple", "yellow", 12);
+				140, 10, "purple", "purple", "yellow", 0);
 
 			m_WaterDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y + 78,
-				140, 10, "purple", "purple", "dark-blue", 12);
+				140, 10, "purple", "purple", "dark-blue", 0);
 
 			if (type == GridTypes::PTree)
 			{

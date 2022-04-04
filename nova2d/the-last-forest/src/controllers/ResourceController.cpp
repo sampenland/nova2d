@@ -1,5 +1,6 @@
 #include "ResourceController.h"
 #include "../scenes/AllScenes.h"
+#include "../GameDesigner.h"
 
 namespace thelastforest
 {
@@ -14,6 +15,9 @@ namespace thelastforest
 
 		void ResourceController::CreateResource()
 		{
+
+			if (m_Resources >= g_LevelOneTrees) return;
+			m_Resources++;
 
 			int row = n2dRandomInt(1, 7);
 			bool isSun = n2dCoinFlip();
