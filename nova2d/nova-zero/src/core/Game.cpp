@@ -26,6 +26,7 @@ namespace novazero
 		SQLManager* Game::s_SQLManager;
 		DebugOverlay* Game::s_DebugOverlay;
 		Director* Game::s_Director;
+		AudioManager* Game::s_AudioManager;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -85,6 +86,7 @@ namespace novazero
 			s_FontManager = new FontManager();
 			s_SQLManager = new SQLManager();
 			s_Director = new Director();
+			s_AudioManager = new AudioManager();
 
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
@@ -302,6 +304,12 @@ namespace novazero
 			{
 				s_AssetManager->DestroySelf();
 				delete s_AssetManager;
+			}
+
+			if (s_AudioManager)
+			{
+				s_AudioManager->DestroySelf();
+				delete s_AudioManager;
 			}
 
 			if (s_ExitCode == 0)

@@ -62,7 +62,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -71,8 +71,8 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\box2d\$(Configuration)\;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\mysql\$(Configuration)\lib;$(SolutionDir)Dependencies\sdl2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\box2d\$(Configuration)\;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\mysql\$(Configuration)\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)Dependencies\sdl_mixer\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -86,7 +86,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -97,8 +97,8 @@
       <AdditionalDependencies>SDL2.lib;SDL2main.lib</AdditionalDependencies>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)bin\box2d\$(Configuration)\;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)Dependencies\mysql\$(Configuration)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\box2d\$(Configuration)\;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\mysql\$(Configuration)\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)Dependencies\sdl_mixer\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -148,6 +148,7 @@
     <ClCompile Include="src\physics\TimeEffected.cpp" />
     <ClCompile Include="src\physics\TimeEffector.cpp" />
     <ClCompile Include="src\physics\TimeEffectorManager.cpp" />
+    <ClCompile Include="src\utils\AudioManager.cpp" />
     <ClCompile Include="src\utils\Director.cpp" />
     <ClCompile Include="src\utils\timeline\events\TimelineTriggerEvent.cpp" />
     <ClCompile Include="src\utils\timeline\Timeline.cpp" />
@@ -175,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
+    <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />
     <ClInclude Include="src\controllers\SimpleBulletController.h" />
