@@ -1781,17 +1781,17 @@ lrint(float f)
 	return _mm_cvtss_si32(_mm_load_ss(&f));
 }
 #elif defined(_M_IX86)
-__inline long int
-lrint(double flt)
-{
-	int intgr;
-	_asm
-	{
-		fld flt
-		fistp intgr
-	};
-	return intgr;
-}
+//__inline long int
+//lrint(double flt)
+//{
+//	int intgr;
+//	_asm
+//	{
+//		fld flt
+//		fistp intgr
+//	};
+//	return intgr;
+//}
 #elif defined(_M_ARM)
 #include <armintr.h>
 #pragma warning(push)

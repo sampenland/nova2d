@@ -84,9 +84,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalOptions>-D_ITERATOR_DEBUG_LEVEL=0 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -98,7 +100,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)bin\box2d\$(Configuration)\;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\mysql\$(Configuration)\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)Dependencies\sdl_mixer\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2_mixer.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;mysqlcppconn.lib;mysqlcppconn-static.lib;box2d.lib</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

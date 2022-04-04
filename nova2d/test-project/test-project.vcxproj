@@ -77,6 +77,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;$(SolutionDir)Dependencies\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
