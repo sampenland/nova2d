@@ -159,5 +159,18 @@ namespace thelastforest
 			if (!s_Placements[gridPosition]) return GridTypes::Free;
 			return s_Placements[gridPosition]->GetType();
 		}
+	
+		int AllScenes::GetPTreesLeft()
+		{
+			int count = 0;
+			for (int i = 73; i <= 79; i++)
+			{
+				if (s_Placements[i]->GetType() == GridTypes::PTree)
+				{
+					count++;
+				}
+			}
+			return count;
+		}
 	}
 }

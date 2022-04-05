@@ -95,12 +95,14 @@
     <ClCompile Include="src\controllers\HumanController.cpp" />
     <ClCompile Include="src\controllers\ResourceController.cpp" />
     <ClCompile Include="src\controllers\TreeController.cpp" />
+    <ClCompile Include="src\pickups\Heart.cpp" />
     <ClCompile Include="src\pickups\Pickup.cpp" />
     <ClCompile Include="src\pickups\Sun.cpp" />
     <ClCompile Include="src\pickups\Tree.cpp" />
     <ClCompile Include="src\pickups\Water.cpp" />
     <ClCompile Include="src\placements\Placement.cpp" />
     <ClCompile Include="src\scenes\AllScenes.cpp" />
+    <ClCompile Include="src\scenes\GameOver.cpp" />
     <ClCompile Include="src\scenes\level1\LevelOne.cpp" />
     <ClCompile Include="src\scenes\MainMenu.cpp" />
     <ClCompile Include="src\TheLastForest.cpp" />
@@ -112,12 +114,14 @@
     <ClInclude Include="src\controllers\ResourceController.h" />
     <ClInclude Include="src\controllers\TreeController.h" />
     <ClInclude Include="src\GameDesigner.h" />
+    <ClInclude Include="src\pickups\Heart.h" />
     <ClInclude Include="src\pickups\Pickup.h" />
     <ClInclude Include="src\pickups\Sun.h" />
     <ClInclude Include="src\pickups\Tree.h" />
     <ClInclude Include="src\pickups\Water.h" />
     <ClInclude Include="src\placements\Placement.h" />
     <ClInclude Include="src\scenes\AllScenes.h" />
+    <ClInclude Include="src\scenes\GameOver.h" />
     <ClInclude Include="src\scenes\level1\LevelOne.h" />
     <ClInclude Include="src\Enums.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
@@ -125,6 +129,7 @@
   <ItemGroup>
     <Image Include="res\deadTrees.png" />
     <Image Include="res\grassTile.png" />
+    <Image Include="res\heart.png" />
     <Image Include="res\highlightTile.png" />
     <Image Include="res\human.png" />
     <Image Include="res\player.png" />
@@ -144,8 +149,14 @@
     <Font Include="res\fonts\pixel4.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="res\audio\chop.wav" />
+    <Media Include="res\audio\deadTree.wav" />
+    <Media Include="res\audio\humanDie.wav" />
     <Media Include="res\audio\novaStart.wav" />
-    <Media Include="res\audio\roundAndRound.mp3" />
+    <Media Include="res\audio\pickup.wav" />
+    <Media Include="res\audio\place.wav" />
+    <Media Include="res\audio\powerUp.wav" />
+    <Media Include="res\audio\music.mp3" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

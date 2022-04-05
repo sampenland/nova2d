@@ -104,6 +104,9 @@ namespace thelastforest
 				case GridTypes::Tree:
 					m_HoldingItem->SwapTexture("tree");
 					break;
+				case GridTypes::Heart:
+					m_HoldingItem->SwapTexture("heart");
+					break;
 				}
 
 			}
@@ -120,14 +123,43 @@ namespace thelastforest
 			{
 				if (n2dIsKeyDown(SDLK_SPACE))
 				{
+					// no placing at top of screen
+					if (s_HighlightedGridPos <= 8) return;
+
+					// no placing on left column or right
+					if (
+						s_HighlightedGridPos == 0 ||
+						s_HighlightedGridPos == 9 ||
+						s_HighlightedGridPos == 9*2 ||
+						s_HighlightedGridPos == 9*3 ||
+						s_HighlightedGridPos == 9*4 ||
+						s_HighlightedGridPos == 9*5 ||
+						s_HighlightedGridPos == 9*6 ||
+						s_HighlightedGridPos == 9*7 ||
+						s_HighlightedGridPos == 9*8
+						) return;
+					if (
+						s_HighlightedGridPos == 8 ||
+						s_HighlightedGridPos == 17 ||
+						s_HighlightedGridPos == 17 + 9 ||
+						s_HighlightedGridPos == 17 + 9 * 2 ||
+						s_HighlightedGridPos == 17 + 9 * 3 ||
+						s_HighlightedGridPos == 17 + 9 * 4 ||
+						s_HighlightedGridPos == 17 + 9 * 5 ||
+						s_HighlightedGridPos == 17 + 9 * 6 ||
+						s_HighlightedGridPos == 17 + 9 * 7
+						) return;
+
 					Placement* placement = nullptr;
 
+					bool placed = false;
 					switch (s_HoldingItem)
 					{
 					case GridTypes::Tree:
 
 						if (AllScenes::GetGridPositionType(s_HighlightedGridPos) == GridTypes::Free)
 						{
+							placed = true;
 							placement = new Placement(GridTypes::Tree,
 								2, s_HighlightedGridPos, Vec2Int(71, 70), 2);
 
@@ -142,6 +174,7 @@ namespace thelastforest
 						placement = AllScenes::GetPlacementAt(s_HighlightedGridPos);
 						if (placement)
 						{
+							placed = true;
 							placement->AddResource(true, g_AddSunLightVal);
 						}
 
@@ -154,12 +187,35 @@ namespace thelastforest
 						placement = AllScenes::GetPlacementAt(s_HighlightedGridPos);
 						if (placement)
 						{
+							placed = true;
 							placement->AddResource(false, g_AddWaterVal);
 						}
 
 						s_HoldingItem = GridTypes::Free;
 
 						break;
+
+					case GridTypes::Heart:
+
+						placement = AllScenes::GetPlacementAt(s_HighlightedGridPos);
+						if (placement)
+						{
+							// no heal bottom row
+							if (placement->GetType() == GridTypes::PTree ||
+								placement->GetType() == GridTypes::DeadPTree) return;
+
+							placed = true;
+							placement->RestoreHealth();
+						}
+
+						s_HoldingItem = GridTypes::Free;
+
+						break;
+					}
+
+					if (placed)
+					{
+						n2dAudioPlayOnce(false, "place");
 					}
 				}
 			}
@@ -170,7 +226,9 @@ namespace thelastforest
 			s_ReadyToPlace = false;
 			s_HoldingItem = type;
 
-			Timer* readyToPlace = new Timer(1000, false, [=]() {
+			n2dAudioPlayOnce(false, "pickup");
+
+			Timer* readyToPlace = new Timer(500, false, [=]() {
 				s_ReadyToPlace = true;
 			});
 		}

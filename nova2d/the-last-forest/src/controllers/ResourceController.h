@@ -2,6 +2,7 @@
 #include "utils/timeline/TimelineInstance.h"
 #include <vector>
 #include "../pickups/Sun.h"
+#include "../pickups/Heart.h"
 #include "../pickups/Water.h"
 
 namespace thelastforest

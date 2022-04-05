@@ -29,7 +29,7 @@ namespace novazero
 				return;
 			}
 
-			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: ogg, mp3, midi");
+			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: wav, ogg, mp3, midi");
 			Mix_AllocateChannels((int)maxChannels);
 			m_Started = true;
 

@@ -14,11 +14,30 @@ namespace thelastforest
 		using namespace placements;
 		using namespace novazero::utils::events;
 
-		Human::Human(Vec2 position, unsigned int column, Vec2Int size, unsigned char layer)
+		Human::Human(Vec2 position, unsigned int column, unsigned int startAttacks, Vec2Int size, unsigned char layer)
 		{			
 			m_Column = column;
 
+			m_MaxAttacks = startAttacks;
+			m_Attacks = startAttacks;
+
 			AddSprite("human", position, size, layer, true);
+
+			switch (m_MaxAttacks)
+			{
+			case 1:
+				GetSprite()->ClearTint();
+				break;
+			case 2:
+				GetSprite()->Tint("human-yellow");
+				break;
+			case 3:
+				GetSprite()->Tint("human-blue");
+				break;
+			case 4:
+				GetSprite()->Tint("human-red");
+				break;
+			}
 
 			GetSprite()->AddAnimation("walk", 0, 2, 8, true, nullptr);
 			GetSprite()->AddAnimation("chop", 2, 2, 5, true, nullptr);
@@ -126,13 +145,14 @@ namespace thelastforest
 
 			m_MaxAttacks++;
 			m_Attacks = m_MaxAttacks;
-
 			
+			n2dAudioPlayOnce(false, "powerUp");
 
 			switch (m_MaxAttacks)
 			{
 			case 1:
 				GetSprite()->ClearTint();
+				break;
 			case 2:
 				GetSprite()->Tint("human-yellow");
 				break;
@@ -164,6 +184,8 @@ namespace thelastforest
 				GetSprite()->StopAnimation();
 				GetSprite()->ChangeAnimation("dead");
 				SetEnabled(false);
+
+				n2dAudioPlayOnce(false, "humanDie");
 
 				Timer* t = new Timer(5000, false, n2dMakeFunc(Human::DestroySelf, this));
 			}
@@ -214,6 +236,7 @@ namespace thelastforest
 					if (placementDestroyed)
 					{
 						m_StepDown = false;
+						n2dAudioPlayOnce(false, "deadTree");
 					}
 
 				}));
@@ -225,16 +248,23 @@ namespace thelastforest
 
 				m_Waiting = true;
 				GetSprite()->ChangeAnimation("chop");
+				n2dAudioPlayOnce(false, "chop");
 				chopDelay = new Timer(2000.f, false, ([=]() {
 
 					m_Waiting = false;
 					m_Attacks -= 1;
 					GetSprite()->ChangeAnimation("walk");
 					bool placementDestroyed = placement->UseDelay(m_AttackStrength);
-
 					if (placementDestroyed)
 					{
-						m_StepDown = false;
+						if (m_Attacks <= 0)
+						{
+							m_StepDown = false;
+						}
+						else
+						{
+							m_StepDown = true;
+						}
 					}
 
 				}));

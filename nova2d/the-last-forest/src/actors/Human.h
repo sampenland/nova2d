@@ -34,7 +34,7 @@ namespace thelastforest
 
 		public:
 
-			Human(Vec2 position, unsigned int column, Vec2Int size, unsigned char layer);
+			Human(Vec2 position, unsigned int column, unsigned int startAttacks, Vec2Int size, unsigned char layer);
 
 			void ThinkNextMove();
 

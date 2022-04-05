@@ -22,9 +22,15 @@ namespace thelastforest
 
 		private:
 
+			Uint64 m_TimeSurvived = 0;
+			Timer* m_TimeTicker = nullptr;
+
 			TileMap* m_Background = nullptr;
 			ResourceController* m_ResourceController = nullptr;
 			Player* m_Player = nullptr;
+
+			Text* m_TimeLived = nullptr;
+			Timer* m_Difficulty = nullptr;
 
 		public:
 
@@ -46,6 +52,9 @@ namespace thelastforest
 			void Start() override;
 			void Update() override;
 			void End() override;
+
+			static float s_MinHumanTime;
+			static float s_MaxHumanTime;
 
 		};
 	}

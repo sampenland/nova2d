@@ -50,6 +50,8 @@ namespace thelastforest
 			static int GetGridPositionFromStep(unsigned int gridPosition, Facing step);
 
 			static GridTypes GetGridPositionType(unsigned int gridPosition);
+
+			static int GetPTreesLeft();
 		};
 	}
 }

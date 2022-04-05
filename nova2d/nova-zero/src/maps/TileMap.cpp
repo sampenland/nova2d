@@ -23,10 +23,6 @@ namespace novazero
 			if (m_BackgroundTexture)
 				SDL_DestroyTexture(m_BackgroundTexture);
 
-			static bool onlyOnce = false;
-			if (onlyOnce) return;
-			onlyOnce = true;
-
 			m_BackgroundTexture = SDL_CreateTexture(Game::s_Renderer->GetSDLRenderer(),
 				SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_TARGET, 1280, 800);
 

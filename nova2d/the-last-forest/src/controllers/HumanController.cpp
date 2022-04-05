@@ -44,7 +44,7 @@ namespace thelastforest
 			float humanY = -80;
 
 			AllScenes::SetHumanOnColumn(col, true);
-			Human* human = new Human(Vec2(humanX, humanY), col, Vec2Int(71, 70), 1);
+			Human* human = new Human(Vec2(humanX, humanY), col, m_StartAttacks, Vec2Int(71, 70), 1);
 
 		}
 	}

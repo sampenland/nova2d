@@ -68,6 +68,11 @@ namespace novazero
 			return true;
 		}
 
+		void Music::SetVolume(int volume)
+		{
+			Mix_VolumeMusic(volume);
+		}
+
 		void Music::DestroySelf()
 		{
 			Mix_FreeMusic(m_Music);
@@ -123,6 +128,11 @@ namespace novazero
 				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err);
 				return;
 			}
+		}
+
+		void SoundEffect::SetVolume(int vol)
+		{
+			Mix_Volume(m_Channel, vol);
 		}
 
 		void SoundEffect::Pause()

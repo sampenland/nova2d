@@ -57,6 +57,12 @@
     <ClCompile Include="src\controllers\ResourceController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\pickups\Heart.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scenes\GameOver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\level1\LevelOne.h">
@@ -104,6 +110,12 @@
     <ClInclude Include="src\pickups\Sun.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\pickups\Heart.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scenes\GameOver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\grassTile.png">
@@ -133,6 +145,9 @@
     <Image Include="res\deadTrees.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\heart.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\player.aseprite" />
@@ -148,6 +163,24 @@
     <Media Include="res\audio\novaStart.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="res\audio\roundAndRound.mp3" />
+    <Media Include="res\audio\music.mp3" />
+    <Media Include="res\audio\chop.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\audio\deadTree.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\audio\pickup.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\audio\place.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\audio\powerUp.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="res\audio\humanDie.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

@@ -10,6 +10,9 @@ namespace thelastforest
 	{
 		using namespace novazero::maps;
 
+		float LevelOne::s_MinHumanTime = 2000.f;
+		float LevelOne::s_MaxHumanTime = 12000.f;
+
 		LevelOne::LevelOne(const std::string& sceneName)
 			: Scene(sceneName)
 		{
@@ -34,7 +37,7 @@ namespace thelastforest
 				AllScenes::SetPlacementAt(tree, gridPos);
 			}
 
-			m_Player = new Player("player", Vec2(Game::s_Width/2 - 71/2, Game::s_Height - 88*2), 
+			m_Player = new Player("player", Vec2(Game::s_Width / 2 - 71 / 2, Game::s_Height - 88 * 2.5f),
 				Vec2Int(71, 70), 0);
 
 			m_HumanController = new HumanController();
@@ -52,7 +55,7 @@ namespace thelastforest
 		void LevelOne::SetupHumans()
 		{
 			auto f = n2dMakeFunc(HumanController::CreateHuman, m_HumanController);
-			Timer* humanSpawner = new Timer(1000.f, true, f, g_MinHumanTime, g_MaxHumanTime);
+			Timer* humanSpawner = new Timer(&LevelOne::s_MinHumanTime, &LevelOne::s_MaxHumanTime, f);
 		}
 
 		void LevelOne::SetupTrees()
@@ -69,14 +72,47 @@ namespace thelastforest
 
 		void LevelOne::Start()
 		{
-			n2dAudioLoop(true, "music");
+			m_TimeSurvived = 0;
+			//n2dAudioLoop(true, "music");
 
 			CreateWorld();
 			SetupLevel();
+
+			m_TimeTicker = new Timer(1000, true, [=]() {
+				m_TimeSurvived++;
+			});
+
+			m_TimeLived = new Text("font1", "lived: 0 seconds", "purple",
+				Rect(0, 0, 200, 50), 30);
+			m_TimeLived->SetPositionPercents(90, 5);
+		
+			m_Difficulty = new Timer(g_SpeedUpTime, true, [=]() {
+				LevelOne::s_MaxHumanTime -= 1000;
+				if (s_MaxHumanTime < 3.f)s_MaxHumanTime = 3.f;
+			});
 		}
 
 		void LevelOne::Update()
 		{
+			m_TimeLived->UpdateText("lived: " + tostring(m_TimeSurvived) + " sec.");
+
+			if (AllScenes::GetPTreesLeft() < 6)
+			{
+				m_HumanController->m_StartAttacks = 2;
+			}
+			else if (AllScenes::GetPTreesLeft() < 4)
+			{
+				m_HumanController->m_StartAttacks = 3;
+			}
+			else if (AllScenes::GetPTreesLeft() < 2)
+			{
+				m_HumanController->m_StartAttacks = 4;
+			}
+			else
+			{
+				m_HumanController->m_StartAttacks = 1;
+			}
+
 			if (n2dIsKeyDown(SDLK_ESCAPE))
 			{
 				n2dSceneChange("MainMenu");
@@ -109,7 +145,7 @@ namespace thelastforest
 
 		void LevelOne::End()
 		{
-			n2dAssetsRemoveTexture("grassTile");
+			m_Background->DestroySelf();
 		}
 	}
 

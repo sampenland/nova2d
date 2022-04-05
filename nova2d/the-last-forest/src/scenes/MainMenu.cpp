@@ -15,7 +15,19 @@ namespace thelastforest
 		void MainMenu::Start()
 		{
 			AllScenes::NewGame();
+
 			n2dAudioPlayOnce(false, "start");
+
+			n2dAssetsLoadAndAddTexture("grass", "res/grassTile.png");
+			n2dAssetsLoadAndAddTexture("trees", "res/treesTile.png");
+			n2dAssetsLoadAndAddTexture("tree", "res/treeTile.png");
+			n2dAssetsLoadAndAddTexture("sun", "res/sun.png");
+			n2dAssetsLoadAndAddTexture("player", "res/player.png");
+			n2dAssetsLoadAndAddTexture("human", "res/human.png");
+			n2dAssetsLoadAndAddTexture("water", "res/water.png");
+			n2dAssetsLoadAndAddTexture("highlight", "res/highlightTile.png");
+			n2dAssetsLoadAndAddTexture("deadtrees", "res/deadTrees.png");
+			n2dAssetsLoadAndAddTexture("heart", "res/heart.png");
 
 			m_Title = new Text("font3", "The Last Forest stands strong but cannot survive........ us.", "white",
 				Rect(0, 0, 800, 100), 0);

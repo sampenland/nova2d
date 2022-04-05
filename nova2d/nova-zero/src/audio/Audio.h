@@ -21,15 +21,7 @@ namespace novazero
 			virtual void Loop() = 0;
 			virtual void Stop() = 0;
 
-			void SetVolume(int volume)
-			{
-				m_Volumn = volume;
-			}
-
-			int GetVolume() const
-			{
-				return m_Volumn;
-			}
+			virtual void SetVolume(int volume) = 0;
 
 			virtual bool IsValid() = 0;
 
@@ -59,6 +51,8 @@ namespace novazero
 			void Loop() override;
 			void Stop() override;
 
+			void SetVolume(int volume) override;
+
 			bool IsValid() override;
 
 			void DestroySelf() override;
@@ -84,6 +78,8 @@ namespace novazero
 			void Stop() override;
 			void Resume();
 			void Pause();
+
+			void SetVolume(int volume) override;
 
 			bool IsValid() override;
 

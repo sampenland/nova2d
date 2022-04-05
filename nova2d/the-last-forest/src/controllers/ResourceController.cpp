@@ -20,7 +20,6 @@ namespace thelastforest
 			m_Resources++;
 
 			int row = n2dRandomInt(1, 7);
-			bool isSun = n2dCoinFlip();
 
 			std::vector<int> searched;
 
@@ -44,15 +43,20 @@ namespace thelastforest
 
 			if (searched.size() == 7) return;
 
-			AllScenes::SetResourceOnRow(row, true);
+			AllScenes::SetResourceOnRow(row, true);			
 
-			if (isSun)
+			int resource = n2dRandomInt(1, 10);
+			if (resource > 8) // 20 percent heart
 			{
-				Sun* sun = new Sun(row);
+				Heart* heart = new Heart(row);
 			}
-			else
+			else if (resource > 4) // 40 percent water
 			{
 				Water* water = new Water(row);
+			}
+			else // 40 percent sun
+			{
+				Sun* sun = new Sun(row);
 			}
 		}
 	}

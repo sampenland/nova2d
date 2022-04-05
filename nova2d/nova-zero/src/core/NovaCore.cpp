@@ -390,9 +390,15 @@ namespace novazero
 			return Game::s_AudioManager->LoadAndAddMusic(assetName, assetPath);
 		}
 
-		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath)
+		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, 
+			const std::string& assetPath, int volume)
 		{
-			return Game::s_AudioManager->LoadAndAddSoundEffect(assetName, assetPath);
+			SoundEffect* se = Game::s_AudioManager->LoadAndAddSoundEffect(assetName, assetPath);
+			if (volume != 100)
+			{
+				se->SetVolume(volume);
+			}
+			return se;
 		}
 
 		void n2dAudioPlayOnce(bool isMusic, const std::string& assetName)

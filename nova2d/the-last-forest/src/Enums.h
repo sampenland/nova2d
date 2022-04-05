@@ -12,7 +12,7 @@ namespace thelastforest
 		Water,
 		Sun,
 		Blocked,
-
+		Heart
 	};
 
 	enum class Facing

@@ -23,6 +23,7 @@ namespace thelastforest
 			HumanController();
 
 			void CreateHuman();
+			unsigned int m_StartAttacks = 1;
 		};
 	}
 }

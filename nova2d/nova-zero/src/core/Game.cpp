@@ -96,7 +96,7 @@ namespace novazero
 			srand((unsigned int)time(NULL));
 
 			if(n2dDebug)
-				LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started.");
+				LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started. https://n2d.dev");
 
 		}
 

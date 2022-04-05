@@ -74,6 +74,11 @@ namespace thelastforest
 
 		}
 
+		void Placement::RestoreHealth()
+		{
+			m_HumanDelay = m_HumanDelayMax;
+		}
+
 		void Placement::AddResource(bool trueSunFalseWater, float val)
 		{
 			if (trueSunFalseWater)

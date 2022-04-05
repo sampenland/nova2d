@@ -48,6 +48,7 @@ namespace thelastforest
 			void SetEnableStats(bool sun, bool water);
 
 			void AddResource(bool trueSunFalseWater, float val);
+			void RestoreHealth();
 
 			void Update();
 

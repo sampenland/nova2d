@@ -741,8 +741,9 @@ namespace novazero
 
 		/*
 		Load sound effect files (WAV, OGG)
+		Volume 1- 127
 		*/
-		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath);
+		SoundEffect* n2dLoadAndAddSoundEffect(const std::string& assetName, const std::string& assetPath, int volume = 100);
 
 		void n2dAudioPlayOnce(bool isMusic, const std::string& assetName);
 		void n2dAudioLoop(bool isMusic, const std::string& assetName);
