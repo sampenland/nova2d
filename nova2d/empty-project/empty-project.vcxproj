@@ -15,7 +15,7 @@
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{890bf8ae-a62a-4488-ae9a-61fba455a8f7}</ProjectGuid>
     <RootNamespace>emptyproject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -59,14 +59,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)box2d\src;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;$(SolutionDir)Dependencies\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\box2d\include;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)nova-zero\src;$(SolutionDir)Dependencies\sdl_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>nova-zero.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>-lSDL2_image %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\mysql\$(Configuration)\lib;$(SolutionDir)Dependencies\sdl2_ttf\lib;$(SolutionDir)Dependencies\sdl2_image\lib;$(SolutionDir)Dependencies\sdl2\lib;$(SolutionDir)bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)bin\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
