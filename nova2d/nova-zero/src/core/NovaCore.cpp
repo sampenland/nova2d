@@ -394,6 +394,9 @@ namespace novazero
 			const std::string& assetPath, int volume)
 		{
 			SoundEffect* se = Game::s_AudioManager->LoadAndAddSoundEffect(assetName, assetPath);
+			
+			if (!se) return nullptr;
+
 			if (volume != 100)
 			{
 				se->SetVolume(volume);

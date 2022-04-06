@@ -12,7 +12,6 @@ namespace novazero
 
 		AudioManager::AudioManager(unsigned int maxChannels)
 		{
-			// Support only OGG files
 			int flags = MIX_INIT_OGG | MIX_INIT_MP3 | MIX_INIT_MID;
 			int initted = Mix_Init(flags);
 			if ((initted & flags) != flags) {

@@ -1,7 +1,8 @@
 #pragma once
+#define HAVE_LIBC 1
 
 // nova2d Version	
-#define NOVA_VERSION "0.0.07"
+#define NOVA_VERSION "0.0.08"
 
 // ------------------------------
 // RAW VARIABLES
