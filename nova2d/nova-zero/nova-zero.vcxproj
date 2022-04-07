@@ -136,6 +136,14 @@
     <ClCompile Include="src\graphics\gfx\SDL2_rotozoom.c" />
     <ClCompile Include="src\graphics\Image.cpp" />
     <ClCompile Include="src\graphics\Text.cpp" />
+    <ClCompile Include="src\gui\glad\glad.c" />
+    <ClCompile Include="src\gui\imgui\imgui.cpp" />
+    <ClCompile Include="src\gui\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\gui\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\gui\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="src\gui\imgui\imgui_impl_sdlrenderer.cpp" />
+    <ClCompile Include="src\gui\imgui\imgui_tables.cpp" />
+    <ClCompile Include="src\gui\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\input\MinMaxScrollSelect.cpp" />
     <ClCompile Include="src\input\ScrollSelect.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
@@ -179,6 +187,16 @@
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
     <ClInclude Include="src\audio\Audio.h" />
+    <ClInclude Include="src\gui\glad\glad.h" />
+    <ClInclude Include="src\gui\glad\khrplatform.h" />
+    <ClInclude Include="src\gui\imgui\imconfig.h" />
+    <ClInclude Include="src\gui\imgui\imgui.h" />
+    <ClInclude Include="src\gui\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="src\gui\imgui\imgui_impl_sdlrenderer.h" />
+    <ClInclude Include="src\gui\imgui\imgui_internal.h" />
+    <ClInclude Include="src\gui\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\gui\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />
@@ -266,6 +284,7 @@
     <Font Include="res\fonts\pixel2.ttf" />
     <Font Include="res\fonts\pixel3.ttf" />
     <Font Include="res\fonts\pixel4.ttf" />
+    <Font Include="res\fonts\verdana.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\bomb_anim.png" />
@@ -280,6 +299,9 @@
     <Image Include="res\ship_02.png" />
     <Image Include="res\ship_03.png" />
     <Image Include="res\title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\gui\imgui\LICENSE" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

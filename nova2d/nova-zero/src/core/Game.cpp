@@ -2,6 +2,10 @@
 #include "../graphics/Renderer.h"
 #include "../graphics/AnsiColor.h"
 #include "../graphics/DrawLayers.h"
+#include "../gui/glad/glad.h"
+#include "../gui/imgui/imgui.h"
+#include "../gui/imgui/imgui_impl_sdl.h"
+#include "../gui/imgui/imgui_impl_sdlrenderer.h"
 
 namespace novazero
 {
@@ -77,7 +81,8 @@ namespace novazero
 			n2dAddColor("bright-blue", "0ce6f2", 255);
 			n2dAddColor("transparent", "000000", 0);
 
-			s_Renderer = new novazero::graphics::Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
+			s_Renderer = new Renderer(*(m_MainWindow->GetWindow()), new Color(100,100,100,1));
+			m_MainWindow->SetupImGUI(s_Renderer->GetSDLRenderer());
 			n2dBlend(true);
 
 			s_InputHandler = new InputHandler();
@@ -212,6 +217,19 @@ namespace novazero
 			}
 		}
 
+		void Game::PollGUIEvents()
+		{
+			SDL_Event event;
+			ImGui_ImplSDL2_ProcessEvent(&event);
+
+			switch (event.type)
+			{
+			case SDL_QUIT:
+				Game::s_Running = false;
+				break;
+			}
+		}
+
 		void Game::Tick()
 		{
 			// FPS handling
@@ -248,8 +266,17 @@ namespace novazero
 		void Game::Render()
 		{
 			s_Renderer->PreDraw();
+
 			s_Renderer->Draw();
+			
+			ImGui_ImplSDLRenderer_NewFrame();
+			ImGui_ImplSDL2_NewFrame();
+			ImGui::NewFrame();
+
+			ImGui::ShowDemoWindow();
+
 			s_Renderer->PostDraw();
+
 		}
 
 		void Game::Clean()
@@ -266,6 +293,7 @@ namespace novazero
 		{
 			Process();
 			PollEvents();
+			PollGUIEvents();
 		}
 
 		Game::~Game()
@@ -281,6 +309,9 @@ namespace novazero
 				m_MainWindow->DestroySelf();
 				delete m_MainWindow;
 			}
+
+			ImGui_ImplSDL2_Shutdown();
+			ImGui::DestroyContext();
 
 			if (s_Renderer)
 			{

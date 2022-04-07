@@ -1,4 +1,5 @@
 #include "SimpleFollower.h"
+#include "../core/Game.h"
 
 namespace novazero
 {

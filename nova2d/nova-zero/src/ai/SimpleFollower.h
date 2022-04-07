@@ -1,6 +1,4 @@
 #pragma once
-#include "../core/Game.h"
-
 #include "../core/EventListener.h"
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"

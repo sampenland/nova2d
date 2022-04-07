@@ -1,5 +1,10 @@
 #include "Renderer.h"
 #include "../core/Game.h"
+#include "../gui/glad/glad.h"
+#include "../gui/imgui/imgui.h"
+#include "../gui/imgui/imgui_impl_sdl.h"
+#include "../gui/imgui/imgui_impl_sdl.h"
+#include "../gui/imgui/imgui_impl_sdlrenderer.h"
 
 namespace novazero
 {
@@ -30,6 +35,7 @@ namespace novazero
 			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor->r, (Uint8)m_BackgroundColor->g,
 				(Uint8)m_BackgroundColor->b, (Uint8)m_BackgroundColor->a);
 
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			SDL_RenderClear(m_Renderer);
 		}
 
@@ -50,17 +56,15 @@ namespace novazero
 
 		void Renderer::PostDraw() const
 		{
+			ImGui::Render();
+			ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
 			SDL_RenderPresent(m_Renderer);
 		}
 
 		void Renderer::Draw() const
 		{
-			PreDraw();
-			
 			if (s_DrawLayers)
 				s_DrawLayers->DrawAllLayers();
-			
-			PostDraw();
 		}
 
 		void Renderer::DestroySelf()

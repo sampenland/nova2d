@@ -58,6 +58,7 @@ namespace novazero
 			void Process();
 			void Update();
 			void PollEvents();
+			void PollGUIEvents();
 			void Render();
 			void Clean();
 
