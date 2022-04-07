@@ -58,7 +58,7 @@ namespace novazero
 			void Process();
 			void Update();
 			void PollEvents();
-			void PollGUIEvents();
+			void PollGUIEvents(const SDL_Event& event);
 			void Render();
 			void Clean();
 

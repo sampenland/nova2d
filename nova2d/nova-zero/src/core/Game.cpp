@@ -160,6 +160,7 @@ namespace novazero
 		{
 			SDL_Event event;
 			SDL_PollEvent(&event);
+			PollGUIEvents(event);
 			
 			switch (event.type)
 			{
@@ -217,9 +218,8 @@ namespace novazero
 			}
 		}
 
-		void Game::PollGUIEvents()
+		void Game::PollGUIEvents(const SDL_Event& event)
 		{
-			SDL_Event event;
 			ImGui_ImplSDL2_ProcessEvent(&event);
 
 			switch (event.type)
@@ -293,7 +293,6 @@ namespace novazero
 		{
 			Process();
 			PollEvents();
-			PollGUIEvents();
 		}
 
 		Game::~Game()
