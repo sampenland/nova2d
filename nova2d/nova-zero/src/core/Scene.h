@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include "box2d/box2d.h"
+#include "SDL.h"
+#include "../core/Environment.h"
 
 namespace novazero
 {
@@ -27,6 +29,8 @@ namespace novazero
 			bool m_PhysicsEnabled = false;
 			b2Vec2* m_Gravity = nullptr;
 
+			Environment* m_Environment = nullptr;
+
 		public:
 
 			Scene(const std::string& sceneName);
@@ -37,6 +41,8 @@ namespace novazero
 			void EnablePhysics(bool enabled, Vec2 gravity);
 			b2World* GetWorld() const;
 			void PhysicsStep();
+
+			void EnableLights(Uint8 worldLightIntensity);
 
 			virtual void Start() = 0;
 			void Restart();

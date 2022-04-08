@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 
 	SampleScene scene = SampleScene("sampleScene");
 
-	n2dSetBackgroundColor("purple");
+	n2dSetBackgroundColor("green");
 
 	n2dGameAddScene(&scene);
 	n2dGameConfigFirstScene(&scene);

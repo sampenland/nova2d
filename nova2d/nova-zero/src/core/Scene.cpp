@@ -10,6 +10,11 @@ namespace novazero
 			
 		}
 
+		void Scene::EnableLights(Uint8 worldLightIntensity)
+		{
+			m_Environment = new Environment(worldLightIntensity);
+		}
+
 		void Scene::EnablePhysics(bool enabled, Vec2 gravity)
 		{
 			m_PhysicsEnabled = enabled;

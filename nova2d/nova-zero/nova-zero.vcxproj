@@ -117,6 +117,7 @@
     <ClCompile Include="src\controllers\UDRLController.cpp" />
     <ClCompile Include="src\core\BoundUser.cpp" />
     <ClCompile Include="src\core\Camera.cpp" />
+    <ClCompile Include="src\core\Environment.cpp" />
     <ClCompile Include="src\core\NovaCore.cpp" />
     <ClCompile Include="src\core\Deleteable.cpp" />
     <ClCompile Include="src\core\EventListener.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
     <ClInclude Include="src\audio\Audio.h" />
+    <ClInclude Include="src\core\Environment.h" />
     <ClInclude Include="src\gui\glad\glad.h" />
     <ClInclude Include="src\gui\glad\khrplatform.h" />
     <ClInclude Include="src\gui\imgui\imconfig.h" />

@@ -30,6 +30,7 @@
 // Max draw layers
 #define MAX_LAYERS 255
 #define PERSISTENT_LAYER 254
+#define TOP_DRAW_LAYER 253
 
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
