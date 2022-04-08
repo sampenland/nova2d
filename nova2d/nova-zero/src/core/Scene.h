@@ -7,12 +7,14 @@
 #include "box2d/box2d.h"
 #include "SDL.h"
 #include "../core/Environment.h"
+#include "../debug/PhysicsDebug.h"
 
 namespace novazero
 {
 	namespace core
 	{
 		using namespace novazero::maths;
+		using namespace novazero::debug;
 
 		class Scene : public EventListener
 		{
@@ -30,18 +32,22 @@ namespace novazero
 			b2Vec2* m_Gravity = nullptr;
 
 
+
 		public:
 
 			Scene(const std::string& sceneName);
 
+			bool m_DebugDraw = false;
 			bool m_Started = false;
 			std::string m_SceneName = "";
 
 			static Environment* s_Environment;
 
-			void EnablePhysics(bool enabled, Vec2 gravity);
+			void EnablePhysics(bool enabled, Vec2 gravity = Vec2(0,0));
 			b2World* GetWorld() const;
+			
 			void PhysicsStep();
+			void PhysicsEnableDebug(bool isDebug);
 
 			void EnableLights(Uint8 worldLightIntensity);
 
@@ -54,6 +60,10 @@ namespace novazero
 
 			void AddObjectToCleanUp(void* obj);
 			void CleanUp();
+
+		public:
+
+			static PhysicsDebug* s_PhysicsDrawer;
 		};
 	}
 }

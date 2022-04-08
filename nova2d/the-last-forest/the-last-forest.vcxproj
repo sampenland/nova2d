@@ -150,6 +150,7 @@
     <Image Include="res\water.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="imgui.ini" />
     <None Include="res\player.aseprite" />
   </ItemGroup>
   <ItemGroup>

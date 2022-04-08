@@ -1,14 +1,18 @@
 #pragma once
 #include "core/Scene.h"
+#include "physics/PhySprite.h"
 
 namespace testproject
 {
 	using namespace novazero::core;
+	using namespace novazero::physics;
 
 	class DemoScene : public Scene
 	{
 
 	private:
+
+		PhySprite* player = nullptr;
 
 	public:
 

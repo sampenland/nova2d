@@ -2,6 +2,7 @@
 #include "../graphics/Renderer.h"
 #include <algorithm>
 #include "Game.h"
+#include "box2d/b2_draw.h"
 
 namespace novazero
 {
@@ -166,6 +167,17 @@ namespace novazero
 			{
 				ProcessPersistentUpdaters();
 				return;
+			}
+
+			if (m_CurrentScene)
+			{
+				if (m_CurrentScene->m_DebugDraw)
+				{
+					if (m_CurrentScene->GetWorld())
+					{
+						m_CurrentScene->GetWorld()->DebugDraw();
+					}
+				}
 			}
 
 			std::map<std::string, Timeline*>::iterator it = s_Timelines.begin();

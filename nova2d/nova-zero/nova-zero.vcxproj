@@ -128,6 +128,7 @@
     <ClCompile Include="src\debug\DebugOverlay.cpp" />
     <ClCompile Include="src\debug\DrawCircle.cpp" />
     <ClCompile Include="src\debug\DrawRect.cpp" />
+    <ClCompile Include="src\debug\PhysicsDebug.cpp" />
     <ClCompile Include="src\graphics\AnsiColor.cpp" />
     <ClCompile Include="src\graphics\Drawable.cpp" />
     <ClCompile Include="src\graphics\DrawableCollection.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
     <ClInclude Include="src\audio\Audio.h" />
     <ClInclude Include="src\core\Environment.h" />
+    <ClInclude Include="src\debug\PhysicsDebug.h" />
     <ClInclude Include="src\gui\glad\glad.h" />
     <ClInclude Include="src\gui\glad\khrplatform.h" />
     <ClInclude Include="src\gui\imgui\imconfig.h" />
