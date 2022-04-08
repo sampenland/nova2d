@@ -1,9 +1,12 @@
 #include "Scene.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
 	namespace core
 	{
+		Environment* Scene::s_Environment = nullptr;
+
 		Scene::Scene(const std::string& sceneName)
 			:m_SceneName(sceneName)
 		{
@@ -12,7 +15,15 @@ namespace novazero
 
 		void Scene::EnableLights(Uint8 worldLightIntensity)
 		{
-			m_Environment = new Environment(worldLightIntensity);
+			static bool initted = false;
+			if (initted)
+			{
+				(*s_Environment->m_WorldLightingIntensity) = worldLightIntensity;
+				return;
+			}
+
+			s_Environment = new Environment(worldLightIntensity);
+			Game::s_Director->InitLighting();
 		}
 
 		void Scene::EnablePhysics(bool enabled, Vec2 gravity)

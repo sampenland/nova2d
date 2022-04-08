@@ -35,12 +35,6 @@
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
 
-// Max director pages
-#define MAX_DIRECTOR_PAGES 20
-
-// Max left and right slots on director
-#define MAX_DIRECTOR_SLOTS 8
-
 // Max graver groups
 #define MAX_GRAVER_GROUPS 255
 
@@ -225,6 +219,14 @@ RETURNS unsigned int CleanID
 #define n2dAddUpdaterPersistent(funcToCall, context) novazero::core::SceneManager::AddPersistentUpdater(std::bind(&funcToCall, context));
 
 /*
+nova2d Add GUI Updater(void(*f) funcToCall, context)
+Special kind of updater which is used to draw ImGUI
+REQUIRES: sceneManager include
+RETURNS unsigned int CleanID
+*/
+#define n2dAddGUIUpdater(funcToCall, context) novazero::core::SceneManager::AddGUIUpdater(std::bind(&funcToCall, context))
+
+/*
 nova2d Remove Updater(unsigned int id)
 Updaters are called each frame; this removes a current updater function from updaters vector<void()>
 */
@@ -235,6 +237,13 @@ nova2d Remove Persistent Updater(unsigned int id)
 Updaters are called each frame; this removes a current updater function from updaters vector<void()>
 */
 #define n2dRemovePersistentUpdater(id) novazero::core::SceneManager::RemovePersistentUpdater(id);
+
+/*
+nova2d Remove GUI Updater(unsigned int id)
+Updaters are called each frame; this removes a current updater function from updaters vector<void()>
+*/
+#define n2dRemoveGUIUpdater(id) novazero::core::SceneManager::RemoveGUIUpdater(id);
+
 
 // ------------------------------------------------------------------------
 
@@ -320,7 +329,7 @@ namespace novazero
 
 		/*
 		Gets a reference to a previously added variable
-		THIS can be used for tweens, Director stackables, etc.
+		THIS can be used for tweens, etc.
 		*/
 		float* n2dValueManagerGetRef(std::string name);
 
@@ -341,23 +350,6 @@ namespace novazero
 		*/
 		void n2dStartTimeline(std::string timelineName);
 		
-		//----------------------------------------------------------------------------
-		// DIRECTOR
-		//----------------------------------------------------------------------------
-
-		/*
-		n2d Director AddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
-		Adds a persistent ScrollSelect to Director's page Left/Right stacks
-		*/
-		void n2dDirectorAddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseby, float max, float* refVal);
-
-		/*
-		n2d Director AddToStackMinMax(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal)
-		Adds a persistent ScrollSelect to Director's page Left/Right stacks
-		*/
-		void n2dDirectorAddToStackMinMax(bool left, BYTE page, std::string labelText,
-			int labelWidth, float inOrDecreaseby, float min, float max, float* minRefVal, float* maxRefVal);
-
 		//----------------------------------------------------------------------------
 		// DEBUG
 		//----------------------------------------------------------------------------

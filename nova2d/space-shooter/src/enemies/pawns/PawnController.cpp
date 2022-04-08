@@ -14,12 +14,7 @@ namespace spaceshooter
 
 		m_PawnShootMin = ValueManager::AddValue("pawn-shoot-min", 6000.f);
 		m_PawnShootMax = ValueManager::AddValue("pawn-shoot-min", 12000.f);
-
-		n2dDirectorAddToStackMinMax(false, 0, "PawnShoot", 
-			70.f, 20.f, 5000.f, 20000.f, m_PawnShootMin, m_PawnShootMax);
-
 		m_PawnMoveSpeed = ValueManager::AddValue("pawn-speed", 4.f);
-		n2dDirectorAddToStack(true, 0, "PawnSpeed", 70.f, 0.050f, 5.5f, m_PawnMoveSpeed);
 
 		m_CleanID = n2dAddUpdater(PawnController::Update, this);
 

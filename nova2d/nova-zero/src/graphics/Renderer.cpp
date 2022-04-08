@@ -56,8 +56,6 @@ namespace novazero
 
 		void Renderer::PostDraw() const
 		{
-			ImGui::Render();
-			ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
 			SDL_RenderPresent(m_Renderer);
 		}
 

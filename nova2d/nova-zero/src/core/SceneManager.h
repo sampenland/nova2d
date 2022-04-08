@@ -49,9 +49,12 @@ namespace novazero
 			Scene* GetScene(const std::string& sceneName);
 			void ChangeScene(const std::string& sceneName);
 
+			Scene* GetCurrentScene();
+
 			void Update();
 			void ProcessUpdaters();
 			void ProcessPersistentUpdaters();
+			void RenderGUI();
 			void CleanUpdaters();
 			void Clean();
 
@@ -70,6 +73,16 @@ namespace novazero
 			static TweenManager* s_TweenManager;
 			static TimeEffectorManager* s_TimeEffectorManager;
 			static std::map<std::string, Timeline*> s_Timelines;
+
+			static std::map<unsigned int, std::function<void()>> s_GUIUpdaters;
+			static std::map<unsigned int, bool> s_GUIUpdaterErasers;
+			static std::map<unsigned int, std::function<void()>> s_GUIUpdatersToAdd;
+			static unsigned int AddGUIUpdater(std::function<void()> updater);
+			static void RemoveGUIUpdater(unsigned int id);
+			static unsigned int GetGUIUpdaterCount()
+			{
+				return (unsigned int)s_Updaters.size();
+			};
 
 			static std::map<unsigned int, std::function<void()>> s_Updaters;
 			static std::map<unsigned int, bool> s_UpdaterErasers;

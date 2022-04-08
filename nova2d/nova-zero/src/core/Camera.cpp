@@ -37,7 +37,7 @@ namespace novazero
 			if (m_FreeMove)
 				FreeMove();
 
-			if (!Game::s_Director->IsEnabled())
+			if (!Game::s_ShowDirector)
 			{				
 				FollowTarget();
 			}

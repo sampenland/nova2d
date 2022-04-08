@@ -10,7 +10,6 @@ namespace spaceshooter
 	{
 		m_PlayerRef = playerRef;
 		m_KamikazeSpeed = n2dValueManagerAdd("kamikaze-speed", 5.f, false);
-		n2dDirectorAddToStack(false, 0, "KamiSpeed", 70.f, 0.25f, 8.f, m_KamikazeSpeed);
 	}
 
 	void KamikazeController::CreateKamikaze(int wave, int kamikazeCount)

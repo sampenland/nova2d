@@ -29,7 +29,6 @@ namespace novazero
 			bool m_PhysicsEnabled = false;
 			b2Vec2* m_Gravity = nullptr;
 
-			Environment* m_Environment = nullptr;
 
 		public:
 
@@ -37,6 +36,8 @@ namespace novazero
 
 			bool m_Started = false;
 			std::string m_SceneName = "";
+
+			static Environment* s_Environment;
 
 			void EnablePhysics(bool enabled, Vec2 gravity);
 			b2World* GetWorld() const;

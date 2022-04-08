@@ -28,7 +28,7 @@ namespace novazero
 		{
 			SDL_SetRenderDrawColor(Game::s_Renderer->GetSDLRenderer(),
 				m_WorldLightingColor->r, m_WorldLightingColor->g, 
-				m_WorldLightingColor->b, 255 - m_WorldLightingColor->a);
+				m_WorldLightingColor->b, 255 - (*m_WorldLightingIntensity));
 
 			SDL_RenderFillRect(Game::s_Renderer->GetSDLRenderer(), &m_WorldLight);
 

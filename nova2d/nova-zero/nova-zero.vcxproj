@@ -147,6 +147,7 @@
     <ClCompile Include="src\gui\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\gui\imgui\imgui_widgets.cpp" />
     <ClCompile Include="src\input\MinMaxScrollSelect.cpp" />
+    <ClCompile Include="src\input\ScrollInput.cpp" />
     <ClCompile Include="src\input\ScrollSelect.cpp" />
     <ClCompile Include="src\input\TextInput.cpp" />
     <ClCompile Include="src\maps\Tile.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="src\gui\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\gui\imgui\imstb_textedit.h" />
     <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\input\ScrollInput.h" />
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />

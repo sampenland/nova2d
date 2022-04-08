@@ -29,8 +29,8 @@ namespace novazero
 		FontManager* Game::s_FontManager;
 		SQLManager* Game::s_SQLManager;
 		DebugOverlay* Game::s_DebugOverlay;
-		Director* Game::s_Director;
 		AudioManager* Game::s_AudioManager;
+		Director* Game::s_Director;
 
 		unsigned int Game::s_IDCount;
 		int Game::s_Width;
@@ -44,6 +44,7 @@ namespace novazero
 		int Game::s_ExitCode = 0;
 		bool Game::s_Running = 0;
 		unsigned int Game::s_Score = 0;
+		bool Game::s_ShowDirector = false;
 		float Game::s_TimeScale = 1.0f;
 		float Game::s_TimeScaleMemory = 1.0f;
 		SDL_KeyCode Game::s_PauseKey = SDLK_p;
@@ -90,8 +91,8 @@ namespace novazero
 			s_SceneManager = new SceneManager();
 			s_FontManager = new FontManager();
 			s_SQLManager = new SQLManager();
-			s_Director = new Director();
 			s_AudioManager = new AudioManager();
+			s_Director = new Director();
 
 			NOW = SDL_GetPerformanceCounter();
 			LAST = 0;
@@ -174,7 +175,7 @@ namespace novazero
 
 				if (Game::s_Debug && (event.key.keysym.sym == SDLK_BACKQUOTE)) // ` key press
 				{
-					s_Director->Toggle();
+					s_ShowDirector = !s_ShowDirector;
 				}
 
 				if (event.key.keysym.sym == Game::s_PauseKey)
@@ -200,7 +201,7 @@ namespace novazero
 
 				if (Game::IsDebug() && event.jbutton.button == SDL_CONTROLLER_BUTTON_GUIDE + 1)
 				{
-					s_Director->Toggle();
+					s_ShowDirector = !s_ShowDirector;
 				}
 
 				if (event.jbutton.button == SDL_CONTROLLER_BUTTON_START + 1)
@@ -269,14 +270,36 @@ namespace novazero
 
 			s_Renderer->Draw();
 			
-			ImGui_ImplSDLRenderer_NewFrame();
-			ImGui_ImplSDL2_NewFrame();
-			ImGui::NewFrame();
-
-			ImGui::ShowDemoWindow();
+			GUIDraw();
 
 			s_Renderer->PostDraw();
 
+		}
+
+		void Game::GUIDraw()
+		{
+			if (s_SceneManager->GetGUIUpdaterCount() > 0 || s_ShowDirector)
+			{
+				ImGui_ImplSDLRenderer_NewFrame();
+				ImGui_ImplSDL2_NewFrame();
+				ImGui::NewFrame();
+			}
+
+			if (s_SceneManager->GetGUIUpdaterCount() > 0)
+			{
+				s_SceneManager->RenderGUI();
+			}
+
+			if (s_ShowDirector)
+			{
+				s_Director->Draw();
+			}
+
+			if (s_SceneManager->GetGUIUpdaterCount() > 0 || s_ShowDirector)
+			{
+				ImGui::Render();
+				ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
+			}
 		}
 
 		void Game::Clean()

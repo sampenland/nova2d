@@ -13,8 +13,8 @@
 #include "../utils/FontManager.h"
 #include "../utils/SQLManager.h"
 #include "../debug/DebugOverlay.h"
-#include "../utils/Director.h"
 #include "../utils/AudioManager.h"
+#include "../utils/Director.h"
 
 #include "../graphics/Color.h"
 #include <vector>
@@ -60,6 +60,7 @@ namespace novazero
 			void PollEvents();
 			void PollGUIEvents(const SDL_Event& event);
 			void Render();
+			void GUIDraw();
 			void Clean();
 
 			void ConfigureFirstScene(const std::string& sceneName);
@@ -79,8 +80,8 @@ namespace novazero
 			static novazero::utils::FontManager* s_FontManager;
 			static novazero::utils::SQLManager* s_SQLManager;
 			static novazero::debug::DebugOverlay* s_DebugOverlay;
-			static novazero::utils::Director* s_Director;
 			static novazero::utils::AudioManager* s_AudioManager;
+			static novazero::utils::Director* s_Director;
 
 			static SDL_KeyCode s_PauseKey;
 			static void PauseGame(bool pause);
@@ -92,6 +93,8 @@ namespace novazero
 			static double s_DeltaTime;
 			static float GetDeltaTime();
 			static double s_FPS;
+
+			static bool s_ShowDirector;
 
 			static int s_Width;
 			static int s_Height;
