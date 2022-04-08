@@ -320,7 +320,7 @@ namespace novazero
 		unsigned int SceneManager::AddUpdater(std::function<void()> updater)
 		{
 			unsigned int id = n2dGameGetID();
-			s_GUIUpdatersToAdd[id] = updater;
+			s_UpdatersToAdd[id] = updater;
 			return id;
 		}
 
