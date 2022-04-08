@@ -10,9 +10,7 @@ namespace novazero
 		using namespace input;
 
 		Director::Director()
-		{
-			n2dAddGUIUpdater(Director::Draw, this);			
-		}
+		{ }
 
 		void Director::Draw()
 		{
