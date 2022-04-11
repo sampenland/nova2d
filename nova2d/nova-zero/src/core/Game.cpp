@@ -269,6 +269,7 @@ namespace novazero
 			s_Renderer->PreDraw();
 
 			s_Renderer->Draw();
+			s_Renderer->DebugDraw();
 			
 			GUIDraw();
 

@@ -1,5 +1,7 @@
 #include "PhysicsDebug.h"
 #include "../logging/logging.h"
+#include "../graphics/gfx/SDL2_gfxPrimitives.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
@@ -12,12 +14,45 @@ namespace novazero
 
         void PhysicsDebug::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
         {
-            int i = 0;
+            Sint16* vx = new Sint16[vertexCount];
+            Sint16* vy = new Sint16[vertexCount];
+
+            for (int i = 0; i < vertexCount; i++)
+            {
+                vx[i] = vertices[i].x;
+                vy[i] = vertices[i].y;
+            }
+
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
+            polygonColor(Game::s_Renderer->GetSDLRenderer(),
+                vx,
+                vy,
+                (int)vertexCount,
+                0x00FF00FF
+            );
         }
         
         void PhysicsDebug::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
         {
-            int i = 0;
+            Sint16* vx = new Sint16[vertexCount];
+            Sint16* vy = new Sint16[vertexCount];
+
+            for (int i = 0; i < vertexCount; i++)
+            {
+                vx[i] = vertices[i].x;
+                vy[i] = vertices[i].y;
+            }
+
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
+            filledPolygonRGBA(Game::s_Renderer->GetSDLRenderer(),
+                vx,
+                vy,
+                (int)vertexCount,
+                c.r,
+                c.g,
+                c.b,
+                c.a
+            );
         }
         
         void PhysicsDebug::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)

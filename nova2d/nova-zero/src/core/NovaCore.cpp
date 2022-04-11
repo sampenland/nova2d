@@ -413,5 +413,15 @@ namespace novazero
 			return Game::s_SceneManager->GetCurrentWorld();
 		}
 
+		float n2dDegToRad(float deg)
+		{
+			return (deg * 3.141592653589793238463) / 180;
+		}
+
+		float n2dRadToDeg(float rad)
+		{
+			return rad * (180.0 / 3.141592653589793238463);
+		}
+
 	}
 }

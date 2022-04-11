@@ -13,11 +13,15 @@ namespace novazero
 		using namespace maths;
 
 		DrawLayers* Renderer::s_DrawLayers;
+		Color* Renderer::s_DebugRenderColor;
 
 		Renderer::Renderer(SDL_Window& window, Color* backgroundColor)
 		{
 			m_Renderer = SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED);
 			m_BackgroundColor = backgroundColor;
+			
+			s_DebugRenderColor = new Color(89, 210, 45, 65);
+
 			s_DrawLayers = new DrawLayers();
 		}
 
@@ -63,6 +67,20 @@ namespace novazero
 		{
 			if (s_DrawLayers)
 				s_DrawLayers->DrawAllLayers();
+		}
+
+		void Renderer::DebugDraw()
+		{
+			if (!Game::s_SceneManager->GetCurrentScene()) return;
+
+			Scene& currentScene = *Game::s_SceneManager->GetCurrentScene();
+			if (currentScene.m_DebugDraw)
+			{
+				if (currentScene.GetWorld())
+				{
+					currentScene.GetWorld()->DebugDraw();
+				}
+			}
 		}
 
 		void Renderer::DestroySelf()

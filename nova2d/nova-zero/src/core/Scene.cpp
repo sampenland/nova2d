@@ -27,7 +27,7 @@ namespace novazero
 			Game::s_Director->InitLighting();
 		}
 
-		void Scene::EnablePhysics(bool enabled, Vec2 gravity)
+		void Scene::EnablePhysics(bool enabled, Vec2 gravity, float innerPadding)
 		{
 			m_PhysicsEnabled = enabled;
 			m_Gravity = new b2Vec2(gravity.x, gravity.y);
@@ -37,31 +37,54 @@ namespace novazero
 			b2Vec2 lowerRightCorner = b2Vec2(Game::s_Width, 0);
 			b2Vec2 upperLeftCorner = b2Vec2(0, Game::s_Height);
 			b2Vec2 upperRightCorner = b2Vec2(Game::s_Width, Game::s_Height);
-		
-			// static container body, with the collisions at screen borders
-			b2BodyDef screenBorderDef;
-			screenBorderDef.position.Set(0, 0);
-			b2Body* screenBorderBody = m_World->CreateBody(&screenBorderDef);
 			
-			const int width = 50;
-			const int height = 50;
-			const int pad = 25;
-
 			b2BodyDef leftDef;
-			leftDef.position.Set(-pad, 0);
+			leftDef.position.Set(-100 + innerPadding, 0);
+
+			b2PolygonShape leftShape;
+			leftShape.SetAsBox(100, Game::s_Height);
+			leftDef.type = b2_staticBody;
+
 			b2Body* leftBody = m_World->CreateBody(&leftDef);
+			leftBody->CreateFixture(&leftShape, 1.0f);
+
+			// ----------------------------------------
 
 			b2BodyDef rightDef;
-			rightDef.position.Set(Game::s_Width + pad, 0);
+			rightDef.position.Set(Game::s_Width + 100 - innerPadding, 0);
+
+			b2PolygonShape rightShape;
+			rightShape.SetAsBox(100, Game::s_Height);
+			rightDef.type = b2_staticBody;
+
 			b2Body* rightBody = m_World->CreateBody(&rightDef);
+			rightBody->CreateFixture(&rightShape, 1.0f);
+
+			// ----------------------------------------
 
 			b2BodyDef upDef;
-			upDef.position.Set(0, -pad);
+			upDef.position.Set(0, -100 + innerPadding);
+
+			b2PolygonShape upShape;
+			upShape.SetAsBox(Game::s_Width, 100);
+			upDef.type = b2_staticBody;
+
 			b2Body* upBody = m_World->CreateBody(&upDef);
+			upBody->CreateFixture(&upShape, 1.0f);
+
+			// ----------------------------------------
 
 			b2BodyDef downDef;
-			downDef.position.Set(0, Game::s_Height + pad);
+			downDef.position.Set(0, Game::s_Height + 100 - innerPadding);
+
+			b2PolygonShape downShape;
+			downShape.SetAsBox(Game::s_Width, 100);
+			downDef.type = b2_staticBody;
+
 			b2Body* downBody = m_World->CreateBody(&downDef);
+			downBody->CreateFixture(&downShape, 1.0f);
+
+			
 
 		}
 

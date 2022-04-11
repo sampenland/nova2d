@@ -51,6 +51,10 @@
 #define ERR_NO_SCENE 1001
 #define ERR_NO_SCENE_MNGR 1002
 
+// Physics
+#define PHYSICS_MULTIPLIER 200
+#define PHYSICS_SCALE 0.9f
+
 // ---------------------
 // Quick Acess
 // ---------------------
@@ -742,6 +746,22 @@ namespace novazero
 		void n2dAudioPlayOnce(bool isMusic, const std::string& assetName);
 		void n2dAudioLoop(bool isMusic, const std::string& assetName);
 		void n2dAudioStop(bool isMusic, const std::string& assetName);
+
+		//----------------------------------------------------------------------------
+		// Maths
+		//----------------------------------------------------------------------------
+		
+		/*
+		Radians to Degrees
+		*/
+		float n2dRadToDeg(float rad);
+
+		/*
+		Degrees to Radians
+		*/
+		float n2dDegToRad(float deg);
+
+
 
 	}
 

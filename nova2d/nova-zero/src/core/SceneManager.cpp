@@ -169,17 +169,6 @@ namespace novazero
 				return;
 			}
 
-			if (m_CurrentScene)
-			{
-				if (m_CurrentScene->m_DebugDraw)
-				{
-					if (m_CurrentScene->GetWorld())
-					{
-						m_CurrentScene->GetWorld()->DebugDraw();
-					}
-				}
-			}
-
 			std::map<std::string, Timeline*>::iterator it = s_Timelines.begin();
 			while (it != s_Timelines.end())
 			{

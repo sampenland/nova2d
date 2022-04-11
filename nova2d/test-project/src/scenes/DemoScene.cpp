@@ -18,7 +18,12 @@ namespace testproject
 		n2dAssetsLoadAndAddTexture("ship", "res/ship.png");
 		player = new PhySprite("ship", Game::GetCenterScreen(), Vec2Int(16, 16),
 			10);
-		player->ConfigurePhysicsRect(false);
+
+		std::vector<Vec2> triangle;
+		triangle.push_back(Vec2(8, 0));
+		triangle.push_back(Vec2(0, 16));
+		triangle.push_back(Vec2(16, 16));
+		player->ConfigurePhysicsPolygon(false, triangle, 3);
 	}
 
 	void DemoScene::Update()
@@ -27,7 +32,31 @@ namespace testproject
 		{
 			if (player)
 			{
-				player->ApplyForce(Vec2(100, 100));
+				player->ApplyForce(-100);
+			}
+		}
+
+		if (n2dIsKeyDown(SDLK_DOWN))
+		{
+			if (player)
+			{
+				player->ApplyForce(100);
+			}
+		}
+
+		if (n2dIsKeyDown(SDLK_LEFT))
+		{
+			if (player)
+			{
+				player->ApplyAngularForce(-10);
+			}
+		}
+
+		if (n2dIsKeyDown(SDLK_RIGHT))
+		{
+			if (player)
+			{
+				player->ApplyAngularForce(10);
 			}
 		}
 	}
