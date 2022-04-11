@@ -73,7 +73,7 @@ namespace novazero
 
 			m_Body = world->CreateBody(&bodyDef);
 
-			b2Vec2* vertices = (b2Vec2*)malloc((vertexCount * sizeof(b2Vec2)));
+			b2Vec2* vertices = new b2Vec2[shapeVertices.size()];
 
 			if (!vertices)
 			{

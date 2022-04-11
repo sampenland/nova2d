@@ -14,6 +14,7 @@ namespace novazero
 
         void PhysicsDebug::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
         {
+            // TODO: stack allocate not heap (Fix)
             Sint16* vx = new Sint16[vertexCount];
             Sint16* vy = new Sint16[vertexCount];
 
@@ -34,6 +35,7 @@ namespace novazero
         
         void PhysicsDebug::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
         {
+            // TODO: stack allocate not heap (Fix)
             Sint16* vx = new Sint16[vertexCount];
             Sint16* vy = new Sint16[vertexCount];
 
