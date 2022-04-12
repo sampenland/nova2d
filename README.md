@@ -7,7 +7,7 @@ For full API overview, check out the [Doxygen Docs](https://n2d.dev/). For an in
 Also, to get involved in the development by suggesting ideas and features, check out the [Forums](https://n2d.dev/forums/index.php/community-forums/). Visit the [DevLogs](https://n2d.dev/forums/) site for How To video tutorials and a development blog of nova2d's progress. and and also join the community.
 
 ---
-!!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck.
+!!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck. AS OF NOW, though, nova2d will be solely targetting Windows while it's in development.
 
 ---
 **Feature Set**
