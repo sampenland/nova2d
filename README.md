@@ -55,6 +55,9 @@ Also, to get involved in the development by suggesting ideas and features, check
 	- Time Effected
  - Simple Logging system with several LOG_Levels
  
+ Physics
+ - Box2D physics engine integration - abstracted for simple use
+ 
  Misc
  - Automatic MACROs for simple score keeping
  - SQL Integration
