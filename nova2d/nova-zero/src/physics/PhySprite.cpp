@@ -23,10 +23,8 @@ namespace novazero
 			if (m_Body && GetSprite())
 			{
 				b2Vec2 bodyPos = m_Body->GetPosition();
-				GetSprite()->SetPosition(Vec2(bodyPos.x, bodyPos.y));
-				float angle = m_Body->GetAngle();
-				LOGS("physprite.cpp :: 28");
-				GetSprite()->SetAngle(angle);
+				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2, bodyPos.y - GetHeight() / 2));
+				GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
 			}
 		}
 
@@ -97,7 +95,7 @@ namespace novazero
 
 			m_Body->CreateFixture(&fixtureDef);
 
-			free(vertices);
+			delete[] vertices;
 
 		}
 

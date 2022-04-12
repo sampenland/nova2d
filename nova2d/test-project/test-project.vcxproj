@@ -96,6 +96,9 @@
   <ItemGroup>
     <ClInclude Include="src\scenes\DemoScene.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\ship.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

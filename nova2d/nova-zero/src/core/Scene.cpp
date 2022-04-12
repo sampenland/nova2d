@@ -33,9 +33,9 @@ namespace novazero
 			m_Gravity = new b2Vec2(gravity.x, gravity.y);
 			m_World = new b2World(*m_Gravity);
 
-			b2Vec2 lowerLeftCorner = b2Vec2(0, 0);
-			b2Vec2 lowerRightCorner = b2Vec2(Game::s_Width, 0);
-			b2Vec2 upperLeftCorner = b2Vec2(0, Game::s_Height);
+			b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
+			b2Vec2 lowerRightCorner = b2Vec2(Game::s_Width, 0.f);
+			b2Vec2 upperLeftCorner = b2Vec2(0.f, Game::s_Height);
 			b2Vec2 upperRightCorner = b2Vec2(Game::s_Width, Game::s_Height);
 			
 			b2BodyDef leftDef;

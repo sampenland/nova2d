@@ -84,7 +84,7 @@ namespace novazero
 
 				if (m_LookAtTarget)
 				{
-					int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), m_LookAtDegAdd);
+					float lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), m_LookAtDegAdd);
 					m_Sprite->SetAngle(lookAtAngle);
 				}
 			}

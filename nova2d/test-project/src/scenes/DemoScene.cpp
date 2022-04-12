@@ -20,10 +20,13 @@ namespace testproject
 			10);
 
 		std::vector<Vec2> triangle;
-		triangle.push_back(Vec2(8, 0));
-		triangle.push_back(Vec2(0, 16));
-		triangle.push_back(Vec2(16, 16));
-		player->ConfigurePhysicsPolygon(false, triangle, 3);
+		triangle.push_back(Vec2(0, -8));
+		triangle.push_back(Vec2(-8, 8));
+		triangle.push_back(Vec2(8, 8));
+		//player->ConfigurePhysicsRect(false);
+		//player->ConfigurePhysicsPolygon(false, triangle, 3);
+		player->ConfigurePhysicsCircle(false, 10);
+
 	}
 
 	void DemoScene::Update()

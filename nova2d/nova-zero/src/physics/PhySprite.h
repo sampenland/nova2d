@@ -25,7 +25,7 @@ namespace novazero
 
 			void ConfigurePhysicsRect(bool staticBody, float density = 0.5f, float friction = 0.3f);
 			void ConfigurePhysicsPolygon(bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density = 0.5f, float friction = 0.3f);
-			void ConfigurePhysicsCircle(bool staticBody, float radius, float density = 0.f, float friction = 0.3f);
+			void ConfigurePhysicsCircle(bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
 
 			/*
 			Force position 0,0 is center of mass
