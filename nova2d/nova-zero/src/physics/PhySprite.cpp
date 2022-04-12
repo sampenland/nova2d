@@ -170,6 +170,8 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			
+
 		}
 
 		void PhySprite::ApplyForce(float force, Vec2 forcePosition)

@@ -92,9 +92,11 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\scenes\DemoScene.cpp" />
+    <ClCompile Include="src\scenes\DemoSceneContactListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\DemoScene.h" />
+    <ClInclude Include="src\scenes\DemoSceneContactListener.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ship.png" />

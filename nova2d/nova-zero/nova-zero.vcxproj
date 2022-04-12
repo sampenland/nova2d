@@ -204,6 +204,7 @@
     <ClInclude Include="src\gui\imgui\imstb_textedit.h" />
     <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
     <ClInclude Include="src\input\ScrollInput.h" />
+    <ClInclude Include="src\physics\PhyContactListener.h" />
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />

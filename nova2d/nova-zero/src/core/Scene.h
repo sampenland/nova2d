@@ -16,7 +16,8 @@ namespace novazero
 		using namespace novazero::maths;
 		using namespace novazero::debug;
 
-		class Scene : public EventListener
+		class Scene : 
+			public EventListener
 		{
 		
 		private:
@@ -30,8 +31,6 @@ namespace novazero
 			b2World* m_World = nullptr;
 			bool m_PhysicsEnabled = false;
 			b2Vec2* m_Gravity = nullptr;
-
-
 
 		public:
 

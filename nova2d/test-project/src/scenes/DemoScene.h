@@ -1,6 +1,7 @@
 #pragma once
 #include "core/Scene.h"
 #include "physics/PhySprite.h"
+#include "DemoSceneContactListener.h"
 
 namespace testproject
 {
@@ -11,6 +12,8 @@ namespace testproject
 	{
 
 	private:
+
+		DemoSceneContactListener* m_ContactListener = nullptr;
 
 		PhySprite* player = nullptr;
 
