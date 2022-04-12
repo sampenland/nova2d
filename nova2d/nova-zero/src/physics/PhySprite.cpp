@@ -14,6 +14,8 @@ namespace novazero
 		{
 			m_ID = n2dGameGetID();
 
+			m_ColliderName = assetName;
+
 			auto uID = n2dAddUpdater(PhySprite::Update, this);
 			m_CleanUpdaters.push_back(uID);
 		}
@@ -28,7 +30,7 @@ namespace novazero
 			}
 		}
 
-		void PhySprite::ConfigurePhysicsPolygon(bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
+		void PhySprite::ConfigurePhysicsPolygon(const std::string& colliderName, bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
 		{
 			if (vertexCount < 3)
 			{
@@ -66,6 +68,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -94,12 +97,13 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_ColliderName = colliderName;
 
 			delete[] vertices;
 
 		}
 
-		void PhySprite::ConfigurePhysicsRect(bool staticBody, float density, float friction)
+		void PhySprite::ConfigurePhysicsRect(const std::string& colliderName, bool staticBody, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -119,6 +123,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -133,10 +138,11 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_ColliderName = colliderName;
 
 		}
 
-		void PhySprite::ConfigurePhysicsCircle(bool staticBody, float radius, float density, float friction)
+		void PhySprite::ConfigurePhysicsCircle(const std::string& colliderName, bool staticBody, float radius, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -156,6 +162,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -169,9 +176,14 @@ namespace novazero
 			fixtureDef.density = density;
 			fixtureDef.friction = friction;
 
-			m_Body->CreateFixture(&fixtureDef);
-			
+			m_Body->CreateFixture(&fixtureDef);			
+			m_ColliderName = colliderName;
 
+		}
+
+		std::string PhySprite::GetColliderName() const
+		{
+			return m_ColliderName;
 		}
 
 		void PhySprite::ApplyForce(float force, Vec2 forcePosition)

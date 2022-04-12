@@ -15,10 +15,8 @@ namespace novazero
 
 			PhyContactListener() {};
 
-            virtual void BeginContact(b2Contact* contact) = 0;
-
+			virtual void BeginContact(b2Contact* contact) = 0;
 			virtual void EndContact(b2Contact* contact) = 0;
-
 
 		};
 	}

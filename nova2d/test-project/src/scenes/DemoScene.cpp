@@ -26,7 +26,7 @@ namespace testproject
 		triangle.push_back(Vec2(8, 8));
 		//player->ConfigurePhysicsRect(false);
 		//player->ConfigurePhysicsPolygon(false, triangle, 3);
-		player->ConfigurePhysicsCircle(false, 10);
+		player->ConfigurePhysicsCircle("Player", false, 10);
 
 	}
 
