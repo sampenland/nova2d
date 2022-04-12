@@ -27,11 +27,13 @@ namespace novazero
 			Game::s_Director->InitLighting();
 		}
 
-		void Scene::EnablePhysics(bool enabled, Vec2 gravity, float innerPadding)
+		void Scene::EnablePhysics(bool enabled, b2ContactListener* contactListener, Vec2 gravity, float innerPadding)
 		{
 			m_PhysicsEnabled = enabled;
 			m_Gravity = new b2Vec2(gravity.x, gravity.y);
 			m_World = new b2World(*m_Gravity);
+
+			m_World->SetContactListener(contactListener);
 
 			b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
 			b2Vec2 lowerRightCorner = b2Vec2(Game::s_Width, 0.f);

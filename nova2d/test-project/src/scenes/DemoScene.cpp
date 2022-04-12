@@ -7,16 +7,13 @@ namespace testproject
 	DemoScene::DemoScene(const std::string& sceneName)
 		: Scene(sceneName)
 	{
-		m_ContactListener = new DemoSceneContactListener();
-		if (GetWorld())
-		{
-			GetWorld()->SetContactListener(m_ContactListener);
-		}
+		
 	}
 
 	void DemoScene::Start()
 	{
-		EnablePhysics(true);
+		m_ContactListener = new DemoSceneContactListener();
+		EnablePhysics(true, m_ContactListener);
 		PhysicsEnableDebug(true);
 
 		n2dAssetsLoadAndAddTexture("ship", "res/ship.png");
