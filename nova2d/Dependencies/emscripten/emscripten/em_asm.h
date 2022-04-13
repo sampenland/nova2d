@@ -16,7 +16,7 @@ extern "C" {
 // https://github.com/WebAssembly/binaryen/blob/51c8f2469f8fd05197b7694c65041b1567f2c6b5/src/wasm/wasm-emscripten.cpp#L183
 
 // C++ needs the nothrow attribute so -O0 doesn't lower these calls as invokes.
-__attribute__((nothrow))
+__attribute__((noexcept))
 int emscripten_asm_const_int(const char* code, const char* arg_sigs, ...);
 __attribute__((nothrow))
 double emscripten_asm_const_double(const char* code, const char* arg_sigs, ...);

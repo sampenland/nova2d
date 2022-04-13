@@ -7,10 +7,25 @@
 #include "../gui/imgui/imgui_impl_sdl.h"
 #include "../gui/imgui/imgui_impl_sdlrenderer.h"
 
+#ifdef NOVA_EMSCRIPTEN
+	#include "emscripten/emscripten.h"
+#endif
+
 namespace novazero
 {
 	namespace core
 	{
+
+		#ifdef NOVA_EMSCRIPTEN
+
+		static void WebGameLoop(void* fp)
+		{
+			((Game*)fp)->Tick();
+			emscripten_cancel_main_loop();
+		}
+
+		#endif
+
 		using namespace graphics;
 		using namespace maths;
 		using namespace utils;
@@ -101,8 +116,27 @@ namespace novazero
 
 			srand((unsigned int)time(NULL));
 
-			if(n2dDebug)
+		}
+
+		int Game::Start()
+		{
+			if (n2dDebug)
 				LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started. https://n2d.dev");
+
+#ifdef NOVA_EMSCRIPTEN
+
+			LOG(LVL_CONFIRMATION, "Web Build Activated.");
+			emscripten_set_main_loop_arg(WebGameLoop, this, -1, 1);
+
+#else
+
+			while (Game::s_Running)
+			{
+				Game::Tick();
+			}
+#endif
+
+			return s_ExitCode;
 
 		}
 

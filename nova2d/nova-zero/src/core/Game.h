@@ -53,6 +53,7 @@ namespace novazero
 			Game(const char* title, const novazero::maths::Vec2Int screenSize = novazero::maths::Vec2Int(1280, 800));
 			~Game();
 
+			int Start();
 			void Tick();
 
 			void Process();

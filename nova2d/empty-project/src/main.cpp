@@ -17,10 +17,7 @@ int main(int argc, char* argv[])
 	n2dGameAddScene(&scene);
 	n2dGameConfigFirstScene(&scene);
 	
-	while (Game::IsRunning())
-	{
-		game.Tick();
-	}
+	game.Start();
 
 	return Game::s_ExitCode;
 }
