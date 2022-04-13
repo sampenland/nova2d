@@ -2,6 +2,7 @@
 #include "../graphics/Renderer.h"
 #include <algorithm>
 #include "Game.h"
+#include "box2d/b2_draw.h"
 
 namespace novazero
 {
@@ -14,6 +15,10 @@ namespace novazero
 		std::map<unsigned int, std::function<void()>> SceneManager::s_PersistentUpdaters;
 		std::map<unsigned int, bool> SceneManager::s_PersistentUpdaterErasers;
 		std::map<unsigned int, std::function<void()>> SceneManager::s_PersistentUpdatersToAdd;
+
+		std::map<unsigned int, std::function<void()>> SceneManager::s_GUIUpdaters;
+		std::map<unsigned int, bool> SceneManager::s_GUIUpdaterErasers;
+		std::map<unsigned int, std::function<void()>> SceneManager::s_GUIUpdatersToAdd;
 
 		std::map<unsigned int, Deleteable*> SceneManager::s_Deleteables;
 
@@ -68,6 +73,11 @@ namespace novazero
 			return m_Scenes[sceneName];
 		}
 
+		Scene* SceneManager::GetCurrentScene()
+		{
+			return m_CurrentScene;
+		}
+
 		void SceneManager::ChangeScene(const std::string& sceneName)
 		{
 			Scene* loadScene = GetScene(sceneName);
@@ -92,7 +102,6 @@ namespace novazero
 			s_TweenManager->ClearTweens();
 			s_TimeEffectorManager->ClearEffectors();
 			s_TimeEffectorManager->ClearEffected();
-			Game::s_Director->ClearStacksAndReset(true, true);
 			CAMERA->Reset();
 
 			m_CurrentScene = loadScene;
@@ -266,6 +275,44 @@ namespace novazero
 			}
 		}
 
+		void SceneManager::RenderGUI()
+		{
+			// Add new updaters
+			std::map<unsigned int, std::function<void()>>::iterator itA = s_GUIUpdatersToAdd.begin();
+			while (itA != s_GUIUpdatersToAdd.end())
+			{
+				s_GUIUpdaters[itA->first] = itA->second;
+				s_GUIUpdaterErasers[itA->first] = false;
+				itA++;
+			}
+
+			s_GUIUpdatersToAdd.clear();
+
+			// Remove any removed updaters
+			std::map<unsigned int, bool>::iterator it = s_GUIUpdaterErasers.begin();
+			while (it != s_GUIUpdaterErasers.end())
+			{
+				if (it->second)
+				{
+					s_GUIUpdaters.erase(it->first);
+				}
+
+				it++;
+			}
+
+			s_GUIUpdaterErasers.clear();
+
+			// Update
+			std::map<unsigned int, std::function<void()>>::iterator it2 = s_GUIUpdaters.begin();
+			for (; it2 != s_GUIUpdaters.end(); ++it2)
+			{
+				if (it2->second)
+				{
+					it2->second();
+				}
+			}
+		}
+
 		void SceneManager::RemoveUpdater(unsigned int id)
 		{
 			s_UpdaterErasers[id] = true;
@@ -275,6 +322,18 @@ namespace novazero
 		{
 			unsigned int id = n2dGameGetID();
 			s_UpdatersToAdd[id] = updater;
+			return id;
+		}
+
+		void SceneManager::RemoveGUIUpdater(unsigned int id)
+		{
+			s_GUIUpdaterErasers[id] = true;
+		}
+
+		unsigned int SceneManager::AddGUIUpdater(std::function<void()> updater)
+		{
+			unsigned int id = n2dGameGetID();
+			s_GUIUpdatersToAdd[id] = updater;
 			return id;
 		}
 

@@ -5,14 +5,19 @@
 #include <vector>
 #include <string>
 #include "box2d/box2d.h"
+#include "SDL.h"
+#include "../core/Environment.h"
+#include "../debug/PhysicsDebug.h"
 
 namespace novazero
 {
 	namespace core
 	{
 		using namespace novazero::maths;
+		using namespace novazero::debug;
 
-		class Scene : public EventListener
+		class Scene : 
+			public EventListener
 		{
 		
 		private:
@@ -31,12 +36,19 @@ namespace novazero
 
 			Scene(const std::string& sceneName);
 
+			bool m_DebugDraw = false;
 			bool m_Started = false;
 			std::string m_SceneName = "";
 
-			void EnablePhysics(bool enabled, Vec2 gravity);
+			static Environment* s_Environment;
+
+			void EnablePhysics(bool enabled, b2ContactListener* contactListener, Vec2 gravity = Vec2(0,0), float innerPadding = 0.f);
 			b2World* GetWorld() const;
+			
 			void PhysicsStep();
+			void PhysicsEnableDebug(bool isDebug);
+
+			void EnableLights(Uint8 worldLightIntensity);
 
 			virtual void Start() = 0;
 			void Restart();
@@ -47,6 +59,10 @@ namespace novazero
 
 			void AddObjectToCleanUp(void* obj);
 			void CleanUp();
+
+		public:
+
+			static PhysicsDebug* s_PhysicsDrawer;
 		};
 	}
 }

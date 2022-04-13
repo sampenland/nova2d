@@ -69,7 +69,7 @@ namespace novazero
 			SetY((float)position.y);
 		}
 
-		void Positional::SetAngle(int a)
+		void Positional::SetAngle(float a)
 		{
 			m_Angle = a;
 		}

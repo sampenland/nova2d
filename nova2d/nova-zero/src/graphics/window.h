@@ -15,6 +15,7 @@ namespace novazero
 
 		private:
 
+			SDL_GLContext m_GlContext;
 			SDL_Window* m_Window;
 			SDL_Surface* m_Icon;
 			
@@ -38,7 +39,13 @@ namespace novazero
 				
 			}
 
+			void SetupImGUI(SDL_Renderer* render);
+
 			SDL_Window* GetWindow() const;
+			SDL_GLContext GetGLContext() const
+			{
+				return m_GlContext;
+			}
 			
 			void DestroySelf();
 

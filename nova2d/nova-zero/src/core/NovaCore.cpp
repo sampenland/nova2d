@@ -85,17 +85,6 @@ namespace novazero
 			Game::Rumble(joystickID, power, durationMS);
 		}
 
-		void n2dDirectorAddToStack(bool left, BYTE page, std::string labelText, int labelWidth, float inOrDecreaseBy, float max, float* refVal)
-		{
-			Game::s_Director->AddToStack(left, page, labelText, labelWidth, inOrDecreaseBy, max, refVal);
-		}
-
-		void n2dDirectorAddToStackMinMax(bool left, BYTE page, std::string labelText,
-			int labelWidth, float inOrDecreaseBy, float min, float max, float* minRefVal, float* maxRefVal)
-		{
-			Game::s_Director->AddToStackMinMax(left, page, labelText, labelWidth, inOrDecreaseBy, min, max, minRefVal, maxRefVal);
-		}
-
 		void n2dBlend(bool alpha)
 		{
 			Game::s_Renderer->SetBlendMode(alpha);
@@ -422,6 +411,16 @@ namespace novazero
 		b2World* n2dCurrentPhyWorld()
 		{
 			return Game::s_SceneManager->GetCurrentWorld();
+		}
+
+		float n2dDegToRad(float deg)
+		{
+			return (float)((deg * 3.141592653589793238463) / 180);
+		}
+
+		float n2dRadToDeg(float rad)
+		{
+			return (float)(rad * (180.0 / 3.141592653589793238463));
 		}
 
 	}

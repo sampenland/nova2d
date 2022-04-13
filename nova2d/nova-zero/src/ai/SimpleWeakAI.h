@@ -74,7 +74,7 @@ namespace novazero
 
 			void LookAt(Vec2Int target, int extraRotation)
 			{
-				int lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)GetX(), (int)GetY()), 
+				float lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)GetX(), (int)GetY()), 
 					target, extraRotation);
 				GetSprite()->SetAngle(lookAtAngle);
 			}

@@ -6,6 +6,7 @@
 namespace emptyproject
 {
 	using namespace novazero::core;
+	using namespace novazero::physics;
 
 	SampleScene::SampleScene(const std::string& sceneName)
 		: Scene(sceneName)
@@ -18,6 +19,7 @@ namespace emptyproject
 		const int textWidth = 500;
 		m_NovaTitle = new Text("font1", "Thanks for using nova2d", "white",
 			Rect(Game::s_Width / 2 - textWidth / 2, Game::s_Height / 2 - 75 / 2, textWidth, 75), 0);
+
 	}
 
 	void SampleScene::Update()

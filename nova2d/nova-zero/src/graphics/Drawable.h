@@ -105,7 +105,7 @@ namespace novazero
 				return Vec2(-(GetWidth() * m_Scale) / 2, -(GetHeight() * m_Scale) / 2);
 			}
 
-			int GetAngle() const { return m_Angle; }
+			float GetAngle() const { return m_Angle; }
 
 			void OriginCenter();
 			void OriginTopLeft();

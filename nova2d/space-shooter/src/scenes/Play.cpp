@@ -40,8 +40,6 @@ namespace spaceshooter
 
 		m_Waves = new Text("font1", "", "white", Rect(Game::s_Width / 2 - 96, Game::s_Height / 2 - 32, 192, 64), 0);
 
-		n2dDirectorAddToStack(true, 0, "Move Speed", 70, 0.01f, 6.f, &player->m_MoveSpeed);
-
 		AddObjectToCleanUp(m_ScoreText);
 		AddObjectToCleanUp(m_P1StreakText);
 		AddObjectToCleanUp(m_Waves);

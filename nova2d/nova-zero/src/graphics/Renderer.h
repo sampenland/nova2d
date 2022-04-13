@@ -21,6 +21,10 @@ namespace novazero
 
 			SDL_Renderer* m_Renderer;
 			Color* m_BackgroundColor;
+			
+		public:
+
+			static Color* s_DebugRenderColor;
 
 		public:
 
@@ -34,8 +38,9 @@ namespace novazero
 			void SetDrawColor(const char* colorName, Uint8 alphaOverride = 255);
 
 			void PreDraw() const;
-			void PostDraw() const;
 			void Draw() const;
+			void DebugDraw();
+			void PostDraw() const;
 
 			void DestroySelf();
 

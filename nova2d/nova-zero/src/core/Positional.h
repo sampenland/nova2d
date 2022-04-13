@@ -39,7 +39,7 @@ namespace novazero
 
 			Vec2Int m_Position;
 			Vec2 m_Offset = Vec2(0, 0);
-			int m_Angle = 0;
+			float m_Angle = 0;
 			float m_OldZoom = 1.f;
 
 		public:
@@ -82,7 +82,7 @@ namespace novazero
 			void SetPosition(Vec2 position);
 			void SetPositionInt(Vec2Int position);
 
-			void SetAngle(int a);
+			void SetAngle(float a);
 
 			// Place in center screen
 			void SetPositionCenter();

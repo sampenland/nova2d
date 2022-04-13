@@ -1,5 +1,10 @@
 #include "Renderer.h"
 #include "../core/Game.h"
+#include "../gui/glad/glad.h"
+#include "../gui/imgui/imgui.h"
+#include "../gui/imgui/imgui_impl_sdl.h"
+#include "../gui/imgui/imgui_impl_sdl.h"
+#include "../gui/imgui/imgui_impl_sdlrenderer.h"
 
 namespace novazero
 {
@@ -8,11 +13,15 @@ namespace novazero
 		using namespace maths;
 
 		DrawLayers* Renderer::s_DrawLayers;
+		Color* Renderer::s_DebugRenderColor;
 
 		Renderer::Renderer(SDL_Window& window, Color* backgroundColor)
 		{
 			m_Renderer = SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED);
 			m_BackgroundColor = backgroundColor;
+			
+			s_DebugRenderColor = new Color(89, 210, 45, 65);
+
 			s_DrawLayers = new DrawLayers();
 		}
 
@@ -30,6 +39,7 @@ namespace novazero
 			SDL_SetRenderDrawColor(m_Renderer, (Uint8)m_BackgroundColor->r, (Uint8)m_BackgroundColor->g,
 				(Uint8)m_BackgroundColor->b, (Uint8)m_BackgroundColor->a);
 
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			SDL_RenderClear(m_Renderer);
 		}
 
@@ -55,12 +65,22 @@ namespace novazero
 
 		void Renderer::Draw() const
 		{
-			PreDraw();
-			
 			if (s_DrawLayers)
 				s_DrawLayers->DrawAllLayers();
-			
-			PostDraw();
+		}
+
+		void Renderer::DebugDraw()
+		{
+			if (!Game::s_SceneManager->GetCurrentScene()) return;
+
+			Scene& currentScene = *Game::s_SceneManager->GetCurrentScene();
+			if (currentScene.m_DebugDraw)
+			{
+				if (currentScene.GetWorld())
+				{
+					currentScene.GetWorld()->DebugDraw();
+				}
+			}
 		}
 
 		void Renderer::DestroySelf()

@@ -151,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\player.aseprite" />
+    <None Include="imgui.ini" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\narrow.ttf" />
