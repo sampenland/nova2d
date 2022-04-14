@@ -1,1 +1,0 @@
-call em++ -std=c++14 -c .\core\Game.cpp -o .\core\Game.o -O2 -s USE_SDL_MIXER=2 -s USE_SDL_TTF=2 -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='["png"]' -IC:\spinlandGames\Projects\nova2d\nova2d\Dependencies\mysql\Release\include -IC:\spinlandGames\Projects\nova2d\nova2d\Dependencies\box2d\include -IC:\spinlandGames\Projects\nova2d\nova2d\Dependencies\sdl2\include

@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
 
+#ifdef NOVA_EMSCRIPTEN
+	#include <cmath>
+#endif
+
 namespace novazero
 {
 	namespace maths
