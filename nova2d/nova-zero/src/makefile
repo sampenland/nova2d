@@ -12,4 +12,4 @@ objects := $(SRCS:.cpp=.o)
 all: $(objects)
 
 $(objects): %.o: %.cpp
-	$(CC) -c $(CFLAGS) $(I1) $(I2) $(I3) $< -o $@
+	$(CC) -c $(CFLAGS) $(I1) $(I2) $(I3) $< -o ../out/$@
