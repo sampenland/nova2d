@@ -2,7 +2,14 @@
 #include "../graphics/Renderer.h"
 #include "../graphics/AnsiColor.h"
 #include "../graphics/DrawLayers.h"
-#include "../gui/glad/glad.h"
+
+#ifdef NOVA_EMSCRIPTEN
+// For emscripten, instead of using glad we use its built-in support for OpenGL:
+	#include <GL/gl.h>
+#else
+	#include "../gui/glad/glad.h"
+#endif
+
 #include "../gui/imgui/imgui.h"
 #include "../gui/imgui/imgui_impl_sdl.h"
 #include "../gui/imgui/imgui_impl_sdlrenderer.h"

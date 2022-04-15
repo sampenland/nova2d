@@ -22,7 +22,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef NOVA_EMSCRIPTEN
+// For emscripten, instead of using glad we use its built-in support for OpenGL:
+#include <GL/gl.h>
+#else
 #include "glad.h"
+#endif
 
 static void* get_proc(const char *namez);
 

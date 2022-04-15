@@ -1,7 +1,14 @@
 #include "Window.h"
 #include "../logging/Logging.h"
 #include "../core/Game.h"
+
+#ifdef NOVA_EMSCRIPTEN
+// For emscripten, instead of using glad we use its built-in support for OpenGL:
+#include <GL/gl.h>
+#else
 #include "../gui/glad/glad.h"
+#endif
+
 #include "../gui/imgui/imgui.h"
 #include "../gui/imgui/imgui_impl_sdl.h"
 #include "../gui/imgui/imgui_impl_sdlrenderer.h"
@@ -61,11 +68,14 @@ namespace novazero
 				SDL_GL_MakeCurrent(m_Window, m_GlContext);
 				SDL_GL_SetSwapInterval(1);
 
+#ifndef NOVA_EMSCRIPTEN
+
 				if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 				{
 					LOG(LVL_FATAL_ERROR, "Could not initialize glad.");
 					return;
 				}
+#endif
 			}
 			else
 			{
