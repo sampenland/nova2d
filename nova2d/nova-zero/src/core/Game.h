@@ -66,8 +66,11 @@ namespace novazero
 
 			void ConfigureFirstScene(const std::string& sceneName);
 			void ConfigureIcon(const char* iconPath) { m_MainWindow->ConfigureIcon(iconPath); }
+
+#ifdef NOVA_MYSQL 
 			void ConfigureSQL(const std::string& databaseName, const std::string& connectionString, const std::string& user,
 				const std::string& pass, bool useNovaSQLScoring);
+#endif
 
 		public:
 
@@ -79,7 +82,9 @@ namespace novazero
 			static novazero::utils::AssetManager* s_AssetManager;
 			static SceneManager* s_SceneManager;
 			static novazero::utils::FontManager* s_FontManager;
+#ifdef NOVA_MYSQL 
 			static novazero::utils::SQLManager* s_SQLManager;
+#endif
 			static novazero::debug::DebugOverlay* s_DebugOverlay;
 			static novazero::utils::AudioManager* s_AudioManager;
 			static novazero::utils::Director* s_Director;

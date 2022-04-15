@@ -1,4 +1,7 @@
 #pragma once
+
+#ifdef NOVA_MYSQL 
+
 #include <string>
 #include <mysql/jdbc.h>
 #include "../logging/logging.h"
@@ -274,3 +277,5 @@ namespace novazero
 		};
 	}
 }
+
+#endif

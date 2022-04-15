@@ -182,6 +182,13 @@ namespace novazero
 			Game::AddScore(add);
 		}
 
+#ifdef NOVA_MYSQL 
+
+		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass)
+		{
+			Game::s_SQLManager->Configure(databaseName, connectionString, user, pass);
+		}
+
 		void n2dSQLScoreTableCreation(int nameMaxSize, int scoreDigitCount)
 		{
 			novazero::core::Game::s_SQLManager->CreateScoreTable(nameMaxSize, scoreDigitCount);
@@ -201,6 +208,8 @@ namespace novazero
 		{
 			novazero::core::Game::s_SQLManager->GetScores(count, resultsOUT, lowestHighscoreOUT);
 		}
+
+#endif
 
 		bool n2dIsKeyDown(SDL_KeyCode key)
 		{
@@ -280,11 +289,6 @@ namespace novazero
 		bool n2dJoyRSimpleDown(BYTE controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
-		}
-
-		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass)
-		{
-			Game::s_SQLManager->Configure(databaseName, connectionString, user, pass);
 		}
 
 		void n2dTextInputClearBuffer(int newCharBufferMax)

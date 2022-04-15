@@ -42,7 +42,9 @@ namespace novazero
 		AssetManager* Game::s_AssetManager;
 		SceneManager* Game::s_SceneManager;
 		FontManager* Game::s_FontManager;
+#ifdef NOVA_MYSQL 
 		SQLManager* Game::s_SQLManager;
+#endif
 		DebugOverlay* Game::s_DebugOverlay;
 		AudioManager* Game::s_AudioManager;
 		Director* Game::s_Director;
@@ -105,7 +107,9 @@ namespace novazero
 			s_AssetManager = new AssetManager();
 			s_SceneManager = new SceneManager();
 			s_FontManager = new FontManager();
+#ifdef NOVA_MYSQL 
 			s_SQLManager = new SQLManager();
+#endif
 			s_AudioManager = new AudioManager();
 			s_Director = new Director();
 
@@ -163,6 +167,7 @@ namespace novazero
 			}
 		}
 
+#ifdef NOVA_MYSQL 
 		void Game::ConfigureSQL(const std::string& databaseName, const std::string& connectionString, const std::string& user, 
 			const std::string& pass, bool useNovaSQLScoring)
 		{
@@ -173,6 +178,7 @@ namespace novazero
 				n2dSQLScoreTableCreation(12, 10);
 			}
 		}
+#endif
 
 		// Must be called before debug position setting
 		void Game::ConfigureDebugOverlay(bool isVisible)

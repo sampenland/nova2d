@@ -255,7 +255,11 @@ Updaters are called each frame; this removes a current updater function from upd
 #include "../utils/timeline/TimelineEvent.h"
 #include "../utils/Tweens.h"
 #include "../utils/TweenManager.h"
-#include "../utils/SQLManager.h"
+
+#ifdef NOVA_MYSQL 
+	#include "../utils/SQLManager.h"
+#endif
+
 #include "../maps/TiledMap.h"
 #include "../core/Scene.h"
 #include "../graphics/Color.h"
@@ -489,6 +493,19 @@ namespace novazero
 		*/
 		void n2dScoreAdd(unsigned int add);
 
+#ifdef NOVA_MYSQL 
+
+		//----------------------------------------------------------------------------
+		// nova SQL
+		//----------------------------------------------------------------------------
+
+		/*
+		nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
+		Enables SQL use
+		*/
+		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass);
+
+
 		/*
 		nova2d SQL Scores Create Table (int, int)
 		Creates simple nova2d highscores table
@@ -513,6 +530,7 @@ namespace novazero
 		*/
 		void n2dSQLScoreTopN(int count, std::vector<HighScore>& resultsOUT, unsigned long& lowestHighscoreOUT);
 
+#endif
 
 		//----------------------------------------------------------------------------
 		// INPUT
@@ -611,16 +629,6 @@ namespace novazero
 		nova2d RIGHT Joy Simple Direction means joy is mostly down on axis
 		*/
 		bool n2dJoyRSimpleDown(BYTE controllerID);
-
-		//----------------------------------------------------------------------------
-		// nova SQL
-		//----------------------------------------------------------------------------
-
-		/*
-		nova2d SQL Configure(std::string connectionString, std::string table, std::string user, std::string pass)
-		Enables SQL use
-		*/
-		void n2dSQLConfigure(const std::string& databaseName, const std::string& connectionString, const std::string& user, const std::string& pass);
 
 		//----------------------------------------------------------------------------
 		// Input Handler
