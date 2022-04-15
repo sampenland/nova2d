@@ -9,19 +9,19 @@ I2 :=-Igraphics\gfx
 
 cpp_src := $(wildcard ai/*.cpp) $(wildcard audio/*.cpp) $(wildcard components/*.cpp) $(wildcard controllers/*.cpp) $(wildcard core/*.cpp) $(wildcard debug/*.cpp) $(wildcard graphics/*.cpp) $(wildcard gui/imgui/*.cpp) $(wildcard input/*.cpp) $(wildcard logging/*.cpp) $(wildcard maps/*.cpp) $(wildcard maths/*.cpp) $(wildcard particles/*.cpp) $(wildcard physics/*.cpp) $(wildcard thirdparty/jsonparser/*.cpp) $(wildcard utils/*.cpp) $(wildcard utils/timeline/*.cpp) $(wildcard utils/timeline/events/*.cpp)
 
-c_src := $(wildcard graphics/gdx/*.c)
+c_src := $(wildcard graphics/**/*.c)
 
 cpp_objects := $(cpp_src:.cpp=.o)
 c_objects := $(c_src:.c=.o)
 
-objectsInOut := $(addprefix ../web-dist/out/,$(objects))
+objectsInOut := $(addprefix ../web-dist/out/,$(c_objects)) $(addprefix ../web-dist/out/,$(cpp_objects))
 
-all: $(c_objects)
+all: $(c_objects) $(cpp_objects)
 
-$(cpp_objects):	%.o: %.cpp
+$(cpp_objects): %.o: %.cpp
 	$(CPP) -c $(CPPFLAGS) $(I1) $< -o ../web-dist/out/$@
 	
-$(c_objects):	%.o: %.c
+$(c_objects): %.o: %.c
 	$(CC) -c $(CFLAGS) $(I1) $< -o ../web-dist/out/$@
 	
 library:
