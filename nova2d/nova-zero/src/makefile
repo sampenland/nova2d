@@ -3,7 +3,7 @@ CFLAGS := -DNOVA_EMSCRIPTEN -s WASM=1 -O2 -s USE_SDL_MIXER=2 -s USE_SDL_TTF=2 -s
 
 I1 :=-I..\..\Dependencies\mysql\Release\include
 I2 :=-I..\..\Dependencies\box2d\include
-I3 :=-I..\..\Dependencies\sdl2\include
+#I3 :=-I..\..\Dependencies\sdl2\include
 
 SRCS := $(wildcard ai/*.cpp) $(wildcard audio/*.cpp) $(wildcard components/*.cpp) $(wildcard controllers/*.cpp) $(wildcard core/*.cpp) $(wildcard debug/*.cpp) $(wildcard graphics/*.cpp) $(wildcard graphics/gdx/*.c) $(wildcard gui/imgui/*.cpp) $(wildcard input/*.cpp) $(wildcard logging/*.cpp) $(wildcard maps/*.cpp) $(wildcard maths/*.cpp) $(wildcard particles/*.cpp) $(wildcard physics/*.cpp) $(wildcard thirdparty/jsonparser/*.cpp) $(wildcard utils/*.cpp) $(wildcard utils/timeline/*.cpp) $(wildcard utils/timeline/events/*.cpp)
 
@@ -12,4 +12,4 @@ objects := $(SRCS:.cpp=.o)
 all: $(objects)
 
 $(objects): %.o: %.cpp
-	$(CC) -c $(CFLAGS) $(I1) $(I2) $(I3) $< -o ../out/$@
+	$(CC) -c $(CFLAGS) $(I1) $(I2) $< -o ../web-dist/out/$@
