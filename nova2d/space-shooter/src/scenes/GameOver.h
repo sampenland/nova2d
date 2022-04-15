@@ -44,7 +44,7 @@ namespace spaceshooter
 			playerScore = new Text("font1", "Top Scores", "bright-blue",
 				Rect(Game::s_Width / 2 - 150, 332, 300, 30), 0);
 
-			std::vector<HighScore> highscores;
+			/*std::vector<HighScore> highscores;
 			unsigned long lowestScore;
 			int startY = 400;
 			int padding = 45;
@@ -72,7 +72,7 @@ namespace spaceshooter
 						c++;
 					}
 				}
-			}
+			}*/
 
 			playerScore = new Text("font1", "Your Score: " + tostring(n2dScore), "white",
 				Rect(Game::s_Width / 2 - 150, 148, 300, 45), 0);
@@ -104,7 +104,7 @@ namespace spaceshooter
 				std::string playerName = playerNameInput->GetText();
 				if (playerName == "") return;
 
-				n2dSQLScoreAdd(playerName, n2dScore);
+				//n2dSQLScoreAdd(playerName, n2dScore);
 			}
 
 			n2dSceneChange("mainMenu");

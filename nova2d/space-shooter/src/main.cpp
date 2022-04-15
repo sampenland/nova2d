@@ -20,7 +20,9 @@ int main(int argc, char* argv[])
 	// Game Config
 	Game game("Space Shooter");
 	game.ConfigureIcon("res/ship_01.png");
-	game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
+	
+	//game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
+	
 	game.ConfigureDebugOverlay(true);
 	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
 		
