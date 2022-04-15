@@ -120,9 +120,6 @@
     <ClCompile Include="src\debug\DrawCircle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\graphics\gfx\SDL2_gfxPrimitives.c.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\graphics\gfx\SDL2_framerate.c">
       <Filter>Source Files</Filter>
     </ClCompile>

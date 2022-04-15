@@ -1,2 +1,0 @@
-
-em++ -s LLD_REPORT_UNDEFINED .\src\main.cpp ..\box2d\box2d.a -I..\box2d ..\nova-zero\src\novalib.a -I..\nova-zero\src -O2 -s USE_SDL=2 -s USE_SDL_TTF=2 -s USE_SDL_MIXER=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='["png"]' --preload-file res -o test-project.html
