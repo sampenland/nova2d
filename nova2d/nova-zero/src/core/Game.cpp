@@ -28,7 +28,9 @@ namespace novazero
 		static void WebGameLoop(void* fp)
 		{
 			((Game*)fp)->Tick();
-			emscripten_cancel_main_loop();
+
+			if(!((Game*)fp)->s_Running)
+				emscripten_cancel_main_loop();
 		}
 
 		#endif
