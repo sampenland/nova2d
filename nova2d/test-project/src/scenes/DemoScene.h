@@ -16,6 +16,8 @@ namespace testproject
 		DemoSceneContactListener* m_ContactListener = nullptr;
 
 		PhySprite* player = nullptr;
+		PhySprite* planet = nullptr;
+		PhySprite* alien = nullptr;
 
 	public:
 

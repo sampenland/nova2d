@@ -37,5 +37,11 @@
     <Image Include="res\ship.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\lander-TX518.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Ralph-TX18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

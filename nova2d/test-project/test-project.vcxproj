@@ -134,6 +134,8 @@
     <ClInclude Include="src\scenes\DemoSceneContactListener.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\lander-TX518.png" />
+    <Image Include="res\Ralph-TX18.png" />
     <Image Include="res\ship.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

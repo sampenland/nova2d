@@ -139,6 +139,8 @@ namespace novazero
 
 			m_Body->CreateFixture(&fixtureDef);
 			m_ColliderName = colliderName;
+			m_CircleShape = false;
+			m_RectShape = true;
 
 		}
 
@@ -178,6 +180,48 @@ namespace novazero
 
 			m_Body->CreateFixture(&fixtureDef);			
 			m_ColliderName = colliderName;
+			m_CircleShape = true;
+			m_RectShape = false;
+
+		}
+
+		void PhySprite::ConfigurePhysicsSensorCircle(const std::string& colliderName, bool staticBody, float radius, float density, float friction)
+		{
+			b2World* world = n2dCurrentPhyWorld();
+
+			if (!world)
+			{
+				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.");
+				return;
+			}
+
+			if (!GetSprite())
+			{
+				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.");
+				return;
+			}
+
+			if (m_Body)
+				world->DestroyBody(m_Body);
+
+			b2BodyDef bodyDef;
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
+			bodyDef.position.Set(GetX(), GetY());
+
+			m_Body = world->CreateBody(&bodyDef);
+
+			b2CircleShape shape;
+			shape.m_radius = radius * PHYSICS_SCALE;
+
+			b2FixtureDef fixtureDef;
+			fixtureDef.shape = &shape;
+			fixtureDef.isSensor = true;
+			fixtureDef.density = density;
+			fixtureDef.friction = friction;
+
+			m_Body->CreateFixture(&fixtureDef);
+			m_ColliderName = colliderName;
 
 		}
 
@@ -186,11 +230,29 @@ namespace novazero
 			return m_ColliderName;
 		}
 
-		void PhySprite::ApplyForce(float force, Vec2 forcePosition)
+		void PhySprite::ApplyForce(float force, Directions direction)
 		{
 			if (m_Body)
 			{
-				const b2Vec2 f = b2Vec2((force * PHYSICS_MULTIPLIER), (force * PHYSICS_MULTIPLIER));
+				b2Vec2 forceDirection;
+				switch (direction)
+				{
+				case Directions::Up:
+					forceDirection = m_Body->GetWorldVector(b2Vec2(0, -1));
+					break;
+				case Directions::Down:
+					forceDirection = m_Body->GetWorldVector(b2Vec2(0, 1));
+					break;
+				case Directions::Right:
+					forceDirection = m_Body->GetWorldVector(b2Vec2(1, 0));
+					break;
+				case Directions::Left:
+					forceDirection = m_Body->GetWorldVector(b2Vec2(-1, 0));
+					break;
+				}
+
+				m_Body->ApplyForce((force * PHYSICS_MULTIPLIER) * forceDirection, m_Body->GetWorldCenter(), true);
+				/*const b2Vec2 f = b2Vec2((force * PHYSICS_MULTIPLIER), (force * PHYSICS_MULTIPLIER));
 				if (forcePosition.x == 0 && forcePosition.y)
 				{
 					m_Body->ApplyForceToCenter(f, true);
@@ -200,10 +262,8 @@ namespace novazero
 					const b2Vec2 pos = b2Vec2(m_Body->GetWorldCenter().x + forcePosition.x,
 						m_Body->GetWorldCenter().y + forcePosition.y);
 
-					b2Vec2 forceDirection = m_Body->GetWorldVector(b2Vec2(0, 1));
-
-					m_Body->ApplyForce((force * PHYSICS_MULTIPLIER) * forceDirection, pos,  true);
-				}
+					
+				}*/
 			}
 		}
 
@@ -212,6 +272,46 @@ namespace novazero
 			if (m_Body)
 			{
 				m_Body->ApplyAngularImpulse(force * (PHYSICS_MULTIPLIER / 30), true);
+			}
+		}
+
+		void PhySprite::SetScale(float factor)
+		{
+			if (m_Body)
+			{
+				b2Fixture* f = m_Body->GetFixtureList();
+				m_Body->DestroyFixture(f);
+
+				if (m_RectShape)
+				{
+					b2PolygonShape shape;
+					shape.SetAsBox(GetWidth() / 2 * PHYSICS_SCALE * factor, GetHeight() / 2 * PHYSICS_SCALE * factor);
+					
+					m_Body->CreateFixture(&shape, m_Density);
+					m_Body->GetFixtureList()->SetDensity(m_Density);
+					m_Body->GetFixtureList()->SetFriction(m_Friction);
+					m_Body->GetFixtureList()->SetRestitution(m_Restitution);
+					m_Body->GetFixtureList()->SetRestitutionThreshold(m_RestitutionThres);
+				}
+				else if (m_CircleShape)
+				{
+					b2CircleShape shape;
+					shape.m_radius = m_Radius * PHYSICS_SCALE * factor;
+					
+					m_Body->CreateFixture(&shape, m_Density);
+					m_Body->GetFixtureList()->SetDensity(m_Density);
+					m_Body->GetFixtureList()->SetFriction(m_Friction);
+					m_Body->GetFixtureList()->SetRestitution(m_Restitution);
+					m_Body->GetFixtureList()->SetRestitutionThreshold(m_RestitutionThres);
+				}
+				else
+				{
+					LOG(LVL_NON_FATAL_ERROR, "Cannot scale polygon shaped bodies.");
+					return;
+				}
+
+				if (GetSprite())
+					GetSprite()->SetScale(factor);
 			}
 		}
 

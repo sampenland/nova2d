@@ -16,17 +16,21 @@ namespace testproject
 		EnablePhysics(true, m_ContactListener);
 		PhysicsEnableDebug(true);
 
-		n2dAssetsLoadAndAddTexture("ship", "res/ship.png");
-		player = new PhySprite("ship", Game::GetCenterScreen(), Vec2Int(16, 16),
-			10);
+		n2dAssetsLoadAndAddTexture("ship", "res/lander-TX518.png");
+		n2dAssetsLoadAndAddTexture("alien", "res/Ralph-TX18.png");
+		n2dAssetsLoadAndAddTexture("planet", "res/planet.png");
 
-		std::vector<Vec2> triangle;
-		triangle.push_back(Vec2(0, -8));
-		triangle.push_back(Vec2(-8, 8));
-		triangle.push_back(Vec2(8, 8));
-		//player->ConfigurePhysicsRect(false);
-		//player->ConfigurePhysicsPolygon(false, triangle, 3);
-		player->ConfigurePhysicsCircle("Player", false, 10);
+		planet = new PhySprite("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
+			Vec2Int(256, 256), 2);
+		planet->ConfigurePhysicsSensorCircle("planet", true, 200);
+
+		player = new PhySprite("ship", Game::GetCenterScreen(), Vec2Int(32, 32),
+			10);
+		player->ConfigurePhysicsRect("player", false);
+
+		alien = new PhySprite("alien", Vec2(50, 50), Vec2Int(32, 32), 2);
+		alien->ConfigurePhysicsRect("alien", false);
+		alien->SetScale(2);
 
 	}
 
@@ -36,7 +40,7 @@ namespace testproject
 		{
 			if (player)
 			{
-				player->ApplyForce(-100);
+				player->ApplyForce(100, Directions::Up);
 			}
 		}
 
@@ -44,7 +48,7 @@ namespace testproject
 		{
 			if (player)
 			{
-				player->ApplyForce(100);
+				player->ApplyForce(100, Directions::Down);
 			}
 		}
 
@@ -52,7 +56,7 @@ namespace testproject
 		{
 			if (player)
 			{
-				player->ApplyAngularForce(-10);
+				player->ApplyForce(100, Directions::Left);
 			}
 		}
 
@@ -60,7 +64,7 @@ namespace testproject
 		{
 			if (player)
 			{
-				player->ApplyAngularForce(10);
+				player->ApplyForce(100, Directions::Right);
 			}
 		}
 	}

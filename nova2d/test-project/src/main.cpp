@@ -12,7 +12,8 @@ int main(int argc, char* argv[])
 
 	DemoScene* scene = new DemoScene("demoScene");
 
-	n2dSetBackgroundColor("purple");
+	n2dAddColor("space-black", "2e2e2e", 255);
+	n2dSetBackgroundColor("space-black");
 
 	n2dGameAddScene(scene);
 	n2dGameConfigFirstScene(scene);
