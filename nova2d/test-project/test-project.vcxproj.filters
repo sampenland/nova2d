@@ -24,12 +24,24 @@
     <ClCompile Include="src\scenes\DemoSceneContactListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\actors\Alien.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\actors\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\DemoScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\scenes\DemoSceneContactListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\actors\Alien.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\actors\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

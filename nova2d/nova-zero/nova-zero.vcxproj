@@ -200,6 +200,8 @@
     <ClCompile Include="src\maths\Vec2.cpp" />
     <ClCompile Include="src\particles\Dot.cpp" />
     <ClCompile Include="src\particles\Particle.cpp" />
+    <ClCompile Include="src\physics\ai\PhySimpleFollower.cpp" />
+    <ClCompile Include="src\physics\ai\PhySimpleWeakAI.cpp" />
     <ClCompile Include="src\physics\PhySprite.cpp" />
     <ClCompile Include="src\physics\TimeEffected.cpp" />
     <ClCompile Include="src\physics\TimeEffector.cpp" />
@@ -247,6 +249,8 @@
     <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
     <ClInclude Include="src\input\ScrollInput.h" />
     <ClInclude Include="src\physics\PhyContactListener.h" />
+    <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
+    <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />

@@ -16,21 +16,21 @@ namespace testproject
 		EnablePhysics(true, m_ContactListener);
 		PhysicsEnableDebug(true);
 
-		n2dAssetsLoadAndAddTexture("ship", "res/lander-TX518.png");
+		n2dAssetsLoadAndAddTexture("player", "res/lander-TX518.png");
 		n2dAssetsLoadAndAddTexture("alien", "res/Ralph-TX18.png");
 		n2dAssetsLoadAndAddTexture("planet", "res/planet.png");
+		n2dAssetsLoadAndAddTexture("bullet", "res/bullet.png");
 
 		planet = new PhySprite("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
 			Vec2Int(256, 256), 2);
-		planet->ConfigurePhysicsSensorCircle("planet", true, 200);
+		//planet->ConfigurePhysicsSensorCircle("planet", true, 200);
 
-		player = new PhySprite("ship", Game::GetCenterScreen(), Vec2Int(32, 32),
+		player = new Player(Game::GetCenterScreen(), Vec2Int(32, 32),
 			10);
 		player->ConfigurePhysicsRect("player", false);
+		n2dReferenceAdd("player", player);
 
-		alien = new PhySprite("alien", Vec2(50, 50), Vec2Int(32, 32), 2);
-		alien->ConfigurePhysicsRect("alien", false);
-		alien->SetScale(2);
+		alien = new Alien("alien", Vec2(50, 50), Vec2Int(32, 32), 2);
 
 	}
 

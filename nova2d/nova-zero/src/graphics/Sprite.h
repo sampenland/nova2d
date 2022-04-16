@@ -6,6 +6,7 @@
 #include <map>
 #include "SDL.h"
 #include "Drawable.h"
+#include "../core/Referenceable.h"
 
 namespace novazero
 {
@@ -25,7 +26,7 @@ namespace novazero
 			std::function<void(Sprite* sprite)> OnAnimationEnd = nullptr;
 		};
 
-		class Sprite : public Drawable, public Deleteable
+		class Sprite : public Drawable, public Deleteable, public Referenceable
 		{
 			
 		private:

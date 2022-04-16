@@ -1,6 +1,7 @@
 #pragma once
 #include "core/Scene.h"
-#include "physics/PhySprite.h"
+#include "../actors/Player.h"
+#include "../actors/Alien.h"
 #include "DemoSceneContactListener.h"
 
 namespace testproject
@@ -15,9 +16,9 @@ namespace testproject
 
 		DemoSceneContactListener* m_ContactListener = nullptr;
 
-		PhySprite* player = nullptr;
+		Player* player = nullptr;
 		PhySprite* planet = nullptr;
-		PhySprite* alien = nullptr;
+		Alien* alien = nullptr;
 
 	public:
 

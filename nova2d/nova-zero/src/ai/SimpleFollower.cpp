@@ -44,6 +44,12 @@ namespace novazero
 
 		void SimpleFollower::UpdateFollower()
 		{
+			if (!m_Sprite)
+			{
+				LOG(LVL_NFE, "Cannot update follower. Not sprite attached");
+				return;
+			}
+
 			bool waiting = false;
 			if (m_WaitDelay > 0)
 			{
