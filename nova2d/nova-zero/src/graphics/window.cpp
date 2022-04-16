@@ -43,15 +43,29 @@ namespace novazero
 		{
 			using namespace logging;
 			
+#ifdef NOVA_EMSCRIPTEN
+			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0) {
+				std::string err = SDL_GetError();
+				LOG(LVL_FE, "Unable to initialize SDL: " + err);
+				return;
+		}
+#else
 			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) != 0) {
-				SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+				std::string err = SDL_GetError();
+				LOG(LVL_FE, "Unable to initialize SDL: " + err);
 				return;
 			}
+#endif
 
-			// Dear ImGUI opengl
+#ifdef NOVA_EMSCRIPTEN
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+#else
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+#endif
 
 			m_Window = SDL_CreateWindow(
 				m_Title,
@@ -65,6 +79,14 @@ namespace novazero
 			if (m_Window)
 			{
 				m_GlContext = SDL_GL_CreateContext(m_Window);
+
+				if (!m_GlContext)
+				{
+					std::string err = SDL_GetError();
+					LOG(LVL_FE, "Could not create Open GL context: " + err);
+					return;
+				}
+
 				SDL_GL_MakeCurrent(m_Window, m_GlContext);
 				SDL_GL_SetSwapInterval(1);
 

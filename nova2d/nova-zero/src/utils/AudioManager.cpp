@@ -12,7 +12,12 @@ namespace novazero
 
 		AudioManager::AudioManager(unsigned int maxChannels)
 		{
+#ifdef NOVA_EMSCRIPTEN
+			int flags = MIX_INIT_OGG | MIX_INIT_MP3;
+#else
 			int flags = MIX_INIT_OGG | MIX_INIT_MP3 | MIX_INIT_MID;
+#endif
+
 			int initted = Mix_Init(flags);
 			if ((initted & flags) != flags) {
 
@@ -28,7 +33,11 @@ namespace novazero
 				return;
 			}
 
+#ifdef NOVA_EMSCRIPTEN
+			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: ONLY wav and ogg files");
+#else
 			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: wav, ogg, mp3, midi");
+#endif
 			Mix_AllocateChannels((int)maxChannels);
 			m_Started = true;
 
