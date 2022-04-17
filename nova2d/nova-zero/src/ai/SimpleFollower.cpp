@@ -1,5 +1,6 @@
 #include "SimpleFollower.h"
 #include "../core/Game.h"
+#include "../physics/PhySprite.h"
 
 namespace novazero
 {
@@ -28,6 +29,15 @@ namespace novazero
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			ConfigureTimeEffected(m_Sprite);
+			m_UsingPhySprite = false;
+		}
+
+		void SimpleFollower::AddPhySprite(const std::string& assetName, Vec2 position, 
+			Vec2Int size, unsigned char layer, Vec2Int displaySize)
+		{
+			m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize);
+			ConfigureTimeEffected(m_PhySprite);
+			m_UsingPhySprite = true;
 		}
 
 		void SimpleFollower::Configure(float moveSpeed, float delayStart, Vec2Int waitTargetPos)
@@ -44,9 +54,8 @@ namespace novazero
 
 		void SimpleFollower::UpdateFollower()
 		{
-			if (!m_Sprite)
+			if (!m_Sprite && !m_PhySprite)
 			{
-				LOG(LVL_NFE, "Cannot update follower. Not sprite attached");
 				return;
 			}
 
@@ -59,10 +68,21 @@ namespace novazero
 
 			if (m_Target == nullptr) return;
 
-			if (OutOfBounds(m_Sprite))
+			if (m_UsingPhySprite)
 			{
-				DestroySelf();
-				return;
+				if (OutOfBounds(m_PhySprite))
+				{
+					DestroySelf();
+					return;
+				}
+			}
+			else
+			{
+				if (OutOfBounds(m_Sprite))
+				{
+					DestroySelf();
+					return;
+				}
 			}
 
 			if (m_DelayTime > 0)
@@ -73,8 +93,19 @@ namespace novazero
 
 			m_DelayTime = m_UpdateDirectionDelay;
 
-			float x = (float)m_Sprite->GetX();
-			float y = (float)m_Sprite->GetY();
+			float x, y;
+
+			if (m_UsingPhySprite)
+			{
+				x = (float)m_PhySprite->GetX();
+				y = (float)m_PhySprite->GetY();
+			}
+			else
+			{
+				x = (float)m_Sprite->GetX();
+				y = (float)m_Sprite->GetY();
+			}
+
 			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
 
 			float newX = x;
@@ -91,7 +122,14 @@ namespace novazero
 				if (m_LookAtTarget)
 				{
 					float lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), m_LookAtDegAdd);
-					m_Sprite->SetAngle(lookAtAngle);
+					if (m_UsingPhySprite)
+					{
+						m_PhySprite->SetAngle(lookAtAngle);
+					}
+					else
+					{
+						m_Sprite->SetAngle(lookAtAngle);
+					}
 				}
 			}
 			else
@@ -103,7 +141,14 @@ namespace novazero
 				}
 			}
 
-			m_Sprite->SetPosition(Vec2(newX, newY));
+			if (m_UsingPhySprite)
+			{
+				m_PhySprite->SetPosition(Vec2(newX, newY));
+			}
+			else
+			{
+				m_Sprite->SetPosition(Vec2(newX, newY));
+			}
 
 		}
 

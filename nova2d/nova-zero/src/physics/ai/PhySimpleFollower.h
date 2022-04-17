@@ -1,23 +1,35 @@
 #pragma once
 #include "../../ai/SimpleFollower.h"
+#include "../../physics/PhySprite.h"
 
 namespace novazero
 {
 	namespace physics
 	{
-		using namespace ai;
-
-		class PhySimpleFollower :
-			public SimpleFollower
+		namespace ai
 		{
+			using namespace novazero::ai;
 
-		private:
+			class PhySimpleFollower :
+				public SimpleFollower
+			{
 
-		public:
+			private:
 
-			PhySimpleFollower(Positional* target, float moveDelay);
+				PhySprite* m_Sprite = nullptr;
 
-			void DestroySelf();
-		};
+			public:
+
+				PhySimpleFollower(Positional* target, float moveDelay);
+
+				void AddPhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize);
+				PhySprite* GetPhySprite() const;
+
+				void Update();
+
+				void DestroySelf();
+			};
+		}
+
 	}
 }

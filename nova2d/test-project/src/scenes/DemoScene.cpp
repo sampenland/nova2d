@@ -20,10 +20,11 @@ namespace testproject
 		n2dAssetsLoadAndAddTexture("alien", "res/Ralph-TX18.png");
 		n2dAssetsLoadAndAddTexture("planet", "res/planet.png");
 		n2dAssetsLoadAndAddTexture("bullet", "res/bullet.png");
+		n2dAssetsLoadAndAddTexture("fuel", "res/fuel.png");
+		n2dAssetsLoadAndAddTexture("jets", "res/jets.png");
 
-		planet = new PhySprite("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
+		planet = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
 			Vec2Int(256, 256), 2);
-		//planet->ConfigurePhysicsSensorCircle("planet", true, 200);
 
 		player = new Player(Game::GetCenterScreen(), Vec2Int(32, 32),
 			10);
@@ -36,37 +37,7 @@ namespace testproject
 
 	void DemoScene::Update()
 	{
-		if (n2dIsKeyDown(SDLK_UP))
-		{
-			if (player)
-			{
-				player->ApplyForce(100, Directions::Up);
-			}
-		}
-
-		if (n2dIsKeyDown(SDLK_DOWN))
-		{
-			if (player)
-			{
-				player->ApplyForce(100, Directions::Down);
-			}
-		}
-
-		if (n2dIsKeyDown(SDLK_LEFT))
-		{
-			if (player)
-			{
-				player->ApplyForce(100, Directions::Left);
-			}
-		}
-
-		if (n2dIsKeyDown(SDLK_RIGHT))
-		{
-			if (player)
-			{
-				player->ApplyForce(100, Directions::Right);
-			}
-		}
+		
 	}
 
 	void DemoScene::End()

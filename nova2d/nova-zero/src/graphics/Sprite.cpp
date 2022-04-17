@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "Drawable.h"
 
 #include "../utils/TextureLoader.h"
 #include "../logging/Logging.h"

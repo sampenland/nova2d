@@ -3,13 +3,14 @@
 #include "core/Timer.h"
 #include "../actors/Player.h"
 #include "physics/ai/PhySimpleFollower.h"
+#include "AlienBullet.h"
 
 namespace testproject
 {
 	using namespace novazero::core;
 
 	Alien::Alien(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
-		: PhySimpleWeakAI(assetName, position, size, layer)
+		: PhySimpleWeakAI(assetName, position, size, layer, size)
 	{
 		
 		GetPhysicsSprite()->ConfigurePhysicsRect("alien", false);
@@ -23,7 +24,7 @@ namespace testproject
 
 		ClearPatrol();
 		
-		Configure(10, false);
+		Configure(1, false);
 		EnableAI(true);
 	}
 
@@ -32,7 +33,6 @@ namespace testproject
 		float x = n2dRandomFloat(32, Game::s_Width - 32);
 		float y = n2dRandomFloat(32, Game::s_Height - 32);
 
-		ClearPatrol();
 		AddPatrolPointWithFunction(Vec2(x, y), GetLinearPatrolMove());
 
 	}
@@ -40,11 +40,9 @@ namespace testproject
 	void Alien::Shoot()
 	{
 		Player* p = (Player*)n2dReferenceGet("player");
-		PhySimpleFollower* bullet = new PhySimpleFollower(p, 10);
-		bullet->AddSprite("bullet", GetPosition(), Vec2Int(16, 16), 4);
-		Timer* t = new Timer(n2dRandomFloat(2000, 6000), false, [=]() {
-			bullet->DestroySelf();
-		});
+		AlienBullet* bullet = new AlienBullet(
+			GetCenter(), p, 10);
+		
 	}
 
 	void Alien::DestroySelf()

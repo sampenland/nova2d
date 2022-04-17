@@ -8,13 +8,13 @@ namespace novazero
 		using namespace graphics;
 		using namespace core;
 
-		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
-			bool makeCopy)
-			: Sprite(assetName, position, size, layer, makeCopy)
+		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize)
+			: Sprite(assetName, position, displaySize, layer)
 		{
 			m_ID = n2dGameGetID();
 
 			m_ColliderName = assetName;
+			m_Size = size;
 
 			auto uID = n2dAddUpdater(PhySprite::Update, this);
 			m_CleanUpdaters.push_back(uID);
@@ -22,12 +22,22 @@ namespace novazero
 
 		void PhySprite::Update()
 		{
-			if (m_Body && GetSprite())
+			if (m_Body && GetPhySprite())
 			{
 				b2Vec2 bodyPos = m_Body->GetPosition();
 				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2, bodyPos.y - GetHeight() / 2));
 				GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
 			}
+		}
+
+		int PhySprite::GetWidth() const
+		{
+			return m_Size.x;
+		}
+
+		int PhySprite::GetHeight() const
+		{
+			return m_Size.y;
 		}
 
 		void PhySprite::ConfigurePhysicsPolygon(const std::string& colliderName, bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
@@ -58,7 +68,7 @@ namespace novazero
 				return;
 			}
 
-			if (!GetSprite())
+			if (!GetPhySprite())
 			{
 				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.");
 				return;
@@ -113,7 +123,7 @@ namespace novazero
 				return;
 			}
 
-			if (!GetSprite())
+			if (!GetPhySprite())
 			{
 				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.");
 				return;
@@ -154,7 +164,7 @@ namespace novazero
 				return;
 			}
 
-			if (!GetSprite())
+			if (!GetPhySprite())
 			{
 				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.");
 				return;
@@ -166,7 +176,7 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+			bodyDef.position.Set((GetX() + GetWidth()), (GetY() + GetHeight()));
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -195,19 +205,13 @@ namespace novazero
 				return;
 			}
 
-			if (!GetSprite())
-			{
-				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.");
-				return;
-			}
-
 			if (m_Body)
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
 			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+			bodyDef.position.Set((GetX() + GetWidth()/2), (GetY() + GetHeight()/2));
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -222,6 +226,8 @@ namespace novazero
 
 			m_Body->CreateFixture(&fixtureDef);
 			m_ColliderName = colliderName;
+			m_CircleShape = true;
+			m_RectShape = false;
 
 		}
 
@@ -313,6 +319,15 @@ namespace novazero
 				if (GetSprite())
 					GetSprite()->SetScale(factor);
 			}
+		}
+
+		void PhySprite::SetPosition(Vec2 position)
+		{
+			if (m_Body)
+				m_Body->SetTransform(b2Vec2(position.x + GetWidth() / 2, position.y + GetHeight() / 2),
+					m_Body->GetAngle());
+
+			Sprite::SetPosition(position);
 		}
 
 		void PhySprite::DestroySelf()

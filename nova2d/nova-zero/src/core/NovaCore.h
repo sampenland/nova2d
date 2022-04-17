@@ -53,7 +53,7 @@
 
 // Physics
 #define PHYSICS_MULTIPLIER 200
-#define PHYSICS_SCALE 0.9f
+#define PHYSICS_SCALE 1.f
 
 // ---------------------
 // Quick Acess

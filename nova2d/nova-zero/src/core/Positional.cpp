@@ -1,12 +1,13 @@
 #include "Positional.h"
 #include "Game.h"
-#include "../graphics/Drawable.h"
+#include "../physics/PhySprite.h"
 
 namespace novazero
 {
 	namespace core
 	{
 		using namespace graphics;
+		using namespace physics;
 
 		Positional::Positional() 
 		{
@@ -17,6 +18,20 @@ namespace novazero
 		{
 			m_Drawable = drawable;
 			m_ID = n2dGameGetID();
+		}
+
+		Sprite* Positional::GetSprite()
+		{
+			if(m_Drawable)
+				return (Sprite*)m_Drawable;
+			return nullptr;
+		}
+
+		PhySprite* Positional::GetPhySprite()
+		{
+			if(m_Drawable)
+				return (PhySprite*)m_Drawable;
+			return nullptr;
 		}
 
 		void Positional::SetFacing(Directions facing)
@@ -33,8 +48,14 @@ namespace novazero
 		{ 
 			return (float)m_Position.y / CAMERA_ZOOM; 
 		}
-		Vec2Int Positional::GetPositionInt() const { return Vec2Int((int)m_Position.x, (int)m_Position.y); }
-		Vec2 Positional::GetPosition() const { return Vec2(GetX(), GetY()); }
+		Vec2Int Positional::GetPositionInt() const 
+		{
+			return Vec2Int((int)m_Position.x, (int)m_Position.y); 
+		}
+		Vec2 Positional::GetPosition() const 
+		{ 
+			return Vec2(GetX(), GetY()); 
+		}
 
 		void Positional::SetX(float x)
 		{

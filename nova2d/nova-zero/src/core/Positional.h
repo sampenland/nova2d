@@ -12,10 +12,16 @@ namespace novazero
 		class Text;
 	}
 
+	namespace physics
+	{
+		class PhySprite;
+	}
+
 	namespace core
 	{
 		using namespace maths;
 		using namespace graphics;
+		using namespace physics;
 
 		enum class Directions
 		{
@@ -46,11 +52,11 @@ namespace novazero
 
 			Positional();
 
-			void Update();
-
 			void LinkPositionalDrawable(Drawable* drawable);
 
-			Sprite* GetSprite() { return (Sprite*)m_Drawable; }
+			Sprite* GetSprite();
+			PhySprite* GetPhySprite();
+
 			Image* GetImage() { return (Image*)m_Drawable; }
 			Text* GetText() { return (Text*)m_Drawable; }
 

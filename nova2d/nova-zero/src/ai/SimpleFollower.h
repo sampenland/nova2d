@@ -6,6 +6,7 @@
 #include "../physics/Collider.h"
 #include "../physics/TimeEffected.h"
 #include "../core/Meta.h"
+#include "../physics/PhySprite.h"
 
 namespace novazero
 {
@@ -39,14 +40,18 @@ namespace novazero
 			
 		protected:
 			Sprite* m_Sprite = nullptr;
+			PhySprite* m_PhySprite = nullptr;
 			float m_MoveSpeed = 0;
+			bool m_UsingPhySprite = false;
 
 		public:
 
 			SimpleFollower(Positional* target, const float moveUpdateDelayMS);
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
+			void AddPhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize);
 			Sprite* GetSprite() { return m_Sprite; }
+			PhySprite* GetPhySprite() { return m_PhySprite; }
 
 			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
 			void ConfigureTarget(Positional* target);

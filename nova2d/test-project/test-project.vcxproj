@@ -126,6 +126,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\actors\Alien.cpp" />
+    <ClCompile Include="src\actors\AlienBullet.cpp" />
     <ClCompile Include="src\actors\Player.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\scenes\DemoScene.cpp" />
@@ -133,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actors\Alien.h" />
+    <ClInclude Include="src\actors\AlienBullet.h" />
     <ClInclude Include="src\actors\Player.h" />
     <ClInclude Include="src\scenes\DemoScene.h" />
     <ClInclude Include="src\scenes\DemoSceneContactListener.h" />

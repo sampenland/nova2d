@@ -22,6 +22,7 @@ namespace novazero
 			bool m_RectShape = false;
 			bool m_CircleShape = false;
 
+			Vec2Int m_Size = Vec2Int(0, 0);
 			float m_Radius = 1.f;
 			b2FixtureDef fixtureDef;
 			float m_Density = 1.f;
@@ -32,9 +33,13 @@ namespace novazero
 
 		public:
 
-			PhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
-				bool makeCopy = false);
+			PhySprite(const std::string& assetName, Vec2 position, 
+				Vec2Int size, unsigned char layer, Vec2Int displaySize);
 
+			b2Body* GetBody() const 
+			{
+				return m_Body;
+			}
 			void ConfigurePhysicsRect(const std::string& colliderName, bool staticBody, float density = 0.5f, float friction = 0.3f);
 			void ConfigurePhysicsPolygon(const std::string& colliderName, bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density = 0.5f, float friction = 0.3f);
 			void ConfigurePhysicsCircle(const std::string& colliderName, bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
@@ -50,6 +55,10 @@ namespace novazero
 
 			void Update();
 
+			int GetWidth() const;
+			int GetHeight() const;
+
+			void SetPosition(Vec2 position);
 			void SetScale(float factor);
 
 			void DestroySelf();
