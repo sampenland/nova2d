@@ -249,6 +249,7 @@
     <ClInclude Include="src\gui\imgui\imstb_textedit.h" />
     <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
     <ClInclude Include="src\input\ScrollInput.h" />
+    <ClInclude Include="src\physics\PhyBase.h" />
     <ClInclude Include="src\physics\PhyContactListener.h" />
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
     <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />

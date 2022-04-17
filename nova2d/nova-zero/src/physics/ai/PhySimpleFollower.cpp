@@ -25,9 +25,10 @@ namespace novazero
 				
 			}
 
-			void PhySimpleFollower::AddPhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize)
+			void PhySimpleFollower::AddPhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
+				unsigned char layer, Vec2Int displaySize, const std::string& colliderName)
 			{
-				m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize);
+				m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
 				m_UsingPhySprite = true;
 				ConfigureTimeEffected(m_Sprite);
 			}

@@ -31,6 +31,11 @@ namespace novazero
 			m_Offset = Vec2((float)-GetWidth() / 2, (float)-GetHeight() / 2);
 		}
 
+		void Drawable::SetOrigin(float x, float y)
+		{
+			m_Offset = Vec2(x, y);
+		}
+
 		void Drawable::OriginTopLeft()
 		{
 			m_Offset = Vec2(0, 0);

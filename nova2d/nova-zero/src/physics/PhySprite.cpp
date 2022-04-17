@@ -8,13 +8,12 @@ namespace novazero
 		using namespace graphics;
 		using namespace core;
 
-		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize)
-			: Sprite(assetName, position, displaySize, layer)
+		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
+			unsigned char layer, Vec2Int displaySize, std::string colliderName)
+			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName)
 		{
 			m_ID = n2dGameGetID();
-
-			m_ColliderName = assetName;
-			m_Size = size;
+			m_PhySize = size;
 
 			auto uID = n2dAddUpdater(PhySprite::Update, this);
 			m_CleanUpdaters.push_back(uID);
@@ -22,25 +21,28 @@ namespace novazero
 
 		void PhySprite::Update()
 		{
-			if (m_Body && GetPhySprite())
+			if (m_Body && GetSprite())
 			{
 				b2Vec2 bodyPos = m_Body->GetPosition();
-				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2, bodyPos.y - GetHeight() / 2));
+
+				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2,
+					bodyPos.y - GetHeight() / 2));
+
 				GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
 			}
 		}
 
 		int PhySprite::GetWidth() const
 		{
-			return m_Size.x;
+			return m_PhySize.x;
 		}
 
 		int PhySprite::GetHeight() const
 		{
-			return m_Size.y;
+			return m_PhySize.y;
 		}
 
-		void PhySprite::ConfigurePhysicsPolygon(const std::string& colliderName, bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
+		void PhySprite::ConfigurePhysicsPolygon(bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
 		{
 			if (vertexCount < 3)
 			{
@@ -107,13 +109,12 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
-			m_ColliderName = colliderName;
 
 			delete[] vertices;
 
 		}
 
-		void PhySprite::ConfigurePhysicsRect(const std::string& colliderName, bool staticBody, float density, float friction)
+		void PhySprite::ConfigurePhysicsRect(bool staticBody, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -135,7 +136,7 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+			bodyDef.position.Set(GetX() - GetWidth(), GetY() - GetHeight());
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -148,13 +149,12 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
-			m_ColliderName = colliderName;
 			m_CircleShape = false;
 			m_RectShape = true;
 
 		}
 
-		void PhySprite::ConfigurePhysicsCircle(const std::string& colliderName, bool staticBody, float radius, float density, float friction)
+		void PhySprite::ConfigurePhysicsCircle(bool staticBody, float radius, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -188,14 +188,13 @@ namespace novazero
 			fixtureDef.density = density;
 			fixtureDef.friction = friction;
 
-			m_Body->CreateFixture(&fixtureDef);			
-			m_ColliderName = colliderName;
+			m_Body->CreateFixture(&fixtureDef);
 			m_CircleShape = true;
 			m_RectShape = false;
 
 		}
 
-		void PhySprite::ConfigurePhysicsSensorCircle(const std::string& colliderName, bool staticBody, float radius, float density, float friction)
+		void PhySprite::ConfigurePhysicsSensorCircle(bool staticBody, float radius, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -225,15 +224,9 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
-			m_ColliderName = colliderName;
 			m_CircleShape = true;
 			m_RectShape = false;
 
-		}
-
-		std::string PhySprite::GetColliderName() const
-		{
-			return m_ColliderName;
 		}
 
 		void PhySprite::ApplyForce(float force, Directions direction)
@@ -258,18 +251,7 @@ namespace novazero
 				}
 
 				m_Body->ApplyForce((force * PHYSICS_MULTIPLIER) * forceDirection, m_Body->GetWorldCenter(), true);
-				/*const b2Vec2 f = b2Vec2((force * PHYSICS_MULTIPLIER), (force * PHYSICS_MULTIPLIER));
-				if (forcePosition.x == 0 && forcePosition.y)
-				{
-					m_Body->ApplyForceToCenter(f, true);
-				}
-				else
-				{
-					const b2Vec2 pos = b2Vec2(m_Body->GetWorldCenter().x + forcePosition.x,
-						m_Body->GetWorldCenter().y + forcePosition.y);
-
-					
-				}*/
+				
 			}
 		}
 
@@ -288,10 +270,11 @@ namespace novazero
 				b2Fixture* f = m_Body->GetFixtureList();
 				m_Body->DestroyFixture(f);
 
-				if (m_RectShape)
+				if (m_RectShape && GetPhySprite())
 				{
 					b2PolygonShape shape;
-					shape.SetAsBox(GetWidth() / 2 * PHYSICS_SCALE * factor, GetHeight() / 2 * PHYSICS_SCALE * factor);
+					shape.SetAsBox(GetPhySprite()->GetWidth() / 2 * PHYSICS_SCALE * factor, 
+						GetPhySprite()->GetHeight() / 2 * PHYSICS_SCALE * factor);
 					
 					m_Body->CreateFixture(&shape, m_Density);
 					m_Body->GetFixtureList()->SetDensity(m_Density);

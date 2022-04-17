@@ -29,12 +29,12 @@ namespace testproject
 			Vec2Int(256, 256), 2);
 		planet = new PhySensor("planet", true, Vec2(Game::s_Width - 32, Game::s_Height - 32), 256);
 
-		player = new Player(Game::GetCenterScreen(), Vec2Int(32, 32),
+		player = new Player(Game::GetCenterScreen(), Vec2(32, 32),
 			10);
 		player->ConfigurePhysicsRect("player", false);
 		n2dReferenceAdd("player", player);
 
-		alien = new Alien("alien", Vec2(50, 50), Vec2Int(32, 32), 2);
+		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
 
 	}
 

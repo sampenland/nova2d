@@ -3,10 +3,10 @@
 
 namespace testproject
 {
-	Player::Player(Vec2 position, Vec2Int size, unsigned char layer)
-		: PhySprite("player", position, size, layer, Vec2Int(128, 128))
+	Player::Player(Vec2 position, Vec2 size, unsigned char layer)
+		: PhySprite("player", position, size, layer, Vec2Int(128, 128), "player")
 	{
-		ConfigurePhysicsRect("player", false);
+		ConfigurePhysicsRect(false);
 		
 		if (GetPhySprite())
 		{
@@ -14,6 +14,8 @@ namespace testproject
 			GetPhySprite()->AddAnimation("right", 2, 2, 1, true, nullptr);
 			GetPhySprite()->AddAnimation("left", 4, 2, 1, true, nullptr);
 			GetPhySprite()->AddAnimation("down", 6, 2, 1, true, nullptr);
+	
+			GetPhySprite()->SetOrigin(-42, -46);
 		}
 
 		auto cid = n2dAddUpdater(Player::Update, this);

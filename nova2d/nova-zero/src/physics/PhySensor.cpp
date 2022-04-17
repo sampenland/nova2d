@@ -7,8 +7,8 @@ namespace novazero
 	{
 		using namespace novazero::core;
 
-		PhySensor::PhySensor(const std::string& colliderName, bool staticBody,
-			Vec2 position, Vec2 size, float density, float friction )
+		PhySensor::PhySensor(std::string colliderName, bool staticBody,
+			Vec2 position, Vec2 size, float density, float friction) : PhyBase(colliderName)
 		{
 			SetPosition(position);
 
@@ -40,13 +40,13 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
-			m_ColliderName = colliderName;
 			m_Shape = Shapes::Circle;
-			m_Size = size;
+			m_PhySize = size;
 		}
 
-		PhySensor::PhySensor(const std::string& colliderName, bool staticBody,
+		PhySensor::PhySensor(std::string colliderName, bool staticBody,
 			Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
+			: PhyBase(colliderName)
 		{
 			SetPosition(position);
 			if (vertexCount < 3)
@@ -115,13 +115,13 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
-			m_ColliderName = colliderName;
 
 			delete[] vertices;
 		}
 
-		PhySensor::PhySensor(const std::string& colliderName, bool staticBody,
-			Vec2 position, float radius, float density, float friction)
+		PhySensor::PhySensor(std::string colliderName, bool staticBody,
+			Vec2 position, float radius, float density, float friction) 
+			: PhyBase(colliderName)
 		{
 			SetPosition(position);
 			b2World* world = n2dCurrentPhyWorld();
@@ -152,7 +152,6 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
-			m_ColliderName = colliderName;
 			m_Shape = Shapes::Circle;
 			m_Radius = radius;
 		}

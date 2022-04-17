@@ -49,7 +49,8 @@ namespace novazero
 			SimpleFollower(Positional* target, const float moveUpdateDelayMS);
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
-			void AddPhySprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize);
+			void AddPhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
+				unsigned char layer, Vec2Int displaySize, const std::string& colliderName);
 			Sprite* GetSprite() { return m_Sprite; }
 			PhySprite* GetPhySprite() { return m_PhySprite; }
 

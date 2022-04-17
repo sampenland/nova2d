@@ -11,7 +11,7 @@ namespace testproject
 	AlienBullet::AlienBullet(Vec2 position, Positional* target, float moveDelay) 
 		: PhySimpleFollower(target, moveDelay)
 	{
-		AddPhySprite("bullet", position, Vec2Int(16, 16), 4, Vec2Int(16,16));
+		AddPhySprite("bullet", position, Vec2(16, 16), 4, Vec2Int(16,16), "alien-bullet");
 		PhySprite* sprite = GetPhySprite();
 		if (sprite)
 		{

@@ -1,6 +1,7 @@
 #include "DemoSceneContactListener.h"
 #include "logging/logging.h"
 #include "physics/PhySprite.h"
+#include "physics/PhyBase.h"
 
 namespace testproject
 {
@@ -10,8 +11,8 @@ namespace testproject
 
 	void DemoSceneContactListener::BeginContact(b2Contact* contact)
 	{
-		PhySprite* contactA = (PhySprite*)(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-		PhySprite* contactB = (PhySprite*)(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+		PhyBase* contactA = (PhyBase*)(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+		PhyBase* contactB = (PhyBase*)(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 		
 		if (contactA && contactB)
 		{
@@ -21,8 +22,8 @@ namespace testproject
 	
 	void DemoSceneContactListener::EndContact(b2Contact* contact)
 	{
-		PhySprite* contactA = (PhySprite*)(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-		PhySprite* contactB = (PhySprite*)(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+		PhyBase* contactA = (PhyBase*)(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+		PhyBase* contactB = (PhyBase*)(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
 		if (contactA && contactB)
 		{

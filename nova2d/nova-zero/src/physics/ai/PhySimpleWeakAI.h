@@ -19,8 +19,8 @@ namespace novazero
 
 			public:
 
-				PhySimpleWeakAI(const std::string& assetName, Vec2 position, Vec2Int size, 
-					unsigned char layer, Vec2Int displaySize);
+				PhySimpleWeakAI(const std::string& assetName, Vec2 position, Vec2 size, 
+					unsigned char layer, Vec2Int displaySize, const std::string& colliderName);
 
 				void Update();
 

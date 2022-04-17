@@ -23,7 +23,7 @@ namespace testproject
 
 	public:
 
-		Player(Vec2 position, Vec2Int size, unsigned char layer);
+		Player(Vec2 position, Vec2 size, unsigned char layer);
 
 		void Update();
 		void Controls();

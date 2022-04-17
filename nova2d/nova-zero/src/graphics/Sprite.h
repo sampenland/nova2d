@@ -85,6 +85,7 @@ namespace novazero
 			int GetHeight() const { return m_DestRect.h; }
 
 			void OriginCenter() { GetDrawable()->OriginCenter(); }
+			void SetOrigin(float x, float y) { GetDrawable()->SetOrigin(x, y); }
 			void OriginTopLeft() { GetDrawable()->OriginTopLeft(); }
 
 			float OffsetX() { return GetDrawable()->OffsetX(); }

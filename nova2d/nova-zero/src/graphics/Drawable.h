@@ -107,6 +107,7 @@ namespace novazero
 
 			float GetAngle() const { return m_Angle; }
 
+			void SetOrigin(float x, float y);
 			void OriginCenter();
 			void OriginTopLeft();
 

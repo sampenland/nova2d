@@ -10,10 +10,11 @@ namespace testproject
 	using namespace novazero::core;
 
 	Alien::Alien(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
-		: PhySimpleWeakAI(assetName, position, size, layer, size)
+		: PhySimpleWeakAI(assetName, position, Vec2(size.x, size.y), layer, size, "alien")
 	{
-		
-		GetPhysicsSprite()->ConfigurePhysicsRect("alien", false);
+		SetPosition(position);
+
+		GetPhysicsSprite()->ConfigurePhysicsRect(false);
 		GetPhysicsSprite()->SetScale(2);
 
 		m_Shooter = new Timer(12000.f, true, n2dMakeFunc(Alien::Shoot, this));

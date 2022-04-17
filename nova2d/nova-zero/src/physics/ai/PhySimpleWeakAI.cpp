@@ -9,10 +9,12 @@ namespace novazero
 		{
 			using namespace core;
 
-			PhySimpleWeakAI::PhySimpleWeakAI(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, Vec2Int displaySize)
+			PhySimpleWeakAI::PhySimpleWeakAI(const std::string& assetName, Vec2 position, 
+				Vec2 size, unsigned char layer, Vec2Int displaySize, const std::string& colliderName)
 				: SimpleWeakAI()
 			{
-				m_Sprite = new PhySprite(assetName, position, size, layer, displaySize);
+				m_Sprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
+				m_Sprite->OriginCenter();
 				LinkPositionalDrawable(m_Sprite);
 
 				auto cleanID = n2dAddUpdater(PhySimpleWeakAI::Update, this);
@@ -21,7 +23,7 @@ namespace novazero
 
 			void PhySimpleWeakAI::Update()
 			{
-				m_Sprite->SetPosition(SimpleWeakAI::Positional::GetPosition());
+				m_Sprite->SetPosition(SimpleWeakAI::Positional::GetCenter());
 			}
 
 			PhySprite* PhySimpleWeakAI::GetPhysicsSprite() const
