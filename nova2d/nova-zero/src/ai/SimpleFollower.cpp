@@ -169,6 +169,9 @@ namespace novazero
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 
+			if (m_PhySprite)
+				m_PhySprite->DestroySelf();
+
 			Deleteable::SetDeleted(true);
 		}
 

@@ -3,6 +3,7 @@
 #include "../actors/Player.h"
 #include "../actors/Alien.h"
 #include "DemoSceneContactListener.h"
+#include "physics/PhySensor.h"
 
 namespace testproject
 {
@@ -17,7 +18,8 @@ namespace testproject
 		DemoSceneContactListener* m_ContactListener = nullptr;
 
 		Player* player = nullptr;
-		Image* planet = nullptr;
+		Image* planetDisplay = nullptr;
+		PhySensor* planet = nullptr;
 		Alien* alien = nullptr;
 
 	public:

@@ -332,8 +332,15 @@ namespace novazero
 
 		void PhySprite::DestroySelf()
 		{
-			CleanUpdaters();
+			if (m_Body)
+			{
+				if (Game::s_SceneManager->GetCurrentWorld())
+				{
+					Game::s_SceneManager->GetCurrentWorld()->DestroyBody(m_Body);
+				}
+			}
 
+			CleanUpdaters();
 			Sprite::DestroySelf();
 		}
 	

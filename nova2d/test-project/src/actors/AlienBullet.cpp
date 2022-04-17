@@ -12,7 +12,8 @@ namespace testproject
 		: PhySimpleFollower(target, moveDelay)
 	{
 		AddPhySprite("bullet", position, Vec2Int(16, 16), 4, Vec2Int(16,16));
-		if (GetPhySprite())
+		PhySprite* sprite = GetPhySprite();
+		if (sprite)
 		{
 			GetPhySprite()->ConfigurePhysicsSensorCircle("bullet", false, 8);
 		}

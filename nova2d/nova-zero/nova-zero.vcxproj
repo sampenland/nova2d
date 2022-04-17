@@ -202,6 +202,7 @@
     <ClCompile Include="src\particles\Particle.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleFollower.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleWeakAI.cpp" />
+    <ClCompile Include="src\physics\PhySensor.cpp" />
     <ClCompile Include="src\physics\PhySprite.cpp" />
     <ClCompile Include="src\physics\TimeEffected.cpp" />
     <ClCompile Include="src\physics\TimeEffector.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="src\physics\PhyContactListener.h" />
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
     <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />
+    <ClInclude Include="src\physics\PhySensor.h" />
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />

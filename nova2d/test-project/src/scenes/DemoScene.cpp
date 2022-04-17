@@ -4,6 +4,8 @@
 
 namespace testproject
 {
+	using namespace novazero::physics;
+
 	DemoScene::DemoScene(const std::string& sceneName)
 		: Scene(sceneName)
 	{
@@ -23,8 +25,9 @@ namespace testproject
 		n2dAssetsLoadAndAddTexture("fuel", "res/fuel.png");
 		n2dAssetsLoadAndAddTexture("jets", "res/jets.png");
 
-		planet = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
+		planetDisplay = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
 			Vec2Int(256, 256), 2);
+		planet = new PhySensor("planet", true, Vec2(Game::s_Width - 32, Game::s_Height - 32), 256);
 
 		player = new Player(Game::GetCenterScreen(), Vec2Int(32, 32),
 			10);
