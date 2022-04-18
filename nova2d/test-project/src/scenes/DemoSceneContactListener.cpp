@@ -11,8 +11,8 @@ namespace testproject
 
 	void DemoSceneContactListener::BeginContact(b2Contact* contact)
 	{
-		PhyBase* contactA = (PhyBase*)(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-		PhyBase* contactB = (PhyBase*)(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+		PhyBase* contactA = reinterpret_cast<PhyBase*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+		PhyBase* contactB = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 		
 		if (contactA && contactB)
 		{
@@ -22,8 +22,8 @@ namespace testproject
 	
 	void DemoSceneContactListener::EndContact(b2Contact* contact)
 	{
-		PhyBase* contactA = (PhyBase*)(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-		PhyBase* contactB = (PhyBase*)(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+		PhyBase* contactA = reinterpret_cast<PhyBase*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+		PhyBase* contactB = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
 		if (contactA && contactB)
 		{

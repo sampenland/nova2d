@@ -10,7 +10,7 @@ namespace novazero
 
 		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
 			unsigned char layer, Vec2Int displaySize, std::string colliderName)
-			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName)
+			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName, this)
 		{
 			m_ID = n2dGameGetID();
 			m_PhySize = size;
@@ -80,7 +80,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -134,7 +134,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX() - GetWidth(), GetY() - GetHeight());
 
@@ -174,7 +174,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);			
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set((GetX() + GetWidth()), (GetY() + GetHeight()));
 
@@ -206,9 +206,9 @@ namespace novazero
 
 			if (m_Body)
 				world->DestroyBody(m_Body);
-
+			
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set((GetX() + GetWidth()/2), (GetY() + GetHeight()/2));
 

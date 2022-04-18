@@ -31,7 +31,7 @@ namespace testproject
 
 		player = new Player(Game::GetCenterScreen(), Vec2(32, 32),
 			10);
-		player->ConfigurePhysicsRect("player", false);
+		player->ConfigurePhysicsRect(false);
 		n2dReferenceAdd("player", player);
 
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);

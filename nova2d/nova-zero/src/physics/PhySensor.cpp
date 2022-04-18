@@ -8,7 +8,7 @@ namespace novazero
 		using namespace novazero::core;
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
-			Vec2 position, Vec2 size, float density, float friction) : PhyBase(colliderName)
+			Vec2 position, Vec2 size, float density, float friction) : PhyBase(colliderName, this)
 		{
 			SetPosition(position);
 
@@ -24,7 +24,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(position.x, position.y);
 
@@ -46,7 +46,7 @@ namespace novazero
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
 			Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
-			: PhyBase(colliderName)
+			: PhyBase(colliderName, this)
 		{
 			SetPosition(position);
 			if (vertexCount < 3)
@@ -85,7 +85,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -121,7 +121,7 @@ namespace novazero
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
 			Vec2 position, float radius, float density, float friction) 
-			: PhyBase(colliderName)
+			: PhyBase(colliderName, this)
 		{
 			SetPosition(position);
 			b2World* world = n2dCurrentPhyWorld();
@@ -136,7 +136,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(position.x, position.y);
 
