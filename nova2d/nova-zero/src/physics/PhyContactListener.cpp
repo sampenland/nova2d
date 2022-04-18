@@ -13,7 +13,7 @@ namespace novazero
 
 		PhyContactListener::PhyContactListener() {};
 
-		unsigned int PhyContactListener::AddCollision(PhyBase* self, PhyBase* other, 
+		PhyCollision* PhyContactListener::AddCollision(PhyBase* self, PhyBase* other, 
 			std::function<void(PhyBase* a, PhyBase* b)> onEnter,
 			std::function<void(PhyBase* a, PhyBase* b)> onExit)
 		{
@@ -29,17 +29,21 @@ namespace novazero
 				LOGS("Added collision: " + self->GetColliderName() + "[" + tostring(self->GetPhyID()) + "]" +
 					" : " + other->GetColliderName() + "[" + tostring(other->GetPhyID()) + "]");
 
-			m_Collisions[id] = collision;
-			return id;
+			m_Collisions.push_back(collision);
+
+			return collision;
 
 		}
 
-		void PhyContactListener::RemoveCollision(unsigned int id)
+		void PhyContactListener::RemoveCollision(PhyCollision* collision)
 		{
-			if (m_Collisions.end() != m_Collisions.find(id))
+			for (auto it = m_Collisions.begin(); it != m_Collisions.end(); it++)
 			{
-				auto f = m_Collisions.find(id);
-				m_Collisions.erase(f);
+				if ((*it) == collision)
+				{
+					m_Collisions.erase(it);
+					break;
+				}
 			}
 		}
 
@@ -57,14 +61,18 @@ namespace novazero
 				LOGS("Contact: " + self->GetColliderName() + "[" + tostring(selfID) + "] : " +
 					other->GetColliderName() + "[" + tostring(otherID) + "]");
 
-			if (m_Collisions.find(self->GetPhyID()) != m_Collisions.end() &&
-				m_Collisions.find(other->GetPhyID()) != m_Collisions.end())
+			for (auto it = m_Collisions.begin(); it != m_Collisions.end(); it++)
 			{
-				if(m_Collisions.find(self->GetPhyID())->second->f_OnEnter)
-					m_Collisions.find(self->GetPhyID())->second->f_OnEnter(self, other);
-				
-				if(m_Collisions.find(other->GetPhyID())->second->f_OnEnter)
-					m_Collisions.find(other->GetPhyID())->second->f_OnEnter(other, self);
+				PhyCollision& collision = *(*it);
+
+				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
+				{
+					collision.f_OnEnter(self, other);
+				}
+				else if (collision.m_ContactA->GetPhyID() == otherID && collision.m_ContactB->GetPhyID() == selfID)
+				{
+					collision.f_OnEnter(other, self);
+				}
 			}
 			
 		}
@@ -76,14 +84,21 @@ namespace novazero
 
 			if (!self || !other) return;
 			
-			if (m_Collisions.find(self->GetPhyID()) != m_Collisions.end() &&
-				m_Collisions.find(other->GetPhyID()) != m_Collisions.end())
-			{
-				if (m_Collisions.find(self->GetPhyID())->second->f_OnExit)
-					m_Collisions.find(self->GetPhyID())->second->f_OnExit(self, other);
+			unsigned int selfID = self->GetPhyID();
+			unsigned int otherID = other->GetPhyID();
 
-				if (m_Collisions.find(other->GetPhyID())->second->f_OnExit)
-					m_Collisions.find(other->GetPhyID())->second->f_OnExit(other, self);
+			for (auto it = m_Collisions.begin(); it != m_Collisions.end(); it++)
+			{
+				PhyCollision& collision = *(*it);
+
+				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
+				{
+					collision.f_OnExit(self, other);
+				}
+				else if (collision.m_ContactA->GetPhyID() == otherID && collision.m_ContactB->GetPhyID() == selfID)
+				{
+					collision.f_OnExit(other, self);
+				}
 			}
 		}
 	}

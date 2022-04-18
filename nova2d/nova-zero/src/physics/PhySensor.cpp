@@ -42,6 +42,8 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
+
 			m_Shape = Shapes::Circle;
 			m_PhySize = size;
 		}
@@ -119,6 +121,7 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
 
 			delete[] vertices;
 		}
@@ -158,6 +161,8 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
+
 			m_Shape = Shapes::Circle;
 			m_Radius = radius;
 		}

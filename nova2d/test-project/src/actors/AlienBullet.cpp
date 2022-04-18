@@ -35,7 +35,7 @@ namespace testproject
 		}
 		else
 		{
-			m_Collision_ID = Game::s_SceneManager->GetCurrentScene()->GetContactListener()->AddCollision(GetPhySprite(), player,
+			m_Collision = n2dAddCollision(GetPhySprite(), player,
 				n2dMakeFuncArgs2(AlienBullet::HitPlayer, this, this, player), nullptr);
 		}
 
@@ -54,8 +54,7 @@ namespace testproject
 
 	void AlienBullet::DestroySelf()
 	{
-		n2dRemoveCollision(m_Collision_ID);
-		CleanUpdaters();
+		n2dRemoveCollision(m_Collision);
 		SimpleFollower::DestroySelf();
 	}
 }

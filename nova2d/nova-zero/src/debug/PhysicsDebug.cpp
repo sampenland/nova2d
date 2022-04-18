@@ -10,6 +10,7 @@ namespace novazero
         PhysicsDebug::PhysicsDebug()
         {
             SetFlags(b2Draw::e_shapeBit);
+            
         }
 
         void PhysicsDebug::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
@@ -24,14 +25,15 @@ namespace novazero
                 vy[i] = (Sint16)vertices[i].y;
             }
 
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledPolygonRGBA(Game::s_Renderer->GetSDLRenderer(),
                 vx,
                 vy,
                 (int)vertexCount,
-                (Uint8)color.r,
-                (Uint8)color.g,
-                (Uint8)color.b,
-                (Uint8)color.a
+                (Uint8)c.r,
+                (Uint8)c.g,
+                (Uint8)c.b,
+                (Uint8)c.a
             );
         }
         
@@ -47,50 +49,55 @@ namespace novazero
                 vy[i] = (Sint16)vertices[i].y;
             }
 
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledPolygonRGBA(Game::s_Renderer->GetSDLRenderer(),
                 vx,
                 vy,
                 (int)vertexCount,
-                (Uint8)color.r,
-                (Uint8)color.g,
-                (Uint8)color.b,
-                (Uint8)color.a
+                (Uint8)c.r,
+                (Uint8)c.g,
+                (Uint8)c.b,
+                (Uint8)c.a
             );
         }
         
         void PhysicsDebug::DrawCircle(const b2Vec2& center, float radius, const b2Color& color)
         {
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             circleRGBA(Game::s_Renderer->GetSDLRenderer(),
                 center.x, center.y,
                 radius,
-                (Uint8)color.r,
-                (Uint8)color.g,
-                (Uint8)color.b,
-                (Uint8)color.a
+                (Uint8)c.r,
+                (Uint8)c.g,
+                (Uint8)c.b,
+                (Uint8)c.a
             );
         }
         
         void PhysicsDebug::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
         {
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(),
                 center.x, center.y,
                 radius,
-                (Uint8)color.r,
-                (Uint8)color.g,
-                (Uint8)color.b,
-                (Uint8)color.a
+                (Uint8)c.r,
+                (Uint8)c.g,
+                (Uint8)c.b,
+                (Uint8)c.a
             );
         }
         
         void PhysicsDebug::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
         {
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             lineRGBA(Game::s_Renderer->GetSDLRenderer(),
                 p1.x, p1.y,
                 p2.x, p2.y,
-                (Uint8)color.r, 
-                (Uint8)color.g, 
-                (Uint8)color.b, 
-                (Uint8)color.a);
+                (Uint8)c.r,
+                (Uint8)c.g,
+                (Uint8)c.b,
+                (Uint8)c.a
+            );
         }
         
         void PhysicsDebug::DrawTransform(const b2Transform& xf)

@@ -10,13 +10,14 @@ namespace novazero
 
 		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
 			unsigned char layer, Vec2Int displaySize, std::string colliderName)
-			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName, this)
+			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName, this), Deleteable("phySprite")
 		{
 			m_ID = n2dGameGetID();
+			m_DeleteName = "phySprite_" + tostring(m_ID);
 			m_PhySize = size;
 
 			auto uID = n2dAddUpdater(PhySprite::Update, this);
-			m_CleanUpdaters.push_back(uID);
+			Deleteable::m_CleanUpdaters.push_back(uID);
 		}
 
 		unsigned int PhySprite::GetPhyID() const
@@ -114,6 +115,7 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
 
 			delete[] vertices;
 
@@ -154,6 +156,8 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
+
 			m_CircleShape = false;
 			m_RectShape = true;
 
@@ -194,6 +198,8 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
+
 			m_CircleShape = true;
 			m_RectShape = false;
 
@@ -229,6 +235,8 @@ namespace novazero
 			fixtureDef.friction = friction;
 
 			m_Body->CreateFixture(&fixtureDef);
+			m_Body->SetSleepingAllowed(false);
+
 			m_CircleShape = true;
 			m_RectShape = false;
 
@@ -320,14 +328,12 @@ namespace novazero
 
 		void PhySprite::DestroySelf()
 		{
-			if (m_Body)
-			{
-				if (Game::s_SceneManager->GetCurrentWorld())
-				{
-					Game::s_SceneManager->GetCurrentWorld()->DestroyBody(m_Body);
-				}
-			}
+			if (m_DestroyBody) return;
+			m_DestroyBody = true;
+		}
 
+		void PhySprite::PhySpriteDelayDestroy()
+		{
 			CleanUpdaters();
 			Sprite::DestroySelf();
 		}

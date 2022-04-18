@@ -1,6 +1,7 @@
 #pragma once
 #include "physics/ai/PhySimpleFollower.h"
 #include "core/Positional.h"
+#include "physics/PhyContactListener.h"
 
 namespace testproject
 {
@@ -13,7 +14,7 @@ namespace testproject
 
 	private:
 
-		unsigned int m_Collision_ID = 0;
+		PhyCollision* m_Collision = nullptr;
 
 	public:
 

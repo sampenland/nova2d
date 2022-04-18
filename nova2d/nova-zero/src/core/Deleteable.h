@@ -16,6 +16,7 @@ namespace novazero
 
 		protected:
 
+			bool m_DestroyBody = false;
 			Deleteable(const std::string& name);
 
 			std::string m_DeleteName = "";
@@ -31,6 +32,8 @@ namespace novazero
 
 			void SetEnabled(bool v) { m_Enabled = v; }
 			bool IsEnabled() { return m_Enabled; }
+			
+			bool NeedsDestruction() { return m_DestroyBody; }
 
 		};
 	}

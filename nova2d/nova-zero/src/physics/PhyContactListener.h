@@ -1,7 +1,7 @@
 #pragma once
 #include "box2d/box2d.h"
 #include "box2d/b2_contact.h"
-#include <map>
+#include <vector>
 #include <functional>
 #include "PhyBase.h"
 
@@ -22,17 +22,17 @@ namespace novazero
 
 		private:
 
-			std::map<unsigned int, PhyCollision*> m_Collisions;
+			std::vector<PhyCollision*> m_Collisions;
 
 		public:
 
 			PhyContactListener();
 
-			unsigned int AddCollision(PhyBase* contactA, PhyBase* contactB, 
+			PhyCollision* AddCollision(PhyBase* contactA, PhyBase* contactB,
 				std::function<void(PhyBase* a, PhyBase* b)> onEnter,
 				std::function<void(PhyBase* a, PhyBase* b)> onExit);
 
-			void RemoveCollision(unsigned int id);
+			void RemoveCollision(PhyCollision* collision);
 
 			void BeginContact(b2Contact* contact);
 			void EndContact(b2Contact* contact);

@@ -40,6 +40,11 @@ namespace novazero
 				Vec2 size, unsigned char layer, Vec2Int displaySize, 
 				std::string colliderName);
 
+			~PhySprite()
+			{
+				PhySpriteDelayDestroy();
+			}
+
 			unsigned int GetPhyID() const override;
 
 			b2Body* GetBody() const 
@@ -67,6 +72,7 @@ namespace novazero
 			void SetScale(float factor);
 
 			void DestroySelf();
+			void PhySpriteDelayDestroy();
 		};
 	}
 }
