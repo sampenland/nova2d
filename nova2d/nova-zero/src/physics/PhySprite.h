@@ -19,7 +19,8 @@ namespace novazero
 		private:		
 
 			bool m_RectShape = false;
-			bool m_CircleShape = false;		
+			bool m_CircleShape = false;	
+
 
 		public:
 
