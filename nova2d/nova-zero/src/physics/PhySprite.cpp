@@ -10,7 +10,7 @@ namespace novazero
 
 		PhySprite::PhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
 			unsigned char layer, Vec2Int displaySize, std::string colliderName)
-			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName, this), Deleteable("phySprite")
+			: Sprite(assetName, position, displaySize, layer), PhyBase(colliderName, this)
 		{
 			m_ID = n2dGameGetID();
 			m_DeleteName = "phySprite_" + tostring(m_ID);
