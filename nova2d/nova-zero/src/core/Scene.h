@@ -8,6 +8,7 @@
 #include "SDL.h"
 #include "../core/Environment.h"
 #include "../debug/PhysicsDebug.h"
+#include "../physics/PhyContactListener.h"
 
 namespace novazero
 {
@@ -32,6 +33,8 @@ namespace novazero
 			bool m_PhysicsEnabled = false;
 			b2Vec2* m_Gravity = nullptr;
 
+			PhyContactListener* m_ContactListener = nullptr;
+
 		public:
 
 			Scene(const std::string& sceneName);
@@ -42,8 +45,13 @@ namespace novazero
 
 			static Environment* s_Environment;
 
-			void EnablePhysics(bool enabled, b2ContactListener* contactListener, Vec2 gravity = Vec2(0,0), float innerPadding = 0.f);
+			void EnablePhysics(bool enabled, Vec2 gravity = Vec2(0,0), float innerPadding = 0.f);
 			b2World* GetWorld() const;
+
+			PhyContactListener* GetContactListener() const
+			{
+				return m_ContactListener;
+			}
 			
 			void PhysicsStep();
 			void PhysicsEnableDebug(bool isDebug);

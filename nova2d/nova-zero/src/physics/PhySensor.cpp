@@ -10,6 +10,8 @@ namespace novazero
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
 			Vec2 position, Vec2 size, float density, float friction) : PhyBase(colliderName, this)
 		{
+			m_ID = n2dGameGetID();
+
 			SetPosition(position);
 
 			b2World* world = n2dCurrentPhyWorld();
@@ -48,6 +50,8 @@ namespace novazero
 			Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
 			: PhyBase(colliderName, this)
 		{
+			m_ID = n2dGameGetID();
+
 			SetPosition(position);
 			if (vertexCount < 3)
 			{
@@ -123,6 +127,8 @@ namespace novazero
 			Vec2 position, float radius, float density, float friction) 
 			: PhyBase(colliderName, this)
 		{
+			m_ID = n2dGameGetID();
+
 			SetPosition(position);
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -154,6 +160,11 @@ namespace novazero
 			m_Body->CreateFixture(&fixtureDef);
 			m_Shape = Shapes::Circle;
 			m_Radius = radius;
+		}
+
+		unsigned int PhySensor::GetPhyID() const
+		{
+			return m_ID;
 		}
 
 		void PhySensor::DestroySelf()

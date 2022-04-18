@@ -21,6 +21,8 @@ namespace novazero
 
 		DrawLayers* Renderer::s_DrawLayers;
 		Color* Renderer::s_DebugRenderColor;
+		Color* Renderer::s_DebugRenderColorSleep;
+		Color* Renderer::s_DebugRenderColorStatic;
 
 		Renderer::Renderer(SDL_Window& window, Color* backgroundColor)
 		{
@@ -28,6 +30,8 @@ namespace novazero
 			m_BackgroundColor = backgroundColor;
 			
 			s_DebugRenderColor = new Color(89, 210, 45, 65);
+			s_DebugRenderColorSleep = new Color(250, 218, 148, 65);
+			s_DebugRenderColorStatic = new Color(115, 115, 115, 65);
 
 			s_DrawLayers = new DrawLayers();
 		}

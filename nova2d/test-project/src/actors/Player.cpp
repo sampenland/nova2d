@@ -112,6 +112,17 @@ namespace testproject
 		}
 	}
 
+	void Player::Hurt(float damage)
+	{
+		m_Health -= damage;
+
+		if (m_Health <= 0)
+		{
+			n2dSceneChange("GameOver");
+			return;
+		}
+	}
+
 	void Player::DestroySelf()
 	{
 		CleanUpdaters();

@@ -28,6 +28,8 @@ namespace testproject
 		void Update();
 		void Controls();
 
+		void Hurt(float damage);
+
 		void DestroySelf();
 
 	};

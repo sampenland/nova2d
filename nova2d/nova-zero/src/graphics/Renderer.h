@@ -25,6 +25,8 @@ namespace novazero
 		public:
 
 			static Color* s_DebugRenderColor;
+			static Color* s_DebugRenderColorSleep;
+			static Color* s_DebugRenderColorStatic;
 
 		public:
 

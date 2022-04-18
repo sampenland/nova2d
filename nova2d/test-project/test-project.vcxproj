@@ -130,14 +130,14 @@
     <ClCompile Include="src\actors\Player.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\scenes\DemoScene.cpp" />
-    <ClCompile Include="src\scenes\DemoSceneContactListener.cpp" />
+    <ClCompile Include="src\scenes\GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actors\Alien.h" />
     <ClInclude Include="src\actors\AlienBullet.h" />
     <ClInclude Include="src\actors\Player.h" />
     <ClInclude Include="src\scenes\DemoScene.h" />
-    <ClInclude Include="src\scenes\DemoSceneContactListener.h" />
+    <ClInclude Include="src\scenes\GameOver.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\lander-TX518.png" />

@@ -15,7 +15,7 @@ namespace testproject
 		PhySprite* sprite = GetPhySprite();
 		if (sprite)
 		{
-			GetPhySprite()->ConfigurePhysicsSensorCircle("bullet", false, 8);
+			GetPhySprite()->ConfigurePhysicsSensorCircle(false, 8);
 		}
 		else
 		{
@@ -26,11 +26,35 @@ namespace testproject
 		Timer* t = new Timer(n2dRandomFloat(2000, 6000), false, [=]() {
 			DestroySelf();
 		});
+
+		Player* player = (Player*)n2dReferenceGet("player");
+		
+		if (!player->GetBody())
+		{
+			LOGS("No player body");
+		}
+		else
+		{
+			m_Collision_ID = Game::s_SceneManager->GetCurrentScene()->GetContactListener()->AddCollision(GetPhySprite(), player,
+				n2dMakeFuncArgs2(AlienBullet::HitPlayer, this, this, player), nullptr);
+		}
+
+	}
+
+	void AlienBullet::HitPlayer(PhyBase* self, PhyBase* other)
+	{
+		Player* p = (Player*)n2dReferenceGet("player");
+
+		if (p)
+		{
+			p->Hurt(30);
+			DestroySelf();
+		}
 	}
 
 	void AlienBullet::DestroySelf()
 	{
-		
+		n2dRemoveCollision(m_Collision_ID);
 		CleanUpdaters();
 		SimpleFollower::DestroySelf();
 	}

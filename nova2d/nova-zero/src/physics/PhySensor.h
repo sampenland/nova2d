@@ -26,7 +26,21 @@ namespace novazero
 		{
 		private:
 
+			unsigned int m_ID = 0;
+
 			Shapes m_Shape = Shapes::Rect;
+
+			b2Body* m_Body = nullptr;
+
+			Vec2 m_PhySize = Vec2(0, 0);
+			float m_Radius = 1.f;
+
+			b2FixtureDef fixtureDef;
+			float m_Density = 1.f;
+			float m_Friction = 1.f;
+			bool m_IsSensor = 1.f;
+			float m_Restitution = 1.f;
+			float m_RestitutionThres = 1.f;
 
 		public:
 
@@ -39,6 +53,8 @@ namespace novazero
 			// Circle
 			PhySensor(std::string colliderName, bool staticBody,
 				Vec2 position, float radius, float density = 0.5f, float friction = 0.3f);
+			
+			unsigned int GetPhyID() const override;
 
 			void DestroySelf();
 

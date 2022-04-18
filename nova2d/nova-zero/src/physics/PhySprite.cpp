@@ -19,6 +19,11 @@ namespace novazero
 			m_CleanUpdaters.push_back(uID);
 		}
 
+		unsigned int PhySprite::GetPhyID() const
+		{
+			return m_ID;
+		}
+
 		void PhySprite::Update()
 		{
 			if (m_Body && GetSprite())
@@ -34,12 +39,12 @@ namespace novazero
 
 		int PhySprite::GetWidth() const
 		{
-			return m_PhySize.x;
+			return (int)m_PhySize.x;
 		}
 
 		int PhySprite::GetHeight() const
 		{
-			return m_PhySize.y;
+			return (int)m_PhySize.y;
 		}
 
 		void PhySprite::ConfigurePhysicsPolygon(bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)

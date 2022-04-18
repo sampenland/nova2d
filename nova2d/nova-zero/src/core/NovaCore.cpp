@@ -427,5 +427,33 @@ namespace novazero
 			return (float)(rad * (180.0 / 3.141592653589793238463));
 		}
 
+		unsigned int n2dAddCollision(PhyBase* self, PhyBase* other,
+			void (*onEnter)(PhyBase* a, PhyBase* b), void (*onExit)(PhyBase* a, PhyBase* b))
+		{
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				if (Game::s_SceneManager->GetCurrentScene()->GetContactListener())
+				{
+					return Game::s_SceneManager->GetCurrentScene()->GetContactListener()->AddCollision(self, other, onEnter, onExit);
+				}
+			}
+
+			LOG(LVL_W, "Collision not added. Could be NO SCENE or Physics NOT ENABLED in Scene.");
+			return -1;
+		}
+
+		void n2dRemoveCollision(unsigned int id)
+		{
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				if (Game::s_SceneManager->GetCurrentScene()->GetContactListener())
+				{
+					Game::s_SceneManager->GetCurrentScene()->GetContactListener()->RemoveCollision(id);
+					return;
+				}
+			}
+			LOG(LVL_W, "Collision not removed. Could be NO SCENE or Physics NOT ENABLED in Scene.");
+		}
+
 	}
 }

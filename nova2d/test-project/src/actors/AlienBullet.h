@@ -13,9 +13,13 @@ namespace testproject
 
 	private:
 
+		unsigned int m_Collision_ID = 0;
+
 	public:
 
 		AlienBullet(Vec2 position, Positional* target, float moveDelay);
+
+		void HitPlayer(PhyBase* self, PhyBase* other);
 
 		void DestroySelf();
 

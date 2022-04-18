@@ -14,8 +14,7 @@ namespace testproject
 
 	void DemoScene::Start()
 	{
-		m_ContactListener = new DemoSceneContactListener();
-		EnablePhysics(true, m_ContactListener);
+		EnablePhysics(true);
 		PhysicsEnableDebug(true);
 
 		n2dAssetsLoadAndAddTexture("player", "res/lander-TX518.png");

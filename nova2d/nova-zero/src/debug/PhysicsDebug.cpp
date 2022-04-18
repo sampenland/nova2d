@@ -20,16 +20,18 @@ namespace novazero
 
             for (int i = 0; i < vertexCount; i++)
             {
-                vx[i] = vertices[i].x;
-                vy[i] = vertices[i].y;
+                vx[i] = (Sint16)vertices[i].x;
+                vy[i] = (Sint16)vertices[i].y;
             }
 
-            Color& c = *Game::s_Renderer->s_DebugRenderColor;
-            polygonColor(Game::s_Renderer->GetSDLRenderer(),
+            filledPolygonRGBA(Game::s_Renderer->GetSDLRenderer(),
                 vx,
                 vy,
                 (int)vertexCount,
-                0x00FF00FF
+                (Uint8)color.r,
+                (Uint8)color.g,
+                (Uint8)color.b,
+                (Uint8)color.a
             );
         }
         
@@ -41,19 +43,18 @@ namespace novazero
 
             for (int i = 0; i < vertexCount; i++)
             {
-                vx[i] = vertices[i].x;
-                vy[i] = vertices[i].y;
+                vx[i] = (Sint16)vertices[i].x;
+                vy[i] = (Sint16)vertices[i].y;
             }
 
-            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledPolygonRGBA(Game::s_Renderer->GetSDLRenderer(),
                 vx,
                 vy,
                 (int)vertexCount,
-                c.r,
-                c.g,
-                c.b,
-                c.a
+                (Uint8)color.r,
+                (Uint8)color.g,
+                (Uint8)color.b,
+                (Uint8)color.a
             );
         }
         
@@ -62,33 +63,34 @@ namespace novazero
             circleRGBA(Game::s_Renderer->GetSDLRenderer(),
                 center.x, center.y,
                 radius,
-                color.r,
-                color.g,
-                color.b,
-                color.a
+                (Uint8)color.r,
+                (Uint8)color.g,
+                (Uint8)color.b,
+                (Uint8)color.a
             );
         }
         
         void PhysicsDebug::DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)
         {
-            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(),
                 center.x, center.y,
                 radius,
-                c.r,
-                c.g,
-                c.b,
-                c.a
+                (Uint8)color.r,
+                (Uint8)color.g,
+                (Uint8)color.b,
+                (Uint8)color.a
             );
         }
         
         void PhysicsDebug::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
         {
-            Color& c = *Game::s_Renderer->s_DebugRenderColor;
             lineRGBA(Game::s_Renderer->GetSDLRenderer(),
                 p1.x, p1.y,
                 p2.x, p2.y,
-                c.r, c.g, c.b, c.a);
+                (Uint8)color.r, 
+                (Uint8)color.g, 
+                (Uint8)color.b, 
+                (Uint8)color.a);
         }
         
         void PhysicsDebug::DrawTransform(const b2Transform& xf)

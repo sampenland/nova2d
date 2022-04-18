@@ -769,7 +769,20 @@ namespace novazero
 		*/
 		float n2dDegToRad(float deg);
 
+		//----------------------------------------------------------------------------
+		// Physics
+		//----------------------------------------------------------------------------
 
+		/*
+			nova2d Collisions - add a collision into manager
+		*/
+		unsigned int n2dAddCollision(PhyBase* self, PhyBase* other, 
+			void (*onEnter)(PhyBase* a, PhyBase* b), void (*onExit)(PhyBase* a, PhyBase* b));
+
+		/*
+			nova2d Collisions - remove a collision from manager
+		*/
+		void n2dRemoveCollision(unsigned int id);
 
 	}
 
