@@ -52,6 +52,7 @@ namespace novazero
 			Scene* GetCurrentScene();
 
 			void Update();
+			void DoPhysics();
 			void ProcessUpdaters();
 			void ProcessPersistentUpdaters();
 			void RenderGUI();

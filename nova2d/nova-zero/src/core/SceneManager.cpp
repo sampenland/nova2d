@@ -188,24 +188,7 @@ namespace novazero
 				return;
 			}
 
-			if (m_CurrentScene->m_PhysicsEnabled)
-			{
-				if (m_CurrentScene->GetWorld())
-				{
-					m_CurrentScene->PhysicsStep(); // first physics
-
-					// Clean any bodies  --------------
-					for (size_t i = 0; i < Game::s_SceneManager->s_PhyCleaners.size(); i++)
-					{
-						b2Body* body = Game::s_SceneManager->s_PhyCleaners.at(i);
-						Game::s_SceneManager->GetCurrentWorld()->DestroyBody(body);
-					}
-					Game::s_SceneManager->s_PhyCleaners.clear();
-					// Clear collisions
-					Game::s_SceneManager->GetCurrentScene()->GetContactListener()->Clean();
-					// ---------------------------------
-				}
-			}
+			DoPhysics(); // world step
 			
 			m_CurrentScene->Update();
 
@@ -216,6 +199,34 @@ namespace novazero
 			s_GraverManager->Update();
 			s_TweenManager->Update();
 			s_TimeEffectorManager->Update();
+		}
+
+		void SceneManager::DoPhysics()
+		{
+			if (m_CurrentScene->m_PhysicsEnabled)
+			{
+				if (m_CurrentScene->GetWorld())
+				{
+					m_CurrentScene->PhysicsStep(); // first physics
+
+					if (m_CurrentScene->m_PhysicsEnabled)
+					{
+						if (m_CurrentScene->GetWorld())
+						{
+							// Clean any bodies  --------------
+							for (size_t i = 0; i < Game::s_SceneManager->s_PhyCleaners.size(); i++)
+							{
+								b2Body* body = Game::s_SceneManager->s_PhyCleaners.at(i);
+								Game::s_SceneManager->GetCurrentWorld()->DestroyBody(body);
+							}
+							Game::s_SceneManager->s_PhyCleaners.clear();
+							// Clear collisions
+							Game::s_SceneManager->GetCurrentScene()->GetContactListener()->Clean();
+							// ---------------------------------
+						}
+					}
+				}
+			}
 		}
 
 		void SceneManager::ProcessUpdaters()
