@@ -21,6 +21,7 @@ namespace novazero
 		std::map<unsigned int, std::function<void()>> SceneManager::s_GUIUpdatersToAdd;
 
 		std::map<unsigned int, Deleteable*> SceneManager::s_Deleteables;
+		std::vector<b2Body*> SceneManager::s_PhyCleaners;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
 		CollisionManager* SceneManager::s_CollisionManager;
@@ -146,11 +147,6 @@ namespace novazero
 			std::vector<unsigned int> removeIDs;
 			for (it; it != s_Deleteables.end(); it++)
 			{
-				if (it->second->NeedsDestruction())
-				{
-					it->second->SetDeleted(true);
-				}
-
 				if (it->second->IsDeleted() == 1)
 				{
 					removeIDs.push_back(it->first);
@@ -192,7 +188,25 @@ namespace novazero
 				return;
 			}
 
-			m_CurrentScene->PhysicsStep(); // first physics
+			if (m_CurrentScene->m_PhysicsEnabled)
+			{
+				if (m_CurrentScene->GetWorld())
+				{
+					m_CurrentScene->PhysicsStep(); // first physics
+
+					// Clean any bodies  --------------
+					for (size_t i = 0; i < Game::s_SceneManager->s_PhyCleaners.size(); i++)
+					{
+						b2Body* body = Game::s_SceneManager->s_PhyCleaners.at(i);
+						Game::s_SceneManager->GetCurrentWorld()->DestroyBody(body);
+					}
+					Game::s_SceneManager->s_PhyCleaners.clear();
+					// Clear collisions
+					Game::s_SceneManager->GetCurrentScene()->GetContactListener()->Clean();
+					// ---------------------------------
+				}
+			}
+			
 			m_CurrentScene->Update();
 
 			ProcessPersistentUpdaters();

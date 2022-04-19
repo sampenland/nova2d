@@ -111,6 +111,8 @@ namespace novazero
 			{
 				return (unsigned int)s_Deleteables.size();
 			};
+
+			static std::vector<b2Body*> s_PhyCleaners;
 		};
 	}
 }

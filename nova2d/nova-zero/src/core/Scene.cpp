@@ -11,7 +11,7 @@ namespace novazero
 		Scene::Scene(const std::string& sceneName)
 			:m_SceneName(sceneName)
 		{
-			
+			*m_TimeStep = 1.f / 60.f;
 		}
 
 		void Scene::EnableLights(Uint8 worldLightIntensity)
@@ -106,14 +106,8 @@ namespace novazero
 
 		void Scene::PhysicsStep()
 		{
-			if (m_PhysicsEnabled)
-			{
-				if (m_World)
-				{
-					// Step world
-					m_World->Step(m_TimeStep, 8, 3);
-				}
-			}
+			// Step world
+			m_World->Step(*m_TimeStep, 8, 3);
 		}
 
 		b2World* Scene::GetWorld() const

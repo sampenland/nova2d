@@ -43,12 +43,14 @@ namespace testproject
 
 	void AlienBullet::HitPlayer(PhyBase* self, PhyBase* other)
 	{
-		Player* p = (Player*)n2dReferenceGet("player");
-
-		if (p)
+		if (other->GetColliderName() == "player")
 		{
-			p->Hurt(30);
-			DestroySelf();
+			Player* p = (Player*)n2dReferenceGet("player");
+			if (p)
+			{
+				p->Hurt(30);
+				DestroySelf();
+			}
 		}
 	}
 

@@ -23,6 +23,7 @@ namespace novazero
 		private:
 
 			std::vector<PhyCollision*> m_Collisions;
+			std::vector<PhyCollision*> m_CollisionsErasers;
 
 		public:
 
@@ -33,6 +34,7 @@ namespace novazero
 				std::function<void(PhyBase* a, PhyBase* b)> onExit);
 
 			void RemoveCollision(PhyCollision* collision);
+			void Clean();
 
 			void BeginContact(b2Contact* contact);
 			void EndContact(b2Contact* contact);

@@ -35,16 +35,19 @@ namespace novazero
 
 		}
 
+		void PhyContactListener::Clean()
+		{
+			auto it = m_CollisionsErasers.begin();
+			while(it != m_CollisionsErasers.end())
+			{
+				it = m_CollisionsErasers.erase(it);
+			}
+			m_CollisionsErasers.clear();
+		}
+
 		void PhyContactListener::RemoveCollision(PhyCollision* collision)
 		{
-			for (auto it = m_Collisions.begin(); it != m_Collisions.end(); it++)
-			{
-				if ((*it) == collision)
-				{
-					m_Collisions.erase(it);
-					break;
-				}
-			}
+			m_CollisionsErasers.push_back(collision);
 		}
 
 		void PhyContactListener::BeginContact(b2Contact* contact)
@@ -57,23 +60,29 @@ namespace novazero
 			unsigned int selfID = self->GetPhyID();
 			unsigned int otherID = other->GetPhyID();
 
-			if (n2dDebugVerbose)
-				LOGS("Contact: " + self->GetColliderName() + "[" + tostring(selfID) + "] : " +
-					other->GetColliderName() + "[" + tostring(otherID) + "]");
-
 			for (auto it = m_Collisions.begin(); it != m_Collisions.end(); it++)
 			{
 				PhyCollision& collision = *(*it);
 
 				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
 				{
-					collision.f_OnEnter(self, other);
+					if (collision.f_OnEnter)
+					{
+						collision.f_OnEnter(self, other);
+					}
 				}
 				else if (collision.m_ContactA->GetPhyID() == otherID && collision.m_ContactB->GetPhyID() == selfID)
 				{
-					collision.f_OnEnter(other, self);
+					if (collision.f_OnEnter)
+					{
+						collision.f_OnEnter(other, self);
+					}
 				}
 			}
+
+			if (n2dDebugVerbose)
+				LOGS("Contact: " + self->GetColliderName() + "[" + tostring(selfID) + "] : " +
+					other->GetColliderName() + "[" + tostring(otherID) + "]");
 			
 		}
 
@@ -93,13 +102,23 @@ namespace novazero
 
 				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
 				{
-					collision.f_OnExit(self, other);
+					if (collision.f_OnExit)
+					{
+						collision.f_OnExit(self, other);
+					}
 				}
 				else if (collision.m_ContactA->GetPhyID() == otherID && collision.m_ContactB->GetPhyID() == selfID)
 				{
-					collision.f_OnExit(other, self);
+					if (collision.f_OnExit)
+					{
+						collision.f_OnExit(other, self);
+					}
 				}
 			}
+
+			if (n2dDebugVerbose)
+				LOGS("Contact: " + self->GetColliderName() + "[" + tostring(selfID) + "] : " +
+					other->GetColliderName() + "[" + tostring(otherID) + "]");
 		}
 	}
 }

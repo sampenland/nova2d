@@ -320,22 +320,20 @@ namespace novazero
 		void PhySprite::SetPosition(Vec2 position)
 		{
 			if (m_Body)
-				m_Body->SetTransform(b2Vec2(position.x + GetWidth() / 2, position.y + GetHeight() / 2),
-					m_Body->GetAngle());
+			{
+				m_Body->SetTransform(b2Vec2(position.x + GetWidth() / 2, position.y + GetHeight() / 2), m_Body->GetAngle());
+			}
 
 			Sprite::SetPosition(position);
 		}
 
 		void PhySprite::DestroySelf()
 		{
-			if (m_DestroyBody) return;
-			m_DestroyBody = true;
-		}
-
-		void PhySprite::PhySpriteDelayDestroy()
-		{
-			CleanUpdaters();
-			Sprite::DestroySelf();
+			if(m_Body)
+				Game::s_SceneManager->s_PhyCleaners.push_back(m_Body);
+	
+			/*CleanUpdaters();
+			Sprite::DestroySelf();*/
 		}
 	
 	}

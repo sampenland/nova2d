@@ -53,7 +53,7 @@ namespace novazero
             filledPolygonRGBA(Game::s_Renderer->GetSDLRenderer(),
                 vx,
                 vy,
-                (int)vertexCount,
+                (Sint16)vertexCount,
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,
@@ -65,8 +65,9 @@ namespace novazero
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
             circleRGBA(Game::s_Renderer->GetSDLRenderer(),
-                center.x, center.y,
-                radius,
+                (Sint16)center.x,
+                (Sint16)center.y,
+                (Sint16)radius,
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,
@@ -78,8 +79,9 @@ namespace novazero
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(),
-                center.x, center.y,
-                radius,
+                (Sint16)center.x,
+                (Sint16)center.y,
+                (Sint16)radius,
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,
@@ -91,8 +93,8 @@ namespace novazero
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
             lineRGBA(Game::s_Renderer->GetSDLRenderer(),
-                p1.x, p1.y,
-                p2.x, p2.y,
+                (Sint16)p1.x, (Sint16)p1.y,
+                (Sint16)p2.x, (Sint16)p2.y,
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,

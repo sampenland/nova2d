@@ -28,9 +28,8 @@ namespace novazero
 		private:
 
 			// Physics
-			float m_TimeStep = 1.f / 60.f;
+			float* m_TimeStep = new float;
 			b2World* m_World = nullptr;
-			bool m_PhysicsEnabled = false;
 			b2Vec2* m_Gravity = nullptr;
 
 			PhyContactListener* m_ContactListener = nullptr;
@@ -39,6 +38,7 @@ namespace novazero
 
 			Scene(const std::string& sceneName);
 
+			bool m_PhysicsEnabled = false;
 			bool m_DebugDraw = false;
 			bool m_Started = false;
 			std::string m_SceneName = "";
