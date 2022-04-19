@@ -5,9 +5,7 @@
 #include "../graphics/Sprite.h"
 #include "../core/Game.h"
 #include "../core/BoundUser.h"
-#include "../physics/Collider.h"
 #include "../core/Deleteable.h"
-#include "../physics/TimeEffected.h"
 #include "../core/Positional.h"
 
 namespace novazero
@@ -26,10 +24,8 @@ namespace novazero
 		};
 
 		class SimpleWeakAI : 
-			public BoundUser, 
-			public Collider, 
+			public BoundUser,
 			public Deleteable,
-			public TimeEffected,
 			public Positional
 		{
 
@@ -118,7 +114,6 @@ namespace novazero
 			std::function<void()> GetLinearPatrolMove() { return std::bind(&SimpleWeakAI::LinearPatrolMove, this); }
 			
 			void Update();
-			void OnCollision(Collision* collision) override { };
 
 			void DestroySelf();
 

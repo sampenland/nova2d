@@ -24,19 +24,13 @@ namespace novazero
 		std::vector<b2Body*> SceneManager::s_PhyCleaners;
 
 		ReferenceManager* SceneManager::s_ReferenceManager;
-		CollisionManager* SceneManager::s_CollisionManager;
-		GraverManager* SceneManager::s_GraverManager;
 		TweenManager* SceneManager::s_TweenManager;
-		TimeEffectorManager* SceneManager::s_TimeEffectorManager;
 		std::map<std::string, Timeline*> SceneManager::s_Timelines;
 
 		SceneManager::SceneManager()
 		{
-			s_CollisionManager = new CollisionManager();
 			s_ReferenceManager = new ReferenceManager();
-			s_GraverManager = new GraverManager();
 			s_TweenManager = new TweenManager();
-			s_TimeEffectorManager = new TimeEffectorManager();
 			
 			// Default timeline
 			AddTimelineEvent("main", nullptr);
@@ -96,13 +90,9 @@ namespace novazero
 			m_CurrentScene->End();
 
 			CleanUpdaters();
-			s_CollisionManager->ClearColliders();
 			Renderer::s_DrawLayers->ClearSprites();
 			s_Deleteables.clear();
-			s_GraverManager->ClearGravers();
 			s_TweenManager->ClearTweens();
-			s_TimeEffectorManager->ClearEffectors();
-			s_TimeEffectorManager->ClearEffected();
 			CAMERA->Reset();
 
 			m_CurrentScene = loadScene;
@@ -114,12 +104,6 @@ namespace novazero
 
 			m_CurrentSceneName = m_CurrentScene->m_SceneName;
 			m_CurrentScene->Start();
-
-			if (Game::s_DebugOverlay)
-			{
-				Game::ConfigureDebugOverlay(true);
-				Game::ConfigureDebugPosition(Vec2Int(32, 32));
-			}
 
 		}
 
@@ -194,11 +178,8 @@ namespace novazero
 
 			ProcessPersistentUpdaters();
 			ProcessUpdaters();
-
-			s_CollisionManager->Update();
-			s_GraverManager->Update();
 			s_TweenManager->Update();
-			s_TimeEffectorManager->Update();
+
 		}
 
 		void SceneManager::DoPhysics()
@@ -454,26 +435,10 @@ namespace novazero
 			if (s_ReferenceManager)
 				delete s_ReferenceManager;
 
-			if (s_CollisionManager)
-				delete s_CollisionManager;
-
-			if (s_GraverManager)
-			{
-				s_GraverManager->ClearGravers();
-				delete s_GraverManager;
-			}
-
 			if (s_TweenManager)
 			{
 				s_TweenManager->ClearTweens();
 				delete s_TweenManager;
-			}
-
-			if (s_TimeEffectorManager)
-			{
-				s_TimeEffectorManager->ClearEffectors();
-				s_TimeEffectorManager->ClearEffected();
-				delete s_TimeEffectorManager;
 			}
 
 			CleanTimelines();

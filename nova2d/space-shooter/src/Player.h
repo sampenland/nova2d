@@ -3,7 +3,6 @@
 #include "controllers/UDRLController.h"
 #include "maths/Vec2Int.h"
 #include "controllers/SimpleBulletController.h"
-#include "physics/Collider.h"
 #include "graphics/Image.h"
 
 namespace spaceshooter
@@ -13,8 +12,7 @@ namespace spaceshooter
 	using namespace novazero::components;
 
 	class Player 
-		: public UDRLController, public Referenceable, 
-		public Collider
+		: public UDRLController, public Referenceable
 	{
 
 	private:
@@ -46,8 +44,6 @@ namespace spaceshooter
 
 		Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer);
 		~Player();
-
-		void OnCollision(Collision* collision) override;
 
 		void Update();
 		void OnSpace();

@@ -2,10 +2,7 @@
 #include "../core/EventListener.h"
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"
-#include "../physics/Collider.h"
 #include "../core/Deleteable.h"
-#include "../physics/Graver.h"
-#include "../physics/TimeEffected.h"
 #include "../core/Meta.h"
 #include "../core/Positional.h"
 
@@ -21,8 +18,6 @@ namespace novazero
 		class SimpleBulletController
 			: public EventListener, 
 			public BoundUser,
-			public Collider,
-			public TimeEffected,
 			public Meta,
 			public Positional
 		{
@@ -53,7 +48,6 @@ namespace novazero
 			void Update();
 
 			void DestroySelf() override;
-			void OnCollision(Collision* collision) override;
 
 		};
 	}

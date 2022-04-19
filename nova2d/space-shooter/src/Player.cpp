@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "physics/Collision.h"
 #include "ai/SimpleFollower.h"
 #include "specials/TimeWarp.h"
 #include "components/HitDisplay.h"
@@ -18,7 +17,7 @@ namespace spaceshooter
 	int Player::s_Player1MaxStreak = 0;
 
 	Player::Player(const std::string& assetName, const std::string& playerNumber, Vec2 position, Vec2Int size, char layer)
-		: UDRLController(assetName, position, size, layer), Collider(0)
+		: UDRLController(assetName, position, size, layer)
 	{
 		GetSprite()->SetScale(2.f);
 		ConfigureMoveOffsets(Origins::Centered, GetSprite());
@@ -57,7 +56,6 @@ namespace spaceshooter
 		GetSprite()->AddAnimation("right", 4, 2, animationSpeed, true, nullptr, false);
 		GetSprite()->AddAnimation("down", 6, 2, animationSpeed, true, nullptr, false);
 
-		ConfigureCollider(GetSprite(), 0, "player");
 		SetTimeEffectEnabled(false);
 		
 		ConfigureMove(3.f);
@@ -88,51 +86,6 @@ namespace spaceshooter
 	void Player::Quit()
 	{
 		n2dSceneChange("mainMenu");
-	}
-
-	void Player::OnCollision(Collision* collision)
-	{
-		bool collAisPlayer = collision->m_ColliderA->m_ColliderName == "player";
-		bool collBisPlayer = collision->m_ColliderB->m_ColliderName == "player";
-
-		bool hit = false;
-		if ((collision->m_ColliderA->m_ColliderName == "leader-bullet" && collBisPlayer) ||
-			(collision->m_ColliderA->m_ColliderName == "pawn-bullet" && collBisPlayer))
-		{
-			// Bullets with player
-			((SimpleFollower*)collision->m_ColliderA)->DestroySelf();
-			hit = true;
-		}
-		else if ((collision->m_ColliderB->m_ColliderName == "leader-bullet" && collAisPlayer) ||
-			(collision->m_ColliderB->m_ColliderName == "pawn-bullet" && collAisPlayer))
-		{
-			// Bullets with player
-			((SimpleFollower*)collision->m_ColliderB)->DestroySelf();
-			hit = true;
-		}
-
-		if (hit)
-		{
-			SmallExplosion();
-		}
-
-		if (hit && m_Lives > 1)
-		{
-			Die();
-		}
-		else if (hit)
-		{
-			m_ShootTimer->DestroySelf();
-
-			// Game over
-			auto endGame = new auto ([]() {
-
-				n2dSceneChange("gameOver");
-
-			});
-
-			Timer* t = new Timer(1000, false, *endGame);
-		}
 	}
 
 	void Player::SmallExplosion(Vec2 posIfNotPlayer)
@@ -263,38 +216,8 @@ namespace spaceshooter
 			bullet->GetSprite()->Flip(SDL_FLIP_VERTICAL);
 		}
 
-		bullet->ConfigureCollider(bullet->GetSprite(), 0, "player-bullet");
 		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
-		bullet->SetTimeEffectEnabled(false);
-
-		auto collisionFunction = new auto ([=](Collision* collision) {
-
-			//refs
-			Collider& a = *collision->m_ColliderA;
-			Collider& b = *collision->m_ColliderB;
-
-			// whats
-			bool aIsPlayerBullet = a.m_ColliderName == "player-bullet";
-			bool bIsPlayerBullet = b.m_ColliderName == "player-bullet";
-
-			bool aIsPawn = a.m_ColliderName == "pawn";
-			bool bIsPawn = b.m_ColliderName == "pawn";
-
-			if (aIsPlayerBullet && bIsPawn)
-			{
-				((SimpleBulletController*)collision->m_ColliderA)->DestroySelf();
-				((Pawn*)collision->m_ColliderB)->Hurt(m_ShootDamage);
-			}
-
-			if (bIsPlayerBullet && aIsPawn)
-			{
-				((Pawn*)collision->m_ColliderA)->Hurt(m_ShootDamage);
-				((SimpleBulletController*)collision->m_ColliderB)->DestroySelf();
-			}
-
-		});
-
-		bullet->ConfigureOnCollision(*collisionFunction);
+		bullet->SetTimeEffectEnabled(false);		
 
 	}
 

@@ -35,7 +35,7 @@ namespace novazero
 			bool down = n2dIsKeyDown(SDLK_DOWN) || n2dJoySimpleDown(m_JoyStickNumber);
 			bool up = n2dIsKeyDown(SDLK_UP) || n2dJoySimpleUp(m_JoyStickNumber);
 
-			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
+			float speed = m_MoveSpeed * n2dTimeScale;
 
 			Vec2 pos = GetSprite()->GetPosition();
 

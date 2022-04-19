@@ -11,12 +11,10 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleFollower::SimpleFollower(Positional* target, const float moveUpdateDelayMS)
-			:  Collider(0), m_MoveSpeed(2), TimeEffected()
+			: m_MoveSpeed(2)
 		{
 			m_Target = target;
 			m_UpdateDirectionDelay = moveUpdateDelayMS;
-
-			SetTimeEffectEnabled(false);
 
 			m_AliveBounds = Rect(0.f, 0.f, (float)Game::s_Width, (float)Game::s_Height);
 			m_DelayTime = m_UpdateDirectionDelay;
@@ -28,7 +26,6 @@ namespace novazero
 		void SimpleFollower::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
-			ConfigureTimeEffected(m_Sprite);
 			m_UsingPhySprite = false;
 		}
 
@@ -36,7 +33,6 @@ namespace novazero
 			Vec2 size, unsigned char layer, Vec2Int displaySize, const std::string& colliderName)
 		{
 			m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
-			ConfigureTimeEffected(m_PhySprite);
 			m_UsingPhySprite = true;
 		}
 
@@ -106,7 +102,7 @@ namespace novazero
 				y = (float)m_Sprite->GetY();
 			}
 
-			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
+			float speed = m_MoveSpeed * n2dTimeScale;
 
 			float newX = x;
 			float newY = y;
@@ -160,12 +156,7 @@ namespace novazero
 			m_Alive = false;
 
 			Deleteable::CleanUpdaters();
-
-			if (m_UsingCollider)
-			{
-				SceneManager::s_CollisionManager->RemoveCollider(this);
-			}
-			
+						
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 
@@ -173,11 +164,6 @@ namespace novazero
 				m_PhySprite->DestroySelf();
 
 			Deleteable::SetDeleted(true);
-		}
-
-		void SimpleFollower::OnCollision(Collision* collision)
-		{
-
 		}
 	}
 }

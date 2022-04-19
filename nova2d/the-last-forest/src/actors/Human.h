@@ -38,8 +38,6 @@ namespace thelastforest
 
 			void ThinkNextMove();
 
-			void OnCollision(Collision* collision);
-
 			void HandleStepTo(unsigned int gridPos, GridTypes type);
 
 			void PowerUp();

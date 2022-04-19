@@ -2,7 +2,6 @@
 #include "components/SimpleStatBar.h"
 #include "controllers/UDRLController.h"
 #include "maths/Vec2Int.h"
-#include "physics/Collider.h"
 #include "core/Referenceable.h"
 
 namespace spaceshooter
@@ -13,8 +12,7 @@ namespace spaceshooter
 	using namespace novazero::controllers;
 
 	class GroundPlayer :
-		public UDRLController, public Referenceable,
-		public Collider
+		public UDRLController, public Referenceable
 	{
 
 	private:
@@ -26,8 +24,6 @@ namespace spaceshooter
 		GroundPlayer(Vec2 position, Vec2Int size, char layer);
 
 		void Update();
-
-		void OnCollision(Collision* collision) override;
 
 		void DestroySelf();
 

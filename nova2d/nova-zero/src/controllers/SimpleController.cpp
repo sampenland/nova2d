@@ -13,9 +13,6 @@ namespace novazero
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
 			LinkPositionalDrawable(m_Sprite);
-
-			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
-			ConfigureTimeEffected(m_Sprite);
 		}
 
 		void SimpleController::SetMoveSpeed(float mSpeed)
@@ -27,8 +24,6 @@ namespace novazero
 		{
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
-
-			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffected(this);
 		}
 	}
 }

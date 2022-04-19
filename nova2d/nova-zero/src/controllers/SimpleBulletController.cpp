@@ -10,7 +10,7 @@ namespace novazero
 		using namespace graphics;
 
 		SimpleBulletController::SimpleBulletController(Vec2Int start, Vec2Int end, const float moveUpdateDelay)
-			: Collider(0), m_MoveSpeed(2)
+			: m_MoveSpeed(2)
 		{
 			m_UpdateDirectionDelay = moveUpdateDelay / 1000;
 			m_Start = start;
@@ -22,8 +22,6 @@ namespace novazero
 			auto cleanID = n2dAddUpdater(SimpleBulletController::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
 
-			Game::s_SceneManager->s_TimeEffectorManager->AddEffected(this);
-
 			SetEnabled(true);
 		}
 
@@ -31,7 +29,6 @@ namespace novazero
 		{
 			m_DeleteName = assetName;
 			m_Sprite = new Sprite(assetName, position, size, layer);
-			ConfigureTimeEffected(m_Sprite);
 			LinkPositionalDrawable(m_Sprite);
 		}
 
@@ -62,7 +59,7 @@ namespace novazero
 
 			float x = (float)GetSprite()->GetX();
 			float y = (float)GetSprite()->GetY();
-			float speed = m_MoveSpeed * n2dTimeScale * GetTimeInfluence();
+			float speed = m_MoveSpeed * n2dTimeScale;
 
 			float newX = x < m_End.x ? x + speed : x - speed;
 			float newY = y < m_End.y ? y + speed : y - speed;
@@ -77,11 +74,6 @@ namespace novazero
 
 		}
 
-		void SimpleBulletController::OnCollision(Collision* collision)
-		{
-
-		}
-
 		void SimpleBulletController::DestroySelf()
 		{
   			if (m_Destroyed) return;
@@ -93,13 +85,6 @@ namespace novazero
 			m_Alive = false;
 
 			CleanUpdaters();
-
-			Game::s_SceneManager->s_TimeEffectorManager->RemoveEffected(this);
-
-			if (m_UsingCollider)
-			{
-				SceneManager::s_CollisionManager->RemoveCollider(this);
-			}
 
 			if (m_Sprite)
 				m_Sprite->DestroySelf();

@@ -3,8 +3,6 @@
 #include "../maths/Rect.h"
 #include "../core/BoundUser.h"
 #include "../core/TimerWatcher.h"
-#include "../physics/Collider.h"
-#include "../physics/TimeEffected.h"
 #include "../core/Meta.h"
 #include "../physics/PhySprite.h"
 
@@ -21,8 +19,6 @@ namespace novazero
 			public EventListener,
 			public BoundUser,
 			public TimerWatcher,
-			public Collider,
-			public TimeEffected,
 			public Meta
 		{
 
@@ -62,7 +58,6 @@ namespace novazero
 			void UpdateFollower();
 
 			void DestroySelf() override;
-			void OnCollision(Collision* collision) override;
 
 		};
 	}

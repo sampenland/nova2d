@@ -4,7 +4,6 @@
 #include "../maths/Vec2Int.h"
 #include "../utils/TextureLoader.h"
 #include "../core/Game.h"
-#include "../physics/TimeEffected.h"
 #include "../core/Positional.h"
 
 namespace novazero
@@ -17,7 +16,7 @@ namespace novazero
 
 		class SimpleController :
 			public EventListener,
-			public TimeEffected,
+			public BoundUser,
 			public Positional
 		{
 

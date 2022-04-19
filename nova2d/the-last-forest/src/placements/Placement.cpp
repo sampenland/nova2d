@@ -50,7 +50,6 @@ namespace thelastforest
 			position.y += 4.f + oy;
 
 			AddSprite(assetName, Vec2(position.x, position.y + 4), size, layer);
-			ConfigureCollider(GetSprite(), 0, "tree");
 
 			m_SunDisplay = new SimpleStatBar(false, position.x - 33.5f, position.y,
 				140, 10, "purple", "purple", "yellow", 0);

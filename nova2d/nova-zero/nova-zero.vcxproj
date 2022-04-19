@@ -168,7 +168,6 @@
     <ClCompile Include="src\core\Positional.cpp" />
     <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
-    <ClCompile Include="src\debug\DebugOverlay.cpp" />
     <ClCompile Include="src\debug\DrawCircle.cpp" />
     <ClCompile Include="src\debug\DrawRect.cpp" />
     <ClCompile Include="src\debug\PhysicsDebug.cpp" />
@@ -206,19 +205,12 @@
     <ClCompile Include="src\physics\PhyContactListener.cpp" />
     <ClCompile Include="src\physics\PhySensor.cpp" />
     <ClCompile Include="src\physics\PhySprite.cpp" />
-    <ClCompile Include="src\physics\TimeEffected.cpp" />
-    <ClCompile Include="src\physics\TimeEffector.cpp" />
-    <ClCompile Include="src\physics\TimeEffectorManager.cpp" />
     <ClCompile Include="src\utils\AudioManager.cpp" />
     <ClCompile Include="src\utils\Director.cpp" />
     <ClCompile Include="src\utils\timeline\events\TimelineTriggerEvent.cpp" />
     <ClCompile Include="src\utils\timeline\Timeline.cpp" />
     <ClCompile Include="src\utils\timeline\TimelineEvent.cpp" />
     <ClCompile Include="src\utils\TweenManager.cpp" />
-    <ClCompile Include="src\physics\Collider.cpp" />
-    <ClCompile Include="src\physics\CollisionManager.cpp" />
-    <ClCompile Include="src\physics\Graver.cpp" />
-    <ClCompile Include="src\physics\GraverManager.cpp" />
     <ClCompile Include="src\utils\FontManager.cpp" />
     <ClCompile Include="src\utils\ReferenceManager.cpp" />
     <ClCompile Include="src\core\SceneManager.cpp" />
@@ -272,7 +264,6 @@
     <ClInclude Include="src\core\Referenceable.h" />
     <ClInclude Include="src\core\Timer.h" />
     <ClInclude Include="src\core\TimerWatcher.h" />
-    <ClInclude Include="src\debug\DebugOverlay.h" />
     <ClInclude Include="src\debug\DrawCircle.h" />
     <ClInclude Include="src\debug\DrawRect.h" />
     <ClInclude Include="src\graphics\AnsiColor.h" />
@@ -299,9 +290,6 @@
     <ClInclude Include="src\particles\Dot.h" />
     <ClInclude Include="src\particles\Particle.h" />
     <ClInclude Include="src\physics\PhySprite.h" />
-    <ClInclude Include="src\physics\TimeEffected.h" />
-    <ClInclude Include="src\physics\TimeEffector.h" />
-    <ClInclude Include="src\physics\TimeEffectorManager.h" />
     <ClInclude Include="src\thirdparty\jsonparser\json.hpp" />
     <ClInclude Include="src\utils\Director.h" />
     <ClInclude Include="src\utils\timeline\TimelineInstance.h" />
@@ -310,11 +298,6 @@
     <ClInclude Include="src\utils\timeline\Timeline.h" />
     <ClInclude Include="src\utils\timeline\TimelineEvent.h" />
     <ClInclude Include="src\utils\TweenManager.h" />
-    <ClInclude Include="src\physics\Collider.h" />
-    <ClInclude Include="src\physics\Collision.h" />
-    <ClInclude Include="src\physics\CollisionManager.h" />
-    <ClInclude Include="src\physics\Graver.h" />
-    <ClInclude Include="src\physics\GraverManager.h" />
     <ClInclude Include="src\utils\FontManager.h" />
     <ClInclude Include="src\utils\ReferenceManager.h" />
     <ClInclude Include="src\graphics\DrawLayers.h" />

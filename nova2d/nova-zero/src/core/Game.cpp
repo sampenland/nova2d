@@ -54,7 +54,6 @@ namespace novazero
 #ifdef NOVA_MYSQL 
 		SQLManager* Game::s_SQLManager;
 #endif
-		DebugOverlay* Game::s_DebugOverlay;
 		AudioManager* Game::s_AudioManager;
 		Director* Game::s_Director;
 
@@ -188,23 +187,6 @@ namespace novazero
 			}
 		}
 #endif
-
-		// Must be called before debug position setting
-		void Game::ConfigureDebugOverlay(bool isVisible)
-		{
-			if (s_DebugOverlay) s_DebugOverlay->DestroySelf();
-
-			s_DebugOverlay = new DebugOverlay(Vec2Int(32, 48));
-			
-			if (isVisible)
-			{
-				s_DebugOverlay->Show();
-			}
-			else
-			{
-				s_DebugOverlay->Hide();
-			}
-		}
 
 		void Game::PollEvents()
 		{

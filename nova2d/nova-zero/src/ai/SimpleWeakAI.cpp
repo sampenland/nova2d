@@ -7,10 +7,9 @@ namespace novazero
 	namespace ai
 	{
 		SimpleWeakAI::SimpleWeakAI()
-			: Collider(0), Deleteable("simpleWeakAI"), TimeEffected()
+			: Deleteable("simpleWeakAI")
 		{
-			Collider::m_ID = n2dGameGetID();
-			TimeEffected::m_ID = n2dGameGetID();
+			m_ID = n2dGameGetID();
 
 			auto cleanID = n2dAddUpdater(SimpleWeakAI::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
@@ -126,11 +125,11 @@ namespace novazero
 
 			if (!m_UsingPatrolSpeedOverride)
 			{
-				m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
+				m_DelayMS = (float)m_DelayMaxMS * (float)(1 / (n2dTimeScale));
 			}
 			else
 			{
-				m_DelayMS = (*m_PatrolSpeedRef) * (float)(1 / (n2dTimeScale * GetTimeInfluence()));
+				m_DelayMS = (*m_PatrolSpeedRef) * (float)(1 / (n2dTimeScale));
 			}
 			
 			if ((m_MemoryMovement.x != 0 || m_MemoryMovement.y != 0) && m_PatrolIndex == -1 && m_ContinueAfterPatrolComplete)
@@ -187,11 +186,11 @@ namespace novazero
 
 				if (m_UsingPatrolSpeedOverride)
 				{
-					dirNormVector.scale(*m_PatrolSpeedRef * n2dTimeScale * GetTimeInfluence());
+					dirNormVector.scale(*m_PatrolSpeedRef * n2dTimeScale);
 				}
 				else
 				{
-					dirNormVector.scale(2.f * n2dTimeScale * GetTimeInfluence());
+					dirNormVector.scale(2.f * n2dTimeScale);
 				}
 
 				Vec2 newPos = currentPos.add(dirNormVector);
@@ -219,8 +218,6 @@ namespace novazero
 		void SimpleWeakAI::DestroySelf()
 		{
 			CleanUpdaters();
-
-			SceneManager::s_CollisionManager->RemoveCollider(this);
 
 			if (GetSprite())
 				GetSprite()->DestroySelf();

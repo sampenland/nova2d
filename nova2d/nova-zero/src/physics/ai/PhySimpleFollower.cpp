@@ -30,7 +30,6 @@ namespace novazero
 			{
 				m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
 				m_UsingPhySprite = true;
-				ConfigureTimeEffected(m_Sprite);
 			}
 
 			PhySprite* PhySimpleFollower::GetPhySprite() const

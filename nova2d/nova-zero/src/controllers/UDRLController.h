@@ -2,15 +2,13 @@
 #include "SimpleController.h"
 #include <functional>
 #include "../maths/Rect.h"
-#include "../physics/Graver.h"
 
 namespace novazero
 {
 	namespace controllers
 	{
 		class UDRLController : 
-			public SimpleController, 
-			public Graver
+			public SimpleController
 		{
 
 		private:

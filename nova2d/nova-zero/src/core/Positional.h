@@ -37,7 +37,6 @@ namespace novazero
 		private:
 
 			Drawable* m_Drawable = nullptr;
-			unsigned int m_ID;
 			unsigned int m_CleanID = 0;
 			Directions m_Facing = Directions::Right;
 
@@ -49,6 +48,8 @@ namespace novazero
 			float m_OldZoom = 1.f;
 
 		public:
+
+			unsigned int m_ID;
 
 			Positional();
 

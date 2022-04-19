@@ -1,22 +1,15 @@
 #pragma once
 #include "Scene.h"
-#include "../physics/CollisionManager.h"
 #include "../utils/ReferenceManager.h"
 #include <map>
 #include <string>
 #include <vector>
 #include "../core/Deleteable.h"
-#include "../physics/GraverManager.h"
 #include "../utils/TweenManager.h"
-#include "../physics/TimeEffectorManager.h"
 #include "../utils/timeline/Timeline.h"
 
 namespace novazero
 {
-	namespace physics
-	{
-		class CollisionManager;
-	}
 
 	namespace core
 	{
@@ -69,10 +62,7 @@ namespace novazero
 			void DestroySelf();
 
 			static ReferenceManager* s_ReferenceManager;
-			static CollisionManager* s_CollisionManager;
-			static GraverManager* s_GraverManager;
 			static TweenManager* s_TweenManager;
-			static TimeEffectorManager* s_TimeEffectorManager;
 			static std::map<std::string, Timeline*> s_Timelines;
 
 			static std::map<unsigned int, std::function<void()>> s_GUIUpdaters;

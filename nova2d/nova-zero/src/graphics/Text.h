@@ -15,7 +15,10 @@ namespace novazero
 
 	namespace graphics
 	{
-		class Text : public Drawable, public Referenceable, public Deleteable
+		class Text : 
+			public Drawable, 
+			public Referenceable, 
+			public Deleteable
 		{
 
 		private:

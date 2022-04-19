@@ -7,6 +7,8 @@ namespace novazero
 {
     namespace debug
     {
+        using namespace novazero::core;
+
         PhysicsDebug::PhysicsDebug()
         {
             SetFlags(b2Draw::e_shapeBit);

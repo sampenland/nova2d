@@ -9,10 +9,8 @@
 #include "SceneManager.h"
 #include "../utils/ColorManager.h"
 #include "../utils/AssetManager.h"
-#include "../physics/CollisionManager.h"
 #include "../utils/FontManager.h"
 #include "../utils/SQLManager.h"
-#include "../debug/DebugOverlay.h"
 #include "../utils/AudioManager.h"
 #include "../utils/Director.h"
 
@@ -85,17 +83,12 @@ namespace novazero
 #ifdef NOVA_MYSQL 
 			static novazero::utils::SQLManager* s_SQLManager;
 #endif
-			static novazero::debug::DebugOverlay* s_DebugOverlay;
 			static novazero::utils::AudioManager* s_AudioManager;
 			static novazero::utils::Director* s_Director;
 
 			static SDL_KeyCode s_PauseKey;
 			static void PauseGame(bool pause);
-
-			static void ConfigureDebugOverlay(bool isVisible);
-			// Must call ConfigureDebug(true) before this works
-			static void ConfigureDebugPosition(Vec2Int pos) { if (s_DebugOverlay) { s_DebugOverlay->SetPositionInt(pos); } }
-
+			
 			static double s_DeltaTime;
 			static float GetDeltaTime();
 			static double s_FPS;

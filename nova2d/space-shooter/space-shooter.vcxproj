@@ -134,7 +134,6 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\scenes\groundLevels\Level2.cpp" />
     <ClCompile Include="src\scenes\Play.cpp" />
-    <ClCompile Include="src\specials\TimeWarp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\nova-zero\nova-zero.vcxproj">
@@ -172,7 +171,6 @@
     <ClInclude Include="src\scenes\groundLevels\Level2.h" />
     <ClInclude Include="src\scenes\MainMenu.h" />
     <ClInclude Include="src\scenes\Play.h" />
-    <ClInclude Include="src\specials\TimeWarp.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="res\fonts\narrow.ttf" />

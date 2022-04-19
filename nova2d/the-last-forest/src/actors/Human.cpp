@@ -1,6 +1,4 @@
 #include "Human.h"
-#include "physics/Collision.h"
-#include "physics/Collider.h"
 #include "../scenes/AllScenes.h"
 #include "../GameDesigner.h"
 #include "utils/timeline/events/TimelineExecuteEvent.h"
@@ -46,8 +44,6 @@ namespace thelastforest
 
 			GetSprite()->ChangeAnimation("walk");
 			GetSprite()->StartAnimation();
-
-			ConfigureCollider(GetSprite(), 0, "human");
 
 			// Configure move speed
 			Configure(g_HumanMoveSpeed, false);
@@ -279,11 +275,6 @@ namespace thelastforest
 			case GridTypes::Blocked:
 				break;
 			}
-		}
-
-		void Human::OnCollision(Collision* collision)
-		{
-			
 		}
 
 		void Human::DestroySelf()

@@ -105,24 +105,9 @@ namespace novazero
 			return SceneManager::GetDeleteableCount();
 		}
 
-		int n2dDebugTimeEffectorsCount()
-		{
-			return Game::s_SceneManager->s_TimeEffectorManager->GetEffectorCount();
-		}
-
-		int n2dDebugTimeEffectedCount()
-		{
-			return Game::s_SceneManager->s_TimeEffectorManager->GetEffectedCount();
-		}
-
 		int n2dDebugReferencedCount()
 		{
 			return Game::s_SceneManager->s_ReferenceManager->GetReferenceCount();
-		}
-
-		int n2dDebugGraverCount()
-		{
-			return Game::s_SceneManager->s_GraverManager->GetGraverCount();
 		}
 
 		int n2dDebugTweenCount()
@@ -454,6 +439,5 @@ namespace novazero
 			}
 			LOG(LVL_W, "Collision not removed. Could be NO SCENE or Physics NOT ENABLED in Scene.");
 		}
-
 	}
 }

@@ -29,7 +29,6 @@ namespace novazero
 		public:
 
 			unsigned char m_Layer = 0;
-			unsigned int m_ID = 0;
 			SDL_RendererFlip m_Flip = SDL_FLIP_NONE;
 
 			void Flip(SDL_RendererFlip flip)

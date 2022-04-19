@@ -35,9 +35,6 @@
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
 
-// Max graver groups
-#define MAX_GRAVER_GROUPS 255
-
 // Max particles
 #define MAX_PARTICLES 255
 
@@ -381,28 +378,10 @@ namespace novazero
 		int n2dDebugDeleteableCount();
 
 		/*
-		nova2d Get total time effectors
-		Returns total time effectors (similar to gravers)
-		*/
-		int n2dDebugTimeEffectorsCount();
-
-		/*
-		nova2d Get total time effecteds
-		Returns total time effected objects (similar to effectors)
-		*/
-		int n2dDebugTimeEffectedCount();
-
-		/*
 		nova2d Get total referenced
 		Returns total referenced objs (similar to deletables)
 		*/
 		int n2dDebugReferencedCount();
-
-		/*
-		nova2d Get total gravers
-		Returns total graver objs (similar to colliders)
-		*/
-		int n2dDebugGraverCount();
 
 		/*
 		nova2d Get total tweens

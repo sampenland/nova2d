@@ -9,14 +9,13 @@ namespace spaceshooter
 		float shootMin, float shootMax, int startHealth)
 		: SimpleWeakAI()
 	{
-		m_DeleteName = assetName + tostring(SimpleWeakAI::Collider::m_ID);
+		m_DeleteName = assetName + tostring(Positional::m_ID);
 
 		SetPosition(position);
 		AddSprite(assetName, position, size, layer);
 
 		GetSprite()->SetScale(2.f);
 
-		ConfigureCollider(GetSprite(), 0, "pawn");
 		ConfigureUsingBounds(false, false);
 
 		const int healthBarWidth = 32;
@@ -92,8 +91,6 @@ namespace spaceshooter
 
 		PawnController::s_KilledPawns++;
 		PawnController::s_KilledPawnsThisWave++;
-
-		m_UsingCollider = false;
 
 		if (m_HealthBar)
 			m_HealthBar->DestroySelf();

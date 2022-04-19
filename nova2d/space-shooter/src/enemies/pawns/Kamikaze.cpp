@@ -1,6 +1,5 @@
 #include "core/NovaCore.h"
 #include "Kamikaze.h"
-#include "physics/Collider.h"
 #include "components/HitDisplay.h"
 #include "../../Player.h"
 
@@ -15,8 +14,8 @@ namespace spaceshooter
 		AddSprite("kamikaze", position, Vec2Int(16, 16), 0);
 		GetSprite()->AddAnimation("idle", 0, 16, 10.f, true, nullptr);
 
-		Collider::m_ID = n2dGameGetID();
-		m_DeleteName = "kamikaze_" + tostring(Collider::m_ID);
+		m_ID = n2dGameGetID();
+		m_DeleteName = "kamikaze_" + tostring(m_ID);
 
 		m_CleanID = n2dAddDeleteable(this);
 
