@@ -129,14 +129,14 @@
     <ClCompile Include="src\actors\AlienBullet.cpp" />
     <ClCompile Include="src\actors\Player.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\scenes\DemoScene.cpp" />
+    <ClCompile Include="src\scenes\Play.cpp" />
     <ClCompile Include="src\scenes\GameOver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\actors\Alien.h" />
     <ClInclude Include="src\actors\AlienBullet.h" />
     <ClInclude Include="src\actors\Player.h" />
-    <ClInclude Include="src\scenes\DemoScene.h" />
+    <ClInclude Include="src\scenes\Play.h" />
     <ClInclude Include="src\scenes\GameOver.h" />
   </ItemGroup>
   <ItemGroup>

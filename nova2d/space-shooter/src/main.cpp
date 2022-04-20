@@ -23,7 +23,6 @@ int main(int argc, char* argv[])
 	
 	//game.ConfigureSQL("spaceshooter", "tcp://127.0.0.1:3306", "root", "sqlpassword", true);
 	
-	game.ConfigureDebugOverlay(true);
 	game.s_InputHandler->ConfigureJoystickDeadzone(8000);
 		
 	// Textures

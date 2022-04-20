@@ -17,6 +17,13 @@ namespace novazero
 			std::function<void(PhyBase* a, PhyBase* b)> onEnter,
 			std::function<void(PhyBase* a, PhyBase* b)> onExit)
 		{
+
+			if (!self || !other)
+			{
+				LOG(LVL_NFE, "Could not add collision. A or B PhyBase is NULL.");
+				return nullptr;
+			}
+
 			unsigned int id = n2dGameGetID();
 
 			PhyCollision* collision = new PhyCollision();

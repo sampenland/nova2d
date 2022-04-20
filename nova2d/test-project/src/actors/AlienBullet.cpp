@@ -26,16 +26,14 @@ namespace testproject
 		Timer* t = new Timer(n2dRandomFloat(2000, 6000), false, [=]() {
 			DestroySelf();
 		});
-
-		Player* player = (Player*)n2dReferenceGet("player");
 		
-		if (!player->GetBody())
+		if (!((Player*)target)->GetBody())
 		{
 			LOGS("No player body");
 		}
 		else
 		{
-			m_Collision = n2dAddCollision(GetPhySprite(), player,
+			m_Collision = n2dAddCollision(GetPhySprite(), ((Player*)target)->GetPhySprite(),
 				n2dMakeFuncArgs2(AlienBullet::HitPlayer, this, this, player), nullptr);
 		}
 

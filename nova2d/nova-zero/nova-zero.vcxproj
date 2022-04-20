@@ -155,6 +155,7 @@
     <ClCompile Include="src\audio\Audio.cpp" />
     <ClCompile Include="src\components\HitDisplay.cpp" />
     <ClCompile Include="src\components\SimpleStatBar.cpp" />
+    <ClCompile Include="src\controllers\BasicController.cpp" />
     <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
     <ClCompile Include="src\controllers\SimpleController.cpp" />
     <ClCompile Include="src\controllers\UDRLController.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
     <ClInclude Include="src\audio\Audio.h" />
+    <ClInclude Include="src\controllers\BasicController.h" />
     <ClInclude Include="src\core\Environment.h" />
     <ClInclude Include="src\debug\PhysicsDebug.h" />
     <ClInclude Include="src\gui\glad\glad.h" />

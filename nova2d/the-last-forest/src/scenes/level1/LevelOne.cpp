@@ -3,12 +3,14 @@
 #include "../../pickups/Water.h"
 #include "../../pickups/Tree.h"
 #include "../../GameDesigner.h"
+#include "graphics/Text.h"
 
 namespace thelastforest
 {
 	namespace scenes
 	{
 		using namespace novazero::maps;
+		using namespace novazero::core;
 
 		float LevelOne::s_MinHumanTime = 2000.f;
 		float LevelOne::s_MaxHumanTime = 12000.f;

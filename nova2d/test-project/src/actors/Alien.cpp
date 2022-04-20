@@ -40,7 +40,17 @@ namespace testproject
 
 	void Alien::Shoot()
 	{
-		Player* p = (Player*)n2dReferenceGet("player");
+		Player* p;
+
+		if (n2dCoinFlip())
+		{
+			p = (Player*)n2dReferenceGet("player1");
+		}
+		else
+		{
+			p = (Player*)n2dReferenceGet("player2");
+		}
+
 		AlienBullet* bullet = new AlienBullet(
 			GetCenter(), p, 10);
 		

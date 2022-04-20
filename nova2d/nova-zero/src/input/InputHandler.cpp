@@ -6,7 +6,7 @@ namespace novazero
 {
 	namespace input
 	{
-		int InputHandler::s_JoyStickDeadzone = 800;
+		int InputHandler::s_JoyStickDeadzone = 8000;
 
 		std::vector<SDL_Keycode> InputHandler::s_KeyIsPressed;
 		SDL_Joystick* InputHandler::s_JoySticks[MAX_JOYSTICKS];

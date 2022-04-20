@@ -18,7 +18,7 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scenes\DemoScene.cpp">
+    <ClCompile Include="src\scenes\Play.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\actors\Alien.cpp">
@@ -35,7 +35,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\scenes\DemoScene.h">
+    <ClInclude Include="src\scenes\Play.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\actors\Alien.h">

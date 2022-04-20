@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "ai/SimpleFollower.h"
-#include "specials/TimeWarp.h"
 #include "components/HitDisplay.h"
 #include "utils/ValueManager.h"
 #include "enemies/pawns/Pawn.h"
@@ -55,9 +54,7 @@ namespace spaceshooter
 		GetSprite()->AddAnimation("left", 2, 2, animationSpeed, true, nullptr, false);
 		GetSprite()->AddAnimation("right", 4, 2, animationSpeed, true, nullptr, false);
 		GetSprite()->AddAnimation("down", 6, 2, animationSpeed, true, nullptr, false);
-
-		SetTimeEffectEnabled(false);
-		
+				
 		ConfigureMove(3.f);
 		ConfigureMoveBounds(Game::GetGameBounds());
 
@@ -166,8 +163,7 @@ namespace spaceshooter
 		{
 			s_Player1Streak = 0;
 
-			TimeWarp* clock = new TimeWarp(Vec2(GetX() + GetSprite()->GetWidth() / 2, GetY() + GetSprite()->GetHeight() / 2), 0.15f,
-				maxSize, 1000, 12 * 1000); // 1/8 speed for 12 seconds
+			// TODO: drop item
 		}
 	}
 
@@ -216,8 +212,7 @@ namespace spaceshooter
 			bullet->GetSprite()->Flip(SDL_FLIP_VERTICAL);
 		}
 
-		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));
-		bullet->SetTimeEffectEnabled(false);		
+		bullet->ConfigureAliveBounds(Game::GetGameBounds(32));	
 
 	}
 

@@ -1,5 +1,5 @@
 #include "core/Game.h"
-#include "scenes/DemoScene.h"
+#include "scenes/Play.h"
 #include "scenes/GameOver.h"
 
 int main(int argc, char* argv[])
@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	Game game("Test Project");
 	game.SetDebugVerbose(true);
 
-	DemoScene* play = new DemoScene("Play");
+	Play* play = new Play("Play");
 	GameOver* gameover = new GameOver("GameOver");
 
 	n2dAddColor("space-black", "2e2e2e", 255);
