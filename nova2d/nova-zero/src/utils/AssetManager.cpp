@@ -36,8 +36,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Cannot find texture: " + name);
-				LOG(LVL_NON_FATAL_ERROR, oor.what());
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find texture: " + name, __FILE__, __LINE__);
+				LOG(LVL_NON_FATAL_ERROR, oor.what(), __FILE__, __LINE__);
 				return nullptr;
 			}
 		}
@@ -73,8 +73,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Cannot find texture: " + name);
-				LOG(LVL_NON_FATAL_ERROR, oor.what());
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find texture: " + name, __FILE__, __LINE__);
+				LOG(LVL_NON_FATAL_ERROR, oor.what(), __FILE__, __LINE__);
 				return nullptr;
 			}
 		}
@@ -103,8 +103,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor)
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Cannot find tilemap: " + name);
-				LOG(LVL_NON_FATAL_ERROR, oor.what());
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find tilemap: " + name, __FILE__, __LINE__);
+				LOG(LVL_NON_FATAL_ERROR, oor.what(), __FILE__, __LINE__);
 				return NULL;
 			}
 		}

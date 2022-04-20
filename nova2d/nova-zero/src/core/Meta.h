@@ -25,7 +25,7 @@ namespace novazero
 			{ 
 				if (s_Meta.find(key) == s_Meta.end())
 				{
-					LOG(LVL_WARNING, "No meta with key: " + key);
+					LOG(LVL_WARNING, "No meta with key: " + key, __FILE__, __LINE__);
 					return "\0";
 				}
 				return s_Meta[key];

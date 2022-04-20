@@ -22,21 +22,21 @@ namespace novazero
 			if ((initted & flags) != flags) {
 
 				std::string err = Mix_GetError();
-				LOG(LVL_FATAL_ERROR, "Audio engine failed to start. Error: " + err);
+				LOG(LVL_FATAL_ERROR, "Audio engine failed to start. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 
 			if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) 
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_FATAL_ERROR, "Audio engine failed to open device. Error: " + err);
+				LOG(LVL_FATAL_ERROR, "Audio engine failed to open device. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 
 #ifdef NOVA_EMSCRIPTEN
-			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: ONLY wav and ogg files");
+			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: ONLY wav and ogg files", __FILE__, __LINE__);
 #else
-			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: wav, ogg, mp3, midi");
+			LOG(LVL_CONFIRMATION, "Audio engine started. Supporting: wav, ogg, mp3, midi", __FILE__, __LINE__);
 #endif
 			Mix_AllocateChannels((int)maxChannels);
 			m_Started = true;
@@ -52,7 +52,7 @@ namespace novazero
 				assetPath.find(".midi") == std::string::npos
 				)
 			{
-				LOG(LVL_NFE, assetPath + " <- incorect file type. Supported: wav, ogg, mp3, midi");
+				LOG(LVL_NFE, assetPath + " <- incorect file type. Supported: wav, ogg, mp3, midi", __FILE__, __LINE__);
 				return nullptr;
 			}
 
@@ -60,7 +60,7 @@ namespace novazero
 
 			if (!m->IsValid())
 			{
-				LOG(LVL_NFE, "Failed to add music to manager: " + assetName);
+				LOG(LVL_NFE, "Failed to add music to manager: " + assetName, __FILE__, __LINE__);
 				delete m;
 				return nullptr;
 			}
@@ -77,7 +77,7 @@ namespace novazero
 				assetPath.find(".ogg") == std::string::npos
 				)
 			{
-				LOG(LVL_NFE, assetPath + " <- incorect file type. Supported: wav, ogg");
+				LOG(LVL_NFE, assetPath + " <- incorect file type. Supported: wav, ogg", __FILE__, __LINE__);
 				return nullptr;
 			}
 
@@ -85,7 +85,7 @@ namespace novazero
 
 			if (!se->IsValid())
 			{
-				LOG(LVL_NFE, "Failed to add sound effect to manager: " + assetName);
+				LOG(LVL_NFE, "Failed to add sound effect to manager: " + assetName, __FILE__, __LINE__);
 				delete se;
 				return nullptr;
 			}
@@ -105,7 +105,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_NFE, "Music: " + assetName + " does not exists.");
+					LOG(LVL_NFE, "Music: " + assetName + " does not exists.", __FILE__, __LINE__);
 				}
 			}
 			else
@@ -116,7 +116,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_NFE, "Sound Effect: " + assetName + " does not exists.");
+					LOG(LVL_NFE, "Sound Effect: " + assetName + " does not exists.", __FILE__, __LINE__);
 				}
 			}
 

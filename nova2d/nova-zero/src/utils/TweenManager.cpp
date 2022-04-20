@@ -215,7 +215,7 @@ namespace novazero
 				}
 
 				if (!autoDelete && n2dDebugVerbose)
-					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID)); tween.loop = loop;
+					LOG(LVL_WARNING, "Orphan Tween: " + std::to_string(tweenID), __FILE__, __LINE__); tween.loop = loop;
 			}
 		}
 

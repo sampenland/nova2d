@@ -100,7 +100,7 @@ namespace novazero
 			}
 			else
 			{
-				LOG(LVL_NFE, "Couldn't turn on physics debug. Physics not enabled.");
+				LOG(LVL_NFE, "Couldn't turn on physics debug. Physics not enabled.", __FILE__, __LINE__);
 			}
 		}
 

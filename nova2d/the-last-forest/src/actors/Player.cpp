@@ -15,12 +15,9 @@ namespace thelastforest
 		bool Player::s_ReadyToPlace = false;
 
 		Player::Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
-			: UDRLController(assetName, position, size, layer)
+			: BasicController(assetName, "player", position, Vec2(size.x, size.y), size, layer)
 		{
 			SetPosition(position);
-
-			ConfigureMove(5.f);
-			ConfigureMoveBounds(Rect(142, 0, Game::s_Width - (2 * 142) - size.x, Game::s_Height - 2 * 88));
 
 			m_Highlight = new Image("highlight", Vec2(0, 0), Vec2Int(142, 88), 11);
 			Highlight();

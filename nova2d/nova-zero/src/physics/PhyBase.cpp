@@ -49,5 +49,10 @@ namespace novazero
 		{
 			return m_PhyColliderName;
 		}
+
+		void PhyBase::SetColliderName(const std::string& colliderName)
+		{
+			m_PhyColliderName = colliderName;
+		}
 	}
 }

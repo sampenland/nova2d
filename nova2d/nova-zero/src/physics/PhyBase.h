@@ -48,6 +48,7 @@ namespace novazero
 			virtual unsigned int GetPhyID() const = 0;
 
 			std::string GetColliderName() const;
+			void SetColliderName(const std::string& colliderName);
 
 			void DestroySelf();
 

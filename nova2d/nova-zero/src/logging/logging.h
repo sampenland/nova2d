@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include "../graphics/AnsiColor.h"
 
 namespace novazero
@@ -18,7 +19,8 @@ namespace novazero
 #define LVL_CONFIRMATION "Confirmation"
 #define LVL_C "Confirmation"
 
-#define LOG(lvl, text) novazero::logging::Logging::LogOut(lvl, text);
+#define LOGO(lvl, text) novazero::logging::Logging::LogOut(lvl, text);
+#define LOG(lvl, text, file, line) novazero::logging::Logging::LogOut(lvl, text, file, line);
 #define LOGS(text) novazero::logging::Logging::LogSimple(text);
 
 		class Logging
@@ -36,7 +38,7 @@ namespace novazero
 				std::cout << text << std::endl;
 			}
 
-			static void LogOut(const std::string& level, const std::string& text)
+			static void LogOut(const std::string& level, const std::string& text, const std::string& file = "", const unsigned int lineNumber = -1)
 			{
 				std::string out = "";
 				
@@ -61,7 +63,14 @@ namespace novazero
 					out = "\x1b[93m";
 				}
 
-				out += level + ": " + text + "\n";
+				if (lineNumber == -1 || level == LVL_INFO)
+				{
+					out += level + " : " + text + "\n";
+				}
+				else
+				{
+					out += level + "[" + file + ":" + std::to_string(lineNumber) + "] " + text + "\n";
+				}
 
 				setupConsole();
 				printf(out.c_str());

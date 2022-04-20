@@ -185,7 +185,7 @@ namespace novazero
 		{
 			if (target == nullptr)
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Cannot have camera follow nullptr target.");
+				LOG(LVL_NON_FATAL_ERROR, "Cannot have camera follow nullptr target.", __FILE__, __LINE__);
 				return;
 			}
 

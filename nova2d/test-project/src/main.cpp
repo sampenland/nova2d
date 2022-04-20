@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	using namespace core;
 
 	// Game Config
-	Game game("Test Project");
+	Game game("Earth Defend v.0.1");
 	game.SetDebugVerbose(true);
 
 	Play* play = new Play("Play");

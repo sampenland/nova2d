@@ -41,7 +41,7 @@ namespace novazero
 			Scene* loadScene = GetScene(sceneName);
 			if (loadScene == nullptr)
 			{
-				LOG(LVL_FATAL_ERROR, "Could not start. No first scene: " + sceneName);
+				LOG(LVL_FATAL_ERROR, "Could not start. No first scene: " + sceneName, __FILE__, __LINE__);
 				return;
 			}
 
@@ -78,7 +78,7 @@ namespace novazero
 			Scene* loadScene = GetScene(sceneName);
 			if (loadScene == nullptr)
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Cannot find scene: " + sceneName);
+				LOG(LVL_NON_FATAL_ERROR, "Cannot find scene: " + sceneName, __FILE__, __LINE__);
 				return;
 			}
 
@@ -100,7 +100,7 @@ namespace novazero
 			if(!m_CurrentScene->m_Started) m_CurrentScene->Restart();
 			m_CurrentScene->m_Started = true;
 
-			LOG(LVL_INFO, "Starting Scene [ " + m_CurrentScene->m_SceneName + " ]");
+			LOGO(LVL_INFO, "Starting Scene [ " + m_CurrentScene->m_SceneName + " ]");
 
 			m_CurrentSceneName = m_CurrentScene->m_SceneName;
 			m_CurrentScene->Start();
@@ -163,7 +163,7 @@ namespace novazero
 
 			if (m_CurrentScene == nullptr && Game::s_Running)
 			{
-				LOG(LVL_FATAL_ERROR, "NO Scene loaded. Exiting.");
+				LOG(LVL_FATAL_ERROR, "NO Scene loaded. Exiting.", __FILE__, __LINE__);
 				Game::EndGame(ERR_NO_SCENE);
 				return;
 			}
@@ -393,7 +393,7 @@ namespace novazero
 		{
 			if (s_Timelines.find(timelineName) == s_Timelines.end())
 			{
-				LOG(LVL_W, timelineName + " does not exists. Cannot start/restart.");
+				LOG(LVL_W, timelineName + " does not exists. Cannot start/restart.", __FILE__, __LINE__);
 				return;
 			}
 			else

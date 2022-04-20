@@ -1,12 +1,14 @@
 #pragma once
 #include "physics/PhySprite.h"
 #include "physics/ai/PhySimpleWeakAI.h"
+#include "maths/Maths.h"
 
 namespace testproject
 {
 	using namespace novazero::physics;
 	using namespace novazero::physics::ai;
 	using namespace novazero::ai;
+	using namespace novazero::maths;
 
 	class Alien : 
 		public PhySimpleWeakAI

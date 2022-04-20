@@ -156,9 +156,6 @@
     <ClCompile Include="src\components\HitDisplay.cpp" />
     <ClCompile Include="src\components\SimpleStatBar.cpp" />
     <ClCompile Include="src\controllers\BasicController.cpp" />
-    <ClCompile Include="src\controllers\SimpleBulletController.cpp" />
-    <ClCompile Include="src\controllers\SimpleController.cpp" />
-    <ClCompile Include="src\controllers\UDRLController.cpp" />
     <ClCompile Include="src\core\BoundUser.cpp" />
     <ClCompile Include="src\core\Camera.cpp" />
     <ClCompile Include="src\core\Environment.cpp" />
@@ -245,6 +242,7 @@
     <ClInclude Include="src\gui\imgui\imstb_textedit.h" />
     <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
     <ClInclude Include="src\input\ScrollInput.h" />
+    <ClInclude Include="src\maths\Maths.h" />
     <ClInclude Include="src\physics\PhyBase.h" />
     <ClInclude Include="src\physics\PhyContactListener.h" />
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
@@ -253,9 +251,6 @@
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />
-    <ClInclude Include="src\controllers\SimpleBulletController.h" />
-    <ClInclude Include="src\controllers\SimpleController.h" />
-    <ClInclude Include="src\controllers\UDRLController.h" />
     <ClInclude Include="src\core\BoundUser.h" />
     <ClInclude Include="src\core\Camera.h" />
     <ClInclude Include="src\core\NovaCore.h" />

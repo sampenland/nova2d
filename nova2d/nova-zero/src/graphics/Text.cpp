@@ -83,7 +83,7 @@ namespace novazero
 
 			if (!m_Texture)
 			{
-				LOG(LVL_WARNING, "Failed to construct Text" + m_DisplayText);
+				LOG(LVL_WARNING, "Failed to construct Text" + m_DisplayText, __FILE__, __LINE__);
 				return;
 			}
 

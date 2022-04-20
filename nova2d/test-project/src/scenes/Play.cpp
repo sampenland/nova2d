@@ -15,7 +15,7 @@ namespace testproject
 	void Play::Start()
 	{
 		EnablePhysics(true);
-		PhysicsEnableDebug(true);
+		PhysicsEnableDebug(false);
 
 		n2dAssetsLoadAndAddTexture("player", "res/lander-TX518.png");
 		n2dAssetsLoadAndAddTexture("alien", "res/Ralph-TX18.png");
@@ -28,13 +28,13 @@ namespace testproject
 			Vec2Int(256, 256), 2);
 		planet = new PhySensor("planet", true, Vec2(Game::s_Width - 32, Game::s_Height - 32), 256);
 
-		player1 = new Player(Game::GetCenterScreen(), Vec2(32, 32),
+		player1 = new Player("player1", Game::GetCenterScreen(), Vec2(32, 32),
 			10);
 		player1->EnableArrowKeys(true);
 		player1->EnabledJoystickController(true, 0);
 		n2dReferenceAdd("player1", player1);
 
-		player2 = new Player(Vec2(Game::GetCenterScreen().x, Game::GetCenterScreen().y + 250), Vec2(32, 32),
+		player2 = new Player("player2", Vec2(Game::GetCenterScreen().x, Game::GetCenterScreen().y + 250), Vec2(32, 32),
 			10);
 		player2->EnableWASD(true);
 		player2->EnabledJoystickController(true, 1);

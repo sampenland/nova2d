@@ -20,15 +20,15 @@ namespace novazero
             SDL_Surface* loadedSurface = IMG_Load(path.c_str());
             if (loadedSurface == NULL)
             {
-                LOG(LVL_NON_FATAL_ERROR, "SDL Image Load error: " + path);
-                LOG(LVL_NON_FATAL_ERROR, SDL_GetError());
+                LOG(LVL_NON_FATAL_ERROR, "SDL Image Load error: " + path, __FILE__, __LINE__);
+                LOG(LVL_NON_FATAL_ERROR, SDL_GetError(), __FILE__, __LINE__);
                 return nullptr;
             }
             else
             {
                 if (!Game::s_Renderer->GetSDLRenderer())
                 {
-                    LOG(LVL_NON_FATAL_ERROR, "Game not initialize before loading texture: " + path);
+                    LOG(LVL_NON_FATAL_ERROR, "Game not initialize before loading texture: " + path, __FILE__, __LINE__);
                     return nullptr;
                 }
 
@@ -37,7 +37,7 @@ namespace novazero
                 
                 if (newTexture == NULL)
                 {
-                    LOG(LVL_FATAL_ERROR, "SDL Texture create error: " + path);
+                    LOG(LVL_FATAL_ERROR, "SDL Texture create error: " + path, __FILE__, __LINE__);
                     return nullptr;
                 }
 

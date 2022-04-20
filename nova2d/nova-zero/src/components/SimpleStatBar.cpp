@@ -110,7 +110,8 @@ namespace novazero
 				}
 
 				m_Foreground->w = (int)(GetSize().x * scale);
-				m_Foreground->h = (int)(m_Value * scale);
+				m_Foreground->y = (int)(oY + GetSize().y * scale);
+				m_Foreground->h = (int)(-m_Value * scale);
 			}
 			else
 			{

@@ -96,7 +96,7 @@ namespace novazero
 			{
 				if (!m_Fill)
 				{
-					LOG(LVL_WARNING, "Cannot draw rect");
+					LOG(LVL_WARNING, "Cannot draw rect", __FILE__, __LINE__);
 					return;
 				}
 
@@ -109,7 +109,7 @@ namespace novazero
 			{
 				if (!m_Outline)
 				{
-					LOG(LVL_WARNING, "Cannot draw rect");
+					LOG(LVL_WARNING, "Cannot draw rect", __FILE__, __LINE__);
 					return;
 				}
 

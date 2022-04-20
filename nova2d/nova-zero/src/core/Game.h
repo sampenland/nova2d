@@ -16,7 +16,7 @@
 
 #include "../graphics/Color.h"
 #include <vector>
-#include "../maths/Rect.h"
+#include "../maths/Maths.h"
 #include "../core/Camera.h"
 
 namespace novazero
@@ -152,7 +152,7 @@ namespace novazero
 
 				if (s_Rumbler == NULL)
 				{
-					LOG(LVL_W, "Couldn't rumble: " + std::string(SDL_GetError()));
+					LOG(LVL_W, "Couldn't rumble: " + std::string(SDL_GetError()), __FILE__, __LINE__);
 					return -1;
 				}
 

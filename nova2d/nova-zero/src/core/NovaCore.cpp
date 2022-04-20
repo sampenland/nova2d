@@ -315,7 +315,7 @@ namespace novazero
 		{
 			if (!Game::s_SceneManager)
 			{
-				LOG(LVL_FATAL_ERROR, "No Scene Manager. Are you adding a scene before creating your Game object?");
+				LOG(LVL_FATAL_ERROR, "No Scene Manager. Are you adding a scene before creating your Game object?", __FILE__, __LINE__);
 				Game::EndGame(ERR_NO_SCENE_MNGR);
 				return;
 			}
@@ -423,7 +423,7 @@ namespace novazero
 				}
 			}
 
-			LOG(LVL_W, "Collision not added. Could be NO SCENE or Physics NOT ENABLED in Scene.");
+			LOG(LVL_W, "Collision not added. Could be NO SCENE or Physics NOT ENABLED in Scene.", __FILE__, __LINE__);
 			return nullptr;
 		}
 
@@ -437,7 +437,7 @@ namespace novazero
 					return;
 				}
 			}
-			LOG(LVL_W, "Collision not removed. Could be NO SCENE or Physics NOT ENABLED in Scene.");
+			LOG(LVL_W, "Collision not removed. Could be NO SCENE or Physics NOT ENABLED in Scene.", __FILE__, __LINE__);
 		}
 	}
 }

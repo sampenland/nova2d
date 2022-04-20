@@ -12,7 +12,7 @@ namespace novazero
 			{
 				if (!target)
 				{
-					LOG(LVL_W, "PhySimpleFollower has no target");
+					LOG(LVL_W, "PhySimpleFollower has no target", __FILE__, __LINE__);
 				}
 
 				auto cid = n2dAddUpdater(PhySimpleFollower::Update, this);

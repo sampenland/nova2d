@@ -42,19 +42,10 @@
     <ClCompile Include="src\input\InputHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\controllers\SimpleController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\EventListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\DrawLayers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\controllers\UDRLController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\controllers\SimpleBulletController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\AssetManager.cpp">
@@ -284,22 +275,13 @@
     <ClInclude Include="src\input\InputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\controllers\SimpleController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\EventListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\DrawLayers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\controllers\UDRLController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\maths\Rect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\controllers\SimpleBulletController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\AssetManager.h">
@@ -522,6 +504,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\controllers\BasicController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\maths\Maths.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

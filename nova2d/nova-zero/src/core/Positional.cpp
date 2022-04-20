@@ -114,7 +114,7 @@ namespace novazero
 
 			if (!m_Drawable)
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Could not position positional. " + tostring(m_ID) + " has no Drawable.");
+				LOG(LVL_NON_FATAL_ERROR, "Could not position positional. " + tostring(m_ID) + " has no Drawable.", __FILE__, __LINE__);
 				return;
 			}
 

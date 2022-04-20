@@ -176,7 +176,7 @@ namespace novazero
 							f_EventFuncInt2Float1(m_I1, m_I2, m_F1);
 							break;
 						case FuncType::Float2Int2:
-							f_EventFuncFloat2Int2(m_I1, m_I2, m_F1, m_F2);
+							f_EventFuncFloat2Int2(m_F1, m_F2, m_I1, m_I2);
 							break;
 						case FuncType::Int1Float1:
 							f_EventFuncInt1Float1(m_I1, m_F1);

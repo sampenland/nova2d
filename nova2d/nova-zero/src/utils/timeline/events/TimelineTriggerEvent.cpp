@@ -41,7 +41,7 @@ namespace novazero
 					{
 						if (n2dDebugVerbose)
 						{
-							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
+							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function", __FILE__, __LINE__);
 						}
 						return;
 					}
@@ -50,7 +50,7 @@ namespace novazero
 					{
 						if (n2dDebugVerbose)
 						{
-							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr conditional function");
+							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr conditional function", __FILE__, __LINE__);
 						}
 						return;
 					}
@@ -86,7 +86,7 @@ namespace novazero
 					{
 						if (n2dDebugVerbose)
 						{
-							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function");
+							LOG(LVL_NON_FATAL_ERROR, "Trigger event has nullptr ON/OFF function", __FILE__, __LINE__);
 						}
 						return;
 					}

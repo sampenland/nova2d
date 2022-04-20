@@ -38,7 +38,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_W, "Could not add drawable: " + tostring(sprite->m_ID));
+					LOG(LVL_W, "Could not add drawable: " + tostring(sprite->m_ID), __FILE__, __LINE__);
 					return;
 				}
 			}

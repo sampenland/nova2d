@@ -87,7 +87,7 @@ namespace novazero
 
 			if (m_Animations.find(animName) != m_Animations.end())
 			{
-				LOG(LVL_W, animName + " already exists in animations. OVERWRITING!");
+				LOG(LVL_W, animName + " already exists in animations. OVERWRITING!", __FILE__, __LINE__);
 			}
 
 			m_Animations[animName] = data;
@@ -129,7 +129,7 @@ namespace novazero
 					}
 					else
 					{
-						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames");
+						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames", __FILE__, __LINE__);
 					}
 				}
 				else
@@ -141,7 +141,7 @@ namespace novazero
 					}
 					else
 					{
-						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames");
+						LOG(LVL_W, "Sprite's frame offset over-runs sprite's anaimation frames", __FILE__, __LINE__);
 					}
 				}
 			}
@@ -211,7 +211,7 @@ namespace novazero
 			}
 			else
 			{
-				LOG(LVL_W, "Trying to tick animation: " + m_CurrentAnimation + " but animation by this name does not exists.");
+				LOG(LVL_W, "Trying to tick animation: " + m_CurrentAnimation + " but animation by this name does not exists.", __FILE__, __LINE__);
 			}
 
 		}

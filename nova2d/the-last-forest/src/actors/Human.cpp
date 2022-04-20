@@ -128,7 +128,7 @@ namespace thelastforest
 		{
 			if (!GetSprite())
 			{
-				LOG(LVL_NFE, "No Sprite on human, power up.");
+				LOG(LVL_NFE, "No Sprite on human, power up.", __FILE__, __LINE__);
 				return;
 			}
 

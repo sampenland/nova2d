@@ -31,7 +31,7 @@ namespace novazero
 		{
 			if (controllerID >= SDL_NumJoysticks())
 			{
-				LOG(LVL_FATAL_ERROR, "A controller was not found, may cause unplayable game.");
+				LOG(LVL_FATAL_ERROR, "A controller was not found, may cause unplayable game.", __FILE__, __LINE__);
 				return;
 			}
 
@@ -52,7 +52,7 @@ namespace novazero
 
 		void BasicController::ControllerUpdate()
 		{
-			m_HealthBar->Update(m_Health / 100 * 32, GetX() + GetWidth() + 5, GetY());
+			m_HealthBar->Update((int)(m_Health / 100 * 32), (int)(GetX() + GetWidth() + 5), (int)(GetY()));
 
 			Controls();
 		}

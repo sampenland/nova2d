@@ -2,6 +2,7 @@
 #include "core/Timer.h"
 #include "core/Game.h"
 #include "Player.h"
+#include <string>
 
 namespace testproject
 {
@@ -19,7 +20,7 @@ namespace testproject
 		}
 		else
 		{
-			LOG(LVL_NFE, "NULL alien bullet sprite");
+			LOG(LVL_NFE, "NULL alien bullet sprite", __FILE__, __LINE__);
 			return;
 		}
 
@@ -41,15 +42,17 @@ namespace testproject
 
 	void AlienBullet::HitPlayer(PhyBase* self, PhyBase* other)
 	{
-		if (other->GetColliderName() == "player")
+		std::string otherCollider = other->GetColliderName();
+
+		if (otherCollider.find("player") != std::string::npos)
 		{
-			Player* p = (Player*)n2dReferenceGet("player");
+			Player* p = (Player*)n2dReferenceGet(otherCollider);
 			if (p)
 			{
 				p->Hurt(30);
 				DestroySelf();
 			}
-		}
+		}		
 	}
 
 	void AlienBullet::DestroySelf()

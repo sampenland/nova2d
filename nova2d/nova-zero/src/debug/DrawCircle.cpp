@@ -44,7 +44,7 @@ namespace novazero
 			if (m_Radius < 1.f)
 			{
 				m_Radius = 2;
-				LOG(LVL_WARNING, "Circle radius too small. Defaulting to 2.");
+				LOG(LVL_WARNING, "Circle radius too small. Defaulting to 2.", __FILE__, __LINE__);
 			}
 
 			int r = 1;
@@ -63,7 +63,7 @@ namespace novazero
 
 			if (r != 0)
 			{
-				LOG(LVL_WARNING, "Unable to draw circle.");
+				LOG(LVL_WARNING, "Unable to draw circle.", __FILE__, __LINE__);
 			}
 		}
 	}

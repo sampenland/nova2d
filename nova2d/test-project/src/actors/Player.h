@@ -21,9 +21,10 @@ namespace testproject
 
 	public:
 
-		Player(Vec2 position, Vec2 size, unsigned char layer);
+		Player(const std::string& colliderName, Vec2 position, Vec2 size, unsigned char layer);
 
 		void Update();
+		void Animations();
 
 		void DestroySelf();
 

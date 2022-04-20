@@ -46,13 +46,13 @@ namespace novazero
 #ifdef NOVA_EMSCRIPTEN
 			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK) != 0) {
 				std::string err = SDL_GetError();
-				LOG(LVL_FE, "Unable to initialize SDL: " + err);
+				LOG(LVL_FE, "Unable to initialize SDL: " + err, __FILE__, __LINE__);
 				return;
 		}
 #else
 			if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC) != 0) {
 				std::string err = SDL_GetError();
-				LOG(LVL_FE, "Unable to initialize SDL: " + err);
+				LOG(LVL_FE, "Unable to initialize SDL: " + err, __FILE__, __LINE__);
 				return;
 			}
 #endif
@@ -83,7 +83,7 @@ namespace novazero
 				if (!m_GlContext)
 				{
 					std::string err = SDL_GetError();
-					LOG(LVL_FE, "Could not create Open GL context: " + err);
+					LOG(LVL_FE, "Could not create Open GL context: " + err, __FILE__, __LINE__);
 					return;
 				}
 
@@ -94,7 +94,7 @@ namespace novazero
 
 				if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress))
 				{
-					LOG(LVL_FATAL_ERROR, "Could not initialize glad.");
+					LOG(LVL_FATAL_ERROR, "Could not initialize glad.", __FILE__, __LINE__);
 					return;
 				}
 #endif
@@ -102,7 +102,7 @@ namespace novazero
 			else
 			{
 				std::string err = SDL_GetError();
-				LOG(LVL_FATAL_ERROR, "Could not create window: " + err);
+				LOG(LVL_FATAL_ERROR, "Could not create window: " + err, __FILE__, __LINE__);
 				return;
 			}
 
@@ -112,7 +112,7 @@ namespace novazero
 		{
 			if (!m_Window)
 			{
-				LOG(LVL_NFE, "Could not start GUI.");
+				LOG(LVL_NFE, "Could not start GUI.", __FILE__, __LINE__);
 				return;
 			}
 

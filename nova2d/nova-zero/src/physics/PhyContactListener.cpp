@@ -20,7 +20,7 @@ namespace novazero
 
 			if (!self || !other)
 			{
-				LOG(LVL_NFE, "Could not add collision. A or B PhyBase is NULL.");
+				LOG(LVL_NFE, "Could not add collision. A or B PhyBase is NULL.", __FILE__, __LINE__);
 				return nullptr;
 			}
 

@@ -48,6 +48,7 @@ namespace novazero
 
 			void TimelineEvent::DestroySelf()
 			{
+				// TODO: have we cleaned up the heap allocated execute function?
 				CleanUpdaters();
 				n2dRemoveDeleteable(m_CleanID);
 				SetDeleted(true);

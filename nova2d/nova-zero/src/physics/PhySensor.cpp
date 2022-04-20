@@ -18,7 +18,7 @@ namespace novazero
 
 			if (!world)
 			{
-				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.");
+				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.", __FILE__, __LINE__);
 				return;
 			}
 
@@ -57,19 +57,19 @@ namespace novazero
 			SetPosition(position);
 			if (vertexCount < 3)
 			{
-				LOG(LVL_NFE, "Polygon shape body not created. Too few points of shape.");
+				LOG(LVL_NFE, "Polygon shape body not created. Too few points of shape.", __FILE__, __LINE__);
 				return;
 			}
 
 			if (vertexCount > 8)
 			{
-				LOG(LVL_NFE, "Polygon shape body not created. Too many points of shape (change max points).");
+				LOG(LVL_NFE, "Polygon shape body not created. Too many points of shape (change max points).", __FILE__, __LINE__);
 				return;
 			}
 
 			if (vertexCount != (int)shapeVertices.size())
 			{
-				LOG(LVL_NFE, "Polygon shape body not created. Vertex count and number of vertices not equal.");
+				LOG(LVL_NFE, "Polygon shape body not created. Vertex count and number of vertices not equal.", __FILE__, __LINE__);
 				return;
 			}
 
@@ -77,13 +77,13 @@ namespace novazero
 
 			if (!world)
 			{
-				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.");
+				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.", __FILE__, __LINE__);
 				return;
 			}
 
 			if (!GetPhySprite())
 			{
-				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.");
+				LOG(LVL_NFE, "Tryinig to create a physics sprite with no sprite.", __FILE__, __LINE__);
 				return;
 			}
 
@@ -101,7 +101,7 @@ namespace novazero
 
 			if (!vertices)
 			{
-				LOG(LVL_NFE, "Could not free vertices for polygon shape.");
+				LOG(LVL_NFE, "Could not free vertices for polygon shape.", __FILE__, __LINE__);
 				return;
 			}
 
@@ -137,7 +137,7 @@ namespace novazero
 
 			if (!world)
 			{
-				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.");
+				LOG(LVL_NFE, "Tryinig to create a physics body when no physics world is present.", __FILE__, __LINE__);
 				return;
 			}
 

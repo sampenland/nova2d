@@ -133,11 +133,11 @@ namespace novazero
 		int Game::Start()
 		{
 			if (n2dDebug)
-				LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started. https://n2d.dev");
+				LOGO(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started. https://n2d.dev");
 
 #ifdef NOVA_EMSCRIPTEN
 
-			LOG(LVL_CONFIRMATION, "Web Build Activated.");
+			LOG(LVL_CONFIRMATION, "Web Build Activated.", __FILE__, __LINE__);
 			emscripten_set_main_loop_arg(WebGameLoop, this, -1, 1);
 
 #else
@@ -400,12 +400,12 @@ namespace novazero
 			if (s_ExitCode == 0)
 			{
 				if(n2dDebug)
-					LOG(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine ended successfully.");
+					LOGO(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine ended successfully.");
 			}
 			else
 			{
 				if(n2dDebug)
-					LOG(LVL_FATAL_ERROR, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine FAILED WITH EXIT CODE: " + tostring(s_ExitCode));
+					LOGO(LVL_FATAL_ERROR, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine FAILED WITH EXIT CODE: " + tostring(s_ExitCode));
 			}
 
 			SDL_Quit();

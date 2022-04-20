@@ -1,7 +1,7 @@
 #pragma once
-#include "controllers/UDRLController.h"
 #include "graphics/Image.h"
 #include "../scenes/AllScenes.h"
+#include "controllers/BasicController.h"
 
 namespace thelastforest
 {
@@ -16,7 +16,7 @@ namespace thelastforest
 		};
 
 		class Player 
-			: public UDRLController
+			: public BasicController
 		{
 
 		private:
@@ -29,7 +29,7 @@ namespace thelastforest
 
 			Player(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 
-			void Update() override;
+			void Update();
 			void Highlight();
 
 			void HoldItem();

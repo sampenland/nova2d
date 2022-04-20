@@ -2,7 +2,7 @@
 #define HAVE_LIBC 1
 
 // nova2d Version	
-#define NOVA_VERSION "0.0.08"
+#define NOVA_VERSION "0.0.09"
 
 // ------------------------------
 // RAW VARIABLES

@@ -45,7 +45,7 @@ namespace novazero
 			}
 			else
 			{
-				LOG(LVL_FATAL_ERROR, "Could not load json file for tilemap");
+				LOG(LVL_FATAL_ERROR, "Could not load json file for tilemap", __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -67,7 +67,7 @@ namespace novazero
 			}
 			else
 			{
-				LOG(LVL_FATAL_ERROR, "Could not load json file for tilemap");
+				LOG(LVL_FATAL_ERROR, "Could not load json file for tilemap", __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -239,7 +239,7 @@ namespace novazero
 
 					if (m_Tiles.find(tileGID) == m_Tiles.end())
 					{
-						LOG(LVL_NFE, "Tile map draw failed. Tile not found.");
+						LOG(LVL_NFE, "Tile map draw failed. Tile not found.", __FILE__, __LINE__);
 						failed = true;
 						break;
 					}

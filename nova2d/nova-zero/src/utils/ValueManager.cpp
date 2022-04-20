@@ -44,7 +44,7 @@ namespace novazero
 			{
 				if (s_PersistentValues.find(valueName) != s_PersistentValues.end())
 				{
-					LOG(LVL_W, valueName + " ALREADY in Persistent Values... WILL NOT OVERWRITE.");
+					LOG(LVL_W, valueName + " ALREADY in Persistent Values... WILL NOT OVERWRITE.", __FILE__, __LINE__);
 					return nullptr;
 				}
 
@@ -55,7 +55,7 @@ namespace novazero
 			{
 				if (s_Values.find(valueName) != s_Values.end())
 				{
-					LOG(LVL_W, valueName + " ALREADY in Values...overwriting.");
+					LOG(LVL_W, valueName + " ALREADY in Values...overwriting.", __FILE__, __LINE__);
 					s_Values[valueName] = value;
 				}
 
@@ -75,7 +75,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_W, valueName + " NOT FOUND in Persistent Values...returning 0.0f");
+					LOG(LVL_W, valueName + " NOT FOUND in Persistent Values...returning 0.0f", __FILE__, __LINE__);
 					return 0.f;
 				}
 			}
@@ -87,7 +87,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_W, valueName + " NOT FOUND in Values...returning 0.0f");
+					LOG(LVL_W, valueName + " NOT FOUND in Values...returning 0.0f", __FILE__, __LINE__);
 					return 0.f;
 				}
 			}
@@ -103,7 +103,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_W, valueName + " NOT FOUND in Persistent Values...returning 0.0f");
+					LOG(LVL_W, valueName + " NOT FOUND in Persistent Values...returning 0.0f", __FILE__, __LINE__);
 					return nullptr;
 				}
 			}
@@ -115,7 +115,7 @@ namespace novazero
 				}
 				else
 				{
-					LOG(LVL_W, valueName + " NOT FOUND in Values...returning 0.0f");
+					LOG(LVL_W, valueName + " NOT FOUND in Values...returning 0.0f", __FILE__, __LINE__);
 					return nullptr;
 				}
 			}

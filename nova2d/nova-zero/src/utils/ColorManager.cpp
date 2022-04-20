@@ -62,8 +62,8 @@ namespace novazero
 			}
 			catch (const std::out_of_range& oor) 
 			{
-				LOG(LVL_NON_FATAL_ERROR, "Couldn't find color: " + name + ". Returned BLACK color.");
-				LOG(LVL_NON_FATAL_ERROR, oor.what());
+				LOG(LVL_NON_FATAL_ERROR, "Couldn't find color: " + name + ". Returned BLACK color.", __FILE__, __LINE__);
+				LOG(LVL_NON_FATAL_ERROR, oor.what(), __FILE__, __LINE__);
 				return new Color(0, 0, 0, 1);
 			}
 			

@@ -14,7 +14,7 @@ namespace novazero
 			if (!m_Music)
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_NFE, "Failed to load music: " + assetName + ". Error: " + err);
+				LOG(LVL_NFE, "Failed to load music: " + assetName + ". Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -23,14 +23,14 @@ namespace novazero
 		{
 			if (!m_Music)
 			{
-				LOG(LVL_WARNING, "Couldn't play music: music not loaded properly.");
+				LOG(LVL_WARNING, "Couldn't play music: music not loaded properly.", __FILE__, __LINE__);
 				return;
 			}
 
 			if (Mix_PlayMusic(m_Music, 0) == -1)
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_WARNING, "Music failed to place. Error: " + err);
+				LOG(LVL_WARNING, "Music failed to place. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -39,14 +39,14 @@ namespace novazero
 		{
 			if (!m_Music)
 			{
-				LOG(LVL_WARNING, "Couldn't play music: music not loaded properly.");
+				LOG(LVL_WARNING, "Couldn't play music: music not loaded properly.", __FILE__, __LINE__);
 				return;
 			}
 
 			if (Mix_PlayMusic(m_Music, -1) == -1) 
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_WARNING, "Music failed to place. Error: " + err);
+				LOG(LVL_WARNING, "Music failed to place. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -55,7 +55,7 @@ namespace novazero
 		{
 			if (!m_Music)
 			{
-				LOG(LVL_WARNING, "Couldn't stop music: music not loaded properly.");
+				LOG(LVL_WARNING, "Couldn't stop music: music not loaded properly.", __FILE__, __LINE__);
 				return;
 			}
 
@@ -88,7 +88,7 @@ namespace novazero
 			if (!m_SoundEffect)
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_NFE, "Failed to load sound effect: " + assetName + ". Error: " + err);
+				LOG(LVL_NFE, "Failed to load sound effect: " + assetName + ". Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -98,7 +98,7 @@ namespace novazero
 			if (!m_SoundEffect)
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err);
+				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 
@@ -106,7 +106,7 @@ namespace novazero
 			if (m_Channel == -1)
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err);
+				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 		}
@@ -116,7 +116,7 @@ namespace novazero
 			if (!m_SoundEffect)
 			{
 				std::string err = Mix_GetError();
-				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err);
+				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 
@@ -125,7 +125,7 @@ namespace novazero
 			{
 
 				std::string err = Mix_GetError();
-				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err);
+				LOG(LVL_NFE, "Failed to play sound effect. Error: " + err, __FILE__, __LINE__);
 				return;
 			}
 		}
