@@ -4,7 +4,7 @@
 #include <functional>
 #include <vector>
 #include <string>
-#include "box2d/box2d.h"
+#include "Box2D.h"
 #include "SDL.h"
 #include "../core/Environment.h"
 #include "../debug/PhysicsDebug.h"

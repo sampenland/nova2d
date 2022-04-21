@@ -1,5 +1,5 @@
 #pragma once
-#include "box2d/box2d.h"
+#include "Box2D.h"
 
 namespace novazero
 {
@@ -18,7 +18,7 @@ namespace novazero
             void DrawSolidCircle(const b2Vec2& center, float radius, const b2Vec2& axis, const b2Color& color)override;
             void DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color) override;
             void DrawTransform(const b2Transform& xf) override;
-            void DrawPoint(const b2Vec2& p, float size, const b2Color& color) override;
+            void DrawParticles(const b2Vec2*, float32, const b2ParticleColor*, int32) override;
         };
 	}
 }

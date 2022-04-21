@@ -89,7 +89,7 @@ namespace novazero
 			{
 				if (currentScene.GetWorld())
 				{
-					currentScene.GetWorld()->DebugDraw();
+					currentScene.GetWorld()->DrawDebugData();
 				}
 			}
 		}

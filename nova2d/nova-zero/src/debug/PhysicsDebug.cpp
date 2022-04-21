@@ -109,9 +109,9 @@ namespace novazero
             int i = 0;
         }
 
-        void PhysicsDebug::DrawPoint(const b2Vec2& p, float size, const b2Color& color)
+        void PhysicsDebug::DrawParticles(const b2Vec2*, float32, const b2ParticleColor*, int32)
         {
-            
+
         }
     }
 }

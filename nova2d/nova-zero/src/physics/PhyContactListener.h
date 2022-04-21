@@ -1,6 +1,6 @@
 #pragma once
-#include "box2d/box2d.h"
-#include "box2d/b2_contact.h"
+#include "Box2D.h"
+#include <Box2D/Dynamics/Contacts/b2Contact.h>
 #include <vector>
 #include <functional>
 #include "PhyBase.h"

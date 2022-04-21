@@ -26,7 +26,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(position.x, position.y);
 
@@ -91,7 +91,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -145,7 +145,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(position.x, position.y);
 

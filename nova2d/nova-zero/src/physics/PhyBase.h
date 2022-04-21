@@ -2,7 +2,7 @@
 #include "../maths/Vec2.h"
 #include "../maths/Vec2Int.h"
 #include <string>
-#include "box2d/box2d.h"
+#include "Box2D.h"
 
 namespace novazero
 {

@@ -59,8 +59,8 @@ namespace novazero
 
 		void PhyContactListener::BeginContact(b2Contact* contact)
 		{
-			PhyBase* self = reinterpret_cast<PhyBase*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-			PhyBase* other = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+			PhyBase* self = reinterpret_cast<PhyBase*>(contact->GetFixtureA()->GetBody()->GetUserData());
+			PhyBase* other = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
 			if (!self || !other) return;
 
@@ -95,8 +95,8 @@ namespace novazero
 
 		void PhyContactListener::EndContact(b2Contact* contact)
 		{
-			PhyBase* self = reinterpret_cast<PhyBase*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-			PhyBase* other = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+			PhyBase* self = reinterpret_cast<PhyBase*>(contact->GetFixtureA()->GetBody()->GetUserData());
+			PhyBase* other = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
 			if (!self || !other) return;
 			

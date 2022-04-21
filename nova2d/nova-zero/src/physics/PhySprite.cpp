@@ -86,7 +86,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX(), GetY());
 
@@ -141,7 +141,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set(GetX() - GetWidth(), GetY() - GetHeight());
 
@@ -183,7 +183,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);			
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);			
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set((GetX() + GetWidth()), (GetY() + GetHeight()));
 
@@ -219,7 +219,7 @@ namespace novazero
 				world->DestroyBody(m_Body);
 			
 			b2BodyDef bodyDef;
-			bodyDef.userData.pointer = reinterpret_cast<uintptr_t>((PhyBase*)this);
+			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
 			bodyDef.position.Set((GetX() + GetWidth()/2), (GetY() + GetHeight()/2));
 
@@ -293,7 +293,6 @@ namespace novazero
 					m_Body->GetFixtureList()->SetDensity(m_Density);
 					m_Body->GetFixtureList()->SetFriction(m_Friction);
 					m_Body->GetFixtureList()->SetRestitution(m_Restitution);
-					m_Body->GetFixtureList()->SetRestitutionThreshold(m_RestitutionThres);
 				}
 				else if (m_CircleShape)
 				{
@@ -304,7 +303,6 @@ namespace novazero
 					m_Body->GetFixtureList()->SetDensity(m_Density);
 					m_Body->GetFixtureList()->SetFriction(m_Friction);
 					m_Body->GetFixtureList()->SetRestitution(m_Restitution);
-					m_Body->GetFixtureList()->SetRestitutionThreshold(m_RestitutionThres);
 				}
 				else
 				{

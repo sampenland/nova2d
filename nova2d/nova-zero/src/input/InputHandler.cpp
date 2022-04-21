@@ -247,7 +247,7 @@ namespace novazero
 			int mouseX, mouseY;
 			SDL_GetMouseState(&mouseX, &mouseY);
 			
-			m_MouseHoverPosition = Vec2(mouseX, mouseY);
+			m_MouseHoverPosition = Vec2((float)mouseX, (float)mouseY);;
 			m_MouseMotion = true;
 
 		}
@@ -269,7 +269,7 @@ namespace novazero
 				m_MouseRightClicked = false;
 				m_MouseMiddleClicked = false;
 
-				m_MouseLeftPosition = Vec2(mouseX, mouseY);
+				m_MouseLeftPosition = Vec2((float)mouseX, (float)mouseY);
 
 			}
 			else if (e->button.button == SDL_BUTTON_RIGHT)
@@ -278,7 +278,7 @@ namespace novazero
 				m_MouseRightClicked = true;
 				m_MouseMiddleClicked = false;
 
-				m_MouseRightPosition = Vec2(mouseX, mouseY);
+				m_MouseRightPosition = Vec2((float)mouseX, (float)mouseY);
 			}
 			else if (e->button.button == SDL_BUTTON_MIDDLE)
 			{
@@ -286,7 +286,7 @@ namespace novazero
 				m_MouseRightClicked = true;
 				m_MouseMiddleClicked = true;
 
-				m_MouseMiddlePosition = Vec2(mouseX, mouseY);
+				m_MouseMiddlePosition = Vec2((float)mouseX, (float)mouseY);
 			}			
 		}
 
@@ -303,18 +303,18 @@ namespace novazero
 			if (e->button.button == SDL_BUTTON_LEFT)
 			{
 				m_MouseLeftClicked = false;
-				m_MouseLeftPosition = Vec2(mouseX, mouseY);
+				m_MouseLeftPosition = Vec2((float)mouseX, (float)mouseY);
 
 			}
 			else if (e->button.button == SDL_BUTTON_RIGHT)
 			{
 				m_MouseRightClicked = false;
-				m_MouseRightPosition = Vec2(mouseX, mouseY);
+				m_MouseRightPosition = Vec2((float)mouseX, (float)mouseY);
 			}
 			else if (e->button.button == SDL_BUTTON_MIDDLE)
 			{
 				m_MouseMiddleClicked = false;
-				m_MouseMiddlePosition = Vec2(mouseX, mouseY);
+				m_MouseMiddlePosition = Vec2((float)mouseX, (float)mouseY);
 			}
 
 			m_MouseMotion = false;
