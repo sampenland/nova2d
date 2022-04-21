@@ -152,17 +152,16 @@ namespace novazero
 		{
 			if (m_Destroyed) return;
 
-			m_Destroyed = true;
-			m_Alive = false;
-
-			Deleteable::CleanUpdaters();
-						
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 
 			if (m_PhySprite)
 				m_PhySprite->DestroySelf();
 
+			m_Destroyed = true;
+			m_Alive = false;
+
+			Deleteable::CleanUpdaters();
 			Deleteable::SetDeleted(true);
 		}
 	}

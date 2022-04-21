@@ -1,11 +1,14 @@
 #include "../core/NovaCore.h"
 #include "InputHandler.h"
 #include <string>
+#include "../core/Game.h"
 
 namespace novazero
 {
 	namespace input
 	{
+		using namespace core;
+
 		int InputHandler::s_JoyStickDeadzone = 8000;
 
 		std::vector<SDL_Keycode> InputHandler::s_KeyIsPressed;
@@ -129,6 +132,60 @@ namespace novazero
 			s_KeyIsPressed.erase(s_KeyIsPressed.begin() + idx);
 		}
 
+		void InputHandler::TouchDown(SDL_Event* event)
+		{
+			m_Touching = true;
+			m_TouchPosition.x = event->tfinger.x * Game::s_Width;
+			m_TouchPosition.y = event->tfinger.y * Game::s_Height;
+
+			if (n2dDebugVerbose)
+			{
+				LOGS("Touched at: " + tostring(m_TouchPosition.x) + ", " + tostring(m_TouchPosition.y));
+			}
+		}
+
+		void InputHandler::TouchMotion(SDL_Event* event)
+		{
+			m_Touching = true;
+			m_TouchingMotion = true;
+			m_TouchPosition.x = event->tfinger.x * Game::s_Width;
+			m_TouchPosition.y = event->tfinger.y * Game::s_Height;
+
+			if (n2dDebugVerbose)
+			{
+				LOGS("Touched Motion: " + tostring(m_TouchPosition.x) + ", " + tostring(m_TouchPosition.y));
+			}
+		}
+
+		void InputHandler::TouchUp(SDL_Event* event)
+		{
+			m_Touching = false;
+			m_TouchingMotion = false;
+			m_TouchPosition.x = event->tfinger.x * Game::s_Width;
+			m_TouchPosition.y = event->tfinger.y * Game::s_Height;
+
+			if (n2dDebugVerbose)
+			{
+				LOGS("Touched Released at: " + tostring(m_TouchPosition.x) + ", " + tostring(m_TouchPosition.y));
+			}
+
+		}
+
+		/*
+		Returns touch location or NULLVEC2 if not touching
+		*/
+		Vec2 InputHandler::GetTouchLocation() const
+		{
+			if (m_Touching)
+			{
+				return m_TouchPosition;
+			}
+			else
+			{
+				return NULLVEC2; // Screen not being touched
+			}
+		}
+
 		void InputHandler::ConfigureJoystickDeadzone(int joyStickDeadzone)
 		{
 			s_JoyStickDeadzone = joyStickDeadzone;
@@ -185,9 +242,133 @@ namespace novazero
 			return 0.f;
 		}
 
-		void InputHandler::MouseClick(SDL_Event* e)
+		void InputHandler::MouseMotion(SDL_Event* e)
+		{
+			int mouseX, mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
+			
+			m_MouseHoverPosition = Vec2(mouseX, mouseY);
+			m_MouseMotion = true;
+
+		}
+
+		void InputHandler::MouseDown(SDL_Event* e)
 		{
 
+			int mouseX, mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
+
+			if (n2dDebugVerbose)
+			{
+				LOGS("[" + tostring(e->button.button) + "] Mouse Down at: (" + tostring(mouseX) + ", " + tostring(mouseY) + ")");
+			}
+
+			if (e->button.button == SDL_BUTTON_LEFT)
+			{
+				m_MouseLeftClicked = true;
+				m_MouseRightClicked = false;
+				m_MouseMiddleClicked = false;
+
+				m_MouseLeftPosition = Vec2(mouseX, mouseY);
+
+			}
+			else if (e->button.button == SDL_BUTTON_RIGHT)
+			{
+				m_MouseLeftClicked = false;
+				m_MouseRightClicked = true;
+				m_MouseMiddleClicked = false;
+
+				m_MouseRightPosition = Vec2(mouseX, mouseY);
+			}
+			else if (e->button.button == SDL_BUTTON_MIDDLE)
+			{
+				m_MouseLeftClicked = false;
+				m_MouseRightClicked = true;
+				m_MouseMiddleClicked = true;
+
+				m_MouseMiddlePosition = Vec2(mouseX, mouseY);
+			}			
+		}
+
+		void InputHandler::MouseUp(SDL_Event* e)
+		{
+			int mouseX, mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
+			
+			if (n2dDebugVerbose)
+			{
+				LOGS("[" + tostring(e->button.button) + "] Mouse UP at: (" + tostring(mouseX) + ", " + tostring(mouseY) + ")");
+			}
+
+			if (e->button.button == SDL_BUTTON_LEFT)
+			{
+				m_MouseLeftClicked = false;
+				m_MouseLeftPosition = Vec2(mouseX, mouseY);
+
+			}
+			else if (e->button.button == SDL_BUTTON_RIGHT)
+			{
+				m_MouseRightClicked = false;
+				m_MouseRightPosition = Vec2(mouseX, mouseY);
+			}
+			else if (e->button.button == SDL_BUTTON_MIDDLE)
+			{
+				m_MouseMiddleClicked = false;
+				m_MouseMiddlePosition = Vec2(mouseX, mouseY);
+			}
+
+			m_MouseMotion = false;
+
+		}
+
+		Vec2 InputHandler::GetMousePosition() const
+		{
+			if (n2dIsMouseDown(SDL_BUTTON_LEFT))
+			{
+				return m_MouseLeftPosition;
+			}
+			else if (n2dIsMouseDown(SDL_BUTTON_RIGHT))
+			{
+				return m_MouseRightPosition;
+			}
+			else if (n2dIsMouseDown(SDL_BUTTON_MIDDLE))
+			{
+				return m_MouseMiddlePosition;
+			}
+			else
+			{
+				return m_MouseHoverPosition;
+			}
+		}
+
+		bool InputHandler::IsMouseDown(int mouseButton) const
+		{
+			if (mouseButton == SDL_BUTTON_LEFT)
+			{
+				return m_MouseLeftClicked;
+			}
+			else if (mouseButton == SDL_BUTTON_RIGHT)
+			{
+				return m_MouseRightClicked;
+			}
+			else if (mouseButton == SDL_BUTTON_MIDDLE)
+			{
+				return m_MouseMiddleClicked;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		bool InputHandler::IsMouseUp(int mouseButton) const
+		{
+			return !IsMouseDown(mouseButton);
+		}
+
+		bool InputHandler::IsMouseMoving() const
+		{
+			return m_MouseMotion;
 		}
 
 		void InputHandler::DestroySelf()

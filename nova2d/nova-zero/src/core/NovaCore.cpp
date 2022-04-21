@@ -439,5 +439,25 @@ namespace novazero
 			}
 			LOG(LVL_W, "Collision not removed. Could be NO SCENE or Physics NOT ENABLED in Scene.", __FILE__, __LINE__);
 		}
+
+		bool n2dIsMouseMoving()
+		{
+			return Game::s_InputHandler->IsMouseMoving();
+		}
+
+		Vec2 n2dGetMousePosition(int mouseButton)
+		{
+			return Game::s_InputHandler->GetMousePosition();
+		}
+
+		bool n2dIsMouseUp(int mouseButton)
+		{
+			return Game::s_InputHandler->IsMouseUp(mouseButton);
+		}
+
+		bool n2dIsMouseDown(int mouseButton)
+		{
+			return Game::s_InputHandler->IsMouseDown(mouseButton);
+		}
 	}
 }

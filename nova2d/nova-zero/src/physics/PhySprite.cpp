@@ -332,8 +332,8 @@ namespace novazero
 			if(m_Body)
 				Game::s_SceneManager->s_PhyCleaners.push_back(m_Body);
 	
-			/*CleanUpdaters();
-			Sprite::DestroySelf();*/
+			CleanUpdaters();
+			Sprite::DestroySelf();
 		}
 	
 	}

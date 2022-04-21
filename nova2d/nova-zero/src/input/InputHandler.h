@@ -4,11 +4,14 @@
 #include "SDL.h"
 #include "Inputable.h"
 #include <map>
+#include "../maths/Maths.h"
 
 namespace novazero
 {
 	namespace input
 	{
+		using namespace maths;
+
 		class InputHandler
 		{
 
@@ -19,6 +22,21 @@ namespace novazero
 			int m_CharBufferIndex = 0;
 
 			Inputable* m_SelectedInput = nullptr;
+
+			bool m_Touching = false;
+			bool m_TouchingMotion = false;
+			Vec2 m_TouchPosition = NULLVEC2;
+
+			bool m_MouseLeftClicked = false;
+			bool m_MouseRightClicked = false;
+			bool m_MouseMiddleClicked = false;
+
+			bool m_MouseMotion = false;
+
+			Vec2 m_MouseHoverPosition = NULLVEC2;
+			Vec2 m_MouseLeftPosition = NULLVEC2;
+			Vec2 m_MouseRightPosition = NULLVEC2;
+			Vec2 m_MouseMiddlePosition = NULLVEC2;
 
 			static std::map<int, float> s_JoyAxis[MAX_JOYSTICKS];
 			static std::map<int, bool> s_JoyHat[MAX_JOYSTICKS];
@@ -31,6 +49,12 @@ namespace novazero
 
 			void KeyDown(SDL_Event* event);
 			void KeyUp(SDL_Event* event);
+
+			void TouchDown(SDL_Event* event);
+			void TouchMotion(SDL_Event* event);
+			void TouchUp(SDL_Event* event);
+
+			Vec2 GetTouchLocation() const;
 
 			void JoyAxisChange(SDL_Event* event);
 			void JoyHatChange(SDL_Event* event);
@@ -54,7 +78,13 @@ namespace novazero
 				bufferOUT = r;
 			}
 			
-			void MouseClick(SDL_Event* event);
+			void MouseMotion(SDL_Event* event);
+			void MouseDown(SDL_Event* event);
+			void MouseUp(SDL_Event* event);
+			Vec2 GetMousePosition() const;
+			bool IsMouseDown(int mouseButton) const;
+			bool IsMouseUp(int mouseButton) const;
+			bool IsMouseMoving() const;
 
 			void DestroySelf();
 

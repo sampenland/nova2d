@@ -133,11 +133,11 @@ namespace novazero
 		int Game::Start()
 		{
 			if (n2dDebug)
-				LOGO(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine started. https://n2d.dev");
+				LOGO(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Engine started. https://n2d.dev");
 
 #ifdef NOVA_EMSCRIPTEN
 
-			LOG(LVL_CONFIRMATION, "Web Build Activated.", __FILE__, __LINE__);
+			LOGO(LVL_CONFIRMATION, "Web Build Activated.");
 			emscripten_set_main_loop_arg(WebGameLoop, this, -1, 1);
 
 #else
@@ -193,7 +193,9 @@ namespace novazero
 			SDL_Event event;
 			SDL_PollEvent(&event);
 			PollGUIEvents(event);
-			
+				
+			SDL_Point touchPosition = { Game::s_Width / 2, Game::s_Height / 2 };
+
 			switch (event.type)
 			{
 			case SDL_KEYDOWN:
@@ -214,6 +216,16 @@ namespace novazero
 					n2dPauseGame(n2dTimeScale != 0.f);
 				}
 
+				break;
+
+			case SDL_MOUSEMOTION:
+				s_InputHandler->MouseMotion(&event);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				s_InputHandler->MouseDown(&event);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				s_InputHandler->MouseUp(&event);
 				break;
 
 			case SDL_JOYAXISMOTION:
@@ -239,6 +251,20 @@ namespace novazero
 				{
 					n2dPauseGame(n2dTimeScale != 0.f);
 				}
+
+				break;
+
+			case SDL_FINGERDOWN:
+				Game::s_InputHandler->TouchDown(&event);
+				break;
+					
+			case SDL_FINGERMOTION:
+				Game::s_InputHandler->TouchMotion(&event); 
+				break;
+
+			case SDL_FINGERUP:
+				Game::s_InputHandler->TouchUp(&event); 
+				break;
 
 			case SDL_TEXTINPUT:
 				s_InputHandler->OnTextChange(&event);

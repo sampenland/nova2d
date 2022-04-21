@@ -32,6 +32,9 @@
 #define PERSISTENT_LAYER 254
 #define TOP_DRAW_LAYER 253
 
+// Maths
+#define NULLVEC2 Vec2(-1.111f, -1.111f);
+
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
 
@@ -521,6 +524,30 @@ namespace novazero
 		Rumble the controller at power for duration milliseconds
 		*/
 		void n2dRumble(int joystickID, float power, Uint32 durationMS);
+
+		// ------- Mouse
+		/*
+		*   Returns if mouse is clicked
+			SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_BUTTON_MIDDLE
+		*/
+		bool n2dIsMouseDown(int mouseButton);
+
+		/*
+		*   Returns mouse position
+			SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_BUTTON_MIDDLE, -1 For hover position
+		*/
+		Vec2 n2dGetMousePosition(int mouseButton);
+
+		/*
+		*   Returns if mouse is not clicked
+			SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_BUTTON_MIDDLE
+		*/
+		bool n2dIsMouseUp(int mouseButton);
+
+		/*
+		*   Returns if mouse is moving
+		*/
+		bool n2dIsMouseMoving();
 
 		// ------- KEYS
 		/*
