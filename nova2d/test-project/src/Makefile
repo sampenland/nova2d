@@ -7,4 +7,4 @@ I2 = -I..\..\nova-zero\src
 SRCS := $(wildcard *.cpp) $(wildcard scenes/*.cpp) $(wildcard actors/*.cpp)
 
 all: 
-	$(CPP) $(CPPFLAGS) $(I1) $(I2) $(SRCS) -o index.html
+	$(CPP) $(CPPFLAGS) $(I1) $(I2) $(SRCS) -o index.js
