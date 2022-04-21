@@ -20,6 +20,14 @@ namespace novazero
 			ImGui::Text("Running: %.3f ms/frame (%.1f FPS)",
 				1000.0 / float(ImGui::GetIO().Framerate), float(ImGui::GetIO().Framerate));
 			
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				if (Game::s_SceneManager->GetCurrentScene()->m_PhysicsEnabled)
+				{
+					ImGui::Checkbox("Debug Physics: ", &Game::s_SceneManager->GetCurrentScene()->m_DebugDraw);
+				}
+			}
+
 			ImGui::Text("Drawables: %d", n2dDebugDrawableCount());
 			ImGui::Text("Deleteables: %d", n2dDebugDeleteableCount());
 			ImGui::Text("Updaters: %d", n2dDebugUpdaterCount());
