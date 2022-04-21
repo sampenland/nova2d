@@ -778,6 +778,7 @@ namespace novazero
 		//----------------------------------------------------------------------------
 		// Physics
 		//----------------------------------------------------------------------------
+		b2World* n2dGetCurrentWorld();
 
 		/*
 			nova2d Collisions - add a collision into manager
@@ -790,6 +791,15 @@ namespace novazero
 			nova2d Collisions - remove a collision from manager
 		*/
 		void n2dRemoveCollision(PhyCollision*);
+
+		//----------------------------------------------------------------------------
+		// Physics
+		//----------------------------------------------------------------------------
+
+		void n2dAddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius);
+
+		void n2dRemoveParticleSystem(const std::string& systemName);
+
 
 	}
 

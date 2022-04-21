@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "../core/Game.h"
+#include "../particles/ParticleSystem.h"
 
 namespace novazero
 {
@@ -7,6 +8,7 @@ namespace novazero
 	{
 		PhysicsDebug* Scene::s_PhysicsDrawer = nullptr;
 		Environment* Scene::s_Environment = nullptr;
+		std::map<std::string, ParticleSystem*> Scene::s_ParticleSystems;
 
 		Scene::Scene(const std::string& sceneName)
 			:m_SceneName(sceneName)
@@ -129,6 +131,20 @@ namespace novazero
 		void Scene::AddObjectToCleanUp(void* obj)
 		{
 			m_CleanUpObjects.push_back(obj);
+		}
+
+		void Scene::AddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius)
+		{
+			ParticleSystem* ps = new ParticleSystem(maxParticles, particleRadius);
+			s_ParticleSystems[systemName] = ps;
+		}
+
+		void Scene::RemoveParticleSystem(const std::string& systemName)
+		{
+			if (s_ParticleSystems.find(systemName) != s_ParticleSystems.end())
+			{
+				s_ParticleSystems.erase(systemName);
+			}
 		}
 
 		void Scene::CleanUp()

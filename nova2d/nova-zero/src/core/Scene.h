@@ -3,12 +3,14 @@
 #include "../maths/Vec2.h"
 #include <functional>
 #include <vector>
+#include <map>
 #include <string>
 #include "Box2D.h"
 #include "SDL.h"
 #include "../core/Environment.h"
 #include "../debug/PhysicsDebug.h"
 #include "../physics/PhyContactListener.h"
+#include "../particles/ParticleSystem.h"
 
 namespace novazero
 {
@@ -16,6 +18,7 @@ namespace novazero
 	{
 		using namespace novazero::maths;
 		using namespace novazero::debug;
+		using namespace novazero::particles;
 
 		class Scene : 
 			public EventListener
@@ -71,6 +74,10 @@ namespace novazero
 		public:
 
 			static PhysicsDebug* s_PhysicsDrawer;
+
+			static std::map<std::string, ParticleSystem*> s_ParticleSystems;
+			static void AddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius);
+			static void RemoveParticleSystem(const std::string& systemName);
 		};
 	}
 }

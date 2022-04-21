@@ -459,5 +459,26 @@ namespace novazero
 		{
 			return Game::s_InputHandler->IsMouseDown(mouseButton);
 		}
+
+		b2World* n2dGetCurrentWorld()
+		{
+			return Game::s_SceneManager->GetCurrentWorld();
+		}
+
+		void n2dAddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius)
+		{
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				Game::s_SceneManager->GetCurrentScene()->AddParticleSystem(systemName, maxParticles, particleRadius);
+			}
+		}
+
+		void n2dRemoveParticleSystem(const std::string& systemName)
+		{
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				Game::s_SceneManager->GetCurrentScene()->RemoveParticleSystem(systemName);
+			}
+		}
 	}
 }
