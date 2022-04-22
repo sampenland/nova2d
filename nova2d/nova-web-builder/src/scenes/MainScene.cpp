@@ -51,7 +51,7 @@ namespace webbuilder
 
 		ImGui::Begin("'src' directory");
 		ImGui::Text("Copy/Paste project 'src' directory");
-		ImGui::InputText(" ", m_SrcDirectory, 300);
+		ImGui::InputText(" ", m_SrcDirectory, 500);
 
 		if (ImGui::Button("Update directories"))
 		{
@@ -63,7 +63,7 @@ namespace webbuilder
 		{
 			for (auto dir : m_SrcDirectories)
 			{
-				ImGui::Checkbox(dir.first.c_str(), &dir.second);
+				ImGui::Checkbox(dir.first.c_str(), dir.second);
 			}
 		}
 
@@ -75,12 +75,18 @@ namespace webbuilder
 
 			ImGui::Begin("makefile settings");
 
+			ImGui::Text("box2d.a directory (no trailing / or filename)");
+			ImGui::InputText(" ", m_Box2dDirectory, 500);
+			ImGui::Text("novalib.a directory (no trailing / or filename)");
+			ImGui::InputText(" ", m_NovaDirectory, 500);
+
 			if (ImGui::Button("Update Makefile"))
 			{
 				UpdateMakefile();
 			}
 
-			ImGui::InputTextMultiline(" ", m_MakefileBuffer, 8192, ImVec2(575, 380));
+			ImGui::InputTextMultiline(" ", m_MakefileBuffer, 8192, ImVec2(575, 380), 
+				ImGuiInputTextFlags_ReadOnly);
 
 			if (ImGui::Button("Save Makefile"))
 			{
@@ -101,7 +107,75 @@ namespace webbuilder
 	{
 		std::string makefileText = "CPP := em++ -std=c++14\n";
 
-		// Make makefile string
+		// CPP FLags
+		makefileText += "\nCPPFLAGS := -DNOVA_EMSCRIPTEN -s LLD_REPORT_UNDEFINED ";
+		
+		std::string b2dDir = m_Box2dDirectory;
+		std::string novaDir = m_NovaDirectory;
+		
+		makefileText += " " + b2dDir + "/box2d.a ";
+		makefileText += " " + novaDir + "/novalib.a ";
+
+		if (m_Optomize)
+		{
+			makefileText += " -O2 ";
+		}
+
+		if (m_UseWebGL2)
+		{
+			makefileText += " -s USE_WEBGL2=1 ";
+		}
+
+		if (m_UseSDL2)
+		{
+			makefileText += " -s USE_SDL=2 ";
+		}
+
+		if (m_UseSDLTTF)
+		{
+			makefileText += " -s USE_SDL_TTF=2 ";
+		}
+
+		if (m_UseSDLImage)
+		{
+			makefileText += " -s USE_SDL_IMAGE=2 ";
+		}
+
+		if (m_UseSDLPNG)
+		{
+			makefileText += " -s SDL2_IMAGE_FORMATS='[\"png\"]' ";
+		}
+
+		if (m_UseSDL2Mixer)
+		{
+			makefileText += " - s SDL2_MIXER_FORMATS = [ogg, mp3] - s USE_SDL_MIXER = 2 - s USE_OGG = 1 - s USE_VORBIS = 1 - s USE_MPG123 = 1 - s USE_MODPLUG = 1";
+		}
+		
+		if (m_PackageResFolder)
+		{
+			std::string resFolder = m_ResDirectory;
+			makefileText += " --preload-file " + resFolder;
+		}
+
+		makefileText += "\n\n";
+
+		makefileText += "I1 := -I" + b2dDir + "\n";
+
+		makefileText += "I2 := -I" + novaDir + "\n\n";
+
+		makefileText += "src := ";
+		for (auto dir : m_SrcDirectories)
+		{
+			if ((*dir.second))
+			{
+				makefileText += "$(wildcard " + dir.first + "/*.cpp) ";
+			}
+		}
+
+		makefileText += "\n\n";
+
+		makefileText += "all:\n";
+		makefileText += "\t$(CPP) $(CPPFLAGS) $(I1) $(I2) $(SRCS) - o index.js";
 
 		const char* makefileTextChars = makefileText.c_str();
 
@@ -155,7 +229,9 @@ namespace webbuilder
 						{
 							p = p.replace(p.find("\\"), 1, "/");
 						}
-						m_SrcDirectories[p] = true;
+						bool* val = new bool;
+						*val = true;
+						m_SrcDirectories[p] = val;
 					}
 				}
 				count++;

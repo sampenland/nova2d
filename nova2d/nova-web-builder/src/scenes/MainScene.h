@@ -29,10 +29,12 @@ namespace webbuilder
 		bool m_PackageResFolder = true;
 
 		bool m_ShowSRCDirectroy = false;
-		char m_SrcDirectory[300] = {};
-		char m_ResDirectory[300] = { 'r', 'e', 's' };
+		char m_SrcDirectory[500] = {};
+		char m_ResDirectory[500] = "res\0";
+		char m_NovaDirectory[500] = "..\\..\\nova-zero\\src\0";
+		char m_Box2dDirectory[500] = "..\\..\\box2d\0";
 
-		std::map<std::string, bool> m_SrcDirectories;
+		std::map<std::string, bool*> m_SrcDirectories;
 
 	public:
 
