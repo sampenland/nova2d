@@ -202,6 +202,7 @@
     <ClCompile Include="src\physics\PhyContactListener.cpp" />
     <ClCompile Include="src\physics\PhySensor.cpp" />
     <ClCompile Include="src\physics\PhySprite.cpp" />
+    <ClCompile Include="src\thirdparty\getopt.c" />
     <ClCompile Include="src\utils\AudioManager.cpp" />
     <ClCompile Include="src\utils\Director.cpp" />
     <ClCompile Include="src\utils\timeline\events\TimelineTriggerEvent.cpp" />
@@ -248,7 +249,6 @@
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
     <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />
     <ClInclude Include="src\physics\PhySensor.h" />
-    <ClInclude Include="src\thirdparty\getopt.c" />
     <ClInclude Include="src\thirdparty\getopt.h" />
     <ClInclude Include="src\thirdparty\unistd.h" />
     <ClInclude Include="src\utils\AudioManager.h" />

@@ -43,8 +43,6 @@
 
 #define PI (float)(2*acos(0.0))
 
-#define BYTE unsigned char
-
 #define tostring(v) std::to_string(v)
 
 // Error codes
@@ -571,75 +569,75 @@ namespace novazero
 		nova2d Is key down (joystickID, button)
 		Returns realtime if key is pressed down
 		*/
-		bool n2dIsJoyKeyDown(BYTE controllerID, int button);
+		bool n2dIsJoyKeyDown(unsigned char controllerID, int button);
 
 		/*
 		nova2d Is key up (joystickID, button)
 		Returns realtime if key is not pressed
 		*/
-		bool n2dIsJoyKeyUp(BYTE controllerID, int button);
+		bool n2dIsJoyKeyUp(unsigned char controllerID, int button);
 
 		/*
 		nova2d JoyDPad Left pressed down
 		*/
-		bool n2dJoyDPadLeft(BYTE controllerID);
+		bool n2dJoyDPadLeft(unsigned char controllerID);
 
 		/*
 		nova2d JoyDPad Right pressed down
 		*/
-		bool n2dJoyDPadRight(BYTE controllerID);
+		bool n2dJoyDPadRight(unsigned char controllerID);
 
 		/*
 		nova2d JoyDPad Up pressed down
 		*/
-		bool n2dJoyDPadUp(BYTE controllerID);
+		bool n2dJoyDPadUp(unsigned char controllerID);
 
 		/*
 		nova2d JoyDPad Down pressed down
 		*/
-		bool n2dJoyDPadDown(BYTE controllerID);
+		bool n2dJoyDPadDown(unsigned char controllerID);
 
 		/*
 		nova2d Joy Simple Direction means joy is mostly left on axis
 		*/
-		bool n2dJoySimpleLeft(BYTE controllerID);
+		bool n2dJoySimpleLeft(unsigned char controllerID);
 
 		/*
 		nova2d Joy Simple Direction means joy is mostly right on axis
 		*/
-		bool n2dJoySimpleRight(BYTE controllerID);
+		bool n2dJoySimpleRight(unsigned char controllerID);
 
 		/*
 		nova2d Joy Simple Direction means joy is mostly up on axis
 		USES InputHandler::s_JoyStickDeadzone
 		*/
-		bool n2dJoySimpleUp(BYTE controllerID);
+		bool n2dJoySimpleUp(unsigned char controllerID);
 
 		/*
 		nova2d Joy Simple Direction means joy is mostly down on axis
 		*/
-		bool n2dJoySimpleDown(BYTE controllerID);
+		bool n2dJoySimpleDown(unsigned char controllerID);
 
 		/*
 		nova2d RIGHT Joy Simple Direction means joy is mostly left on axis
 		*/
-		bool n2dJoyRSimpleLeft(BYTE controllerID);
+		bool n2dJoyRSimpleLeft(unsigned char controllerID);
 
 		/*
 		nova2d RIGHT Joy Simple Direction means joy is mostly right on axis
 		*/
-		bool n2dJoyRSimpleRight(BYTE controllerID);
+		bool n2dJoyRSimpleRight(unsigned char controllerID);
 
 		/*
 		nova2d RIGHT Joy Simple Direction means joy is mostly up on axis
 		USES InputHandler::s_JoyStickDeadzone
 		*/
-		bool n2dJoyRSimpleUp(BYTE controllerID);
+		bool n2dJoyRSimpleUp(unsigned char controllerID);
 
 		/*
 		nova2d RIGHT Joy Simple Direction means joy is mostly down on axis
 		*/
-		bool n2dJoyRSimpleDown(BYTE controllerID);
+		bool n2dJoyRSimpleDown(unsigned char controllerID);
 
 		//----------------------------------------------------------------------------
 		// Input Handler

@@ -21,7 +21,7 @@ namespace novazero
 			}
 		}
 
-		void DrawLayers::AddSprite(Drawable* sprite, BYTE layer)
+		void DrawLayers::AddSprite(Drawable* sprite, unsigned char layer)
 		{
 			layer++;
 
@@ -44,7 +44,7 @@ namespace novazero
 			}
 		}
 
-		bool DrawLayers::HasSpriteOnLayer(Drawable* sprite, const BYTE layer)
+		bool DrawLayers::HasSpriteOnLayer(Drawable* sprite, const unsigned char layer)
 		{
 			if (sprite)
 			{
@@ -58,7 +58,7 @@ namespace novazero
 		}
 
 		// Does not remove sprites from 255 layer
-		void DrawLayers::RemoveSprite(unsigned int id, BYTE layer)
+		void DrawLayers::RemoveSprite(unsigned int id, unsigned char layer)
 		{
 			if (layer == PERSISTENT_LAYER)
 			{
@@ -112,7 +112,7 @@ namespace novazero
 			s_TotalInstances = (int)m_Layers[PERSISTENT_LAYER].size();
 		}
 
-		void DrawLayers::DrawLayer(const BYTE layer) const
+		void DrawLayers::DrawLayer(const unsigned char layer) const
 		{
 			Rect cameraDrawArea = CAMERA_RECT;
 			

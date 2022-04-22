@@ -231,6 +231,9 @@
     <ClCompile Include="src\particles\ParticleSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\thirdparty\getopt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\Window.h">
@@ -503,13 +506,10 @@
     <ClInclude Include="src\particles\ParticleSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\thirdparty\unistd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\thirdparty\getopt.c">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\thirdparty\getopt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\thirdparty\unistd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

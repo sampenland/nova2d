@@ -215,72 +215,72 @@ namespace novazero
 			return Game::s_InputHandler->IsKeyUp(key);
 		}
 
-		bool n2dIsJoyKeyDown(BYTE controllerID, int button)
+		bool n2dIsJoyKeyDown(unsigned char controllerID, int button)
 		{
 			return Game::s_InputHandler->IsJoystickButtonDown(controllerID, button);
 		}
 
-		bool n2dIsJoyKeyUp(BYTE controllerID, int button)
+		bool n2dIsJoyKeyUp(unsigned char controllerID, int button)
 		{
 			return Game::s_InputHandler->IsJoystickButtonUp(controllerID, button);
 		}
 
-		bool n2dJoyDPadLeft(BYTE controllerID)
+		bool n2dJoyDPadLeft(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_LEFT);
 		}
 
-		bool n2dJoyDPadRight(BYTE controllerID)
+		bool n2dJoyDPadRight(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_RIGHT);
 		}
 
-		bool n2dJoyDPadUp(BYTE controllerID)
+		bool n2dJoyDPadUp(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_UP);
 		}
 
-		bool n2dJoyDPadDown(BYTE controllerID)
+		bool n2dJoyDPadDown(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickHat(controllerID, SDL_HAT_DOWN);
 		}
 
-		bool n2dJoySimpleLeft(BYTE controllerID)
+		bool n2dJoySimpleLeft(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoySimpleRight(BYTE controllerID)
+		bool n2dJoySimpleRight(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoySimpleUp(BYTE controllerID)
+		bool n2dJoySimpleUp(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoySimpleDown(BYTE controllerID)
+		bool n2dJoySimpleDown(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_LEFTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoyRSimpleLeft(BYTE controllerID)
+		bool n2dJoyRSimpleLeft(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoyRSimpleRight(BYTE controllerID)
+		bool n2dJoyRSimpleRight(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTX) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoyRSimpleUp(BYTE controllerID)
+		bool n2dJoyRSimpleUp(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) < -novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}
 
-		bool n2dJoyRSimpleDown(BYTE controllerID)
+		bool n2dJoyRSimpleDown(unsigned char controllerID)
 		{
 			return Game::s_InputHandler->GetJoystickAxis(controllerID, SDL_CONTROLLER_AXIS_RIGHTY) > novazero::core::Game::s_InputHandler->s_JoyStickDeadzone;
 		}

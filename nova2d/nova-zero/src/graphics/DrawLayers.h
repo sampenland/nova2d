@@ -26,13 +26,13 @@ namespace novazero
 
 			Camera* GetCamera() { return m_MainCamera; }
 
-			void AddSprite(Drawable* sprite, BYTE layer);
-			void RemoveSprite(unsigned int id, BYTE layer);
-			bool HasSpriteOnLayer(Drawable* sprite, const BYTE layer);
+			void AddSprite(Drawable* sprite, unsigned char layer);
+			void RemoveSprite(unsigned int id, unsigned char layer);
+			bool HasSpriteOnLayer(Drawable* sprite, const unsigned char layer);
 
 			void ClearSprites();
 
-			void DrawLayer(const BYTE layer) const;
+			void DrawLayer(const unsigned char layer) const;
 			void DrawAllLayers() const;
 
 			static unsigned int s_TotalInstances;

@@ -46,7 +46,7 @@ namespace novazero
 			ScrollSelect(std::string labelText, int labelWidth, std::string textColor,
 				float width, float height, float inOrDecreaseBy, float max, float* refVal,
 				Rect background, std::string backgroundColor, std::string scrollColor,
-				BYTE layer, bool isPersistent = false);
+				unsigned char layer, bool isPersistent = false);
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 			void SetVisible(bool isVisible) override;
