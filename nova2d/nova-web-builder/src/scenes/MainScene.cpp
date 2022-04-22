@@ -150,7 +150,12 @@ namespace webbuilder
 					std::string filename = dp->d_name;
 					if (filename.find(".") == std::string::npos)
 					{
-						m_SrcDirectories[filename] = true;
+						std::string p = path;
+						while (p.find("\\") != std::string::npos)
+						{
+							p = p.replace(p.find("\\"), 1, "/");
+						}
+						m_SrcDirectories[p] = true;
 					}
 				}
 				count++;

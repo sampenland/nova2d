@@ -1,5 +1,6 @@
 #pragma once
 #include "core/Scene.h"
+#include <map>
 
 namespace webbuilder
 {
@@ -15,7 +16,7 @@ namespace webbuilder
 
 		bool m_CreateMakefile = true;
 		const int MAKE_FILE_MAX = 8192;
-		char m_MakefileBuffer[8192];
+		char m_MakefileBuffer[8192] = {};
 
 		bool m_Optomize = true;
 		bool m_UseWebGL2 = true;
@@ -28,8 +29,8 @@ namespace webbuilder
 		bool m_PackageResFolder = true;
 
 		bool m_ShowSRCDirectroy = false;
-		char m_SrcDirectory[300];
-		char m_ResDirectory[300];
+		char m_SrcDirectory[300] = {};
+		char m_ResDirectory[300] = { 'r', 'e', 's' };
 
 		std::map<std::string, bool> m_SrcDirectories;
 
