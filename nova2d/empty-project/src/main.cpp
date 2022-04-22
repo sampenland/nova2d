@@ -10,12 +10,12 @@ int main(int argc, char* argv[])
 	// Game Config
 	Game game("nova2d Project");
 
-	SampleScene scene = SampleScene("sampleScene");
+	SampleScene* scene = new SampleScene("sampleScene");
 
 	n2dSetBackgroundColor("purple");
 
-	n2dGameAddScene(&scene);
-	n2dGameConfigFirstScene(&scene);
+	n2dGameAddScene(scene);
+	n2dGameConfigFirstScene(scene);
 	
 	game.Start();
 
