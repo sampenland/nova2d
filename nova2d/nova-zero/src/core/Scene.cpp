@@ -133,10 +133,29 @@ namespace novazero
 			m_CleanUpObjects.push_back(obj);
 		}
 
-		void Scene::AddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius)
+		void Scene::UpdateParticles()
 		{
-			ParticleSystem* ps = new ParticleSystem(maxParticles, particleRadius);
+			for (auto system : s_ParticleSystems)
+			{
+				system.second->Update();
+			}
+		}
+
+		void Scene::AddParticleSystem(const std::string& assetName, Vec2Int size, 
+			const std::string& systemName, int32 maxParticles, float particleRadius, unsigned char layer)
+		{
+			ParticleSystem* ps = new ParticleSystem(assetName, size, maxParticles, particleRadius, layer);
 			s_ParticleSystems[systemName] = ps;
+		}
+
+		ParticleSystem* Scene::GetParticleSystem(const std::string& systemName)
+		{
+			if (s_ParticleSystems.find(systemName) != s_ParticleSystems.end())
+			{
+				return s_ParticleSystems[systemName];
+			}
+			
+			return nullptr;
 		}
 
 		void Scene::RemoveParticleSystem(const std::string& systemName)
@@ -145,6 +164,16 @@ namespace novazero
 			{
 				s_ParticleSystems.erase(systemName);
 			}
+		}
+
+		int32 Scene::GetParticleCount()
+		{
+			int32 cnt = 0;
+			for (auto ps : s_ParticleSystems)
+			{
+				cnt += ps.second->ParticleCount();
+			}
+			return cnt;
 		}
 
 		void Scene::CleanUp()

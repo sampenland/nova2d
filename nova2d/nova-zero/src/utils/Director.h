@@ -16,6 +16,7 @@ namespace novazero
 
 			ScrollInput* m_LightingSlider = nullptr;
 			Timer* m_FPSTimer = nullptr;
+			bool* m_ShowParticleCount = new bool;
 
 		public:
 

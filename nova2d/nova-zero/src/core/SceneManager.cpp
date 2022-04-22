@@ -203,6 +203,8 @@ namespace novazero
 							Game::s_SceneManager->s_PhyCleaners.clear();
 							// Clear collisions
 							Game::s_SceneManager->GetCurrentScene()->GetContactListener()->Clean();
+							// Update particles
+							Game::s_SceneManager->GetCurrentScene()->UpdateParticles();
 							// ---------------------------------
 						}
 					}

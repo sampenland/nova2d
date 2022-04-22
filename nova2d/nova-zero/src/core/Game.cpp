@@ -426,12 +426,12 @@ namespace novazero
 			if (s_ExitCode == 0)
 			{
 				if(n2dDebug)
-					LOGO(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine ended successfully.");
+					LOGO(LVL_CONFIRMATION, "nova2d [" + std::string(NOVA_VERSION) + "] : Game Engine ended successfully.");
 			}
 			else
 			{
 				if(n2dDebug)
-					LOGO(LVL_FATAL_ERROR, "nova2d [" + std::string(NOVA_VERSION) + "] : Steam Game Engine FAILED WITH EXIT CODE: " + tostring(s_ExitCode));
+					LOGO(LVL_FATAL_ERROR, "nova2d [" + std::string(NOVA_VERSION) + "] : Game Engine FAILED WITH EXIT CODE: " + tostring(s_ExitCode));
 			}
 
 			SDL_Quit();

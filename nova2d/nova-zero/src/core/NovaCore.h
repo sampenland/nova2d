@@ -369,6 +369,11 @@ namespace novazero
 		int n2dDebugDrawableCount();
 
 		/*
+		nova2d Get total particle count
+		*/
+		int32 n2dDebugParticleCount();
+
+		/*
 		nova2d Get total updaters
 		Returns total updaters in Game processor
 		*/
@@ -796,10 +801,14 @@ namespace novazero
 		// Physics
 		//----------------------------------------------------------------------------
 
-		void n2dAddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius);
+		void n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
+			int32 maxParticles, float particleRadius, unsigned char layer);
+
+		ParticleSystem* n2dGetParticleSystem(const std::string& systemName);
 
 		void n2dRemoveParticleSystem(const std::string& systemName);
 
+		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, Vec2 velocity);
 
 	}
 

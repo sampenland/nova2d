@@ -68,6 +68,8 @@ namespace novazero
 			virtual void End() = 0;
 			virtual void Update() = 0;
 
+			void UpdateParticles();
+
 			void AddObjectToCleanUp(void* obj);
 			void CleanUp();
 
@@ -76,8 +78,14 @@ namespace novazero
 			static PhysicsDebug* s_PhysicsDrawer;
 
 			static std::map<std::string, ParticleSystem*> s_ParticleSystems;
-			static void AddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius);
+			
+			static void AddParticleSystem(const std::string& assetName, Vec2Int size,
+				const std::string& systemName, int32 maxParticles, float particleRadius,
+				unsigned char layer);
+
+			static ParticleSystem* GetParticleSystem(const std::string& systemName);
 			static void RemoveParticleSystem(const std::string& systemName);
+			static int32 GetParticleCount();
 		};
 	}
 }

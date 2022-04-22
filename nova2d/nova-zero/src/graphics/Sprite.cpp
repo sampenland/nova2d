@@ -291,7 +291,7 @@ namespace novazero
 		void Sprite::DestroySelf()
 		{
 			m_Alive = 0;
-
+			CleanUpdaters();
 			n2dRemoveDrawable(m_ID, m_Layer);
 
 			SetDeleted(true);

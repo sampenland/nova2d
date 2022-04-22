@@ -95,6 +95,15 @@ namespace novazero
 			return Game::s_Renderer->s_DrawLayers->GetInstanceCount();
 		}
 
+		int32 n2dDebugParticleCount()
+		{
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				return Game::s_SceneManager->GetCurrentScene()->GetParticleCount();
+			}
+			return 0;
+		}
+
 		int n2dDebugUpdaterCount()
 		{
 			return SceneManager::GetUpdaterCount();
@@ -465,12 +474,24 @@ namespace novazero
 			return Game::s_SceneManager->GetCurrentWorld();
 		}
 
-		void n2dAddParticleSystem(const std::string& systemName, int32 maxParticles, float particleRadius)
+		void n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
+			int32 maxParticles, float particleRadius, unsigned char layer)
 		{
 			if (Game::s_SceneManager->GetCurrentScene())
 			{
-				Game::s_SceneManager->GetCurrentScene()->AddParticleSystem(systemName, maxParticles, particleRadius);
+				Game::s_SceneManager->GetCurrentScene()->AddParticleSystem(assetName, size, systemName, 
+					maxParticles, particleRadius, layer);
 			}
+		}
+
+		ParticleSystem* n2dGetParticleSystem(const std::string& systemName)
+		{
+			if (Game::s_SceneManager->GetCurrentScene())
+			{
+				return Game::s_SceneManager->GetCurrentScene()->GetParticleSystem(systemName);
+			}
+
+			return nullptr;
 		}
 
 		void n2dRemoveParticleSystem(const std::string& systemName)
@@ -478,6 +499,14 @@ namespace novazero
 			if (Game::s_SceneManager->GetCurrentScene())
 			{
 				Game::s_SceneManager->GetCurrentScene()->RemoveParticleSystem(systemName);
+			}
+		}
+
+		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, Vec2 velocity)
+		{
+			if (n2dGetParticleSystem(pSystemName))
+			{
+				n2dGetParticleSystem(pSystemName)->BurstParticles(particleCount, burstPosition, velocity);
 			}
 		}
 	}

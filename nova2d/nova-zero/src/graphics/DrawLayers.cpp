@@ -60,9 +60,23 @@ namespace novazero
 		// Does not remove sprites from 255 layer
 		void DrawLayers::RemoveSprite(unsigned int id, BYTE layer)
 		{
-			if (layer == PERSISTENT_LAYER) return;
+			if (layer == PERSISTENT_LAYER)
+			{
+				if (n2dDebugVerbose)
+				{
+					LOGS("Skipped removal: drawable on Persistent Layer.");
+				}
+				return;
+			}
 
-			if (layer < 0 || layer > MAX_LAYERS - 1) return;
+			if (layer < 0 || layer > MAX_LAYERS - 1)
+			{
+				if (n2dDebugVerbose)
+				{
+					LOGS("Skipped removal: drawable on unknown Layer.");
+				}
+				return;
+			}
 
 			int idx = -1;
 			for (int i = 0; i < (int)m_Layers[layer].size(); i++)
@@ -75,7 +89,13 @@ namespace novazero
 			}
 
 			if (idx == -1)
+			{
+				if (n2dDebugVerbose)
+				{
+					LOGS("No removal: drawable not found.");
+				}
 				return;
+			}
 
 			m_Layers[layer].erase(m_Layers[layer].begin() + idx);
 			s_TotalInstances--;

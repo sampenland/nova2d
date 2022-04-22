@@ -22,7 +22,6 @@ namespace testproject
 		n2dAssetsLoadAndAddTexture("planet", "res/planet.png");
 		n2dAssetsLoadAndAddTexture("bullet", "res/bullet.png");
 		n2dAssetsLoadAndAddTexture("fuel", "res/fuel.png");
-		n2dAssetsLoadAndAddTexture("jets", "res/jets.png");
 
 		planetDisplay = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
 			Vec2Int(256, 256), 2);
@@ -41,6 +40,13 @@ namespace testproject
 		n2dReferenceAdd("player2", player2);
 
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
+
+		n2dAddParticleSystem("fuel", Vec2Int(16, 16), "ps", 2, 5, 10);
+
+		Timer* t = new Timer(3000, true, ([=]() {
+			n2dGetParticleSystem("ps")->SetLifetime(5000.f, 10000.f);
+			n2dBurstParticles("ps", 1, Vec2(100, 100), Vec2(10, 10));
+		}));
 
 	}
 

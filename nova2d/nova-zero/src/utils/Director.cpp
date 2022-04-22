@@ -11,6 +11,7 @@ namespace novazero
 
 		Director::Director()
 		{
+			*m_ShowParticleCount = true;
 		}
 
 		void Director::Draw()
@@ -18,6 +19,12 @@ namespace novazero
 			ImGui::Begin("Director");
 
 			ImGui::SliderFloat("Timescale", &Game::s_TimeScale, 0.1f, 6.f);
+
+			ImGui::Checkbox("Show Particle Count", m_ShowParticleCount);
+			if (*m_ShowParticleCount)
+			{
+				ImGui::Text("Particles: %d", n2dDebugParticleCount());
+			}
 
 			ImGui::Text("Drawables: %d", n2dDebugDrawableCount());
 			ImGui::Text("Deleteables: %d", n2dDebugDeleteableCount());

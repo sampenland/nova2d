@@ -109,9 +109,21 @@ namespace novazero
             int i = 0;
         }
 
-        void PhysicsDebug::DrawParticles(const b2Vec2*, float32, const b2ParticleColor*, int32)
+        void PhysicsDebug::DrawParticles(const b2Vec2* centers, float32 radius, const b2ParticleColor* colors, int32 count)
         {
-
+            Color& c = *Game::s_Renderer->s_DebugRenderColor;
+            for(int32 i = 0; i < count; i++)
+            {
+                filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(),
+                    (Sint16)centers[i].x,
+                    (Sint16)centers[i].y,
+                    (Sint16)radius,
+                    (Uint8)c.r,
+                    (Uint8)c.g,
+                    (Uint8)c.b,
+                    (Uint8)c.a
+                );
+            }
         }
     }
 }
