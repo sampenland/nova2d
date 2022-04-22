@@ -80,7 +80,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;USE_BOOKMARK;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\box2d\include;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl_mixer\include;$(SolutionDir)Dependencies\emscripten;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -104,7 +104,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;NOVA_EMSCRIPTEN;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;USE_BOOKMARK;NDEBUG;NOVA_EMSCRIPTEN;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\box2d\include;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl_mixer\include;$(SolutionDir)Dependencies\emscripten;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -128,7 +128,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;USE_BOOKMARK;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)Dependencies\box2d\include;$(SolutionDir)Dependencies\sdl2_ttf\include;$(SolutionDir)Dependencies\sdl2_image\include;$(SolutionDir)Dependencies\mysql\$(Configuration)\include;$(SolutionDir)Dependencies\sdl2\include;$(SolutionDir)Dependencies\sdl_mixer\include;$(SolutionDir)Dependencies\emscripten;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -248,6 +248,9 @@
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
     <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />
     <ClInclude Include="src\physics\PhySensor.h" />
+    <ClInclude Include="src\thirdparty\getopt.c" />
+    <ClInclude Include="src\thirdparty\getopt.h" />
+    <ClInclude Include="src\thirdparty\unistd.h" />
     <ClInclude Include="src\utils\AudioManager.h" />
     <ClInclude Include="src\components\HitDisplay.h" />
     <ClInclude Include="src\components\SimpleStatBar.h" />

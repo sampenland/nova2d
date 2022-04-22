@@ -1,6 +1,10 @@
 #include "MainScene.h"
 #include "gui/imgui/imgui.h"
 #include "core/Game.h"
+#include "thirdparty/dirent/dirent.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <thirdparty/unistd.h>
 
 namespace webbuilder
 {
@@ -21,14 +25,10 @@ namespace webbuilder
 	{
 		ImGui::Begin("nova2d Web Builder");
 
-		ImGui::Text("Project 'src' directory");
+		ImGui::Text("Copy/Paste project 'src' directory");
 		ImGui::InputText(" ", m_SrcDirectory, 300);
 
-		ImGui::Separator();
-
 		ImGui::Checkbox("Create makefile", &m_CreateMakefile);
-
-		ImGui::Separator();
 
 		// Emscripten add-on libraries
 		ImGui::Text("Compile Flags");
@@ -43,6 +43,52 @@ namespace webbuilder
 		ImGui::Checkbox("Package 'res' folder", &m_PackageResFolder);
 
 		ImGui::End();
+
+		// --------------------------------------------------------
+
+		ImGui::Begin("'src' directory");
+
+		if (m_ShowSRCDirectroy)
+		{
+			for (auto dir : m_SrcDirectories)
+			{
+				ImGui::Checkbox(dir.first.c_str(), &dir.second);
+			}
+		}
+
+		ImGui::End();
+	}
+
+	void MainScene::UpdateSRCDirectory(const std::string& srcDir)
+	{
+		const char* dir = srcDir.c_str();
+
+		if (chdir(dir) == -1) {
+			LOG(LVL_NFE, "SRC directory not found.", __FILE__, __LINE__);
+			return;
+		}
+
+		DIR* dirp = opendir(dir);
+
+		m_SrcDirectories.clear();
+
+		for (struct dirent* dent; (dent = readdir(dirp)) != NULL; )
+		{
+			const char* nm = dent->d_name;
+			m_SrcDirectories[nm] = true;
+
+			if (strcmp(nm, ".") == 0 || strcmp(nm, "..") == 0)
+				continue;
+
+			struct stat file_stats;
+			if (stat(nm, &file_stats) == -1)
+			{
+				std::string err = nm;
+				LOG(LVL_NFE, "Err:" + err, __FILE__, __LINE__);
+			}
+		}
+
+		closedir(dirp);
 	}
 
 	void MainScene::Update()

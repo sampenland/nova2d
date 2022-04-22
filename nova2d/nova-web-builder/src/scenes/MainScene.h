@@ -24,7 +24,11 @@ namespace webbuilder
 		bool m_UseSDL2Mixer = true;
 		bool m_PackageResFolder = true;
 
+		bool m_ShowSRCDirectroy = false;
+
 		char m_SrcDirectory[300];
+
+		std::map<std::string, bool> m_SrcDirectories;
 
 	public:
 
@@ -35,6 +39,8 @@ namespace webbuilder
 		void Update() override;
 
 		void DrawGUI();
+
+		void UpdateSRCDirectory(const std::string& srcDir);
 
 		void End() override;
 
