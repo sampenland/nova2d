@@ -13,6 +13,7 @@ namespace webbuilder
 
 		unsigned int m_GUICleanID = 0;
 
+		bool m_CreateMakefile = true;
 		bool m_Optomize = true;
 		bool m_UseWebGL2 = true;
 		bool m_UseSDL2 = true;

@@ -24,6 +24,12 @@ namespace webbuilder
 		ImGui::Text("Project 'src' directory");
 		ImGui::InputText(" ", m_SrcDirectory, 300);
 
+		ImGui::Separator();
+
+		ImGui::Checkbox("Create makefile", &m_CreateMakefile);
+
+		ImGui::Separator();
+
 		// Emscripten add-on libraries
 		ImGui::Text("Compile Flags");
 		ImGui::Checkbox("Optomize", &m_Optomize);
