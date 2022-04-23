@@ -247,7 +247,25 @@ namespace novazero
 			int mouseX, mouseY;
 			SDL_GetMouseState(&mouseX, &mouseY);
 			
-			m_MouseHoverPosition = Vec2((float)mouseX, (float)mouseY);;
+			m_MouseHoverPosition = Vec2((float)mouseX, (float)mouseY);
+			
+			if (n2dIsMouseDown(SDL_BUTTON_LEFT))
+			{
+				m_MouseLeftPosition = Vec2((float)mouseX, (float)mouseY);
+			}
+			else if (n2dIsMouseDown(SDL_BUTTON_RIGHT))
+			{
+				m_MouseRightPosition = Vec2((float)mouseX, (float)mouseY);
+			}
+			else if (n2dIsMouseDown(SDL_BUTTON_MIDDLE))
+			{
+				m_MouseMiddlePosition = Vec2((float)mouseX, (float)mouseY);
+			}
+			else
+			{
+				m_MouseHoverPosition = Vec2((float)mouseX, (float)mouseY);
+			}
+
 			m_MouseMotion = true;
 
 		}

@@ -37,6 +37,8 @@ namespace novazero
 
 			m_ContactListener = new PhyContactListener();
 			m_World->SetContactListener(m_ContactListener);
+			m_ParticleDestructionListener = new ParticleDestructionListener();
+			m_World->SetDestructionListener(m_ParticleDestructionListener);
 
 			b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
 			b2Vec2 lowerRightCorner = b2Vec2((float)Game::s_Width, 0.f);
@@ -179,6 +181,13 @@ namespace novazero
 		void Scene::CleanUp()
 		{
 			m_CleanUpObjects.clear();
+
+			if (m_ParticleDestructionListener)
+				delete m_ParticleDestructionListener;
+
+			if (m_ContactListener)
+				delete m_ContactListener;
+
 		}
 	}
 }

@@ -3,6 +3,7 @@
 #include <vector>
 #include "../maths/Maths.h"
 #include "../graphics/Color.h"
+#include "../particles/Particle.h"
 #include "../graphics/Sprite.h"
 
 namespace novazero
@@ -18,7 +19,7 @@ namespace novazero
 		private:
 
 			b2ParticleSystem* m_System = nullptr;
-			std::map<int32, Sprite*> m_Particles;
+			std::map<int, Particle*> m_Particles;
 
 			std::string m_ParticleAssetName = "";
 			Vec2Int m_AssetSize = Vec2Int(0, 0);
@@ -41,9 +42,9 @@ namespace novazero
 
 			void BurstParticles(int32 particleCount, Vec2 burstPosition, Vec2 velocity);
 			void Update();
-			void SetLifetime(float min, float max);
+			void SetLifetime(float minSeconds, float maxSeconds);
 
-			int ParticleCount();
+			int32 ParticleCount();
 
 			void DestroySelf();
 

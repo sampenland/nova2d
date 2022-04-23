@@ -33,23 +33,22 @@ namespace novazero
 			if (!m_System) return -1;
 
 			b2ParticleDef pd;
-			pd.flags = type;
+			pd.flags = type | b2_destructionListenerParticle;
 			pd.velocity.Set(velocity.x, velocity.y);
 			pd.color.Set((uint8)color.r, (uint8)color.g, (uint8)color.b, (uint8)color.a);
 			pd.position.Set(position.x, position.y);
 			
-			float lifetime = n2dRandomFloat(m_MinLifeTime, m_MaxLifeTime); // Used below
-			//pd.lifetime = lifetime; // TODO: handling this myself, maybe I shouldn't
+			Sprite* sprite = new Sprite(m_ParticleAssetName, position, m_AssetSize, m_Layer);
+			Particle* particle = new Particle(sprite, this);
+			pd.userData = (void*)particle;
 			
-			int32 index = m_System->CreateParticle(pd);			
-			Sprite* s = new Sprite(m_ParticleAssetName, position, m_AssetSize, m_Layer);
-			
-			m_Particles[index] = s;
+			float lifetime = n2dRandomFloat(m_MinLifeTime, m_MaxLifeTime);
+			pd.lifetime = lifetime; 
 
-			LOGS("created : " + tostring(index));// TODO: remove
-			Timer* t = new Timer(lifetime, false, ([=]() {
-				RemoveParticle(index);
-			}));
+			int32 index = m_System->CreateParticle(pd);			
+			particle->SetIndex(index);
+
+			m_Particles[index] = particle;
 
 			if(n2dDebugVerbose)
 				LOGS("Particle Created: " + tostring(index));
@@ -66,9 +65,13 @@ namespace novazero
 				const b2Vec2 pos = positions[i];
 
 				if (m_Particles[i])
-					m_Particles[i]->SetPosition(Vec2(pos.x, pos.y));
+				{
+					m_Particles[i]->UpdatePosition(pos.x, pos.y);
+				}
 				else
+				{
 					m_Particles.erase(i);
+				}
 			}
 		}
 
@@ -86,28 +89,27 @@ namespace novazero
 
 			if (m_Particles.find(index) != m_Particles.end())
 			{
-
-				if(m_Particles[index])
-					m_Particles[index]->DestroySelf();
-
-				m_System->DestroyParticle(index);
-				
+				m_System->DestroyParticle(index);				
 				m_Particles.erase(index);
-				LOGS("removed : " + tostring(index)); // TODO: remove
+
 				if (n2dDebugVerbose)
-					LOGS("Particle destroyed: " + tostring(index));
+					LOGS("Particle custom removed: " + tostring(index));
+			}
+			else
+			{
+				LOGS("Unknown particle");
 			}
 		}
 
-		void ParticleSystem::SetLifetime(float min, float max)
+		void ParticleSystem::SetLifetime(float minSeconds, float maxSeconds)
 		{
 			m_System->SetDestructionByAge(true);
 			m_UsingLifetime = true;
-			m_MinLifeTime = min;
-			m_MaxLifeTime = max;
+			m_MinLifeTime = minSeconds;
+			m_MaxLifeTime = maxSeconds;
 		}
 
-		int ParticleSystem::ParticleCount()
+		int32 ParticleSystem::ParticleCount()
 		{
 			if (!m_System) return 0;
 			return m_System->GetParticleCount();

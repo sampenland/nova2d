@@ -10,6 +10,7 @@
 #include "../core/Environment.h"
 #include "../debug/PhysicsDebug.h"
 #include "../physics/PhyContactListener.h"
+#include "../particles/ParticleDestructionListener.h"
 #include "../particles/ParticleSystem.h"
 
 namespace novazero
@@ -36,6 +37,7 @@ namespace novazero
 			b2Vec2* m_Gravity = nullptr;
 
 			PhyContactListener* m_ContactListener = nullptr;
+			ParticleDestructionListener* m_ParticleDestructionListener = nullptr;
 
 		public:
 
