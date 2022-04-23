@@ -28,7 +28,8 @@ namespace novazero
 			Up,
 			Down,
 			Right,
-			Left
+			Left,
+			None
 		};
 
 		class Positional

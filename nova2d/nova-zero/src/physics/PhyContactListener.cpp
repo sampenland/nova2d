@@ -71,6 +71,9 @@ namespace novazero
 			{
 				PhyCollision& collision = *(*it);
 
+				if (!collision.m_ContactA || !collision.m_ContactB)
+					continue;
+
 				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
 				{
 					if (collision.f_OnEnter)

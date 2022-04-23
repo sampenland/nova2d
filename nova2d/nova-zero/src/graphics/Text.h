@@ -5,7 +5,6 @@
 #include "../core/Positional.h"
 #include "../graphics/Drawable.h"
 #include "SDL.h"
-#include "../core/Referenceable.h"
 #include "../core/Deleteable.h"
 
 namespace novazero
@@ -16,8 +15,7 @@ namespace novazero
 	namespace graphics
 	{
 		class Text : 
-			public Drawable, 
-			public Referenceable, 
+			public Drawable,
 			public Deleteable
 		{
 

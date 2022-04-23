@@ -31,12 +31,26 @@ namespace testproject
 		{
 			m_FuelDisplay[i] = new Image("fuel", Vec2(0, 0), Vec2Int(16, 16), 4);
 		}
+
+		PhySensor* planet = (PhySensor*)n2dReferenceGet("planet");
+		n2dAddCollision(GetPhySprite(), (PhyBase*)planet,
+			n2dMakeFunc(Player::StartFueling, this), n2dMakeFunc(Player::StopFueling, this));
 		
+	}
+
+	void Player::StartFueling()
+	{
+		m_Fueling = true;
+	}
+
+	void Player::StopFueling()
+	{
+		m_Fueling = false;
 	}
 
 	void Player::FuelManage()
 	{
-		if (GetMoving)
+		if (GetMoving())
 		{
 			m_FuelTank -= FUEL_COST;
 		}
@@ -50,17 +64,29 @@ namespace testproject
 		if (m_Fuel < 1)
 		{
 			EnableMove(false);
+			StopAnimation();
+			JumpToFrame(1);
 		}
-	}
 
-	void Player::Update()
-	{
-		BasicController::Update();
-		FuelManage();
-
-		for (int i = 0; i < 5; i++)
+		if (m_Fueling)
 		{
-			m_FuelDisplay[i]->SetPosition(Vec2(GetX() + GetWidth() + 10, GetY() + - 10 + (i * 10)));
+			if (m_FuelTank < 100.f)
+			{
+				m_FuelTank += (2 * FUEL_COST);
+			}
+			else
+			{
+				if (m_Fuel < 5)
+				{
+					m_Fuel++;
+					m_FuelTank = 0.f;
+				}
+			}
+		}
+
+		for (int i = 4; i > 0; i--)
+		{
+			m_FuelDisplay[i]->SetPosition(Vec2(GetX() + GetWidth() + 10, GetY() + -16 + (i * 10)));
 			if (i < m_Fuel)
 			{
 				m_FuelDisplay[i]->SetVisible(true);
@@ -70,6 +96,12 @@ namespace testproject
 				m_FuelDisplay[i]->SetVisible(false);
 			}
 		}
+	}
+
+	void Player::Update()
+	{
+		BasicController::Update();
+		FuelManage();
 
 		Animations();
 	}
@@ -80,48 +112,38 @@ namespace testproject
 		{
 			if (GetPhySprite()->GetBody())
 			{
-				const float thres = 10.f;
-				const b2Vec2 velocity = GetPhySprite()->GetBody()->GetLinearVelocity();
-
-				if (std::abs(velocity.x) > std::abs(velocity.y))
+				if (!GetMoving())
 				{
-					if (velocity.x > thres)
-					{
-						ChangeAnimation("right");
-						StartAnimation();
-					}
-					else if (velocity.x < -thres)
-					{
-						ChangeAnimation("left");
-						StartAnimation();
-					}
-					else
-					{
-						// Stop jets
-						StopAnimation();
-						GetPhySprite()->JumpToFrame(1);
-					}
+					StopAnimation();
+					JumpToFrame(1);
 				}
 				else
 				{
-					if (velocity.y > thres)
+					Directions dir = GetDirection();
+					switch (dir)
 					{
-						ChangeAnimation("down");
-						StartAnimation();
-					}
-					else if (velocity.y < -thres)
-					{
+					case Directions::Up:
 						ChangeAnimation("up");
 						StartAnimation();
-					}
-					else
-					{
-						// Stop jets
+						break;
+					case Directions::Down:
+						ChangeAnimation("down");
+						StartAnimation();
+						break;
+					case Directions::Right:
+						ChangeAnimation("right");
+						StartAnimation();
+						break;
+					case Directions::Left:
+						ChangeAnimation("left");
+						StartAnimation();
+						break;
+					default:
 						StopAnimation();
-						GetPhySprite()->JumpToFrame(1);
+						JumpToFrame(1);
+						break;
 					}
 				}
-
 			}
 		}
 	}

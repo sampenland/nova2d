@@ -27,6 +27,7 @@ namespace novazero
 			bool m_WASDEnabled = false;
 			bool m_MoveEnabled = true;
 			bool m_Moving = false;
+			Directions m_MoveDirection = Directions::None;
 
 			void ArrowKeys();
 			void WASD();
@@ -36,6 +37,7 @@ namespace novazero
 			void MoveDown();
 			void MoveRight();
 			void MoveLeft();
+
 
 			void ControllerUpdate();
 			void Controls();
@@ -51,6 +53,7 @@ namespace novazero
 			void EnableRotation(bool val);
 
 			bool GetMoving() const;
+			Directions GetDirection() const;
 
 			void EnabledJoystickController(bool val, char controllerID);
 

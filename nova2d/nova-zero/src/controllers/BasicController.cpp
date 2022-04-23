@@ -76,6 +76,12 @@ namespace novazero
 			ArrowKeys();
 			WASD();
 			JoystickControllers();
+
+			if (!m_Moving)
+			{
+				m_MoveDirection = Directions::None;
+			}
+
 		}
 
 		void BasicController::JoystickControllers()
@@ -171,25 +177,34 @@ namespace novazero
 		void BasicController::MoveUp()
 		{
 			ApplyForce(100, Directions::Up);
+			m_MoveDirection = Directions::Up;
 			m_Moving = true;
 		}
 
 		void BasicController::MoveDown()
 		{
 			ApplyForce(100, Directions::Down);
+			m_MoveDirection = Directions::Down;
 			m_Moving = true;
 		}
 
 		void BasicController::MoveRight()
 		{
 			ApplyForce(100, Directions::Right);
+			m_MoveDirection = Directions::Right;
 			m_Moving = true;
 		}
 
 		void BasicController::MoveLeft()
 		{
 			ApplyForce(100, Directions::Left);
+			m_MoveDirection = Directions::Left;
 			m_Moving = true;
+		}
+
+		Directions BasicController::GetDirection() const
+		{
+			return m_MoveDirection;
 		}
 
 		void BasicController::Hurt(float damage)

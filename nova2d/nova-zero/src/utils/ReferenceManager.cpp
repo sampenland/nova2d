@@ -14,21 +14,21 @@ namespace novazero
 			m_References.clear();
 		}
 
-		void ReferenceManager::AddReference(const std::string& name, Referenceable* ref)
+		void ReferenceManager::AddReference(const std::string& name, void* ref)
 		{
-			m_References[name] = ref;
+			m_References[name] = (void*)ref;
 		}
 
 		void ReferenceManager::RemoveReference(const std::string& name)
 		{
 			if (m_References.end() != m_References.find(name))
 			{
-				std::map<std::string, Referenceable*>::iterator f = m_References.find(name);
+				std::map<std::string, void*>::iterator f = m_References.find(name);
 				m_References.erase(f);
 			}
 		}
 
-		Referenceable* ReferenceManager::GetReferenced(const std::string& name)
+		void* ReferenceManager::GetReferenced(const std::string& name)
 		{
 			try
 			{

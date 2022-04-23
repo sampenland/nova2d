@@ -20,7 +20,8 @@ namespace testproject
 
 		int m_Fuel = 5;
 		float m_FuelTank = 100.f;
-		const float FUEL_COST = 1.f;
+		const float FUEL_COST = 0.25f;
+		bool m_Fueling = false;
 
 		Image* m_FuelDisplay[5];
 
@@ -32,6 +33,8 @@ namespace testproject
 		void Animations();
 
 		void FuelManage();
+		void StartFueling();
+		void StopFueling();
 
 		void DestroySelf();
 

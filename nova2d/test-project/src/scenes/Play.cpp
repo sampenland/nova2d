@@ -26,6 +26,7 @@ namespace testproject
 		planetDisplay = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
 			Vec2Int(256, 256), 2);
 		planet = new PhySensor("planet", true, Vec2(Game::s_Width - 32, Game::s_Height - 32), 256);
+		n2dReferenceAdd("planet", planet);
 
 		player1 = new Player("player1", Game::GetCenterScreen(), Vec2(32, 32),
 			10);

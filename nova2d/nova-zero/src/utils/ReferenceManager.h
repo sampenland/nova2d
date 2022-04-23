@@ -1,5 +1,4 @@
 #pragma once
-#include "../core/Referenceable.h"
 #include <string>
 #include <map>
 #include <stdexcept>
@@ -9,23 +8,21 @@ namespace novazero
 {
 	namespace utils
 	{
-		using namespace core;
-
 		class ReferenceManager
 		{
 		private:
 
-			std::map<std::string, Referenceable*> m_References = {};
+			std::map<std::string, void*> m_References = {};
 
 		public:
 
 			ReferenceManager();
 			~ReferenceManager();
 
-			void AddReference(const std::string& name, Referenceable* object);
+			void AddReference(const std::string& name, void* object);
 			void RemoveReference(const std::string& name);
 
-			Referenceable* GetReferenced(const std::string& name);
+			void* GetReferenced(const std::string& name);
 			unsigned int GetReferenceCount() { return (unsigned int)m_References.size(); }
 
 		};
