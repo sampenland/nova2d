@@ -464,6 +464,11 @@ namespace novazero
 			return Game::s_InputHandler->IsMouseUp(mouseButton);
 		}
 
+		bool n2dMouseJustDown()
+		{
+			return Game::s_InputHandler->IsMouseJustDown();
+		}
+
 		bool n2dIsMouseDown(int mouseButton)
 		{
 			return Game::s_InputHandler->IsMouseDown(mouseButton);
@@ -502,7 +507,7 @@ namespace novazero
 			}
 		}
 
-		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, Vec2 velocity)
+		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, float velocity)
 		{
 			if (n2dGetParticleSystem(pSystemName))
 			{

@@ -40,7 +40,7 @@ namespace novazero
 			int32 CreateParticle(b2ParticleFlag type, Vec2 position, Vec2 velocity, Color color);
 			void RemoveParticle(int32 index);
 
-			void BurstParticles(int32 particleCount, Vec2 burstPosition, Vec2 velocity);
+			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity);
 			void Update();
 			void SetLifetime(float minSeconds, float maxSeconds);
 

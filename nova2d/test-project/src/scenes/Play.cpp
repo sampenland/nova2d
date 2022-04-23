@@ -41,18 +41,11 @@ namespace testproject
 
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
 
-		n2dAddParticleSystem("fuel", Vec2Int(16, 16), "ps", 2, 5, 10);
-		n2dGetParticleSystem("ps")->SetLifetime(0.25f, 0.8f);
-
 	}
 
 	void Play::Update()
 	{
-		if(Game::s_InputHandler->IsMouseJustDown())
-		{
-			Vec2 mousePos = n2dGetMousePosition(SDL_BUTTON_LEFT);
-			n2dBurstParticles("ps", 1, mousePos, Vec2(10, 10));
-		}
+
 	}
 
 	void Play::End()

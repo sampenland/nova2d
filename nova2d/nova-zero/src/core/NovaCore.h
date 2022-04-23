@@ -528,7 +528,13 @@ namespace novazero
 		*/
 		void n2dRumble(int joystickID, float power, Uint32 durationMS);
 
+
 		// ------- Mouse
+		/*
+		*   Returns if mouse was JUST clicked
+		*/
+		bool n2dMouseJustDown();
+
 		/*
 		*   Returns if mouse is clicked
 			SDL_BUTTON_LEFT, SDL_BUTTON_RIGHT, SDL_BUTTON_MIDDLE
@@ -806,7 +812,7 @@ namespace novazero
 
 		void n2dRemoveParticleSystem(const std::string& systemName);
 
-		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, Vec2 velocity);
+		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, float velocity);
 
 	}
 

@@ -22,6 +22,11 @@ namespace novazero
 			m_ArrowKeysEnabled = val;
 		}
 
+		void BasicController::EnableMove(bool val)
+		{
+			m_MoveEnabled = val;
+		}
+
 		void BasicController::EnableWASD(bool val)
 		{
 			m_WASDEnabled = val;
@@ -45,20 +50,29 @@ namespace novazero
 			{
 				if (GetPhySprite()->GetBody())
 				{
-					GetPhySprite()->GetBody()->SetFixedRotation(val);
+					GetPhySprite()->GetBody()->SetFixedRotation(!val);
 				}
 			}
+		}
+
+		bool BasicController::GetMoving() const
+		{
+			return m_Moving;
 		}
 
 		void BasicController::ControllerUpdate()
 		{
 			m_HealthBar->Update((int)(m_Health / 100 * 32), (int)(GetX() + GetWidth() + 5), (int)(GetY()));
 
-			Controls();
+			if (m_MoveEnabled)
+			{
+				Controls();
+			}
 		}
 
 		void BasicController::Controls()
 		{
+			m_Moving = false;
 			ArrowKeys();
 			WASD();
 			JoystickControllers();
@@ -157,21 +171,25 @@ namespace novazero
 		void BasicController::MoveUp()
 		{
 			ApplyForce(100, Directions::Up);
+			m_Moving = true;
 		}
 
 		void BasicController::MoveDown()
 		{
 			ApplyForce(100, Directions::Down);
+			m_Moving = true;
 		}
 
 		void BasicController::MoveRight()
 		{
 			ApplyForce(100, Directions::Right);
+			m_Moving = true;
 		}
 
 		void BasicController::MoveLeft()
 		{
 			ApplyForce(100, Directions::Left);
+			m_Moving = true;
 		}
 
 		void BasicController::Hurt(float damage)

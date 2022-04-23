@@ -25,9 +25,12 @@ namespace novazero
 
 			bool m_ArrowKeysEnabled = false;
 			bool m_WASDEnabled = false;
+			bool m_MoveEnabled = true;
+			bool m_Moving = false;
 
 			void ArrowKeys();
 			void WASD();
+			void JoystickControllers();
 
 			void MoveUp();
 			void MoveDown();
@@ -42,12 +45,14 @@ namespace novazero
 			BasicController(const std::string& assetName, const std::string& colliderName,
 				Vec2 position, Vec2 colliderSize, Vec2Int spriteSize, unsigned char layer);
 
+			void EnableMove(bool val);
 			void EnableWASD(bool val);
 			void EnableArrowKeys(bool val);
 			void EnableRotation(bool val);
 
+			bool GetMoving() const;
+
 			void EnabledJoystickController(bool val, char controllerID);
-			void JoystickControllers();
 
 			void Hurt(float damage);
 

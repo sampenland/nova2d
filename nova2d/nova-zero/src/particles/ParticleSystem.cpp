@@ -75,11 +75,13 @@ namespace novazero
 			}
 		}
 
-		void ParticleSystem::BurstParticles(int32 particleCount, Vec2 burstPosition, Vec2 velocity)
+		void ParticleSystem::BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity)
 		{
 			for (int i = 0; i < particleCount; i++)
 			{
-				CreateParticle(b2_waterParticle, burstPosition, velocity, *n2dGetColor("white"));
+				Vec2 vel = Vec2(n2dRandomFloat(0.f, 1.f), n2dRandomFloat(0.f, 1.f));
+				vel.multiply(Vec2(velocity, velocity));
+				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"));
 			}
 		}
 

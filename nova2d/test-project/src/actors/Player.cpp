@@ -31,11 +31,32 @@ namespace testproject
 		{
 			m_FuelDisplay[i] = new Image("fuel", Vec2(0, 0), Vec2Int(16, 16), 4);
 		}
+		
+	}
+
+	void Player::FuelManage()
+	{
+		if (GetMoving)
+		{
+			m_FuelTank -= FUEL_COST;
+		}
+
+		if (m_FuelTank < 0)
+		{
+			m_Fuel--;
+			m_FuelTank = 100.f;
+		}
+
+		if (m_Fuel < 1)
+		{
+			EnableMove(false);
+		}
 	}
 
 	void Player::Update()
 	{
 		BasicController::Update();
+		FuelManage();
 
 		for (int i = 0; i < 5; i++)
 		{

@@ -1,12 +1,14 @@
 #pragma once
 #include "controllers/BasicController.h"
 #include "graphics/Image.h"
+#include "core/Timer.h"
 
 namespace testproject
 {
 	using namespace novazero::physics;
 	using namespace novazero::components;
 	using namespace novazero::graphics;
+	using namespace novazero::core;
 
 	using namespace novazero::controllers;
 
@@ -17,6 +19,9 @@ namespace testproject
 	private:
 
 		int m_Fuel = 5;
+		float m_FuelTank = 100.f;
+		const float FUEL_COST = 1.f;
+
 		Image* m_FuelDisplay[5];
 
 	public:
@@ -25,6 +30,8 @@ namespace testproject
 
 		void Update();
 		void Animations();
+
+		void FuelManage();
 
 		void DestroySelf();
 
