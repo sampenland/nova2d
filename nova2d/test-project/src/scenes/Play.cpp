@@ -48,10 +48,10 @@ namespace testproject
 
 	void Play::Update()
 	{
-		if(n2dIsMouseDown(SDL_BUTTON_LEFT))
+		if(Game::s_InputHandler->IsMouseJustDown())
 		{
 			Vec2 mousePos = n2dGetMousePosition(SDL_BUTTON_LEFT);
-			n2dBurstParticles("ps", 2, mousePos, Vec2(10, 10));
+			n2dBurstParticles("ps", 1, mousePos, Vec2(10, 10));
 		}
 	}
 

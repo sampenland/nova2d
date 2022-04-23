@@ -242,6 +242,12 @@ namespace novazero
 			return 0.f;
 		}
 
+		void InputHandler::ResetMouseDowns()
+		{
+			m_MouseJustDown = false;
+			m_MouseWait = false;
+		}
+
 		void InputHandler::MouseMotion(SDL_Event* e)
 		{
 			int mouseX, mouseY;
@@ -272,6 +278,20 @@ namespace novazero
 
 		void InputHandler::MouseDown(SDL_Event* e)
 		{
+			if (!m_MouseJustDown && !m_MouseWait)
+			{
+				if (m_MouseLastUp)
+				{
+					m_MouseJustDown = true;
+					m_MouseLastUp = false;
+				}
+			}
+			else
+			{
+				m_MouseWait = true;
+				m_MouseJustDown = false;
+			}
+			m_MouseLastUp = false;
 
 			int mouseX, mouseY;
 			SDL_GetMouseState(&mouseX, &mouseY);
@@ -310,6 +330,11 @@ namespace novazero
 
 		void InputHandler::MouseUp(SDL_Event* e)
 		{
+			if (!m_MouseLastUp)
+			{
+				m_MouseLastUp = true;
+			}
+
 			int mouseX, mouseY;
 			SDL_GetMouseState(&mouseX, &mouseY);
 			
@@ -357,6 +382,11 @@ namespace novazero
 			{
 				return m_MouseHoverPosition;
 			}
+		}
+
+		bool InputHandler::IsMouseJustDown() const
+		{
+			return m_MouseJustDown;
 		}
 
 		bool InputHandler::IsMouseDown(int mouseButton) const

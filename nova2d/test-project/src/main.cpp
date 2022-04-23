@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 
 	// Game Config
 	Game game("Earth Defend v.0.1");
-	game.SetDebugVerbose(true);
+	game.SetDebugVerbose(false);
 
 	Play* play = new Play("Play");
 	GameOver* gameover = new GameOver("GameOver");

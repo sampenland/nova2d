@@ -190,6 +190,9 @@ namespace novazero
 
 		void Game::PollEvents()
 		{
+
+			s_InputHandler->ResetMouseDowns();
+
 			SDL_Event event;
 			SDL_PollEvent(&event);
 			PollGUIEvents(event);

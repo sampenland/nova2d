@@ -27,6 +27,10 @@ namespace novazero
 			bool m_TouchingMotion = false;
 			Vec2 m_TouchPosition = NULLVEC2;
 
+			bool m_MouseWait = false;
+			bool m_MouseLastUp = true;
+			bool m_MouseJustDown = false;
+
 			bool m_MouseLeftClicked = false;
 			bool m_MouseRightClicked = false;
 			bool m_MouseMiddleClicked = false;
@@ -78,10 +82,12 @@ namespace novazero
 				bufferOUT = r;
 			}
 			
+			void ResetMouseDowns();
 			void MouseMotion(SDL_Event* event);
 			void MouseDown(SDL_Event* event);
 			void MouseUp(SDL_Event* event);
 			Vec2 GetMousePosition() const;
+			bool IsMouseJustDown() const;
 			bool IsMouseDown(int mouseButton) const;
 			bool IsMouseUp(int mouseButton) const;
 			bool IsMouseMoving() const;
