@@ -7,44 +7,44 @@ For full API overview, check out the [Doxygen Docs](https://n2d.dev/). For an in
 Also, to get involved in the development by suggesting ideas and features, check out the [Forums](https://n2d.dev/forums/index.php/community-forums/). Visit the [DevLogs](https://n2d.dev/forums/) site for How To video tutorials and a development blog of nova2d's progress. and and also join the community.
 
 ---
-!!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games to target the Steam Deck. AS OF NOW, though, nova2d will be solely targetting Windows while it's in development.
+!!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games and rapid development. AS OF NOW, nova2d will be solely targetting Windows and Web (js and WebAssembly).
 
 ---
-**Feature Set**
+**Feature Set as of 4/25/22**
  
  Graphics
- - Simple 2D sprites with Animations, if desired
- - Draw Collections which can be used for Screen animations, possibily 2D cameras later on
- - Simple TextInput and Text Displays
- - 4 built in fonts: "font1", "font2", "font3", "font4"
+ - Simple 2D sprites with Animations with Box2D bodies if desired
+ - Draw Collections which can be used for Screen animations
+ - Integration with full Dear ImGUI library but nova2d abstractions are not complete
+ - 4 built in fonts: "font1", "font2", "font3", "font4" for Pixel basced Text
  - Debug Draw shapes: Circle and Rectangle
+ - Debug drawing of Box2D bodies if turned on
+ - Integration with Tiled for TileMaps (level creation)
  
  Prefabs/Components
  - Basic StatBar (main use is Health Bars)
  - HitDisplay (pre-made tweened text)
  
  Controllers:
- - Basic ArrowKeys/Joysticks controller with built-in movement bounds, acceleration, Graver, Time Effected, etc.
+ - Basic ArrowKeys/Joysticks controller with built-in movement bounds which uses a Box2D body.
+ - More controllers to come, such as Mouse controllers
  
  Managment
  - Ease of use Color Managament, Referencer and Asset(sprite/texutre) Managament
- - Simple 2D Collision Manager
+ - Most Managers std::map<string, class> structures which allow easy lookups like: n2dGetParticleSystem("myParticleSystem");
+ - Fully integrated Box2D physics engine and Liquid Fun as the Particle engine - working on abstracting for simpler uses
  - Timelines - easily create an array of events to happen on an varying interval or on referenced condition function
  - Simple 2D Renderering with 20 layers for PhotoShop like layer rendering
- - Gravers : Component type gravity objects that apply forces to attached objects
- - Tweens : Ability to Tween an object's X, Y, etc. from startValue to endValue in N amount of milliseconds (all implemented curves shown here: www.easings.net )
- - TimeEffectors : aka: Time Bubbles. A circluar or rectangular area in which Time slows or speeds up. Works similar to Gravers.
-	- All 'TimeEffected' objects are effected by such Effectors.
+ - Tweens : Ability to Tween an object's X, Y, alpha, etc. from startValue to endValue in N amount of milliseconds (all implemented curves shown here: www.easings.net )
  
  AI
  - Simple WeakAI with easy to use programmable Patrol Points which move along a functional equation
  - Simple Bullet holder for shooting from point A to point B
  - Simple Follower holder for target seeking behavior
+ - More to come, such as A Star path finding 
  
  Debugging
- - Director - add in any variable to the Director so that you can change it in realtime during gameplay
-	- also one key opening and altering Time Scale of game (such as speeding it up or down to see what works best)
- - Simple DebugOverlay (enabled with one line of code) which displays:
+ - Simple Director (enabled with one line of code) which displays:
 	- FPS
 	- Drawables
 	- Updaters
@@ -53,11 +53,9 @@ Also, to get involved in the development by suggesting ideas and features, check
 	- Tween counts
 	- Time Effectors
 	- Time Effected
+	..etc.
  - Simple Logging system with several LOG_Levels
- 
- Physics
- - Box2D physics engine integration - abstracted for simple use
- 
+  
  Misc
  - Automatic MACROs for simple score keeping
  - SQL Integration
@@ -65,18 +63,4 @@ Also, to get involved in the development by suggesting ideas and features, check
  
  n2dMacros
  - Easy to use MACROs to simplify use of complex functions / lenghtly functions
- 
- **Samples**
- - Space shooter : Simple shooter like Dragon Spirit for NES. Project used for testing, game not really polished in any way.
-	- Great example use of following features:
-		- Sprites
-		- Animations
-		- Director
-		- Timelines
-		- Tweens
-		- Asset Management
-		- Debug Overlay
-		- SimpleWeak AI
-		- SimpleFollower AI
-		- SimpleBullet AI
  
