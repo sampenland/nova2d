@@ -130,5 +130,6 @@ namespace novazero
 				LOGS("Contact: " + self->GetColliderName() + "[" + tostring(selfID) + "] : " +
 					other->GetColliderName() + "[" + tostring(otherID) + "]");
 		}
+
 	}
 }

@@ -1,9 +1,12 @@
 #include "Vec2.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
 	namespace maths
 	{
+		using namespace core;
+
 		Vec2::Vec2()
 		{
 			x = 0;
@@ -121,6 +124,15 @@ namespace novazero
 		{
 			stream << "Vec2 [" << vector.x << ", " << vector.y << "]";
 			return stream;
+		}
+
+		Vec2 Vec2::UnitVec2FromAngle(float degrees)
+		{
+			Vec2 unitVec;
+			float rad = n2dDegToRad(degrees);
+			unitVec.x = cos(rad);
+			unitVec.y = sin(rad);
+			return unitVec;
 		}
 	}
 }

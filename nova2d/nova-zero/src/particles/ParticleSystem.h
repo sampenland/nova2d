@@ -13,12 +13,20 @@ namespace novazero
 		using namespace maths;
 		using namespace graphics;
 
+		enum class ParticleCollisionTypes
+		{
+			ParticleToParticle = b2_particleContactFilterParticle,
+			FixtureToParticle = b2_fixtureContactFilterParticle,
+			None = -1
+		};
+
 		class ParticleSystem
 		{
 
 		private:
 
 			b2ParticleSystem* m_System = nullptr;
+			
 			std::map<int, Particle*> m_Particles;
 
 			std::string m_ParticleAssetName = "";
@@ -37,10 +45,12 @@ namespace novazero
 			ParticleSystem(const std::string& spriteTexture, Vec2Int size, 
 				int32 maxParticles, float particleRadius, unsigned char layer);
 
-			int32 CreateParticle(b2ParticleFlag type, Vec2 position, Vec2 velocity, Color color);
+			int32 CreateParticle(b2ParticleFlag type, Vec2 position, 
+				Vec2 velocity, Color color);
 			void RemoveParticle(int32 index);
 
 			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity);
+			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float minAngleDeg, float maxAngleDeg);
 			void Update();
 			void SetLifetime(float minSeconds, float maxSeconds);
 

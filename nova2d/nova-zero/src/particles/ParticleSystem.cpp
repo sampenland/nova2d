@@ -28,12 +28,13 @@ namespace novazero
 			}
 		}
 
-		int32 ParticleSystem::CreateParticle(b2ParticleFlag type, Vec2 position, Vec2 velocity, Color color)
+		int32 ParticleSystem::CreateParticle(b2ParticleFlag type, 
+			Vec2 position, Vec2 velocity, Color color)
 		{
 			if (!m_System) return -1;
 
 			b2ParticleDef pd;
-			pd.flags = type | b2_destructionListenerParticle;
+			pd.flags = type | b2_fixtureContactFilterParticle | b2_destructionListenerParticle | b2_fixtureContactFilterParticle | b2_particleContactFilterParticle;
 			pd.velocity.Set(velocity.x, velocity.y);
 			pd.color.Set((uint8)color.r, (uint8)color.g, (uint8)color.b, (uint8)color.a);
 			pd.position.Set(position.x, position.y);
@@ -80,6 +81,18 @@ namespace novazero
 			for (int i = 0; i < particleCount; i++)
 			{
 				Vec2 vel = Vec2(n2dRandomFloat(0.f, 1.f), n2dRandomFloat(0.f, 1.f));
+				vel.multiply(Vec2(velocity, velocity));
+				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"));
+			}
+		}
+
+		void ParticleSystem::BurstParticles(int32 particleCount, Vec2 burstPosition, 
+			float velocity, float minAngleDeg, float maxAngleDeg)
+		{
+			for (int i = 0; i < particleCount; i++)
+			{
+				float deg = n2dRandomFloat(minAngleDeg, maxAngleDeg) - 90.f;
+				Vec2 vel = Vec2::UnitVec2FromAngle(deg);
 				vel.multiply(Vec2(velocity, velocity));
 				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"));
 			}

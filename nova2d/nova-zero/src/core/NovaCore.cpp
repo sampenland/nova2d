@@ -479,14 +479,15 @@ namespace novazero
 			return Game::s_SceneManager->GetCurrentWorld();
 		}
 
-		void n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
+		ParticleSystem* n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
 			int32 maxParticles, float particleRadius, unsigned char layer)
 		{
 			if (Game::s_SceneManager->GetCurrentScene())
 			{
-				Game::s_SceneManager->GetCurrentScene()->AddParticleSystem(assetName, size, systemName, 
+				return Game::s_SceneManager->GetCurrentScene()->AddParticleSystem(assetName, size, systemName, 
 					maxParticles, particleRadius, layer);
 			}
+			return nullptr;
 		}
 
 		ParticleSystem* n2dGetParticleSystem(const std::string& systemName)

@@ -805,7 +805,7 @@ namespace novazero
 		// Physics
 		//----------------------------------------------------------------------------
 
-		void n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
+		ParticleSystem* n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
 			int32 maxParticles, float particleRadius, unsigned char layer);
 
 		ParticleSystem* n2dGetParticleSystem(const std::string& systemName);

@@ -42,11 +42,17 @@ namespace testproject
 
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
 
+		ParticleSystem* ps = n2dAddParticleSystem("fuel", Vec2Int(16, 16), "ps", 50, 10, 10);
+		ps->SetLifetime(5, 10);
+
 	}
 
 	void Play::Update()
 	{
-
+		if (n2dMouseJustDown())
+		{
+			n2dGetParticleSystem("ps")->BurstParticles(25, n2dGetMousePosition(SDL_BUTTON_LEFT), 50, 0, 90);
+		}
 	}
 
 	void Play::End()

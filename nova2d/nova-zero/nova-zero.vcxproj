@@ -201,6 +201,7 @@
     <ClCompile Include="src\physics\ai\PhySimpleFollower.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleWeakAI.cpp" />
     <ClCompile Include="src\physics\PhyBase.cpp" />
+    <ClCompile Include="src\physics\PhyContactFilter.cpp" />
     <ClCompile Include="src\physics\PhyContactListener.cpp" />
     <ClCompile Include="src\physics\PhySensor.cpp" />
     <ClCompile Include="src\physics\PhySprite.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="src\particles\ParticleDestructionListener.h" />
     <ClInclude Include="src\particles\ParticleSystem.h" />
     <ClInclude Include="src\physics\PhyBase.h" />
+    <ClInclude Include="src\physics\PhyContactFilter.h" />
     <ClInclude Include="src\physics\PhyContactListener.h" />
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
     <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />

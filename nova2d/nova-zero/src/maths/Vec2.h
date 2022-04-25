@@ -45,6 +45,8 @@ namespace novazero
 				return (float)floor((angle * (180.0 / 3.141592653589793238463))) + degExtraRotate;
 			}
 
+			static Vec2 UnitVec2FromAngle(float degrees);
+
 			static float Distance(Vec2 a, Vec2 b)
 			{
 				Vec2 m = b.subtract(a);

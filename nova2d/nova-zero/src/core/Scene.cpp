@@ -39,6 +39,8 @@ namespace novazero
 			m_World->SetContactListener(m_ContactListener);
 			m_ParticleDestructionListener = new ParticleDestructionListener();
 			m_World->SetDestructionListener(m_ParticleDestructionListener);
+			m_ContactFilter = new PhyContactFilter();
+			m_World->SetContactFilter(m_ContactFilter);
 
 			b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
 			b2Vec2 lowerRightCorner = b2Vec2((float)Game::s_Width, 0.f);
@@ -143,11 +145,12 @@ namespace novazero
 			}
 		}
 
-		void Scene::AddParticleSystem(const std::string& assetName, Vec2Int size, 
+		ParticleSystem* Scene::AddParticleSystem(const std::string& assetName, Vec2Int size,
 			const std::string& systemName, int32 maxParticles, float particleRadius, unsigned char layer)
 		{
 			ParticleSystem* ps = new ParticleSystem(assetName, size, maxParticles, particleRadius, layer);
 			s_ParticleSystems[systemName] = ps;
+			return ps;
 		}
 
 		ParticleSystem* Scene::GetParticleSystem(const std::string& systemName)

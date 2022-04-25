@@ -11,6 +11,7 @@
 #include "../debug/PhysicsDebug.h"
 #include "../physics/PhyContactListener.h"
 #include "../particles/ParticleDestructionListener.h"
+#include "../physics/PhyContactFilter.h"
 #include "../particles/ParticleSystem.h"
 
 namespace novazero
@@ -37,6 +38,7 @@ namespace novazero
 			b2Vec2* m_Gravity = nullptr;
 
 			PhyContactListener* m_ContactListener = nullptr;
+			PhyContactFilter* m_ContactFilter = nullptr;
 			ParticleDestructionListener* m_ParticleDestructionListener = nullptr;
 
 		public:
@@ -81,7 +83,7 @@ namespace novazero
 
 			static std::map<std::string, ParticleSystem*> s_ParticleSystems;
 			
-			static void AddParticleSystem(const std::string& assetName, Vec2Int size,
+			static ParticleSystem* AddParticleSystem(const std::string& assetName, Vec2Int size,
 				const std::string& systemName, int32 maxParticles, float particleRadius,
 				unsigned char layer);
 
