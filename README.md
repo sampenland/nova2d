@@ -1,4 +1,4 @@
-![nova2d-logo](https://user-images.githubusercontent.com/49030884/157763854-97bc29ea-1284-43d3-b474-6535abd98ee3.svg)
+![nova2d-logo](https://user-images.githubusercontent.com/49030884/165163135-45d789a7-1ddb-4b72-9d30-55cf3b6dd62f.png)
 
 IMPORTANT! If you clone/download this repo, you will need to follow a few steps to get your MSVS Solution working. Here's the [Getting Started Page](https://github.com/sampenland/nova2d/wiki/Getting-Started) which describes those steps.
 
@@ -63,4 +63,3 @@ Also, to get involved in the development by suggesting ideas and features, check
  
  n2dMacros
  - Easy to use MACROs to simplify use of complex functions / lenghtly functions
- 
