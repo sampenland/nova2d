@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 #include "../maths/Vec2.h"
 #include "../core/Positional.h"
 #include "../physics/PhyBase.h"

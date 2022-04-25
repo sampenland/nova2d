@@ -1,5 +1,5 @@
 #pragma once
-#include <Box2D.h>
+#include "Box2D/Box2D.h"
 #include <vector>
 #include "../maths/Maths.h"
 #include "../graphics/Color.h"
@@ -45,12 +45,16 @@ namespace novazero
 			ParticleSystem(const std::string& spriteTexture, Vec2Int size, 
 				int32 maxParticles, float particleRadius, unsigned char layer);
 
+			/*
+				customFilter will make particles NOT collide with anything unless told to			
+			*/
 			int32 CreateParticle(b2ParticleFlag type, Vec2 position, 
-				Vec2 velocity, Color color);
+				Vec2 velocity, Color color, bool customFilter);
 			void RemoveParticle(int32 index);
 
-			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity);
-			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float minAngleDeg, float maxAngleDeg);
+			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, bool customFilter = true);
+			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, 
+				float minAngleDeg, float maxAngleDeg, bool customFilter = true);
 			void Update();
 			void SetLifetime(float minSeconds, float maxSeconds);
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "SDL.h"
 #include "NovaCore.h"
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 
 #include "../input/InputHandler.h"
 #include "../graphics/Window.h"

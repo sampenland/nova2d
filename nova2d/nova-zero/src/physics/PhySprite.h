@@ -1,6 +1,6 @@
 #pragma once
 #include "../graphics/Sprite.h"
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 #include "../maths/Rect.h"
 #include "../physics/PhyBase.h"
 

@@ -51,7 +51,7 @@ namespace testproject
 	{
 		if (n2dMouseJustDown())
 		{
-			n2dGetParticleSystem("ps")->BurstParticles(25, n2dGetMousePosition(SDL_BUTTON_LEFT), 50, 0, 90);
+			n2dGetParticleSystem("ps")->BurstParticles(25, n2dGetMousePosition(SDL_BUTTON_LEFT), 50, 0, 90, false);
 		}
 	}
 

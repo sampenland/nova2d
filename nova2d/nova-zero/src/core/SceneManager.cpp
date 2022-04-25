@@ -2,7 +2,7 @@
 #include "../graphics/Renderer.h"
 #include <algorithm>
 #include "Game.h"
-#include <Box2d.h>
+#include "Box2D/Box2D.h"
 
 namespace novazero
 {

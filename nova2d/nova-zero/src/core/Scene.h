@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include <string>
-#include "Box2D.h"
+#include "Box2D/Box2D.h"
 #include "SDL.h"
 #include "../core/Environment.h"
 #include "../debug/PhysicsDebug.h"
