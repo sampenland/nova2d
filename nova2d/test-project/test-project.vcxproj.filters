@@ -33,6 +33,12 @@
     <ClCompile Include="src\scenes\GameOver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\actors\MiniAlien.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\actors\Human.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\scenes\Play.h">
@@ -50,6 +56,12 @@
     <ClInclude Include="src\scenes\GameOver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\actors\MiniAlien.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\actors\Human.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\ship.png">
@@ -59,6 +71,33 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\Ralph-TX18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\planet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\jets.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\fuel.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\colors.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\miniAlien.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\lander-TX618.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\human.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\jetfire.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

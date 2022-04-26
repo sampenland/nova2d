@@ -17,24 +17,29 @@ namespace testproject
 		EnablePhysics(true);
 		PhysicsEnableDebug(false);
 
-		n2dAssetsLoadAndAddTexture("player", "res/lander-TX518.png");
+		n2dAssetsLoadAndAddTexture("player1", "res/lander-TX518.png");
+		n2dAssetsLoadAndAddTexture("player2", "res/lander-TX618.png");
+
 		n2dAssetsLoadAndAddTexture("alien", "res/Ralph-TX18.png");
 		n2dAssetsLoadAndAddTexture("planet", "res/planet.png");
 		n2dAssetsLoadAndAddTexture("bullet", "res/bullet.png");
 		n2dAssetsLoadAndAddTexture("fuel", "res/fuel.png");
+		n2dAssetsLoadAndAddTexture("mini-alien", "res/miniAlien.png");
+		n2dAssetsLoadAndAddTexture("jetfire", "res/jetfire.png");
+		n2dAssetsLoadAndAddTexture("human", "res/human.png");
 
 		planetDisplay = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
-			Vec2Int(256, 256), 2);
+			Vec2Int(256, 256), 0);
 		planet = new PhySensor("planet", true, Vec2(Game::s_Width - 32, Game::s_Height - 32), 256);
 		n2dReferenceAdd("planet", planet);
 
-		player1 = new Player("player1", Game::GetCenterScreen(), Vec2(32, 32),
+		player1 = new Player("player1", Vec2(Game::s_Width - 64, Game::s_Height - 64), Vec2(32, 32),
 			10);
 		player1->EnableArrowKeys(true);
 		player1->EnabledJoystickController(true, 0);
 		n2dReferenceAdd("player1", player1);
 
-		player2 = new Player("player2", Vec2(Game::GetCenterScreen().x, Game::GetCenterScreen().y + 250), Vec2(32, 32),
+		player2 = new Player("player2", Vec2(Game::s_Width - 64, Game::s_Height - 128), Vec2(32, 32),
 			10);
 		player2->EnableWASD(true);
 		player2->EnabledJoystickController(true, 1);
@@ -42,17 +47,19 @@ namespace testproject
 
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
 
-		ParticleSystem* ps = n2dAddParticleSystem("fuel", Vec2Int(16, 16), "ps", 50, 10, 10);
-		ps->SetLifetime(5, 10);
+		m_HumanCreator = new Timer(1000.f, false, n2dMakeFunc(Play::CreateHuman, this), 10000, 14000);
 
+	}
+
+	void Play::CreateHuman()
+	{
+		Human* h = new Human(Vec2(32, 32));
+		m_Humans.push_back(h);
 	}
 
 	void Play::Update()
 	{
-		if (n2dMouseJustDown())
-		{
-			n2dGetParticleSystem("ps")->BurstParticles(25, n2dGetMousePosition(SDL_BUTTON_LEFT), 50, 0, 90, false);
-		}
+		
 	}
 
 	void Play::End()

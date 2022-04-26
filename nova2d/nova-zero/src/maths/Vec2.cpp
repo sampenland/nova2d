@@ -134,5 +134,21 @@ namespace novazero
 			unitVec.y = sin(rad);
 			return unitVec;
 		}
+
+		Vec2 Vec2::Random(float minX, float maxX, float minY, float maxY)
+		{
+			Vec2 v;
+			v.x = n2dRandomFloat(minX, maxX);
+			v.y = n2dRandomFloat(minY, maxY);
+			return v;
+		}
+
+		Vec2 Vec2::Random(Vec2 min, Vec2 max)
+		{
+			Vec2 v;
+			v.x = n2dRandomFloat(min.x, max.x);
+			v.y = n2dRandomFloat(min.y, max.y);
+			return v;
+		}
 	}
 }

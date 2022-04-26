@@ -26,6 +26,8 @@ namespace testproject
 		void Shoot();
 		void TryMove();
 
+		void CreateMiniAlien();
+
 		void DestroySelf();
 	};
 }

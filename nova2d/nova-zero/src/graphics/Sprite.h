@@ -65,6 +65,7 @@ namespace novazero
 
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
+			float m_SpriteScale = 1.f;
 
 			bool m_Alive = true;
 
@@ -79,6 +80,7 @@ namespace novazero
 			
 			void SetScale(float scale);
 			float GetScale() { return GetDrawScale(); }
+			float* GetScaleRef() { return GetDrawScaleRef(); }
 
 			int GetWidth() const { return m_DestRect.w; }
 			int GetHeight() const { return m_DestRect.h; }

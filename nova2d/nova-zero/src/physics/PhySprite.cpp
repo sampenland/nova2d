@@ -25,14 +25,21 @@ namespace novazero
 			return m_ID;
 		}
 
+		void PhySprite::EnableRotation(bool val)
+		{
+			if (m_Body)
+			{
+				m_Body->SetFixedRotation(!val);
+			}
+		}
+
 		void PhySprite::Update()
 		{
 			if (m_Body && GetSprite())
 			{
 				b2Vec2 bodyPos = m_Body->GetPosition();
 
-				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2,
-					bodyPos.y - GetHeight() / 2));
+				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2, bodyPos.y - GetHeight() / 2));
 
 				GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
 			}
@@ -143,7 +150,7 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX() - GetWidth(), GetY() - GetHeight());
+			bodyDef.position.Set(GetX(), GetY());
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -185,7 +192,7 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);			
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set((GetX() + GetWidth()), (GetY() + GetHeight()));
+			bodyDef.position.Set(GetX(), GetY());
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -319,7 +326,14 @@ namespace novazero
 		{
 			if (m_Body)
 			{
-				m_Body->SetTransform(b2Vec2(position.x + GetWidth() / 2, position.y + GetHeight() / 2), m_Body->GetAngle());
+				if (m_CircleShape)
+				{
+					m_Body->SetTransform(b2Vec2(position.x, position.y), m_Body->GetAngle());
+				}
+				else
+				{
+					m_Body->SetTransform(b2Vec2(position.x + GetWidth() / 2, position.y + GetHeight() / 2), m_Body->GetAngle());
+				}
 			}
 
 			Sprite::SetPosition(position);

@@ -52,6 +52,8 @@ namespace novazero
 			void ConfigurePhysicsCircle(bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
 			void ConfigurePhysicsSensorCircle(bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
 
+			void EnableRotation(bool val);
+
 			/*
 			Force position 0,0 is center of mass
 			*/

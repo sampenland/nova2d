@@ -18,7 +18,7 @@ namespace novazero
 			DrawableCollection* m_DrawableCollection = nullptr;
 			bool m_Visible = true;
 			Vec2Int m_Size;
-			float m_Scale = 1.f;
+			float* m_Scale = nullptr;
 			bool m_Fixed = false; //     WILL NOT MOVE WITH CAMERA if fixed
 			bool m_NonScale = false; //  WILL NOT SCALE WITH CAMERA if non-scale
 
@@ -70,21 +70,26 @@ namespace novazero
 
 			void SetDrawScale(float scale) 
 			{ 
-				m_Scale = scale; 
+				*m_Scale = scale; 
 			}
 			float GetDrawScale() const 
 			{ 
-				return m_Scale; 
+				return *m_Scale; 
+			}
+
+			float* GetDrawScaleRef() const
+			{
+				return m_Scale;
 			}
 
 			int GetWidth() const 
 			{
-				return (int)(m_Size.x * m_Scale);
+				return (int)(m_Size.x * (*m_Scale));
 			}
 
 			int GetHeight() const
 			{
-				return (int)(m_Size.y * m_Scale);
+				return (int)(m_Size.y * (*m_Scale));
 			}
 
 			void SetWidth(int w) 
@@ -101,8 +106,10 @@ namespace novazero
 			Vec2Int GetSize() const { return m_Size; }
 			Vec2 GetCenter() const 
 			{
-				return Vec2(-(GetWidth() * m_Scale) / 2, -(GetHeight() * m_Scale) / 2);
+				return Vec2(-(GetWidth() * (*m_Scale)) / 2, -(GetHeight() * (*m_Scale)) / 2);
 			}
+
+			Vec2 GetCenterWorldPosition() const;
 
 			float GetAngle() const { return m_Angle; }
 

@@ -11,6 +11,8 @@ namespace novazero
 		{
 			m_ID = n2dGameGetID();
 			m_Size = size;
+			m_Scale = new float;
+			*m_Scale = 1.f;
 		};
 
 		void Drawable::SetDrawableCollection(DrawableCollection* collection)
@@ -29,6 +31,11 @@ namespace novazero
 		void Drawable::OriginCenter()
 		{
 			m_Offset = Vec2((float)-GetWidth() / 2, (float)-GetHeight() / 2);
+		}
+
+		Vec2 Drawable::GetCenterWorldPosition() const
+		{
+			return Vec2(GetX() + (GetWidth() / 2), GetY() + (GetHeight() / 2));
 		}
 
 		void Drawable::SetOrigin(float x, float y)

@@ -4,6 +4,7 @@
 #include "../actors/Player.h"
 #include "physics/ai/PhySimpleFollower.h"
 #include "AlienBullet.h"
+#include "MiniAlien.h"
 
 namespace testproject
 {
@@ -16,6 +17,7 @@ namespace testproject
 
 		GetPhysicsSprite()->ConfigurePhysicsRect(false);
 		GetPhysicsSprite()->SetScale(2);
+		GetPhysicsSprite()->EnableRotation(false);
 
 		m_Shooter = new Timer(12000.f, true, n2dMakeFunc(Alien::Shoot, this));
 		Shoot();
@@ -27,6 +29,13 @@ namespace testproject
 		
 		Configure(1, false);
 		EnableAI(true);
+		
+	}
+
+	void Alien::CreateMiniAlien()
+	{
+
+		//MiniAlien* mini = new MiniAlien()
 	}
 
 	void Alien::TryMove()

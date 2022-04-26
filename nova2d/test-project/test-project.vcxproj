@@ -127,6 +127,8 @@
   <ItemGroup>
     <ClCompile Include="src\actors\Alien.cpp" />
     <ClCompile Include="src\actors\AlienBullet.cpp" />
+    <ClCompile Include="src\actors\Human.cpp" />
+    <ClCompile Include="src\actors\MiniAlien.cpp" />
     <ClCompile Include="src\actors\Player.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\scenes\Play.cpp" />
@@ -135,12 +137,23 @@
   <ItemGroup>
     <ClInclude Include="src\actors\Alien.h" />
     <ClInclude Include="src\actors\AlienBullet.h" />
+    <ClInclude Include="src\actors\Human.h" />
+    <ClInclude Include="src\actors\MiniAlien.h" />
     <ClInclude Include="src\actors\Player.h" />
     <ClInclude Include="src\scenes\Play.h" />
     <ClInclude Include="src\scenes\GameOver.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bullet.png" />
+    <Image Include="res\colors.png" />
+    <Image Include="res\fuel.png" />
+    <Image Include="res\human.png" />
+    <Image Include="res\jetfire.png" />
+    <Image Include="res\jets.png" />
     <Image Include="res\lander-TX518.png" />
+    <Image Include="res\lander-TX618.png" />
+    <Image Include="res\miniAlien.png" />
+    <Image Include="res\planet.png" />
     <Image Include="res\Ralph-TX18.png" />
     <Image Include="res\ship.png" />
   </ItemGroup>

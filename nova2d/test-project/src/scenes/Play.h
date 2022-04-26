@@ -3,6 +3,8 @@
 #include "../actors/Player.h"
 #include "../actors/Alien.h"
 #include "physics/PhySensor.h"
+#include "core/Timer.h"
+#include "../actors/Human.h"
 
 namespace testproject
 {
@@ -21,9 +23,14 @@ namespace testproject
 		PhySensor* planet = nullptr;
 		Alien* alien = nullptr;
 
+		Timer* m_HumanCreator = nullptr;
+		std::vector<Human*> m_Humans;
+
 	public:
 
 		Play(const std::string& sceneName);
+
+		void CreateHuman();
 
 		void Start() override;
 

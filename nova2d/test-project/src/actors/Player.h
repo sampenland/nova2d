@@ -2,6 +2,7 @@
 #include "controllers/BasicController.h"
 #include "graphics/Image.h"
 #include "core/Timer.h"
+#include "particles/ParticleSystem.h"
 
 namespace testproject
 {
@@ -9,6 +10,7 @@ namespace testproject
 	using namespace novazero::components;
 	using namespace novazero::graphics;
 	using namespace novazero::core;
+	using namespace novazero::particles;
 
 	using namespace novazero::controllers;
 
@@ -25,12 +27,14 @@ namespace testproject
 
 		Image* m_FuelDisplay[5];
 
+		ParticleSystem* m_Jets = nullptr;
+
 	public:
 
 		Player(const std::string& colliderName, Vec2 position, Vec2 size, unsigned char layer);
 
 		void Update();
-		void Animations();
+		void Jets();
 
 		void FuelManage();
 		void StartFueling();

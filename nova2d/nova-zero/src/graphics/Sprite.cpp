@@ -231,7 +231,10 @@ namespace novazero
 
 		void Sprite::Update()
 		{
-
+			if (m_SpriteScale != GetDrawScale())
+			{
+				SetScale(GetDrawScale());
+			}
 		}
 
 		void Sprite::SetScale(float scale)
@@ -241,6 +244,7 @@ namespace novazero
 
 			m_DestRect.w = (int)(m_FrameSize.x * scale);
 			m_DestRect.h = (int)(m_FrameSize.y * scale);
+			m_SpriteScale = scale;
 		}
 
 		void Sprite::Draw(float oX, float oY, float scale)

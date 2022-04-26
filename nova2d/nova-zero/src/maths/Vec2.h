@@ -54,6 +54,9 @@ namespace novazero
 				return mag;
 			}
 
+			static Vec2 Random(float minX, float maxX, float minY, float maxY);
+			static Vec2 Random(Vec2 min, Vec2 max);
+
 		};
 	}
 }

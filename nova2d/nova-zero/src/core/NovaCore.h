@@ -867,12 +867,14 @@ nova2d Add Reference (std::string referenceName, Referenceable* reference)
 Adds a reference to Referenceable object into Game's Reference Manager
 */
 #define n2dReferenceAdd(referenceName, reference) novazero::core::SceneManager::s_ReferenceManager->AddReference(referenceName, reference);
+#define n2dReferenceGroupAdd(referenceName, reference, groupname) novazero::core::SceneManager::s_ReferenceManager->AddReference(referenceName, reference, groupname);
 
 /*
 nova2d Get Reference (std::string referenceName)
 Gets a reference to Referenceable object from Game's Reference Manager
 */
 #define n2dReferenceGet(referenceName) novazero::core::SceneManager::s_ReferenceManager->GetReferenced(referenceName);
+#define n2dReferenceRandomGroupGet(groupname) novazero::core::SceneManager::s_ReferenceManager->GetRandomReferenceInGroup(groupname);
 
 /*
 nova2d Remove Reference (std::string referenceName)
