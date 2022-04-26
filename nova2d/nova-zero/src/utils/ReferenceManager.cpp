@@ -44,7 +44,12 @@ namespace novazero
 				}
 			}
 
-			int rnd = n2dRandomInt(0, m_Possibles.size() - 1);
+			int rnd = 0;
+			if (m_Possibles.size() > 1)
+			{
+				n2dRandomInt(0, m_Possibles.size() - 1);
+			}
+
 			return m_Possibles[rnd];
 		}
 

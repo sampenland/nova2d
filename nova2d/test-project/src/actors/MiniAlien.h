@@ -1,5 +1,6 @@
 #pragma once
 #include "physics/ai/PhySimpleFollower.h"
+#include "core/Timer.h"
 
 namespace testproject
 {
@@ -11,9 +12,15 @@ namespace testproject
 
 	private:
 
+		Timer* m_ReTargeter = nullptr;
+		Timer* m_Shooter = nullptr;
+
 	public:
 
-		MiniAlien(Vec2 position, Positional* target, float moveDelay);
+		MiniAlien(Vec2 position, float moveDelay);
+
+		void ReTarget();
+		void Shoot();
 
 		void DestroySelf();
 

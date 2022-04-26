@@ -2,6 +2,7 @@
 #include "physics/PhySprite.h"
 #include "physics/ai/PhySimpleWeakAI.h"
 #include "maths/Maths.h"
+#include "MiniAlien.h"
 
 namespace testproject
 {
@@ -19,6 +20,8 @@ namespace testproject
 		Timer* m_Shooter = nullptr;
 		Timer* m_Mover = nullptr;
 
+		std::vector<MiniAlien*> m_MiniAliens;
+
 	public:
 
 		Alien(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
@@ -26,7 +29,7 @@ namespace testproject
 		void Shoot();
 		void TryMove();
 
-		void CreateMiniAlien();
+		void CreateMiniAlien(int count);
 
 		void DestroySelf();
 	};

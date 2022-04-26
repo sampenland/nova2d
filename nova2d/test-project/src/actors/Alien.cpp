@@ -4,7 +4,6 @@
 #include "../actors/Player.h"
 #include "physics/ai/PhySimpleFollower.h"
 #include "AlienBullet.h"
-#include "MiniAlien.h"
 
 namespace testproject
 {
@@ -32,10 +31,16 @@ namespace testproject
 		
 	}
 
-	void Alien::CreateMiniAlien()
+	void Alien::CreateMiniAlien(int count)
 	{
+		float x = GetX() + 16;
+		float y = GetY() - 16;
 
-		//MiniAlien* mini = new MiniAlien()
+		for (int i = 0; i < count; i++)
+		{
+			MiniAlien* mini = new MiniAlien(Vec2(x, y + (i * 16)), 500);
+			m_MiniAliens.push_back(mini);
+		}
 	}
 
 	void Alien::TryMove()
@@ -49,6 +54,7 @@ namespace testproject
 
 	void Alien::Shoot()
 	{
+		return;
 		Player* p;
 
 		if (n2dCoinFlip())

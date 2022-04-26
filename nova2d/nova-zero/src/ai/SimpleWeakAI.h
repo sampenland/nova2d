@@ -48,6 +48,8 @@ namespace novazero
 
 			bool m_UsingPatrolSpeedOverride = false;
 			float* m_PatrolSpeedRef = nullptr;
+			bool m_LookAtNextPosition = false;
+			float m_ExtraAngle = 0.f;
 
 		public:
 
@@ -66,6 +68,12 @@ namespace novazero
 				m_PatrolSpeedRef = patrolDelayMS;
 				m_LoopMoving = loop;
 				m_UsingPatrolSpeedOverride = true;
+			}
+
+			void ConfigureRotation(bool lookatNextPosition, float extraRotation)
+			{
+				m_LookAtNextPosition = lookatNextPosition;
+				m_ExtraAngle = extraRotation;
 			}
 
 			void LookAt(Vec2Int target, int extraRotation)

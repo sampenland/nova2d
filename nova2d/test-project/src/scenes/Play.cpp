@@ -27,6 +27,7 @@ namespace testproject
 		n2dAssetsLoadAndAddTexture("mini-alien", "res/miniAlien.png");
 		n2dAssetsLoadAndAddTexture("jetfire", "res/jetfire.png");
 		n2dAssetsLoadAndAddTexture("human", "res/human.png");
+		n2dAssetsLoadAndAddTexture("mini-alien-bullet", "res/mini-alien-bullet.png");
 
 		planetDisplay = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
 			Vec2Int(256, 256), 0);
@@ -46,6 +47,7 @@ namespace testproject
 		n2dReferenceAdd("player2", player2);
 
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
+		n2dReferenceAdd("alien", alien);
 
 		m_HumanCreator = new Timer(1000.f, false, n2dMakeFunc(Play::CreateHuman, this), 10000, 14000);
 
@@ -55,6 +57,8 @@ namespace testproject
 	{
 		Human* h = new Human(Vec2(32, 32));
 		m_Humans.push_back(h);
+
+		alien->CreateMiniAlien(1);
 	}
 
 	void Play::Update()

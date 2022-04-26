@@ -182,6 +182,11 @@ namespace novazero
 				Vec2 targetPos = Vec2((*(m_PatrolPoints.at(m_PatrolIndex))).x, (*(m_PatrolPoints.at(m_PatrolIndex))).y);
 				Vec2 dirNormVector = targetPos;
 
+				if (m_LookAtNextPosition)
+				{
+					m_Angle = Vec2::LookAtAngle(currentPos, targetPos, m_ExtraAngle);
+				}
+
 				dirNormVector.subtract(currentPos).normalize();
 
 				if (m_UsingPatrolSpeedOverride)

@@ -48,6 +48,11 @@ namespace novazero
 			m_Target = target;
 		}
 
+		Positional* SimpleFollower::GetTarget() const
+		{
+			return m_Target;
+		}
+
 		void SimpleFollower::UpdateFollower()
 		{
 			if (!m_Sprite && !m_PhySprite)
@@ -62,7 +67,8 @@ namespace novazero
 				waiting = true;
 			}
 
-			if (m_Target == nullptr) return;
+			if (m_Target == nullptr) 
+				return;
 
 			if (m_UsingPhySprite)
 			{
