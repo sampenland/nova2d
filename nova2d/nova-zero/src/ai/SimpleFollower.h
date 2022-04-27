@@ -28,8 +28,9 @@ namespace novazero
 		private:
 
 			Positional* m_Target;
-			Vec2Int m_TargetOffset;
-			float m_MissRange = 64.f;
+			Vec2Int m_ScatterOffset = Vec2Int(128, 128);
+			int m_DelayScatter = 0;
+			float m_InRange = 64.f;
 
 			float m_UpdateDirectionDelay = 0;
 			float m_DelayTime = 0;
@@ -47,7 +48,6 @@ namespace novazero
 			PhySensor* m_Sensor = nullptr;
 
 			float m_MoveSpeed = 0;
-			bool m_UsingPhySprite = false;
 
 		public:
 
@@ -66,10 +66,10 @@ namespace novazero
 			PhySprite* GetPhySprite() { return m_PhySprite; }
 
 			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
-			void ConfigureMissRange(float distance);
+			void ConfigureInRange(float distanceToBeInRange);
 			void ConfigureTarget(Positional* target);
 			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
-			void Offset(Vec2Int offset) { m_TargetOffset = offset; }
+			void ConfigureScatterOffset(Vec2Int offset) { m_ScatterOffset = offset; }
 			
 			Positional* GetTarget() const;
 

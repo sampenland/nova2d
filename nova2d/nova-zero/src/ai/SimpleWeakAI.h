@@ -34,12 +34,12 @@ namespace novazero
 			std::vector<std::function<void()>> m_MoveFunctions;
 
 			bool m_LoopMoving = true;
-			int m_PatrolIndex = -1;
+			int m_PatrolIndex = 0;
 
 			int m_LoopStartIndex = 0;
 			std::function<void()> f_OnPatrolComplete = nullptr;
 			float m_DelayMS = 1000;
-			float m_DelayMaxMS = 1000;
+			float m_DelayMaxMS = 100;
 
 			Vec2 m_MemoryMovement;
 			bool m_ContinueAfterPatrolComplete = false;
@@ -59,6 +59,7 @@ namespace novazero
 			{ 
 				m_DelayMaxMS = (float)(patrolDelayMS / 1000);
 				m_DelayMS = m_DelayMaxMS;
+
 				m_LoopMoving = true;
 				m_UsingPatrolSpeedOverride = false;
 			}

@@ -49,7 +49,7 @@ namespace testproject
 		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
 		n2dReferenceAdd("alien", alien);
 
-		m_HumanCreator = new Timer(1000.f, false, n2dMakeFunc(Play::CreateHuman, this), 10000, 14000);
+		m_HumanCreator = new Timer(1000.f, true, n2dMakeFunc(Play::CreateHuman, this), 15000, 28000);
 
 	}
 
@@ -59,27 +59,13 @@ namespace testproject
 		Human* human = new Human(Vec2(32, 32), humanSkill);
 		m_Humans.push_back(human);
 
-		float x = alien->GetX() + 16;
-		float y = alien->GetY() - 16;
+		float x = alien->GetX() - 16;
+		float y = alien->GetY() - 42;
 
-		MiniAlien* lastMini = nullptr;
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 3; i++)
 		{
-			Positional* target = nullptr;
-			
-			if (i == 0)
-			{
-				target = human;
-			}
-			else
-			{
-				target = lastMini;
-			}
-
-			lastMini = alien->CreateMiniAlien(target, Vec2(x, y + (i * 16)));
-		}
-
-		
+			alien->CreateMiniAlien(human, Vec2(x, y + (i * 48)));
+		}		
 	}
 
 	void Play::Update()

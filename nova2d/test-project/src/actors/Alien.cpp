@@ -33,9 +33,11 @@ namespace testproject
 
 	MiniAlien* Alien::CreateMiniAlien(Positional* target, Vec2 position)
 	{
-		float moveDelay = n2dRandomFloat(10, 100);
+		float moveDelay = n2dRandomFloat(10, 50);
 		MiniAlien* mini = new MiniAlien(target, position, moveDelay);
-		mini->Offset(Vec2Int(100, 100));
+		
+		mini->ConfigureScatterOffset(Vec2Int(128, 128));
+		mini->ConfigureInRange(200);
 		m_MiniAliens.push_back(mini);
 		return mini;
 	}

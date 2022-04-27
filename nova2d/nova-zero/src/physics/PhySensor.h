@@ -54,6 +54,12 @@ namespace novazero
 			PhySensor(std::string colliderName, bool staticBody,
 				Vec2 position, float radius, float density = 0.5f, float friction = 0.3f);
 			
+			void SetBodyPosition(Vec2 position)
+			{
+				if(m_Body)
+					m_Body->SetTransform(b2Vec2(position.x, position.y), m_Body->GetAngle());
+			}
+
 			unsigned int GetPhyID() const override;
 
 			void DestroySelf();

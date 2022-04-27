@@ -1,6 +1,7 @@
 #include "SimpleWeakAI.h"
 #include "../logging/logging.h"
 #include "../core/Game.h"
+#include "../physics/PhySprite.h"
 
 namespace novazero
 {
@@ -13,6 +14,8 @@ namespace novazero
 
 			auto cleanID = n2dAddUpdater(SimpleWeakAI::Update, this);
 			m_CleanUpdaters.push_back(cleanID);
+
+			Configure(10, false);
 		}
 
 		void SimpleWeakAI::EnableAI(bool isEnabled)
@@ -184,7 +187,16 @@ namespace novazero
 
 				if (m_LookAtNextPosition)
 				{
-					m_Angle = Vec2::LookAtAngle(currentPos, targetPos, m_ExtraAngle);
+					float angle = Vec2::LookAtAngle(currentPos, targetPos, m_ExtraAngle);
+					if (GetSprite())
+					{
+						GetSprite()->SetAngle(angle);
+					}
+					
+					if (GetPhySprite())
+					{
+						GetPhySprite()->SetAngle(angle);
+					}
 				}
 
 				dirNormVector.subtract(currentPos).normalize();

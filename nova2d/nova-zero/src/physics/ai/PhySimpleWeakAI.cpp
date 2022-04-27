@@ -17,6 +17,8 @@ namespace novazero
 				m_Sprite->OriginCenter();
 				LinkPositionalDrawable(m_Sprite);
 
+				Positional::SetPosition(position);
+
 				auto cleanID = n2dAddUpdater(PhySimpleWeakAI::Update, this);
 				m_CleanUpdaters.push_back(cleanID);
 			}

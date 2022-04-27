@@ -294,6 +294,11 @@ namespace novazero
 
 		void Sprite::DestroySelf()
 		{
+			if (n2dDebugVerbose)
+			{
+				LOGS("[Deleted]: " + m_AssetName + "_" + tostring(m_ID));
+			}
+
 			m_Alive = 0;
 			CleanUpdaters();
 			n2dRemoveDrawable(m_ID, m_Layer);

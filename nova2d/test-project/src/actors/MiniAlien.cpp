@@ -12,9 +12,9 @@ namespace testproject
 		: PhySimpleFollower(target, moveDelay)
 	{
 		AddSprite("mini-alien", position, Vec2Int(32, 32), 2);
-		AddPhySensor("mini-alien", false, position, 30);
+		AddPhySensor("mini-alien", false, position, 24);
 
-		float wait = n2dRandomFloat(1000.f, 5000.f);
+		float wait = n2dRandomFloat(100.f, 10000.f);
 		Configure(2, wait);
 
 		m_ReTargeter = new Timer(1000, true, n2dMakeFunc(MiniAlien::ReTarget, this), 5000, 10000);
@@ -43,7 +43,8 @@ namespace testproject
 
 		PhySimpleWeakAI* bullet = new PhySimpleWeakAI("mini-alien-bullet", GetSprite()->GetCenterWorldPosition(),
 			Vec2(16, 16), 2, Vec2Int(16, 16), "mini-alien-bullet");
-		bullet->ConfigureRotation(true, 0);
+		bullet->LookAt(PhySimpleFollower::GetTarget()->GetPositionInt(), 90);
+		
 		Vec2 targetPos = PhySimpleFollower::GetTarget()->GetPosition();
 		bullet->AddPatrolPointWithFunction(targetPos, bullet->GetLinearPatrolMove());
 		bullet->ConfigureOnPatrolComplete([=]() {

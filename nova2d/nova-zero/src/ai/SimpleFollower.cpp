@@ -23,22 +23,20 @@ namespace novazero
 			Deleteable::m_CleanUpdaters.push_back(id);
 		}
 
-		void SimpleFollower::ConfigureMissRange(float distance)
+		void SimpleFollower::ConfigureInRange(float distanceToBeInRange)
 		{
-			m_MissRange = distance;
+			m_InRange = distanceToBeInRange;
 		}
 
 		void SimpleFollower::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
-			m_UsingPhySprite = false;
 		}
 
 		void SimpleFollower::AddPhySprite(const std::string& assetName, Vec2 position, 
 			Vec2 size, unsigned char layer, Vec2Int displaySize, const std::string& colliderName)
 		{
 			m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
-			m_UsingPhySprite = true;
 		}
 
 		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, float density, float friction)
@@ -91,7 +89,7 @@ namespace novazero
 			if (m_Target == nullptr) 
 				return;
 
-			if (m_UsingPhySprite)
+			if (m_PhySprite)
 			{
 				if (OutOfBounds(m_PhySprite))
 				{
@@ -99,7 +97,8 @@ namespace novazero
 					return;
 				}
 			}
-			else
+			
+			if(m_Sprite)
 			{
 				if (OutOfBounds(m_Sprite))
 				{
@@ -118,7 +117,7 @@ namespace novazero
 
 			float x, y;
 
-			if (m_UsingPhySprite)
+			if (m_PhySprite)
 			{
 				x = (float)m_PhySprite->GetX();
 				y = (float)m_PhySprite->GetY();
@@ -136,21 +135,59 @@ namespace novazero
 
 			if (!waiting)
 			{
-				newX = x < m_Target->GetX() + m_TargetOffset.x ? x + speed : x - speed;
-				newY = y < m_Target->GetY() + m_TargetOffset.y ? y + speed : y - speed;
+				newX = x < m_Target->GetX() + m_ScatterOffset.x ? x + speed : x - speed;
+				newY = y < m_Target->GetY() + m_ScatterOffset.y ? y + speed : y - speed;
 
-				if (x == m_Target->GetX() + m_TargetOffset.x) newX = x;
-				if (y == m_Target->GetY() + m_TargetOffset.y) newY = y;
+				if (x == m_Target->GetX() + m_ScatterOffset.x)
+				{
+					newX = x;
+				}
+
+				if (y == m_Target->GetY() + m_ScatterOffset.y)
+				{
+					newY = y;
+				}
+
+				Vec2 targetPos = m_Target->GetPosition();
+				Vec2 currentPos = Vec2(newX, newY);
+
+				float currentDistance = Vec2::Distance(targetPos, currentPos);
+				bool atTarget = currentDistance < m_InRange;
+
+				if (atTarget && m_DelayScatter > 25)
+				{
+					m_DelayScatter = 0;
+
+					// Randomize miss
+					Vec2Int size = GetSprite()->GetSize();
+					m_ScatterOffset.y = n2dRandomInt(32, std::abs(m_ScatterOffset.x) + 32);
+					m_ScatterOffset.x = n2dRandomInt(32, std::abs(m_ScatterOffset.y) + 32);
+					
+					if (n2dCoinFlip())
+					{
+						m_ScatterOffset.x *= -1;
+					}
+
+					if (n2dCoinFlip())
+					{
+						m_ScatterOffset.y *= -1;
+					}
+				}
+				else
+				{
+					m_DelayScatter++;
+				}
 
 				m_MoveAngleDegrees = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), 0);
 				if (m_LookAtTarget)
 				{
 					float lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), m_LookAtDegAdd);
-					if (m_UsingPhySprite)
+					if (m_PhySprite)
 					{
 						m_PhySprite->SetAngle(lookAtAngle);
 					}
-					else
+					
+					if(m_Sprite)
 					{
 						m_Sprite->SetAngle(lookAtAngle);
 					}
@@ -168,11 +205,17 @@ namespace novazero
 			Vec2 newPos = Vec2(newX, newY);
 			SetPosition(newPos);
 
-			if (m_UsingPhySprite)
+			if (m_Sensor)
+			{
+				m_Sensor->SetBodyPosition(Vec2(newPos.x + GetSprite()->GetWidth() / 2, newPos.y + GetSprite()->GetHeight() / 2));
+			}
+
+			if (m_PhySprite)
 			{
 				m_PhySprite->SetPosition(newPos);
 			}
-			else
+			
+			if(m_Sprite)
 			{
 				m_Sprite->SetPosition(newPos);
 			}
