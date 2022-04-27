@@ -26,7 +26,7 @@ namespace testproject
 		n2dAddCollision(GetPhySprite(), (PhyBase*)planet,
 			n2dMakeFunc(Player::StartFueling, this), n2dMakeFunc(Player::StopFueling, this));
 
-		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), colliderName + "-jets", 100, 4, 1);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), colliderName + "-jets", 80, 4, 1);
 		m_Jets->SetLifetime(0.5f, 1.2f);
 		
 	}

@@ -142,6 +142,7 @@ namespace novazero
 				if (x == m_Target->GetX() + m_TargetOffset.x) newX = x;
 				if (y == m_Target->GetY() + m_TargetOffset.y) newY = y;
 
+				m_MoveAngleDegrees = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), 0);
 				if (m_LookAtTarget)
 				{
 					float lookAtAngle = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), m_LookAtDegAdd);

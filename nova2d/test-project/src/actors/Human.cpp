@@ -10,6 +10,7 @@ namespace testproject
 		: PhySimpleWeakAI("human", position, Vec2(32, 32), 2, Vec2Int(32, 32), "human"), m_Skill(skill)
 	{
 		GetPhySprite()->ConfigurePhysicsCircle(false, 20);
+		GetPhySprite()->EnableRotation(false);
 		
 		m_MoveTimer = new Timer(2000.f, true, n2dMakeFunc(Human::Move, this), 5000, 10000);
 		Move();

@@ -37,6 +37,8 @@ namespace novazero
 			float m_WaitDelay = 0;
 			Vec2Int m_WaitTarget;
 			bool m_LookAtTarget = false;
+
+			float m_MoveAngleDegrees = 0.f;
 			
 		protected:
 
@@ -70,6 +72,11 @@ namespace novazero
 			void Offset(Vec2Int offset) { m_TargetOffset = offset; }
 			
 			Positional* GetTarget() const;
+
+			float GetMoveAngleDegrees() const
+			{
+				return m_MoveAngleDegrees;
+			}
 
 			void UpdateFollower();
 
