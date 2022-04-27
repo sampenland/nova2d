@@ -135,6 +135,7 @@ namespace novazero
 				{
 					removeIDs.push_back(it->first);
 					delete it->second;
+					it->second = nullptr;
 				}
 			}
 

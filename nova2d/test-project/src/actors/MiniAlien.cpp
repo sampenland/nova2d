@@ -20,7 +20,8 @@ namespace testproject
 		m_ReTargeter = new Timer(1000, true, n2dMakeFunc(MiniAlien::ReTarget, this), 5000, 10000);
 		m_Shooter = new Timer(1000, true, n2dMakeFunc(MiniAlien::Shoot, this), 2500, 5000);
 
-		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + tostring(Positional::m_ID), 80, 4, 1);
+		std::string id = tostring(Positional::m_ID);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 80, 4, 1);
 		m_Jets->SetLifetime(0.5f, 1.2f);
 
 		auto cleanID = n2dAddUpdater(MiniAlien::UpdateMiniAlien, this);
@@ -30,19 +31,9 @@ namespace testproject
 
 	void MiniAlien::UpdateMiniAlien()
 	{
-		static int delay = 0;
-		
-		if (delay < 5)
-		{
-			delay++;
-			return;
-		}
-
-		delay = 0;
-
 		float degrees = GetMoveAngleDegrees();
 		Vec2 jetPos = GetSprite()->GetCenterWorldPosition();
-		m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y + 6), 10, degrees - 30, degrees + 30);
+		m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y + 6), 10, degrees - 90, degrees + 90);
 	}
 
 	void MiniAlien::Shoot()

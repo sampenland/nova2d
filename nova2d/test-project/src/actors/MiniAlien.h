@@ -17,7 +17,7 @@ namespace testproject
 		Timer* m_ReTargeter = nullptr;
 		Timer* m_Shooter = nullptr;
 
-		ParticleSystem* m_Jets;
+		ParticleSystem* m_Jets = nullptr;
 
 	public:
 

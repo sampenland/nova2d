@@ -21,8 +21,29 @@ namespace testproject
 		EnableAI(true);
 		Configure(555, false);
 
+		std::string id = tostring(Positional::m_ID);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 80, 4, 1);
+		m_Jets->SetLifetime(0.5f, 1.2f);
+
 		n2dReferenceGroupAdd("human_" + m_ID, this, "humans");
 
+		auto cleanID = n2dAddUpdater(Human::HumanUpdate, this);
+		m_CleanUpdaters.push_back(cleanID);
+
+	}
+
+	void Human::HumanUpdate()
+	{
+		if (!GetPhysicsSprite())
+			return;
+
+		if (!GetPhysicsSprite()->GetBody())
+			return;
+
+		float rads = GetPhySprite()->GetBody()->GetAngle() + PI;
+		float degrees = n2dRadToDeg(rads);
+		Vec2 jetPos = GetPhysicsSprite()->GetCenterWorldPosition();
+		m_Jets->BurstParticles(1, Vec2(jetPos.x - GetWidth() / 2, jetPos.y - GetHeight() / 2), 10, degrees - 90, degrees + 90);
 	}
 
 	void Human::AtPlanet()
