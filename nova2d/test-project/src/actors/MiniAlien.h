@@ -17,7 +17,7 @@ namespace testproject
 
 	public:
 
-		MiniAlien(Vec2 position, float moveDelay);
+		MiniAlien(Positional* target, Vec2 position, float moveDelay);
 
 		void ReTarget();
 		void Shoot();

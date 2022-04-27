@@ -55,10 +55,31 @@ namespace testproject
 
 	void Play::CreateHuman()
 	{
-		Human* h = new Human(Vec2(32, 32));
-		m_Humans.push_back(h);
+		int humanSkill = n2dRandomInt(3, 8);
+		Human* human = new Human(Vec2(32, 32), humanSkill);
+		m_Humans.push_back(human);
 
-		alien->CreateMiniAlien(1);
+		float x = alien->GetX() + 16;
+		float y = alien->GetY() - 16;
+
+		MiniAlien* lastMini = nullptr;
+		for (int i = 0; i < 1; i++)
+		{
+			Positional* target = nullptr;
+			
+			if (i == 0)
+			{
+				target = human;
+			}
+			else
+			{
+				target = lastMini;
+			}
+
+			lastMini = alien->CreateMiniAlien(target, Vec2(x, y + (i * 16)));
+		}
+
+		
 	}
 
 	void Play::Update()

@@ -5,6 +5,8 @@
 #include "../core/TimerWatcher.h"
 #include "../core/Meta.h"
 #include "../physics/PhySprite.h"
+#include "../physics/PhySensor.h"
+#include "../core/Positional.h"
 
 namespace novazero
 {
@@ -18,6 +20,7 @@ namespace novazero
 		class SimpleFollower : 
 			public EventListener,
 			public BoundUser,
+			public Positional,
 			public TimerWatcher,
 			public Meta
 		{
@@ -26,6 +29,7 @@ namespace novazero
 
 			Positional* m_Target;
 			Vec2Int m_TargetOffset;
+			float m_MissRange = 64.f;
 
 			float m_UpdateDirectionDelay = 0;
 			float m_DelayTime = 0;
@@ -35,8 +39,11 @@ namespace novazero
 			bool m_LookAtTarget = false;
 			
 		protected:
+
 			Sprite* m_Sprite = nullptr;
 			PhySprite* m_PhySprite = nullptr;
+			PhySensor* m_Sensor = nullptr;
+
 			float m_MoveSpeed = 0;
 			bool m_UsingPhySprite = false;
 
@@ -47,10 +54,17 @@ namespace novazero
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 			void AddPhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
 				unsigned char layer, Vec2Int displaySize, const std::string& colliderName);
+
+			void AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, float density = 0.5f, float friction = 0.3f);
+			void AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density = 0.5f, float friction = 0.3f);
+			void AddPhySensor(std::string colliderName, bool staticBody,
+				Vec2 position, float radius, float density = 0.5f, float friction = 0.3f);
+
 			Sprite* GetSprite() { return m_Sprite; }
 			PhySprite* GetPhySprite() { return m_PhySprite; }
 
 			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
+			void ConfigureMissRange(float distance);
 			void ConfigureTarget(Positional* target);
 			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
 			void Offset(Vec2Int offset) { m_TargetOffset = offset; }

@@ -31,16 +31,13 @@ namespace testproject
 		
 	}
 
-	void Alien::CreateMiniAlien(int count)
+	MiniAlien* Alien::CreateMiniAlien(Positional* target, Vec2 position)
 	{
-		float x = GetX() + 16;
-		float y = GetY() - 16;
-
-		for (int i = 0; i < count; i++)
-		{
-			MiniAlien* mini = new MiniAlien(Vec2(x, y + (i * 16)), 500);
-			m_MiniAliens.push_back(mini);
-		}
+		float moveDelay = n2dRandomFloat(10, 100);
+		MiniAlien* mini = new MiniAlien(target, position, moveDelay);
+		mini->Offset(Vec2Int(100, 100));
+		m_MiniAliens.push_back(mini);
+		return mini;
 	}
 
 	void Alien::TryMove()

@@ -23,6 +23,11 @@ namespace novazero
 			Deleteable::m_CleanUpdaters.push_back(id);
 		}
 
+		void SimpleFollower::ConfigureMissRange(float distance)
+		{
+			m_MissRange = distance;
+		}
+
 		void SimpleFollower::AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer)
 		{
 			m_Sprite = new Sprite(assetName, position, size, layer);
@@ -34,6 +39,22 @@ namespace novazero
 		{
 			m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
 			m_UsingPhySprite = true;
+		}
+
+		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, float density, float friction)
+		{
+			m_Sensor = new PhySensor(colliderName, staticBody, position, size, density, friction);
+		}
+
+		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
+		{
+			m_Sensor = new PhySensor(colliderName, staticBody, position, shapeVertices, vertexCount, density, friction);
+		}
+
+		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody,
+			Vec2 position, float radius, float density, float friction)
+		{
+			m_Sensor = new PhySensor(colliderName, staticBody, position, radius, density, friction);
 		}
 
 		void SimpleFollower::Configure(float moveSpeed, float delayStart, Vec2Int waitTargetPos)
@@ -143,13 +164,16 @@ namespace novazero
 				}
 			}
 
+			Vec2 newPos = Vec2(newX, newY);
+			SetPosition(newPos);
+
 			if (m_UsingPhySprite)
 			{
-				m_PhySprite->SetPosition(Vec2(newX, newY));
+				m_PhySprite->SetPosition(newPos);
 			}
 			else
 			{
-				m_Sprite->SetPosition(Vec2(newX, newY));
+				m_Sprite->SetPosition(newPos);
 			}
 
 		}
@@ -163,6 +187,9 @@ namespace novazero
 
 			if (m_PhySprite)
 				m_PhySprite->DestroySelf();
+
+			if (m_Sensor)
+				m_Sensor->DestroySelf();
 
 			m_Destroyed = true;
 			m_Alive = false;

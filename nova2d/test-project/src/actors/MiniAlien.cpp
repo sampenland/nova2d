@@ -8,13 +8,14 @@ namespace testproject
 	using namespace novazero::physics::ai;
 	using namespace novazero::core;
 
-	MiniAlien::MiniAlien(Vec2 position, float moveDelay) 
-		: PhySimpleFollower(nullptr, moveDelay)
+	MiniAlien::MiniAlien(Positional* target, Vec2 position, float moveDelay) 
+		: PhySimpleFollower(target, moveDelay)
 	{
-		AddPhySprite("mini-alien", position, Vec2(32, 32), 2, Vec2Int(32, 32), "mini-alien");
-		GetPhySprite()->ConfigurePhysicsCircle(false, 20);
+		AddSprite("mini-alien", position, Vec2Int(32, 32), 2);
+		AddPhySensor("mini-alien", false, position, 30);
 
-		Configure(2, 1000.f);
+		float wait = n2dRandomFloat(1000.f, 5000.f);
+		Configure(2, wait);
 
 		m_ReTargeter = new Timer(1000, true, n2dMakeFunc(MiniAlien::ReTarget, this), 5000, 10000);
 		m_Shooter = new Timer(1000, true, n2dMakeFunc(MiniAlien::Shoot, this), 2500, 5000);
@@ -26,8 +27,7 @@ namespace testproject
 		if (!PhySimpleFollower::GetTarget())
 			return;
 
-		LOGS(GetPhySprite()->GetCenterWorldPosition());
-		PhySimpleWeakAI* bullet = new PhySimpleWeakAI("mini-alien-bullet", GetPhySprite()->GetCenterWorldPosition(),
+		PhySimpleWeakAI* bullet = new PhySimpleWeakAI("mini-alien-bullet", GetSprite()->GetCenterWorldPosition(),
 			Vec2(16, 16), 2, Vec2Int(16, 16), "mini-alien-bullet");
 		bullet->ConfigureRotation(true, 0);
 		Vec2 targetPos = PhySimpleFollower::GetTarget()->GetPosition();

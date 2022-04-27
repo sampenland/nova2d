@@ -29,7 +29,7 @@ namespace testproject
 		void Shoot();
 		void TryMove();
 
-		void CreateMiniAlien(int count);
+		MiniAlien* CreateMiniAlien(Positional* target, Vec2 position);
 
 		void DestroySelf();
 	};

@@ -6,8 +6,8 @@ namespace testproject
 	using namespace novazero::physics::ai;
 	using namespace novazero::physics;
 
-	Human::Human(Vec2 position)
-		: PhySimpleWeakAI("human", position, Vec2(32, 32), 2, Vec2Int(32, 32), "human")
+	Human::Human(Vec2 position, int skill)
+		: PhySimpleWeakAI("human", position, Vec2(32, 32), 2, Vec2Int(32, 32), "human"), m_Skill(skill)
 	{
 		GetPhySprite()->ConfigurePhysicsCircle(false, 20);
 		
@@ -18,7 +18,7 @@ namespace testproject
 		n2dAddCollision(GetPhysicsSprite(), (PhyBase*)planet, n2dMakeFunc(Human::AtPlanet, this), nullptr);
 
 		EnableAI(true);
-		Configure(850, false);
+		Configure(555, false);
 
 		n2dReferenceGroupAdd("human_" + m_ID, this, "humans");
 
@@ -34,11 +34,12 @@ namespace testproject
 
 	void Human::Move()
 	{
-		static bool headToPlanet = false;
-		headToPlanet = !headToPlanet;
+		static int headToPlanet = 0;
+		headToPlanet++;
 
-		if (headToPlanet)
+		if (headToPlanet >= m_Skill)
 		{
+			headToPlanet = 0;
 			ClearPatrol();
 			AddPatrolPointWithFunction(Vec2(Game::s_Width - 32, Game::s_Height - 32), GetLinearPatrolMove());
 		}

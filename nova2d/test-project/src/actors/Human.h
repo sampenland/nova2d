@@ -13,10 +13,11 @@ namespace testproject
 	private:
 
 		Timer* m_MoveTimer = nullptr;
+		int m_Skill = 8;
 
 	public:
 
-		Human(Vec2 position);
+		Human(Vec2 position, int skill = 8);
 
 		void Move();
 		void AtPlanet();

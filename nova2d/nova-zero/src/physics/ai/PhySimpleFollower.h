@@ -16,15 +16,9 @@ namespace novazero
 
 			private:
 
-				PhySprite* m_Sprite = nullptr;
-
 			public:
 
 				PhySimpleFollower(Positional* target, float moveDelay);
-
-				void AddPhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
-					unsigned char layer, Vec2Int displaySize, const std::string& colliderName);
-				PhySprite* GetPhySprite() const;
 
 				void Update();
 
