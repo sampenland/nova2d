@@ -46,6 +46,7 @@ namespace novazero
 			}
 
 			static Vec2 UnitVec2FromAngle(float degrees);
+			static float AngleFromVec2(Vec2 vec);
 
 			static float Distance(Vec2 a, Vec2 b)
 			{

@@ -28,6 +28,8 @@ namespace testproject
 
 		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), colliderName + "-jets", 80, 4, 1);
 		m_Jets->SetLifetime(0.5f, 1.2f);
+
+		m_ShootArea = new PhySensor(colliderName + "_shootArea", false, position, 128);
 		
 	}
 
@@ -39,6 +41,11 @@ namespace testproject
 	void Player::StopFueling()
 	{
 		m_Fueling = false;
+	}
+
+	void Player::ShootArea()
+	{
+		m_ShootArea->SetBodyPosition(GetPosition() + m_ShootAreaOffset);
 	}
 
 	void Player::FuelManage()
@@ -99,6 +106,7 @@ namespace testproject
 		FuelManage();
 
 		Jets();
+		ShootArea();
 	}
 
 	void Player::Jets()
@@ -109,10 +117,15 @@ namespace testproject
 			{
 				if (GetMoving())
 				{
-					float radians = GetPhySprite()->GetBody()->GetAngle() + PI;
-					float degrees = n2dRadToDeg(radians);
+					b2Vec2 linearVel = GetPhySprite()->GetBody()->GetLinearVelocity();
+					float degrees = Vec2::AngleFromVec2(Vec2(linearVel.x, linearVel.y));
+					
+					Vec2 unitVec = Vec2::UnitVec2FromAngle(degrees);
+					unitVec.multiply(Vec2(128, 128));					
+					m_ShootAreaOffset = unitVec;
+
 					Vec2 jetPos = GetPhySprite()->GetCenterWorldPosition();
-					m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y - 8) , 10, degrees - 30, degrees + 30);
+					m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y - 8) , 10);
 				}
 			}
 		}

@@ -135,6 +135,12 @@ namespace novazero
 			return unitVec;
 		}
 
+		float Vec2::AngleFromVec2(Vec2 vec)
+		{
+			float rad = std::atan2(vec.y, vec.x);
+			return n2dRadToDeg(rad);
+		}
+
 		Vec2 Vec2::Random(float minX, float maxX, float minY, float maxY)
 		{
 			Vec2 v;

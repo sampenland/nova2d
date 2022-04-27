@@ -12,6 +12,7 @@ namespace testproject
 		: PhySimpleFollower(target, moveDelay)
 	{
 		AddSprite("mini-alien", position, Vec2Int(32, 32), 2);
+		GetSprite()->AddAnimation("drive", 0, 4, 10, true, nullptr);
 		AddPhySensor("mini-alien", false, position, 24);
 
 		float wait = n2dRandomFloat(100.f, 10000.f);
@@ -21,8 +22,8 @@ namespace testproject
 		m_Shooter = new Timer(1000, true, n2dMakeFunc(MiniAlien::Shoot, this), 2500, 5000);
 
 		std::string id = tostring(Positional::m_ID);
-		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 80, 4, 1);
-		m_Jets->SetLifetime(0.5f, 1.2f);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 40, 4, 1);
+		m_Jets->SetLifetime(0.32f, 0.85f);
 
 		auto cleanID = n2dAddUpdater(MiniAlien::UpdateMiniAlien, this);
 		m_CleanUpdaters.push_back(cleanID);

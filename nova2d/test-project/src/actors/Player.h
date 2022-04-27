@@ -3,6 +3,7 @@
 #include "graphics/Image.h"
 #include "core/Timer.h"
 #include "particles/ParticleSystem.h"
+#include "physics/PhySensor.h"
 
 namespace testproject
 {
@@ -28,6 +29,8 @@ namespace testproject
 		Image* m_FuelDisplay[5];
 
 		ParticleSystem* m_Jets = nullptr;
+		PhySensor* m_ShootArea = nullptr;
+		Vec2 m_ShootAreaOffset = Vec2(0, 0);
 
 	public:
 
@@ -39,6 +42,7 @@ namespace testproject
 		void FuelManage();
 		void StartFueling();
 		void StopFueling();
+		void ShootArea();
 
 		void DestroySelf();
 

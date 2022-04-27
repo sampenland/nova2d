@@ -418,7 +418,8 @@ namespace novazero
 
 		float n2dRadToDeg(float rad)
 		{
-			return (float)(rad * (180.0 / 3.141592653589793238463));
+			float d = (float)(rad * (180.0 / 3.141592653589793238463));
+			return d;
 		}
 
 		PhyCollision* n2dAddCollision(PhyBase* self, PhyBase* other,
