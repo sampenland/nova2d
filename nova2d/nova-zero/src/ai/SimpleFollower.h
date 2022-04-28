@@ -62,8 +62,9 @@ namespace novazero
 			void AddPhySensor(std::string colliderName, bool staticBody,
 				Vec2 position, float radius, float density = 0.5f, float friction = 0.3f);
 
-			Sprite* GetSprite() { return m_Sprite; }
-			PhySprite* GetPhySprite() { return m_PhySprite; }
+			Sprite* GetSprite() const { return m_Sprite; }
+			PhySensor* GetPhySensor() const { return m_Sensor; }
+			PhySprite* GetPhySprite() const { return m_PhySprite; }
 
 			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
 			void ConfigureInRange(float distanceToBeInRange);

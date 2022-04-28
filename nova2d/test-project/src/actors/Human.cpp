@@ -23,8 +23,8 @@ namespace testproject
 		Configure(555, false);
 
 		std::string id = tostring(Positional::m_ID);
-		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 80, 4, 1);
-		m_Jets->SetLifetime(0.5f, 1.2f);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 6, 4, 1);
+		m_Jets->SetLifetime(0.25f, 0.6f);
 
 		n2dReferenceGroupAdd("human_" + m_ID, this, "humans");
 

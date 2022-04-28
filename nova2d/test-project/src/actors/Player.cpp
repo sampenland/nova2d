@@ -26,10 +26,11 @@ namespace testproject
 		n2dAddCollision(GetPhySprite(), (PhyBase*)planet,
 			n2dMakeFunc(Player::StartFueling, this), n2dMakeFunc(Player::StopFueling, this));
 
-		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), colliderName + "-jets", 80, 4, 1);
-		m_Jets->SetLifetime(0.5f, 1.2f);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), colliderName + "-jets", 8, 4, 1);
+		m_Jets->SetLifetime(0.25f, 0.7f);
 
 		m_ShootArea = new PhySensor(colliderName + "_shootArea", false, position, 128);
+		n2dReferenceAdd(colliderName + "_shootArea", m_ShootArea);
 		
 	}
 
@@ -129,6 +130,26 @@ namespace testproject
 				}
 			}
 		}
+	}
+
+	void Player::MiniAlienEnter(PhyBase* a, PhyBase* b)
+	{
+		PhySensor* sensorA = (PhySensor*)a;
+		MiniAlien* mini = (MiniAlien*)sensorA->GetUserData();
+		m_MiniAliens.push_back(mini);
+	}
+
+	void Player::MiniAlienExit(PhyBase* a, PhyBase* b)
+	{
+		PhySensor* sensorA = (PhySensor*)a;
+		MiniAlien* mini = (MiniAlien*)sensorA->GetUserData();
+
+		std::vector<MiniAlien*>::iterator f = std::find(m_MiniAliens.begin(), m_MiniAliens.end(), mini);
+		if (f != m_MiniAliens.end())
+		{
+			m_MiniAliens.erase(f);
+		}
+
 	}
 
 	void Player::DestroySelf()

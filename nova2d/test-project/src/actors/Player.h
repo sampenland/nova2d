@@ -4,6 +4,7 @@
 #include "core/Timer.h"
 #include "particles/ParticleSystem.h"
 #include "physics/PhySensor.h"
+#include "MiniAlien.h"
 
 namespace testproject
 {
@@ -32,6 +33,8 @@ namespace testproject
 		PhySensor* m_ShootArea = nullptr;
 		Vec2 m_ShootAreaOffset = Vec2(0, 0);
 
+		std::vector<MiniAlien*> m_MiniAliens;
+
 	public:
 
 		Player(const std::string& colliderName, Vec2 position, Vec2 size, unsigned char layer);
@@ -43,6 +46,10 @@ namespace testproject
 		void StartFueling();
 		void StopFueling();
 		void ShootArea();
+
+		void Shoot();
+		void MiniAlienEnter(PhyBase* a, PhyBase* b);
+		void MiniAlienExit(PhyBase* a, PhyBase* b);
 
 		void DestroySelf();
 

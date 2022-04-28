@@ -13,6 +13,7 @@ namespace novazero
 			m_ParticleAssetName = spriteTexture;
 			m_AssetSize = size;
 			m_Layer = layer;
+			m_MaxParticles = maxParticles;
 
 			b2ParticleSystemDef psDef;
 
@@ -32,6 +33,7 @@ namespace novazero
 			Vec2 position, Vec2 velocity, Color color, bool customFilter)
 		{
 			if (!m_System) return -1;
+			if (m_System->GetParticleCount() >= m_MaxParticles) return -1;
 
 			b2ParticleDef pd;
 			if (customFilter)

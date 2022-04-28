@@ -2,6 +2,7 @@
 #include "core/Game.h"
 #include "Human.h"
 #include "physics/ai/PhySimpleWeakAI.h"
+#include "Player.h"
 
 namespace testproject
 {
@@ -15,6 +16,8 @@ namespace testproject
 		GetSprite()->AddAnimation("drive", 0, 4, 10, true, nullptr);
 		AddPhySensor("mini-alien", false, position, 24);
 
+		GetPhySensor()->SetUserData((void*)this);
+
 		float wait = n2dRandomFloat(100.f, 10000.f);
 		Configure(2, wait);
 
@@ -22,11 +25,27 @@ namespace testproject
 		m_Shooter = new Timer(1000, true, n2dMakeFunc(MiniAlien::Shoot, this), 2500, 5000);
 
 		std::string id = tostring(Positional::m_ID);
-		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 40, 4, 1);
-		m_Jets->SetLifetime(0.32f, 0.85f);
+		m_Jets = n2dAddParticleSystem("jetfire", Vec2Int(16, 16), "jets_" + id, 6, 4, 1);
+		m_Jets->SetLifetime(0.32f, 0.5f);
 
 		auto cleanID = n2dAddUpdater(MiniAlien::UpdateMiniAlien, this);
 		m_CleanUpdaters.push_back(cleanID);
+
+		PhySensor* player1ShootArea = (PhySensor*)n2dReferenceGet("player1_shootArea");
+		PhySensor* player2ShootArea = (PhySensor*)n2dReferenceGet("player2_shootArea");
+		
+		Player* player1 = (Player*)n2dReferenceGet("player1");
+		Player* player2 = (Player*)n2dReferenceGet("player2");
+
+		n2dAddCollision(m_Sensor, player1ShootArea,
+			n2dMakeFuncArgs2(Player::MiniAlienEnter, player1, m_Sensor, player1ShootArea),
+			n2dMakeFuncArgs2(Player::MiniAlienExit, player1, m_Sensor, player1ShootArea)
+		);
+
+		n2dAddCollision(m_Sensor, player1ShootArea,
+			n2dMakeFuncArgs2(Player::MiniAlienEnter, player2, m_Sensor, player2ShootArea),
+			n2dMakeFuncArgs2(Player::MiniAlienExit, player2, m_Sensor, player2ShootArea)
+		);
 
 	}
 
