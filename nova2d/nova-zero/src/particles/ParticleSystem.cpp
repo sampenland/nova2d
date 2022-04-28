@@ -61,9 +61,6 @@ namespace novazero
 
 			m_Particles[index] = particle;
 
-			if(n2dDebugVerbose)
-				LOGS("Particle Created: " + tostring(index));
-
 			return index;
 		}
 

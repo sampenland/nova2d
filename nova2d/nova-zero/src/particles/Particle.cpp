@@ -26,9 +26,6 @@ namespace novazero
 
 		void Particle::DestroySelf()
 		{
-			if (n2dDebugVerbose)
-				LOGS("Particle listener removed: " + tostring(m_Index));
-
 			if (m_Sprite)
 				m_Sprite->DestroySelf();
 		}

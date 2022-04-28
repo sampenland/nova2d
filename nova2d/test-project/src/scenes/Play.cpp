@@ -56,7 +56,7 @@ namespace testproject
 
 		m_HumanCreator = new Timer(1000.f, true, n2dMakeFunc(Play::CreateHuman, this), 15000, 28000);
 
-		n2dAddCollision("mini-alien", "rocket", n2dMakeFuncArgs2(Play::RocketHitMiniAlien, this), nullptr);
+		n2dAddCollision("mini-aliens", "rockets", n2dMakeFuncArgs2(Play::RocketHitMiniAlien, this), nullptr);
 
 	}
 
@@ -66,7 +66,6 @@ namespace testproject
 		mini->HitByRocket();
 
 		Rocket* rocket = (Rocket*)b;
-		rocket->DestroySelf();
 
 	}
 
@@ -79,7 +78,7 @@ namespace testproject
 		float x = alien->GetX() - 16;
 		float y = alien->GetY() - 42;
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			alien->CreateMiniAlien(human, Vec2(x, y + (i * 48)));
 		}		

@@ -13,7 +13,7 @@ namespace testproject
 		AddSprite("rocket", position, Vec2Int(16, 16), 3);
 		GetSprite()->AddAnimation("spin", 0, 4, 10, true, nullptr);
 
-		AddPhySensor(player + "_rocket", false, position, 6, "rocket");
+		AddPhySensor(player + "_rocket", false, position, 6, "rockets");
 
 		Timer* destructTimer = new Timer(4000.f, false, n2dMakeFunc(Rocket::DestroySelf, this));
 		ConfigureRotation(true, 0);
