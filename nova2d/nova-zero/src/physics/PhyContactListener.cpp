@@ -42,6 +42,32 @@ namespace novazero
 
 		}
 
+		PhyCollision* PhyContactListener::AddCollision(const std::string& groupA, const std::string& groupB,
+			std::function<void(PhyBase* a, PhyBase* b)> onEnter,
+			std::function<void(PhyBase* a, PhyBase* b)> onExit)
+		{
+			if (groupA == "none" || groupB == "none")
+			{
+				LOG(LVL_NFE, "Could not add collision. A or B PhyBase group is NONE.", __FILE__, __LINE__);
+				return nullptr;
+			}
+
+			unsigned int id = n2dGameGetID();
+
+			PhyCollision* collision = new PhyCollision();
+			collision->m_GroupA = groupA;
+			collision->m_GroupB = groupB;
+			collision->f_OnEnter = onEnter;
+			collision->f_OnExit = onExit;
+
+			if (n2dDebugVerbose)
+				LOGS("Added group collision: " + groupA + " <--> " + groupB);
+
+			m_Collisions.push_back(collision);
+
+			return collision;
+		}
+
 		void PhyContactListener::Clean()
 		{
 			auto it = m_CollisionsErasers.begin();
@@ -64,6 +90,8 @@ namespace novazero
 
 			if (!self || !other) return;
 
+			bool skipGroupCollision = (self->GetCollisionGroup() == "none" || other->GetCollisionGroup() == "none");
+
 			unsigned int selfID = self->GetPhyID();
 			unsigned int otherID = other->GetPhyID();
 
@@ -74,7 +102,21 @@ namespace novazero
 				if (!collision.m_ContactA || !collision.m_ContactB)
 					continue;
 
-				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
+				if (!skipGroupCollision && (collision.m_GroupA == self->GetCollisionGroup() && collision.m_GroupB == other->GetCollisionGroup()))
+				{
+					if (collision.f_OnEnter)
+					{
+						collision.f_OnEnter(self, other);
+					}
+				}
+				else if (!skipGroupCollision && (collision.m_GroupA == other->GetCollisionGroup() && collision.m_GroupB == self->GetCollisionGroup()))
+				{
+					if (collision.f_OnEnter)
+					{
+						collision.f_OnEnter(other, self);
+					}
+				}
+				else if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
 				{
 					if (collision.f_OnEnter)
 					{
@@ -102,6 +144,8 @@ namespace novazero
 			PhyBase* other = reinterpret_cast<PhyBase*>(contact->GetFixtureB()->GetBody()->GetUserData());
 
 			if (!self || !other) return;
+
+			bool skipGroupCollision = (self->GetCollisionGroup() == "none" || other->GetCollisionGroup() == "none");
 			
 			unsigned int selfID = self->GetPhyID();
 			unsigned int otherID = other->GetPhyID();
@@ -110,7 +154,24 @@ namespace novazero
 			{
 				PhyCollision& collision = *(*it);
 
-				if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
+				if (!collision.m_ContactA || !collision.m_ContactB)
+					continue;
+
+				if (!skipGroupCollision && (collision.m_GroupA == self->GetCollisionGroup() && collision.m_GroupB == other->GetCollisionGroup()))
+				{
+					if (collision.f_OnExit)
+					{
+						collision.f_OnExit(self, other);
+					}
+				}
+				else if (!skipGroupCollision && (collision.m_GroupA == other->GetCollisionGroup() && collision.m_GroupB == self->GetCollisionGroup()))
+				{
+					if (collision.f_OnExit)
+					{
+						collision.f_OnExit(other, self);
+					}
+				}
+				else if (collision.m_ContactA->GetPhyID() == selfID && collision.m_ContactB->GetPhyID() == otherID)
 				{
 					if (collision.f_OnExit)
 					{

@@ -33,7 +33,8 @@
 #define TOP_DRAW_LAYER 253
 
 // Maths
-#define NULLVEC2 Vec2(-1.111f, -1.111f);
+#define NULLVEC2 Vec2(-9.9999f, -9.9999f)
+#define NULLVEC2INT Vec2Int(-99999, -99999)
 
 // Tilemap draw layer
 #define TILEMAP_DRAW_LAYER -1
@@ -794,6 +795,10 @@ namespace novazero
 		*/
 		PhyCollision* n2dAddCollision(PhyBase* self, PhyBase* other,
 			std::function<void(PhyBase* a, PhyBase* b)> onEnter, 
+			std::function<void(PhyBase* a, PhyBase* b)> onExit);
+
+		PhyCollision* n2dAddCollision(const std::string& groupA, const std::string& groupB,
+			std::function<void(PhyBase* a, PhyBase* b)> onEnter,
 			std::function<void(PhyBase* a, PhyBase* b)> onExit);
 
 		/*

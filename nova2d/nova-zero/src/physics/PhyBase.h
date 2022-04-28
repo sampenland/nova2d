@@ -30,7 +30,7 @@ namespace novazero
 			PhySprite* m_PhySprite = nullptr;
 			PhySensor* m_PhySensor = nullptr;
 
-			unsigned int m_CollisionLayer = 0;
+			std::string m_CollisionGroup = "none";
 
 		public:
 
@@ -39,8 +39,8 @@ namespace novazero
 			
 		public:
 
-			PhyBase(const std::string colliderName, PhySprite* reference);
-			PhyBase(const std::string colliderName, PhySensor* reference);
+			PhyBase(const std::string colliderName, PhySprite* reference, const std::string& collisionGroup);
+			PhyBase(const std::string colliderName, PhySensor* reference, const std::string& collisionGroup);
 
 			PhySprite* GetPhySpriteRef() const;
 			PhySensor* GetPhySensorRef() const;
@@ -48,6 +48,7 @@ namespace novazero
 			virtual unsigned int GetPhyID() const = 0;
 
 			std::string GetColliderName() const;
+			std::string GetCollisionGroup() const;
 			void SetColliderName(const std::string& colliderName);
 
 			void DestroySelf();

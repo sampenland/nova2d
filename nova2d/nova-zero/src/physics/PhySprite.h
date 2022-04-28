@@ -38,7 +38,7 @@ namespace novazero
 
 			PhySprite(const std::string& assetName, Vec2 position, 
 				Vec2 size, unsigned char layer, Vec2Int displaySize, 
-				std::string colliderName);
+				std::string colliderName, const std::string& collisionGroup = "none");
 
 			unsigned int GetPhyID() const override;
 

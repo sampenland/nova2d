@@ -47,14 +47,14 @@ namespace novazero
 		public:
 
 			// Rect
-			PhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, float density = 0.5f, float friction = 0.3f);
+			PhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, const std::string& collisionGroup = "none", float density = 0.5f, float friction = 0.3f);
 			
 			// Poly
-			PhySensor(std::string colliderName, bool staticBody, Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density = 0.5f, float friction = 0.3f);
+			PhySensor(std::string colliderName, bool staticBody, Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, const std::string& collisionGroup = "none", float density = 0.5f, float friction = 0.3f);
 			
 			// Circle
 			PhySensor(std::string colliderName, bool staticBody,
-				Vec2 position, float radius, float density = 0.5f, float friction = 0.3f);
+				Vec2 position, float radius, const std::string& collisionGroup = "none", float density = 0.5f, float friction = 0.3f);
 			
 			void SetBodyPosition(Vec2 position)
 			{

@@ -130,6 +130,7 @@
     <ClCompile Include="src\actors\Human.cpp" />
     <ClCompile Include="src\actors\MiniAlien.cpp" />
     <ClCompile Include="src\actors\Player.cpp" />
+    <ClCompile Include="src\actors\Rocket.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\scenes\Play.cpp" />
     <ClCompile Include="src\scenes\GameOver.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="src\actors\Human.h" />
     <ClInclude Include="src\actors\MiniAlien.h" />
     <ClInclude Include="src\actors\Player.h" />
+    <ClInclude Include="src\actors\Rocket.h" />
     <ClInclude Include="src\scenes\Play.h" />
     <ClInclude Include="src\scenes\GameOver.h" />
   </ItemGroup>

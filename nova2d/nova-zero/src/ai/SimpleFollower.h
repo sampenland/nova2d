@@ -7,6 +7,7 @@
 #include "../physics/PhySprite.h"
 #include "../physics/PhySensor.h"
 #include "../core/Positional.h"
+#include "../core/NovaCore.h"
 
 namespace novazero
 {
@@ -28,9 +29,9 @@ namespace novazero
 		private:
 
 			Positional* m_Target;
-			Vec2Int m_ScatterOffset = Vec2Int(128, 128);
+			Vec2Int m_ScatterOffset = NULLVEC2INT;
 			int m_DelayScatter = 0;
-			float m_InRange = 64.f;
+			float m_InRange = 0.f;
 
 			float m_UpdateDirectionDelay = 0;
 			float m_DelayTime = 0;
@@ -55,12 +56,15 @@ namespace novazero
 
 			void AddSprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer);
 			void AddPhySprite(const std::string& assetName, Vec2 position, Vec2 size, 
-				unsigned char layer, Vec2Int displaySize, const std::string& colliderName);
+				unsigned char layer, Vec2Int displaySize, const std::string& colliderName, const std::string& collisionGroup = "none");
 
-			void AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, float density = 0.5f, float friction = 0.3f);
-			void AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density = 0.5f, float friction = 0.3f);
+			void AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, 
+				Vec2 size, const std::string& collisionGroup, float density = 0.5f, float friction = 0.3f);
+			void AddPhySensor(std::string colliderName, bool staticBody, Vec2 position,
+				std::vector<Vec2> shapeVertices, const int vertexCount, const std::string& collisionGroup,
+				float density = 0.5f, float friction = 0.3f);
 			void AddPhySensor(std::string colliderName, bool staticBody,
-				Vec2 position, float radius, float density = 0.5f, float friction = 0.3f);
+				Vec2 position, float radius, const std::string& collisionGroup = "none", float density = 0.5f, float friction = 0.3f);
 
 			Sprite* GetSprite() const { return m_Sprite; }
 			PhySensor* GetPhySensor() const { return m_Sensor; }

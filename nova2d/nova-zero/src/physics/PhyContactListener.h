@@ -12,7 +12,11 @@ namespace novazero
 		struct PhyCollision
 		{
 			PhyBase* m_ContactA = nullptr;
+			std::string m_GroupA = "none";
+
 			PhyBase* m_ContactB = nullptr;
+			std::string m_GroupB = "none";
+
 			std::function<void(PhyBase* a, PhyBase* b)> f_OnEnter = nullptr;
 			std::function<void(PhyBase* a, PhyBase* b)> f_OnExit = nullptr;
 		};
@@ -30,6 +34,10 @@ namespace novazero
 			PhyContactListener();
 
 			PhyCollision* AddCollision(PhyBase* contactA, PhyBase* contactB,
+				std::function<void(PhyBase* a, PhyBase* b)> onEnter,
+				std::function<void(PhyBase* a, PhyBase* b)> onExit);
+
+			PhyCollision* AddCollision(const std::string& groupA, const std::string& groupB,
 				std::function<void(PhyBase* a, PhyBase* b)> onEnter,
 				std::function<void(PhyBase* a, PhyBase* b)> onExit);
 

@@ -8,7 +8,8 @@ namespace novazero
 		using namespace novazero::core;
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
-			Vec2 position, Vec2 size, float density, float friction) : PhyBase(colliderName, this)
+			Vec2 position, Vec2 size, const std::string& collisionGroup, float density, float friction) 
+			: PhyBase(colliderName, this, collisionGroup)
 		{
 			m_ID = n2dGameGetID();
 
@@ -49,8 +50,8 @@ namespace novazero
 		}
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
-			Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
-			: PhyBase(colliderName, this)
+			Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, const std::string& collisionGroup, float density, float friction)
+			: PhyBase(colliderName, this, collisionGroup)
 		{
 			m_ID = n2dGameGetID();
 
@@ -127,8 +128,8 @@ namespace novazero
 		}
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
-			Vec2 position, float radius, float density, float friction) 
-			: PhyBase(colliderName, this)
+			Vec2 position, float radius, const std::string& collisionGroup, float density, float friction)
+			: PhyBase(colliderName, this, collisionGroup)
 		{
 			m_ID = n2dGameGetID();
 

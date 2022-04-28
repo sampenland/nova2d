@@ -34,25 +34,29 @@ namespace novazero
 		}
 
 		void SimpleFollower::AddPhySprite(const std::string& assetName, Vec2 position, 
-			Vec2 size, unsigned char layer, Vec2Int displaySize, const std::string& colliderName)
+			Vec2 size, unsigned char layer, Vec2Int displaySize, const std::string& colliderName, const std::string& collisionGroup)
 		{
-			m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName);
+			m_PhySprite = new PhySprite(assetName, position, size, layer, displaySize, colliderName, collisionGroup);
 		}
 
-		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, Vec2 size, float density, float friction)
+		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, 
+			Vec2 position, Vec2 size, const std::string& collisionGroup, float density, float friction)
 		{
-			m_Sensor = new PhySensor(colliderName, staticBody, position, size, density, friction);
+			m_Sensor = new PhySensor(colliderName, staticBody, position, size, collisionGroup, density, friction);
 		}
 
-		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, Vec2 position, std::vector<Vec2> shapeVertices, const int vertexCount, float density, float friction)
+		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody, 
+			Vec2 position, std::vector<Vec2> shapeVertices, 
+			const int vertexCount, const std::string& collisionGroup, float density, float friction)
 		{
-			m_Sensor = new PhySensor(colliderName, staticBody, position, shapeVertices, vertexCount, density, friction);
+			m_Sensor = new PhySensor(colliderName, staticBody, position, shapeVertices, vertexCount, collisionGroup, density, friction);
 		}
 
 		void SimpleFollower::AddPhySensor(std::string colliderName, bool staticBody,
-			Vec2 position, float radius, float density, float friction)
+			Vec2 position, float radius, const std::string& collisionGroup,
+			float density, float friction)
 		{
-			m_Sensor = new PhySensor(colliderName, staticBody, position, radius, density, friction);
+			m_Sensor = new PhySensor(colliderName, staticBody, position, radius, collisionGroup, density, friction);
 		}
 
 		void SimpleFollower::Configure(float moveSpeed, float delayStart, Vec2Int waitTargetPos)
@@ -135,15 +139,21 @@ namespace novazero
 
 			if (!waiting)
 			{
-				newX = x < m_Target->GetX() + m_ScatterOffset.x ? x + speed : x - speed;
-				newY = y < m_Target->GetY() + m_ScatterOffset.y ? y + speed : y - speed;
+				Vec2Int offset = m_ScatterOffset;
+				if (offset == NULLVEC2INT)
+				{
+					offset = Vec2Int(0, 0);
+				}
 
-				if (x == m_Target->GetX() + m_ScatterOffset.x)
+				newX = x < m_Target->GetX() + offset.x ? x + speed : x - speed;
+				newY = y < m_Target->GetY() + offset.y ? y + speed : y - speed;
+
+				if (x == m_Target->GetX() + offset.x)
 				{
 					newX = x;
 				}
 
-				if (y == m_Target->GetY() + m_ScatterOffset.y)
+				if (y == m_Target->GetY() + offset.y)
 				{
 					newY = y;
 				}
@@ -156,22 +166,25 @@ namespace novazero
 
 				if (atTarget && m_DelayScatter > 25)
 				{
-					m_DelayScatter = 0;
-
-					// Randomize miss
-					Vec2Int size = GetSprite()->GetSize();
-					m_ScatterOffset.y = n2dRandomInt(32, std::abs(m_ScatterOffset.x) + 32);
-					m_ScatterOffset.x = n2dRandomInt(32, std::abs(m_ScatterOffset.y) + 32);
-					
-					if (n2dCoinFlip())
+					if (m_ScatterOffset != NULLVEC2INT)
 					{
-						m_ScatterOffset.x *= -1;
-					}
+						m_DelayScatter = 0;
 
-					if (n2dCoinFlip())
-					{
-						m_ScatterOffset.y *= -1;
-					}
+						// Randomize miss
+						Vec2Int size = GetSprite()->GetSize();
+						m_ScatterOffset.y = n2dRandomInt(32, std::abs(m_ScatterOffset.x) + 32);
+						m_ScatterOffset.x = n2dRandomInt(32, std::abs(m_ScatterOffset.y) + 32);
+
+						if (n2dCoinFlip())
+						{
+							m_ScatterOffset.x *= -1;
+						}
+
+						if (n2dCoinFlip())
+						{
+							m_ScatterOffset.y *= -1;
+						}
+					}					
 				}
 				else
 				{

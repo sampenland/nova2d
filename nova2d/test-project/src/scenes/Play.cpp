@@ -1,6 +1,7 @@
 #include "Play.h"
 #include "logging/logging.h"
 #include "core/Game.h"
+#include "../actors/Rocket.h"
 
 namespace testproject
 {
@@ -27,6 +28,8 @@ namespace testproject
 		n2dAssetsLoadAndAddTexture("mini-alien", "res/miniAlien.png");
 		n2dAssetsLoadAndAddTexture("jetfire", "res/jetfire.png");
 		n2dAssetsLoadAndAddTexture("human", "res/human.png");
+		n2dAssetsLoadAndAddTexture("rocket", "res/rocket.png");
+		n2dAssetsLoadAndAddTexture("rocket-fire", "res/rocketFire.png");
 		n2dAssetsLoadAndAddTexture("mini-alien-bullet", "res/mini-alien-bullet.png");
 
 		planetDisplay = new Image("planet", Vec2(Game::s_Width - 256, Game::s_Height - 256),
@@ -37,12 +40,14 @@ namespace testproject
 		player1 = new Player("player1", Vec2(Game::s_Width - 64, Game::s_Height - 64), Vec2(32, 32),
 			10);
 		player1->EnableArrowKeys(true);
+		player1->SetShootKey(SDLK_RCTRL);
 		player1->EnabledJoystickController(true, 0);
 		n2dReferenceAdd("player1", player1);
 
 		player2 = new Player("player2", Vec2(Game::s_Width - 64, Game::s_Height - 128), Vec2(32, 32),
 			10);
 		player2->EnableWASD(true);
+		player2->SetShootKey(SDLK_e);
 		player2->EnabledJoystickController(true, 1);
 		n2dReferenceAdd("player2", player2);
 
@@ -50,6 +55,18 @@ namespace testproject
 		n2dReferenceAdd("alien", alien);
 
 		m_HumanCreator = new Timer(1000.f, true, n2dMakeFunc(Play::CreateHuman, this), 15000, 28000);
+
+		n2dAddCollision("mini-alien", "rocket", n2dMakeFuncArgs2(Play::RocketHitMiniAlien, this), nullptr);
+
+	}
+
+	void Play::RocketHitMiniAlien(PhyBase* a, PhyBase* b)
+	{
+		MiniAlien* mini = (MiniAlien*)a;
+		mini->HitByRocket();
+
+		Rocket* rocket = (Rocket*)b;
+		rocket->DestroySelf();
 
 	}
 

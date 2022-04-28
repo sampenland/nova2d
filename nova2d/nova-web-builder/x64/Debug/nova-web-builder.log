@@ -1,0 +1,5 @@
+﻿  novaWebBuilder.cpp
+C:\spinland_games\cpp\nova2d\nova2d\nova-web-builder\src\novaWebBuilder.cpp(1,10): fatal error C1083: Cannot open include file: 'core/Game.h': No such file or directory
+  MainScene.cpp
+C:\spinland_games\cpp\nova2d\nova2d\nova-web-builder\src\scenes\MainScene.h(2,10): fatal error C1083: Cannot open include file: 'core/Scene.h': No such file or directory
+  Generating Code...

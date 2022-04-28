@@ -26,7 +26,6 @@
 */
 
 // These include files constitute the main Box2D API
-
 #include <Box2D/Common/b2Settings.h>
 #include <Box2D/Common/b2Draw.h>
 #include <Box2D/Common/b2Stat.h>

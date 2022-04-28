@@ -3,6 +3,7 @@
 #include <map>
 #include <stdexcept>
 #include "../logging/logging.h"
+#include <vector>
 
 namespace novazero
 {

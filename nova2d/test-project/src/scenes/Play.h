@@ -31,6 +31,7 @@ namespace testproject
 		Play(const std::string& sceneName);
 
 		void CreateHuman();
+		void RocketHitMiniAlien(PhyBase* a, PhyBase* b);
 
 		void Start() override;
 

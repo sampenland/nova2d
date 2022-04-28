@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "core/Game.h"
 #include "maths/Maths.h"
+#include "Rocket.h"
 
 namespace testproject
 {
@@ -10,6 +11,7 @@ namespace testproject
 		BasicController(colliderName, colliderName, position,
 			Vec2(32, 32), Vec2Int(32, 32), 5)
 	{
+		m_PlayerName = colliderName;
 
 		ConfigurePhysicsRect(false);
 		EnableRotation(false);
@@ -47,6 +49,41 @@ namespace testproject
 	void Player::ShootArea()
 	{
 		m_ShootArea->SetBodyPosition(GetPosition() + m_ShootAreaOffset);
+	}
+
+	void Player::SetShootKey(SDL_KeyCode key)
+	{
+		m_ShootKey = key;
+	}
+
+	void Player::Shoot()
+	{
+		if (m_ShootReady > 0.f)
+		{
+			m_ShootReady--;
+			return;
+		}
+
+		if (n2dIsKeyDown(m_ShootKey))
+		{
+			m_ShootReady = SHOOT_RESET;
+			MiniAlien* closest = nullptr;
+
+			float min = 99999;
+			for (auto alien : m_MiniAliens)
+			{
+				float distance = Vec2::Distance(GetPosition(), alien->GetPosition());
+				if (distance < min)
+				{
+					closest = alien;
+				}
+			}
+
+			if (closest != nullptr)
+			{
+				Rocket* rocket = new Rocket(m_PlayerName, GetPosition(), closest, 1);
+			}
+		}
 	}
 
 	void Player::FuelManage()
@@ -108,6 +145,7 @@ namespace testproject
 
 		Jets();
 		ShootArea();
+		Shoot();
 	}
 
 	void Player::Jets()

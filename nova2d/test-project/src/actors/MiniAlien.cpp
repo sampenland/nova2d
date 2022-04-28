@@ -14,7 +14,7 @@ namespace testproject
 	{
 		AddSprite("mini-alien", position, Vec2Int(32, 32), 2);
 		GetSprite()->AddAnimation("drive", 0, 4, 10, true, nullptr);
-		AddPhySensor("mini-alien", false, position, 24);
+		AddPhySensor("mini-alien", false, position, 24, "mini-alien");
 
 		GetPhySensor()->SetUserData((void*)this);
 
@@ -30,6 +30,8 @@ namespace testproject
 
 		auto cleanID = n2dAddUpdater(MiniAlien::UpdateMiniAlien, this);
 		m_CleanUpdaters.push_back(cleanID);
+
+		n2dReferenceGroupAdd("mini-alien_" + tostring(Positional::m_ID), this, "mini-aliens");
 
 		PhySensor* player1ShootArea = (PhySensor*)n2dReferenceGet("player1_shootArea");
 		PhySensor* player2ShootArea = (PhySensor*)n2dReferenceGet("player2_shootArea");
@@ -47,6 +49,12 @@ namespace testproject
 			n2dMakeFuncArgs2(Player::MiniAlienExit, player2, m_Sensor, player2ShootArea)
 		);
 
+	}
+
+	void MiniAlien::HitByRocket()
+	{
+		LOGS("HIT");
+		DestroySelf();
 	}
 
 	void MiniAlien::UpdateMiniAlien()

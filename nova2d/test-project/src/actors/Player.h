@@ -22,6 +22,8 @@ namespace testproject
 
 	private:
 
+		std::string m_PlayerName = "";
+
 		int m_Fuel = 5;
 		float m_FuelTank = 100.f;
 		const float FUEL_COST = 0.25f;
@@ -32,6 +34,9 @@ namespace testproject
 		ParticleSystem* m_Jets = nullptr;
 		PhySensor* m_ShootArea = nullptr;
 		Vec2 m_ShootAreaOffset = Vec2(0, 0);
+		const float SHOOT_RESET = 50.f;
+		float m_ShootReady = -1;
+		SDL_KeyCode m_ShootKey = SDLK_e;
 
 		std::vector<MiniAlien*> m_MiniAliens;
 
@@ -48,6 +53,7 @@ namespace testproject
 		void ShootArea();
 
 		void Shoot();
+		void SetShootKey(SDL_KeyCode key);
 		void MiniAlienEnter(PhyBase* a, PhyBase* b);
 		void MiniAlienExit(PhyBase* a, PhyBase* b);
 
