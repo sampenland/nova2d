@@ -52,6 +52,8 @@ namespace testproject
 		void StopFueling();
 		void ShootArea();
 
+		void RemoveMiniAlien(MiniAlien* mini);
+
 		void Shoot();
 		void SetShootKey(SDL_KeyCode key);
 		void MiniAlienEnter(PhyBase* a, PhyBase* b);

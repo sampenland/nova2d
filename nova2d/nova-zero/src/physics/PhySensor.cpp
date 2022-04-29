@@ -176,12 +176,7 @@ namespace novazero
 		void PhySensor::DestroySelf()
 		{
 			if (m_Body)
-			{
-				if (Game::s_SceneManager->GetCurrentWorld())
-				{
-					Game::s_SceneManager->GetCurrentWorld()->DestroyBody(m_Body);
-				}
-			}
+				Game::s_SceneManager->s_PhyCleaners.push_back(m_Body);
 		}
 	}
 }

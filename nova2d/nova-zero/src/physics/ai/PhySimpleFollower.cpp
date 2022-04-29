@@ -28,6 +28,8 @@ namespace novazero
 			void PhySimpleFollower::DestroySelf()
 			{
 				CleanUpdaters();
+
+
 				SimpleFollower::DestroySelf();
 			}
 		}

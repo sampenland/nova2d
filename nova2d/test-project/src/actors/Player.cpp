@@ -38,6 +38,15 @@ namespace testproject
 		
 	}
 
+	void Player::RemoveMiniAlien(MiniAlien* mini)
+	{
+		std::vector<MiniAlien*>::iterator f = std::find(m_MiniAliens.begin(), m_MiniAliens.end(), mini);
+		if (f != m_MiniAliens.end())
+		{
+			m_MiniAliens.erase(f);
+		}
+	}
+
 	void Player::StartFueling()
 	{
 		m_Fueling = true;

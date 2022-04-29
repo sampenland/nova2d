@@ -51,7 +51,7 @@ namespace testproject
 		player2->EnabledJoystickController(true, 1);
 		n2dReferenceAdd("player2", player2);
 
-		alien = new Alien("alien", Vec2(200, 200), Vec2Int(32, 32), 2);
+		alien = new Alien("alien", Game::GetCenterScreen(), Vec2Int(32, 32), 2);
 		n2dReferenceAdd("alien", alien);
 
 		m_HumanCreator = new Timer(1000.f, true, n2dMakeFunc(Play::CreateHuman, this), 15000, 28000);
@@ -86,7 +86,7 @@ namespace testproject
 		float x = alien->GetX() - 16;
 		float y = alien->GetY() - 42;
 
-		for (int i = 0; i < 1; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			alien->CreateMiniAlien(human, Vec2(x, y + (i * 48)));
 		}		

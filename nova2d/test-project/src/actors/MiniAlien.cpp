@@ -92,6 +92,15 @@ namespace testproject
 
 	void MiniAlien::DestroySelf()
 	{
+		Player* p1 = (Player*)n2dReferenceGet("player1");
+		Player* p2 = (Player*)n2dReferenceGet("player2");
+
+		if(p1)
+			p1->RemoveMiniAlien(this);
+		
+		if(p2)
+			p2->RemoveMiniAlien(this);
+
 		CleanUpdaters();
 
 		if (m_ReTargeter)
