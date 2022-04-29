@@ -55,6 +55,11 @@ namespace novazero
 			}
 		}
 
+		void BasicController::ConfigureMoveSpeed(float speed)
+		{
+			m_MoveSpeed = speed;
+		}
+
 		bool BasicController::GetMoving() const
 		{
 			return m_Moving;
@@ -176,28 +181,28 @@ namespace novazero
 
 		void BasicController::MoveUp()
 		{
-			ApplyForce(100, Directions::Up);
+			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Up);
 			m_MoveDirection = Directions::Up;
 			m_Moving = true;
 		}
 
 		void BasicController::MoveDown()
 		{
-			ApplyForce(100, Directions::Down);
+			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Down);
 			m_MoveDirection = Directions::Down;
 			m_Moving = true;
 		}
 
 		void BasicController::MoveRight()
 		{
-			ApplyForce(100, Directions::Right);
+			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Right);
 			m_MoveDirection = Directions::Right;
 			m_Moving = true;
 		}
 
 		void BasicController::MoveLeft()
 		{
-			ApplyForce(100, Directions::Left);
+			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Left);
 			m_MoveDirection = Directions::Left;
 			m_Moving = true;
 		}

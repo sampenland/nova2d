@@ -19,6 +19,8 @@ namespace testproject
 
 		ParticleSystem* m_Jets = nullptr;
 
+		bool m_Hit = false;
+
 	public:
 
 		MiniAlien(Positional* target, Vec2 position, float moveDelay);

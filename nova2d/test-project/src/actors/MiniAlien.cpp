@@ -51,11 +51,17 @@ namespace testproject
 
 	void MiniAlien::HitByRocket()
 	{
-		LOGS("HIT");
+		m_Hit = true;
 	}
 
 	void MiniAlien::UpdateMiniAlien()
 	{
+		if (m_Hit)
+		{
+			DestroySelf();
+			return;
+		}
+
 		float degrees = GetMoveAngleDegrees();
 		Vec2 jetPos = GetSprite()->GetCenterWorldPosition();
 		m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y + 6), 10, degrees - 90, degrees + 90);

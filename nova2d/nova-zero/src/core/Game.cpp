@@ -301,7 +301,6 @@ namespace novazero
 			Game::s_DeltaTime = (double)(n2dTimeScale * ((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency()));
 			// ----------------
 
-			Process();
 			Update();
 			Render();
 			Clean();
@@ -368,14 +367,9 @@ namespace novazero
 			s_SceneManager->Clean();
 		}
 
-		void Game::Process()
-		{			
-			s_SceneManager->Update();
-		}
-
 		void Game::Update()
 		{
-			Process();
+			s_SceneManager->Update();
 			PollEvents();
 		}
 

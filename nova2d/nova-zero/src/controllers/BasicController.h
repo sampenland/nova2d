@@ -28,6 +28,7 @@ namespace novazero
 			bool m_MoveEnabled = true;
 			bool m_Moving = false;
 			Directions m_MoveDirection = Directions::None;
+			float m_MoveSpeed = 100.f;
 
 			void ArrowKeys();
 			void WASD();
@@ -37,7 +38,6 @@ namespace novazero
 			void MoveDown();
 			void MoveRight();
 			void MoveLeft();
-
 
 			void ControllerUpdate();
 			void Controls();
@@ -51,6 +51,8 @@ namespace novazero
 			void EnableWASD(bool val);
 			void EnableArrowKeys(bool val);
 			void EnableRotation(bool val);
+
+			void ConfigureMoveSpeed(float speed);
 
 			bool GetMoving() const;
 			Directions GetDirection() const;
