@@ -168,11 +168,6 @@ namespace novazero
 			m_Radius = radius;
 		}
 
-		void PhySensor::SetUserData(void* data)
-		{
-			m_UserData = data;
-		}
-
 		unsigned int PhySensor::GetPhyID() const
 		{
 			return m_ID;

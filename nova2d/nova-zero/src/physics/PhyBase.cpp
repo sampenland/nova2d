@@ -61,5 +61,10 @@ namespace novazero
 		{
 			m_PhyColliderName = colliderName;
 		}
+
+		void PhyBase::SetUserData(void* userData)
+		{
+			m_UserData = userData;
+		}
 	}
 }

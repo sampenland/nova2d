@@ -42,8 +42,6 @@ namespace novazero
 			float m_Restitution = 1.f;
 			float m_RestitutionThres = 1.f;
 
-			void* m_UserData = nullptr;
-
 		public:
 
 			// Rect
@@ -63,9 +61,6 @@ namespace novazero
 			}
 
 			unsigned int GetPhyID() const override;
-
-			void SetUserData(void* data);
-			void* GetUserData() const { return m_UserData; }
 
 			void DestroySelf();
 

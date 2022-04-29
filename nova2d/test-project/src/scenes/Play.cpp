@@ -62,11 +62,11 @@ namespace testproject
 
 	void Play::RocketHitMiniAlien(PhyBase* a, PhyBase* b)
 	{
-		MiniAlien* mini = (MiniAlien*)a;
+		MiniAlien* mini = (MiniAlien*)a->GetUserData();
 		mini->HitByRocket();
 
-		Rocket* rocket = (Rocket*)b;
-
+		Rocket* rocket = (Rocket*)b->GetUserData();
+		rocket->DestroySelf();
 	}
 
 	void Play::CreateHuman()

@@ -174,16 +174,13 @@ namespace testproject
 
 	void Player::MiniAlienEnter(PhyBase* a, PhyBase* b)
 	{
-		PhySensor* sensorA = (PhySensor*)a;
-		MiniAlien* mini = (MiniAlien*)sensorA->GetUserData();
+		MiniAlien* mini = (MiniAlien*)a->GetUserData();
 		m_MiniAliens.push_back(mini);
 	}
 
 	void Player::MiniAlienExit(PhyBase* a, PhyBase* b)
 	{
-		PhySensor* sensorA = (PhySensor*)a;
-		MiniAlien* mini = (MiniAlien*)sensorA->GetUserData();
-
+		MiniAlien* mini = (MiniAlien*)a->GetUserData();
 		std::vector<MiniAlien*>::iterator f = std::find(m_MiniAliens.begin(), m_MiniAliens.end(), mini);
 		if (f != m_MiniAliens.end())
 		{

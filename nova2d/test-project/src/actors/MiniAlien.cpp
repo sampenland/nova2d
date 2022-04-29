@@ -16,7 +16,7 @@ namespace testproject
 		GetSprite()->AddAnimation("drive", 0, 4, 10, true, nullptr);
 		AddPhySensor("mini-alien", false, position, 24, "mini-aliens");
 
-		GetPhySensor()->SetUserData((void*)this);
+		GetPhySensor()->SetUserData(this);
 
 		float wait = n2dRandomFloat(100.f, 10000.f);
 		Configure(2, wait);

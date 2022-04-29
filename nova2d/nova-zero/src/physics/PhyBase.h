@@ -30,6 +30,8 @@ namespace novazero
 			PhySprite* m_PhySprite = nullptr;
 			PhySensor* m_PhySensor = nullptr;
 
+			void* m_UserData = nullptr;
+
 			std::string m_CollisionGroup = "none";
 
 		public:
@@ -49,7 +51,13 @@ namespace novazero
 
 			std::string GetColliderName() const;
 			std::string GetCollisionGroup() const;
+
 			void SetColliderName(const std::string& colliderName);
+			void SetUserData(void* userData);
+			void* GetUserData() const
+			{
+				return m_UserData;
+			}
 
 			void DestroySelf();
 
