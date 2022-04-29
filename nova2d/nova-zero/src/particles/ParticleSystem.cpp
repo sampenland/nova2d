@@ -90,7 +90,8 @@ namespace novazero
 		{
 			for (int i = 0; i < particleCount; i++)
 			{
-				Vec2 vel = Vec2(n2dRandomFloat(0.f, 1.f), n2dRandomFloat(0.f, 1.f));
+				float deg = n2dRandomFloat(0, 360);
+				Vec2 vel = Vec2::UnitVec2FromAngle(deg);
 				vel.multiply(Vec2(velocity, velocity));
 				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"), customFilter);
 			}

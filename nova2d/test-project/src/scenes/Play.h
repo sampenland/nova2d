@@ -5,11 +5,13 @@
 #include "physics/PhySensor.h"
 #include "core/Timer.h"
 #include "../actors/Human.h"
+#include "particles/ParticleSystem.h"
 
 namespace testproject
 {
 	using namespace novazero::core;
 	using namespace novazero::physics;
+	using namespace novazero::particles;
 
 	class Play : public Scene
 	{
@@ -25,6 +27,8 @@ namespace testproject
 
 		Timer* m_HumanCreator = nullptr;
 		std::vector<Human*> m_Humans;
+
+		ParticleSystem* m_Exploder = nullptr;
 
 	public:
 

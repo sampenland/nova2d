@@ -58,15 +58,23 @@ namespace testproject
 
 		n2dAddCollision("mini-aliens", "rockets", n2dMakeFuncArgs2(Play::RocketHitMiniAlien, this), nullptr);
 
+		m_Exploder = n2dAddParticleSystem("rocket-fire", Vec2Int(16, 16), "explosions", 200, 4, 20);
+		m_Exploder->SetLifetime(1.f, 5.f);
+
 	}
 
 	void Play::RocketHitMiniAlien(PhyBase* a, PhyBase* b)
 	{
 		MiniAlien* mini = (MiniAlien*)a->GetUserData();
-		mini->HitByRocket();
-
 		Rocket* rocket = (Rocket*)b->GetUserData();
+
+		Vec2 expPos = mini->GetPosition();
+		mini->DestroySelf();
 		rocket->DestroySelf();
+
+		Timer* t = new Timer(10, false, [=]() {
+			m_Exploder->BurstParticles(20, expPos, 20, false);
+		});
 	}
 
 	void Play::CreateHuman()
@@ -96,6 +104,6 @@ namespace testproject
 
 	void Play::DestroySelf()
 	{
-
+		m_Exploder->DestroySelf();
 	}
 }

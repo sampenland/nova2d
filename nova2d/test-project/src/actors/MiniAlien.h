@@ -30,8 +30,6 @@ namespace testproject
 
 		void UpdateMiniAlien();
 
-		void HitByRocket();
-
 		void DestroySelf();
 
 	};
