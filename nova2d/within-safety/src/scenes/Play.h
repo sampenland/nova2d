@@ -17,6 +17,9 @@ namespace withinsafety
 		PhySensor* m_Planet = nullptr;
 		PhySprite* m_Player = nullptr;
 
+		const float SHOOT_RESET = 20.f;
+		float m_ShootReady = -1.f;
+
 	public:
 
 		Play(const std::string& sceneName);
@@ -24,6 +27,9 @@ namespace withinsafety
 		void Start();
 		void End();
 		void Update();
+
+		void ForceControl();
+		void ShootControl();
 		
 	};
 }

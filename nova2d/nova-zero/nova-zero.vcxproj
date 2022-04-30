@@ -198,6 +198,7 @@
     <ClCompile Include="src\particles\Particle.cpp" />
     <ClCompile Include="src\particles\ParticleDestructionListener.cpp" />
     <ClCompile Include="src\particles\ParticleSystem.cpp" />
+    <ClCompile Include="src\physics\ai\PhySimpleDirectional.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleFollower.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleWeakAI.cpp" />
     <ClCompile Include="src\physics\PhyBase.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="src\particles\Particle.h" />
     <ClInclude Include="src\particles\ParticleDestructionListener.h" />
     <ClInclude Include="src\particles\ParticleSystem.h" />
+    <ClInclude Include="src\physics\ai\PhySimpleDirectional.h" />
     <ClInclude Include="src\physics\PhyBase.h" />
     <ClInclude Include="src\physics\PhyContactFilter.h" />
     <ClInclude Include="src\physics\PhyContactListener.h" />

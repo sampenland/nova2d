@@ -3,3 +3,4 @@
 #include "PhySprite.h"
 #include "ai/PhySimpleFollower.h"
 #include "ai/PhySimpleWeakAI.h"
+#include "ai/PhySimpleDirectional.h"

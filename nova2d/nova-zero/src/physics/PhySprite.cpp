@@ -41,7 +41,8 @@ namespace novazero
 
 				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2, bodyPos.y - GetHeight() / 2));
 
-				GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
+				if(m_AutoRotate)
+					GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
 			}
 		}
 
@@ -192,7 +193,7 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);			
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+			bodyDef.position.Set(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2);
 
 			m_Body = world->CreateBody(&bodyDef);
 

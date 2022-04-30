@@ -22,6 +22,7 @@ namespace novazero
 			bool m_CircleShape = false;
 
 			b2Body* m_Body = nullptr;
+			bool m_AutoRotate = true;
 
 			Vec2 m_PhySize = Vec2(0, 0);
 			float m_Radius = 1.f;
@@ -53,6 +54,16 @@ namespace novazero
 			void ConfigurePhysicsSensorCircle(bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
 
 			void EnableRotation(bool val);
+			
+			void DisableAutoRotation()
+			{
+				m_AutoRotate = false;
+			}
+
+			void EnableAutoRotation()
+			{
+				m_AutoRotate = true;
+			}
 
 			/*
 			Force position 0,0 is center of mass
