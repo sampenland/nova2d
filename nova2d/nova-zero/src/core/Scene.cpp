@@ -95,6 +95,9 @@ namespace novazero
 
 		}
 
+		/*
+		Must be called in order to draw debug shapes
+		*/
 		void Scene::PhysicsEnableDebug(bool isDebug)
 		{
 			m_DebugDraw = isDebug;

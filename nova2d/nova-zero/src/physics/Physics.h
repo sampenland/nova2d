@@ -1,0 +1,5 @@
+#include "PhyBase.h"
+#include "PhySensor.h"
+#include "PhySprite.h"
+#include "ai/PhySimpleFollower.h"
+#include "ai/PhySimpleWeakAI.h"

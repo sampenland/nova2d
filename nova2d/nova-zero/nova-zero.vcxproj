@@ -255,6 +255,7 @@
     <ClInclude Include="src\physics\ai\PhySimpleFollower.h" />
     <ClInclude Include="src\physics\ai\PhySimpleWeakAI.h" />
     <ClInclude Include="src\physics\PhySensor.h" />
+    <ClInclude Include="src\physics\Physics.h" />
     <ClInclude Include="src\thirdparty\getopt.h" />
     <ClInclude Include="src\thirdparty\unistd.h" />
     <ClInclude Include="src\utils\AudioManager.h" />

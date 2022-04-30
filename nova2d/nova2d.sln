@@ -30,6 +30,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nova-web-builder", "nova-we
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "box2d-liquidfun", "box2d-liquidfun\box2d-liquidfun.vcxproj", "{EE0E3807-784F-436A-85E1-1C603EC08EBF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "within-safety", "within-safety\within-safety.vcxproj", "{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7EB2F3E-4380-4D3F-9968-060848ADBD07} = {B7EB2F3E-4380-4D3F-9968-060848ADBD07}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -73,6 +78,12 @@ Global
 		{EE0E3807-784F-436A-85E1-1C603EC08EBF}.Release|x86.Build.0 = Release|Win32
 		{EE0E3807-784F-436A-85E1-1C603EC08EBF}.Web|x86.ActiveCfg = Debug|Win32
 		{EE0E3807-784F-436A-85E1-1C603EC08EBF}.Web|x86.Build.0 = Debug|Win32
+		{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}.Debug|x86.ActiveCfg = Debug|Win32
+		{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}.Debug|x86.Build.0 = Debug|Win32
+		{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}.Release|x86.ActiveCfg = Release|Win32
+		{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}.Release|x86.Build.0 = Release|Win32
+		{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}.Web|x86.ActiveCfg = Debug|Win32
+		{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}.Web|x86.Build.0 = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
