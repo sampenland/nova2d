@@ -243,7 +243,7 @@
     <ClCompile Include="src\physics\PhyContactFilter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\ai\PhySimpleDirectional.cpp">
+    <ClCompile Include="src\ai\SimpleDirectional.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -533,7 +533,7 @@
     <ClInclude Include="src\physics\Physics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics\ai\PhySimpleDirectional.h">
+    <ClInclude Include="src\ai\SimpleDirectional.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

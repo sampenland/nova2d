@@ -45,6 +45,14 @@ namespace novazero
 				return (float)floor((angle * (180.0 / 3.141592653589793238463))) + degExtraRotate;
 			}
 
+			static Vec2 LookAtAngle(Vec2 from, Vec2 to)
+			{
+				Vec2 rtn = to;
+				rtn.subtract(from);
+				rtn.normalize();
+				return rtn;
+			}
+
 			static Vec2 UnitVec2FromAngle(float degrees);
 			static float AngleFromVec2(Vec2 vec);
 

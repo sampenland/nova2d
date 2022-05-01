@@ -86,6 +86,7 @@ namespace novazero
 
 			void SetOffsetX(float offsetX) { m_Offset.x = offsetX; }
 			void SetOffsetY(float offsetY) { m_Offset.y = offsetY; }
+			void SetOffset(Vec2 vec) { SetOffsetX(vec.x); SetOffsetY(vec.y); }
 
 			void SetPosition(Vec2 position);
 			void SetPositionInt(Vec2Int position);

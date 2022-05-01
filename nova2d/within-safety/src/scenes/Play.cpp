@@ -1,4 +1,5 @@
 #include "Play.h"
+#include "ai/SimpleDirectional.h"
 
 namespace withinsafety
 {
@@ -18,12 +19,49 @@ namespace withinsafety
 
 		n2dAssetsLoadAndAddTexture("player", "res/player.png");
 		n2dAssetsLoadAndAddTexture("bullet", "res/bullet.png");
+		n2dAssetsLoadAndAddTexture("enemy1", "res/enemy1.png");
 
 		m_Planet = new PhySensor("planet", true, Game::GetCenterScreen(), 60);
 		m_Player = new PhySprite("player", Game::GetCenterScreen().add(Vec2(0, -200)), Vec2(32,32),
 			10, Vec2Int(32,32), "player");
 		m_Player->ConfigurePhysicsCircle(false, 20);
 		m_Player->DisableAutoRotation();
+
+		m_Enemy1Creator = new Timer(1000.f, true, n2dMakeFunc(Play::CreateEnemy1, this));
+	}
+
+	void Play::CreateEnemy1()
+	{
+		Vec2 createAt = Vec2(0, 0);
+
+		int rnd = n2dRandomInt(0, 3);
+		float pad = 0.05f;
+		switch (rnd)
+		{
+		case 0:
+			// TOP
+			createAt = Vec2(n2dRandomFloat(0, Game::s_Width), n2dRandomFloat(0, pad * Game::s_Height));
+			break;
+
+		case 1:
+			// BOTTOM
+			createAt = Vec2(n2dRandomFloat(0, Game::s_Width), n2dRandomFloat(0, (1- pad) * Game::s_Height));
+			break;
+
+		case 2:
+			// LEFT
+			createAt = Vec2(n2dRandomFloat(0, pad * Game::s_Width), n2dRandomFloat(0, Game::s_Height));
+			break;
+
+		default:
+			// RIGHT
+			createAt = Vec2(n2dRandomFloat(0, (1 - pad) * Game::s_Width), n2dRandomFloat(0, Game::s_Height));
+			break;
+		}
+
+		Vec2 dir = Vec2::LookAtAngle(createAt, m_Planet->GetPosition());
+		SimpleDirectional* enemy1 = new SimpleDirectional(dir, 20.f, 5, "enemy1", createAt,
+			Vec2Int(32, 32), 10, "enemy1");
 	}
 	
 	void Play::End()
@@ -51,9 +89,8 @@ namespace withinsafety
 
 			float angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition(), 180);
 			Vec2 dir = Vec2::UnitVec2FromAngle(angle);
-			PhySimpleDirectional* bullet = new PhySimpleDirectional(dir, 2000, 2, "bullet",
-				m_Player->GetPosition().add(dir.multiply(Vec2(40, 40))), Vec2(12, 12), 10,
-				Vec2Int(32, 32), "bullet");
+			SimpleDirectional* bullet = new SimpleDirectional(dir, 15, 1.f, "bullet", m_Player->GetPosition(),
+				Vec2Int(16, 16), 10, "bullet");
 		}
 	}
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "core/Scene.h"
 #include "physics/Physics.h"
+#include "core/Timer.h"
 
 namespace withinsafety
 {
@@ -20,6 +21,8 @@ namespace withinsafety
 		const float SHOOT_RESET = 20.f;
 		float m_ShootReady = -1.f;
 
+		Timer* m_Enemy1Creator = nullptr;
+
 	public:
 
 		Play(const std::string& sceneName);
@@ -27,6 +30,8 @@ namespace withinsafety
 		void Start();
 		void End();
 		void Update();
+
+		void CreateEnemy1();
 
 		void ForceControl();
 		void ShootControl();

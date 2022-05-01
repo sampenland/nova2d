@@ -150,6 +150,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ai\SimpleDirectional.cpp" />
     <ClCompile Include="src\ai\SimpleFollower.cpp" />
     <ClCompile Include="src\ai\SimpleWeakAI.cpp" />
     <ClCompile Include="src\audio\Audio.cpp" />
@@ -198,7 +199,6 @@
     <ClCompile Include="src\particles\Particle.cpp" />
     <ClCompile Include="src\particles\ParticleDestructionListener.cpp" />
     <ClCompile Include="src\particles\ParticleSystem.cpp" />
-    <ClCompile Include="src\physics\ai\PhySimpleDirectional.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleFollower.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleWeakAI.cpp" />
     <ClCompile Include="src\physics\PhyBase.cpp" />
@@ -229,6 +229,7 @@
     <ClCompile Include="src\utils\ValueManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ai\SimpleDirectional.h" />
     <ClInclude Include="src\ai\SimpleFollower.h" />
     <ClInclude Include="src\ai\SimpleWeakAI.h" />
     <ClInclude Include="src\audio\Audio.h" />
@@ -250,7 +251,6 @@
     <ClInclude Include="src\particles\Particle.h" />
     <ClInclude Include="src\particles\ParticleDestructionListener.h" />
     <ClInclude Include="src\particles\ParticleSystem.h" />
-    <ClInclude Include="src\physics\ai\PhySimpleDirectional.h" />
     <ClInclude Include="src\physics\PhyBase.h" />
     <ClInclude Include="src\physics\PhyContactFilter.h" />
     <ClInclude Include="src\physics\PhyContactListener.h" />
