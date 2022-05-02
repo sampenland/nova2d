@@ -51,8 +51,6 @@ Also, to get involved in the development by suggesting ideas and features, check
 	- Deleteables counts
 	- Graver counts
 	- Tween counts
-	- Time Effectors
-	- Time Effected
 	..etc.
  - Simple Logging system with several LOG_Levels
   
