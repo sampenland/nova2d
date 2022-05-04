@@ -33,11 +33,6 @@ namespace novazero
 			m_Offset = Vec2((float)-GetWidth() / 2, (float)-GetHeight() / 2);
 		}
 
-		Vec2 Drawable::GetCenterWorldPosition() const
-		{
-			return Vec2(GetX() + (GetWidth() / 2), GetY() + (GetHeight() / 2));
-		}
-
 		void Drawable::SetOrigin(float x, float y)
 		{
 			m_Offset = Vec2(x, y);

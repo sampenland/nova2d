@@ -16,7 +16,7 @@ namespace novazero
 			m_Display = new Text(fontName, startText, colorName, drawRect, layer);
 			m_Display->SetPosition(Vec2(drawRect.x, drawRect.y));
 			
-			int* textY = m_Display->GetYRef();
+			float* textY = m_Display->GetYRef();
 			m_YTweenID = n2dTweenAdd(false, textY, drawRect.y, endPos.y, startToEndTimeMS, false, true, TweenTypes::EaseOutSine);
 			Game::s_SceneManager->s_TweenManager->RemoveOffset(m_YTweenID); // TODO: what does this do??
 

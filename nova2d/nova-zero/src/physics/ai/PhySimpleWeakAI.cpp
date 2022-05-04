@@ -25,7 +25,7 @@ namespace novazero
 
 			void PhySimpleWeakAI::Update()
 			{
-				m_Sprite->SetPosition(SimpleWeakAI::Positional::GetCenter());
+				m_Sprite->SetPosition(SimpleWeakAI::Positional::GetWorldCenterPosition());
 			}
 
 			PhySprite* PhySimpleWeakAI::GetPhysicsSprite() const

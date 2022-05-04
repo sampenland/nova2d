@@ -49,7 +49,7 @@ namespace thelastforest
 			Configure(g_HumanMoveSpeed, false);
 
 			// Program walk downwards
-			AddPatrolPointWithFunction(Vec2(position.x, position.y + m_Step), GetLinearPatrolMove());
+			AddPatrolPointLinearMovement(Vec2(position.x, position.y + m_Step));
 
 			// Start walk
 			EnableAI(true);
@@ -114,14 +114,14 @@ namespace thelastforest
 			}
 			else
 			{
-				AddPatrolPointWithFunction(
-					Vec2(nX, nY), GetLinearPatrolMove());
+				AddPatrolPointLinearMovement(
+					Vec2(nX, nY));
 				
 				return;
 			}
 
-			AddPatrolPointWithFunction(
-				Vec2(nX, nY), GetLinearPatrolMove());
+			AddPatrolPointLinearMovement(
+				Vec2(nX, nY));
 		}
 
 		void Human::PowerUp()
@@ -202,8 +202,7 @@ namespace thelastforest
 				float nX = GetX();
 				float nY = GetY() - m_Step;
 
-				AddPatrolPointWithFunction(
-					Vec2(nX, nY), GetLinearPatrolMove());
+				AddPatrolPointLinearMovement(Vec2(nX, nY));
 
 				return;
 			}

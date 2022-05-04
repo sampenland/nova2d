@@ -51,6 +51,13 @@ namespace novazero
 			m_MoveFunctions.push_back(func);
 		}
 
+		void SimpleWeakAI::AddPatrolPointLinearMovement(Vec2 point)
+		{
+			Vec2* v = new Vec2(point.x, point.y);
+			m_PatrolPoints.push_back(v);
+			m_MoveFunctions.push_back(GetLinearPatrolMove());
+		}
+
 		/* Clears all patrol points */
 		void SimpleWeakAI::ClearPatrol()
 		{

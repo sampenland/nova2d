@@ -55,7 +55,7 @@ namespace novazero
 
 			SimpleWeakAI();
 
-			void Configure(int patrolDelayMS, bool loop) 
+			void Configure(int patrolDelayMS, bool loop = false) 
 			{ 
 				m_DelayMaxMS = (float)(patrolDelayMS / 1000);
 				m_DelayMS = m_DelayMaxMS;
@@ -114,17 +114,22 @@ namespace novazero
 
 			void AddPatrolPointWithFunction(Vec2* point, std::function<void()> func);
 			void AddPatrolPointWithFunction(Vec2 point, std::function<void()> func);
+			void AddPatrolPointLinearMovement(Vec2 point);
+
 			void RemovePatrolPointWithFunction(Vec2* point);
 
 			void SetAllPatrol(std::vector<Vec2*> points, std::vector<std::function<void()>> funcs);
 			void ClearPatrol();
 
-			void LinearPatrolMove();
-			std::function<void()> GetLinearPatrolMove() { return std::bind(&SimpleWeakAI::LinearPatrolMove, this); }
-			
 			void Update();
 
 			void DestroySelf();
+
+		private:
+
+			void LinearPatrolMove();
+			std::function<void()> GetLinearPatrolMove() { return std::bind(&SimpleWeakAI::LinearPatrolMove, this); }
+			
 
 		};
 	}

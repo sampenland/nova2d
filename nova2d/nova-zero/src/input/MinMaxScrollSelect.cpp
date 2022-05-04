@@ -27,7 +27,7 @@ namespace novazero
 			m_MinRef = minRefVal;
 			m_MaxRef = maxRefVal;
 
-			m_Position = Vec2Int((int)background.x, (int)background.y);
+			m_Position = Vec2(background.x, background.y);
 
 			m_Label = new Text("narrow", labelText, textColor,
 				Rect(background.x, background.y - height * 1.5f, (float)labelWidth, height * 1.5f), layer);

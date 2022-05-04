@@ -22,7 +22,7 @@ namespace thelastforest
 			ClearPatrol();
 
 			Configure(1000, false);
-			AddPatrolPointWithFunction(Vec2(x, y), GetLinearPatrolMove());
+			AddPatrolPointLinearMovement(Vec2(x, y));
 			EnableAI(true);
 
 			ConfigureOnPatrolComplete(n2dMakeFunc(Heart::StartWait, this));

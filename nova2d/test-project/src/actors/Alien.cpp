@@ -47,7 +47,7 @@ namespace testproject
 		float x = n2dRandomFloat(32, Game::s_Width - 32);
 		float y = n2dRandomFloat(32, Game::s_Height - 32);
 
-		AddPatrolPointWithFunction(Vec2(x, y), GetLinearPatrolMove());
+		AddPatrolPointLinearMovement(Vec2(x, y));
 
 	}
 
@@ -66,7 +66,7 @@ namespace testproject
 		}
 
 		AlienBullet* bullet = new AlienBullet(
-			GetCenter(), p, 10);
+			GetWorldCenterPosition(), p, 10);
 		
 	}
 

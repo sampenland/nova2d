@@ -52,7 +52,7 @@ namespace testproject
 	void MiniAlien::UpdateMiniAlien()
 	{
 		float degrees = GetMoveAngleDegrees();
-		Vec2 jetPos = GetSprite()->GetCenterWorldPosition();
+		Vec2 jetPos = GetSprite()->GetWorldCenterPosition();
 		m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y + 6), 10, degrees - 90, degrees + 90);
 	}
 
@@ -61,12 +61,12 @@ namespace testproject
 		if (!PhySimpleFollower::GetTarget())
 			return;
 
-		PhySimpleWeakAI* bullet = new PhySimpleWeakAI("mini-alien-bullet", GetSprite()->GetCenterWorldPosition(),
+		PhySimpleWeakAI* bullet = new PhySimpleWeakAI("mini-alien-bullet", GetSprite()->GetWorldCenterPosition(),
 			Vec2(16, 16), 2, Vec2Int(16, 16), "mini-alien-bullet");
 		bullet->LookAt(PhySimpleFollower::GetTarget()->GetPositionInt(), 90);
 		
 		Vec2 targetPos = PhySimpleFollower::GetTarget()->GetPosition();
-		bullet->AddPatrolPointWithFunction(targetPos, bullet->GetLinearPatrolMove());
+		bullet->AddPatrolPointLinearMovement(targetPos);
 		bullet->ConfigureOnPatrolComplete([=]() {
 			bullet->DestroySelf();
 		});

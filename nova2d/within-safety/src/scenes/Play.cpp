@@ -27,7 +27,9 @@ namespace withinsafety
 		m_Player->ConfigurePhysicsCircle(false, 20);
 		m_Player->DisableAutoRotation();
 
-		m_Enemy1Creator = new Timer(1000.f, true, n2dMakeFunc(Play::CreateEnemy1, this));
+		m_Enemy1Creator = new Timer(2000.f, true, n2dMakeFunc(Play::CreateEnemy1, this));
+
+		Sprite* s = new Sprite("bullet", m_Planet->GetWorldCenterPosition(), Vec2Int(32, 32), 30);
 	}
 
 	void Play::CreateEnemy1()
@@ -59,8 +61,7 @@ namespace withinsafety
 			break;
 		}
 
-		Vec2 dir = Vec2::LookAtAngle(createAt, m_Planet->GetPosition());
-		SimpleDirectional* enemy1 = new SimpleDirectional(dir, 20.f, 5, "enemy1", createAt,
+		SimpleDirectional* enemy1 = new SimpleDirectional(m_Planet->GetWorldCenterPosition(), 20.f, 5, "enemy1", createAt,
 			Vec2Int(32, 32), 10, "enemy1");
 	}
 	
@@ -87,7 +88,7 @@ namespace withinsafety
 		{
 			m_ShootReady = SHOOT_RESET;
 
-			float angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition(), 180);
+			float angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition());
 			Vec2 dir = Vec2::UnitVec2FromAngle(angle);
 			SimpleDirectional* bullet = new SimpleDirectional(dir, 15, 1.f, "bullet", m_Player->GetPosition(),
 				Vec2Int(16, 16), 10, "bullet");
@@ -119,13 +120,12 @@ namespace withinsafety
 			m_Player->GetBody()->ApplyForce(force, m_Player->GetBody()->GetWorldCenter(), true);
 		}
 
-		angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition(), 0);
-		unitVec = Vec2::UnitVec2FromAngle(angle);
+		unitVec = Vec2::LookAtVec(m_Player->GetPosition(), m_Planet->GetPosition(), true);
 		mag = 200.f * PHYSICS_MULTIPLIER;
 		force = b2Vec2(mag * unitVec.x, mag * unitVec.y);
 		m_Player->GetBody()->ApplyForce(force, m_Player->GetBody()->GetWorldCenter(), true);
 
-		angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition(), -90);
+		angle = Vec2::LookAtAngle(m_Planet->GetWorldCenterPosition(), m_Player->GetWorldCenterPosition());
 		m_Player->GetSprite()->SetAngle(angle);
 	}
 

@@ -43,7 +43,7 @@ namespace testproject
 
 		float rads = GetPhySprite()->GetBody()->GetAngle() + PI;
 		float degrees = n2dRadToDeg(rads);
-		Vec2 jetPos = GetPhysicsSprite()->GetCenterWorldPosition();
+		Vec2 jetPos = GetPhysicsSprite()->GetWorldCenterPosition();
 		m_Jets->BurstParticles(1, Vec2(jetPos.x - GetWidth() / 2, jetPos.y - GetHeight() / 2), 10, degrees - 90, degrees + 90);
 	}
 
@@ -64,13 +64,13 @@ namespace testproject
 		{
 			headToPlanet = 0;
 			ClearPatrol();
-			AddPatrolPointWithFunction(Vec2(Game::s_Width - 32, Game::s_Height - 32), GetLinearPatrolMove());
+			AddPatrolPointLinearMovement(Vec2(Game::s_Width - 32, Game::s_Height - 32));
 		}
 		else
 		{
 			ClearPatrol();
 			Vec2 nextPos = Vec2::Random(Vec2(0, 0), Vec2(Game::s_Width, Game::s_Height));
-			AddPatrolPointWithFunction(nextPos, GetLinearPatrolMove());
+			AddPatrolPointLinearMovement(nextPos);
 		}
 	}
 

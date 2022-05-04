@@ -26,6 +26,7 @@ namespace thelastforest
 			m_HoldingItem = new Image("highlight", Vec2(0, 0), Vec2Int(71, 70), 10);
 			m_HoldingItem->SetVisible(false);
 
+			EnableArrowKeys(true);
 		}
 
 		void Player::Update()

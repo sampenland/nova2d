@@ -39,22 +39,15 @@ namespace novazero
 
 			friend std::ostream& operator<<(std::ostream& stream, const Vec2& vector);
 
-			static float LookAtAngle(Vec2 a, Vec2 b, float degExtraRotate)
-			{
-				double angle = atan2(b.y - a.y, b.x - a.x);
-				return (float)floor((angle * (180.0 / 3.141592653589793238463))) + degExtraRotate;
-			}
+			static float LookAtAngle(Vec2 a, Vec2 b, float degExtraRotate = 0);
+			static Vec2 LookAtVec(Vec2 from, Vec2 to, bool normalize = false);
 
-			static Vec2 LookAtAngle(Vec2 from, Vec2 to)
-			{
-				Vec2 rtn = to;
-				rtn.subtract(from);
-				rtn.normalize();
-				return rtn;
-			}
+			static Vec2 VectorStepping(Vec2 currentPosition, Vec2 directionNormalized, float speed);
+			static Vec2 VectorStepping(Vec2 currentPosition, float angle, float speed);
 
 			static Vec2 UnitVec2FromAngle(float degrees);
 			static float AngleFromVec2(Vec2 vec);
+			static float AngleFromToTarget(Vec2 position, Vec2 target);
 
 			static float Distance(Vec2 a, Vec2 b)
 			{

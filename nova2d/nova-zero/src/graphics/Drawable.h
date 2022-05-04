@@ -109,8 +109,6 @@ namespace novazero
 				return Vec2(-(GetWidth() * (*m_Scale)) / 2, -(GetHeight() * (*m_Scale)) / 2);
 			}
 
-			Vec2 GetCenterWorldPosition() const;
-
 			float GetAngle() const { return m_Angle; }
 
 			void SetOrigin(float x, float y);

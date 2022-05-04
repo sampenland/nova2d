@@ -47,7 +47,7 @@ namespace novazero
 		{
 			if (!m_FollowTarget) return;
 
-			Vec2 centerOn = m_FollowTarget->GetCenter();
+			Vec2 centerOn = m_FollowTarget->GetWorldCenterPosition();
 			Rect bounds = GetMoveBounds();
 
 			if (!(
@@ -56,7 +56,7 @@ namespace novazero
 				))
 			{
 				// Within bounds
-				centerOn.x = m_FollowTarget->GetCenter().x;				
+				centerOn.x = m_FollowTarget->GetWorldCenterPosition().x;
 			}
 			else
 			{
@@ -76,7 +76,7 @@ namespace novazero
 				))
 			{
 				// Within bounds
-				centerOn.y = m_FollowTarget->GetCenter().y;
+				centerOn.y = m_FollowTarget->GetWorldCenterPosition().y;
 			}
 			else
 			{
@@ -276,7 +276,7 @@ namespace novazero
 
 		void Camera::CenterOn(Positional* target, float zoom)
 		{
-			CenterOn(Vec2(target->GetCenter().x, target->GetCenter().y), zoom);
+			CenterOn(Vec2(target->GetWorldCenterPosition().x, target->GetWorldCenterPosition().y), zoom);
 		}
 
 		void Camera::CenterOn(Vec2 position, float zoom)

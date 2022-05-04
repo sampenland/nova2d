@@ -43,7 +43,7 @@ namespace novazero
 
 		protected:
 
-			Vec2Int m_Position;
+			Vec2 m_Position;
 			Vec2 m_Offset = Vec2(0, 0);
 			float m_Angle = 0;
 			float m_OldZoom = 1.f;
@@ -68,17 +68,17 @@ namespace novazero
 			Directions IsFacing() const { return m_Facing; }
 
 			float GetX() const;
-			int* GetXRef() { return &m_Position.x; }
+			float* GetXRef() { return &m_Position.x; }
 
 			float GetY() const;
-			int* GetYRef() { return &m_Position.y; }
+			float* GetYRef() { return &m_Position.y; }
 
 			Vec2 GetPosition() const;
 			Vec2Int GetPositionInt() const;
 
 			void SetX(float x);
 			void SetY(float y);
-			Vec2 GetCenter();
+			Vec2 GetWorldCenterPosition();
 			Vec2 GetBottomRight();
 
 			float OffsetX() { return m_Offset.x; }
