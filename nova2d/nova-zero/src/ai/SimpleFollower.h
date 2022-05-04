@@ -31,7 +31,10 @@ namespace novazero
 			Positional* m_Target;
 			Vec2Int m_ScatterOffset = NULLVEC2INT;
 			int m_DelayScatter = 0;
+			float m_WaitAtTargetMin = 8.f;
+			float m_WaitAtTargetMax = 15.f;
 			float m_InRange = 0.f;
+			bool m_AtTarget = false;
 
 			float m_UpdateDirectionDelay = 0;
 			float m_DelayTime = 0;
@@ -73,6 +76,7 @@ namespace novazero
 			void Configure(float moveSpeed, float delayStart = 0.0f, Vec2Int waitTargetPos = Vec2Int(0,0));
 			void ConfigureInRange(float distanceToBeInRange);
 			void ConfigureTarget(Positional* target);
+			void ConfigureWaitAtTarget(float min, float max);
 			void ConfigureRotation(bool lookAtTarget, int addToLookAtDeg) { m_LookAtTarget = lookAtTarget; m_LookAtDegAdd = addToLookAtDeg; }
 			void ConfigureScatterOffset(Vec2Int offset) { m_ScatterOffset = offset; }
 			

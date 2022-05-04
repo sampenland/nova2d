@@ -18,8 +18,9 @@ namespace testproject
 
 		GetPhySensor()->SetUserData(this);
 
-		float wait = n2dRandomFloat(100.f, 10000.f);
+		float wait = n2dRandomFloat(100.f, 1500.f);
 		Configure(2, wait);
+		ConfigureWaitAtTarget(15, 24);
 
 		m_ReTargeter = new Timer(1000, true, n2dMakeFunc(MiniAlien::ReTarget, this), 5000, 10000);
 		m_Shooter = new Timer(1000, true, n2dMakeFunc(MiniAlien::Shoot, this), 2500, 5000);

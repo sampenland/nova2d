@@ -71,6 +71,12 @@ namespace novazero
 			m_Target = target;
 		}
 
+		void SimpleFollower::ConfigureWaitAtTarget(float min, float max)
+		{
+			m_WaitAtTargetMin = min;
+			m_WaitAtTargetMax = max;
+		}
+
 		Positional* SimpleFollower::GetTarget() const
 		{
 			return m_Target;
@@ -78,6 +84,12 @@ namespace novazero
 
 		void SimpleFollower::UpdateFollower()
 		{
+			if (m_DelayScatter > 0)
+			{
+				m_DelayScatter--;
+				return;
+			}
+
 			if (!m_Sprite && !m_PhySprite)
 			{
 				return;
@@ -164,11 +176,12 @@ namespace novazero
 				float currentDistance = Vec2::Distance(targetPos, currentPos);
 				bool atTarget = currentDistance < m_InRange;
 
-				if (atTarget && m_DelayScatter > 25)
+				if (atTarget)
 				{
+					m_DelayScatter = n2dRandomFloat(m_WaitAtTargetMin, m_WaitAtTargetMax);
+
 					if (m_ScatterOffset != NULLVEC2INT)
 					{
-						m_DelayScatter = 0;
 
 						// Randomize miss
 						Vec2Int size = GetSprite()->GetSize();
@@ -185,10 +198,6 @@ namespace novazero
 							m_ScatterOffset.y *= -1;
 						}
 					}					
-				}
-				else
-				{
-					m_DelayScatter++;
 				}
 
 				m_MoveAngleDegrees = Vec2Int::LookAtAngle(Vec2Int((int)newX, (int)newY), m_Target->GetPositionInt(), 0);
