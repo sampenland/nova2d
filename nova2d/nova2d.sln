@@ -31,6 +31,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "box2d-liquidfun", "box2d-liquidfun\box2d-liquidfun.vcxproj", "{EE0E3807-784F-436A-85E1-1C603EC08EBF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "within-safety", "within-safety\within-safety.vcxproj", "{16CD77DD-52C0-4686-8BE9-C93CA900BEFB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7EB2F3E-4380-4D3F-9968-060848ADBD07} = {B7EB2F3E-4380-4D3F-9968-060848ADBD07}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

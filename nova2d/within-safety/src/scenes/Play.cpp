@@ -27,9 +27,8 @@ namespace withinsafety
 		m_Player->ConfigurePhysicsCircle(false, 20);
 		m_Player->DisableAutoRotation();
 
-		m_Enemy1Creator = new Timer(2000.f, true, n2dMakeFunc(Play::CreateEnemy1, this));
+		//m_Enemy1Creator = new Timer(2000.f, true, n2dMakeFunc(Play::CreateEnemy1, this));
 
-		Sprite* s = new Sprite("bullet", m_Planet->GetWorldCenterPosition(), Vec2Int(32, 32), 30);
 	}
 
 	void Play::CreateEnemy1()
@@ -104,29 +103,22 @@ namespace withinsafety
 
 		if (n2dIsKeyDown(SDLK_RIGHT))
 		{
-			angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition(), -70);
-			unitVec = Vec2::UnitVec2FromAngle(angle);
-			mag = 1000.f * PHYSICS_MULTIPLIER;
-			force = b2Vec2(mag * unitVec.x, mag * unitVec.y);
-			m_Player->GetBody()->ApplyForce(force, m_Player->GetBody()->GetWorldCenter(), true);
+			unitVec = Vec2::UnitVec2FromAngle(
+				Vec2::AngleFromToTarget(m_Player->GetWorldCenterPosition(), m_Planet->GetWorldCenterPosition(), 270)
+			);
+
+			m_Player->ApplyForce(unitVec, 100.f);
 		}
 
 		if (n2dIsKeyDown(SDLK_LEFT))
 		{
-			angle = Vec2::LookAtAngle(m_Player->GetPosition(), m_Planet->GetPosition(), 70);
-			unitVec = Vec2::UnitVec2FromAngle(angle);
-			mag = 1000.f * PHYSICS_MULTIPLIER;
-			force = b2Vec2(mag * unitVec.x, mag * unitVec.y);
-			m_Player->GetBody()->ApplyForce(force, m_Player->GetBody()->GetWorldCenter(), true);
+			unitVec = Vec2::UnitVec2FromAngle(
+				Vec2::AngleFromToTarget(m_Player->GetWorldCenterPosition(), m_Planet->GetWorldCenterPosition(), 90)
+			);
+
+			m_Player->ApplyForce(unitVec, 100.f);
 		}
 
-		unitVec = Vec2::LookAtVec(m_Player->GetPosition(), m_Planet->GetPosition(), true);
-		mag = 200.f * PHYSICS_MULTIPLIER;
-		force = b2Vec2(mag * unitVec.x, mag * unitVec.y);
-		m_Player->GetBody()->ApplyForce(force, m_Player->GetBody()->GetWorldCenter(), true);
-
-		angle = Vec2::LookAtAngle(m_Planet->GetWorldCenterPosition(), m_Player->GetWorldCenterPosition());
-		m_Player->GetSprite()->SetAngle(angle);
 	}
 
 }

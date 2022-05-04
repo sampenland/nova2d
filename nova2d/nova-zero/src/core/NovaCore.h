@@ -52,6 +52,7 @@
 
 // Physics
 #define PHYSICS_MULTIPLIER 200
+#define PHYSICS_POSITION_MULIPLIER 2
 #define PHYSICS_SCALE 1.f
 
 // ---------------------

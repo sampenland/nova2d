@@ -250,6 +250,15 @@ namespace novazero
 
 		}
 
+		void PhySprite::ApplyForce(Vec2 forceDirNormalized, float magnitude)
+		{
+			if (!m_Body) return;
+
+			forceDirNormalized.multiply(Vec2(magnitude * n2dTimeScale, magnitude * n2dTimeScale));
+			b2Vec2 force = b2Vec2(forceDirNormalized.x, forceDirNormalized.y);
+			m_Body->ApplyForce(force, m_Body->GetWorldCenter(), true);
+		}
+
 		void PhySprite::ApplyForce(float force, Directions direction)
 		{
 			if (m_Body)

@@ -69,6 +69,7 @@ namespace novazero
 			Force position 0,0 is center of mass
 			*/
 			void ApplyForce(float force, Directions direction);
+			void ApplyForce(Vec2 forceDirNormalized, float magnitude);
 			void ApplyAngularForce(float force);
 
 			void Update();

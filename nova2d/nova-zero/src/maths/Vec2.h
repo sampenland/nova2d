@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Box2D/Box2D.h"
 
 #ifdef NOVA_EMSCRIPTEN
 	#include <cmath>
@@ -47,7 +48,7 @@ namespace novazero
 
 			static Vec2 UnitVec2FromAngle(float degrees);
 			static float AngleFromVec2(Vec2 vec);
-			static float AngleFromToTarget(Vec2 position, Vec2 target);
+			static float AngleFromToTarget(Vec2 position, Vec2 target, float extraDegrees = 0.f);
 
 			static float Distance(Vec2 a, Vec2 b)
 			{

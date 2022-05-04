@@ -13,7 +13,7 @@ namespace novazero
 			: m_Speed(speed/10.f), 
 			Sprite(assetName, position, size, layer)
 		{
-			m_Sensor = new PhySensor(colliderName, false, position, (float)size.x * 0.6f, collisionGroup);
+			m_Sensor = new PhySensor(colliderName, false, position, (float)size.x * 0.55f, collisionGroup);
 			
 			m_Direction = Vec2::LookAtVec(position, targetPosition, true);
 
@@ -30,7 +30,7 @@ namespace novazero
 			Vec2 newPos = Vec2::VectorStepping(currentPos, m_Direction, m_Speed);
 			
 			SetPosition(newPos);
-			m_Sensor->SetBodyPosition(Vec2(newPos.x, newPos.y));
+			m_Sensor->SetBodyPosition(Vec2(newPos.x + GetWidth() / 2, newPos.y + GetHeight() / 2));
 		}
 
 		void SimpleDirectional::DestroySelf()

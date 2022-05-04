@@ -175,7 +175,7 @@ namespace novazero
 			*/
 
 			if (degrees > 360)
-				degrees = std::fmod(degrees, 360);
+				degrees = (float)std::fmod(degrees, 360);
 
 			Vec2 unitVec;
 			float rad = n2dDegToRad(degrees);
@@ -186,17 +186,17 @@ namespace novazero
 
 		float Vec2::AngleFromVec2(Vec2 vec)
 		{
-			vec.y *= -1; // In engine, -1 point UP so invert Y
+			vec.y *= -1.f; // In engine, -1 point UP so invert Y
 
-			if (vec.x == 0) // special cases
-				return (vec.y > 0) ? 90
-				: (vec.y == 0) ? 0
-				: 270;
+			if (vec.x == 0.f) // special cases
+				return (vec.y > 0.f) ? 90.f
+				: (vec.y == 0.f) ? 0.f
+				: 270.f;
 			else if (vec.y == 0) // special cases
-				return (vec.x >= 0) ? 0
-				: 180;
+				return (vec.x >= 0.f) ? 0.f
+				: 180.f;
 
-			int ret = n2dRadToDeg(atanf((float)vec.y / vec.x));
+			float ret = n2dRadToDeg(atanf((float)vec.y / vec.x));
 
 			if (vec.x < 0 && vec.y < 0) // quadrant Ⅲ
 				ret = 180 + ret;
@@ -207,12 +207,12 @@ namespace novazero
 			return ret;
 		}
 
-		float Vec2::AngleFromToTarget(Vec2 position, Vec2 target)
+		float Vec2::AngleFromToTarget(Vec2 position, Vec2 target, float extraDegrees)
 		{
 			Vec2 pN = position.normalize();
 			Vec2 v = target.normalize();
 			v.subtract(pN);
-			return AngleFromVec2(v);
+			return AngleFromVec2(v) + extraDegrees;
 		}
 
 		Vec2 Vec2::Random(float minX, float maxX, float minY, float maxY)
