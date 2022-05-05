@@ -29,6 +29,7 @@ namespace novazero
 			bool m_Moving = false;
 			Directions m_MoveDirection = Directions::None;
 			float m_MoveSpeed = 100.f;
+			Vec2 m_MaxVelocity = Vec2(500.f, 500.f);
 
 			void ArrowKeys();
 			void WASD();
@@ -53,8 +54,11 @@ namespace novazero
 			void EnableRotation(bool val);
 
 			void ConfigureMoveSpeed(float speed);
+			void ConfigureMaxVelocity(Vec2 max);
+			void ConfigureMaxVelocity(float max);
 
 			bool GetMoving() const;
+			bool GetBodyMoving(float percentMovementMin = 0.1f);
 			Directions GetDirection() const;
 
 			void EnabledJoystickController(bool val, char controllerID);

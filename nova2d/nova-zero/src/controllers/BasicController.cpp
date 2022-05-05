@@ -5,7 +5,7 @@ namespace novazero
 {
 	namespace controllers
 	{
-		BasicController::BasicController(const std::string& assetName, const std::string& colliderName, 
+		BasicController::BasicController(const std::string& assetName, const std::string& colliderName,
 			Vec2 position, Vec2 colliderSize, Vec2Int spriteSize, unsigned char layer)
 			: PhySprite(assetName, position, colliderSize, layer, spriteSize, colliderName)
 		{
@@ -60,9 +60,33 @@ namespace novazero
 			m_MoveSpeed = speed;
 		}
 
+		void BasicController::ConfigureMaxVelocity(Vec2 max)
+		{
+			m_MaxVelocity = max;
+		}
+
+		void BasicController::ConfigureMaxVelocity(float max)
+		{
+			m_MaxVelocity = Vec2(max, max);
+		}
+
 		bool BasicController::GetMoving() const
 		{
 			return m_Moving;
+		}
+
+		bool BasicController::GetBodyMoving(float percentMinMovement)
+		{
+			if (GetPhySprite())
+			{
+				if (GetPhySprite()->GetBody())
+				{
+					b2Vec2 vel = GetPhySprite()->GetBody()->GetLinearVelocity();
+					percentMinMovement *= m_MoveSpeed;
+					return vel.x > percentMinMovement || vel.x < -percentMinMovement || 
+						vel.y > percentMinMovement || vel.y < -percentMinMovement;
+				}
+			}
 		}
 
 		void BasicController::ControllerUpdate()
@@ -181,6 +205,16 @@ namespace novazero
 
 		void BasicController::MoveUp()
 		{
+			if (GetPhySprite())
+			{
+				if (GetPhySprite()->GetBody())
+				{
+					b2Vec2 v = GetPhySprite()->GetBody()->GetLinearVelocity();
+					if (v.y < -m_MaxVelocity.y)
+						return;
+				}
+			}
+
 			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Up);
 			m_MoveDirection = Directions::Up;
 			m_Moving = true;
@@ -188,6 +222,16 @@ namespace novazero
 
 		void BasicController::MoveDown()
 		{
+			if (GetPhySprite())
+			{
+				if (GetPhySprite()->GetBody())
+				{
+					b2Vec2 v = GetPhySprite()->GetBody()->GetLinearVelocity();
+					if (v.y > m_MaxVelocity.y)
+						return;
+				}
+			}
+
 			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Down);
 			m_MoveDirection = Directions::Down;
 			m_Moving = true;
@@ -195,6 +239,16 @@ namespace novazero
 
 		void BasicController::MoveRight()
 		{
+			if (GetPhySprite())
+			{
+				if (GetPhySprite()->GetBody())
+				{
+					b2Vec2 v = GetPhySprite()->GetBody()->GetLinearVelocity();
+					if (v.x > m_MaxVelocity.x)
+						return;
+				}
+			}
+
 			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Right);
 			m_MoveDirection = Directions::Right;
 			m_Moving = true;
@@ -202,6 +256,16 @@ namespace novazero
 
 		void BasicController::MoveLeft()
 		{
+			if (GetPhySprite())
+			{
+				if (GetPhySprite()->GetBody())
+				{
+					b2Vec2 v = GetPhySprite()->GetBody()->GetLinearVelocity();
+					if (v.x < -m_MaxVelocity.x)
+						return;
+				}
+			}
+
 			ApplyForce(m_MoveSpeed * n2dTimeScale, Directions::Left);
 			m_MoveDirection = Directions::Left;
 			m_Moving = true;

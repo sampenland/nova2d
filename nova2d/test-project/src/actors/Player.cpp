@@ -17,6 +17,7 @@ namespace testproject
 		EnableRotation(false);
 
 		ConfigureMoveSpeed(5);
+		ConfigureMaxVelocity(8);
 
 		auto cid = n2dAddUpdater(Player::Update, this);
 		m_CleanUpdaters.push_back(cid);
@@ -165,7 +166,7 @@ namespace testproject
 		{
 			if (GetPhySprite()->GetBody())
 			{
-				if (GetMoving())
+				if (GetBodyMoving())
 				{
 					b2Vec2 linearVel = GetPhySprite()->GetBody()->GetLinearVelocity();
 					float degrees = Vec2::AngleFromVec2(Vec2(linearVel.x, linearVel.y));
