@@ -60,7 +60,7 @@ namespace novazero
 				leftDef.position.Set(-startPaddingMeters.x + innerPadding, 0);
 
 				b2PolygonShape leftShape;
-				leftShape.SetAsBox(100.f, (float)gameSizeMeters.y);
+				leftShape.SetAsBox((float)startPaddingMeters.x, (float)gameSizeMeters.y);
 				leftDef.type = b2_staticBody;
 
 				b2Body* leftBody = m_World->CreateBody(&leftDef);

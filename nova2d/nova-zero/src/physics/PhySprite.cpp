@@ -291,7 +291,8 @@ namespace novazero
 					break;
 				}
 
-				m_Body->ApplyForce(force * forceDirection, m_Body->GetWorldCenter(), true);
+				Vec2 dir = Vec2(forceDirection.x, forceDirection.y);
+				ApplyForce(dir, force);
 				
 			}
 		}
@@ -306,6 +307,9 @@ namespace novazero
 
 		void PhySprite::SetScale(float factor)
 		{
+			return;
+			// TODO: scaling does not work
+
 			if (m_Body)
 			{
 				b2Fixture* f = m_Body->GetFixtureList();

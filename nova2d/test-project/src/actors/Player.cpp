@@ -16,7 +16,7 @@ namespace testproject
 		ConfigurePhysicsRect(false);
 		EnableRotation(false);
 
-		ConfigureMoveSpeed(400);
+		ConfigureMoveSpeed(5);
 
 		auto cid = n2dAddUpdater(Player::Update, this);
 		m_CleanUpdaters.push_back(cid);
