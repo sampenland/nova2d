@@ -30,7 +30,7 @@ namespace novazero
 
 			Positional* m_Target;
 			Vec2Int m_ScatterOffset = NULLVEC2INT;
-			int m_DelayScatter = 0;
+			float m_DelayScatter = 0;
 			float m_WaitAtTargetMin = 8.f;
 			float m_WaitAtTargetMax = 15.f;
 			float m_InRange = 0.f;

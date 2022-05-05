@@ -30,7 +30,7 @@ namespace novazero
 
 		void Drawable::OriginCenter()
 		{
-			m_Offset = Vec2((float)-GetWidth() / 2, (float)-GetHeight() / 2);
+			m_Offset = Vec2((float)-GetWidth() / 2, (float)GetHeight() / 2);
 		}
 
 		void Drawable::SetOrigin(float x, float y)

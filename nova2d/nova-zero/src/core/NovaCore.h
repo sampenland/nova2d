@@ -51,9 +51,9 @@
 #define ERR_NO_SCENE_MNGR 1002
 
 // Physics
-#define PHYSICS_MULTIPLIER 200
-#define PHYSICS_POSITION_MULIPLIER 2
 #define PHYSICS_SCALE 1.f
+#define PHYSICS_CONVERSION_FACTOR_MTP 32.f
+#define PHYSICS_CONVERSION_FACTOR_PTM 0.03125f
 
 // ---------------------
 // Quick Acess
@@ -817,8 +817,16 @@ namespace novazero
 		ParticleSystem* n2dGetParticleSystem(const std::string& systemName);
 
 		void n2dRemoveParticleSystem(const std::string& systemName);
+		
+		/*
+			Convert meters(box2d) to pixels(screen)
+		*/
+		float n2dMetersToPixels(float m);
 
-		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, float velocity);
+		/*
+			Convert pixels(screen) to meters(box2d)
+		*/
+		float n2dPixelsToMeters(float p);
 
 	}
 

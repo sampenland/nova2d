@@ -37,4 +37,9 @@
   <ItemGroup>
     <None Include="imgui.ini" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

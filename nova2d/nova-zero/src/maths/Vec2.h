@@ -19,7 +19,9 @@ namespace novazero
 
 			Vec2& add(const Vec2& other);
 			Vec2& subtract(const Vec2& other);
+
 			Vec2& multiply(const Vec2& other);
+
 			Vec2& divide(const Vec2& other);
 			Vec2& scale(const float mag);
 
@@ -50,12 +52,10 @@ namespace novazero
 			static float AngleFromVec2(Vec2 vec);
 			static float AngleFromToTarget(Vec2 position, Vec2 target, float extraDegrees = 0.f);
 
-			static float Distance(Vec2 a, Vec2 b)
-			{
-				Vec2 m = b.subtract(a);
-				float mag = (float)std::sqrt((std::pow(m.x, 2) + std::pow(m.y, 2)));
-				return mag;
-			}
+			static Vec2 MetersToPixels(b2Vec2 vec);
+			static b2Vec2 PixelsToMeters(Vec2 vec);
+
+			static float Distance(Vec2 a, Vec2 b);
 
 			static Vec2 Random(float minX, float maxX, float minY, float maxY);
 			static Vec2 Random(Vec2 min, Vec2 max);

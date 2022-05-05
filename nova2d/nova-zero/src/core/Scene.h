@@ -52,7 +52,7 @@ namespace novazero
 
 			static Environment* s_Environment;
 
-			void EnablePhysics(bool enabled, Vec2 gravity = Vec2(0,0), float innerPadding = 0.f);
+			void EnablePhysics(bool enabled, Vec2 gravity = Vec2(0,0), float innerPadding = 0.f, bool walls = true);
 			b2World* GetWorld() const;
 
 			PhyContactListener* GetContactListener() const

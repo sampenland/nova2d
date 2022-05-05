@@ -29,10 +29,13 @@ namespace novazero
 			Game::s_Director->InitLighting();
 		}
 
-		void Scene::EnablePhysics(bool enabled, Vec2 gravity, float innerPadding)
+		void Scene::EnablePhysics(bool enabled, Vec2 gravity, float innerPadding, bool walls)
 		{
 			m_PhysicsEnabled = enabled;
-			m_Gravity = new b2Vec2(gravity.x, gravity.y);
+
+			b2Vec2 gravityMeters = Vec2::PixelsToMeters(gravity);
+
+			m_Gravity = new b2Vec2(gravityMeters.x, gravityMeters.y);
 			m_World = new b2World(*m_Gravity);
 
 			m_ContactListener = new PhyContactListener();
@@ -42,56 +45,65 @@ namespace novazero
 			m_ContactFilter = new PhyContactFilter();
 			m_World->SetContactFilter(m_ContactFilter);
 
-			b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
-			b2Vec2 lowerRightCorner = b2Vec2((float)Game::s_Width, 0.f);
-			b2Vec2 upperLeftCorner = b2Vec2(0.f, (float)Game::s_Height);
-			b2Vec2 upperRightCorner = b2Vec2((float)Game::s_Width, (float)Game::s_Height);
-			
-			b2BodyDef leftDef;
-			leftDef.position.Set(-100 + innerPadding, 0);
+			if (walls)
+			{
+				b2Vec2 gameSizeMeters = Vec2::PixelsToMeters(Vec2(Game::s_Width, Game::s_Height));
 
-			b2PolygonShape leftShape;
-			leftShape.SetAsBox(100.f, (float)Game::s_Height);
-			leftDef.type = b2_staticBody;
+				b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
+				b2Vec2 lowerRightCorner = b2Vec2((float)gameSizeMeters.x, 0.f);
+				b2Vec2 upperLeftCorner = b2Vec2(0.f, (float)gameSizeMeters.y);
+				b2Vec2 upperRightCorner = gameSizeMeters;
 
-			b2Body* leftBody = m_World->CreateBody(&leftDef);
-			leftBody->CreateFixture(&leftShape, 1.0f);
+				b2Vec2 startPaddingMeters = Vec2::PixelsToMeters(Vec2(100, 100));
 
-			// ----------------------------------------
+				b2BodyDef leftDef;
+				leftDef.position.Set(-startPaddingMeters.x + innerPadding, 0);
 
-			b2BodyDef rightDef;
-			rightDef.position.Set((float)Game::s_Width + 100.f - innerPadding, 0.f);
+				b2PolygonShape leftShape;
+				leftShape.SetAsBox(100.f, (float)gameSizeMeters.y);
+				leftDef.type = b2_staticBody;
 
-			b2PolygonShape rightShape;
-			rightShape.SetAsBox(100.f, (float)Game::s_Height);
-			rightDef.type = b2_staticBody;
+				b2Body* leftBody = m_World->CreateBody(&leftDef);
+				leftBody->CreateFixture(&leftShape, 1.0f);
 
-			b2Body* rightBody = m_World->CreateBody(&rightDef);
-			rightBody->CreateFixture(&rightShape, 1.0f);
+				// ----------------------------------------
 
-			// ----------------------------------------
+				b2BodyDef rightDef;
+				rightDef.position.Set((float)gameSizeMeters.x + startPaddingMeters.x - innerPadding, 0.f);
 
-			b2BodyDef upDef;
-			upDef.position.Set(0, -100 + innerPadding);
+				b2PolygonShape rightShape;
+				rightShape.SetAsBox(startPaddingMeters.x, (float)gameSizeMeters.y);
+				rightDef.type = b2_staticBody;
 
-			b2PolygonShape upShape;
-			upShape.SetAsBox((float)Game::s_Width, 100);
-			upDef.type = b2_staticBody;
+				b2Body* rightBody = m_World->CreateBody(&rightDef);
+				rightBody->CreateFixture(&rightShape, 1.0f);
 
-			b2Body* upBody = m_World->CreateBody(&upDef);
-			upBody->CreateFixture(&upShape, 1.0f);
+				// ----------------------------------------
 
-			// ----------------------------------------
+				b2BodyDef upDef;
+				upDef.position.Set(0, -startPaddingMeters.y + innerPadding);
 
-			b2BodyDef downDef;
-			downDef.position.Set(0.f, (float)Game::s_Height + 100.f - innerPadding);
+				b2PolygonShape upShape;
+				upShape.SetAsBox((float)gameSizeMeters.x, startPaddingMeters.y);
+				upDef.type = b2_staticBody;
 
-			b2PolygonShape downShape;
-			downShape.SetAsBox((float)Game::s_Width, 100);
-			downDef.type = b2_staticBody;
+				b2Body* upBody = m_World->CreateBody(&upDef);
+				upBody->CreateFixture(&upShape, 1.0f);
 
-			b2Body* downBody = m_World->CreateBody(&downDef);
-			downBody->CreateFixture(&downShape, 1.0f);			
+				// ----------------------------------------
+
+				b2BodyDef downDef;
+				downDef.position.Set(0.f, (float)gameSizeMeters.y + startPaddingMeters.y - innerPadding);
+
+				b2PolygonShape downShape;
+				downShape.SetAsBox((float)gameSizeMeters.x, startPaddingMeters.y);
+				downDef.type = b2_staticBody;
+
+				b2Body* downBody = m_World->CreateBody(&downDef);
+				downBody->CreateFixture(&downShape, 1.0f);
+			}	
+
+			PhysicsEnableDebug(false);
 
 		}
 

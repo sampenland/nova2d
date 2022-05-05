@@ -204,6 +204,18 @@ namespace novazero
 				if (chance < chanceOfMin) return min;
 				return n2dRandomInt(min, max);
 			}
+
+			static float PixelsToMeters(float p)
+			{
+				float r = PHYSICS_CONVERSION_FACTOR_PTM * p;
+				return r;
+			}
+
+			static float MetersToPixels(float m)
+			{
+				float r = PHYSICS_CONVERSION_FACTOR_MTP * m;
+				return r;
+			}
 			
 		};
 	}

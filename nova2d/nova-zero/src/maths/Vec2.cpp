@@ -215,6 +215,26 @@ namespace novazero
 			return AngleFromVec2(v) + extraDegrees;
 		}
 
+		Vec2 Vec2::MetersToPixels(b2Vec2 vec)
+		{
+			// Box2D meters to Screen Pixels
+			return Vec2(vec.x * PHYSICS_CONVERSION_FACTOR_MTP, vec.y * PHYSICS_CONVERSION_FACTOR_MTP);
+		}
+
+		b2Vec2 Vec2::PixelsToMeters(Vec2 vec)
+		{
+			// Screen pixels to Box2D Meters
+			return b2Vec2(vec.x * PHYSICS_CONVERSION_FACTOR_PTM, vec.y * PHYSICS_CONVERSION_FACTOR_PTM);
+
+		}
+
+		float Vec2::Distance(Vec2 a, Vec2 b)
+		{
+			Vec2 m = b.subtract(a);
+			float mag = (float)std::sqrt((std::pow(m.x, 2) + std::pow(m.y, 2)));
+			return mag;
+		}
+
 		Vec2 Vec2::Random(float minX, float maxX, float minY, float maxY)
 		{
 			Vec2 v;

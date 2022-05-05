@@ -31,6 +31,7 @@ namespace novazero
 			Shapes m_Shape = Shapes::Rect;
 
 			b2Body* m_Body = nullptr;
+			b2Vec2 m_BodySize = b2Vec2(0, 0);
 
 			Vec2 m_PhySize = Vec2(0, 0);
 			float m_Radius = 1.f;
@@ -52,7 +53,7 @@ namespace novazero
 			
 			// Circle
 			PhySensor(std::string colliderName, bool staticBody,
-				Vec2 position, float radius, const std::string& collisionGroup = "none", float density = 0.5f, float friction = 0.3f);
+				Vec2 position, float radiusInPixels, const std::string& collisionGroup = "none", float density = 0.5f, float friction = 0.3f);
 			
 			void SetBodyPosition(Vec2 position)
 			{

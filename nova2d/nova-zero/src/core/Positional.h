@@ -79,6 +79,7 @@ namespace novazero
 			void SetX(float x);
 			void SetY(float y);
 			Vec2 GetWorldCenterPosition();
+			void SetWorldCenterPosition(Vec2 position);
 			Vec2 GetBottomRight();
 
 			float OffsetX() { return m_Offset.x; }

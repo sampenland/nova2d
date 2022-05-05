@@ -38,8 +38,9 @@ namespace novazero
 			if (m_Body && GetSprite())
 			{
 				b2Vec2 bodyPos = m_Body->GetPosition();
+				Vec2 screenPos = Vec2::MetersToPixels(bodyPos);
 
-				GetSprite()->SetPosition(Vec2(bodyPos.x - GetWidth() / 2, bodyPos.y - GetHeight() / 2));
+				GetSprite()->SetWorldCenterPosition(screenPos);
 
 				if(m_AutoRotate)
 					GetSprite()->SetAngle(n2dRadToDeg(m_Body->GetAngle()));
@@ -96,7 +97,9 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+			
+			b2Vec2 pos = Vec2::PixelsToMeters(Vec2(GetX(), GetY()));
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -151,12 +154,16 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+
+			b2Vec2 pos = Vec2::PixelsToMeters(GetPosition());
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
 			b2PolygonShape shape;
-			shape.SetAsBox(GetWidth() / 2 * PHYSICS_SCALE, GetHeight() / 2 * PHYSICS_SCALE);
+			b2Vec2 boxSize = Vec2::PixelsToMeters(Vec2((float)GetWidth() / 2.f, (float)GetHeight() / 2.f));
+			m_BodySize = boxSize;
+			shape.SetAsBox(boxSize.x, boxSize.y);
 
 			b2FixtureDef fixtureDef;
 			fixtureDef.shape = &shape;
@@ -171,7 +178,7 @@ namespace novazero
 
 		}
 
-		void PhySprite::ConfigurePhysicsCircle(bool staticBody, float radius, float density, float friction)
+		void PhySprite::ConfigurePhysicsCircle(bool staticBody, float radiusInPixels, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -193,12 +200,14 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);			
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2);
+
+			b2Vec2 pos = Vec2::PixelsToMeters(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2));
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
 			b2CircleShape shape;
-			shape.m_radius = radius * PHYSICS_SCALE;
+			shape.m_radius = n2dPixelsToMeters(radiusInPixels) * PHYSICS_SCALE;
 
 			b2FixtureDef fixtureDef;
 			fixtureDef.shape = &shape;
@@ -213,7 +222,7 @@ namespace novazero
 
 		}
 
-		void PhySprite::ConfigurePhysicsSensorCircle(bool staticBody, float radius, float density, float friction)
+		void PhySprite::ConfigurePhysicsSensorCircle(bool staticBody, float radiusInPixels, float density, float friction)
 		{
 			b2World* world = n2dCurrentPhyWorld();
 
@@ -229,12 +238,14 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set((GetX() + GetWidth()/2), (GetY() + GetHeight()/2));
+
+			b2Vec2 pos = Vec2::PixelsToMeters(Vec2(GetX() + GetWidth() / 2, GetY() + GetHeight() / 2));
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
 			b2CircleShape shape;
-			shape.m_radius = radius * PHYSICS_SCALE;
+			shape.m_radius = n2dPixelsToMeters(radiusInPixels) * PHYSICS_SCALE;
 
 			b2FixtureDef fixtureDef;
 			fixtureDef.shape = &shape;
@@ -254,7 +265,7 @@ namespace novazero
 		{
 			if (!m_Body) return;
 
-			forceDirNormalized.multiply(Vec2(magnitude * n2dTimeScale, magnitude * n2dTimeScale));
+			forceDirNormalized.scale(magnitude * n2dTimeScale);
 			b2Vec2 force = b2Vec2(forceDirNormalized.x, forceDirNormalized.y);
 			m_Body->ApplyForce(force, m_Body->GetWorldCenter(), true);
 		}
@@ -280,7 +291,7 @@ namespace novazero
 					break;
 				}
 
-				m_Body->ApplyForce((force * PHYSICS_MULTIPLIER) * forceDirection, m_Body->GetWorldCenter(), true);
+				m_Body->ApplyForce(force * forceDirection, m_Body->GetWorldCenter(), true);
 				
 			}
 		}
@@ -289,7 +300,7 @@ namespace novazero
 		{
 			if (m_Body)
 			{
-				m_Body->ApplyAngularImpulse(force * (PHYSICS_MULTIPLIER / 30), true);
+				m_Body->ApplyAngularImpulse(force, true);
 			}
 		}
 
@@ -336,13 +347,14 @@ namespace novazero
 		{
 			if (m_Body)
 			{
+				b2Vec2 meterPos = Vec2::PixelsToMeters(position);
 				if (m_CircleShape)
 				{
-					m_Body->SetTransform(b2Vec2(position.x, position.y), m_Body->GetAngle());
+					m_Body->SetTransform(meterPos, m_Body->GetAngle());
 				}
 				else
 				{
-					m_Body->SetTransform(b2Vec2(position.x + GetWidth() / 2, position.y + GetHeight() / 2), m_Body->GetAngle());
+					m_Body->SetTransform(b2Vec2(meterPos.x + GetWidth() / 2, meterPos.y + GetHeight() / 2), m_Body->GetAngle());
 				}
 			}
 

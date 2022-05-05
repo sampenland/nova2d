@@ -19,7 +19,6 @@ namespace novazero
 			unsigned char layer, bool makeCopy)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect()), Drawable(size)
 		{
-			SetPosition(position);
 			SetSize(size);
 
 			m_Angle = 0;
@@ -51,6 +50,7 @@ namespace novazero
 			m_CleanUpdaters.push_back(n2dAddUpdater(Sprite::TickAnimation, this));
 
 			LinkPositionalDrawable(this);
+			SetWorldCenterPosition(position);
 
 			// Final
 			m_ID = Game::GetNextID();

@@ -22,6 +22,7 @@ namespace novazero
 			bool m_CircleShape = false;
 
 			b2Body* m_Body = nullptr;
+			b2Vec2 m_BodySize = b2Vec2(0, 0);
 			bool m_AutoRotate = true;
 
 			Vec2 m_PhySize = Vec2(0, 0);
@@ -50,8 +51,8 @@ namespace novazero
 
 			void ConfigurePhysicsRect(bool staticBody, float density = 0.5f, float friction = 0.3f);
 			void ConfigurePhysicsPolygon(bool staticBody, std::vector<Vec2> shapeVertices, const int vertexCount, float density = 0.5f, float friction = 0.3f);
-			void ConfigurePhysicsCircle(bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
-			void ConfigurePhysicsSensorCircle(bool staticBody, float radius, float density = 0.5f, float friction = 0.3f);
+			void ConfigurePhysicsCircle(bool staticBody, float radiusInPixels, float density = 0.5f, float friction = 0.3f);
+			void ConfigurePhysicsSensorCircle(bool staticBody, float radiusInPixels, float density = 0.5f, float friction = 0.3f);
 
 			void EnableRotation(bool val);
 			

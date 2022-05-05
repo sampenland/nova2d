@@ -188,8 +188,8 @@ namespace novazero
 
 		void TiledMap::CreateTilemapTexture()
 		{
-			m_TilemapDrawRect.x = m_Position.x;
-			m_TilemapDrawRect.y = m_Position.y;
+			m_TilemapDrawRect.x = (int)m_Position.x;
+			m_TilemapDrawRect.y = (int)m_Position.y;
 			m_TilemapDrawRect.w = m_WidthInTiles * m_TileSize.x;
 			m_TilemapDrawRect.h = m_HeightInTiles * m_TileSize.y;
 

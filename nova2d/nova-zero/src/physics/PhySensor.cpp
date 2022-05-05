@@ -29,12 +29,16 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(position.x, position.y);
+
+			b2Vec2 pos = Vec2::PixelsToMeters(position);
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
 			b2PolygonShape shape;
-			shape.SetAsBox(size.x * PHYSICS_SCALE, size.y * PHYSICS_SCALE);
+			b2Vec2 boxSize = Vec2::PixelsToMeters(Vec2((float)size.x / 2.f, (float)size.y / 2.f));
+			m_BodySize = boxSize;
+			shape.SetAsBox(boxSize.x, boxSize.y);
 
 			b2FixtureDef fixtureDef;
 			fixtureDef.shape = &shape;
@@ -94,7 +98,9 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(GetX(), GetY());
+			
+			b2Vec2 pos = Vec2::PixelsToMeters(position);
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
@@ -128,7 +134,7 @@ namespace novazero
 		}
 
 		PhySensor::PhySensor(std::string colliderName, bool staticBody,
-			Vec2 position, float radius, const std::string& collisionGroup, float density, float friction)
+			Vec2 position, float radiusInPixels, const std::string& collisionGroup, float density, float friction)
 			: PhyBase(colliderName, this, collisionGroup)
 		{
 			m_ID = n2dGameGetID();
@@ -148,12 +154,14 @@ namespace novazero
 			b2BodyDef bodyDef;
 			bodyDef.userData = reinterpret_cast<void*>((PhyBase*)this);
 			bodyDef.type = staticBody ? b2_staticBody : b2_dynamicBody;
-			bodyDef.position.Set(position.x, position.y);
+			
+			b2Vec2 pos = Vec2::PixelsToMeters(position);
+			bodyDef.position.Set(pos.x, pos.y);
 
 			m_Body = world->CreateBody(&bodyDef);
 
 			b2CircleShape shape;
-			shape.m_radius = radius * PHYSICS_SCALE;
+			shape.m_radius = n2dPixelsToMeters(radiusInPixels) * PHYSICS_SCALE;
 
 			b2FixtureDef fixtureDef;
 			fixtureDef.shape = &shape;
@@ -165,7 +173,7 @@ namespace novazero
 			m_Body->SetSleepingAllowed(false);
 
 			m_Shape = Shapes::Circle;
-			m_Radius = radius;
+			m_Radius = radiusInPixels;
 		}
 
 		unsigned int PhySensor::GetPhyID() const

@@ -91,6 +91,19 @@ namespace novazero
 			SetY(position.y);
 		}
 
+		void Positional::SetWorldCenterPosition(Vec2 position)
+		{
+			if (!m_Drawable)
+			{
+				LOG(LVL_W, "Cannot set World Center because no Drawable attached to Positional", __FILE__, __LINE__);
+				return;
+			}
+
+			Vec2Int size = m_Drawable->GetSize();
+			SetX(position.x - size.x / 2);
+			SetY(position.y - size.y / 2);
+		}
+
 		void Positional::SetPositionInt(Vec2Int position)
 		{
 			SetX((float)position.x);

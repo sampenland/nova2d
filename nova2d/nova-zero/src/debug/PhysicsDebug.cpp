@@ -2,6 +2,7 @@
 #include "../logging/logging.h"
 #include "../graphics/gfx/SDL2_gfxPrimitives.h"
 #include "../core/Game.h"
+#include "../core/NovaCore.h"
 
 namespace novazero
 {
@@ -23,8 +24,8 @@ namespace novazero
 
             for (int i = 0; i < vertexCount; i++)
             {
-                vx[i] = (Sint16)vertices[i].x;
-                vy[i] = (Sint16)vertices[i].y;
+                vx[i] = (Sint16)(vertices[i].x * PHYSICS_CONVERSION_FACTOR_MTP);
+                vy[i] = (Sint16)(vertices[i].y * PHYSICS_CONVERSION_FACTOR_MTP);
             }
 
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
@@ -47,8 +48,8 @@ namespace novazero
 
             for (int i = 0; i < vertexCount; i++)
             {
-                vx[i] = (Sint16)vertices[i].x;
-                vy[i] = (Sint16)vertices[i].y;
+                vx[i] = (Sint16)(vertices[i].x * PHYSICS_CONVERSION_FACTOR_MTP);
+                vy[i] = (Sint16)(vertices[i].y * PHYSICS_CONVERSION_FACTOR_MTP);
             }
 
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
@@ -67,9 +68,9 @@ namespace novazero
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
             circleRGBA(Game::s_Renderer->GetSDLRenderer(),
-                (Sint16)center.x,
-                (Sint16)center.y,
-                (Sint16)radius,
+                (Sint16)(center.x * PHYSICS_CONVERSION_FACTOR_MTP),
+                (Sint16)(center.y * PHYSICS_CONVERSION_FACTOR_MTP),
+                (Sint16)(radius * PHYSICS_CONVERSION_FACTOR_MTP),
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,
@@ -81,9 +82,9 @@ namespace novazero
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
             filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(),
-                (Sint16)center.x,
-                (Sint16)center.y,
-                (Sint16)radius,
+                (Sint16)(center.x * PHYSICS_CONVERSION_FACTOR_MTP),
+                (Sint16)(center.y * PHYSICS_CONVERSION_FACTOR_MTP),
+                (Sint16)(radius * PHYSICS_CONVERSION_FACTOR_MTP),
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,
@@ -95,8 +96,8 @@ namespace novazero
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
             lineRGBA(Game::s_Renderer->GetSDLRenderer(),
-                (Sint16)p1.x, (Sint16)p1.y,
-                (Sint16)p2.x, (Sint16)p2.y,
+                (Sint16)p1.x * PHYSICS_CONVERSION_FACTOR_MTP, (Sint16)p1.y * PHYSICS_CONVERSION_FACTOR_MTP,
+                (Sint16)p2.x * PHYSICS_CONVERSION_FACTOR_MTP, (Sint16)p2.y * PHYSICS_CONVERSION_FACTOR_MTP,
                 (Uint8)c.r,
                 (Uint8)c.g,
                 (Uint8)c.b,
@@ -112,12 +113,13 @@ namespace novazero
         void PhysicsDebug::DrawParticles(const b2Vec2* centers, float32 radius, const b2ParticleColor* colors, int32 count)
         {
             Color& c = *Game::s_Renderer->s_DebugRenderColor;
+
             for(int32 i = 0; i < count; i++)
             {
                 filledCircleRGBA(Game::s_Renderer->GetSDLRenderer(),
-                    (Sint16)centers[i].x,
-                    (Sint16)centers[i].y,
-                    (Sint16)radius,
+                    (Sint16)(centers[i].x * PHYSICS_CONVERSION_FACTOR_MTP),
+                    (Sint16)(centers[i].y * PHYSICS_CONVERSION_FACTOR_MTP),
+                    (Sint16)(radius * PHYSICS_CONVERSION_FACTOR_MTP),
                     (Uint8)c.r,
                     (Uint8)c.g,
                     (Uint8)c.b,

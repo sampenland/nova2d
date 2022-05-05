@@ -525,12 +525,14 @@ namespace novazero
 			}
 		}
 
-		void n2dBurstParticles(const std::string& pSystemName, int32 particleCount, Vec2 burstPosition, float velocity)
+		float n2dMetersToPixels(float m)
 		{
-			if (n2dGetParticleSystem(pSystemName))
-			{
-				n2dGetParticleSystem(pSystemName)->BurstParticles(particleCount, burstPosition, velocity);
-			}
+			return Game::MetersToPixels(m);
+		}
+
+		float n2dPixelsToMeters(float p)
+		{
+			return Game::PixelsToMeters(p);
 		}
 	}
 }
