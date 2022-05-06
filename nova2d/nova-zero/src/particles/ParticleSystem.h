@@ -52,8 +52,8 @@ namespace novazero
 				Vec2 velocity, Color color, bool customFilter);
 			void RemoveParticle(int32 index);
 
-			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, bool customFilter = true);
-			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, 
+			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float spread, bool customFilter = true);
+			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float spread, 
 				float minAngleDeg, float maxAngleDeg, bool customFilter = true);
 			void Update();
 			void SetLifetime(float minSeconds, float maxSeconds);

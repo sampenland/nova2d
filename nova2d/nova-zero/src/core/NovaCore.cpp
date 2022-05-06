@@ -517,6 +517,21 @@ namespace novazero
 			return nullptr;
 		}
 
+		void n2dAddContactFilter(b2Fixture* a, b2Fixture* b, bool willCollide)
+		{
+			Game::s_SceneManager->GetCurrentScene()->GetContactFilter()->AddContactFilter(a, b, willCollide);
+		}
+
+		void n2dAddContactFilter(b2ParticleSystem* pSystem, int32 a, int32 b, bool willCollide)
+		{
+			Game::s_SceneManager->GetCurrentScene()->GetContactFilter()->AddContactFilter(pSystem, a, b, willCollide);
+		}
+
+		void n2dAddContactFilter(b2Fixture* a, b2ParticleSystem* b, int32 pIndex, bool willCollide)
+		{
+			Game::s_SceneManager->GetCurrentScene()->GetContactFilter()->AddContactFilter(a, b, pIndex, willCollide);
+		}
+
 		void n2dRemoveParticleSystem(const std::string& systemName)
 		{
 			if (Game::s_SceneManager->GetCurrentScene())

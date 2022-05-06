@@ -1,13 +1,54 @@
 #include "PhyContactFilter.h"
+#include "../core/Game.h"
 
 namespace novazero
 {
 	namespace physics
 	{
+		using namespace novazero::core;
+
+		CFilterBase::CFilterBase(CFilterType type, bool willCollide)
+			: m_Type(type), m_ShouldCollide(willCollide)
+		{
+			m_ID = n2dGameGetID();
+		}
 
 		PhyContactFilter::PhyContactFilter()
 		{
 
+		}
+
+		unsigned int PhyContactFilter::AddContactFilter(b2Fixture* a, b2Fixture* b, bool willCollide)
+		{
+			CFilterFixtureToFixture* cf = new CFilterFixtureToFixture(a, b, willCollide);
+			m_CFilters.push_back(cf);
+			return cf->m_ID;
+		}
+
+		unsigned int PhyContactFilter::AddContactFilter(b2Fixture* a, b2ParticleSystem* b, int32 pIndex, bool willCollide)
+		{
+			CFilterFixtureToParticle* cf = new CFilterFixtureToParticle(a, b, pIndex, willCollide);
+			m_CFilters.push_back(cf);
+			return cf->m_ID;
+		}
+
+		unsigned int PhyContactFilter::AddContactFilter(b2ParticleSystem* pSystem, int32 a, int32 b, bool willCollide)
+		{
+			CFilterParticleToParticle* cf = new CFilterParticleToParticle(pSystem, a, b, willCollide);
+			m_CFilters.push_back(cf);
+			return cf->m_ID;
+		}
+
+		void PhyContactFilter::RemoveContactFilter(unsigned int id)
+		{
+			for (auto it = m_CFilters.begin(); it != m_CFilters.end(); it++)
+			{
+				if ((*it)->m_ID == id)
+				{
+					m_CFilters.erase(it);
+					break;
+				}
+			}
 		}
 
 		/// Return true if contact calculations should be performed between these two shapes.
@@ -47,7 +88,7 @@ namespace novazero
 					continue;
 
 				CFilterFixtureToParticle& contact = *(CFilterFixtureToParticle*)cf;
-				if (contact.fixture == fixture && contact.particleIndex == particleIndex)
+				if (contact.m_Fixture == fixture && contact.m_ParticleIndex == particleIndex)
 				{
 					return contact.m_ShouldCollide;
 				}
@@ -71,8 +112,8 @@ namespace novazero
 
 				CFilterParticleToParticle& contact = *(CFilterParticleToParticle*)cf;
 				if (
-					(contact.particleIndexA == particleIndexA && contact.particleIndexB == particleIndexB) ||
-					(contact.particleIndexB == particleIndexA && contact.particleIndexA == particleIndexB))
+					(contact.m_ParticleIndexA == particleIndexA && contact.m_ParticleIndexB == particleIndexB) ||
+					(contact.m_ParticleIndexB == particleIndexA && contact.m_ParticleIndexA == particleIndexB))
 				{
 					return contact.m_ShouldCollide;
 				}

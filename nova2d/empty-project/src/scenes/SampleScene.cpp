@@ -49,12 +49,12 @@ namespace emptyproject
 		Vec2 dir = Vec2::LookAtVec(a, b).normalize();
 		s->ApplyForce(dir, 10.f);*/
 
-		//ParticleSystem* p = n2dAddParticleSystem("bullet", Vec2Int(32, 32), "ps", 100, 5, 10);
-		//p->SetLifetime(2, 5);
-		//
-		//Timer* t = new Timer(2000, true, [=]() {
-		//	p->BurstParticles(50, Game::GetCenterScreen(), 300, false);
-		//});
+		ParticleSystem* p = n2dAddParticleSystem("bullet", Vec2Int(32, 32), "ps", 100, 5, 10);
+		p->SetLifetime(2, 5);
+		
+		Timer* t = new Timer(2000, false, [=]() {
+			p->BurstParticles(50, Game::GetCenterScreen(), 10.f, 10.f, false);
+		});
 	}
 
 	void SampleScene::Update()

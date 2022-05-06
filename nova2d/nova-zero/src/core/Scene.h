@@ -59,6 +59,11 @@ namespace novazero
 			{
 				return m_ContactListener;
 			}
+
+			PhyContactFilter* GetContactFilter() const
+			{
+				return m_ContactFilter;
+			}
 			
 			void PhysicsStep();
 			void PhysicsEnableDebug(bool isDebug);

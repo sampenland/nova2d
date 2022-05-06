@@ -21,7 +21,7 @@ namespace novazero
 			{
 				m_System = n2dGetCurrentWorld()->CreateParticleSystem(&psDef);
 				m_System->SetMaxParticleCount(maxParticles);
-				m_System->SetRadius(particleRadius);
+				m_System->SetRadius(n2dPixelsToMeters(particleRadius));
 			}
 			else
 			{
@@ -47,8 +47,10 @@ namespace novazero
 
 			pd.velocity.Set(velocity.x, velocity.y);
 			pd.color.Set((uint8)color.r, (uint8)color.g, (uint8)color.b, (uint8)color.a);
-			pd.position.Set(position.x, position.y);
 			
+			b2Vec2 pos = Vec2::PixelsToMeters(position);
+			pd.position.Set(pos.x, pos.y);
+
 			Sprite* sprite = new Sprite(m_ParticleAssetName, position, m_AssetSize, m_Layer);
 			Particle* particle = new Particle(sprite, this);
 			pd.userData = (void*)particle;
@@ -71,10 +73,11 @@ namespace novazero
 			for (int i = 0; i < m_System->GetParticleCount(); i++)
 			{
 				const b2Vec2 pos = positions[i];
+				const Vec2 screenPos = Vec2::MetersToPixels(pos);
 
 				if (m_Particles[i])
 				{
-					m_Particles[i]->UpdatePosition(pos.x, pos.y);
+					m_Particles[i]->UpdatePosition(screenPos.x - m_AssetSize.x * 0.5f, screenPos.y - m_AssetSize.y * 0.5f);
 				}
 				else
 				{
@@ -85,29 +88,39 @@ namespace novazero
 
 		/*
 			customFilter will make particles NOT collide with anything unless told to
+			spread is the radius of the emitter (higher spread will prevent particle creation collision)
 		*/
-		void ParticleSystem::BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, bool customFilter)
+		void ParticleSystem::BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float spread, bool customFilter)
 		{
 			for (int i = 0; i < particleCount; i++)
 			{
 				float deg = n2dRandomFloat(0, 360);
-				Vec2 vel = Vec2::UnitVec2FromAngle(deg);
+				Vec2 dir = Vec2::UnitVec2FromAngle(deg);
+				Vec2 vel = Vec2(dir.x, dir.y);
+
 				vel.multiply(Vec2(velocity, velocity));
+				burstPosition += dir.scale(spread);
+
 				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"), customFilter);
 			}
 		}
 
 		/*
 			customFilter will make particles NOT collide with anything unless told to
+			spread is the radius of the emitter (higher spread will prevent particle creation collision)
 		*/
 		void ParticleSystem::BurstParticles(int32 particleCount, Vec2 burstPosition, 
-			float velocity, float minAngleDeg, float maxAngleDeg, bool customFilter)
+			float velocity, float spread, float minAngleDeg, float maxAngleDeg, bool customFilter)
 		{
 			for (int i = 0; i < particleCount; i++)
 			{
 				float deg = n2dRandomFloat(minAngleDeg, maxAngleDeg) - 90.f;
-				Vec2 vel = Vec2::UnitVec2FromAngle(deg);
+				Vec2 dir = Vec2::UnitVec2FromAngle(deg);
+				Vec2 vel = Vec2(dir.x, dir.y);
+				
 				vel.multiply(Vec2(velocity, velocity));
+				burstPosition += dir.scale(spread);
+
 				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"), customFilter);
 			}
 		}

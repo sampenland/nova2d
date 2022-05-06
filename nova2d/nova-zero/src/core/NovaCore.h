@@ -807,17 +807,6 @@ namespace novazero
 		*/
 		void n2dRemoveCollision(PhyCollision*);
 
-		//----------------------------------------------------------------------------
-		// Physics
-		//----------------------------------------------------------------------------
-
-		ParticleSystem* n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
-			int32 maxParticles, float particleRadius, unsigned char layer);
-
-		ParticleSystem* n2dGetParticleSystem(const std::string& systemName);
-
-		void n2dRemoveParticleSystem(const std::string& systemName);
-		
 		/*
 			Convert meters(box2d) to pixels(screen)
 		*/
@@ -827,6 +816,23 @@ namespace novazero
 			Convert pixels(screen) to meters(box2d)
 		*/
 		float n2dPixelsToMeters(float p);
+
+		//----------------------------------------------------------------------------
+		// Particles
+		//----------------------------------------------------------------------------
+
+		ParticleSystem* n2dAddParticleSystem(const std::string& assetName, Vec2Int size, const std::string& systemName,
+			int32 maxParticles, float particleRadius, unsigned char layer);
+
+		ParticleSystem* n2dGetParticleSystem(const std::string& systemName);
+
+		void n2dAddContactFilter(b2Fixture* a, b2Fixture* b, bool willCollide);
+
+		void n2dAddContactFilter(b2ParticleSystem* pSystem, int32 a, int32 b, bool willCollide);
+
+		void n2dAddContactFilter(b2Fixture* a, b2ParticleSystem* b, int32 pIndex, bool willCollide);
+
+		void n2dRemoveParticleSystem(const std::string& systemName);
 
 	}
 

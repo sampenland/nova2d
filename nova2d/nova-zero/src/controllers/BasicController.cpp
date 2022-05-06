@@ -15,6 +15,9 @@ namespace novazero
 			m_HealthBar = new SimpleStatBar(true, 0, 0, 5, 32, "black", "black",
 				"green", 4);
 			m_HealthBar->ConfigureForeground("green", "yellow", "red");
+
+			EnableRotation(false);
+
 		}
 
 		void BasicController::EnableArrowKeys(bool val)

@@ -47,7 +47,7 @@ namespace novazero
 
 			if (walls)
 			{
-				b2Vec2 gameSizeMeters = Vec2::PixelsToMeters(Vec2(Game::s_Width, Game::s_Height));
+				b2Vec2 gameSizeMeters = Vec2::PixelsToMeters(Vec2((float)Game::s_Width, (float)Game::s_Height));
 
 				b2Vec2 lowerLeftCorner = b2Vec2(0.f, 0.f);
 				b2Vec2 lowerRightCorner = b2Vec2((float)gameSizeMeters.x, 0.f);
