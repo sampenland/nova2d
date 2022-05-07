@@ -54,6 +54,9 @@ namespace novazero
 			bool m_UsingLifetime = true;
 			float m_MinLifeTime = 1.f;
 			float m_MaxLifeTime = 100.f;
+			float m_ParticleRadius = 5.f;
+
+			bool m_EditorFeatureOnly = false;
 
 			unsigned char m_Layer = 4;
 
@@ -93,9 +96,13 @@ namespace novazero
 			float* GetMinLifeTimeRef();
 			float* GetMaxLifeTimeRef();
 			
+			float* GetParticleRadiusRef();
+			
 			int32* GetMaxParticleRef();
 
 			bool* GetEmitterEnabled();
+
+			void SetEditorFeature(bool editorEnabled);
 
 			int32 ParticleCount();
 

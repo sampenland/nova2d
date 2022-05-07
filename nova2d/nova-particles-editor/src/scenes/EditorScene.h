@@ -33,6 +33,7 @@ namespace particleeditor
 		float* m_MinLifetime;
 		float* m_MaxLifetime;
 		int32* m_MaxParticles;
+		float* m_ParticleRadius;
 
 		ScrollInput* m_MinAngleInput = nullptr;
 		ScrollInput* m_MaxAngleInput = nullptr;
@@ -40,6 +41,7 @@ namespace particleeditor
 		ScrollInput* m_MinLifetimeInput = nullptr;
 		ScrollInput* m_MaxLifetimeInput = nullptr;
 		ScrollInput* m_MaxParticleInput = nullptr;
+		ScrollInput* m_ParticleRadiusInput = nullptr;
 
 	public:
 

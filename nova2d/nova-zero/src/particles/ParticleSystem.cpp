@@ -11,6 +11,7 @@ namespace novazero
 			int32 maxParticles, float particleRadius, unsigned char layer)
 		{
 			m_ParticleAssetName = spriteTexture;
+			m_ParticleRadius = particleRadius;
 
 			m_AssetSize = new Vec2Int(size.x, size.y);
 			
@@ -57,7 +58,7 @@ namespace novazero
 			pd.position.Set(pos.x, pos.y);
 
 			Sprite* sprite = new Sprite(m_ParticleAssetName, 
-				position.scale(m_Scale), *m_AssetSize, m_Layer, m_Scale);
+				position, *m_AssetSize, m_Layer, m_Scale);
 
 			Particle* particle = new Particle(sprite, this);
 			pd.userData = (void*)particle;
@@ -68,6 +69,11 @@ namespace novazero
 			int32 index = m_System->CreateParticle(pd);			
 			particle->SetIndex(index);
 
+			if (n2dDebugVerbose)
+			{
+				LOGS("[Created Particle_" + tostring(index) + " ]");
+			}
+
 			m_Particles[index] = particle;
 
 			return index;
@@ -75,6 +81,14 @@ namespace novazero
 
 		void ParticleSystem::Update()
 		{
+			if (m_EditorFeatureOnly)
+			{
+				if (m_System->GetRadius() != n2dPixelsToMeters(m_ParticleRadius))
+				{
+					m_System->SetRadius(n2dPixelsToMeters(m_ParticleRadius));
+				}
+			}
+
 			const b2Vec2* positions = m_System->GetPositionBuffer();
 
 			for (int i = 0; i < m_System->GetParticleCount(); i++)
@@ -88,6 +102,10 @@ namespace novazero
 						screenPos.x - ((*m_AssetSize).x * m_Scale)* 0.5f, 
 						screenPos.y - ((*m_AssetSize).y * m_Scale)* 0.5f
 					);
+				}
+				else
+				{
+					LOGS("null particle");
 				}
 			}
 		}
@@ -244,9 +262,19 @@ namespace novazero
 			return &m_MaxLifeTime;
 		}
 
+		float* ParticleSystem::GetParticleRadiusRef()
+		{
+			return &m_ParticleRadius;
+		}
+
 		int32* ParticleSystem::GetMaxParticleRef()
 		{
 			return &m_MaxParticles;
+		}
+
+		void ParticleSystem::SetEditorFeature(bool editorEnabled)
+		{
+			m_EditorFeatureOnly = editorEnabled;
 		}
 
 		bool* ParticleSystem::GetEmitterEnabled()

@@ -31,6 +31,7 @@ namespace particleeditor
 
 		m_ParticleSystem = n2dAddParticleSystem("particle", m_AssetSize,
 			"ps", 100, 5, 10);
+		m_ParticleSystem->SetEditorFeature(true);
 		m_ParticleSystem->SetScale(scale);
 		m_ParticleSystem->SetLifetime(2.f, 4.f);
 
@@ -48,6 +49,7 @@ namespace particleeditor
 		m_SystemOn = m_ParticleSystem->GetEmitterEnabled();
 
 		m_MaxParticles = m_ParticleSystem->GetMaxParticleRef();
+		m_ParticleRadius = m_ParticleSystem->GetParticleRadiusRef();
 
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
@@ -58,6 +60,8 @@ namespace particleeditor
 		m_MaxLifetimeInput = new ScrollInput("##maxLifetime", 0.f, 12.f, m_MaxLifetime);
 		
 		m_MaxParticleInput = new ScrollInput("##maxParticles", 1, 255, m_MaxParticles);
+
+		m_ParticleRadiusInput = new ScrollInput("##particleRadius", 1, 255, m_ParticleRadius);
 
 		auto cleanID = n2dAddGUIUpdater(EditorScene::GUI, this);
 
@@ -83,6 +87,12 @@ namespace particleeditor
 
 		ImGui::Separator();
 		
+		ImGui::Text("Particle Radius");
+		ImGui::SameLine();
+		m_ParticleRadiusInput->Draw();
+
+		ImGui::Separator();
+
 		ImGui::Text("Emit Interval");
 		ImGui::SameLine();
 		m_EmitterSpeedInput->Draw();
