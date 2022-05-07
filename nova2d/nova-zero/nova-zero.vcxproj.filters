@@ -234,9 +234,6 @@
     <ClCompile Include="src\thirdparty\getopt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\particles\Particle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\particles\ParticleDestructionListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -519,9 +516,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\thirdparty\unistd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\particles\Particle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\particles\ParticleDestructionListener.h">

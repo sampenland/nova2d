@@ -35,8 +35,8 @@ namespace particleeditor
 		m_ParticleSystem->SetScale(scale);
 		m_ParticleSystem->SetLifetime(2.f, 4.f);
 
-		/*m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 10.f, 5.f,
-			Vec2(Game::GetCenterScreen().x * 0.48f, Game::GetCenterScreen().y));*/
+		m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 10.f, 5.f,
+			Vec2(Game::GetCenterScreen().x * 0.48f, Game::GetCenterScreen().y));
 
 		m_MinAngle = m_ParticleSystem->GetEmitAngleMinRef();
 		m_MaxAngle = m_ParticleSystem->GetEmitAngleMaxRef();
@@ -108,7 +108,7 @@ namespace particleeditor
 		ImGui::Separator();
 
 		ImGui::Text("Particle Texture");
-		//ImGui::InputText("##AssetPath", m_ParticleSystem->GetAssetPath(), 200);
+		ImGui::InputText("##AssetPath", m_ParticleSystem->GetAssetPath(), 200);
 
 		ImGui::Separator();
 		ImGui::Text("Particle Lifetime");
@@ -133,11 +133,7 @@ namespace particleeditor
 
 	void EditorScene::Update()
 	{
-		if (n2dMouseJustDown())
-		{
-			m_ParticleSystem->CreateParticle(b2_waterParticle,
-				n2dGetMousePosition(SDL_BUTTON_LEFT), Vec2(10, 10), *n2dGetColor("white"), true);
-		}
+		
 	}
 
 	void EditorScene::End()

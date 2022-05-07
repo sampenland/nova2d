@@ -60,21 +60,17 @@ namespace novazero
 			Sprite* sprite = new Sprite(m_ParticleAssetName, 
 				position, *m_AssetSize, m_Layer, m_Scale);
 
-			Particle* particle = new Particle(sprite, this);
-			pd.userData = (void*)particle;
+			pd.userData = (void*)sprite;
 			
 			float lifetime = n2dRandomFloat(m_MinLifeTime, m_MaxLifeTime);
 			pd.lifetime = lifetime; 
 
-			int32 index = m_System->CreateParticle(pd);			
-			particle->SetIndex(index);
+			int32 index = m_System->CreateParticle(pd);
 
 			if (n2dDebugVerbose)
 			{
 				LOGS("[Created Particle_" + tostring(index) + " ]");
 			}
-
-			m_Particles[index] = particle;
 
 			return index;
 		}
@@ -90,23 +86,18 @@ namespace novazero
 			}
 
 			const b2Vec2* positions = m_System->GetPositionBuffer();
+			void** userData = m_System->GetUserDataBuffer();
 
 			for (int i = 0; i < m_System->GetParticleCount(); i++)
 			{
 				const b2Vec2 pos = positions[i];
-				const Vec2 screenPos = Vec2::MetersToPixels(pos);
+				Vec2 screenPos = Vec2::MetersToPixels(pos);
+				screenPos.x -= ((*m_AssetSize).x * m_Scale) * 0.5f;
+				screenPos.y -= ((*m_AssetSize).y * m_Scale) * 0.5f;
+				
+				Sprite* sprite = (Sprite*)userData[i];
+				sprite->SetPosition(screenPos);
 
-				if (m_Particles[i])
-				{
-					m_Particles[i]->UpdatePosition(
-						screenPos.x - ((*m_AssetSize).x * m_Scale)* 0.5f, 
-						screenPos.y - ((*m_AssetSize).y * m_Scale)* 0.5f
-					);
-				}
-				else
-				{
-					LOGS("null particle");
-				}
 			}
 		}
 
@@ -146,24 +137,6 @@ namespace novazero
 				burstPosition += dir.scale(spread);
 
 				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"), customFilter);
-			}
-		}
-
-		void ParticleSystem::RemoveParticle(int32 index)
-		{
-			if (!m_System) return;
-
-			if (m_Particles.find(index) != m_Particles.end())
-			{
-				m_System->DestroyParticle(index);				
-				m_Particles.erase(index);
-
-				if (n2dDebugVerbose)
-					LOGS("Particle custom removed: " + tostring(index));
-			}
-			else
-			{
-				LOGS("Unknown particle");
 			}
 		}
 

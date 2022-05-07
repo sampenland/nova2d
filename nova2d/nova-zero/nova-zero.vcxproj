@@ -196,7 +196,6 @@
     <ClCompile Include="src\maps\TileMap.cpp" />
     <ClCompile Include="src\maths\Rect.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
-    <ClCompile Include="src\particles\Particle.cpp" />
     <ClCompile Include="src\particles\ParticleDestructionListener.cpp" />
     <ClCompile Include="src\particles\ParticleSystem.cpp" />
     <ClCompile Include="src\physics\ai\PhySimpleFollower.cpp" />
@@ -248,7 +247,6 @@
     <ClInclude Include="src\gui\imgui\imstb_truetype.h" />
     <ClInclude Include="src\input\ScrollInput.h" />
     <ClInclude Include="src\maths\Maths.h" />
-    <ClInclude Include="src\particles\Particle.h" />
     <ClInclude Include="src\particles\ParticleDestructionListener.h" />
     <ClInclude Include="src\particles\ParticleSystem.h" />
     <ClInclude Include="src\physics\PhyBase.h" />

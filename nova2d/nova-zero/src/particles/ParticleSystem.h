@@ -3,7 +3,6 @@
 #include <vector>
 #include "../maths/Maths.h"
 #include "../graphics/Color.h"
-#include "../particles/Particle.h"
 #include "../graphics/Sprite.h"
 
 namespace novazero
@@ -46,7 +45,6 @@ namespace novazero
 			bool m_EmitterEnabled = false;
 			Vec2 m_BurstPosition = Vec2(0, 0);
 			
-			std::map<int, Particle*> m_Particles;
 			std::string m_ParticleAssetName = "";
 
 			int32 m_MaxParticles = 100;

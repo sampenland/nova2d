@@ -1,12 +1,14 @@
 #include "ParticleDestructionListener.h"
-#include "Particle.h"
 #include "Box2D/Particle/b2ParticleSystem.h"
 #include "../logging/logging.h"
+#include "../graphics/Sprite.h"
 
 namespace novazero
 {
 	namespace particles
 	{
+		using namespace novazero::graphics;
+
 		ParticleDestructionListener::ParticleDestructionListener()
 			: b2DestructionListener()
 		{ }
@@ -23,7 +25,7 @@ namespace novazero
 
 		void ParticleDestructionListener::SayGoodbye(b2ParticleSystem* particleSystem, int32 index)
 		{
-			Particle* particle = (Particle*)particleSystem->GetUserDataBuffer()[index];
+			Sprite* particle = (Sprite*)particleSystem->GetUserDataBuffer()[index];
 
 			if (particle)
 			{
