@@ -176,7 +176,7 @@ namespace testproject
 					m_ShootAreaOffset = unitVec;
 
 					Vec2 jetPos = GetPhySprite()->GetWorldCenterPosition();
-					m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y - 8) , 10);
+					m_Jets->BurstParticles(1, Vec2(jetPos.x - 8, jetPos.y - 8) , 10, 2);
 				}
 			}
 		}

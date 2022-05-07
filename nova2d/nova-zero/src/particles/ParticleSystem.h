@@ -25,12 +25,28 @@ namespace novazero
 
 		private:
 
+			// Save settings
+			float* m_EmitSpeed;
+			float* m_EmitVelocity;
+			float* m_EmitSpread;
+			bool* m_SingleExplode;
+			char* m_AssetPath;
+			const int MAX_ASSET_PATH = 200;
+			Vec2Int* m_AssetSize;
+			float m_BurstAngleMin;
+			float m_BurstAngleMax;
+
+
+		private:
+
 			b2ParticleSystem* m_System = nullptr;
+
+			Timer* m_EmitTimer = nullptr;
+			bool m_EmitterEnabled = false;
+			Vec2 m_BurstPosition = Vec2(0, 0);
 			
 			std::map<int, Particle*> m_Particles;
-
 			std::string m_ParticleAssetName = "";
-			Vec2Int m_AssetSize = Vec2Int(0, 0);
 
 			int32 m_MaxParticles = 100;
 
@@ -57,6 +73,18 @@ namespace novazero
 				float minAngleDeg, float maxAngleDeg, bool customFilter = true);
 			void Update();
 			void SetLifetime(float minSeconds, float maxSeconds);
+
+			void ConfigureEmitter(std::string assetPath, bool enableEmitter, float emitSpeed, 
+				float emitVelocity, float emitSpread, Vec2 burstPosition);
+
+			char* GetAssetPath();
+
+			float GetEmitAngleMin();
+			float GetEmitAngleMax();
+			float* GetEmitAngleMinRef();
+			float* GetEmitAngleMaxRef();
+			
+			bool* GetEmitterEnabled();
 
 			int32 ParticleCount();
 

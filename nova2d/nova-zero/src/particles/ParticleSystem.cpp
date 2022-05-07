@@ -11,7 +11,12 @@ namespace novazero
 			int32 maxParticles, float particleRadius, unsigned char layer)
 		{
 			m_ParticleAssetName = spriteTexture;
-			m_AssetSize = size;
+
+			m_AssetSize = new Vec2Int(size.x, size.y);
+			
+			m_BurstAngleMin = 75.f;
+			m_BurstAngleMax = 105.f;
+			
 			m_Layer = layer;
 			m_MaxParticles = maxParticles;
 
@@ -51,7 +56,7 @@ namespace novazero
 			b2Vec2 pos = Vec2::PixelsToMeters(position);
 			pd.position.Set(pos.x, pos.y);
 
-			Sprite* sprite = new Sprite(m_ParticleAssetName, position, m_AssetSize, m_Layer);
+			Sprite* sprite = new Sprite(m_ParticleAssetName, position, *m_AssetSize, m_Layer);
 			Particle* particle = new Particle(sprite, this);
 			pd.userData = (void*)particle;
 			
@@ -77,7 +82,7 @@ namespace novazero
 
 				if (m_Particles[i])
 				{
-					m_Particles[i]->UpdatePosition(screenPos.x - m_AssetSize.x * 0.5f, screenPos.y - m_AssetSize.y * 0.5f);
+					m_Particles[i]->UpdatePosition(screenPos.x - (*m_AssetSize).x * 0.5f, screenPos.y - (*m_AssetSize).y * 0.5f);
 				}
 				else
 				{
@@ -114,7 +119,7 @@ namespace novazero
 		{
 			for (int i = 0; i < particleCount; i++)
 			{
-				float deg = n2dRandomFloat(minAngleDeg, maxAngleDeg) - 90.f;
+				float deg = n2dRandomFloat(minAngleDeg, maxAngleDeg) - 180;
 				Vec2 dir = Vec2::UnitVec2FromAngle(deg);
 				Vec2 vel = Vec2(dir.x, dir.y);
 				
@@ -151,12 +156,78 @@ namespace novazero
 			m_MaxLifeTime = maxSeconds;
 		}
 
+		void ParticleSystem::ConfigureEmitter(std::string assetPath, bool enableEmitter, float emitSpeed, 
+			float emitVelocity, float emitSpread, Vec2 burstPosition)
+		{
+			m_EmitterEnabled = enableEmitter;
+
+			m_AssetPath = new char[MAX_ASSET_PATH];
+			std::strcpy(m_AssetPath, assetPath.c_str());
+
+			m_EmitVelocity = new float;
+			*m_EmitVelocity = emitVelocity;
+
+			m_EmitSpeed = new float;
+			*m_EmitSpeed = emitSpeed;
+
+			m_EmitSpread = new float;
+			*m_EmitSpread = emitSpread;
+
+			m_BurstPosition = burstPosition;
+
+			if (m_EmitTimer)
+				m_EmitTimer->DestroySelf();
+
+			m_EmitTimer = new Timer(m_EmitSpeed, m_EmitSpeed, [=]() {
+
+				if (m_EmitterEnabled)
+				{
+					BurstParticles(1, m_BurstPosition, *m_EmitVelocity, *m_EmitSpread, 
+						m_BurstAngleMin, m_BurstAngleMax);
+				}
+
+			});
+
+		}
+
 		int32 ParticleSystem::ParticleCount()
 		{
 			if (!m_System) return 0;
 			return m_System->GetParticleCount();
 		}
 
+		char* ParticleSystem::GetAssetPath()
+		{
+			return m_AssetPath;
+		}
+
+		float ParticleSystem::GetEmitAngleMin()
+		{
+			return m_BurstAngleMin;
+		}
+
+		float ParticleSystem::GetEmitAngleMax()
+		{
+
+			return m_BurstAngleMax;
+		}
+
+		float* ParticleSystem::GetEmitAngleMinRef()
+		{
+			return &m_BurstAngleMin;
+		}
+
+		float* ParticleSystem::GetEmitAngleMaxRef()
+		{
+
+			return &m_BurstAngleMax;
+		}
+
+		bool* ParticleSystem::GetEmitterEnabled()
+		{
+			return &m_EmitterEnabled;
+		}
+		
 		void ParticleSystem::DestroySelf()
 		{
 			if (n2dGetCurrentWorld())
