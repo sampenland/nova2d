@@ -40,6 +40,14 @@ namespace novazero
 			return *this;
 		}
 
+		Vec2Int& Vec2Int::scale(const float mag)
+		{
+			x *= mag;
+			y *= mag;
+
+			return *this;
+		}
+
 		Vec2Int& Vec2Int::divide(const Vec2Int& other)
 		{
 			x /= other.x;

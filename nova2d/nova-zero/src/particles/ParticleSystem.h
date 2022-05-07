@@ -26,7 +26,7 @@ namespace novazero
 		private:
 
 			// Save settings
-			float* m_EmitSpeed;
+			float m_EmitterSpeed;
 			float* m_EmitVelocity;
 			float* m_EmitSpread;
 			bool* m_SingleExplode;
@@ -35,6 +35,7 @@ namespace novazero
 			Vec2Int* m_AssetSize;
 			float m_BurstAngleMin;
 			float m_BurstAngleMax;
+			float m_Scale = 1.f;
 
 
 		private:
@@ -78,12 +79,22 @@ namespace novazero
 				float emitVelocity, float emitSpread, Vec2 burstPosition);
 
 			char* GetAssetPath();
+			void SetScale(float scale);
 
 			float GetEmitAngleMin();
 			float GetEmitAngleMax();
+
 			float* GetEmitAngleMinRef();
 			float* GetEmitAngleMaxRef();
+
+			float* GetEmitterSpeedRef();
+			float* GetEmitterSpeed();
+
+			float* GetMinLifeTimeRef();
+			float* GetMaxLifeTimeRef();
 			
+			int32* GetMaxParticleRef();
+
 			bool* GetEmitterEnabled();
 
 			int32 ParticleCount();

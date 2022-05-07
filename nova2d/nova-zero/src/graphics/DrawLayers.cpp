@@ -122,6 +122,7 @@ namespace novazero
 
 				Vec2 drawablePos = drawable.GetPosition();
 				Vec2Int drawableSize = drawable.GetSize();
+				float drawableScale = drawable.GetDrawScale();
 				
 				// CULL:: DO NOT DRAW (outside of camera space) if needed
 				if (
@@ -158,7 +159,7 @@ namespace novazero
 				float x = (drawablePos.x * zoom) - cameraDrawArea.x;
 				float y = (drawablePos.y * zoom) - cameraDrawArea.y;
 
-				drawable.Draw(x, y, zoom);
+				drawable.Draw(x, y, zoom * drawableScale);
 			}
 		}
 

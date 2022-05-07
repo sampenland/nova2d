@@ -16,7 +16,7 @@ namespace novazero
 		using namespace logging;
 
 		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, 
-			unsigned char layer, bool makeCopy)
+			unsigned char layer, float scale, bool makeCopy)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect()), Drawable(size)
 		{
 			SetSize(size);
@@ -48,6 +48,7 @@ namespace novazero
 			// Setup a default 1 frame animation
 			AddAnimation("default", 0, 1, 0, false, nullptr, true);
 			m_CleanUpdaters.push_back(n2dAddUpdater(Sprite::TickAnimation, this));
+			SetDrawScale(scale);
 
 			LinkPositionalDrawable(this);
 			SetWorldCenterPosition(position);
@@ -244,6 +245,7 @@ namespace novazero
 
 			m_DestRect.w = (int)(m_FrameSize.x * scale);
 			m_DestRect.h = (int)(m_FrameSize.y * scale);
+
 			m_SpriteScale = scale;
 		}
 

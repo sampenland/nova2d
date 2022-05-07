@@ -19,6 +19,7 @@ namespace novazero
 			Vec2Int& add(const Vec2Int& other);
 			Vec2Int& subtract(const Vec2Int& other);
 			Vec2Int& multiply(const Vec2Int& other);
+			Vec2Int& scale(const float mag);
 			Vec2Int& divide(const Vec2Int& other);
 
 			friend Vec2Int operator+(Vec2Int left, Vec2Int& right);

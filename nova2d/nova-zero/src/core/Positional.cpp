@@ -100,8 +100,10 @@ namespace novazero
 			}
 
 			Vec2Int size = m_Drawable->GetSize();
-			SetX(position.x - size.x / 2);
-			SetY(position.y - size.y / 2);
+			const float scale = m_Drawable->GetDrawScale();
+
+			SetX(position.x - (size.x * scale)/ 2);
+			SetY(position.y - (size.y * scale)/ 2);
 		}
 
 		void Positional::SetPositionInt(Vec2Int position)

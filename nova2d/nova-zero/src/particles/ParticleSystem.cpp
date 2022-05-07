@@ -56,7 +56,9 @@ namespace novazero
 			b2Vec2 pos = Vec2::PixelsToMeters(position);
 			pd.position.Set(pos.x, pos.y);
 
-			Sprite* sprite = new Sprite(m_ParticleAssetName, position, *m_AssetSize, m_Layer);
+			Sprite* sprite = new Sprite(m_ParticleAssetName, 
+				position.scale(m_Scale), *m_AssetSize, m_Layer, m_Scale);
+
 			Particle* particle = new Particle(sprite, this);
 			pd.userData = (void*)particle;
 			
@@ -82,11 +84,10 @@ namespace novazero
 
 				if (m_Particles[i])
 				{
-					m_Particles[i]->UpdatePosition(screenPos.x - (*m_AssetSize).x * 0.5f, screenPos.y - (*m_AssetSize).y * 0.5f);
-				}
-				else
-				{
-					m_Particles.erase(i);
+					m_Particles[i]->UpdatePosition(
+						screenPos.x - ((*m_AssetSize).x * m_Scale)* 0.5f, 
+						screenPos.y - ((*m_AssetSize).y * m_Scale)* 0.5f
+					);
 				}
 			}
 		}
@@ -167,8 +168,7 @@ namespace novazero
 			m_EmitVelocity = new float;
 			*m_EmitVelocity = emitVelocity;
 
-			m_EmitSpeed = new float;
-			*m_EmitSpeed = emitSpeed;
+			m_EmitterSpeed = emitSpeed;
 
 			m_EmitSpread = new float;
 			*m_EmitSpread = emitSpread;
@@ -178,7 +178,8 @@ namespace novazero
 			if (m_EmitTimer)
 				m_EmitTimer->DestroySelf();
 
-			m_EmitTimer = new Timer(m_EmitSpeed, m_EmitSpeed, [=]() {
+			float* speed = &m_EmitterSpeed;
+			m_EmitTimer = new Timer(speed, speed, [=]() {
 
 				if (m_EmitterEnabled)
 				{
@@ -201,6 +202,11 @@ namespace novazero
 			return m_AssetPath;
 		}
 
+		void ParticleSystem::SetScale(float scale)
+		{
+			m_Scale = scale;
+		}
+
 		float ParticleSystem::GetEmitAngleMin()
 		{
 			return m_BurstAngleMin;
@@ -221,6 +227,26 @@ namespace novazero
 		{
 
 			return &m_BurstAngleMax;
+		}
+		
+		float* ParticleSystem::GetEmitterSpeedRef()
+		{
+			return &m_EmitterSpeed;
+		}
+
+		float* ParticleSystem::GetMinLifeTimeRef()
+		{
+			return &m_MinLifeTime;
+		}
+
+		float* ParticleSystem::GetMaxLifeTimeRef()
+		{
+			return &m_MaxLifeTime;
+		}
+
+		int32* ParticleSystem::GetMaxParticleRef()
+		{
+			return &m_MaxParticles;
 		}
 
 		bool* ParticleSystem::GetEmitterEnabled()

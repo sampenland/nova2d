@@ -24,15 +24,22 @@ namespace particleeditor
 		Text* m_AssetName = nullptr;
 		DrawRect* m_AssetBackground = nullptr;
 		Vec2 m_AssetPosition = Vec2(0, 0);
-		Vec2 m_AssetSize = Vec2(0, 0);
+		Vec2Int m_AssetSize = Vec2Int(0, 0);
 
 		float* m_MinAngle;
 		float* m_MaxAngle;
-
 		bool* m_SystemOn;
+		float* m_EmitterSpeed;
+		float* m_MinLifetime;
+		float* m_MaxLifetime;
+		int32* m_MaxParticles;
 
 		ScrollInput* m_MinAngleInput = nullptr;
 		ScrollInput* m_MaxAngleInput = nullptr;
+		ScrollInput* m_EmitterSpeedInput = nullptr;
+		ScrollInput* m_MinLifetimeInput = nullptr;
+		ScrollInput* m_MaxLifetimeInput = nullptr;
+		ScrollInput* m_MaxParticleInput = nullptr;
 
 	public:
 

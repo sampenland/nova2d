@@ -73,8 +73,8 @@ namespace novazero
 
 		public:
 
-			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer,
-				bool makeCopy = false);
+			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, 
+				float scale = 1.f, bool makeCopy = false);
 
 			void Update();
 			
