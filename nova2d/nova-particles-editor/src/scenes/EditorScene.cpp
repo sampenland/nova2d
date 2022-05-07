@@ -35,8 +35,8 @@ namespace particleeditor
 		m_ParticleSystem->SetScale(scale);
 		m_ParticleSystem->SetLifetime(2.f, 4.f);
 
-		m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 10.f, 5.f,
-			Vec2(Game::GetCenterScreen().x * 0.48f, Game::GetCenterScreen().y));
+		/*m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 10.f, 5.f,
+			Vec2(Game::GetCenterScreen().x * 0.48f, Game::GetCenterScreen().y));*/
 
 		m_MinAngle = m_ParticleSystem->GetEmitAngleMinRef();
 		m_MaxAngle = m_ParticleSystem->GetEmitAngleMaxRef();
@@ -51,6 +51,8 @@ namespace particleeditor
 		m_MaxParticles = m_ParticleSystem->GetMaxParticleRef();
 		m_ParticleRadius = m_ParticleSystem->GetParticleRadiusRef();
 
+		m_EmitterVelocity = m_ParticleSystem->GetEmitterVelocityRef();
+
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
 
@@ -62,6 +64,7 @@ namespace particleeditor
 		m_MaxParticleInput = new ScrollInput("##maxParticles", 1, 255, m_MaxParticles);
 
 		m_ParticleRadiusInput = new ScrollInput("##particleRadius", 1, 255, m_ParticleRadius);
+		m_EmitterVelocityInput = new ScrollInput("##emitterVelocity", 1.f, 150.f, m_EmitterVelocity);
 
 		auto cleanID = n2dAddGUIUpdater(EditorScene::GUI, this);
 
@@ -76,13 +79,12 @@ namespace particleeditor
 		ImGui::Checkbox("System On", m_SystemOn);
 		ImGui::SameLine();
 		ImGui::Checkbox("Debug Physics", &Game::s_SceneManager->GetCurrentScene()->m_DebugDraw);
-		ImGui::SameLine();
-		ImGui::Text("Particles: %d", n2dDebugParticleCount());
 
 		ImGui::Separator();
 
 		ImGui::Text("Max Particles");
 		ImGui::SameLine();
+		ImGui::Text("Particles: %d", n2dDebugParticleCount());
 		m_MaxParticleInput->Draw();
 
 		ImGui::Separator();
@@ -93,6 +95,12 @@ namespace particleeditor
 
 		ImGui::Separator();
 
+		ImGui::Text("Emitter Velocity");
+		ImGui::SameLine();
+		m_EmitterVelocityInput->Draw();
+
+		ImGui::Separator();
+
 		ImGui::Text("Emit Interval");
 		ImGui::SameLine();
 		m_EmitterSpeedInput->Draw();
@@ -100,7 +108,7 @@ namespace particleeditor
 		ImGui::Separator();
 
 		ImGui::Text("Particle Texture");
-		ImGui::InputText("##AssetPath", m_ParticleSystem->GetAssetPath(), 200);
+		//ImGui::InputText("##AssetPath", m_ParticleSystem->GetAssetPath(), 200);
 
 		ImGui::Separator();
 		ImGui::Text("Particle Lifetime");
@@ -125,7 +133,11 @@ namespace particleeditor
 
 	void EditorScene::Update()
 	{
-		
+		if (n2dMouseJustDown())
+		{
+			m_ParticleSystem->CreateParticle(b2_waterParticle,
+				n2dGetMousePosition(SDL_BUTTON_LEFT), Vec2(10, 10), *n2dGetColor("white"), true);
+		}
 	}
 
 	void EditorScene::End()

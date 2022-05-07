@@ -27,7 +27,6 @@ namespace novazero
 
 			// Save settings
 			float m_EmitterSpeed;
-			float* m_EmitVelocity;
 			float* m_EmitSpread;
 			bool* m_SingleExplode;
 			char* m_AssetPath;
@@ -36,6 +35,7 @@ namespace novazero
 			float m_BurstAngleMin;
 			float m_BurstAngleMax;
 			float m_Scale = 1.f;
+			float m_EmitVelocity;
 
 
 		private:
@@ -89,6 +89,8 @@ namespace novazero
 
 			float* GetEmitAngleMinRef();
 			float* GetEmitAngleMaxRef();
+
+			float* GetEmitterVelocityRef();
 
 			float* GetEmitterSpeedRef();
 			float* GetEmitterSpeed();

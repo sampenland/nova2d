@@ -183,9 +183,7 @@ namespace novazero
 			m_AssetPath = new char[MAX_ASSET_PATH];
 			std::strcpy(m_AssetPath, assetPath.c_str());
 
-			m_EmitVelocity = new float;
-			*m_EmitVelocity = emitVelocity;
-
+			m_EmitVelocity = emitVelocity;
 			m_EmitterSpeed = emitSpeed;
 
 			m_EmitSpread = new float;
@@ -201,7 +199,7 @@ namespace novazero
 
 				if (m_EmitterEnabled)
 				{
-					BurstParticles(1, m_BurstPosition, *m_EmitVelocity, *m_EmitSpread, 
+					BurstParticles(1, m_BurstPosition, m_EmitVelocity, *m_EmitSpread, 
 						m_BurstAngleMin, m_BurstAngleMax);
 				}
 
@@ -250,6 +248,11 @@ namespace novazero
 		float* ParticleSystem::GetEmitterSpeedRef()
 		{
 			return &m_EmitterSpeed;
+		}
+
+		float* ParticleSystem::GetEmitterVelocityRef()
+		{
+			return &m_EmitVelocity;
 		}
 
 		float* ParticleSystem::GetMinLifeTimeRef()
