@@ -36,6 +36,10 @@ namespace novazero
 			float m_Scale = 1.f;
 			float m_EmitVelocity;
 
+			bool m_UsingAlphaTransition = true;
+			int m_StartAlpha = 255;
+			int m_EndAlpha = 255;
+			float m_AlphaChangeSpeed = 0.25f;
 
 		private:
 
@@ -50,6 +54,7 @@ namespace novazero
 			int32 m_MaxParticles = 100;
 
 			bool m_UsingLifetime = true;
+
 			float m_MinLifeTime = 1.f;
 			float m_MaxLifeTime = 100.f;
 			float m_ParticleRadius = 5.f;
@@ -67,13 +72,20 @@ namespace novazero
 				customFilter will make particles NOT collide with anything unless told to			
 			*/
 			int32 CreateParticle(b2ParticleFlag type, Vec2 position, 
-				Vec2 velocity, Color color, bool customFilter);
-			void RemoveParticle(int32 index);
-
+				Vec2 velocity, Color color, bool customFilter, 
+				Uint8 startAlpha = 255, Uint8 endAlpha = 255, float alphaChangeSpeed = 0.25f);
+			
 			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float spread, bool customFilter = true);
+			
 			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float spread, 
 				float minAngleDeg, float maxAngleDeg, bool customFilter = true);
+			
+			void BurstSingleParticle(Vec2 burstPosition, int startAlpha, int endAlpha,
+				float alphaChangeSpeed, float velocity, float spread,
+				float minAngleDeg, float maxAngleDeg, bool customFilter = true);
+			
 			void Update();
+
 			void SetLifetime(float minSeconds, float maxSeconds);
 
 			void ConfigureEmitter(std::string assetPath, bool enableEmitter, float emitSpeed, 
@@ -97,6 +109,11 @@ namespace novazero
 			float* GetMaxLifeTimeRef();
 			
 			float* GetParticleRadiusRef();
+
+			bool* GetUsingAlphaTransitionRef();
+			int* GetStartAlphaRef();
+			int* GetEndAlphaRef();
+			float* GetAlphaChangeSpeedRef();
 			
 			int32* GetMaxParticleRef();
 

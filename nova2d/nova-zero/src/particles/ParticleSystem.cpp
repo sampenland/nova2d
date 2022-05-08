@@ -9,6 +9,7 @@ namespace novazero
 
 		ParticleSystem::ParticleSystem(const std::string& spriteTexture, Vec2Int size, 
 			int32 maxParticles, float particleRadius, unsigned char layer)
+			: m_StartAlpha(255), m_EndAlpha(255)
 		{
 			m_ParticleAssetName = spriteTexture;
 			m_ParticleRadius = particleRadius;
@@ -35,8 +36,9 @@ namespace novazero
 			}
 		}
 
-		int32 ParticleSystem::CreateParticle(b2ParticleFlag type, 
-			Vec2 position, Vec2 velocity, Color color, bool customFilter)
+		int32 ParticleSystem::CreateParticle(b2ParticleFlag type,
+			Vec2 position, Vec2 velocity, Color color, bool customFilter, Uint8 startAlpha, Uint8 endAlpha,
+			float alphaChangeSpeed)
 		{
 			if (!m_System) return -1;
 			if (m_System->GetParticleCount() >= m_MaxParticles) return -1;
@@ -59,6 +61,11 @@ namespace novazero
 
 			Sprite* sprite = new Sprite(m_ParticleAssetName, 
 				position, *m_AssetSize, m_Layer, m_Scale);
+			
+			if (startAlpha != 255 || endAlpha != 255)
+			{
+				sprite->ConfigureAlphaTween(startAlpha, endAlpha, alphaChangeSpeed);
+			}
 
 			pd.userData = (void*)sprite;
 			
@@ -96,7 +103,7 @@ namespace novazero
 				screenPos.y -= ((*m_AssetSize).y * m_Scale) * 0.5f;
 				
 				Sprite* sprite = (Sprite*)userData[i];
-				sprite->SetPosition(screenPos);
+				sprite->ParticleUpdate(screenPos);
 
 			}
 		}
@@ -140,6 +147,24 @@ namespace novazero
 			}
 		}
 
+		void ParticleSystem::BurstSingleParticle(Vec2 burstPosition, int startAlpha, int endAlpha,
+			float alphaChangeSpeed, float velocity, float spread, float minAngleDeg, 
+			float maxAngleDeg, bool customFilter)
+		{
+			float deg = n2dRandomFloat(minAngleDeg, maxAngleDeg) - 180;
+			Vec2 dir = Vec2::UnitVec2FromAngle(deg);
+			Vec2 vel = Vec2(dir.x, dir.y);
+
+			vel.multiply(Vec2(velocity, velocity));
+			burstPosition += dir.scale(spread);
+
+			Uint8 startA = (Uint8)startAlpha;
+			Uint8 endA = (Uint8)endAlpha;
+
+			CreateParticle(b2_waterParticle, burstPosition, vel, 
+				*n2dGetColor("white"), customFilter, startA, endA, alphaChangeSpeed);
+		}
+
 		void ParticleSystem::SetLifetime(float minSeconds, float maxSeconds)
 		{
 			m_System->SetDestructionByAge(true);
@@ -172,7 +197,7 @@ namespace novazero
 
 				if (m_EmitterEnabled)
 				{
-					BurstParticles(1, m_BurstPosition, m_EmitVelocity, *m_EmitSpread, 
+					BurstSingleParticle(m_BurstPosition, m_StartAlpha, m_EndAlpha, m_AlphaChangeSpeed, m_EmitVelocity, *m_EmitSpread, 
 						m_BurstAngleMin, m_BurstAngleMax);
 				}
 
@@ -241,6 +266,26 @@ namespace novazero
 		float* ParticleSystem::GetParticleRadiusRef()
 		{
 			return &m_ParticleRadius;
+		}
+
+		bool* ParticleSystem::GetUsingAlphaTransitionRef()
+		{
+			return &m_UsingAlphaTransition;
+		}
+
+		int* ParticleSystem::GetStartAlphaRef()
+		{
+			return &m_StartAlpha;
+		}
+
+		int* ParticleSystem::GetEndAlphaRef()
+		{
+			return &m_EndAlpha;
+		}
+
+		float* ParticleSystem::GetAlphaChangeSpeedRef()
+		{
+			return &m_AlphaChangeSpeed;
 		}
 
 		int32* ParticleSystem::GetMaxParticleRef()

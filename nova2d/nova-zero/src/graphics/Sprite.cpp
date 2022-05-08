@@ -230,11 +230,58 @@ namespace novazero
 			SDL_SetTextureColorMod(m_SpriteSheet, 255, 255, 255);
 		}
 
+		void Sprite::ConfigureAlphaTween(Uint8 start, Uint8 end, float changeSpeed)
+		{
+			m_AlphaChanging = true;
+			m_Alpha = start;
+			m_PerciseAlpha = start;
+			m_StartAlpha = start;
+			m_EndAlpha = end;
+			m_AlphaChangeSpeed = changeSpeed;
+		}
+
 		void Sprite::Update()
 		{
 			if (m_SpriteScale != GetDrawScale())
 			{
 				SetScale(GetDrawScale());
+			}
+		}
+
+		void Sprite::ParticleUpdate(Vec2 newPosition)
+		{
+			SetPosition(newPosition);
+
+			if (m_AlphaChanging)
+			{
+				if (m_AlphaChangeSpeed > 0.0f)
+				{
+					// Increasing
+					if (m_Alpha < m_EndAlpha)
+					{
+						m_PerciseAlpha += m_AlphaChangeSpeed;
+						m_Alpha = (Uint8)m_PerciseAlpha;
+					}
+					else
+					{
+						m_AlphaChanging = false;
+					}
+				}
+				else
+				{
+					// Decreasing
+					if (m_Alpha > m_EndAlpha)
+					{
+						m_PerciseAlpha += m_AlphaChangeSpeed;
+						m_Alpha = (Uint8)m_PerciseAlpha;
+					}
+					else
+					{
+						m_AlphaChanging = false;
+					}
+				}
+
+				SetAlpha(m_Alpha);
 			}
 		}
 
@@ -247,6 +294,12 @@ namespace novazero
 			m_DestRect.h = (int)(m_FrameSize.y * scale);
 
 			m_SpriteScale = scale;
+		}
+
+		void Sprite::SetAlpha(Uint8 alpha)
+		{
+			m_Alpha = alpha;
+			SDL_SetTextureAlphaMod(m_SpriteSheet, m_Alpha);
 		}
 
 		void Sprite::Draw(float oX, float oY, float scale)

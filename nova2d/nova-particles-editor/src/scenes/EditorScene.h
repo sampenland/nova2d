@@ -35,6 +35,10 @@ namespace particleeditor
 		int32* m_MaxParticles;
 		float* m_ParticleRadius;
 		float* m_EmitterVelocity;
+		int* m_StartAlpha;
+		int* m_EndAlpha;
+		float* m_AlphaChangeSpeed;
+		bool* m_UsingAlphaTransition;
 
 		ScrollInput* m_MinAngleInput = nullptr;
 		ScrollInput* m_MaxAngleInput = nullptr;
@@ -44,6 +48,9 @@ namespace particleeditor
 		ScrollInput* m_MaxParticleInput = nullptr;
 		ScrollInput* m_ParticleRadiusInput = nullptr;
 		ScrollInput* m_EmitterVelocityInput = nullptr;
+		ScrollInput* m_StartAlphaInput = nullptr;
+		ScrollInput* m_EndAlphaInput = nullptr;
+		ScrollInput* m_AlphaChangeSpeedInput = nullptr;
 
 	public:
 

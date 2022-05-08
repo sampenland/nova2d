@@ -63,6 +63,13 @@ namespace novazero
 
 		private:
 
+			bool m_AlphaChanging = false;
+			float m_AlphaChangeSpeed = 0.25f;
+			float m_PerciseAlpha = 255.f;
+			Uint8 m_Alpha = 255;
+			Uint8 m_StartAlpha = 255;
+			Uint8 m_EndAlpha = 255;
+
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 			float m_SpriteScale = 1.f;
@@ -76,7 +83,9 @@ namespace novazero
 			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, 
 				float scale = 1.f, bool makeCopy = false);
 
+
 			void Update();
+			void ParticleUpdate(Vec2 newPosition);
 			
 			void SetScale(float scale);
 			float GetScale() { return GetDrawScale(); }
@@ -91,6 +100,12 @@ namespace novazero
 
 			float OffsetX() { return GetDrawable()->OffsetX(); }
 			float OffsetY() { return GetDrawable()->OffsetY(); }
+
+			/*
+				Values 1 - 255
+			*/
+			void SetAlpha(Uint8 alpha);
+			void ConfigureAlphaTween(Uint8 start, Uint8 end, float changeSpeed);
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 

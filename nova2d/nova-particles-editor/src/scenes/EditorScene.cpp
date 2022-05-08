@@ -53,6 +53,11 @@ namespace particleeditor
 
 		m_EmitterVelocity = m_ParticleSystem->GetEmitterVelocityRef();
 
+		m_StartAlpha = m_ParticleSystem->GetStartAlphaRef();
+		m_EndAlpha = m_ParticleSystem->GetEndAlphaRef();
+		m_AlphaChangeSpeed = m_ParticleSystem->GetAlphaChangeSpeedRef();
+		m_UsingAlphaTransition = m_ParticleSystem->GetUsingAlphaTransitionRef();
+
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
 
@@ -65,6 +70,10 @@ namespace particleeditor
 
 		m_ParticleRadiusInput = new ScrollInput("##particleRadius", 1, 255, m_ParticleRadius);
 		m_EmitterVelocityInput = new ScrollInput("##emitterVelocity", 1.f, 150.f, m_EmitterVelocity);
+
+		m_StartAlphaInput = new ScrollInput("##startAlpha", 1, 255, m_StartAlpha);
+		m_EndAlphaInput = new ScrollInput("##endAlpha", 1, 255, m_EndAlpha);
+		m_AlphaChangeSpeedInput = new ScrollInput("##alphaChangeSpeed", 0.000001f, 0.75f, m_AlphaChangeSpeed);
 
 		auto cleanID = n2dAddGUIUpdater(EditorScene::GUI, this);
 
@@ -109,6 +118,21 @@ namespace particleeditor
 
 		ImGui::Text("Particle Texture");
 		ImGui::InputText("##AssetPath", m_ParticleSystem->GetAssetPath(), 200);
+
+		ImGui::Separator();
+		ImGui::Checkbox("Use Alpha Transition", m_UsingAlphaTransition);
+		if (*m_UsingAlphaTransition)
+		{
+			ImGui::Text("Alpha Transition Speed");
+			ImGui::SameLine();
+			m_AlphaChangeSpeedInput->Draw();
+			ImGui::Text("Alpha Start");
+			ImGui::SameLine();
+			m_StartAlphaInput->Draw();
+			ImGui::Text("Alpha End");
+			ImGui::SameLine();
+			m_EndAlphaInput->Draw();
+		}
 
 		ImGui::Separator();
 		ImGui::Text("Particle Lifetime");

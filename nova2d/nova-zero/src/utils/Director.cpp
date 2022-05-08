@@ -54,8 +54,8 @@ namespace novazero
 
 		void Director::InitLighting()
 		{
-			m_LightingSlider = new ScrollInput("Lighting", (Uint8)0, (Uint8)255,
-				Game::s_SceneManager->GetCurrentScene()->s_Environment->m_WorldLightingIntensity);
+			/*m_LightingSlider = new ScrollInput("Lighting", (Uint8)0, (Uint8)255,
+				Game::s_SceneManager->GetCurrentScene()->s_Environment->m_WorldLightingIntensity);*/
 		}
 
 		void Director::DestroySelf()

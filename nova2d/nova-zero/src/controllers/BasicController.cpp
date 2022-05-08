@@ -90,6 +90,8 @@ namespace novazero
 						vel.y > percentMinMovement || vel.y < -percentMinMovement;
 				}
 			}
+
+			return false;
 		}
 
 		void BasicController::ControllerUpdate()

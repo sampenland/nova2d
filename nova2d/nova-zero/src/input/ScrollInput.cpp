@@ -19,18 +19,6 @@ namespace novazero
 
 		}
 		
-		ScrollInput::ScrollInput(const std::string& title, Uint8 min, Uint8 max, Uint8* value)
-		{
-			m_Title = title;
-			m_MinI = min;
-			m_MaxI = max;
-
-			m_ValueI = new Uint8;
-			m_ValueI = value;
-
-			m_IsFloat = false;
-		}
-
 		ScrollInput::ScrollInput(const std::string& title, int32 min, int32 max, int32* value)
 		{
 			m_Title = title;
@@ -41,12 +29,11 @@ namespace novazero
 			m_ValueI32 = value;
 
 			m_IsFloat = false;
-			m_IsI32 = true;
 		}
 
-		Uint8 ScrollInput::GetValueI() const
+		int ScrollInput::GetValueI32() const
 		{
-			return *m_ValueI;
+			return *m_ValueI32;
 		}
 
 		float ScrollInput::GetValueF() const
@@ -62,14 +49,7 @@ namespace novazero
 			} 
 			else
 			{
-				if (m_IsI32)
-				{
-					ImGui::SliderInt(m_Title.c_str(), (int*)m_ValueI32, m_MinI32, m_MaxI32);
-				}
-				else
-				{
-					ImGui::SliderInt(m_Title.c_str(), (int*)m_ValueI, m_MinI, m_MaxI);
-				}
+				ImGui::SliderInt(m_Title.c_str(), m_ValueI32, m_MinI32, m_MaxI32);
 			}
 		}
 
@@ -82,8 +62,8 @@ namespace novazero
 			}
 			else
 			{
-				if (m_ValueI)
-					delete m_ValueI;
+				if (m_ValueI32)
+					delete m_ValueI32;
 			}
 		}
 	}
