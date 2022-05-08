@@ -254,17 +254,18 @@ namespace novazero
 
 			if (m_AlphaChanging)
 			{
-				if (m_AlphaChangeSpeed > 0.0f)
+				if (m_EndAlpha > m_StartAlpha)
 				{
 					// Increasing
 					if (m_Alpha < m_EndAlpha)
 					{
 						m_PerciseAlpha += m_AlphaChangeSpeed;
 						m_Alpha = (Uint8)m_PerciseAlpha;
-					}
-					else
-					{
-						m_AlphaChanging = false;
+
+						if (m_Alpha >= m_EndAlpha)
+						{
+							m_AlphaChanging = false;
+						}
 					}
 				}
 				else
@@ -272,12 +273,13 @@ namespace novazero
 					// Decreasing
 					if (m_Alpha > m_EndAlpha)
 					{
-						m_PerciseAlpha += m_AlphaChangeSpeed;
+						m_PerciseAlpha -= m_AlphaChangeSpeed;
 						m_Alpha = (Uint8)m_PerciseAlpha;
-					}
-					else
-					{
-						m_AlphaChanging = false;
+
+						if (m_Alpha <= m_EndAlpha)
+						{
+							m_AlphaChanging = false;
+						}
 					}
 				}
 

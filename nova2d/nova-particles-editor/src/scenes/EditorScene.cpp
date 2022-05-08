@@ -33,9 +33,9 @@ namespace particleeditor
 			"ps", 100, 5, 10);
 		m_ParticleSystem->SetEditorFeature(true);
 		m_ParticleSystem->SetScale(scale);
-		m_ParticleSystem->SetLifetime(2.f, 4.f);
+		m_ParticleSystem->SetLifetime(0.2f, 0.75f);
 
-		m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 10.f, 5.f,
+		m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 2.f, 5.f,
 			Vec2(Game::GetCenterScreen().x * 0.48f, Game::GetCenterScreen().y));
 
 		m_MinAngle = m_ParticleSystem->GetEmitAngleMinRef();
@@ -61,7 +61,7 @@ namespace particleeditor
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
 
-		m_EmitterSpeedInput = new ScrollInput("##emitterSpeed", 0.f, 5000.f, m_EmitterSpeed);
+		m_EmitterSpeedInput = new ScrollInput("##emitterSpeed", 0.f, 1000.f, m_EmitterSpeed);
 
 		m_MinLifetimeInput = new ScrollInput("##minLifetime", 0.f, 12.f, m_MinLifetime);
 		m_MaxLifetimeInput = new ScrollInput("##maxLifetime", 0.f, 12.f, m_MaxLifetime);
@@ -69,11 +69,11 @@ namespace particleeditor
 		m_MaxParticleInput = new ScrollInput("##maxParticles", 1, 255, m_MaxParticles);
 
 		m_ParticleRadiusInput = new ScrollInput("##particleRadius", 1, 255, m_ParticleRadius);
-		m_EmitterVelocityInput = new ScrollInput("##emitterVelocity", 1.f, 150.f, m_EmitterVelocity);
+		m_EmitterVelocityInput = new ScrollInput("##emitterVelocity", 0.15f, 150.f, m_EmitterVelocity);
 
 		m_StartAlphaInput = new ScrollInput("##startAlpha", 1, 255, m_StartAlpha);
 		m_EndAlphaInput = new ScrollInput("##endAlpha", 1, 255, m_EndAlpha);
-		m_AlphaChangeSpeedInput = new ScrollInput("##alphaChangeSpeed", 0.000001f, 0.75f, m_AlphaChangeSpeed);
+		m_AlphaChangeSpeedInput = new ScrollInput("##alphaChangeSpeed", 0.5f, 10.f, m_AlphaChangeSpeed);
 
 		auto cleanID = n2dAddGUIUpdater(EditorScene::GUI, this);
 
