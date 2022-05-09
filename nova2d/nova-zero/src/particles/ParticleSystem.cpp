@@ -60,7 +60,7 @@ namespace novazero
 			pd.position.Set(pos.x, pos.y);
 
 			Sprite* sprite = new Sprite(m_ParticleAssetName, 
-				position, *m_AssetSize, m_Layer, m_Scale);
+				position, *m_AssetSize, m_Layer, m_Scale, true, startAlpha);
 			
 			if (startAlpha != 255 || endAlpha != 255)
 			{
@@ -158,8 +158,39 @@ namespace novazero
 			vel.multiply(Vec2(velocity, velocity));
 			burstPosition += dir.scale(spread);
 
+			Uint8 startAlphaRnd = 0;
+			Uint8 endAlphaRnd = 0;
+
+			if (m_StartAlphaRnd != 0)
+			{
+				startAlphaRnd = (Uint8)n2dRandomInt(0, m_StartAlphaRnd);
+			}
+
+			if (m_EndAlphaRnd != 0)
+			{
+				endAlphaRnd = (Uint8)n2dRandomInt(0, m_EndAlphaRnd);
+			}
+
 			Uint8 startA = (Uint8)startAlpha;
 			Uint8 endA = (Uint8)endAlpha;
+
+			if (startA + startAlphaRnd <= 255)
+			{
+				startA += startAlphaRnd;
+			}
+			else
+			{
+				startA = 255;
+			}
+
+			if (endA + endAlphaRnd <= 255)
+			{
+				endA += endAlphaRnd;
+			}
+			else
+			{
+				endA = 255;
+			}
 
 			CreateParticle(b2_waterParticle, burstPosition, vel, 
 				*n2dGetColor("white"), customFilter, startA, endA, alphaChangeSpeed);
@@ -197,6 +228,12 @@ namespace novazero
 
 				if (m_EmitterEnabled)
 				{
+					if (!m_UsingAlphaTransition)
+					{
+						m_StartAlpha = 255;
+						m_EndAlpha = 255;
+					}
+
 					BurstSingleParticle(m_BurstPosition, m_StartAlpha, m_EndAlpha, m_AlphaChangeSpeed, m_EmitVelocity, *m_EmitSpread, 
 						m_BurstAngleMin, m_BurstAngleMax);
 				}
@@ -278,9 +315,19 @@ namespace novazero
 			return &m_StartAlpha;
 		}
 
+		int* ParticleSystem::GetStartAlphaRndRef()
+		{
+			return &m_StartAlphaRnd;
+		}
+
 		int* ParticleSystem::GetEndAlphaRef()
 		{
 			return &m_EndAlpha;
+		}
+
+		int* ParticleSystem::GetEndAlphaRndRef()
+		{
+			return &m_EndAlphaRnd;
 		}
 
 		float* ParticleSystem::GetAlphaChangeSpeedRef()

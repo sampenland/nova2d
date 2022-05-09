@@ -81,8 +81,7 @@ namespace novazero
 		public:
 
 			Sprite(const std::string& assetName, Vec2 position, Vec2Int size, unsigned char layer, 
-				float scale = 1.f, bool makeCopy = false);
-
+				float scale = 1.f, bool makeCopy = false, Uint8 alpha = 255);
 
 			void Update();
 			void ParticleUpdate(Vec2 newPosition);

@@ -36,10 +36,12 @@ namespace novazero
 			float m_Scale = 1.f;
 			float m_EmitVelocity;
 
-			bool m_UsingAlphaTransition = true;
+			bool m_UsingAlphaTransition = false;
 			int m_StartAlpha = 255;
+			int m_StartAlphaRnd = 0;
 			int m_EndAlpha = 255;
-			float m_AlphaChangeSpeed = 0.25f;
+			int m_EndAlphaRnd = 0;
+			float m_AlphaChangeSpeed = 2.25f;
 
 		private:
 
@@ -56,7 +58,7 @@ namespace novazero
 			bool m_UsingLifetime = true;
 
 			float m_MinLifeTime = 1.f;
-			float m_MaxLifeTime = 100.f;
+			float m_MaxLifeTime = 10.f;
 			float m_ParticleRadius = 5.f;
 
 			bool m_EditorFeatureOnly = false;
@@ -112,7 +114,9 @@ namespace novazero
 
 			bool* GetUsingAlphaTransitionRef();
 			int* GetStartAlphaRef();
+			int* GetStartAlphaRndRef();
 			int* GetEndAlphaRef();
+			int* GetEndAlphaRndRef();
 			float* GetAlphaChangeSpeedRef();
 			
 			int32* GetMaxParticleRef();

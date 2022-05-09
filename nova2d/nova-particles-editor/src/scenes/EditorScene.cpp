@@ -33,7 +33,7 @@ namespace particleeditor
 			"ps", 100, 5, 10);
 		m_ParticleSystem->SetEditorFeature(true);
 		m_ParticleSystem->SetScale(scale);
-		m_ParticleSystem->SetLifetime(0.2f, 0.75f);
+		m_ParticleSystem->SetLifetime(2.2f, 2.2f);
 
 		m_ParticleSystem->ConfigureEmitter("res/particles/smoke_01.png", true, 100.f, 2.f, 5.f,
 			Vec2(Game::GetCenterScreen().x * 0.48f, Game::GetCenterScreen().y));
@@ -54,7 +54,11 @@ namespace particleeditor
 		m_EmitterVelocity = m_ParticleSystem->GetEmitterVelocityRef();
 
 		m_StartAlpha = m_ParticleSystem->GetStartAlphaRef();
+		m_StartAlphaRnd = m_ParticleSystem->GetStartAlphaRndRef();
+
 		m_EndAlpha = m_ParticleSystem->GetEndAlphaRef();
+		m_EndAlphaRnd = m_ParticleSystem->GetEndAlphaRndRef();
+
 		m_AlphaChangeSpeed = m_ParticleSystem->GetAlphaChangeSpeedRef();
 		m_UsingAlphaTransition = m_ParticleSystem->GetUsingAlphaTransitionRef();
 
@@ -71,8 +75,12 @@ namespace particleeditor
 		m_ParticleRadiusInput = new ScrollInput("##particleRadius", 1, 255, m_ParticleRadius);
 		m_EmitterVelocityInput = new ScrollInput("##emitterVelocity", 0.15f, 150.f, m_EmitterVelocity);
 
-		m_StartAlphaInput = new ScrollInput("##startAlpha", 1, 255, m_StartAlpha);
-		m_EndAlphaInput = new ScrollInput("##endAlpha", 1, 255, m_EndAlpha);
+		m_StartAlphaInput = new ScrollInput("##startAlpha", 0, 255, m_StartAlpha);
+		m_StartAlphaRndInput = new ScrollInput("##startAlphaRnd", 0, 127, m_StartAlphaRnd);
+
+		m_EndAlphaInput = new ScrollInput("##endAlpha", 0, 255, m_EndAlpha);
+		m_EndAlphaRndInput = new ScrollInput("##endAlphaRnd", 0, 127, m_EndAlphaRnd);
+
 		m_AlphaChangeSpeedInput = new ScrollInput("##alphaChangeSpeed", 0.5f, 10.f, m_AlphaChangeSpeed);
 
 		auto cleanID = n2dAddGUIUpdater(EditorScene::GUI, this);
@@ -97,67 +105,96 @@ namespace particleeditor
 		m_MaxParticleInput->Draw();
 
 		ImGui::Separator();
-		
-		ImGui::Text("Particle Radius");
-		ImGui::SameLine();
-		m_ParticleRadiusInput->Draw();
-
-		ImGui::Separator();
-
-		ImGui::Text("Emitter Velocity");
-		ImGui::SameLine();
-		m_EmitterVelocityInput->Draw();
-
-		ImGui::Separator();
-
-		ImGui::Text("Emit Interval");
-		ImGui::SameLine();
-		m_EmitterSpeedInput->Draw();
-
-		ImGui::Separator();
 
 		ImGui::Text("Particle Texture");
 		ImGui::InputText("##AssetPath", m_ParticleSystem->GetAssetPath(), 200);
 
-		ImGui::Separator();
-		ImGui::Checkbox("Use Alpha Transition", m_UsingAlphaTransition);
-		if (*m_UsingAlphaTransition)
+		if (ImGui::CollapsingHeader("Physics"))
 		{
+			ImGui::Text("Particle Radius");
+			ImGui::SameLine();
+			m_ParticleRadiusInput->Draw();
+		}
+		
+
+		if (ImGui::CollapsingHeader("Emitter"))
+		{
+			ImGui::Text("Emit Interval");
+			ImGui::SameLine();
+			m_EmitterSpeedInput->Draw();
+
+			ImGui::Text("Emitter Velocity");
+			ImGui::SameLine();
+			m_EmitterVelocityInput->Draw();
+
+			ImGui::Indent();
+			if (ImGui::CollapsingHeader("Emission Angle"))
+			{
+				ImGui::Text("Min. Angle");
+				ImGui::SameLine();
+				m_MinAngleInput->Draw();
+				ImGui::Text("Max. Angle");
+				ImGui::SameLine();
+				m_MaxAngleInput->Draw();
+			}
+			ImGui::Unindent();
+
+		}
+
+		if (ImGui::CollapsingHeader("Lifetime"))
+		{
+			ImGui::Text("Particle Lifetime");
+			ImGui::Text("Min");
+			ImGui::SameLine();
+			m_MinLifetimeInput->Draw();
+			ImGui::Text("Max");
+			ImGui::SameLine();
+			m_MaxLifetimeInput->Draw();
+		}
+
+		if (ImGui::CollapsingHeader("Alpha"))
+		{
+			ImGui::Checkbox("Use Alpha Transition", m_UsingAlphaTransition);
+
+			ImGui::Indent();
+
 			ImGui::Text("Alpha Transition Speed");
 			ImGui::SameLine();
 			m_AlphaChangeSpeedInput->Draw();
 			ImGui::Text("Alpha Start");
 			ImGui::SameLine();
 			m_StartAlphaInput->Draw();
+			ImGui::Text("Start Rand.");
+			ImGui::SameLine();
+			m_StartAlphaRndInput->Draw();
+
+			ImGui::Separator();
+
 			ImGui::Text("Alpha End");
 			ImGui::SameLine();
 			m_EndAlphaInput->Draw();
+			ImGui::Text("End Rand.");
+			ImGui::SameLine();
+			m_EndAlphaRndInput->Draw();
+
+			ImGui::Unindent();
 		}
 
-		ImGui::Separator();
-		ImGui::Text("Particle Lifetime");
-		ImGui::Text("Min");
-		ImGui::SameLine();
-		m_MinLifetimeInput->Draw();
-		ImGui::Text("Max");
-		ImGui::SameLine();
-		m_MaxLifetimeInput->Draw();
-
-		ImGui::Separator();
-		ImGui::Text("Emission Angle");
-		ImGui::Text("Min Angle");
-		ImGui::SameLine();
-		m_MinAngleInput->Draw();
-		ImGui::Text("Max Angle");
-		ImGui::SameLine();
-		m_MaxAngleInput->Draw();
-
 		ImGui::End();
+
 	}
 
 	void EditorScene::Update()
 	{
+		/*
 		
+		Used to test certain things per particle
+		
+		if (n2dMouseJustDown())
+		{
+			m_ParticleSystem->BurstSingleParticle(n2dGetMousePosition(SDL_BUTTON_LEFT),
+				255, 1, 40.f, 10.f, 5.f, 80, 100);
+		}*/
 	}
 
 	void EditorScene::End()

@@ -16,7 +16,7 @@ namespace novazero
 		using namespace logging;
 
 		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, 
-			unsigned char layer, float scale, bool makeCopy)
+			unsigned char layer, float scale, bool makeCopy, Uint8 alpha)
 			: Deleteable(assetName), m_SrcRect(SDL_Rect()), m_DestRect(SDL_Rect()), Drawable(size)
 		{
 			SetSize(size);
@@ -55,6 +55,12 @@ namespace novazero
 
 			// Final
 			m_ID = Game::GetNextID();
+
+			if (alpha != 255)
+			{
+				SetAlpha(alpha);
+			}
+
 			n2dAddDrawable(this, m_Layer);
 		}
 
@@ -260,12 +266,13 @@ namespace novazero
 					if (m_Alpha < m_EndAlpha)
 					{
 						m_PerciseAlpha += m_AlphaChangeSpeed;
-						m_Alpha = (Uint8)m_PerciseAlpha;
 
-						if (m_Alpha >= m_EndAlpha)
+						if (m_PerciseAlpha >= m_EndAlpha)
 						{
 							m_AlphaChanging = false;
 						}
+
+						m_Alpha = (Uint8)m_PerciseAlpha;
 					}
 				}
 				else
@@ -274,12 +281,13 @@ namespace novazero
 					if (m_Alpha > m_EndAlpha)
 					{
 						m_PerciseAlpha -= m_AlphaChangeSpeed;
-						m_Alpha = (Uint8)m_PerciseAlpha;
 
-						if (m_Alpha <= m_EndAlpha)
+						if (m_PerciseAlpha <= m_EndAlpha)
 						{
 							m_AlphaChanging = false;
 						}
+
+						m_Alpha = (Uint8)m_PerciseAlpha;
 					}
 				}
 
