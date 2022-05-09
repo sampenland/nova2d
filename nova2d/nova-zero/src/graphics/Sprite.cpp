@@ -6,6 +6,7 @@
 #include "SDL_image.h"
 #include "../core/Game.h"
 #include "../graphics/Color.h"
+#include "../particles/ParticleSystem.h"
 
 namespace novazero
 {
@@ -14,6 +15,7 @@ namespace novazero
 		using namespace core;
 		using namespace utils;
 		using namespace logging;
+		using namespace particles;
 
 		Sprite::Sprite(const std::string& assetName, Vec2 position, Vec2Int size, 
 			unsigned char layer, float scale, bool makeCopy, Uint8 alpha)
@@ -246,6 +248,11 @@ namespace novazero
 			m_AlphaChangeSpeed = changeSpeed;
 		}
 
+		void Sprite::ConfigureTintTween(ParticleColorTransition& colors)
+		{
+			m_ColorTransition = colors;
+		}
+
 		void Sprite::Update()
 		{
 			if (m_SpriteScale != GetDrawScale())
@@ -254,10 +261,8 @@ namespace novazero
 			}
 		}
 
-		void Sprite::ParticleUpdate(Vec2 newPosition)
+		void Sprite::AlphaUpdate()
 		{
-			SetPosition(newPosition);
-
 			if (m_AlphaChanging)
 			{
 				if (m_EndAlpha > m_StartAlpha)
@@ -293,6 +298,49 @@ namespace novazero
 
 				SetAlpha(m_Alpha);
 			}
+		}
+
+		void Sprite::ColorUpdate()
+		{
+			/*
+				Transition example:
+
+				fraction: 0.3
+				color1: 151,206,255
+				color2: 114,127,157
+
+				R =  (114-151) * fraction + 151
+				G =  (127-206) * fraction + 206
+				B =  (157-255) * fraction + 255
+
+			*/
+			if (m_ColorTransition.Enabled)
+			{
+				Color result = m_ColorTransition.Current;
+				if (m_ColorTransition.StartToMid)
+				{
+					result = Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.Mid);
+					if (result == m_ColorTransition.Mid)
+					{
+						m_ColorTransition.StartToMid = false;
+					}
+				}
+				else
+				{
+					result = Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.End);
+					if (result == m_ColorTransition.End)
+					{
+						m_ColorTransition.Enabled = false;
+					}
+				}
+			}
+		}
+
+		void Sprite::ParticleUpdate(Vec2 newPosition)
+		{
+			SetPosition(newPosition);
+			AlphaUpdate();
+			ColorUpdate();			
 		}
 
 		void Sprite::SetScale(float scale)

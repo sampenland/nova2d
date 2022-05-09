@@ -9,10 +9,16 @@
 
 namespace novazero
 {
+	namespace particles
+	{
+		struct ParticleColorTransition;
+	}
+
 	namespace graphics
 	{
-		using namespace core;
-		using namespace maths;
+		using namespace novazero::core;
+		using namespace novazero::maths;
+		using namespace novazero::particles;
 		
 		struct AnimStartEnd
 		{
@@ -70,6 +76,8 @@ namespace novazero
 			Uint8 m_StartAlpha = 255;
 			Uint8 m_EndAlpha = 255;
 
+			ParticleColorTransition m_ColorTransition;
+
 			SDL_Rect m_SrcRect;
 			SDL_Rect m_DestRect;
 			float m_SpriteScale = 1.f;
@@ -84,6 +92,8 @@ namespace novazero
 				float scale = 1.f, bool makeCopy = false, Uint8 alpha = 255);
 
 			void Update();
+			void AlphaUpdate();
+			void ColorUpdate();
 			void ParticleUpdate(Vec2 newPosition);
 			
 			void SetScale(float scale);
@@ -105,6 +115,8 @@ namespace novazero
 			*/
 			void SetAlpha(Uint8 alpha);
 			void ConfigureAlphaTween(Uint8 start, Uint8 end, float changeSpeed);
+
+			void ConfigureTintTween(ParticleColorTransition& colors);
 
 			void Draw(float oX = 0.f, float oY = 0.f, float scale = 1.f) override;
 

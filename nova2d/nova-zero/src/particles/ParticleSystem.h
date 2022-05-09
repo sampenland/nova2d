@@ -9,8 +9,20 @@ namespace novazero
 {
 	namespace particles
 	{
-		using namespace maths;
-		using namespace graphics;
+		using namespace novazero::core;
+		using namespace novazero::maths;
+		using namespace novazero::graphics;
+
+		struct ParticleColorTransition
+		{
+			bool Enabled = false;
+			bool StartToMid = true;
+			Color Current;
+			Color Start;
+			Color Mid;
+			Color End;
+			float Speed = 1;
+		};
 
 		enum class ParticleCollisionTypes
 		{
@@ -43,6 +55,12 @@ namespace novazero
 			int m_EndAlphaRnd = 0;
 			float m_AlphaChangeSpeed = 2.25f;
 
+			bool m_UsingColorTransition = false;
+			ParticleColorTransition m_ColorTransition;
+			float m_StartColor[3];
+			float m_MidColor[3];
+			float m_EndColor[3];
+
 		private:
 
 			b2ParticleSystem* m_System = nullptr;
@@ -74,7 +92,7 @@ namespace novazero
 				customFilter will make particles NOT collide with anything unless told to			
 			*/
 			int32 CreateParticle(b2ParticleFlag type, Vec2 position, 
-				Vec2 velocity, Color color, bool customFilter, 
+				Vec2 velocity, ParticleColorTransition& colors, bool customFilter,
 				Uint8 startAlpha = 255, Uint8 endAlpha = 255, float alphaChangeSpeed = 0.25f);
 			
 			void BurstParticles(int32 particleCount, Vec2 burstPosition, float velocity, float spread, bool customFilter = true);
@@ -84,7 +102,7 @@ namespace novazero
 			
 			void BurstSingleParticle(Vec2 burstPosition, int startAlpha, int endAlpha,
 				float alphaChangeSpeed, float velocity, float spread,
-				float minAngleDeg, float maxAngleDeg, bool customFilter = true);
+				float minAngleDeg, float maxAngleDeg, ParticleColorTransition& colors, bool customFilter = true);
 			
 			void Update();
 
@@ -118,6 +136,12 @@ namespace novazero
 			int* GetEndAlphaRef();
 			int* GetEndAlphaRndRef();
 			float* GetAlphaChangeSpeedRef();
+
+			bool* GetUsingColorTransitionRef();
+			ParticleColorTransition* GetColorTransitionRef();
+			float* GetStartColorRef();
+			float* GetMidColorRef();
+			float* GetEndColorRef();
 			
 			int32* GetMaxParticleRef();
 

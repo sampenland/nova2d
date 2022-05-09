@@ -25,16 +25,20 @@ namespace particleeditor
 		DrawRect* m_AssetBackground = nullptr;
 		Vec2 m_AssetPosition = Vec2(0, 0);
 		Vec2Int m_AssetSize = Vec2Int(0, 0);
+		
+		bool* m_SystemOn;
 
 		float* m_MinAngle;
 		float* m_MaxAngle;
-		bool* m_SystemOn;
+
 		float* m_EmitterSpeed;
-		float* m_MinLifetime;
-		float* m_MaxLifetime;
 		int32* m_MaxParticles;
 		float* m_ParticleRadius;
 		float* m_EmitterVelocity;
+		
+		float* m_MinLifetime;
+		float* m_MaxLifetime;
+		
 		int* m_StartAlpha;
 		int* m_StartAlphaRnd;
 		int* m_EndAlpha;
@@ -42,19 +46,32 @@ namespace particleeditor
 		float* m_AlphaChangeSpeed;
 		bool* m_UsingAlphaTransition;
 
+		bool* m_UsingColorTransition;
+		ParticleColorTransition* m_ColorTransition;
+		float* m_ColorTransSpeed;
+		float* m_StartColor;
+		float* m_MidColor;
+		float* m_EndColor;
+
 		ScrollInput* m_MinAngleInput = nullptr;
 		ScrollInput* m_MaxAngleInput = nullptr;
+
 		ScrollInput* m_EmitterSpeedInput = nullptr;
-		ScrollInput* m_MinLifetimeInput = nullptr;
-		ScrollInput* m_MaxLifetimeInput = nullptr;
+		ScrollInput* m_EmitterVelocityInput = nullptr;
+		
 		ScrollInput* m_MaxParticleInput = nullptr;
 		ScrollInput* m_ParticleRadiusInput = nullptr;
-		ScrollInput* m_EmitterVelocityInput = nullptr;
+		
+		ScrollInput* m_MinLifetimeInput = nullptr;
+		ScrollInput* m_MaxLifetimeInput = nullptr;
+		
 		ScrollInput* m_StartAlphaInput = nullptr;
 		ScrollInput* m_StartAlphaRndInput = nullptr;
 		ScrollInput* m_EndAlphaInput = nullptr;
 		ScrollInput* m_EndAlphaRndInput = nullptr;
 		ScrollInput* m_AlphaChangeSpeedInput = nullptr;
+		
+		ScrollInput* m_ColorTransSpeedInput = nullptr;
 
 	public:
 

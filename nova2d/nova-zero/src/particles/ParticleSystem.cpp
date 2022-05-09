@@ -1,5 +1,6 @@
 #include "ParticleSystem.h"
 #include "../core/Game.h"
+#include "../graphics/Sprite.h"
 
 namespace novazero
 {
@@ -37,7 +38,7 @@ namespace novazero
 		}
 
 		int32 ParticleSystem::CreateParticle(b2ParticleFlag type,
-			Vec2 position, Vec2 velocity, Color color, bool customFilter, Uint8 startAlpha, Uint8 endAlpha,
+			Vec2 position, Vec2 velocity, ParticleColorTransition& colors, bool customFilter, Uint8 startAlpha, Uint8 endAlpha,
 			float alphaChangeSpeed)
 		{
 			if (!m_System) return -1;
@@ -54,7 +55,7 @@ namespace novazero
 			}
 
 			pd.velocity.Set(velocity.x, velocity.y);
-			pd.color.Set((uint8)color.r, (uint8)color.g, (uint8)color.b, (uint8)color.a);
+			pd.color.Set(255, 255, 255, 255);
 			
 			b2Vec2 pos = Vec2::PixelsToMeters(position);
 			pd.position.Set(pos.x, pos.y);
@@ -65,6 +66,11 @@ namespace novazero
 			if (startAlpha != 255 || endAlpha != 255)
 			{
 				sprite->ConfigureAlphaTween(startAlpha, endAlpha, alphaChangeSpeed);
+			}
+
+			if (m_UsingColorTransition)
+			{
+				sprite->ConfigureTintTween(colors);
 			}
 
 			pd.userData = (void*)sprite;
@@ -123,7 +129,8 @@ namespace novazero
 				vel.multiply(Vec2(velocity, velocity));
 				burstPosition += dir.scale(spread);
 
-				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"), customFilter);
+				ParticleColorTransition color;
+				CreateParticle(b2_waterParticle, burstPosition, vel, color, customFilter);
 			}
 		}
 
@@ -143,13 +150,14 @@ namespace novazero
 				vel.multiply(Vec2(velocity, velocity));
 				burstPosition += dir.scale(spread);
 
-				CreateParticle(b2_waterParticle, burstPosition, vel, *n2dGetColor("white"), customFilter);
+				ParticleColorTransition color;
+				CreateParticle(b2_waterParticle, burstPosition, vel, color, customFilter);
 			}
 		}
 
 		void ParticleSystem::BurstSingleParticle(Vec2 burstPosition, int startAlpha, int endAlpha,
 			float alphaChangeSpeed, float velocity, float spread, float minAngleDeg, 
-			float maxAngleDeg, bool customFilter)
+			float maxAngleDeg, ParticleColorTransition& colors, bool customFilter)
 		{
 			float deg = n2dRandomFloat(minAngleDeg, maxAngleDeg) - 180;
 			Vec2 dir = Vec2::UnitVec2FromAngle(deg);
@@ -193,7 +201,7 @@ namespace novazero
 			}
 
 			CreateParticle(b2_waterParticle, burstPosition, vel, 
-				*n2dGetColor("white"), customFilter, startA, endA, alphaChangeSpeed);
+				m_ColorTransition, customFilter, startA, endA, alphaChangeSpeed);
 		}
 
 		void ParticleSystem::SetLifetime(float minSeconds, float maxSeconds)
@@ -234,8 +242,9 @@ namespace novazero
 						m_EndAlpha = 255;
 					}
 
+					ParticleColorTransition c;
 					BurstSingleParticle(m_BurstPosition, m_StartAlpha, m_EndAlpha, m_AlphaChangeSpeed, m_EmitVelocity, *m_EmitSpread, 
-						m_BurstAngleMin, m_BurstAngleMax);
+						m_BurstAngleMin, m_BurstAngleMax, c);
 				}
 
 			});
@@ -328,6 +337,31 @@ namespace novazero
 		int* ParticleSystem::GetEndAlphaRndRef()
 		{
 			return &m_EndAlphaRnd;
+		}
+
+		bool* ParticleSystem::GetUsingColorTransitionRef()
+		{
+			return &m_UsingColorTransition;
+		}
+
+		ParticleColorTransition* ParticleSystem::GetColorTransitionRef()
+		{
+			return &m_ColorTransition;
+		}
+
+		float* ParticleSystem::GetStartColorRef()
+		{
+			return m_StartColor;
+		}
+
+		float* ParticleSystem::GetMidColorRef()
+		{
+			return m_MidColor;
+		}
+
+		float* ParticleSystem::GetEndColorRef()
+		{
+			return m_EndColor;
 		}
 
 		float* ParticleSystem::GetAlphaChangeSpeedRef()

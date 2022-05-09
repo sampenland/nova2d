@@ -62,6 +62,15 @@ namespace particleeditor
 		m_AlphaChangeSpeed = m_ParticleSystem->GetAlphaChangeSpeedRef();
 		m_UsingAlphaTransition = m_ParticleSystem->GetUsingAlphaTransitionRef();
 
+		m_UsingColorTransition = m_ParticleSystem->GetUsingColorTransitionRef();
+		m_ColorTransition = m_ParticleSystem->GetColorTransitionRef();
+		m_ColorTransSpeed = &m_ColorTransition->Speed;
+
+		m_StartColor = m_ParticleSystem->GetStartColorRef();
+		m_MidColor = m_ParticleSystem->GetMidColorRef();
+		m_EndColor = m_ParticleSystem->GetEndColorRef();
+		m_ColorTransSpeedInput = new ScrollInput("##colorTransSpeed", 0.5f, 10.f, m_ColorTransSpeed);
+
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
 
@@ -114,8 +123,7 @@ namespace particleeditor
 			ImGui::Text("Particle Radius");
 			ImGui::SameLine();
 			m_ParticleRadiusInput->Draw();
-		}
-		
+		}		
 
 		if (ImGui::CollapsingHeader("Emitter"))
 		{
@@ -150,6 +158,55 @@ namespace particleeditor
 			ImGui::Text("Max");
 			ImGui::SameLine();
 			m_MaxLifetimeInput->Draw();
+		}
+
+		if (ImGui::CollapsingHeader("Color"))
+		{
+			ImGui::Indent();
+
+			ImGui::Text("Using Color Transition");
+			ImGui::SameLine();
+			ImGui::Checkbox("##usingColorTrans", m_UsingColorTransition);
+
+			if (*m_UsingColorTransition)
+			{
+				ImGui::Separator();
+
+				m_ColorTransSpeedInput->Draw();
+
+				ImGui::Separator();
+
+				if (ImGui::CollapsingHeader("Start"))
+				{
+					ImGui::ColorPicker3("##startColor", m_StartColor);
+				}
+
+				if (ImGui::CollapsingHeader("Mid"))
+				{
+					ImGui::ColorPicker3("##midColor", m_MidColor);
+				}
+
+				if (ImGui::CollapsingHeader("End"))
+				{
+					ImGui::ColorPicker3("##endColor", m_EndColor);
+				}
+
+				ImGui::Unindent();
+
+				m_ColorTransition->Enabled = *m_UsingColorTransition;
+
+				m_ColorTransition->Start.r = m_StartColor[0];
+				m_ColorTransition->Start.g = m_StartColor[1];
+				m_ColorTransition->Start.b = m_StartColor[2];
+
+				m_ColorTransition->Mid.r = m_MidColor[0];
+				m_ColorTransition->Mid.g = m_MidColor[1];
+				m_ColorTransition->Mid.b = m_MidColor[2];
+
+				m_ColorTransition->End.r = m_EndColor[0];
+				m_ColorTransition->End.g = m_EndColor[1];
+				m_ColorTransition->End.b = m_EndColor[2];
+			}
 		}
 
 		if (ImGui::CollapsingHeader("Alpha"))
