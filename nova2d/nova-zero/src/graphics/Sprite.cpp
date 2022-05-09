@@ -319,7 +319,7 @@ namespace novazero
 				Color result = m_ColorTransition.Current;
 				if (m_ColorTransition.StartToMid)
 				{
-					result = Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.Mid);
+					Color::Interpolate(result, m_ColorTransition.Current, m_ColorTransition.Mid, m_ColorTransition.Speed);
 					if (result == m_ColorTransition.Mid)
 					{
 						m_ColorTransition.StartToMid = false;
@@ -327,7 +327,7 @@ namespace novazero
 				}
 				else
 				{
-					result = Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.End);
+					Color::Interpolate(result, m_ColorTransition.Current, m_ColorTransition.End, m_ColorTransition.Speed);
 					if (result == m_ColorTransition.End)
 					{
 						m_ColorTransition.Enabled = false;

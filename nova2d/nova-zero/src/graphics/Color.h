@@ -47,11 +47,11 @@ namespace novazero
 			*/
 			void HSL2RGB(float h, float s, float l, Uint8 outRGB[3])
 			{
-				Uint8 r, g, b;
+				float fr, fg, fb;
 
 				if (s == 0) 
 				{
-					r = g = b = l; // achromatic
+					fr = fg = fb = l; // achromatic
 				}
 				else 
 				{
@@ -66,14 +66,14 @@ namespace novazero
 
 					float q = l < 0.5 ? l * (1 + s) : l + s - l * s;
 					float p = 2 * l - q;
-					r = hue2rgb(p, q, h + 1 / 3);
-					g = hue2rgb(p, q, h);
-					b = hue2rgb(p, q, h - 1 / 3);
+					fr = hue2rgb(p, q, h + 1 / 3);
+					fg = hue2rgb(p, q, h);
+					fb = hue2rgb(p, q, h - 1 / 3);
 				}
 
-				r = (Uint8)std::round(r);
-				g = (Uint8)std::round(g);
-				b = (Uint8)std::round(b);
+				outRGB[0] = (Uint8)std::round(fr);
+				outRGB[1] = (Uint8)std::round(fg);
+				outRGB[2] = (Uint8)std::round(fb);
 
 			}
 
@@ -86,16 +86,16 @@ namespace novazero
 				g /= 255;
 				b /= 255;
 
-				Uint8 max = 1;// std::max(r, g, b);
-				Uint8 min = 1;// std::min(r, g, b);
+				Uint8 max = std::max(std::max(r, g), b);
+				Uint8 min = std::max(std::min(r, g), b);
 				
 				float h = outHSL[0];
 				float s = outHSL[1];
 				float l = outHSL[2];
 
-				h = (max + min) / 2;
-				s = (max + min) / 2;
-				l = (max + min) / 2;
+				h = (max + min) / 2.f;
+				s = (max + min) / 2.f;
+				l = (max + min) / 2.f;
 
 				if (max == min) 
 				{
@@ -105,33 +105,37 @@ namespace novazero
 				{
 					Uint8 d = max - min;
 
-					s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+					s = l > 0.5 ? d / (2.f - max - min) : d / (max + min);
 
 					if (max == r)
 					{
-						h = (g - b) / d + (g < b ? 6 : 0);
+						h = (g - b) / d + (g < b ? 6.f : 0.f);
 					}
 					else if (max == g)
 					{
-						h = (b - r) / d + 2;
+						h = (b - r) / d + 2.f;
 					}
 					else if (max == b)
 					{
-						h = (r - g) / d + 4;
+						h = (r - g) / d + 4.f;
 					}
 
-					h /= 6;
+					h /= 6.f;
 				}
 			}
 
 			/*
 				CurrentColor is a reference to the color being transitioned
 			*/
-			static Color Interpolate(Color& currentColor, Color a, Color b, float speed)
+			static void Interpolate(Color& currentColor, Color a, Color b, float speed)
 			{
-				currentColor.r = (b.r - a.r) * speed + a.r;
-				currentColor.g = (b.g - a.g) * speed + a.g;
-				currentColor.b = (b.b - a.b) * speed + a.b;
+				float rr = ((float)b.r - (float)a.r) * speed + (float)a.r;
+				float rg = ((float)b.g - (float)a.g) * speed + (float)a.g;
+				float rb = ((float)b.b - (float)a.b) * speed + (float)a.b;
+
+				currentColor.r = (Uint8)rr;
+				currentColor.g = (Uint8)rg;
+				currentColor.b = (Uint8)rb;
 			}
 
 			Vec4 GetNormalized() const

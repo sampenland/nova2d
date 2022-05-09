@@ -3,10 +3,15 @@
 #include <vector>
 #include "../maths/Maths.h"
 #include "../graphics/Color.h"
-#include "../graphics/Sprite.h"
+#include "../core/Timer.h"
 
 namespace novazero
 {
+	namespace graphics
+	{
+		class Sprite;
+	}
+
 	namespace particles
 	{
 		using namespace novazero::core;

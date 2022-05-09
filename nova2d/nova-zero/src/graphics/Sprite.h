@@ -6,14 +6,10 @@
 #include <map>
 #include "SDL.h"
 #include "Drawable.h"
+#include "../particles/ParticleSystem.h"
 
 namespace novazero
 {
-	namespace particles
-	{
-		struct ParticleColorTransition;
-	}
-
 	namespace graphics
 	{
 		using namespace novazero::core;
