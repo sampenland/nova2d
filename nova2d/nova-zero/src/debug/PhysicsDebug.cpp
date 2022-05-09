@@ -12,7 +12,8 @@ namespace novazero
 
         PhysicsDebug::PhysicsDebug()
         {
-            SetFlags(b2Draw::e_shapeBit | b2Draw::e_particleBit);            
+            SetFlags(b2Draw::e_shapeBit | b2Draw::e_particleBit | b2Draw::e_aabbBit | b2Draw::e_centerOfMassBit |
+                    b2Draw::e_jointBit);            
         }
 
         void PhysicsDebug::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)

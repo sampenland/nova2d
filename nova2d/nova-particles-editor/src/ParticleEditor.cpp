@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 	using namespace novazero::core;
 
 	// Game Config
-	Game game("nova2d Particle Editor");
+	Game game("nova2d Particle Editor v.0.1 pre-alpha");
 
 	EditorScene* editorScene = new EditorScene("editorScene");
 
