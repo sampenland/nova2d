@@ -333,6 +333,8 @@ namespace novazero
 						m_ColorTransition.Enabled = false;
 					}
 				}
+
+				SDL_SetTextureColorMod(m_SpriteSheet, result.r, result.g, result.b);
 			}
 		}
 

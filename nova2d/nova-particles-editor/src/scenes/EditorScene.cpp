@@ -191,8 +191,6 @@ namespace particleeditor
 					ImGui::ColorPicker3("##endColor", m_EndColor);
 				}
 
-				ImGui::Unindent();
-
 				m_ColorTransition->Enabled = *m_UsingColorTransition;
 
 				m_ColorTransition->Start.r = m_StartColor[0];
@@ -207,6 +205,8 @@ namespace particleeditor
 				m_ColorTransition->End.g = m_EndColor[1];
 				m_ColorTransition->End.b = m_EndColor[2];
 			}
+
+			ImGui::Unindent();
 		}
 
 		if (ImGui::CollapsingHeader("Alpha"))
