@@ -242,9 +242,8 @@ namespace novazero
 						m_EndAlpha = 255;
 					}
 
-					ParticleColorTransition c;
 					BurstSingleParticle(m_BurstPosition, m_StartAlpha, m_EndAlpha, m_AlphaChangeSpeed, m_EmitVelocity, *m_EmitSpread, 
-						m_BurstAngleMin, m_BurstAngleMax, c);
+						m_BurstAngleMin, m_BurstAngleMax, m_ColorTransition);
 				}
 
 			});

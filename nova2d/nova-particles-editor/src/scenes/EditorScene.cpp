@@ -69,7 +69,7 @@ namespace particleeditor
 		m_StartColor = m_ParticleSystem->GetStartColorRef();
 		m_MidColor = m_ParticleSystem->GetMidColorRef();
 		m_EndColor = m_ParticleSystem->GetEndColorRef();
-		m_ColorTransSpeedInput = new ScrollInput("##colorTransSpeed", 0.5f, 10.f, m_ColorTransSpeed);
+		m_ColorTransSpeedInput = new ScrollInput("##colorTransSpeed", 0.005f, 5.f, m_ColorTransSpeed);
 
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
@@ -193,17 +193,20 @@ namespace particleeditor
 
 				m_ColorTransition->Enabled = *m_UsingColorTransition;
 
-				m_ColorTransition->Start.r = m_StartColor[0];
-				m_ColorTransition->Start.g = m_StartColor[1];
-				m_ColorTransition->Start.b = m_StartColor[2];
+				m_ColorTransition->Start.r = (Uint8)(255 * m_StartColor[0]);
+				m_ColorTransition->Start.g = (Uint8)(255 * m_StartColor[1]);
+				m_ColorTransition->Start.b = (Uint8)(255 * m_StartColor[2]);
+				m_ColorTransition->Start.HSLUpdate();
 
-				m_ColorTransition->Mid.r = m_MidColor[0];
-				m_ColorTransition->Mid.g = m_MidColor[1];
-				m_ColorTransition->Mid.b = m_MidColor[2];
+				m_ColorTransition->Mid.r = (Uint8)(255 * m_MidColor[0]);
+				m_ColorTransition->Mid.g = (Uint8)(255 * m_MidColor[1]);
+				m_ColorTransition->Mid.b = (Uint8)(255 * m_MidColor[2]);
+				m_ColorTransition->Mid.HSLUpdate();
 
-				m_ColorTransition->End.r = m_EndColor[0];
-				m_ColorTransition->End.g = m_EndColor[1];
-				m_ColorTransition->End.b = m_EndColor[2];
+				m_ColorTransition->End.r = (Uint8)(255 * m_EndColor[0]);
+				m_ColorTransition->End.g = (Uint8)(255 * m_EndColor[1]);
+				m_ColorTransition->End.b = (Uint8)(255 * m_EndColor[2]);
+				m_ColorTransition->End.HSLUpdate();
 			}
 
 			ImGui::Unindent();

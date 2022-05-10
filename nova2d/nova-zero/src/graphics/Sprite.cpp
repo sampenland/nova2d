@@ -251,6 +251,7 @@ namespace novazero
 		void Sprite::ConfigureTintTween(ParticleColorTransition& colors)
 		{
 			m_ColorTransition = colors;
+			m_ColorTransition.Current = colors.Start;
 		}
 
 		void Sprite::Update()
@@ -302,39 +303,27 @@ namespace novazero
 
 		void Sprite::ColorUpdate()
 		{
-			/*
-				Transition example:
-
-				fraction: 0.3
-				color1: 151,206,255
-				color2: 114,127,157
-
-				R =  (114-151) * fraction + 151
-				G =  (127-206) * fraction + 206
-				B =  (157-255) * fraction + 255
-
-			*/
 			if (m_ColorTransition.Enabled)
 			{
-				Color result = m_ColorTransition.Current;
 				if (m_ColorTransition.StartToMid)
 				{
-					Color::Interpolate(result, m_ColorTransition.Current, m_ColorTransition.Mid, m_ColorTransition.Speed);
-					if (result == m_ColorTransition.Mid)
+					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.Mid, m_ColorTransition.Speed);
+					if (m_ColorTransition.Current == m_ColorTransition.Mid)
 					{
 						m_ColorTransition.StartToMid = false;
 					}
 				}
 				else
 				{
-					Color::Interpolate(result, m_ColorTransition.Current, m_ColorTransition.End, m_ColorTransition.Speed);
-					if (result == m_ColorTransition.End)
+					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.End, m_ColorTransition.Speed);
+					if (m_ColorTransition.Current == m_ColorTransition.End)
 					{
 						m_ColorTransition.Enabled = false;
 					}
 				}
 
-				SDL_SetTextureColorMod(m_SpriteSheet, result.r, result.g, result.b);
+				SDL_SetTextureColorMod(m_SpriteSheet, m_ColorTransition.Current.r, 
+					m_ColorTransition.Current.g, m_ColorTransition.Current.b);
 			}
 		}
 

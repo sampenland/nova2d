@@ -20,6 +20,10 @@ namespace novazero
 				g = 255;
 				b = 255;
 				a = 255;
+
+				// Create HSL color as well
+				HSLUpdate();
+
 			}
 
 			int* GetRRef() { return (int*)&r; }
@@ -42,45 +46,119 @@ namespace novazero
 				RGB2HSL(rr, gg, bb, hsl);
 			}	
 
+			void RGBUpdate()
+			{
+				Update(this->h, this->s, this->l);
+			}
+
+			void HSLUpdate()
+			{
+				Update(this->r, this->g, this->b);
+			}
+
+			void Update(float h, float s, float l)
+			{
+				// Create HSL color as well
+				Uint8 rgb[3];
+				HSL2RGB(h, s, l, rgb);
+				this->r = rgb[0];
+				this->g = rgb[1];
+				this->b = rgb[2];
+			}
+
+			void Update(Uint8 r, Uint8 g, Uint8 b)
+			{
+				// Create HSL color as well
+				float hsl[3];
+				RGB2HSL(r, g, b, hsl);
+				this->h = hsl[0];
+				this->s = hsl[1];
+				this->l = hsl[2];
+			}
+
 			/*
 				outRGB is a pointer to value (RGB will be returned in this)
 			*/
 			void HSL2RGB(float h, float s, float l, Uint8 outRGB[3])
 			{
-				float fr, fg, fb;
+				float fr = 0;
+				float fg = 0;
+				float fb = 0;
 
-				if (s == 0) 
+				if (s == 0)
 				{
-					fr = fg = fb = l; // achromatic
+					fr = l;
+					fg = l;
+					fb = l;
 				}
-				else 
+				else
 				{
-					auto hue2rgb = [=](float p, float q, float t) {
-						if (t < 0) t += 1;
-						if (t > 1) t -= 1;
-						if (t < 1 / 6) return p + (q - p) * 6 * t;
-						if (t < 1 / 2) return q;
-						if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-						return p;
-					};
+					int i;
+					float f, p, q, t;
 
-					float q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-					float p = 2 * l - q;
-					fr = hue2rgb(p, q, h + 1 / 3);
-					fg = hue2rgb(p, q, h);
-					fb = hue2rgb(p, q, h - 1 / 3);
+					if (h == 360)
+						h = 0;
+					else
+						h = h / 60;
+
+					i = (int)trunc(h);
+					f = h - i;
+
+					p = l * (1.0f - s);
+					q = l * (1.0f - (s * f));
+					t = l * (1.0f - (s * (1.0f - f)));
+
+					switch (i)
+					{
+					case 0:
+						fr = l;
+						fg = t;
+						fb = p;
+						break;
+
+					case 1:
+						fr = q;
+						fg = l;
+						fb = p;
+						break;
+
+					case 2:
+						fr = p;
+						fg = l;
+						fb = t;
+						break;
+
+					case 3:
+						fr = p;
+						fg = q;
+						fb = l;
+						break;
+
+					case 4:
+						fr = t;
+						fg = p;
+						fb = l;
+						break;
+
+					default:
+						fr = l;
+						fg = p;
+						fb = q;
+						break;
+					}
+
 				}
 
-				outRGB[0] = (Uint8)std::round(fr);
-				outRGB[1] = (Uint8)std::round(fg);
-				outRGB[2] = (Uint8)std::round(fb);
+				outRGB[0] = (Uint8)std::round(fr * 255);
+				outRGB[1] = (Uint8)std::round(fg * 255);
+				outRGB[2] = (Uint8)std::round(fb * 255);
 
 			}
 
 			/*
 				outHSL is a pointer to value (HSL will be returned in this)
 			*/
-			void RGB2HSL(Uint8& r, Uint8& g, Uint8& b, float outHSL[3])
+			void RGB2HSL(Uint8 r, Uint8 g, Uint8 b, float outHSL[3])
 			{
 				r /= 255;
 				g /= 255;
@@ -89,9 +167,9 @@ namespace novazero
 				Uint8 max = std::max(std::max(r, g), b);
 				Uint8 min = std::max(std::min(r, g), b);
 				
-				float h = outHSL[0];
-				float s = outHSL[1];
-				float l = outHSL[2];
+				float h;
+				float s;
+				float l;
 
 				h = (max + min) / 2.f;
 				s = (max + min) / 2.f;
@@ -99,7 +177,8 @@ namespace novazero
 
 				if (max == min) 
 				{
-					h = s = 0; // achromatic
+					h = 0;
+					s = 0; // achromatic
 				}
 				else 
 				{
@@ -122,20 +201,78 @@ namespace novazero
 
 					h /= 6.f;
 				}
+
+				outHSL[0] = h;
+				outHSL[1] = s;
+				outHSL[2] = l;
 			}
 
 			/*
 				CurrentColor is a reference to the color being transitioned
 			*/
-			static void Interpolate(Color& currentColor, Color a, Color b, float speed)
+			static void Interpolate(Color& currentColor, Color targetColor, float speed)
 			{
-				float rr = ((float)b.r - (float)a.r) * speed + (float)a.r;
-				float rg = ((float)b.g - (float)a.g) * speed + (float)a.g;
-				float rb = ((float)b.b - (float)a.b) * speed + (float)a.b;
+				// Hue
+				bool low = true;
+				if (currentColor.h < targetColor.h)
+				{
+					currentColor.h += speed;
+				}
+				else if(currentColor.h > targetColor.h)
+				{
+					low = false;
+					currentColor.h -= speed;
+				}
 
-				currentColor.r = (Uint8)rr;
-				currentColor.g = (Uint8)rg;
-				currentColor.b = (Uint8)rb;
+				if (
+					(low && currentColor.h > targetColor.h) ||
+					(!low && currentColor.h < targetColor.h)
+					)
+				{
+					currentColor.h = targetColor.h;
+				}
+
+				// Saturation
+				low = true;
+				if (currentColor.s < targetColor.s)
+				{
+					currentColor.s += speed;
+				}
+				else if(currentColor.s > targetColor.s)
+				{
+					low = false;
+					currentColor.s -= speed;
+				}
+
+				if (
+					(low && currentColor.s > targetColor.s) ||
+					(!low && currentColor.s < targetColor.s)
+					)
+				{
+					currentColor.s = targetColor.s;
+				}
+
+				// Value
+				low = true;
+				if (currentColor.l < targetColor.l)
+				{
+					currentColor.l += speed;
+				}
+				else if(currentColor.l > targetColor.l)
+				{
+					low = false;
+					currentColor.l -= speed;
+				}
+
+				if (
+					(low && currentColor.l > targetColor.l) ||
+					(!low && currentColor.l < targetColor.l)
+					)
+				{
+					currentColor.l = targetColor.l;
+				}
+
+				currentColor.Update(currentColor.h, currentColor.s, currentColor.l);
 			}
 
 			Vec4 GetNormalized() const
