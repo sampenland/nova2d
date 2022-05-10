@@ -49,6 +49,7 @@ namespace particleeditor
 		bool* m_UsingColorTransition;
 		ParticleColorTransition* m_ColorTransition;
 		float* m_ColorTransSpeed;
+		float* m_ColorTransSpeed2;
 		float* m_StartColor;
 		float* m_MidColor;
 		float* m_EndColor;
@@ -72,6 +73,7 @@ namespace particleeditor
 		ScrollInput* m_AlphaChangeSpeedInput = nullptr;
 		
 		ScrollInput* m_ColorTransSpeedInput = nullptr;
+		ScrollInput* m_ColorTransSpeed2Input = nullptr;
 
 	public:
 

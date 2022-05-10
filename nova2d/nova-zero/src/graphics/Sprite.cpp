@@ -321,8 +321,8 @@ namespace novazero
 				}
 				else
 				{
-					Color::RGBInterpolate(m_ColorTransition.Mid, m_ColorTransition.End, m_ColorTransition.Speed, m_ColorTransition.Current);
-					m_ColorTransition.T += m_ColorTransition.Speed;
+					Color::RGBInterpolate(m_ColorTransition.Mid, m_ColorTransition.End, m_ColorTransition.T, m_ColorTransition.Current);
+					m_ColorTransition.T += m_ColorTransition.Speed2;
 					if (m_ColorTransition.T > 1.f)
 					{
 						m_ColorTransition.Enabled = false;

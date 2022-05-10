@@ -27,6 +27,7 @@ namespace novazero
 			Color Mid;
 			Color End;
 			float Speed = 0.001f;
+			float Speed2 = 0.001f;
 			float T = 0.f;
 		};
 

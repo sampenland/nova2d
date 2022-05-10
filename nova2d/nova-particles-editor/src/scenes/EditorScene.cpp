@@ -66,11 +66,14 @@ namespace particleeditor
 		m_ColorTransition = m_ParticleSystem->GetColorTransitionRef();
 		m_ColorTransSpeed = &m_ColorTransition->Speed;
 		*m_ColorTransSpeed = 0.0025f;
+		m_ColorTransSpeed2 = &m_ColorTransition->Speed2;
+		*m_ColorTransSpeed2 = 0.0025f;
 
 		m_StartColor = m_ParticleSystem->GetStartColorRef();
 		m_MidColor = m_ParticleSystem->GetMidColorRef();
 		m_EndColor = m_ParticleSystem->GetEndColorRef();
 		m_ColorTransSpeedInput = new ScrollInput("##colorTransSpeed", 0.001f, 0.2f, m_ColorTransSpeed);
+		m_ColorTransSpeed2Input = new ScrollInput("##colorTransSpeed2", 0.001f, 0.2f, m_ColorTransSpeed2);
 
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);
@@ -173,9 +176,15 @@ namespace particleeditor
 			{
 				ImGui::Separator();
 
-				ImGui::Text("Transition Speed");
+				ImGui::Text("Start Transition Speed");
 				ImGui::SameLine();
 				m_ColorTransSpeedInput->Draw();
+
+				ImGui::Separator();
+
+				ImGui::Text("Middle Transition Speed");
+				ImGui::SameLine();
+				m_ColorTransSpeed2Input->Draw();
 
 				ImGui::Separator();
 
