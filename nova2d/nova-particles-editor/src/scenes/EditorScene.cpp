@@ -69,7 +69,7 @@ namespace particleeditor
 		m_StartColor = m_ParticleSystem->GetStartColorRef();
 		m_MidColor = m_ParticleSystem->GetMidColorRef();
 		m_EndColor = m_ParticleSystem->GetEndColorRef();
-		m_ColorTransSpeedInput = new ScrollInput("##colorTransSpeed", 0.005f, 5.f, m_ColorTransSpeed);
+		m_ColorTransSpeedInput = new ScrollInput("##colorTransSpeed", 0.0f, 0.2f, m_ColorTransSpeed);
 
 		m_MinAngleInput = new ScrollInput("##minAngle", 0.f, 360.f, m_MinAngle);
 		m_MaxAngleInput = new ScrollInput("##maxAngle", 0.f, 360.f, m_MaxAngle);

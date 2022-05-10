@@ -26,7 +26,8 @@ namespace novazero
 			Color Start;
 			Color Mid;
 			Color End;
-			float Speed = 1;
+			float Speed = 0.01f;
+			float T = 0.f;
 		};
 
 		enum class ParticleCollisionTypes

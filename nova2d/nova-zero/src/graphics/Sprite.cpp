@@ -252,6 +252,9 @@ namespace novazero
 		{
 			m_ColorTransition = colors;
 			m_ColorTransition.Current = colors.Start;
+
+			SDL_SetTextureColorMod(m_SpriteSheet, m_ColorTransition.Current.r,
+				m_ColorTransition.Current.g, m_ColorTransition.Current.b);
 		}
 
 		void Sprite::Update()
@@ -307,16 +310,19 @@ namespace novazero
 			{
 				if (m_ColorTransition.StartToMid)
 				{
-					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.Mid, m_ColorTransition.Speed);
-					if (m_ColorTransition.Current == m_ColorTransition.Mid)
+					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.Mid, m_ColorTransition.T, m_ColorTransition.Current);		
+					m_ColorTransition.T += m_ColorTransition.Speed;
+					if (m_ColorTransition.T > 1.f)
 					{
 						m_ColorTransition.StartToMid = false;
+						m_ColorTransition.T = 0.f;
 					}
 				}
 				else
 				{
-					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.End, m_ColorTransition.Speed);
-					if (m_ColorTransition.Current == m_ColorTransition.End)
+					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.End, m_ColorTransition.Speed, m_ColorTransition.Current);
+					m_ColorTransition.T += m_ColorTransition.Speed;
+					if (m_ColorTransition.T > 1.f)
 					{
 						m_ColorTransition.Enabled = false;
 					}

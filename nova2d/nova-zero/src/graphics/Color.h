@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../maths/Vec4.h"
 #include <SDL_stdinc.h>
+#include <string>
 
 namespace novazero
 {
@@ -31,6 +32,10 @@ namespace novazero
 			int* GetBRef() { return (int*)&b; }
 			int* GetARef() { return (int*)&a; }
 
+			float* GetHRef() { return &h; }
+			float* GetSRef() { return &s; }
+			float* GetLRef() { return &l; }
+
 			Color(const Uint8& r, const Uint8& g, const Uint8& b, const Uint8& a)
 			{
 				this->r = r;
@@ -39,11 +44,7 @@ namespace novazero
 				this->a = a;
 
 				// Create HSL color as well
-				float hsl[3];
-				Uint8 rr = r;
-				Uint8 gg = g;
-				Uint8 bb = b;
-				RGB2HSL(rr, gg, bb, hsl);
+				HSLUpdate();
 			}	
 
 			void RGBUpdate()
@@ -158,14 +159,14 @@ namespace novazero
 			/*
 				outHSL is a pointer to value (HSL will be returned in this)
 			*/
-			void RGB2HSL(Uint8 r, Uint8 g, Uint8 b, float outHSL[3])
+			void RGB2HSL(Uint8 red, Uint8 green, Uint8 blue, float outHSL[3])
 			{
-				r /= 255;
-				g /= 255;
-				b /= 255;
+				float rr = red / 255.f;
+				float gg = green / 255.f;
+				float bb = blue / 255.f;
 
-				Uint8 max = std::max(std::max(r, g), b);
-				Uint8 min = std::max(std::min(r, g), b);
+				float max = std::max(std::max(rr, gg), bb);
+				float min = std::max(std::min(rr, gg), bb);
 				
 				float h;
 				float s;
@@ -182,7 +183,7 @@ namespace novazero
 				}
 				else 
 				{
-					Uint8 d = max - min;
+					float d = max - min;
 
 					s = l > 0.5 ? d / (2.f - max - min) : d / (max + min);
 
@@ -208,71 +209,39 @@ namespace novazero
 			}
 
 			/*
-				CurrentColor is a reference to the color being transitioned
+				Transition from color A to B at speed T and ouput to Out
 			*/
-			static void Interpolate(Color& currentColor, Color targetColor, float speed)
+			static void Interpolate(Color a, Color b, float t, Color& out)
 			{
-				// Hue
-				bool low = true;
-				if (currentColor.h < targetColor.h)
+				// Hue interpolation
+				float h;
+				float d = b.h - a.h;
+				if (a.h > b.h)
 				{
-					currentColor.h += speed;
+					// Swap (a.h, b.h)
+					float h3 = b.h;
+					b.h = a.h;
+					a.h = h3;
+					d = -d;
+					t = 1 - t;
 				}
-				else if(currentColor.h > targetColor.h)
+				if (d > 0.5) // 180deg
 				{
-					low = false;
-					currentColor.h -= speed;
+					a.h = a.h + 1; // 360deg
+					h = (float)std::fmod((a.h + t * (b.h - a.h)), 1.0); // 360deg
 				}
+				
+				if (d <= 0.5) // 180deg
+				{
+					h = a.h + t * d;
+				}
+				
+				out.h = h;
+				out.s = a.s + t * (b.s - a.s);
+				out.l = a.l + t * (b.l - a.l);
 
-				if (
-					(low && currentColor.h > targetColor.h) ||
-					(!low && currentColor.h < targetColor.h)
-					)
-				{
-					currentColor.h = targetColor.h;
-				}
+				out.RGBUpdate();
 
-				// Saturation
-				low = true;
-				if (currentColor.s < targetColor.s)
-				{
-					currentColor.s += speed;
-				}
-				else if(currentColor.s > targetColor.s)
-				{
-					low = false;
-					currentColor.s -= speed;
-				}
-
-				if (
-					(low && currentColor.s > targetColor.s) ||
-					(!low && currentColor.s < targetColor.s)
-					)
-				{
-					currentColor.s = targetColor.s;
-				}
-
-				// Value
-				low = true;
-				if (currentColor.l < targetColor.l)
-				{
-					currentColor.l += speed;
-				}
-				else if(currentColor.l > targetColor.l)
-				{
-					low = false;
-					currentColor.l -= speed;
-				}
-
-				if (
-					(low && currentColor.l > targetColor.l) ||
-					(!low && currentColor.l < targetColor.l)
-					)
-				{
-					currentColor.l = targetColor.l;
-				}
-
-				currentColor.Update(currentColor.h, currentColor.s, currentColor.l);
 			}
 
 			Vec4 GetNormalized() const
@@ -293,7 +262,9 @@ namespace novazero
 
 			friend std::ostream& operator<<(std::ostream& stream, const Color& color)
 			{
-				stream << "Color: [" << color.r << ", " << color.g << ", " << color.b << ", " << color.a << "]";
+				stream << "Color: [" << std::to_string(color.r) << ", " << std::to_string(color.g) << 
+					", " << std::to_string(color.b) << ", " << std::to_string(color.a) << "] [" << 
+					std::to_string(color.h) << ", " << std::to_string(color.s) << ", " << std::to_string(color.l) << "]";
 				return stream;
 			}
 
