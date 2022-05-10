@@ -171,6 +171,7 @@
     <ClCompile Include="src\debug\DrawRect.cpp" />
     <ClCompile Include="src\debug\PhysicsDebug.cpp" />
     <ClCompile Include="src\graphics\AnsiColor.cpp" />
+    <ClCompile Include="src\graphics\Color.cpp" />
     <ClCompile Include="src\graphics\Drawable.cpp" />
     <ClCompile Include="src\graphics\DrawableCollection.cpp" />
     <ClCompile Include="src\graphics\gfx\SDL2_framerate.c" />

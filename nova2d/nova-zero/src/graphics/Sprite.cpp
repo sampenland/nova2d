@@ -310,17 +310,19 @@ namespace novazero
 			{
 				if (m_ColorTransition.StartToMid)
 				{
-					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.Mid, m_ColorTransition.T, m_ColorTransition.Current);		
+					Color::Interpolate(m_ColorTransition.Start, m_ColorTransition.Mid, m_ColorTransition.T, m_ColorTransition.Current);		
 					m_ColorTransition.T += m_ColorTransition.Speed;
 					if (m_ColorTransition.T > 1.f)
 					{
+						m_ColorTransition.Current = m_ColorTransition.Mid;
 						m_ColorTransition.StartToMid = false;
 						m_ColorTransition.T = 0.f;
+						m_ColorTransition.Enabled = false;
 					}
 				}
 				else
 				{
-					Color::Interpolate(m_ColorTransition.Current, m_ColorTransition.End, m_ColorTransition.Speed, m_ColorTransition.Current);
+					Color::Interpolate(m_ColorTransition.Mid, m_ColorTransition.End, m_ColorTransition.Speed, m_ColorTransition.Current);
 					m_ColorTransition.T += m_ColorTransition.Speed;
 					if (m_ColorTransition.T > 1.f)
 					{
