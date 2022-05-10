@@ -49,7 +49,7 @@ namespace novazero
 			/*
 				Transition from color A to B at speed T and ouput to Out
 			*/
-			static void Interpolate(Color a, Color b, float t, Color& out);
+			static void RGBInterpolate(Color a, Color b, float t, Color& out);
 
 			Vec4 GetNormalized() const;
 

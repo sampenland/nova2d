@@ -177,40 +177,11 @@ namespace novazero
 		/*
 			Transition from color A to B at speed T and ouput to Out
 		*/
-		void Color::Interpolate(Color a, Color b, float t, Color& out)
+		void Color::RGBInterpolate(Color a, Color b, float t, Color& out)
 		{
-			// Hue interpolation
-			float h;
-			float d = b.h - a.h;
-			if (a.h > b.h)
-			{
-				// Swap (a.h, b.h)
-				float h3 = b.h;
-				b.h = a.h;
-				a.h = h3;
-				d = -d;
-			}
-
-			if (d > 0.5) // 180deg
-			{
-				a.h = a.h + 1; // 360deg
-				h = (float)std::fmod((a.h + t * (b.h - a.h)), 1.0); // 360deg
-			}
-
-			if (d <= 0.5) // 180deg
-			{
-				h = a.h + t * d;
-			}
-
-			out.h = h;
-
-			float s = a.s + t * (b.s - a.s);
-			float l = a.l + t * (b.l - a.l);
-			out.s = s;
-			out.l = l;
-
-			out.RGBUpdate();
-
+			out.r = (b.r - a.r) * t + a.r;
+			out.g = (b.g - a.g) * t + a.g;
+			out.b = (b.b - a.b) * t + a.b;
 		}
 
 		Vec4 Color::GetNormalized() const
