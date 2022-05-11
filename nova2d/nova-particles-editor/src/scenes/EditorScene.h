@@ -5,6 +5,7 @@
 #include "core/Timer.h"
 #include "graphics/Text.h"
 #include "input/ScrollInput.h"
+#include "thirdparty/jsonparser/json.hpp"
 
 namespace particleeditor
 {
@@ -12,12 +13,15 @@ namespace particleeditor
 	using namespace novazero::particles;
 	using namespace novazero::debug;
 	using namespace novazero::input;
+	using namespace nlohmann;
 
 	class EditorScene
 		: public Scene
 	{
 
 	private:
+
+		char m_ExportBuffer[300];
 
 		ParticleSystem* m_ParticleSystem = nullptr;
 		Sprite* m_Asset = nullptr;
@@ -83,6 +87,8 @@ namespace particleeditor
 
 		void GUI();
 		void Update();
+
+		void Export(const std::string& pathAndFilename);
 
 		void End();
 	};

@@ -252,7 +252,45 @@ namespace particleeditor
 			ImGui::Unindent();
 		}
 
+		ImGui::Separator();
+
+		if (ImGui::CollapsingHeader("Exporting"))
+		{
+			ImGui::Indent();
+
+			ImGui::Text("Export Filename: ");
+			ImGui::SameLine();
+			ImGui::InputText("##exportPath", m_ExportBuffer, 300);
+
+			if (ImGui::Button("Export!##btnExport", ImVec2(80, 25)))
+			{
+				const std::string exportPath = m_ExportBuffer;
+				Export(exportPath);
+			}
+
+			ImGui::Unindent();
+		}
+
 		ImGui::End();
+
+	}
+
+	void EditorScene::Export(const std::string& pathAndFilename)
+	{
+		std::string fullFileName = pathAndFilename;
+		if (fullFileName.find(".") != std::string::npos)
+		{
+			size_t index = fullFileName.find(".");
+			fullFileName = fullFileName.substr(0, index) + ".json";
+		}
+		else
+		{
+			fullFileName = fullFileName + ".json";
+		}
+
+		json data;
+
+		data["maxParticles"] = *m_MaxParticles;
 
 	}
 
