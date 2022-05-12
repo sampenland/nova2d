@@ -82,7 +82,7 @@ namespace novazero
 			}
 
 			float C = s * l;
-			float X = C * (1 - std::abs(std::fmod(h / 60.0, 2) - 1));
+			float X = C * (1 - std::abs(fmod(h / 60.0, 2) - 1));
 			float m = l - C;
 			float rr, gg, bb;
 			if (h >= 0 && h < 60) {
