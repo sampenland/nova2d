@@ -72,7 +72,7 @@ namespace novazero
 			static void RemoveGUIUpdater(unsigned int id);
 			static unsigned int GetGUIUpdaterCount()
 			{
-				return (unsigned int)s_Updaters.size();
+				return (unsigned int)s_GUIUpdaters.size();
 			};
 
 			static std::map<unsigned int, std::function<void()>> s_Updaters;

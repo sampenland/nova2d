@@ -338,28 +338,19 @@ namespace novazero
 
 		void Game::GUIDraw()
 		{
-			if (s_SceneManager->GetGUIUpdaterCount() > 0 || s_ShowDirector)
-			{
-				ImGui_ImplSDLRenderer_NewFrame();
-				ImGui_ImplSDL2_NewFrame();
-				ImGui::NewFrame();
-			}
+			ImGui_ImplSDLRenderer_NewFrame();
+			ImGui_ImplSDL2_NewFrame();
+			ImGui::NewFrame();
 
-			if (s_SceneManager->GetGUIUpdaterCount() > 0)
-			{
-				s_SceneManager->RenderGUI();
-			}
+			s_SceneManager->RenderGUI();
 
 			if (s_ShowDirector)
 			{
 				s_Director->Draw();
 			}
 
-			if (s_SceneManager->GetGUIUpdaterCount() > 0 || s_ShowDirector)
-			{
-				ImGui::Render();
-				ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
-			}
+			ImGui::Render();
+			ImGui_ImplSDLRenderer_RenderDrawData(ImGui::GetDrawData());
 		}
 
 		void Game::Clean()
