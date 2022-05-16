@@ -2,10 +2,6 @@
 
 IMPORTANT! If you clone/download this repo, you will need to follow a few steps to get your MSVS Solution working. Here's the [Getting Started Page](https://github.com/sampenland/nova2d/wiki/Getting-Started) which describes those steps.
 
-For full API overview, check out the [Doxygen Docs](https://n2d.dev/). For an intro to nova2d, check out the [Wiki](https://github.com/sampenland/nova2d/wiki) for a helpful CHEATSHEET and beginning work on some Docs. 
-
-Also, to get involved in the development by suggesting ideas and features, check out the [Forums](https://n2d.dev/forums/index.php/community-forums/). Visit the [DevLogs](https://n2d.dev/forums/) site for How To video tutorials and a development blog of nova2d's progress. and and also join the community.
-
 ---
 !!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games and rapid development. AS OF NOW, nova2d will be solely targetting Windows and Web (js and WebAssembly).
 
