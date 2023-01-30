@@ -3,7 +3,9 @@
 IMPORTANT! If you clone/download this repo, you will need to follow a few steps to get your MSVS Solution working. Here's the [Getting Started Page](https://github.com/sampenland/nova2d/wiki/Getting-Started) which describes those steps.
 
 ---
-!!Currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games and rapid development. AS OF NOW, nova2d will be solely targetting Windows and Web (js and WebAssembly).
+!!Not currently in development!! -> 2d SDL2 based game engine specifically made for Arcade Games and rapid development. AS OF NOW, nova2d will be solely targetting Windows and Web (js and WebAssembly).
+
+Please checkout [Luna2D](https://github.com/sampenland/luna2d) for more recent and cleaner game engine design.
 
 ---
 **Feature Set as of 4/25/22**
